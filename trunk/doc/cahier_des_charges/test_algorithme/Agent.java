@@ -94,4 +94,10 @@ public abstract class Agent {
      * Retourne la propriete associee a la cle sur une porte
      */
     public Object getDoorProperty(int door, String key) { return ""; }
+
+    /**
+     * Clone l'agent  en cours (avec  son tableau blanc) et  envoie le
+     * clone sur la porte en parametre.
+     */
+    public void cloneAndSend(int door);
 }
