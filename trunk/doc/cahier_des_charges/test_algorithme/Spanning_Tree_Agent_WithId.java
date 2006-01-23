@@ -7,12 +7,16 @@ public class Spanning_Tree_Agent_WithId extends Agent {
 
     boolean[] vertexMarks;
 
+    public Spanning_Tree_Agent_WithId (Simulator sim) {
+        super(sim);
+    }
+
     public void init() {
         
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
-        AgentMover mover = new LinearAgentMover(this);
 
+        setMover("LinearAgentMover");
         vertexMarks = new boolean [nbVertices];
 
         while ( nbSelectedEdges < nbVertices - 1 )
@@ -23,7 +27,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                     nbVertices ++;
                 }
                 
-                mover.step();
+                move();
             }
     }
 

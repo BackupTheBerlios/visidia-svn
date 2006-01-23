@@ -5,32 +5,34 @@
  */
 public class Spanning_Tree_Agent_WithoutId extends Agent {
 
+    public Spanning_Tree_Agent_WithoutId (Simulator sim) {
+        super(sim);
+    }
+
     public void init() {
         
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
-        AgentMover mover = new LinearAgentMover(this);
 
-        vertexMarks = new boolean [nbVertices];
+        setMover("LinearAgentMover");
 
         while ( nbSelectedEdges < nbVertices - 1 )
             {
-                if ( ! isMarked(curVertex()) ) {
+                if ( ! vertexIsMarked() ) {
                     setDoorState(new MarkedState(true), entryDoor());
-                    mark(curVertex());
+                    markVertex();
                     nbVertices ++;
                 }
                 
-                mover.step();
+                move();
             }
     }
 
-    private void mark (int vertex) {
+    private void markVertex () {
         putVertexProperty("marked", new Boolean(true));
     }
 
-    private boolean isMarked(int vertex) {
-        return getVertexProperty("marked").booleanValue();
+    private boolean vertexIsMarked() {
+        return ((Boolean)getVertexProperty("marked")).booleanValue();
     }
-
 }
