@@ -1,0 +1,62 @@
+\documentclass{report}
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{amsmath}
+
+\newenvironment{sujet}{\begin{quote}``}{''\end{quote}}
+\newcommand{\sauteligne}{\vspace{0.5cm}}
+\newcommand{\maTable}[1]{\raisebox{-1.5ex}[0pt][0pt]{#1}}
+
+\author{}
+\date{}
+
+\title{
+  \begin{flushright}
+    \begin{Huge}
+      \begin{textbf}
+        Projet ViSiDia\\
+      \end{textbf}
+    \end{Huge}
+    \rule{\textwidth}{2mm}\\
+    \large\rm{Cahier des charges}\\
+    \vspace{2cm}
+    \begin{textbf}\\
+      \underline{Auteurs} :\\
+      \vspace{0.5cm}
+      \sc Nada Ayad\\
+      Damien Cassou\\
+      Xavier Durand\\
+      Jean-Baptiste Gautron\\
+      Hicham Ghriss\\
+      Mathieu Hopmann\\
+      Julie Quagliozzi\\
+      \vspace{5mm}
+    \end{textbf}
+    \rm Fevrier 2006
+  \end{flushright}
+}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{introduction}
+\input{modele_systeme}
+\input{besoins}
+\input{organisation}
+\input{lexique}
+\input{biblio}
+
+
+\end{document}
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: t
+%% coding: latin-1
+%% End: 
