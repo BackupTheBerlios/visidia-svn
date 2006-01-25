@@ -1,0 +1,80 @@
+
+Choisir graphe
+choisir agent
+Parametrer agent
+Définir regle de reecriture
+
+ChoisirGraphe
+
+\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Nom fiche de cas d'utilisation & OpenGraph \\  \hline
+Date de mise a jour & $LastChangedDate$ \\ \hline
+Version & 0.1 \\ \hline
+Redacteur & Xavier\\ \hline
+Priorité du cas d'utilisation & Faible \\
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{cartouche_usecase}
+\end{table}
+
+
+\subsection{Description du cas d'utilisation}
+
+\subsubsection{Généralités}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Cas d'utilisation & Choisir un graphe. \\ \hline
+Acteurs & L'utilisateur. \\ \hline
+But & Permettre à l'utilisateur de spécifier le graphe sur lequel on
+va travailler. \\ \hline
+Résumé Métier & L'utilisateur indique le fichier graphe (format GML). \\ \hline
+Pré conditions & L'utilsateur dispose de graphes. \\ \hline
+Post conditions & Le graphe est chargé. \\ \hline
+Commentaires & Un seul graphe ne peut être charger à la fois.\\ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{genralites_usecase}
+\end{table}
+
+\subsubsection{Scénario Nominal}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+Numéro enchainement & Action \\  \hline
+1 & Le système présente le choix des graphes \\ \hline
+2 & L'utilisateur sélectionne le graphe \\ \hline
+3 & Le système charge le graphe\\ \hline
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{nominal_usecase}
+\end{table}
+
+\subsubsection{Scénario Alternatif}
+
+Pas de scénario alternatif
+
+\subsubsection{Exceptions}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+N enchainement & Action \\ \hline
+Au point 2: 2.1 & L'utilisateur annule\\ \hline
+ 2.1.1 & Fin du use case\\ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{exceptions_usecase}
+\end{table}

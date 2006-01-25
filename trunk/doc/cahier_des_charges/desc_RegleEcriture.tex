@@ -1,0 +1,87 @@
+
+Choisir graphe
+choisir agent
+Parametrer agent
+Définir regle de reecriture
+
+Définir regle de reecriture
+
+\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Nom fiche de cas d'utilisation & DefineRewritingRule \\  \hline
+Date de mise a jour & $LastChangedDate$ \\ \hline
+Version & 0.1 \\ \hline
+Redacteur & Xavier\\ \hline
+Priorité du cas d'utilisation & Moyen \\ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{cartouche_usecase}
+\end{table}
+
+
+\subsection{Description du cas d'utilisation}
+
+\subsubsection{Généralités}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Cas d'utilisation & Définir des règles de réécriture. \\ \hline
+Acteurs & L'utilisateur. \\ \hline
+But & Permettre à l'utilisateur de définir des règles de réécriture
+relativement aux comportement des agents. \\ \hline
+Résumé Métier & L'utilisateur défini ses règles de réécriture de
+manière ``graphique''. \\ \hline
+Pré conditions & Un graphe est chargé dans le système \\ \hline
+Post conditions & Les règles de réécritures sont définies. \\ \hline
+Commentaires & Tous les agents utilisent un seul jeu de règles de réécriture. !! A VOIR !!\\ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{genralites_usecase}
+\end{table}
+
+\subsubsection{Scénario Nominal}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+Numéro enchainement & Action \\  \hline
+1 & L'utilisateur saisie une règle de réécriture et valide \\ \hline
+2 & Le système enregistre les règles de réécriture\\ \hline
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{nominal_usecase}
+\end{table}
+
+\subsubsection{Scénario Alternatif}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+N enchainement & Action \\ \hline
+Au point 2: 2.1 & L'utilisateur ajoute un nouvelle règle de réécriture\\ \hline
+ 2.1.1 & L'utilisateur saisie une nouvelle règle de réécriture et
+ valide \\ \hline
+ 2.1.2 & Retour au point 1 \\ \hline
+Au point 2: 2.2 & L'utilisateur supprimme un règle de réécriture\\
+\hline
+ 2.2.1 & Retour au point 1 \\ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{exceptions_usecase}
+\end{table}
+
+
+Pas de scénario alternatif
+
+\subsubsection{Exceptions}
+
+
