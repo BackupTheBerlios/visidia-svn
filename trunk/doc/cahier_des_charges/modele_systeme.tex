@@ -9,12 +9,39 @@
 
 \section{Diagramme de classes}
 
-\begin{figure}
+Notre  projet  s'architecture autour  d'une  classe principale  nommée
+Agent.  Le diagramme  UML  de  classes est  disponible  sur la  figure
+\ref{fig:diagramme_classes}.
+
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=15cm]{figures/classes}  
+  \includegraphics[width=14cm]{figures/classes}  
   \caption{Diagramme de classes}
+  \label{fig:diagramme_classes}
 \end{figure}
 
+
+\subsection{La classe Agent et ses sous-classes}
+
+La  classe  Agent  implémente  toutes les  méthodes  nécessaires  pour
+faciliter  le  travail du  futur  développeur  d'agents mobiles.   Les
+méthodes  seront décritent  dans  la partie  \ref{sec:api}  à la  page
+\pageref{sec:api}.\\
+
+De façon générale, on peut  trouver des méthodes d'informations sur le
+graphe, des méthodes  de gestion de propriétés (au  niveau des sommets
+et des portes), des méthodes de déplacements et de clonage.\\
+
+Le futur développeur devra,  pour implémenter ses agents, sous-classer
+cette classe Agent et implémenter les deux méthodes abstraites : \\
+
+\begin{description}
+\item[init]   Utilisée pour implémenter le code général de
+  l'algorithme. C'est  cette méthode  qui sera lancée  lorsque l'agent
+  sera exécuté.
+\item[clone]  Sert  à  retourner   un  nouvel  Agent  ayant  les  même
+  caractéristiques. 
+\end{description}
 
 %% Local Variables:
 %% mode: latex
