@@ -42,27 +42,52 @@ Inserer ici un diagramme de sequence ou diagramme etat-transition
 
 \section{Contraintes}
 
-- Langage Java
-- Code maintenable
-- Code comprehensible by everyone in Da WoRlD
-- Javadoc
-- Standard de codage
+\subsection{Langage et portabilité}
 
-*Utilisation des conventions JAVA
-noms des classes commencant par une majuscule
-noms des methodes commencent par une majuscule
-majuscules pour separer les differents mots composant un nom 
-indentation GNU style
-accesseurs commencant par 'get'
-modificateur commencant par 'set'
+Notre rôle  est de  développer une extension  de \visidia, écrit  à la
+base en  Java :  c'est donc  en Java que  nous écrirons  l'ensemble de
+notre  programme,   afin  que  notre  module  s'intègre   au  mieux  à
+l'application.\\
+
+Les  développeurs extérieurs seront  obligés de  passer par  notre API
+pour concevoir de nouveaux  algorithmes distribués, ce qui nous impose
+d'être compris le plus aisément possible par tout le monde. Pour cette
+raison,  notre code  sera  rédigé exclusivement  en  anglais. Le  Java
+semble encore un  choix correspondant à notre volonté,  d'une part car
+il  s'agit d'un  des langages  les plus  utilisés actuellement  (si ce
+n'est  LE plus  utilisé), d'autre  part  pour sa  portabilité sur  les
+différentes plateformes existantes.\\
+
+La  documentation quant  à  elle  sera réalisée  à  l'aide de  l'outil
+Javadoc.\\
+
+
+\subsection{Standard de codage}
+
+*Utilisation des conventions JAVA :
+\begin{itemize}
+\item noms des classes commencant par une majuscule
+\item noms des methodes commencent par une majuscule
+\item majuscules pour separer les differents mots composant un nom 
+\item indentation GNU style
+\item accesseurs commencant par 'get'
+\item modificateur commencant par 'set'\\
+\end{itemize}
 
 *Autres standards
-nom des classes et des methodes en anglais
-reprise au maximum des noms existant
-utilisation de noms explicites
-commentaires en anglais style Javadoc
- 
-- Licence Open Source GPL v2 ou superieure
+\begin{itemize}
+\item nom des classes et des methodes en anglais
+\item reprise au maximum des noms existant
+\item utilisation de noms explicites
+\item commentaires en anglais style Javadoc
+\end{itemize}
+
+\subsection{Licence} 
+
+L'ensemble de notre  programme sera sous licence GNU  GPL (GNU General
+Public License)  version 2  ou supérieure. Une  version de  la licence
+sera disponible en  français et en anglais dans le  code source, et un
+rappel sera effectué à chaque en-tête de fichier.
 
 
 %% Local Variables:
