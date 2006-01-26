@@ -26,7 +26,7 @@ public abstract class Agent {
    * identifiant unique pour chaque sommet ; ce que vous pourriez ne
    * pas souhaiter.
    */
-  public int curVertex() { return 0; }
+  public int getVertexIdentity() { return 0; }
 
   /**
    * Retourne le nombre de sommets du graphe.
@@ -78,22 +78,32 @@ public abstract class Agent {
   /**
    * Place une propriete sur le sommet en cours
    */
-  public void putVertexProperty(String key, Object value) {}
+  public void putVertexProperty(String name, Object value) {}
 
   /**
    * Retourne la propriete associee a la cle du sommet courant
    */
-  public Object getVertexProperty(String key) { return ""; }
+  public Object getVertexProperty(String name) { return ""; }
 
   /**
    * Place une propriete sur une porte
    */
-  public void putDoorProperty(int door, String key, Object value) {}
+  public void putDoorProperty(int door, String name, Object value) {}
 
   /**
    * Retourne la propriete associee a la cle sur une porte
    */
-  public Object getDoorProperty(int door, String key) { return ""; }
+  public Object getDoorProperty(int door, String name) { return ""; }
+
+  /**
+   * Méthode de l'interface Runnable
+   */
+  public final void run() {/* lance init() */};
+
+  /**
+   * Méthode qui spécifie l'action de chaque agent
+   */
+  protected abstract void init() {};
 
   /**
    * Clone l'agent  en cours (avec  son tableau blanc) et  envoie le
