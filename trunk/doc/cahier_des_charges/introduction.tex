@@ -1,14 +1,63 @@
 \chapter{Introduction et motivation}
 
-\section{Mise en contexte}
+L'algorithmique  distribuée  devient de  nos  jours  de  plus en  plus
+importante au vu des utilisations  possibles sur les réseaux et autres
+systèmes distribués.\\
 
-Description du PFA
+Cependant,  les   algorithmes  qui  en  découlent   sont  difficles  à
+implémenter, tester et expérimenter. C'est dans le but de faciliter la
+tâche à un utilisateur humain que  \visidia a été crée.  Ce logiciel a
+pour  principale  caractéristique de  permettre  la visualisation,  au
+travers d'une  animation graphique en  temps réel, de  l'exécution d'un
+algorithme  distribué sur un  graphe donné.   Cet algoritme  peut être
+choisi, donné ou encore écrit grâce à des règles de réécriture.\\
 
-\section{Description du logiciel \visidia}
+\visidia  se compose aujourd'hui  de trois  couches. Tout  d'abord une
+interface  graphique qui  permet à  l'utilisateur d'interagir  avec le
+programme. Elle  permet de créer  des réseaux (graphes)  et d'exécuter
+des alogorithmes distribués afin  de les tester avec visulalisation ou
+non. Ensuite, une bibliothèque de  fonctions de haut niveau qui permet
+de définir des algorithmes distribués (envoi, reception, traitement de
+messages etc...).  Enfin, un  simulateur dont le  but est de  faire le
+pont entre les deux autres parties : c'est le centre de \visidia.\\
+
+Les  fonctionnalités   que  proposent   \visidia  sont  tout   à  fait
+interessantes. Malheuresement,  l'implantation actuelle ne  permet pas
+de faire des tests sur des gros  graphes ( avec plus de 20 000 noeuds)
+ce qui a amené les chercheurs du LaBRI chargés de ce projet à proposer
+un sujet de projet de fin d'année à l'ENSEIRB. Le PFA est un module de
+quatrième semestre  d'informatique et a pour but  de nous familiariser
+avec les méthodes de travail en  groupe sur des projets de plus longue
+durée   et  de   plus  grande   taille  que   ceux  dont   nous  avons
+l'habitude. Des sujets de projets ont éte proposés par des professeurs
+dont le rôle est celui de  clients avec lesquels nous devons avoir des
+relations du type client-prestataire.  (Cette phrase st d'une nulité à
+faire peur je ne pense pas la mettre pour demain!!!).\\
+
+Notre  but  au cours  des  mois  qui vont  suivre  est  de founir  une
+extension  au logiciel.   Cette extension  aura pour  rôle  d'ofrrir à
+l'utilisateur les outils (analogues à ceux existants déjà) nécessaires
+à l'exécution d'algorithmes distribués à l'aide d'agents mobiles.\\
+
+Les définitions  de le notion  d'agents mobiles sont  nombreuses c'est
+pour cela que nous devons  nous tenir à le définition plus restrictive
+donnée par  les clients.  Dans le cadre  de \visidia, un  agent mobile
+sera donc une entité autonome de  calcul qui se déplace dans le graphe
+et agit sur les noeuds en fonction de l'alogorithme à exécuter.\\
+
+L'implantation  des  agents mobiles  dans  \visidia permettra,  ainsi,
+d'augmenter   ses  capacités   de  simulation.    Les   deux  méthodes
+(algorithmique  distribuée  classique  ou  par agents  mobiles)  étant
+équivalentes d'un  point de  vue théorique on  pourra alors  écrire et
+exécuter les algorithmes avec la méthode de notre choix.\\
 
 
 
-\section{Description de notre extension : les agents mobiles}
+
+
+
+
+
 
 
 
