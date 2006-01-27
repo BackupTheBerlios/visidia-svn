@@ -43,6 +43,21 @@ cette classe Agent et implémenter les deux méthodes abstraites : \\
   caractéristiques. 
 \end{description}
 
+\subsection{La classe AgentMover}
+
+AgentMover  est  une classe  qui  a pour  but  d'apporter  un type  de
+déplacement aux  agents. Certains type de  déplacements seront fournis
+par \visidia et d'autres  pourront être implémentés par le développeur
+lorsqu'il en ressentira le besoin. \\
+
+Lors de l'implémentation d'un agent, le développeur devra utiliser les
+méthodes  ``move'' pour  se déplacer.  Ces méthodes  sont en  fait des
+appels cachés aux méthodes de AgentMover. \\
+
+Pour développer  un nouveau  type de déplacement,  l'utilisateur devra
+donc implémenter  une nouvelle sous classe de  AgentMover et redéfinir
+la méthode ``findNextDoor''.
+
 %% Local Variables:
 %% mode: latex
 %% coding: latin-1
