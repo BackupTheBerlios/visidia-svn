@@ -1,0 +1,35 @@
+Compte rendu de la réunion du 27/01/2006 avec M. Gloess
+
+-------------------------------------------------------
+
+Lors de cette réunion, nous avons tout d'abord présenté le portail
+'berliOS'mis en place pour la gestion du projet.
+
+- La page d'accueil du projet, étant le Wiki, donne accès aux
+  différents outils du portail, ainsi qu'au portail lui même. Elle
+  contiendra également le cahier des charges et divers documents.
+
+- Le répertoire SVN, permet d'accéder aux sources du projet, la
+  commande permettant de récupérer les sources (en tant qu'anonyme)
+  est donné sur la page d'accueil. Les sources sont donc accessibles à
+  tout le monde (cela ne pose pas de problème au client). 
+
+- Trois mailing-lists ont été créées pour pouvoir communiquer plus
+  facilement et en garder des archives :
+	     * une mailing-liste clients
+	     * une mailing-liste responsable pédagogique
+	     * une mailing-liste développeurs
+- Une liste des tâches est également disponible, permettant
+  d'enregistrer les tâches à faire, par qui et leurs états
+  d'avancement.
+
+- La page d'accueil contient également un lien vers le site de ViSiDiA
+  au Labri.
+
+Les informations personnelles concernant les développeurs auront un
+accès sécurisé, il faudrait que M. Gloess y ait accès, et envoyer un
+mail récapitulatif en attendant sa mise en place.
+
+Nous avons également fait une démonstration du programme ViSiDiA déjà
+existant, des fonctionnalités existantes, pour pouvoir ainsi expliquer
+ses limitations et le but du projet.
