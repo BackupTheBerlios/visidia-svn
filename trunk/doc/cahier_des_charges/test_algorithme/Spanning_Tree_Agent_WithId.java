@@ -11,7 +11,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
         super(sim);
     }
 
-    public void init() {
+    protected void init() {
         
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
