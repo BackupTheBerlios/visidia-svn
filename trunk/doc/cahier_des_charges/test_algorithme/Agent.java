@@ -59,6 +59,14 @@ public abstract class Agent {
   }
     
   /**
+   * Fonction   de  bas   niveau  qui   effectue  le   deplacement  de
+   * l'agent. Utiliser plutot move(door).
+   */
+  public final void moveToDoor(int door) {
+    simulator.moveAgentTo(this, door);
+  }
+
+  /**
    * Ramene l'agent par la ou il est venu
    */
   protected final void moveBack() {
