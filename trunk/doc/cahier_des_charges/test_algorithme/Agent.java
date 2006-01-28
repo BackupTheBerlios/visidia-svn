@@ -111,7 +111,7 @@ public abstract class Agent {
   /**
    * Méthode qui spécifie l'action de chaque agent
    */
-  protected abstract void init() {};
+  protected abstract void init();
 
   /**
    * Clone l'agent  en cours (avec  son tableau blanc) et  envoie le

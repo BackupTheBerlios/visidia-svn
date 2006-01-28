@@ -21,7 +21,7 @@ public class LinearAgentMover extends AgentMover {
     }
 
     protected int findNextDoor() {
-        int vertex = agent().curVertex();
+        int vertex = agent().getVertexIdentity();
         int doorToGo = nextDoorToGo[vertex];
         int arity = agent().getArity();
 

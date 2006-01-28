@@ -21,9 +21,9 @@ public class Spanning_Tree_Agent_WithId extends Agent {
 
         while ( nbSelectedEdges < nbVertices - 1 )
             {
-                if ( ! isMarked(curVertex()) ) {
+                if ( ! isMarked(getVertexIdentity()) ) {
                     setDoorState(new MarkedState(true), entryDoor());
-                    mark(curVertex());
+                    mark(getVertexIdentity());
                     nbVertices ++;
                 }
                 
