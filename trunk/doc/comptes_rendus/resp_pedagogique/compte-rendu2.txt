@@ -3,7 +3,7 @@ Compte rendu de la réunion du 27/01/2006 avec M. Gloess
 -------------------------------------------------------
 
 Lors de cette réunion, nous avons tout d'abord présenté le portail
-'berliOS'mis en place pour la gestion du projet.
+'berliOS' mis en place pour la gestion du projet.
 
 - La page d'accueil du projet, étant le Wiki, donne accès aux
   différents outils du portail, ainsi qu'au portail lui même. Elle
@@ -19,6 +19,7 @@ Lors de cette réunion, nous avons tout d'abord présenté le portail
 	     * une mailing-liste clients
 	     * une mailing-liste responsable pédagogique
 	     * une mailing-liste développeurs
+
 - Une liste des tâches est également disponible, permettant
   d'enregistrer les tâches à faire, par qui et leurs états
   d'avancement.
