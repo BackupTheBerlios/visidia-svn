@@ -59,7 +59,7 @@ toute l'équipe est présente.
     façon systématique).
 
     Cette méthode était déja utilisée dans la version qui n'utilise
-    pas d'agents : elle permettait d'effectuée la synchronisation
+    pas d'agents : elle permettait d'effectuer la synchronisation
     (pour la visualisation)
     idem pour setEdgeState() 
 
@@ -72,7 +72,7 @@ toute l'équipe est présente.
 
   Dans la classe Simulator : méthode moveAgentTo()
 
-  Nécéssité d'utilisée une compisition (lien) entre AgentMover et
+  Nécéssité d'utiliser une composition (lien) entre AgentMover et
   Simulator pour définir l'action de "bouger".
   
   Le lien Simulator <-> Agent doit être un lien pour la visualisation.
@@ -85,15 +85,16 @@ toute l'équipe est présente.
 
   Le Simulateur informe juste le GUI des évènements.
 
-  Peut-on avoir des AgentMover différents pour chaque Agents :
-  Oui, il faut avoir un AgentMover "par defaut" dans le simulateur.
+  Peut-on avoir  des AgentMover différents  pour chaque Agents  : Oui,
+  chaque Agent possède son  propre AgentMover (de n'importe quel type,
+  pas forcément  le même que les  autres Agents) ou  utilise celui par
+  défaut fournit par le Simulator.
 
   Il faut égalament rajouter une méthode bas niveau moveAgentTo() dans
   la classe Agent afin de pouvoir se passer d'un AgentMover.
 
   Clonage : on peut cloner et affecter un algo (un Agent) différent à
-  agent-fils cloné.
-
+  chaque fils cloné. => Méthode clone(Agent) au lien de clone().
 
   Pour les tests : ceux-ci seront expérimentaux, on utilisera les
   rêgle de réécriture.
