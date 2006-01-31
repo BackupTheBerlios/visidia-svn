@@ -19,7 +19,6 @@ main.pdf: main.aux main.tex main.bbl $(FIGURESPDF)
 
 main.aux: main.tex $(FIGURESPDF)
 	$(LEX) $(LEXOPTIONS) main || echo
-	$(LEX) $(LEXOPTIONS) main || echo
 
 main.bbl: main.tex myBib.bib
 	$(BIBTEX) main
