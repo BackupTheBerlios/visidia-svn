@@ -24,8 +24,8 @@ main.aux: main.tex $(FIGURESPDF)
 main.bbl: main.tex myBib.bib
 	$(BIBTEX) main
 
-classes.eps: figures/classes.dia
-	$(DIA) -t eps -e classes.eps figures/classes.dia
+classes.eps: figures/classes.eps
+	cp figures/classes.eps .
 
 classes.pdf: classes.eps
 	$(EPSTOPDF) classes.eps
