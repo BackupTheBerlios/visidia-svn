@@ -6,34 +6,34 @@
 Les méthodes de la classe \emph{Agent} fournies à l'utilisateur pour
 l'écriture de l'algorithme sont les suivantes :\\
 
-\begin{itemize}
-\item \emph{getArity} retourne le nombre de portes sortantes du sommet
-  courant (la première est numérotée 0)\\
-\item \emph{curVertex} retourne le numéro du sommet courant (suppose
-  que l'algorithme utilise un identifiant unique pour chaque sommet)\\
-\item \emph{getNetSize} retourne le nombre de sommets du graphe\\
-\item \emph{setMover} permet de définir pour l'agent un nouveau type
-de déplacement dont le nom est passé en paramètre\\
-\item \emph{move} permet de déplacer l'agent sur la porte suivante ou
-  sur la porte dont le numéro est passé en paramètre\\
-\item \emph{moveBack} permet de déplacer l'agent sur la porte dont il
-  vient\\
-\item \emph{setDoorState} marque la porte passée en paramètre avec une
-  marque, passée également en paramètre\\
-\item \emph{entryDoor} retourne le numéro de la porte par laquelle
-  l'agent vient d'arriver\\
-\item \emph{putVertexProperty} place une propriété sur le sommet
-  courant, la valeur et la clé sont passées en paramètre\\
-\item \emph{getVertexProperty} retourne la valeur de la propriété dont
-  la clé est passée en paramètre\\
-\item \emph{putDoorProperty} place une propriété sur une porte, le
-  numéro de la porte, la clé et la valeur sont passés en paramètre\\
-\item \emph{getDoorProperty} retourne la valeur de la propriété dont
+\begin{description}
+
+\item[getArity] retourne le nombre de portes sortantes du sommet
+  courant (la première est numérotée 0)
+\item[getVertexIdentity] retourne le numéro du sommet courant (suppose
+  que l'algorithme utilise un identifiant unique pour chaque sommet)
+\item[getNetSize] retourne le nombre de sommets du graphe
+\item[setMover] permet de définir pour l'agent un nouveau type
+de déplacement dont le nom est passé en paramètre
+\item[move] permet de déplacer l'agent sur la porte suivante ou
+  sur la porte dont le numéro est passé en paramètre
+\item[moveBack] permet de déplacer l'agent sur la porte dont il
+  vient
+\item[entryDoor] retourne le numéro de la porte par laquelle
+  l'agent vient d'arriver
+\item[putVertexProperty] place une propriété sur le sommet
+  courant, la valeur et la clé sont passées en paramètre
+\item[getVertexProperty] retourne la valeur de la propriété dont
+  la clé est passée en paramètre
+\item[putDoorProperty] place une propriété sur une porte, le
+  numéro de la porte, la clé et la valeur sont passés en paramètre
+\item[getDoorProperty] retourne la valeur de la propriété dont
   la clé est passée en paramètre, sur la porte dont le numéro est
-  également passé en paramètre\\
-\item \emph{cloneAndSend} clone l'agent en cours (avec son tableau
-  blanc) et envoie le clone sur la porte passée en paramètre\\
-\end{itemize}
+  également passé en paramètre
+\item[cloneAndSend] clone l'agent en cours (avec son tableau
+  blanc) et envoie le clone sur la porte passée en paramètre
+
+\end{description}
 
 \section{schema}
 
