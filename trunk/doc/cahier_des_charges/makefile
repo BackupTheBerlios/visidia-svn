@@ -22,7 +22,7 @@ main.aux: main.tex $(FIGURESPDF)
 	$(LEX) $(LEXOPTIONS) main
 
 main.bbl: main.tex myBib.bib
-	$(BIBTEX) $(LEXOPTIONS) main
+	$(BIBTEX) main
 
 classes.eps: figures/classes.dia
 	$(DIA) -t eps -e classes.eps figures/classes.dia
