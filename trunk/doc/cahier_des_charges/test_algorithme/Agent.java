@@ -74,11 +74,6 @@ public abstract class Agent {
   }
 
   /**
-   * Marque la porte passee en parametre avec une certaine marque
-   */
-  public void setDoorState(MarkedState mark, int door) {}
-
-  /**
    * Retourne le numero de la porte par laquelle on vient d'arriver
    */
   public int entryDoor() { return 0; }
