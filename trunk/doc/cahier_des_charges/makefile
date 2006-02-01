@@ -3,10 +3,11 @@ LEXOPTIONS=-interaction nonstopmode
 DIA=dia
 EPSTOPDF=epstopdf
 BIBTEX=bibtex
-FIGURESPDF=classes.pdf
+FIGURESPDF=classes.pdf simple.pdf UseCase.pdf
 
 SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
-	organisation.tex lexique.tex biblio.tex
+	organisation.tex lexique.tex biblio.tex desc_choisirAgent.tex \
+        desc_choisirGraphe.tex desc_RegleEcriture.tex
 
 all: main.pdf
 
@@ -25,6 +26,18 @@ main.aux: $(SOURCES) $(FIGURESPDF)
 
 main.bbl: $(SOURCES) myBib.bib
 	$(BIBTEX) main
+
+simple.eps: figures/simple.eps
+	cp figures/simple.eps .
+
+simple.pdf: simple.eps
+	$(EPSTOPDF) simple.eps
+
+UseCase.eps: figures/UseCase.eps
+	cp figures/UseCase.eps .
+
+UseCase.pdf: UseCase.eps
+	$(EPSTOPDF) UseCase.eps
 
 classes.eps: figures/classes.eps
 	cp figures/classes.eps .
