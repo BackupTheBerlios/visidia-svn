@@ -11,7 +11,7 @@ BIBTEX=bibtex
 
 #FIGURES
 FIGURESDIR= figures
-FIGURESPDF= classes.pdf simple.pdf UseCase.pdf
+FIGURESPDF= classes.pdf simple.pdf UseCase.pdf seqDeplacement.pdf seqProperties.pdf
 
 #TEX
 SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
@@ -62,3 +62,21 @@ classes.eps: $(FIGURESDIR)/classes.eps
 
 classes.pdf: classes.eps
 	$(EPSTOPDF) classes.eps
+
+$(FIGURESDIR)/seqDeplacement.eps: $(FIGURESDIR)/seqDeplacement.dia
+	dia $(FIGURESDIR)/seqDeplacement.dia $(DIAOPTIONS) $(FIGURESDIR)/seqDeplacement.eps
+
+seqDeplacement.eps: $(FIGURESDIR)/seqDeplacement.eps
+	cp figures/seqDeplacement.eps .
+
+seqDeplacement.pdf: seqDeplacement.eps
+	$(EPSTOPDF) seqDeplacement.eps
+
+$(FIGURESDIR)/seqProperties.eps: $(FIGURESDIR)/seqProperties.dia
+	dia $(FIGURESDIR)/seqProperties.dia $(DIAOPTIONS) $(FIGURESDIR)/seqProperties.eps
+
+seqProperties.eps: $(FIGURESDIR)/seqProperties.eps
+	cp figures/seqProperties.eps .
+
+seqProperties.pdf: seqProperties.eps
+	$(EPSTOPDF) seqProperties.eps
