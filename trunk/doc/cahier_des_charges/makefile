@@ -37,7 +37,7 @@ main.bbl: $(SOURCES) myBib.bib
 	$(BIBTEX) main
 
 $(FIGURESDIR)/simple.eps: $(FIGURESDIR)/simple.dia
-	dia $(FIGURESDIR)/simple.dia $(DIAOPTIONS) $(FIGURESDIR)/simple.eps
+	$(DIA) $(FIGURESDIR)/simple.dia $(DIAOPTIONS) $(FIGURESDIR)/simple.eps
 
 simple.eps: $(FIGURESDIR)/simple.eps
 	cp $(FIGURESDIR)/simple.eps .
@@ -64,7 +64,7 @@ classes.pdf: classes.eps
 	$(EPSTOPDF) classes.eps
 
 $(FIGURESDIR)/seqDeplacement.eps: $(FIGURESDIR)/seqDeplacement.dia
-	dia $(FIGURESDIR)/seqDeplacement.dia $(DIAOPTIONS) $(FIGURESDIR)/seqDeplacement.eps
+	$(DIA) $(FIGURESDIR)/seqDeplacement.dia $(DIAOPTIONS) $(FIGURESDIR)/seqDeplacement.eps
 
 seqDeplacement.eps: $(FIGURESDIR)/seqDeplacement.eps
 	cp figures/seqDeplacement.eps .
@@ -73,7 +73,7 @@ seqDeplacement.pdf: seqDeplacement.eps
 	$(EPSTOPDF) seqDeplacement.eps
 
 $(FIGURESDIR)/seqProperties.eps: $(FIGURESDIR)/seqProperties.dia
-	dia $(FIGURESDIR)/seqProperties.dia $(DIAOPTIONS) $(FIGURESDIR)/seqProperties.eps
+	$(DIA) $(FIGURESDIR)/seqProperties.dia $(DIAOPTIONS) $(FIGURESDIR)/seqProperties.eps
 
 seqProperties.eps: $(FIGURESDIR)/seqProperties.eps
 	cp figures/seqProperties.eps .
