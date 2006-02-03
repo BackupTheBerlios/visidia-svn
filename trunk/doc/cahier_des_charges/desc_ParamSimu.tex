@@ -1,0 +1,60 @@
+\section{Paramétrer Simulateur}
+%\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+
+%\begin{table}[ht!]
+%\begin{tabular}{|l|l|}
+%\hline
+%Nom fiche de cas d'utilisation & DefineRewritingRule \\  \hline
+%Date de mise a jour & $LastChangedDate$ \\ \hline
+%Version & 0.1 \\ \hline
+%Redacteur & Xavier\\ \hline
+%Priorité du cas d'utilisation & Moyen \\ \hline
+%\end{tabular}
+%\caption{} \label{cartouche_ReglesReecriture}
+%\end{table}
+
+\subsection{Description du cas d'utilisation}
+
+\subsubsection{Généralités}
+
+\begin{table}[ht!]
+\begin{tabular}{|l|l|}
+\hline
+Cas d'utilisation & Paramétrer le simulateur. \\ \hline
+Acteurs & L'utilisateur. \\ \hline
+But & Permettre à l'utilisateur de définir le comportement du simulateur. \\ \hline
+Résumé Métier & L'utilisateur défini ses règles de réécriture de
+manière ``graphique''. \\ \hline
+Pré conditions & La partie simulation est lancée. \\ \hline
+Post conditions & Le simulateur est paramétrer. \\ \hline
+Commentaires & Le paramétrage s'applique seulement au simulateur
+courant du système. Possibilité de pouvoir stocker la configuration ??  \\ \hline
+\end{tabular}
+%\caption{} 
+\label{genralites_ParamSimu}
+\end{table}
+
+\subsubsection{Scénario Nominal}
+
+\begin{table}[ht!]
+\begin{tabular}{|c|l|}
+\hline
+Numéro enchainement & Action \\  \hline
+1 & L'utilisateur saisie les paramètres du simulateur : 
+\begin{itemize}
+\item Les sommets ont un identifiant : Oui/Non
+\item Les agents ont un identifiant : Oui/Non
+\item Choix de la répartition : Choix à la souris (default) /
+  Aléatoire : Proba / Spécifique : choix de la classe.
+\end{itemize}
+\\ \hline
+2 & Le système enregistre les paramètres du simulateur\\ \hline
+\hline
+\end{tabular}
+%\caption{}
+\label{nominal_ReglesReecriture}
+\end{table}
+
+\subsubsection{Exceptions}
+
+Pas de scénario d'exception.
