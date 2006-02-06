@@ -1,0 +1,94 @@
+%%%%%%NOM de UC : Lancer simulation
+\section{Lancer simulation}
+\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Nom fiche de cas d'utilisation & Fiche\_CULancerSimulation \\ \hline
+Date de mise a jour &  25/Jan/2006\\ \hline
+Version & 1.0 \\ \hline
+Redacteur & GHRISS.PFA-VISIDIA\\ \hline
+Priorité du cas d'utilisation & Haute\\
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{cartouche_usecase}
+\end{table}
+
+
+\subsection{Description du cas d'utilisation}
+
+\subsubsection{Généralités}
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Cas d'utilisation & Lancer Simulation\\ \hline
+Acteurs &  Le client \\ \hline
+But & Permettre à l'utilisateur de lancer la visualisation de l'execution de l'algorithme \\ \hline
+Résumé Métier & L'utilisateur clique sur un bouton qui va declancher le debut de la simulaion\\ \hline
+Pré conditions & L'utilisateur a dessiné son graphe, il a choisi également son algorithme.\\
+& L'utilisateur a choisi un noeud pour lui affecter un agent.\\ \hline
+Post conditions & La simulation de l'execution de l'algorithme sur le graphe est déclanché.\\ \hline
+Commentaires & \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{genralites_usecase}
+\end{table}
+
+\subsubsection{Scénario Nominal}
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+Numéro enchainement & Action \\  \hline
+1 & L'utlisateur desine son graphe\\ \hline
+2 & L'utlisateur choisi son algorithme(Son Agent)\\ \hline
+3 & L'utlisateur parametre le graphe (affectation des agents) \\ \hline
+4 & L'utlisateur clique sur le bouton lançant la simulation\\ \hline
+5 & Le systeme commence l'execution de l'algorithme (par quoi ?)\\
+\hline
+\end{tabular}
+\end{center}
+\caption{} \label{nominal_usecase}
+\end{table}
+
+\subsubsection{Scénario Alternatif}
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+N enchainement & Action \\ 
+\hline
+Point 3 :3.1 & Le Graphe n'est pas paramétrée.\\ \hline
+3.1.1 & Le systeme demande à l'utilisateur de parametrer le graphe.\\ \hline
+3.1.2 & L'utlisateur paramètre son graphe. \\ \hline
+3.1.3 & L'utlisateur relance la simulation. \\ \hline
+3.1.4 & La simulation est déclanchée.\\
+ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{alternatif_usecase}
+\end{table}
+
+\subsubsection{Exceptions}
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+N enchainement & Action \\ 
+\hline
+1& La simulation est déjà lacncée.\\
+ \hline
+\end{tabular}
+\end{center}
+\caption{} \label{exceptions_usecase}
+\end{table}
+
