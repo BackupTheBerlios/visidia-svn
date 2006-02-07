@@ -1,94 +1,85 @@
 %%%%%%NOM de UC : Lancer simulation
 \section{Lancer simulation}
-\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+%% \subsection{Cartouche d'identification de la fiche de cas d'utilisation}
 
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-Nom fiche de cas d'utilisation & Fiche\_CULancerSimulation \\ \hline
-Date de mise a jour &  25/Jan/2006\\ \hline
-Version & 1.0 \\ \hline
-Redacteur & GHRISS.PFA-VISIDIA\\ \hline
-Priorité du cas d'utilisation & Haute\\
-\hline
-\end{tabular}
-\end{center}
-\caption{} \label{cartouche_usecase}
-\end{table}
-
+%% \begin{table}[h]
+%% \begin{tabular}{|l|l|}
+%% \hline
+%% Nom fiche de cas d'utilisation & Fiche\_CULancerSimulation \\ \hline
+%% Date de mise a jour &  25/Jan/2006\\ \hline
+%% Version & 1.0 \\ \hline
+%% Redacteur & GHRISS.PFA-VISIDIA\\ \hline
+%% Priorité du cas d'utilisation & Haute\\
+%% \hline
+%% \end{tabular}
+%% \caption{} \label{cartouche_usecase}
+%% \end{table}
 
 \subsection{Description du cas d'utilisation}
 
 \subsubsection{Généralités}
 
-\begin{table}[ht!]
-\begin{center}
+\begin{table}[h!t]
 \begin{tabular}{|l|l|}
 \hline
 Cas d'utilisation & Lancer Simulation\\ \hline
 Acteurs &  Le client \\ \hline
-But & Permettre à l'utilisateur de lancer la visualisation de l'execution de l'algorithme \\ \hline
-Résumé Métier & L'utilisateur clique sur un bouton qui va declancher le debut de la simulaion\\ \hline
+But & Permettre à l'utilisateur de lancer la visualisation de l'exécution de l'algorithme \\ \hline
+Résumé Métier & L'utilisateur clique sur un bouton qui va déclencher le début de la simulation\\ \hline
 Pré conditions & L'utilisateur a dessiné son graphe, il a choisi également son algorithme.\\
 & L'utilisateur a choisi un noeud pour lui affecter un agent.\\ \hline
-Post conditions & La simulation de l'execution de l'algorithme sur le graphe est déclanché.\\ \hline
+Post conditions & La simulation de l'exécution de l'algorithme sur le graphe est déclenché.\\ \hline
 Commentaires & \\ 
 \hline
 \end{tabular}
-\end{center}
-\caption{} \label{genralites_usecase}
+%\caption{} 
+\label{genralites_lancerSimulation}
 \end{table}
 
 \subsubsection{Scénario Nominal}
 
-\begin{table}[ht!]
-\begin{center}
+\begin{table}[h!t]
 \begin{tabular}{|c|l|}
 \hline
-Numéro enchainement & Action \\  \hline
-1 & L'utlisateur desine son graphe\\ \hline
-2 & L'utlisateur choisi son algorithme(Son Agent)\\ \hline
-3 & L'utlisateur parametre le graphe (affectation des agents) \\ \hline
-4 & L'utlisateur clique sur le bouton lançant la simulation\\ \hline
-5 & Le systeme commence l'execution de l'algorithme (par quoi ?)\\
+Numéro enchaînement & Action \\  \hline
+1 & L'utilisateur dessine son graphe\\ \hline
+2 & L'utilisateur choisi son algorithme(Son Agent)\\ \hline
+3 & L'utilisateur paramètre le graphe (affectation des agents) \\ \hline
+4 & L'utilisateur clique sur le bouton lançant la simulation\\ \hline
+5 & Le système commence l'exécution de l'algorithme (par quoi ?)\\
 \hline
 \end{tabular}
-\end{center}
-\caption{} \label{nominal_usecase}
+%\caption{}
+\label{nominal_lancerSimulation}
 \end{table}
 
 \subsubsection{Scénario Alternatif}
 
-\begin{table}[ht!]
-\begin{center}
-\begin{tabular}{|l|l|}
+\begin{table}[h!t]
+\begin{tabular}{|c|l|}
 \hline
-N enchainement & Action \\ 
+N enchaînement & Action \\ 
 \hline
 Point 3 :3.1 & Le Graphe n'est pas paramétrée.\\ \hline
-3.1.1 & Le systeme demande à l'utilisateur de parametrer le graphe.\\ \hline
-3.1.2 & L'utlisateur paramètre son graphe. \\ \hline
-3.1.3 & L'utlisateur relance la simulation. \\ \hline
-3.1.4 & La simulation est déclanchée.\\
- \hline
+3.1.1 & Le système demande à l'utilisateur de paramétrer le graphe.\\ \hline
+3.1.2 & L'utilisateur paramètre son graphe. \\ \hline
+3.1.3 & L'utilisateur relance la simulation. \\ \hline
+3.1.4 & La simulation est déclenchée.\\ \hline
 \end{tabular}
-\end{center}
-\caption{} \label{alternatif_usecase}
+%\caption{} 
+\label{alternatif_lancerSimulation}
 \end{table}
 
 \subsubsection{Exceptions}
 
-\begin{table}[ht!]
-\begin{center}
-\begin{tabular}{|l|l|}
+\begin{table}[h!t]
+\begin{tabular}{|c|l|}
 \hline
-N enchainement & Action \\ 
+N enchaînement & Action \\ 
 \hline
-1& La simulation est déjà lacncée.\\
- \hline
+1& La simulation est déjà lancée.\\ \hline
 \end{tabular}
-\end{center}
-\caption{} \label{exceptions_usecase}
+%\caption{} 
+\label{exceptions_lancerSimulation}
 \end{table}
 

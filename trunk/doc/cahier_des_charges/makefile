@@ -1,6 +1,6 @@
 #LEX
 LEX=pdflatex
-LEXOPTIONS=-interaction nonstopmode
+#LEXOPTIONS=-interaction nonstopmode
 
 #DIA
 DIA=dia
@@ -16,7 +16,7 @@ FIGURESPDF= classes.pdf simple.pdf UseCase.pdf seqDeplacement.pdf seqProperties.
 #TEX
 SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
 	organisation.tex lexique.tex biblio.tex desc_choisirAgent.tex \
-        desc_choisirGraphe.tex desc_RegleEcriture.tex
+        desc_choisirGraphe.tex desc_RegleEcriture.tex desc_ParamSimu.tex desc_lancerSimulation.tex
 
 all: main.pdf
 
@@ -46,7 +46,7 @@ simple.pdf: simple.eps
 	$(EPSTOPDF) simple.eps
 
 $(FIGURESDIR)/UseCase.eps: $(FIGURESDIR)/UseCase.dia
-	dia $(FIGURESDIR)/UseCase.dia $(DIAOPTIONS) $(FIGURESDIR)/UseCase.eps
+	$(DIA) $(FIGURESDIR)/UseCase.dia $(DIAOPTIONS) $(FIGURESDIR)/UseCase.eps
 
 UseCase.eps: $(FIGURESDIR)/UseCase.eps
 	cp $(FIGURESDIR)/UseCase.eps .
@@ -55,7 +55,7 @@ UseCase.pdf: UseCase.eps
 	$(EPSTOPDF) UseCase.eps
 
 $(FIGURESDIR)/classes.eps: $(FIGURESDIR)/classes.dia
-	dia $(FIGURESDIR)/classes.dia $(DIAOPTIONS) $(FIGURESDIR)/classes.eps
+	$(DIA) $(FIGURESDIR)/classes.dia $(DIAOPTIONS) $(FIGURESDIR)/classes.eps
 
 classes.eps: $(FIGURESDIR)/classes.eps
 	cp figures/classes.eps .

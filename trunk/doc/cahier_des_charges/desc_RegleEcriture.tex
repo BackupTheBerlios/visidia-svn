@@ -18,31 +18,29 @@
 
 \subsubsection{Généralités}
 
-\begin{table}[ht!]
-  \begin{center}
-    \begin{tabular}{|l|l|}
-      \hline
-      Cas d'utilisation & Définir des règles de réécriture. \\ \hline
-      Acteurs & L'utilisateur. \\ \hline
-      But & Permettre à l'utilisateur de définir des règles de réécriture
-      relativement au comportement des agents. \\ \hline
-      Résumé Métier & L'utilisateur défini ses règles de réécriture de
-      manière ``graphique''. \\ \hline
-      Pré conditions & Un graphe est chargé dans le système \\ \hline
-      Post conditions & Les règles de réécritures sont définies. \\ \hline
-      Commentaires & Tous les agents utilisent un seul jeu de règles de réécriture. !! A VOIR !!\\ \hline
-    \end{tabular}
-    %\caption{} 
-    \label{genralites_ReglesReecriture}
-  \end{center}
+\begin{table}[h!t]
+  \begin{tabular}{|l|p{10cm}|}
+    \hline
+    Cas d'utilisation & Définir des règles de réécriture. \\ \hline
+    Acteurs & L'utilisateur. \\ \hline
+    \multirow{2}{0cm}{But} & Permettre à l'utilisateur de définir des règles de réécriture
+    relativement au comportement des agents. \\ \hline
+    Résumé Métier & L'utilisateur défini ses règles de réécriture de
+    manière ``graphique''. \\ \hline
+    Pré conditions & Un graphe est chargé dans le système \\ \hline
+    Post conditions & Les règles de réécritures sont définies. \\ \hline
+    Commentaires & Tous les agents utilisent un seul jeu de règles de réécriture. !! A VOIR !!\\ \hline
+  \end{tabular}
+  % \caption{} 
+  \label{genralites_ReglesReecriture}
 \end{table}
 
 \subsubsection{Scénario Nominal}
 
-\begin{table}[ht!]
+\begin{table}[h!t]
 \begin{tabular}{|c|l|}
 \hline
-Numéro enchainement & Action \\  \hline
+Numéro enchaînement & Action \\  \hline
 1 & L'utilisateur saisie une règle de réécriture et valide \\ \hline
 2 & Le système enregistre les règles de réécriture\\ \hline
 \end{tabular}
@@ -52,15 +50,15 @@ Numéro enchainement & Action \\  \hline
 
 \subsubsection{Scénario Alternatif}
 
-\begin{table}[ht!]
-\begin{tabular}{|l|l|}
+\begin{table}[h!t]
+\begin{tabular}{|c|l|}
 \hline
-N enchainement & Action \\ \hline
+N enchaînement & Action \\ \hline
 Au point 2: 2.1 & L'utilisateur ajoute un nouvelle règle de réécriture\\ \hline
  2.1.1 & L'utilisateur saisie une nouvelle règle de réécriture et
  valide \\ \hline
  2.1.2 & Retour au point 1 \\ \hline
-Au point 2: 2.2 & L'utilisateur supprimme un règle de réécriture\\
+Au point 2: 2.2 & L'utilisateur supprime un règle de réécriture\\
 \hline
  2.2.1 & Retour au point 1 \\ \hline
 \end{tabular}

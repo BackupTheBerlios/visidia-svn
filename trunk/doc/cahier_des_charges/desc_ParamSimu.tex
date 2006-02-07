@@ -17,8 +17,8 @@
 
 \subsubsection{Généralités}
 
-\begin{table}[ht!]
-\begin{tabular}{|l|l|}
+\begin{table}[h!t]
+\begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
 Cas d'utilisation & Paramétrer le simulateur. \\ \hline
 Acteurs & L'utilisateur. \\ \hline
@@ -27,8 +27,8 @@ Résumé Métier & L'utilisateur défini ses règles de réécriture de
 manière ``graphique''. \\ \hline
 Pré conditions & La partie simulation est lancée. \\ \hline
 Post conditions & Le simulateur est paramétrer. \\ \hline
-Commentaires & Le paramétrage s'applique seulement au simulateur
-courant du système. Possibilité de pouvoir stocker la configuration ??  \\ \hline
+\multirow{2}{0cm}{Commentaires} & Le paramétrage s'applique seulement au simulateur
+courant du système.\\ \hline
 \end{tabular}
 %\caption{} 
 \label{genralites_ParamSimu}
@@ -36,23 +36,20 @@ courant du système. Possibilité de pouvoir stocker la configuration ??  \\ \hlin
 
 \subsubsection{Scénario Nominal}
 
-\begin{table}[ht!]
-\begin{tabular}{|c|l|}
-\hline
-Numéro enchainement & Action \\  \hline
-1 & L'utilisateur saisie les paramètres du simulateur : 
-%% \begin{itemize}
-%% \item Les sommets ont un identifiant : Oui/Non
-%% \item Les agents ont un identifiant : Oui/Non
-%% \item Choix de la répartition : Choix à la souris (default) /
-%%   Aléatoire : Proba / Spécifique : choix de la classe.
-%% \end{itemize}
-\\ \hline
-2 & Le système enregistre les paramètres du simulateur\\ \hline
-\hline
+\begin{table}[h!t]
+\begin{tabular}{|c|p{10cm}|}
+  \hline
+  Numéro enchaînement & Action \\  \hline
+  \multirow{5}{0cm}{1} & L'utilisateur saisie les paramètres du
+  simulateur : \\
+  & Les sommets ont un identifiant : Oui/Non \\
+  & Les agents ont un identifiant : Oui/Non \\
+  & Choix de la répartition : Choix à la souris (défaut) /
+   Aléatoire : Proba / Spécifique : choix de la classe. \\ \hline
+  2 & Le système enregistre les paramètres du simulateur \\ \hline
 \end{tabular}
 %\caption{}
-%\label{nominal_ReglesReecriture}
+\label{nominal_ParamSimu}
 \end{table}
 
 \subsubsection{Exceptions}

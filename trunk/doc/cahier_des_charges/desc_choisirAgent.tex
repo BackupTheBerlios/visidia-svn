@@ -19,19 +19,19 @@
 
 \subsubsection{Généralités}
 
-\begin{table}[ht!]
+\begin{table}[h!t]
 \begin{tabular}{|l|l|}
-\hline
-Cas d'utilisation & Choisir un Agent. \\ \hline
-Acteurs & L'utilisateur. \\ \hline
-But & Permettre à l'utilisateur de spécifier les agents qui vont
-opérer sur le graphe. \\ \hline
-Résumé Métier & L'utilisateur indique le fichier agent (format
-byteCode Java). \\ \hline
-Pré conditions & L'utilsateur dispose d'implémentation d'agents. \\ \hline
-Post conditions & L'agent est chargé. \\ \hline
-Commentaires &  Un seule implémentation d'agent peut être
-sélectionné. !! A VOIR !!\\ \hline
+  \hline
+  Cas d'utilisation & Choisir un Agent. \\ \hline
+  Acteurs & L'utilisateur. \\ \hline
+  But & Permettre à l'utilisateur de spécifier les agents qui vont
+  opérer sur le graphe. \\ \hline
+  Résumé Métier & L'utilisateur indique le fichier agent (format
+  byteCode Java). \\ \hline
+  Pré conditions & L'utilsateur dispose d'implémentation d'agents. \\ \hline
+  Post conditions & L'agent est chargé. \\ \hline
+  Commentaires &  Un seule implantation d'agent peut être
+  sélectionnée (l'implanatation par défaut).\\ \hline
 \end{tabular}
 %\caption{} 
 \label{genralites_choisirAgent}
@@ -39,17 +39,16 @@ sélectionné. !! A VOIR !!\\ \hline
 
 \subsubsection{Scénario Nominal}
 
-\begin{table}[ht!]
+\begin{table}[h!t]
 \begin{tabular}{|c|l|}
 \hline
 Numéro enchainement & Action \\  \hline
 1 & Le système présente le choix des agents \\ \hline
 2 & L'utilisateur sélectionne l'agent \\ \hline
 3 & Le système charge l'agent\\ \hline
-\hline
 \end{tabular}
 %\caption{}
-%\label{nominal_usecase}
+\label{nominal_choisirAgent}
 \end{table}
 
 \subsubsection{Scénario Alternatif}
@@ -58,12 +57,13 @@ Pas de scénario alternatif
 
 \subsubsection{Exceptions}
 
-\begin{table}[ht!]
-\begin{tabular}{|l|l|}
+\begin{table}[h!t]
+\begin{tabular}{|c|l|}
 \hline
 N enchainement & Action \\ \hline
 Au point 2: 2.1 & L'utilisateur annule\\ \hline
  2.1.1 & Fin du use case\\ \hline
 \end{tabular}
-\caption{} \label{exceptions_choisirAgent}
+%\caption{}
+\label{exceptions_choisirAgent}
 \end{table}
