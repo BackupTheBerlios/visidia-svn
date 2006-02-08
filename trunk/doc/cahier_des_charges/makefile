@@ -1,6 +1,6 @@
 #LEX
 LEX=pdflatex
-#LEXOPTIONS=-interaction nonstopmode
+LEXOPTIONS=-interaction nonstopmode
 
 #DIA
 DIA=dia
