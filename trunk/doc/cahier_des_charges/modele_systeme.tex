@@ -34,7 +34,7 @@ Agent.  Le diagramme  UML  de  classes est  disponible  sur la  figure
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=14cm]{classes} 
+  \includegraphics[width=10cm]{classes} 
   \caption{Diagramme de classes}
   \label{fig:diagramme_classes}
 \end{figure}
@@ -58,6 +58,20 @@ cette classe Agent et implanter la méthode abstraite suivante : \\
   C'est cette méthode qui sera lancée lorsque l'agent sera exécuté.
 \end{description}
 
+
+\subsubsection{Synchronisation}
+
+Les  agents seront  de deux  types  : synchrone  ou non.  Dans le  cas
+d'agents synchrone, le simulateur  devra attendre que chaque agent ait
+demandé à  se déplacer ou à rester  sur place avant de  les faire tous
+bouger en  même temps.  Les méthodes de  déplacement ou  d'attente sur
+place seront  donc bloquantes. Elle  seront débloquées toutes  en même
+temps.\\
+
+Dans  le cas  d'une non  synchronisation,  chaque agent  demande à  se
+déplacer quand  il le souhaite  et le simulateur traite  cette demande
+immédiatement.
+
 \subsection{La classe AgentMover}
 
 AgentMover  est  une classe  qui  a pour  but  d'apporter  un type  de
@@ -72,6 +86,18 @@ appels cachés aux méthodes de AgentMover. \\
 Pour développer  un nouveau  type de déplacement,  l'utilisateur devra
 donc implanter  une nouvelle sous classe de  AgentMover et redéfinir
 la méthode ``findNextDoor''.
+
+\subsection{Le paquetage Interface Graphique}
+
+L'interface  graphique  de  l'application  devra permettre  de  suivre
+l'évolution de  l'exécution des algorithmes. Cette  interface est très
+importante   car  c'est  elle   qui  apporte   la  valeur   ajoutée  à
+l'application comparée à d'autres systèmes.\\
+
+Dans le  cas des  agents mobiles, cette  interface devra  permettre de
+suivre  l'emplacement  des  agents  en  temps réel  et  de  voir  leur
+déplacement dans  le graphe. Il faudra aussi  pouvoir consulter l'état
+de chaque sommet indépendamment.
 
 %% Local Variables:
 %% mode: latex
