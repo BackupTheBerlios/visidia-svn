@@ -1,4 +1,9 @@
-\section{Choisir Agent}
+\subsection{Choisir Agent}
+
+Ce cas d'utilisation va permettre à l'utilisateur de préciser le ou
+les agents qui vont être utilisés sur le graphe. Ce cas d'utilisation sera accessible
+seulement dans la fenetre simulation.
+
 %\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
 
 %\begin{table}[h!]
@@ -15,41 +20,41 @@
 %\end{table}
 
 
-\subsection{Description du cas d'utilisation}
-
 \subsubsection{Généralités}
 
-\begin{table}[h!t]
-\begin{tabular}{|l|l|}
+%\begin{table}[h!t]
+\begin{tabular}{|l|p{11cm}|}
   \hline
-  Cas d'utilisation & Choisir un Agent. \\ \hline
+  Cas d'utilisation & Choisir agents. \\ \hline
   Acteurs & L'utilisateur. \\ \hline
   But & Permettre à l'utilisateur de spécifier les agents qui vont
   opérer sur le graphe. \\ \hline
-  Résumé Métier & L'utilisateur indique le fichier agent (format
+  Résumé Métier & L'utilisateur indique le(s) fichier(s) agent (format
   byteCode Java). \\ \hline
-  Pré conditions & L'utilsateur dispose d'implantation d'agents. \\ \hline
-  Post conditions & L'agent est chargé. \\ \hline
-  Commentaires &  Un seule implantation d'agent peut être
-  sélectionnée (l'implantation par défaut).\\ \hline
+  Pré conditions & L'utilisateur dispose d'implantations d'agents. \\ \hline
+  Post conditions & Le ou les agents sont chargés. \\ \hline
+  \multirow{3}{0cm}{Commentaires} &  Parmi les agents chargés par le système, une
+  implantation d'agent est défini comme celle étant l'implantation par défaut.
+  Le cas d'utilisation ``Affecter Agent'' permet de d'affecter un agent a
+  un noeud.\\ \hline
 \end{tabular}
 %\caption{} 
-\label{genralites_choisirAgent}
-\end{table}
+%\label{genralites_choisirAgent}
+%\end{table}
 
 \subsubsection{Scénario Nominal}
 
-\begin{table}[h!t]
+%\begin{table}[h!t]
 \begin{tabular}{|c|l|}
 \hline
-Numéro enchainement & Action \\  \hline
+Numéro enchaînement & Action \\  \hline
 1 & Le système présente le choix des agents \\ \hline
-2 & L'utilisateur sélectionne l'agent \\ \hline
-3 & Le système charge l'agent\\ \hline
+2 & L'utilisateur sélectionne le ou les agents \\ \hline
+3 & Le système charge les agents\\ \hline
 \end{tabular}
 %\caption{}
-\label{nominal_choisirAgent}
-\end{table}
+%\label{nominal_choisirAgent}
+%\end{table}
 
 \subsubsection{Scénario Alternatif}
 
@@ -57,13 +62,13 @@ Pas de scénario alternatif
 
 \subsubsection{Exceptions}
 
-\begin{table}[h!t]
+%\begin{table}[h!t]
 \begin{tabular}{|c|l|}
 \hline
-N enchainement & Action \\ \hline
+N enchaînement & Action \\ \hline
 Au point 2: 2.1 & L'utilisateur annule\\ \hline
- 2.1.1 & Fin du use case\\ \hline
+ 2.1.1 & Fin du cas d'utilisation\\ \hline
 \end{tabular}
 %\caption{}
-\label{exceptions_choisirAgent}
-\end{table}
+%\label{exceptions_choisirAgent}
+%\end{table}
