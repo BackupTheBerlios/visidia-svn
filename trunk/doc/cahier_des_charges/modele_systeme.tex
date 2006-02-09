@@ -1,6 +1,8 @@
 \chapter{Modèle du système}
 
-Etudions maintenant les possibilités d'utilisation du futur logiciel.
+Dans  cette partie, nous  étudierons tout  d'abord les  différents cas
+d'utilisation du  logiciel. Dans un second temps,  nous réfléchirons à
+une hiérarchie qui répondra au mieux aux attentes.
 
 \section{Cas d'utilisation}
 
@@ -39,7 +41,7 @@ Agent.  Le diagramme  UML  de  classes est  disponible  sur la  figure
 
 \subsection{La classe Agent et ses sous-classes}
 
-La  classe  Agent  implémente  toutes les  méthodes  nécessaires  pour
+La  classe  Agent  implante  toutes les  méthodes  nécessaires  pour
 faciliter  le  travail du  futur  développeur  d'agents mobiles.   Les
 méthodes  seront  décrites dans  la  partie  \ref{sec:api}  à la  page
 \pageref{sec:api}. \\
@@ -48,11 +50,11 @@ De façon générale, on peut  trouver des méthodes d'informations sur le
 graphe, des méthodes  de gestion de propriétés (au  niveau des sommets
 et des portes), des méthodes de déplacements et de clonage.\\
 
-Le futur développeur devra,  pour implémenter ses agents, sous-classer
-cette classe Agent et implémenter la méthode abstraite suivante : \\
+Le futur développeur devra,  pour implanter ses agents, sous-classer
+cette classe Agent et implanter la méthode abstraite suivante : \\
 
 \begin{description}
-\item[init] Utilisée pour implémenter le code général de l'algorithme.
+\item[init] Utilisée pour implanter le code général de l'algorithme.
   C'est cette méthode qui sera lancée lorsque l'agent sera exécuté.
 \end{description}
 
@@ -60,15 +62,15 @@ cette classe Agent et implémenter la méthode abstraite suivante : \\
 
 AgentMover  est  une classe  qui  a pour  but  d'apporter  un type  de
 déplacement aux  agents. Certains type de  déplacements seront fournis
-par \visidia et d'autres  pourront être implémentés par le développeur
+par \visidia et d'autres  pourront être implantés par le développeur
 lorsqu'il en ressentira le besoin. \\
 
-Lors de l'implémentation d'un agent, le développeur devra utiliser les
+Lors de l'implantation d'un agent, le développeur devra utiliser les
 méthodes  ``move'' pour  se déplacer.  Ces méthodes  sont en  fait des
 appels cachés aux méthodes de AgentMover. \\
 
 Pour développer  un nouveau  type de déplacement,  l'utilisateur devra
-donc implémenter  une nouvelle sous classe de  AgentMover et redéfinir
+donc implanter  une nouvelle sous classe de  AgentMover et redéfinir
 la méthode ``findNextDoor''.
 
 %% Local Variables:
