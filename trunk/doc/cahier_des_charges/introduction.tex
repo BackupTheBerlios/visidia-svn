@@ -2,9 +2,8 @@
 
 L'algorithmique  distribuée  devient de  nos  jours  de  plus en  plus
 importante au vu des utilisations  possibles sur les réseaux et autres
-systèmes  distribués  comme internet  par  exemple.\\
+systèmes  distribués  comme internet  par  exemple.
 
-\paragraph{L'existant} 
 Cependant,  les   applications  distribuées  qui   en  découlent  sont
 difficiles à implanter, tester  et expérimenter.  En effet, celles-ci,
 en  plus  des  problèmes  des  applications  classiques  centralisées,
@@ -12,14 +11,17 @@ doivent  gérer  des problèmes  de  communication  entre processus,  de
 concurrence  et de  conflits  de  ressources.  C'est  dans  le but  de
 faciliter la  tâche à un développeur d'algorithmes  distribués que des
 chercheurs  du  LaBRI  ont   créé  \visidia  (voir  le  site  internet
-\cite{visidiaLaBRI}).  Ce  logiciel est  en fait un  atelier proposant
-des outils de simulation  et de visualisation, au travers d'animations
+\cite{visidiaLaBRI}  et  des articles  à  ce sujet  \cite{bauderon01a}
+\cite{bauderon01b}).  Ce logiciel est en fait un atelier proposant des
+outils  de simulation  et  de visualisation,  au travers  d'animations
 graphiques en temps réel, de l'exécution d'un algorithme distribué sur
 un graphe  donné.  Cet  algorithme peut être  choisi parmi  une liste,
 développé par  l'utilisateur ou encore  dessiné grâce à des  règles de
 réécriture.   L'application  va  donc  constituer  à  terme  un  outil
-permettant la validation de programmes sur un environnement distribué.
+permettant   la  validation   de  programmes   sur   un  environnement
+distribué.\\
 
+\paragraph{L'existant}
 \visidia  se compose aujourd'hui  de trois  couches. Tout  d'abord une
 interface  graphique qui  permet à  l'utilisateur d'interagir  avec le
 programme. Elle  permet de créer  des réseaux (graphes)  et d'exécuter
@@ -42,17 +44,21 @@ arêtes, envoi de messages... et détecter les erreurs éventuelles.\\
 %%projet dans le cadre du module de PFA de deuxième année informatique à
 %%l'ENSEIRB \cite{enseirb}.\\
 
-\paragraph{But}
+\paragraph{Motivations et but}
 Le  logiciel  a  jusqu'à  aujourd'hui  proposé  une  implantation  des
 algorithmes  distribués à  base de  messages, or,  il existe  un autre
 modèle  qui  permet de  les  implanter :  le  modèle  à base  d'agents
-mobiles.   Il a  été démontré  une  équivalence entre  le modèle  avec
-échange  de  messages  et  le  modèle  à  base  d'agents  mobile.   Un
-algorithme générique de conversion  a aussi été donné pour transformer
-un algorithme distribué avec échange  de message en un algorithme avec
-des agents.  Cet  algorithme a une motivation théorique  et sa mise en
-place  semble  être  fastidieuse  pour un  utilisateur  final  voulant
-implanter directement un algorithme avec des agents.
+mobiles.  Il  a été  démontré une équivalence  entre le modèle  à base
+d'agents mobiles et le modèle avec échange de messages.  Un algorithme
+générique  de  conversion  a  aussi  été  donné  pour  transformer  un
+algorithme distribué avec échange de message en un algorithme avec des
+agents.  Cet algorithme a une motivation théorique et sa mise en place
+semble  être compliquée  pour un  utilisateur final  voulant implanter
+directement un  algorithme avec des  agents. D'autre part, même  si on
+peut  toujours  simuler  des  algorithmes  à base  d'agents  avec  des
+algorithmes  à base  de messages,  il  est plus  pratique de  disposer
+d'outils permettant de les implanter et de les tester de façon directe
+afin de mieux comprendre leurs fonctionnements.
 
 Notre  but au  cours  des mois  qui  vont suivre  est  de fournir  une
 extension  à \visidia.   Cette  extension aura  pour  rôle d'offrir  à
@@ -70,15 +76,9 @@ cela  que nous  devons nous  tenir  à la  définition plus  restrictive
 donnée par  les clients.  Dans le  cadre de \visidia,  un agent mobile
 sera donc une entité autonome de  calcul qui se déplace dans le graphe
 et agit  sur les  noeuds en fonction  de l'algorithme à  exécuter. Une
-bonne  référence concernant  ce type  d'agent pourra  se  trouver dans
+bonne   référence  concernant   ce   type  d'agent   se  trouve   dans
 \cite{agentBook}.\\
 
-Le  lecteur  pourra  se  référer aux  articles  \cite{bauderon01a}  et
-\cite{bauderon01b}  pour plus  d'informations sur  \visidia. Consultez
-aussi    le    site    internet    officiel   du    projet    \visidia
-\cite{visidiaLaBRI}.
-
- 
 
 %% Local Variables:
 %% mode: latex
