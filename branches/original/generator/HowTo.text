@@ -1,0 +1,4 @@
+1* compile             : javac Generator.java
+2* run                 : java Generator
+3* create graphs       : see usage when running 2*
+4* generate gml graphs : java Generator [arg1 arg2 ... ] >> file.gml 

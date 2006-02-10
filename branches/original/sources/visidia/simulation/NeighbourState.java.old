@@ -1,0 +1,117 @@
+/*
+ * NeighbourState.java
+ *
+ * Created on 11 avril 2002, 14:34
+ */
+
+package visidia.simulation;
+
+import java.util.Date;
+
+/**
+ *
+ * @author  PERON Nicolas - LAZRAK Amine
+ * @version 1.0
+ */
+public class NeighbourState {
+
+    private static final int WAITING = 0;
+    private static final int NOT_WAITING = 1;
+    private static final int PAUSED = 2;
+    
+    private boolean isAlive = true;
+    private int state = NOT_WAITING;
+    private int previousState = NOT_WAITING;
+    private long waitingSince;
+    private long pausedSince;
+    private FailureDetector failureDetector = null;
+    private int doorId;
+    
+    /**
+     * Creates new NeighbourState
+     */
+    public NeighbourState(FailureDetector fd, int id) {
+        failureDetector = fd;
+        doorId = id;
+    }
+    
+    /**
+     * String value representing this object
+     */
+    public String toString() {
+        String output = "";
+        if(isAlive)
+            output += "- neighbour alive";
+        else
+            output += "- neighbour dead ";
+        if(state == NOT_WAITING)
+            output += "- not waiting";
+        else
+            output += "- waiting since " + waitingSince;
+        return output;
+    }
+
+    /**
+     * Set state not alive (or dead)
+     */
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+        if(isAlive)
+            failureDetector.putProperty("neighbour_"+doorId+"_in_fault", "no");
+        else
+            failureDetector.putProperty("neighbour_"+doorId+"_in_fault", "yes");
+    }
+
+    /**
+     * Get state: alive or dead
+     */
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    /**
+     * returns TRUE if waiting delay exceded timeOut.
+     */
+    public boolean waitingForTooLong(long timeOut) {
+        if(state == WAITING) {
+            long waitingTime = new Date().getTime()-waitingSince;
+            if(waitingTime >= timeOut)
+                return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Init waiting time value
+     */
+    public void startWaiting() {
+        state = WAITING;
+        waitingSince = new Date().getTime();
+    }
+    
+    /**
+     * Stop waiting
+     */
+    public void stopWaiting() {
+        state = NOT_WAITING;
+    }
+    
+    /**
+     * Save waiting time value (before a pause)
+     */
+    public void pauseWaiting() {
+        previousState = state;
+        state = PAUSED;
+        pausedSince = new Date().getTime();
+    }
+    
+    /**
+     * Reload waiting time value (after a pause)
+     */
+    public void unpauseWaiting() {
+        long pauseDuration = new Date().getTime() - pausedSince;
+        state = previousState;
+        previousState = PAUSED;
+        waitingSince = waitingSince + pauseDuration;
+    }
+}
