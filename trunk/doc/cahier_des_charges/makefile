@@ -7,12 +7,13 @@ DIA=dia
 DIAOPTIONS=-e
 
 EPSTOPDF=epstopdf
+PSTOPDF=ps2pdf
 BIBTEX=bibtex
 
 #FIGURES
 FIGURESDIR= figures
-FIGURESPDF= classes.pdf simple.pdf UseCase.pdf seqDeplacement.pdf seqProperties.pdf
-
+FIGURESPDF= classes.pdf simple.pdf UseCase.pdf seqDeplacement.pdf seqProperties.pdf \
+            gantt.pdf output.pdf
 #TEX
 SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
 	organisation.tex lexique.tex biblio.tex desc_choisirAgent.tex \
@@ -21,7 +22,7 @@ SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
 all: main.pdf
 
 clean:
-	rm -f *.pdf *.toc *.aux *.out *.log *.bbl *.blg *.eps
+	rm -f *.pdf *.toc *.aux *.out *.log *.bbl *.blg *.eps *.ps
 
 send: main.pdf
 	scp main.pdf cassou@shell.berlios.de:/home/groups/visidia/htdocs/cahier_des_charges.pdf
@@ -80,3 +81,9 @@ seqProperties.eps: $(FIGURESDIR)/seqProperties.eps
 
 seqProperties.pdf: seqProperties.eps
 	$(EPSTOPDF) seqProperties.eps
+
+gantt.ps: $(FIGURESDIR)/gantt.ps
+	cp figures/gantt.ps .
+
+gantt.pdf: gantt.ps
+	$(PSTOPDF) gantt.ps
