@@ -1,4 +1,0 @@
-SimpleGrapheVertex hérite de RingVertex.
-
---ajout de la méthode nextVertex (aprés link.. ) SimpleGraphe 
-
