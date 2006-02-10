@@ -37,7 +37,7 @@ déplacement dont le nom est passé en paramètre
 \item[clone] clone l'agent en cours (avec son tableau blanc)
 \item[cloneAndSend] clone l'agent en cours (avec son tableau blanc) et
   envoie le clone sur la porte passée en paramètre
-\item[nextStep] bloque l'agent jusqu'à ce que tous les agents de notre
+\item[nextTop] bloque l'agent jusqu'à ce que tous les agents de notre
   graphe  aient appelé  cette  même méthode.  Permet  un mécanisme  de
   synchronisation\\
 
@@ -85,11 +85,13 @@ méthode à la souris, mais est indispensable pour les graphes de grande
 taille.\\
 
 \item \textbf{Aléatoire  : } L'utilisateur choisit un  type d'agent et
-une quantité (1,2,...,*).  Le logiciel se charge alors  de répartir ce
+un nombre d'agents (1,2,...,*).  Le logiciel se charge alors  de répartir ce
 ou ces  agents de  façon aléatoire sur  les sommets du  graphe.  Cette
 méthode pourrait être intéressante pour tester des algorithmes de type
 policiers/voleur, avec plusieurs agents essayant d'en encercler un.
-
+On souhaite également donner la possibilité à l'utilisateur de
+spécifier un algorithme de placement des agents (en affectant, par
+exemple, à chaque sommet une probabilité d'y placer un agent).
 \end{itemize}
 
 \section{Diagrammes de séquences}
