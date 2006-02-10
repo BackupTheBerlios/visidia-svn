@@ -13,7 +13,7 @@ BIBTEX=bibtex
 #FIGURES
 FIGURESDIR= figures
 FIGURESPDF= classes.pdf simple.pdf UseCase.pdf seqDeplacement.pdf seqProperties.pdf \
-            gantt.pdf output.pdf
+            gantt.pdf
 #TEX
 SOURCES=main.tex introduction.tex modele_systeme.tex besoins.tex \
 	organisation.tex lexique.tex biblio.tex desc_choisirAgent.tex \
