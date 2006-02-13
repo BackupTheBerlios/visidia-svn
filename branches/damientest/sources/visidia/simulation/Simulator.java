@@ -1,8 +1,6 @@
 package visidia.simulation;
 
 import visidia.graph.*;
-import visidia.tools.*;
-import visidia.misc.*;
 
 import java.io.*;
 
@@ -12,49 +10,44 @@ public class Simulator {
     private SimpleGraph graph;
 
     // simulator threads set
-    private SimulatorThreadGroup threadGroup;
+    private ThreadGroup threadGroup;
 
     Agent agent;
     Vertex agentVertex;
-    
+    Thread thread;
 	
-    public Simulator( SimpleGraph netGraph, VQueue evtVQueue, 
-                      VQueue ackVQueue, AlgoChoiceInterface choice){
-        this(netGraph, evtVQueue, ackVQueue);
-    }
-
-    /**
-     * cree une instance de simulateur  a partir du graphe "graph", et
-     * des files de messages  "inVQueue" et "outVQueue" qui permettent
-     * de communiquer avec l'interface graphique
-     */
-    public Simulator( SimpleGraph netGraph, VQueue evtVQueue,
-                      VQueue ackVQueue){
+    public Simulator(SimpleGraph netGraph) {
 	graph = (SimpleGraph) netGraph.clone();
-	threadGroup = new SimulatorThreadGroup("simulator");
+	threadGroup = new ThreadGroup("simulator");
         
-        agent = new Agent(this);
-        agentVertex = netGraph.vertex(0);
+        agent = new BasicAgent(this);
+        agentVertex = netGraph.vertex(new Integer(0));
     }
 
     public void moveAgentTo(int door) {
-        System.out.println("Déplacement vers " + Integer.toString(door));
         agentVertex = agentVertex.neighbour(door);
+        System.out.println("Deplacement vers sommet " + 
+                           agentVertex.identity());
     }
 
-    /**
-     * instancie  les thread  a partir  du graphe  et  de l'algorithme
-     *donne   en  parametre   et  lance   l'execution.  Pour   le  bon
-     *fonctionnement du  systeme les deux files  d'attentes passees en
-     *parametre  doivent  etre vide,  mais  ceci  n'est une  condition
-     *necessaire.
-     */
     public void startSimulation(){
-        Thread currThread = new Thread(threadGroup,agent);
-        currThread.setPriority(THREAD_PRIORITY);
-	currThread.start();
-
+        thread = new Thread(threadGroup,agent);
+        thread.setPriority(THREAD_PRIORITY);
+	thread.start();
+        
         System.out.println("Start");
+    }
+
+    public int getArity() {
+        return agentVertex.degree();
+    }
+
+    public void sleep(long millis) {
+        try {
+            thread.sleep(millis);
+        } catch (InterruptedException e) {
+            
+        }
     }
 }
 
