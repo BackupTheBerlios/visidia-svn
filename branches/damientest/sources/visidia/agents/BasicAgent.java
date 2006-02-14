@@ -1,4 +1,4 @@
-package visidia.simulation;
+package visidia.agents;
 
 import java.util.Random;
 
