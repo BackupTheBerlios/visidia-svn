@@ -32,7 +32,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         return whiteBoard;
     }
 
-    public final void moveToDoor(int door) {
+    public void moveToDoor(int door) {
         simulator.moveAgentTo(this, door);
     }
 
