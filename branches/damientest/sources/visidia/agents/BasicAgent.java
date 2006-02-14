@@ -2,6 +2,10 @@ package visidia.agents;
 
 import java.util.Random;
 
+import visidia.simulation.Simulator;
+import visidia.simulation.Agent;
+
+
 public class BasicAgent extends Agent {
 
     public BasicAgent(Simulator sim) {
