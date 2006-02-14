@@ -16,6 +16,9 @@ public class Main {
         graph.put(new Integer(4));
         graph.put(new Integer(5));
 
+        graph.vertex(new Integer(0)).setData("BasicAgent");
+        graph.vertex(new Integer(2)).setData("BasicAgent");
+
         graph.link(new Integer(0), new Integer(1));
         graph.link(new Integer(1), new Integer(2));
         graph.link(new Integer(2), new Integer(3));

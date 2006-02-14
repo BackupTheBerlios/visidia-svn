@@ -14,15 +14,15 @@ public abstract class Agent implements Runnable {
     }
 
     public final void moveToDoor(int door) {
-        simulator.moveAgentTo(door);
+        simulator.moveAgentTo(this, door);
     }
 
     protected void sleep(long millis) {
-        simulator.sleep(millis);
+        simulator.sleep(this, millis);
     }
 
     protected int getArity() {
-        return simulator.getArity();
+        return simulator.getArity(this);
     }
 
     /**
