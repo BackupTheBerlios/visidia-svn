@@ -44,14 +44,25 @@ public class Simulator {
         }
     }
 
-    private void createAgent(String agentName, Vertex vertex,
+    private Agent createAgent(String agentName, Vertex vertex,
                              Hashtable defaultAgentValues) {
         try {
-            Agent ag;
-            String compleName = new String("visidia.agents." + agentName);
+            String completName = new String("visidia.agents." + agentName);
+            return createAgent(Class.forName(completName), vertex, defaultAgentValues);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.toString());
+        }
+    }
+
+    private Agent createAgent(Class agentClass, Vertex vertex,
+                             Hashtable defaultAgentValues) {
+        Agent ag;
+
+        try {
+
             ProcessData data = new ProcessData();
             
-            ag = (Agent) Class.forName(compleName)
+            ag = (Agent) agentClass
                 .getConstructor(new Class [] {Simulator.class, Hashtable.class})
                 .newInstance(new Object [] {this, defaultAgentValues});
 
@@ -62,6 +73,8 @@ public class Simulator {
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
         }
+
+        return ag;
     }
 
     public void moveAgentTo(Agent ag, int door) {
@@ -86,10 +99,7 @@ public class Simulator {
 
         while (enumAgents.hasMoreElements()) {
             ProcessData data = (ProcessData) enumAgents.nextElement();
-
-            data.thread = new Thread(threadGroup,data.agent);
-            data.thread.setPriority(THREAD_PRIORITY);
-            data.thread.start();
+            createThreadFor(data.agent).start();
         }
         System.out.println("Start");
     }
@@ -104,6 +114,29 @@ public class Simulator {
         } catch (InterruptedException e) {
             
         }
+    }
+
+    public void clone(Agent ag) {
+        Agent ag2;
+        ag2 = createAgent(ag.getClass(), getVertexFor(ag), new Hashtable());
+        createThreadFor(ag2).start();
+    }
+
+    public void cloneAndSend(Agent ag, int door) {
+        Agent ag2;
+        ag2 = createAgent(ag.getClass(), 
+                         getVertexFor(ag).neighbour(door),
+                         new Hashtable());
+        createThreadFor(ag2).start();        
+    }
+
+    private Thread createThreadFor(Agent ag) {
+        ProcessData data = getDataFor(ag);
+
+        data.thread = new Thread(threadGroup, ag);
+        data.thread.setPriority(THREAD_PRIORITY);
+
+        return data.thread;
     }
 
     private Thread getThreadFor(Agent ag) {

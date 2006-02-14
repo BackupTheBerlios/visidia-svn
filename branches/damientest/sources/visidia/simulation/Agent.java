@@ -60,6 +60,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         simulator.setVertexProperty(this, key, value);
     }
 
+    public void cloneAndSend(int door) {
+        simulator.cloneAndSend(this, door);
+    }
+
     /**
      * Méthode de l'interface Runnable
      */

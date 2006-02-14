@@ -1,6 +1,7 @@
 package visidia.agents;
 
 import java.util.Random;
+import java.util.Hashtable;
 
 import visidia.simulation.Simulator;
 import visidia.simulation.Agent;
@@ -8,8 +9,8 @@ import visidia.simulation.Agent;
 
 public class BasicAgent extends Agent {
 
-    public BasicAgent(Simulator sim) {
-        super(sim);
+    public BasicAgent(Simulator sim, Hashtable defaultValues) {
+        super(sim, defaultValues);
     }
 
     protected void init() {

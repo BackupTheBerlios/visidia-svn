@@ -8,11 +8,7 @@ import visidia.simulation.Simulator;
 public class Main {
 
     private static SimpleGraph createGraph() {
-        Hashtable hash = new Hashtable();
-
-        hash.put("nbPassages", new Integer(0));
-
-        SimpleGraph graph = new SimpleGraph(hash);
+        SimpleGraph graph = new SimpleGraph();
 
         graph.put(new Integer(0));
         graph.put(new Integer(1));
@@ -21,7 +17,7 @@ public class Main {
         graph.put(new Integer(4));
         graph.put(new Integer(5));
 
-        graph.vertex(new Integer(0)).setData("RecogniseAgent");
+        graph.vertex(new Integer(0)).setData("Virus");
 
         graph.link(new Integer(0), new Integer(1));
         graph.link(new Integer(1), new Integer(2));
