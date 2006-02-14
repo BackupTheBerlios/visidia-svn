@@ -2,11 +2,13 @@ package visidia.graph;
 
 
 import java.util.*;
+import visidia.tools.WithWhiteBoard;
+
 /**
 *
 *
 */
-public interface Vertex {
+public interface Vertex extends WithWhiteBoard {
     /**
      * retourne l'identificateur du sommet.
      */
@@ -71,6 +73,9 @@ public interface Vertex {
      * retourne l'objet reference par ce sommet.
      */	
     public Object getData();
+
+    public Object getProperty(Object key);
+    public void setProperty(Object key, Object value);
 
     public Integer getNext();
     public Integer getPrevious();

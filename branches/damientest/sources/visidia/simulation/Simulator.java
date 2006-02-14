@@ -18,13 +18,18 @@ public class Simulator {
     private Hashtable agents;
 
     public Simulator(SimpleGraph netGraph) {
+        this(netGraph, new Hashtable());
+    }
+
+    public Simulator(SimpleGraph netGraph, Hashtable defaultAgentValues) {
 	graph = (SimpleGraph) netGraph.clone();
 	threadGroup = new ThreadGroup("simulator");
         
-        fillAgentsTable(netGraph);
+        fillAgentsTable(netGraph, defaultAgentValues);
     }
 
-    private void fillAgentsTable(SimpleGraph graph) {
+    private void fillAgentsTable(SimpleGraph graph, 
+                                 Hashtable defaultAgentValues) {
         Enumeration vertices;
 
         agents = new Hashtable();
@@ -35,19 +40,20 @@ public class Simulator {
             String agentName = (String) vertex.getData();
 
             if (agentName != null) 
-                createAgent(agentName, vertex);
+                createAgent(agentName, vertex, defaultAgentValues);
         }
     }
 
-    private void createAgent(String agentName, Vertex vertex) {
+    private void createAgent(String agentName, Vertex vertex,
+                             Hashtable defaultAgentValues) {
         try {
             Agent ag;
             String compleName = new String("visidia.agents." + agentName);
             ProcessData data = new ProcessData();
             
             ag = (Agent) Class.forName(compleName)
-                .getConstructor(new Class [] {Simulator.class})
-                .newInstance(new Object [] {this});
+                .getConstructor(new Class [] {Simulator.class, Hashtable.class})
+                .newInstance(new Object [] {this, defaultAgentValues});
 
             data.vertex = vertex;
             data.agent = ag;
@@ -67,6 +73,14 @@ public class Simulator {
                            + data.vertex.identity());
     }
 
+    public Object getVertexProperty(Agent ag, Object key) {
+        return getVertexFor(ag).getProperty(key);
+    }
+
+    public void setVertexProperty(Agent ag, Object key, Object value) {
+        getVertexFor(ag).setProperty(key, value);
+    }
+
     public void startSimulation(){
         Enumeration enumAgents = agents.elements();
 
@@ -81,17 +95,31 @@ public class Simulator {
     }
 
     public int getArity(Agent ag) {
-        ProcessData data = (ProcessData) agents.get(ag);
-        return data.vertex.degree();
+        return getVertexFor(ag).degree();
     }
 
     public void sleep(Agent ag, long millis) {
-        ProcessData data = (ProcessData) agents.get(ag);
         try {
-            data.thread.sleep(millis);
+            getThreadFor(ag).sleep(millis);
         } catch (InterruptedException e) {
             
         }
+    }
+
+    private Thread getThreadFor(Agent ag) {
+        return getDataFor(ag).thread;
+    }
+
+    private Vertex getVertexFor(Agent ag) {
+        return getDataFor(ag).vertex;
+    }
+
+    private int getAgentIdentityFor(Agent ag) {
+        return getDataFor(ag).agentIdentity;
+    }
+
+    private ProcessData getDataFor(Agent ag) {
+        return (ProcessData)agents.get(ag);
     }
 
     private class ProcessData {

@@ -1,13 +1,18 @@
 package visidia;
 
+import java.util.Hashtable;
+
 import visidia.graph.*;
 import visidia.simulation.Simulator;
 
 public class Main {
 
     private static SimpleGraph createGraph() {
+        Hashtable hash = new Hashtable();
 
-        SimpleGraph graph = new SimpleGraph();
+        hash.put("nbPassages", new Integer(0));
+
+        SimpleGraph graph = new SimpleGraph(hash);
 
         graph.put(new Integer(0));
         graph.put(new Integer(1));
@@ -16,8 +21,7 @@ public class Main {
         graph.put(new Integer(4));
         graph.put(new Integer(5));
 
-        graph.vertex(new Integer(0)).setData("BasicAgent");
-        graph.vertex(new Integer(2)).setData("BasicAgent");
+        graph.vertex(new Integer(0)).setData("RecogniseAgent");
 
         graph.link(new Integer(0), new Integer(1));
         graph.link(new Integer(1), new Integer(2));

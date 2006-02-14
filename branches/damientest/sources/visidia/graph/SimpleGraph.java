@@ -17,13 +17,23 @@ public class SimpleGraph implements Cloneable, Serializable{
     /* liste des noeuds */
     private Hashtable hash;
     
+    private Hashtable defaultVertexValues;
+
     /**
      *Construit un nouveau graphe simple vide.
      */	
     public SimpleGraph(){
-	hash = new Hashtable();
+        this(new Hashtable());
     }
     
+    /**
+     *Construit un nouveau graphe simple vide.
+     */	
+    public SimpleGraph(Hashtable defaultVertexValues){
+	hash = new Hashtable();
+        this.defaultVertexValues = defaultVertexValues;
+    }    
+
     /**
      * Ajoute un sommet identifie par <i>id</i> au graphe.
      * 
@@ -31,13 +41,23 @@ public class SimpleGraph implements Cloneable, Serializable{
      * deja dans le graphe.
      */	
     public void put(Integer id){
+        put(id, defaultVertexValues);
+    }
+
+    /**
+     * Ajoute un sommet identifie par <i>id</i> au graphe.
+     * 
+     * @exception AddIdTwiceException levee si l'identite <i>id</i> existe
+     * deja dans le graphe.
+     */	
+    public void put(Integer id, Hashtable defaultVertexValue) {
 	//System.out.println(id);
 	if( contains(id) ){
 	    System.out.println(id);
 	    throw new AddIdTwiceException();
 	}
 	
-	hash.put(id , new SimpleGraphVertex(id));
+	hash.put(id , new SimpleGraphVertex(id, defaultVertexValue));        
     }
     
     

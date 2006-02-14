@@ -5,11 +5,9 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.io.*;
+
 import visidia.visidiassert.VisidiaAssertion;
-
-
-
-
+import visidia.tools.WhiteBoard;
 
 public class SimpleGraphVertex  implements Vertex,Serializable {
     //    StringNodeState nodeState ;// StringNodeState("passive");
@@ -23,21 +21,27 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
     boolean visualization;
     Hashtable connectingPorts = new Hashtable();
     private int size = 0;
+
+    private WhiteBoard whiteBoard;
     
     /**
      *
      */	
-    public SimpleGraphVertex(Integer nodeId){
+    public SimpleGraphVertex(Integer nodeId) {
+        this(nodeId, new Hashtable());
+    }
+
+    public SimpleGraphVertex(Integer nodeId, Hashtable defaultValues) {
 	id = nodeId;
 	neighbours = new Vector(10,0);
 	edg = new Vector(10,0);
 	visualization=true;
+        whiteBoard = new WhiteBoard(defaultValues);
     }
     
     /**
      *
      */	
-
     void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge){
 	Integer neighborIdentity = sgv.identity();
 	if( !isNeighbour(neighborIdentity)){
@@ -195,7 +199,15 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
 	return data;
     }
 
-     public void setNext(Integer i) {
+    public Object getProperty(Object key) {
+        return whiteBoard.getValue(key);
+    }
+
+    public void setProperty(Object key, Object value) {
+        whiteBoard.setValue(key, value);
+    }
+
+    public void setNext(Integer i) {
 	nextDoor = i;
     }
 
