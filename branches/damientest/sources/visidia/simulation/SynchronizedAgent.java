@@ -10,7 +10,8 @@ import java.util.Hashtable;
 public abstract class SynchronizedAgent extends Agent {                     
 
     private static int nbAgents = 0;
-    private static Integer count = new Integer(0);
+    private static int count = 0;
+    private static Boolean nextTop = new Boolean(false);
 
     public SynchronizedAgent(Simulator sim) {
 	super(sim);
@@ -24,13 +25,13 @@ public abstract class SynchronizedAgent extends Agent {
 
     public void moveToDoor(int door) {
      
-	synchronized( count ) {
-	    count = new Integer(count.intValue() + 1);
+	synchronized( nextTop ) {
+	    ++count;
 
-	    if( count.intValue() < nbAgents ) {
+	    if( count < nbAgents ) {
 		try {
 		    // le wait libère la zone sensible
-		    count.wait();
+		    nextTop.wait();
 		} catch(InterruptedException e) {
 		    System.out.println("Synchronisation problem : " + e);
 		    System.exit(1);
@@ -39,14 +40,13 @@ public abstract class SynchronizedAgent extends Agent {
 		super.moveToDoor(door);
 		return;
 	    }
-	}
 
-	notifyAll();	
+	count = 0;
+	nextTop.notifyAll();	
 
 	/* now we can all move */
 	super.moveToDoor(door);
-	
-	count = new Integer(0);
+	}
     }
 
     

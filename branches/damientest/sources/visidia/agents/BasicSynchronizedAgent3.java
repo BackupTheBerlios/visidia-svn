@@ -7,9 +7,9 @@ import visidia.simulation.*;
 
 import java.util.Hashtable;
 
-public class BasicSynchronizedAgent2 extends SynchronizedAgent {
+public class BasicSynchronizedAgent3 extends SynchronizedAgent {
 
-    public BasicSynchronizedAgent2(Simulator sim, Hashtable hash) {
+    public BasicSynchronizedAgent3(Simulator sim, Hashtable hash) {
         super(sim);
     }
 
@@ -18,7 +18,7 @@ public class BasicSynchronizedAgent2 extends SynchronizedAgent {
         Random rnd = new Random();
 
         do {
-	    sleep(2500);
+	    sleep(300);
             moveToDoor(rnd.nextInt(getArity()));
         } while (1 == 1);
 

@@ -18,7 +18,11 @@ public class Main {
         graph.put(new Integer(5));
 
         graph.vertex(new Integer(0)).setData("BasicSynchronizedAgent1");
+        graph.vertex(new Integer(1)).setData("BasicSynchronizedAgent1");
         graph.vertex(new Integer(2)).setData("BasicSynchronizedAgent2");
+        graph.vertex(new Integer(3)).setData("BasicSynchronizedAgent3");
+        graph.vertex(new Integer(4)).setData("BasicSynchronizedAgent4");
+        graph.vertex(new Integer(5)).setData("BasicSynchronizedAgent4");
 
         graph.link(new Integer(0), new Integer(1));
         graph.link(new Integer(1), new Integer(2));
