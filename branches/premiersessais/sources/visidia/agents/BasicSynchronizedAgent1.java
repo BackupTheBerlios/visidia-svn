@@ -10,7 +10,7 @@ import java.util.Hashtable;
 public class BasicSynchronizedAgent1 extends SynchronizedAgent {
 
     public BasicSynchronizedAgent1(Simulator sim, Hashtable hash) {
-        super(sim);
+        super(sim, hash);
     }
 
     protected void init() {

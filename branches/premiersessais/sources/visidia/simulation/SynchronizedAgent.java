@@ -14,14 +14,13 @@ public abstract class SynchronizedAgent extends Agent {
     private static Boolean nextTop = new Boolean(false);
 
     public SynchronizedAgent(Simulator sim) {
-	super(sim);
-	++nbAgents;
+        this(sim, new Hashtable());
     }
 
     public SynchronizedAgent(Simulator sim, Hashtable hash) {
-	this(sim);
+        super(sim, hash);
+        ++nbAgents;
     }
-
 
     public void moveToDoor(int door) {
      
@@ -41,16 +40,13 @@ public abstract class SynchronizedAgent extends Agent {
 		return;
 	    }
 
-	count = 0;
-	nextTop.notifyAll();	
+            count = 0;
+            nextTop.notifyAll();	
 
-	/* now we can all move */
-	super.moveToDoor(door);
+            /* now we can all move */
+            super.moveToDoor(door);
 	}
     }
-
-    
-
 }
 
 
