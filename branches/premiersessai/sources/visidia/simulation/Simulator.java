@@ -118,12 +118,17 @@ public class Simulator {
 
     public void clone(Agent ag) {
         Agent ag2;
+	System.out.println("L'agent " + getAgentIdentityFor(ag)
+			   + " crée un clone.");
         ag2 = createAgent(ag.getClass(), getVertexFor(ag), new Hashtable());
         createThreadFor(ag2).start();
     }
 
     public void cloneAndSend(Agent ag, int door) {
         Agent ag2;
+	System.out.println("L'agent " + getAgentIdentityFor(ag)
+			   + " crée un clone et l'envoie sur le sommet "
+			   + getVertexFor(ag).neighbour(door).identity());
         ag2 = createAgent(ag.getClass(), 
                          getVertexFor(ag).neighbour(door),
                          new Hashtable());
