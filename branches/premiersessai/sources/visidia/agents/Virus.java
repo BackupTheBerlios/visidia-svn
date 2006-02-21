@@ -19,7 +19,9 @@ public class Virus extends Agent {
         } catch (NoSuchElementException e) {
             setVertexProperty("dejaPasse", this);
 
-            System.out.println("Sommet conquis");
+            System.out.println("Sommet " + getVertexIdentity()
+                               + " conquis par l'agent "
+                               + getIdentity() + " !");
 
             for(int i = 0; i < getArity(); ++i)
                 cloneAndSend(i);

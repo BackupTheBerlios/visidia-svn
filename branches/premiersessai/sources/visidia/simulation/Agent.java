@@ -44,6 +44,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         return simulator.getArity(this);
     }
 
+    protected int getVertexIdentity() {
+        return simulator.getVertexIdentity(this);
+    }
+
+    protected int getIdentity() {
+        return simulator.getIdentity(this);
+    }
+
     public Object getProperty(Object key) {
         return whiteBoard.getValue(key);
     }

@@ -116,6 +116,14 @@ public class Simulator {
         }
     }
 
+    public int getVertexIdentity(Agent ag) {
+        return getVertexFor(ag).identity().intValue();
+    }
+
+    public int getIdentity(Agent ag) {
+        return getAgentIdentityFor(ag);
+    }
+
     public void clone(Agent ag) {
         Agent ag2;
 	System.out.println("L'agent " + getAgentIdentityFor(ag)
@@ -126,12 +134,16 @@ public class Simulator {
 
     public void cloneAndSend(Agent ag, int door) {
         Agent ag2;
-	System.out.println("L'agent " + getAgentIdentityFor(ag)
-			   + " crée un clone et l'envoie sur le sommet "
-			   + getVertexFor(ag).neighbour(door).identity());
+
         ag2 = createAgent(ag.getClass(), 
                          getVertexFor(ag).neighbour(door),
                          new Hashtable());
+
+	System.out.println("L'agent " + getAgentIdentityFor(ag)
+			   + " crée un clone (num " + getAgentIdentityFor(ag2)
+                           + ") et l'envoie sur le sommet "
+			   + getVertexFor(ag).neighbour(door).identity());
+        
         createThreadFor(ag2).start();        
     }
 
