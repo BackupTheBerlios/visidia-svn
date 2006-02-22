@@ -11,7 +11,7 @@ public abstract class SynchronizedAgent extends Agent {
 
     private static int nbAgents = 0;
     private static int count = 0;
-    private static Boolean nextTop = new Boolean(false);
+    private static Boolean synchronisation = new Boolean(true);
 
     public SynchronizedAgent(Simulator sim) {
         this(sim, new Hashtable());
@@ -24,13 +24,13 @@ public abstract class SynchronizedAgent extends Agent {
 
     public void moveToDoor(int door) {
      
-	synchronized( nextTop ) {
+	synchronized( synchronisation ) {
 	    ++count;
 
 	    if( count < nbAgents ) {
 		try {
 		    // le wait libère la zone sensible
-		    nextTop.wait();
+		    synchronisation.wait();
 		} catch(InterruptedException e) {
 		    System.out.println("Synchronisation problem : " + e);
 		    System.exit(1);
@@ -41,7 +41,7 @@ public abstract class SynchronizedAgent extends Agent {
 	    }
 
             count = 0;
-            nextTop.notifyAll();	
+            synchronisation.notifyAll();	
 
             /* now we can all move */
             super.moveToDoor(door);
