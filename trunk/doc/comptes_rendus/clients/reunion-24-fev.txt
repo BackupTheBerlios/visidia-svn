@@ -1,0 +1,28 @@
+compte-rendu de la réunion du 24/02/2006
+----------------------------------------
+
+Rdv 10h au LABRI.
+Mr Derbel est présent.
+Toute l'équipe est présente (sauf JB). 
+
+La discussion tourne autour de le premier essai de la version de ViSiDiA avec les agents mobile.
+et sur l'interface graphique.
+
+Detail :
+--------
+1/-Demonstration:
+	Damien a présenté une démonstration rapide du travail effectuer sur la premiere version,
+ notament l'utilisation des classes: BasicAgent,BasicSynchronizedAgent,Virus et RecogniseAgent.
+la remarque la plus intéréssante sur le déroulement des testes conserne la synchronisation, 
+la version actuelle presente une synchronisation sur le move(), M.Derbel veut une synchronisation
+ plus large sur un ensemble d'opération qui se termine par un nextPulse() qui lui block les 
+agents en attention le nouveau top. Ceci donnera à l'utilisateur une grande souplesse, et lui 
+lesse le choix de sa synchronisation.
+
+
+2/-L'interface graphique :
+-M.Derbel, nous a expliquer un peu le role de certain classes de l'interface graphique comme 
+ SimpleGraphe, MovableObject, SimulationPanel et SimulEvent.
+
+- Une autre façon est de modifier sentMessage() et au lieu de simuler l'envoi de messages,
+on simule l'envoi d'Agents.
