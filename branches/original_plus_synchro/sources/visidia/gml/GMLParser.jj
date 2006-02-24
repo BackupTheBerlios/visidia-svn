@@ -1,0 +1,178 @@
+PARSER_BEGIN(GMLParser)
+package visidia.gml;
+
+import visidia.graph.*;
+public class GMLParser{
+	public static void main(String[] args) throws ParseException { 
+		GMLParser parser = new GMLParser(System.in);
+		parser.Input().print();
+	}
+}
+class ISO_8859_1{
+	/**
+	* return the character named by teh string <code> spec </code>.
+	* if any character isn't named by <code> spec </code>, it return -1.
+	*/
+	static int specToChar(String name){
+		 return '*';
+	}
+	
+	/**
+	* return the character name. If the characater does not have any name it return null.
+	*/
+	static String charToSpec(char c){
+		return "no yet implemented";
+	}
+}
+PARSER_END(GMLParser)
+
+SKIP :
+{
+  < " " > | < "\t" > | < "\n" > | < "\r\n" >
+}
+
+
+
+
+<WITHING_ISO_8859_1_CHARACTER_NAME>
+MORE:
+{
+	";" 
+	{	// replace the name by the corresponding character.
+		int start = image.toString().lastIndexOf('&');
+		int len = image.length();
+		if((start == -1) || (len < 2)){
+			throw new RuntimeException("a bug in ISO-8859-1 character name (&name;) parsing");
+		}
+		int character = ISO_8859_1.specToChar(image.substring(start, len - 1));
+		if(character != -1){
+			image.delete(start, len);
+			image.append((char) character);
+		}
+	} : WITHING_STRING
+
+|	<(~[";","\""])+>	
+}
+
+<WITHING_STRING>
+MORE:
+{
+	"&" : WITHING_ISO_8859_1_CHARACTER_NAME
+|	<(~["&","\""])+>
+}
+<WITHING_STRING>
+TOKEN:
+{
+	<STRING: "\"">
+	{
+		matchedToken.image = image.toString();
+	} : DEFAULT
+}
+
+<DEFAULT>
+MORE:
+{
+	<"\"">: WITHING_STRING
+}
+
+<DEFAULT>
+TOKEN :
+{
+	<#SIGN: ("+"|"-")?>
+|	<#DIGIT: ["0"-"9"]>
+|	<INTEGER: <SIGN>(<DIGIT>)+>
+|	<#MANTISSA: ("E"<SIGN><DIGIT>)?>
+|	<REAL: <SIGN>(<DIGIT>)* "." (<DIGIT>)* <MANTISSA>> 
+|	<KEY: ["a"-"z","A"-"Z" ](["a"-"z","A"-"Z","0"-"9"])*>
+|	<#ASCII_7_BIT_SET: ["\u0000"-"\u007F"]> 
+}
+
+SimpleGraph Input() :
+{SimpleGraph graph;}
+{
+	graph = GML() <EOF>{
+		return graph;
+	}
+}
+
+SimpleGraph GML():
+{GMLList list;}
+{
+	list = List(){
+		return GMLGraphExtractor.extractGraph(list);
+		
+	}
+}
+
+GMLList List():
+{GMLList list = new GMLList();}
+{
+	(Pair(list))*
+	{return list;}
+}
+
+void Pair(GMLList list):
+{Token token; Object value;}
+{
+	token = <KEY>
+	value = Value(){
+		list.add(token.image, value);
+	}
+}
+
+Object Value():
+{Object value;}
+{
+	value = IntegerValue() { return value; }
+	| value = DoubleValue() { return value; } 
+	| value = StringValue() { return value; } 
+	| "[" value = List() "]" { return value; }
+}
+
+Integer IntegerValue():
+{}
+{
+	<INTEGER>
+	{
+		//System.out.println("integer ="+token.image);
+		Integer val = null;
+		try{
+			val = new Integer(token.image);
+		}
+		catch(NumberFormatException e){
+			//throw new ParseException(" bad numerique format at line "+inputStream.getEndLine()+", column "+inputStream.getEndColumn()+" : "+token.image);
+		}
+		return val;
+	}
+			
+}
+
+
+Double DoubleValue():
+{}
+{
+	<REAL>
+	{
+		//System.out.println("real ="+token.image);
+		Double val = null;
+		try{
+			val = new Double(token.image);
+		}
+		catch(NumberFormatException e){
+			//throw new ParseException(" bad numerique format at line "+inputStream.getEndLine()+", column "+inputStream.getEndColumn()+" : "+token.image);
+		}
+		return val;
+	}
+}
+
+
+String StringValue():
+{}
+{
+	<STRING>
+	{
+		//System.out.println("string ="+token.image);
+		return token.image;
+	}
+}
+
