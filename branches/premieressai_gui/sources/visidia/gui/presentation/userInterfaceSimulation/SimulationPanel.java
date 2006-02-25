@@ -184,10 +184,12 @@ public SimulationPanel(AgentsSimulationWindow simulation) {
      public void paintComponent(Graphics g) {
 	 super.paintComponent(g);
 
-	 if (fenetreDeSimulationDist == null )
+	 if (fenetreDeSimulationDist == null && agentsSimulationWindow == null)
 	     fenetreDeSimulation.getVueGraphe().dessiner(this,g);
-	 else if ( fenetreDeSimulation == null )
+	 else if ( fenetreDeSimulation == null && agentsSimulationWindow == null)
 	     fenetreDeSimulationDist.getVueGraphe().dessiner(this,g);
+	 else if ( fenetreDeSimulation == null && fenetreDeSimulationDist == null)
+	     agentsSimulationWindow.getVueGraphe().dessiner(this,g);
 
 	 g.setColor(Color.red);
 	 SentMessage sentMessage;

@@ -279,7 +279,7 @@ public class AgentsSimulationWindow
         algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
         
 	algo.addActionListener(this);
-	menuBar.add(algo);
+	//menuBar.add(algo);
         
 	rules = new JMenu("Rules");
 	rules.getPopupMenu().setName("PopRules");
@@ -822,35 +822,35 @@ public class AgentsSimulationWindow
     public void menuAlgo(JMenuItem mi) {
 
 	//nada jb
-//         if (mi == algo_open_vertices){
-//             if (!selection.estVide()){
-//                 if(DistributedAlgoSimulator.estStandalone()){
-//                     OpenAlgo.openForVertex(selection.elements(),this);
-//                     System.out.println("choix de l'algo reussi");}
-//                 else
-//                     OpenAlgoApplet.openForVertices(selection.elements(),this);
-//                 but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
-//             }
-//         }
-//         if(mi == algo_open){
-//             if(simulationRules){
-//                 JOptionPane.showMessageDialog(this, "you had already entered rules",
-// 					      "warning",
-// 					      JOptionPane.WARNING_MESSAGE);
-//             }
+        if (mi == algo_open_vertices){
+            if (!selection.estVide()){
+                if(DistributedAlgoSimulator.estStandalone()){
+ //                    OpenAlgo.openForVertex(selection.elements(),this);
+                    System.out.println("choix de l'algo reussi");}
+                else
+ //                    OpenAlgoApplet.openForVertices(selection.elements(),this);
+                but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
+            }
+        }
+        if(mi == algo_open){
+            if(simulationRules){
+                JOptionPane.showMessageDialog(this, "you had already entered rules",
+					      "warning",
+					      JOptionPane.WARNING_MESSAGE);
+            }
             
-//             else {
-// 		// PFA2003
-// 		boolean ok = true;
-//                 if(DistributedAlgoSimulator.estStandalone())
-//                     ok = OpenAlgo.open(this);
-//                 else
-//                     OpenAlgoApplet.open(this);
-//                 simulationAlgo = ok ;
-//                 if(! but_start.isEnabled())
-// 		    but_start.setEnabled(ok);
-//             }
-//         }
+            else {
+		// PFA2003
+		boolean ok = true;
+		//                if(DistributedAlgoSimulator.estStandalone())
+		    //                    ok = OpenAlgo.open(this);
+		    //               else
+ //                    OpenAlgoApplet.open(this);
+                simulationAlgo = ok ;
+                if(! but_start.isEnabled())
+		    but_start.setEnabled(ok);
+            }
+        }
     }
     
     /*************************************************************/
