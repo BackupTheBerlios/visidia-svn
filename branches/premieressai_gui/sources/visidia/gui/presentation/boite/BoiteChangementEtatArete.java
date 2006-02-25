@@ -20,8 +20,10 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
      // instance Variables
     /** The parent window : the box will be centered on this window */
     protected FenetreDeSimulationDist parentDist;
+    protected AgentsSimulationWindow parentAgent;
     protected FenetreDeSimulation parent;
-     /** The JDialog where all will be painted */
+
+    /** The JDialog where all will be painted */
     protected JDialog dialog;
    /** The Ok button */
     protected JButton buttonOk;
@@ -50,6 +52,11 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
 	this(parent, uneSelection , "Edges properties");
     }
     
+    public BoiteChangementEtatArete(AgentsSimulationWindow parent, 
+				    Ensemble uneSelection) {
+	this(parent, uneSelection , "Edges properties");
+    }
+
     public BoiteChangementEtatArete(FenetreDeSimulationDist parent, 
 				    Ensemble uneSelection) {
         this(parent, uneSelection , "Edges properties");
@@ -80,7 +87,28 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
     
   }
     
-    public BoiteChangementEtatArete(FenetreDeSimulationDist parentDist,
+   public BoiteChangementEtatArete(AgentsSimulationWindow parent,
+			       Ensemble uneSelection,
+			       String titre) {
+    
+    this.dialog = new JDialog(parent, titre);
+    this.parentAgent = parent;
+    this.modif = false;
+    
+    this.selectionAretes = uneSelection;
+    
+    etatPanel = new JPanel();
+    but_marquage = new JCheckBox("Activate edge(s) state");
+    but_marquage.addItemListener(this);
+    etatPanel.add(but_marquage);
+    
+    dialog.getContentPane().setLayout(new BorderLayout());
+    dialog.getContentPane().add(etatPanel, BorderLayout.NORTH);
+    ajouterBoutons();
+    
+  }
+  
+   public BoiteChangementEtatArete(FenetreDeSimulationDist parentDist,
 				    Ensemble uneSelection,
 				    String titre) {
 	

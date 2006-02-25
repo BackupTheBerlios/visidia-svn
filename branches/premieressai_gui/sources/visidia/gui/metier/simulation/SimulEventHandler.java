@@ -17,6 +17,7 @@ public class SimulEventHandler extends Thread {
 
     // instance variables
     protected FenetreDeSimulation fenetreSimul;
+    protected AgentsSimulationWindow agentsSimulationWindow;
     protected FenetreDeSimulationDist fenetreSimulDist;
     /* events file from the simulator
      * that will be traduce to the graphics interface
@@ -35,6 +36,13 @@ public class SimulEventHandler extends Thread {
 	this.ackPipe = ackPipe;
 	this.fenetreSimul = f;
     }
+
+    public SimulEventHandler(AgentsSimulationWindow w, VQueue evtPipe, VQueue ackPipe){	
+	this.evtPipe = evtPipe;
+	this.ackPipe = ackPipe;
+	this.agentsSimulationWindow = w;
+    }
+
     public SimulEventHandler(FenetreDeSimulationDist f, VQueue evtPipe, VQueue ackPipe){	
 	this.evtPipe = evtPipe;
 	this.ackPipe = ackPipe;

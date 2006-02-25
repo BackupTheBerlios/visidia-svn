@@ -1159,6 +1159,21 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	
     }
 
+    public void createAgentsSimulationWindow(){
+	try {
+	    selection.deSelect();
+	    AgentsSimulationWindow agentsSimulationWindow = 
+		new AgentsSimulationWindow(vueGraphe.cloner(),fichier_edite,this);
+	    agentsSimulationWindow.show();
+	    
+	    
+	} catch(Exception excpt) {
+	    System.out.println("Problem: " + excpt);
+	    excpt.printStackTrace();
+	}
+	
+    }
+
      public void creerFenetreSimulationDist(){
 	try {
 	    selection.deSelect();

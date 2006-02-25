@@ -14,11 +14,11 @@ import visidia.gui.donnees.*;
  * ou de plusieurs sommets selectionne elle est appelee quand on ne    
  * selectionne que des sommets et qu'on appui sur le bouton info     
 */
-public class BoiteChangementEtatSommet
+public class AgentBoxChangingVertexState
     implements ActionListener, ItemListener, VueEtatPanel
 {
     /** La fenetre parent : la boite sera centree sur cette fenetre.*/
-    protected FenetreDeSimulation parent;
+    protected AgentsSimulationWindow parent;
     /** Le JDialog dans lequel on va tout afficher.*/
     protected JDialog dialog;
     /** Le bouton Ok*/
@@ -46,7 +46,7 @@ public class BoiteChangementEtatSommet
      * Cree une nouvelle boite pour afficher les caractéristiques de
      * "un_objet".  Ces caractéristiques seront modifiables.
      */
-    public BoiteChangementEtatSommet(FenetreDeSimulation parent, SommetDessin sommet) {
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin sommet) {
 	this(parent, sommet, "Vertex properties state");
     }
     
@@ -54,7 +54,7 @@ public class BoiteChangementEtatSommet
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public BoiteChangementEtatSommet(FenetreDeSimulation parent, SommetDessin sommet, 
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin sommet, 
 				     String titre) {
     
     this.dialog = new JDialog(parent, titre);

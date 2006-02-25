@@ -19,6 +19,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 
     private FenetreDeSimulationDist fenetreDeSimulationDist;
     private FenetreDeSimulation fenetreDeSimulation;
+    private AgentsSimulationWindow agentsSimulationWindow;
     protected FormeDessin objet_sous_souris ;
     protected int PAS_PAR_DEFAUT = 10 ; 
     protected int lePas;
@@ -48,6 +49,44 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
      **/
     public SimulationPanel(FenetreDeSimulation simulation) {
 	fenetreDeSimulation = simulation;
+	objet_sous_souris = null;
+	lePas = PAS_PAR_DEFAUT;
+	
+	if(simulation.getVueGraphe().getGraphe().ordre()!= 0)
+	    {  
+		size = simulation.getVueGraphe().donnerDimension();
+		this.setPreferredSize(size);
+		this.revalidate();		
+	    } else {
+		size = new Dimension(0,0);
+	    }
+
+	selectionUnit = new SelectionUnit
+	    (new SelectionGetData () {
+		    public SelectionDessin getSelectionDessin () {
+			return fenetreDeSimulation.selection;
+		     }
+		     public UndoInfo getUndoInfo () throws NoSuchMethodException {
+			 throw new NoSuchMethodException ("undo processing not used");
+		     }
+		     public RecoverableObject getRecoverableObject () {
+			 return fenetreDeSimulation.getVueGraphe ();
+		     }
+		 },
+	      (JPanel) this);
+
+	 addMouseListener(selectionUnit);
+	 addMouseListener(this);
+	 addMouseMotionListener(selectionUnit);
+	 addMouseMotionListener(this);
+	 addKeyListener(this);
+
+	 timer = new javax.swing.Timer(30,(ActionListener)this);
+	 setBackground(new Color(0xe6e6fa));
+     }
+
+public SimulationPanel(AgentsSimulationWindow simulation) {
+	agentsSimulationWindow = simulation;
 	objet_sous_souris = null;
 	lePas = PAS_PAR_DEFAUT;
 	
