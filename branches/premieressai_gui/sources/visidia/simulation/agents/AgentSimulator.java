@@ -87,11 +87,12 @@ public class AgentSimulator {
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
-        return getVertexFor(ag).getProperty(key);
+        return "coucou";
+        // return getVertexFor(ag).getProperty(key);
     }
 
     public void setVertexProperty(Agent ag, Object key, Object value) {
-        getVertexFor(ag).setProperty(key, value);
+        //getVertexFor(ag).setProperty(key, value);
     }
 
     public void startSimulation(){
