@@ -6,6 +6,7 @@ import visidia.agents.*;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Vector;
 
 public class Simulator {
 
@@ -24,8 +25,8 @@ public class Simulator {
     public Simulator(SimpleGraph netGraph, Hashtable defaultAgentValues) {
 	graph = (SimpleGraph) netGraph.clone();
 	threadGroup = new ThreadGroup("simulator");
-        
-        fillAgentsTable(netGraph, defaultAgentValues);
+
+	fillAgentsTable(netGraph, defaultAgentValues);
     }
 
     private void fillAgentsTable(SimpleGraph graph, 
@@ -37,10 +38,15 @@ public class Simulator {
 
         while (vertices.hasMoreElements()) {
             Vertex vertex = (Vertex) vertices.nextElement();
-            String agentName = (String) vertex.getData();
+	    Vector vec = (Vector)vertex.getData();
+            Enumeration e = vec.elements();
 
-            if (agentName != null) 
-                createAgent(agentName, vertex, defaultAgentValues);
+	    while(e.hasMoreElements()) {
+		String agentName = (String)e.nextElement();
+
+		if (agentName != null) 
+		    createAgent(agentName, vertex, defaultAgentValues);
+	    }
         }
     }
 
@@ -61,15 +67,17 @@ public class Simulator {
         try {
 
             ProcessData data = new ProcessData();
-            
+ 
             ag = (Agent) agentClass
                 .getConstructor(new Class [] {Simulator.class, Hashtable.class})
                 .newInstance(new Object [] {this, defaultAgentValues});
 
-            data.vertex = vertex;
+	    data.vertex = vertex;
             data.agent = ag;
-            data.agentIdentity = agents.size();
             agents.put(ag, data);
+	    System.out.println("Creation de l'agent " + ag.getIdentity()
+			       + " sur le sommet " + vertex.identity());
+
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
         }
@@ -81,7 +89,7 @@ public class Simulator {
         ProcessData data = (ProcessData) agents.get(ag);
 
         data.vertex = data.vertex.neighbour(door);
-        System.out.println("L'agent " + data.agentIdentity
+        System.out.println("L'agent " + ag.getIdentity()
                            + " se deplace vers le sommet "
                            + data.vertex.identity());
     }
@@ -120,13 +128,13 @@ public class Simulator {
         return getVertexFor(ag).identity().intValue();
     }
 
-    public int getIdentity(Agent ag) {
-        return getAgentIdentityFor(ag);
-    }
+//     public int getIdentity(Agent ag) {
+//         return getAgentIdentityFor(ag);
+//     }
 
     public void clone(Agent ag) {
         Agent ag2;
-	System.out.println("L'agent " + getAgentIdentityFor(ag)
+	System.out.println("L'agent " + ag.getIdentity()
 			   + " crée un clone.");
         ag2 = createAgent(ag.getClass(), getVertexFor(ag), new Hashtable());
         createThreadFor(ag2).start();
@@ -139,8 +147,8 @@ public class Simulator {
                          getVertexFor(ag).neighbour(door),
                          new Hashtable());
 
-	System.out.println("L'agent " + getAgentIdentityFor(ag)
-			   + " crée un clone (num " + getAgentIdentityFor(ag2)
+	System.out.println("L'agent " + ag.getIdentity()
+			   + " crée un clone (num " + ag2.getIdentity()
                            + ") et l'envoie sur le sommet "
 			   + getVertexFor(ag).neighbour(door).identity());
         
@@ -164,16 +172,16 @@ public class Simulator {
         return getDataFor(ag).vertex;
     }
 
-    private int getAgentIdentityFor(Agent ag) {
-        return getDataFor(ag).agentIdentity;
-    }
+//     private int getAgentIdentityFor(Agent ag) {
+//         return getDataFor(ag).agentIdentity;
+//     }
 
     private ProcessData getDataFor(Agent ag) {
         return (ProcessData)agents.get(ag);
     }
 
     private class ProcessData {
-        public int    agentIdentity;
+	//        public int    agentIdentity;
         public Agent  agent;
         public Vertex vertex;
         public Thread thread;

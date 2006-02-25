@@ -1,6 +1,7 @@
 package visidia;
 
 import java.util.Hashtable;
+import java.util.Vector;
 
 import visidia.graph.*;
 import visidia.simulation.Simulator;
@@ -17,13 +18,32 @@ public class Main {
 
     private static SimpleGraph createSynchronized() {
         SimpleGraph graph = createGraph();
+	Vector<String> vec;
 
-        graph.vertex(new Integer(0)).setData("BasicSynchronizedAgent1");
-        graph.vertex(new Integer(1)).setData("BasicSynchronizedAgent1");
-        graph.vertex(new Integer(2)).setData("BasicSynchronizedAgent2");
-        graph.vertex(new Integer(3)).setData("BasicSynchronizedAgent3");
-        graph.vertex(new Integer(4)).setData("BasicSynchronizedAgent4");
-        graph.vertex(new Integer(5)).setData("BasicSynchronizedAgent4");
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent1");
+	vec.addElement("BasicSynchronizedAgent2");
+        graph.vertex(new Integer(0)).setData(vec);
+
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent3");
+        graph.vertex(new Integer(1)).setData(vec);
+
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent1");
+        graph.vertex(new Integer(2)).setData(vec);
+
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent2");
+        graph.vertex(new Integer(3)).setData(vec);
+
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent1");
+        graph.vertex(new Integer(4)).setData(vec);
+
+	vec = new Vector<String>();
+	vec.addElement("BasicSynchronizedAgent3");
+        graph.vertex(new Integer(5)).setData(vec);
 
         return graph;
     }
@@ -77,7 +97,7 @@ public class Main {
 
     public static void main (String []args) {
 
-        SimpleGraph graph = createVirus();
+        SimpleGraph graph = createSynchronized();
         Simulator sim = new Simulator(graph);
         sim.startSimulation();
     }
