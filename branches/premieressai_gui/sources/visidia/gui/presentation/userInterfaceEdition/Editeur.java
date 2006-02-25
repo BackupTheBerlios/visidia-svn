@@ -73,7 +73,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
     protected JMenuItem edition_select_all, edition_duplication,edition_cut, edition_properties;
     protected JMenuItem edition_undo, edition_redo, edition_undoBySet, edition_redoBySet, edition_setNbOp ;
     protected JToolBar toolBar;
-    protected JButton but_new, but_open, but_save, but_duplicate, but_info, but_help, but_undo, but_redo , but_simulation, but_simulation_distribue;
+    protected JButton but_new, but_open, but_save, but_duplicate, but_info, but_help, but_undo, but_redo , but_simulation, but_agents_simulation, but_simulation_distribue;
     protected JCheckBoxMenuItem option_labels;
     protected JMenuItem option_dictionnaire ;
 
@@ -414,6 +414,13 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	but_simulation.addActionListener(this);
 	toolBar.add(but_simulation);
 	
+	toolBar.addSeparator();
+	
+	but_agents_simulation = new JButton("Agents Simulation");
+	but_agents_simulation.setToolTipText("Agents Simulation");
+	but_agents_simulation.setAlignmentY(CENTER_ALIGNMENT);
+	but_agents_simulation.addActionListener(this);
+	toolBar.add(but_agents_simulation);
 
 	toolBar.addSeparator();
 	
@@ -424,6 +431,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	toolBar.add(but_simulation_distribue);
 		
 	content.add(toolBar, BorderLayout.NORTH);
+
     }
     
     // disable the button not used for the applet
@@ -558,6 +566,11 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    grapheVisuPanel.repaint();
 	}
 	else if(b == but_simulation){
+	    commandeRenumeroter();
+	    creerFenetreSimulation();
+	    grapheVisuPanel.repaint();
+	}
+	else if(b == but_agents_simulation){
 	    commandeRenumeroter();
 	    creerFenetreSimulation();
 	    grapheVisuPanel.repaint();
