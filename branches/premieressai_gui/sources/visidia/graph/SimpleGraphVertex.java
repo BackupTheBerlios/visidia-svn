@@ -1,17 +1,17 @@
 package visidia.graph;
 
-
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.io.*;
+
 import visidia.visidiassert.VisidiaAssertion;
+import visidia.misc.ForbiddenCallException;
+import visidia.tools.agents.WhiteBoard;
+import visidia.tools.agents.WithWhiteBoard;
 
-
-
-
-
-public class SimpleGraphVertex  implements Vertex,Serializable {
+public class SimpleGraphVertex  implements Vertex,Serializable,
+                                           WithWhiteBoard {
     //    StringNodeState nodeState ;// StringNodeState("passive");
     Integer id;
     Integer nextDoor;
@@ -24,19 +24,24 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
     Hashtable connectingPorts = new Hashtable();
     private int size = 0;
     
+    private WhiteBoard whiteBoard = null;
+
     /**
      *
      */	
     public SimpleGraphVertex(Integer nodeId){
+        this(nodeId, null);
+    }
+    
+    public SimpleGraphVertex(Integer nodeId, Hashtable defaults) {
 	id = nodeId;
 	neighbours = new Vector(10,0);
 	edg = new Vector(10,0);
 	visualization=true;
+
+        if (defaults != null)
+            whiteBoard = new WhiteBoard(defaults);
     }
-    
-    /**
-     *
-     */	
 
     void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge){
 	Integer neighborIdentity = sgv.identity();
@@ -195,7 +200,46 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
 	return data;
     }
 
-     public void setNext(Integer i) {
+    /**
+     * Accesses  the   vertex  white  board  and   returns  the  value
+     * associated to  the key. To have  a white board  on this vertex,
+     * you must use the constructor with the Hashtable. 
+     *
+     * @param key The key for the value you want
+     *
+     * @see #setProperty(Object, Object)
+     * @see #SimpleGraphVertex(Integer, Hashtable)
+     */
+    public Object getProperty(Object key) {
+        if (whiteBoard == null)
+            throw new
+                ForbiddenCallException("This vertex hasn't got any white " +
+                                       "board. You should have pass a " +
+                                       "Hashtable to the constructor");
+
+        return whiteBoard.getValue(key);
+    }
+
+    /**
+     * Allow the  user to save a value  in the white board.  To have a
+     * white board on  this vertex, you must use  the constructor with
+     * the Hashtable.
+     *
+     * @param key The key for the value you want
+     *
+     * @see #getProperty(Object)
+     * @see #SimpleGraphVertex(Integer, Hashtable)
+     */
+    public void setProperty(Object key, Object value) {
+        if (whiteBoard == null)
+            throw new
+                ForbiddenCallException("This vertex hasn't got any white " +
+                                       "board. You should have pass a " +
+                                       "Hashtable to the constructor");
+        whiteBoard.setValue(key, value);
+    }
+
+    public void setNext(Integer i) {
 	nextDoor = i;
     }
 

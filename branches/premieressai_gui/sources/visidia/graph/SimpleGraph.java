@@ -9,26 +9,33 @@ import java.io.*;
 import visidia.visidiassert.VisidiaAssertion;
 
 /**
- * Cette classe implémente une une structure de graphe
- * par liste de successeurs. Chaque noeud est représenté par
+ * Cette classe implemente une une structure de graphe
+ * par liste de successeurs. Chaque noeud est represente par
  * un nombre entier unique.
  */
 public class SimpleGraph implements Cloneable, Serializable{
     /* liste des noeuds */
     private Hashtable hash;
+
+    private Hashtable defaultVertexValues = null;
     
     /**
      *Construit un nouveau graphe simple vide.
      */	
     public SimpleGraph(){
-	hash = new Hashtable();
+        this(null);
     }
     
+    public SimpleGraph(Hashtable defaultVertexValues) {
+	hash = new Hashtable();
+        this.defaultVertexValues = defaultVertexValues;
+    }
+
     /**
-     * Ajoute un sommet identifié par <i>id</i> au graphe.
+     * Ajoute un sommet identifie par <i>id</i> au graphe.
      * 
-     * @exception AddIdTwiceException levée si l'identité <i>id</i> existe
-     * déjà dans le graphe.
+     * @exception AddIdTwiceException levee si l'identite <i>id</i> existe
+     * deja� dans le graphe.
      */	
     public void put(Integer id){
 	//System.out.println(id);
@@ -37,7 +44,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	    throw new AddIdTwiceException();
 	}
 	
-	hash.put(id , new SimpleGraphVertex(id));
+        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues));
     }
     
     
