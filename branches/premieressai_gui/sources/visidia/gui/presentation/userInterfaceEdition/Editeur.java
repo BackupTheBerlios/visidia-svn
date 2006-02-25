@@ -572,7 +572,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	}
 	else if(b == but_agents_simulation){
 	    commandeRenumeroter();
-	    creerFenetreSimulation();
+	    createAgentsSimulationWindow();
 	    grapheVisuPanel.repaint();
 	}
 	else if (b == but_simulation_distribue){

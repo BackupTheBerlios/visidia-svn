@@ -32,7 +32,7 @@ public class AgentsSimulationWindow
     implements Serializable, ActionListener, WindowListener, ChangeListener,
 	       ApplyStarRulesSystem {
     
-    protected static final String GENERAL_TITLE = "Algroithm Simulator";
+    protected static final String GENERAL_TITLE = "Agents Simulator";
     protected String algoTitle;
     
     // instance of simulator for stop/pause/start actions
