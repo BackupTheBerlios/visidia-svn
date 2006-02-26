@@ -14,7 +14,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     
     private AgentSimulator simulator;
     private WhiteBoard whiteBoard;
-        
+    private int agentIdentity;
+    private static int createdAgentCount = 0;
+
     public Agent(AgentSimulator sim) {
         this(sim, new Hashtable());
     }
@@ -22,6 +24,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     public Agent(AgentSimulator sim, Hashtable defaultValues) {
         simulator = sim;
         whiteBoard = new WhiteBoard(defaultValues);
+	agentIdentity = createdAgentCount++;
     }
 
     public void setWhiteBoard(WhiteBoard wb) {
@@ -49,7 +52,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     protected int getIdentity() {
-        return simulator.getIdentity(this);
+        return agentIdentity;
     }
 
     public Object getProperty(Object key) {
