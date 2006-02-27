@@ -24,7 +24,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
 
-        setAgentMover("LinearAgentMover");
+        setAgentMover("RandomAgentMover");
         vertexMarks = new boolean [nbVertices];
 
         while ( nbSelectedEdges < (nbVertices - 1) )
@@ -34,7 +34,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                     mark(getVertexIdentity());
                     nbVertices ++;
                 }
-                sleep(500);
+                sleep(200);
                 move();
             }
     }

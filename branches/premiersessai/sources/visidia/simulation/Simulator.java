@@ -93,6 +93,10 @@ public class Simulator {
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
 
+        VisidiaAssertion.verify( (0 <= door) && (door <= getArity(ag)) ,
+                                 "In moveAgentTo(ag,door) : This door doesn't exist !",
+                                 this);
+
         data.vertex = data.vertex.neighbour(door);
         System.out.println("The agent " + ag.getIdentity()
                            + " is moving to the vertex "

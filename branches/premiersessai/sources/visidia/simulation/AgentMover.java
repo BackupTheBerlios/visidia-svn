@@ -2,8 +2,6 @@
 
 package visidia.simulation;
 
-
-
 /**
  * Abstract class providing different moving types for the agents. 
  */

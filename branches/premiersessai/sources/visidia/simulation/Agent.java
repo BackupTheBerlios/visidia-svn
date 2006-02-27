@@ -11,6 +11,8 @@ import java.lang.reflect.Constructor;
 import visidia.tools.WithWhiteBoard;
 import visidia.tools.WhiteBoard;
 
+import visidia.visidiassert.*;
+
 public abstract class Agent implements Runnable, WithWhiteBoard {
     
     private Simulator simulator;
@@ -81,7 +83,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Move the Agent using the AgentMover
      */
     public void move() {
-        //VisidiaAssertion.verify( agentMover != null , "In move() : The AgentMover hasn't been specified yet !", this);
+        VisidiaAssertion.verify( agentMover != null ,
+                                 "In move() : The AgentMover hasn't been specified yet !",
+                                 this);
         
         agentMover.move();
     }
