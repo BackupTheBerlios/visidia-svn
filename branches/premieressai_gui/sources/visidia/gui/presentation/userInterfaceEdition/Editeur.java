@@ -90,7 +90,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	     DIM_Y_PAR_DEFAUT);
 	this.addWindowListener(this);
 	this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	this.setSize(650, 600);
+	this.setSize(DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT);
 	this.pack();
 	this.setVisible(true);
 	
@@ -173,7 +173,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	
 	menuBar = new JMenuBar();
 	menuBar.setOpaque(true);
-	menuBar.setPreferredSize(new Dimension(650, 20));
+	menuBar.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT, 20));
 	
 	// Build the menu File
 	file = new JMenu("File");
@@ -348,7 +348,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	toolBar = new JToolBar();
 	toolBar.setBackground(new Color(120, 120, 120));
 	toolBar.setOpaque(true);
-	toolBar.setPreferredSize(new Dimension(650, 40));
+	toolBar.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT, 40));
 	
 	//Build buttons on the tool bar
 	but_new = new JButton(new ImageIcon(TableImages.getImage("new")));
@@ -612,7 +612,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 		grapheVisuPanel.setPreferredSize(vueGraphe.donnerDimension());
 		grapheVisuPanel.revalidate();
 		
-		grapheVisuPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+		grapheVisuPanel.scrollRectToVisible(new Rectangle(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT,0,0));
 		grapheVisuPanel.repaint();
 	    }
 	else if(b == but_save)
@@ -630,7 +630,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    OpenGraph.open(this);
 	    grapheVisuPanel.setPreferredSize(vueGraphe.donnerDimension());
 	    grapheVisuPanel.revalidate();
-	    grapheVisuPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+	    grapheVisuPanel.scrollRectToVisible(new Rectangle(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT,0,0));
 	    grapheVisuPanel.repaint();
 	 
 	}
@@ -1129,7 +1129,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	content.remove(scroller);
  	this.grapheVisuPanel = unGrapheVisuPanel;
 	scroller = new JScrollPane(this.grapheVisuPanel);
-        scroller.setPreferredSize(new Dimension(650,600));
+        scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT));
         scroller.setOpaque(true);
         content.add(scroller, BorderLayout.CENTER);
     }

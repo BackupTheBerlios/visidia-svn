@@ -11,7 +11,6 @@ import visidia.simulation.*;
 import visidia.gui.metier.simulation.SentMessage;
 import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
-
 public class SimulationPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     
     /** Couleur de fond par defaut du grapheVisuPanel **/
@@ -102,13 +101,13 @@ public SimulationPanel(AgentsSimulationWindow simulation) {
 	selectionUnit = new SelectionUnit
 	    (new SelectionGetData () {
 		    public SelectionDessin getSelectionDessin () {
-			return fenetreDeSimulation.selection;
+			return agentsSimulationWindow.selection;
 		     }
 		     public UndoInfo getUndoInfo () throws NoSuchMethodException {
 			 throw new NoSuchMethodException ("undo processing not used");
 		     }
 		     public RecoverableObject getRecoverableObject () {
-			 return fenetreDeSimulation.getVueGraphe ();
+			 return agentsSimulationWindow.getVueGraphe ();
 		     }
 		 },
 	      (JPanel) this);

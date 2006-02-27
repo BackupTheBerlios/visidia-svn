@@ -63,7 +63,7 @@ public class AgentsSimulationWindow
     // Menu pour les options au niveau de la visualisation
     protected JMenu visualizationOptions ;
     // for the speed scale
-    protected ChoiceMessage2 choiceMessage;
+//     protected ChoiceMessage2 choiceMessage;
     protected JMenuItem synchro, others;
     protected JSlider speed_slider;
     protected JLabel speed_label;
@@ -95,12 +95,12 @@ public class AgentsSimulationWindow
     public static boolean visuSynchrMess = true;
     public Editeur editeur;
 
-    public ChoiceMessage2 getMenuChoice(){
-        return choiceMessage;
-    }
-    public void setMenuChoice(JMenu menu) {
-        choiceMessage=(ChoiceMessage2) menu;
-    }
+//     public ChoiceMessage2 getMenuChoice(){
+//         return choiceMessage;
+//     }
+//     public void setMenuChoice(JMenu menu) {
+//         choiceMessage=(ChoiceMessage2) menu;
+//     }
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
         this(grapheVisu_edite, COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
@@ -265,21 +265,21 @@ public class AgentsSimulationWindow
         menuBar.add(graph);
 
  
-        algo = new JMenu("Algorithm");
+        algo = new JMenu("Agents"); //!!
         algo.getPopupMenu().setName("PopAlgo");
         algo.setMnemonic('A');
         
-        algo_open = new JMenuItem("Open algorithm ");
+        algo_open = new JMenuItem("Add Agents");
         algo_open.addActionListener(this);
         algo.add(algo_open);
-        algo.addSeparator();
-        algo_open_vertices = new JMenuItem("Put algorithm to vertices ");
-        algo_open_vertices.addActionListener(this);
-        algo.add(algo_open_vertices);
+//         algo.addSeparator();
+//         algo_open_vertices = new JMenuItem("Put algorithm to vertices ");
+//         algo_open_vertices.addActionListener(this);
+//         algo.add(algo_open_vertices);
         algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
         
 	algo.addActionListener(this);
-	//menuBar.add(algo);
+	menuBar.add(algo);
         
 	rules = new JMenu("Rules");
 	rules.getPopupMenu().setName("PopRules");
@@ -340,8 +340,8 @@ public class AgentsSimulationWindow
          
 	*/
         
-        choiceMessage=new ChoiceMessage2(algoChoice);
-        menuBar.add(choiceMessage);
+//         choiceMessage=new ChoiceMessage2(algoChoice);
+//         menuBar.add(choiceMessage);
         
         this.setJMenuBar(menuBar);
     }
@@ -822,16 +822,16 @@ public class AgentsSimulationWindow
     public void menuAlgo(JMenuItem mi) {
 
 	//nada jb
-        if (mi == algo_open_vertices){
-            if (!selection.estVide()){
-                if(DistributedAlgoSimulator.estStandalone()){
- //                    OpenAlgo.openForVertex(selection.elements(),this);
-                    System.out.println("choix de l'algo reussi");}
-                else
- //                    OpenAlgoApplet.openForVertices(selection.elements(),this);
-                but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
-            }
-        }
+//         if (mi == algo_open_vertices){
+//             if (!selection.estVide()){
+//                 if(DistributedAlgoSimulator.estStandalone()){
+//  //                    OpenAlgo.openForVertex(selection.elements(),this);
+//                     System.out.println("choix de l'algo reussi");}
+//                 else
+//  //                    OpenAlgoApplet.openForVertices(selection.elements(),this);
+//                 but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
+//             }
+//         }
         if(mi == algo_open){
             if(simulationRules){
                 JOptionPane.showMessageDialog(this, "you had already entered rules",
@@ -842,9 +842,9 @@ public class AgentsSimulationWindow
             else {
 		// PFA2003
 		boolean ok = true;
-		//                if(DistributedAlgoSimulator.estStandalone())
-		    //                    ok = OpenAlgo.open(this);
-		    //               else
+		if(DistributedAlgoSimulator.estStandalone())
+		    ok = OpenAgents.open(this);
+		else
  //                    OpenAlgoApplet.open(this);
                 simulationAlgo = ok ;
                 if(! but_start.isEnabled())
@@ -923,7 +923,7 @@ public class AgentsSimulationWindow
 	simulationRules = true;
 	rsAlgo = buildAlgoRule(rSys);
 	getAlgorithms().putAlgorithmToAllVertices(rsAlgo);
-	getMenuChoice().setListTypes(rsAlgo.getListTypes());
+// 	getMenuChoice().setListTypes(rsAlgo.getListTypes());
 	but_start.setEnabled(true);
     }
     
