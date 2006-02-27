@@ -21,7 +21,7 @@ public class Main {
 	Vector<String> vec;
 
 	vec = new Vector<String>();
-	vec.addElement("BasicSynchronizedAgent1");
+	vec.addElement("Spanning_Tree_Agent_WithId");
 	vec.addElement("BasicSynchronizedAgent2");
         graph.vertex(new Integer(0)).setData(vec);
 
