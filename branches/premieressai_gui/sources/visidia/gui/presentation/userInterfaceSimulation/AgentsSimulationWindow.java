@@ -16,6 +16,7 @@ import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.algo.*;
 import visidia.simulation.*;
+import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
 import visidia.misc.MessageType;
 
@@ -36,7 +37,7 @@ public class AgentsSimulationWindow
     protected String algoTitle;
     
     // instance of simulator for stop/pause/start actions
-    protected Simulator sim;
+    protected AgentSimulator sim;
     protected SimulEventHandler seh;
     protected JToolBar toolBar;
     protected JButton but_start, but_pause, but_save, but_stop, but_help, but_experimentation, but_threadCount;
@@ -569,7 +570,7 @@ public class AgentsSimulationWindow
 	    RecorderAck recorderAck = new RecorderAck(ackPipeIn, ackPipeOut, writer);
 	    new Thread(tg, recorderEvent).start();
 	    new Thread(tg, recorderAck).start();
-	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
+//dam 	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
 	}
 	else if (item_replay.isSelected()){
 	    visidia.simulation.Reader reader = new visidia.simulation.Reader(ackPipeOut, evtPipeOut, fileSaveTrace);
@@ -577,7 +578,8 @@ public class AgentsSimulationWindow
 	    new Thread(tg, reader).start();
 	}
 	else if (item_nothing.isSelected())
-	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeOut,ackPipeOut,algoChoice);
+//dam	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeOut,ackPipeOut,algoChoice);
+	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()));
 	
         
 	/*if(simulationRegles)
@@ -624,11 +626,11 @@ public class AgentsSimulationWindow
     public void but_pause() {
 	if(simulationPanel.isRunning()){
 	    simulationPanel.pause();
-	    sim.wedge();
+//dam 	    sim.wedge();
 	}
 	else {
 	    simulationPanel.start();
-	    sim.unWedge();
+//dam 	    sim.unWedge();
 	}
     }
 
@@ -638,7 +640,8 @@ public class AgentsSimulationWindow
 	System.out.println("  ==> Stopped");
 	System.out.println("Stopping the Simulator");
 	if (sim != null)
-	    sim.abortSimulation();
+//dam 	    sim.abortSimulation();
+            ;
 	System.out.println("  ==> Stopped");
 	
 	System.out.println("Stopping the Simulator Event Handler");
@@ -674,7 +677,8 @@ public class AgentsSimulationWindow
     public void but_reset() {
 	simulationPanel.stop();
 	if (sim != null)
-	    sim.abortSimulation();
+//dam 	    sim.abortSimulation();
+            ;
 	
 	seh.abort();
 	
@@ -982,7 +986,7 @@ public class AgentsSimulationWindow
     public void commandeClose() {
         if (sim != null) {   // we kill the threads
             simulationPanel.stop();
-            sim.abortSimulation();
+//dam             sim.abortSimulation();
             seh.abort();
         }
         setVisible(false);
@@ -1167,7 +1171,8 @@ public class AgentsSimulationWindow
     public void nodeStateChanged(int nodeId, Hashtable properties) {
         //System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
 	if (sim != null)
-	    sim.setNodeProperties(nodeId, properties);
+//dam 	    sim.setNodeProperties(nodeId, properties);
+            ;
         //sim.restartNode(nodeId);
     }
 
