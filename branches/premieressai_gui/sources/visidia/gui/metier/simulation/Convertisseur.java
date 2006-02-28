@@ -6,8 +6,8 @@ import visidia.graph.*;
 import java.io.*;
 
 
-/** cette classe contient une méthode statique de conversion d'un
- * grapheVisu crée par l'interface graphique en un graphe utilisé par
+/** cette classe contient une methode statique de conversion d'un
+ * grapheVisu cree par l'interface graphique en un graphe utilise par
  * les algorithmes de simulation
  */
 public class Convertisseur {
