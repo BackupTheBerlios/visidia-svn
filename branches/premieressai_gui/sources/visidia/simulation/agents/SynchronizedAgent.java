@@ -22,31 +22,51 @@ public abstract class SynchronizedAgent extends Agent {
         ++nbAgents;
     }
 
-    public void moveToDoor(int door) {
+
+    public void nextPulse() {
      
 	synchronized( synchronisation ) {
 	    ++count;
 
 	    if( count < nbAgents ) {
 		try {
-		    // le wait libère la zone sensible
 		    synchronisation.wait();
 		} catch(InterruptedException e) {
 		    System.out.println("Synchronisation problem : " + e);
 		    System.exit(1);
 		}
 		
-		super.moveToDoor(door);
 		return;
 	    }
 
-            count = 0;
-            synchronisation.notifyAll();	
+     	}
+	
+	/* Reached by the last thread calling nextPulse */
+	count = 0;
+	synchronisation.notifyAll();
 
-            /* now we can all move */
-            super.moveToDoor(door);
-	}
     }
+
+
+    public void agentDeath() {
+
+	super.agentDeath();
+
+	synchronized( synchronisation ) {
+
+	    --nbAgents;
+
+	    /* I have to check if the others agents 
+	       are not waiting for me */
+	    if( count == nbAgents ) {
+		count = 0;
+		synchronisation.notifyAll();
+	    }
+
+	}
+
+    }
+
 }
 
 

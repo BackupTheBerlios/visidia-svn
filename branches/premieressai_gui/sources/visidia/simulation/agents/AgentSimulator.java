@@ -91,6 +91,12 @@ public class AgentSimulator {
         return ag;
     }
 
+
+    public void agentDeath(Agent ag) {
+	agents.remove(ag);
+    }
+
+
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
 

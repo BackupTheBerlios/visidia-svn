@@ -16,11 +16,17 @@ public class BasicSynchronizedAgent4 extends SynchronizedAgent {
     protected void init() {
 
         Random rnd = new Random();
+	int test = 0;
 
         do {
 	    sleep(1880);
             moveToDoor(rnd.nextInt(getArity()));
-        } while (1 == 1);
+	    nextPulse();
+
+// 	    if(test++ == 4)
+// 		killMe();
+
+	} while (test++ < 4);
 
     }
 
