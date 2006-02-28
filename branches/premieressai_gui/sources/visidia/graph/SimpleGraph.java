@@ -35,7 +35,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      * Ajoute un sommet identifie par <i>id</i> au graphe.
      * 
      * @exception AddIdTwiceException levee si l'identite <i>id</i> existe
-     * deja  dans le graphe.
+     * deja dans le graphe.
      */	
     public void put(Integer id){
 	//System.out.println(id);
