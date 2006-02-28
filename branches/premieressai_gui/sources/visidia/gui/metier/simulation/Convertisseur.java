@@ -42,8 +42,15 @@ public class Convertisseur {
 		}
 		
 		return nouveauGraph;
-		
-		
 	}
-    
+
+    public static SimpleGraph convert(Graphe oldGraph,
+                                      Vector agentsPosition) {
+        
+        VisidiaAssertion.verify(oldGraph.ordre() == agentsPosition.size(),
+                                "agentsPosition and oldGraph should have "
+                                + " the same number of element.", this);
+        SimpleGraph graph = convertir(oldGraph);
+        
+    }
 }
