@@ -15,25 +15,6 @@ public abstract class AgentMover {
     this.simulator = sim;
   }
 
-//   public static AgentMover createAgentMover(String agentMoverClassName, 
-//                                             Agent agent,
-//                                             Simulator simulator) {
-//     Constructor  constructor;
-//     Class agClass;
-
-//     try {
-//       agClass = Class.forName(agentMoverClassName);
-//       constructor = agClass.getConstructor(new Class []
-//           {Agent.class, Simulator.class});
-
-//       return (AgentMover) 
-//         constructor.newInstance(new Object[]{agent, simulator});
-
-//     } catch (Exception e) {
-//       throw new IllegalArgumentException("Instance can't be found !");
-//     }
-//   }
-
   /**
    * Return the agent.
    */
@@ -56,8 +37,8 @@ public abstract class AgentMover {
   }
 
   /** 
-   * Return the door in which the agent will go on. This method need
-   * to be specialized in the sub-classes.
+   * Return the door to which the agent will go.  This method needs to
+   * be specialized in the sub-classes.
    */
   protected abstract int findNextDoor();
 
