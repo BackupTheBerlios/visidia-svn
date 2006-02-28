@@ -45,12 +45,16 @@ public class Convertisseur {
 	}
 
     public static SimpleGraph convert(Graphe oldGraph,
-                                      Vector agentsPosition) {
-        
-        VisidiaAssertion.verify(oldGraph.ordre() == agentsPosition.size(),
-                                "agentsPosition and oldGraph should have "
-                                + " the same number of element.", this);
+                                      List<Collection> agentsPosition) {
         SimpleGraph graph = convertir(oldGraph);
+        int i;
+
+        for (i=0 ; i < agentsPosition.size(); ++i) {
+            Collection<String> agentsNames = agentsPosition.get(i);
+
+            graph.vertex(i).setData(new Vector(agentsNames));
+        }
         
+        return graph;
     }
 }
