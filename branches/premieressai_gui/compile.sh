@@ -4,3 +4,4 @@ javac -sourcepath sources -d classes \
     sources/visidia/gui/presentation/userInterfaceEdition/*.java \
     sources/visidia/simulation/*.java \
     sources/visidia/simulation/agents/*.java
+

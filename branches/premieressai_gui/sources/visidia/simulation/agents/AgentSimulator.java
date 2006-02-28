@@ -3,6 +3,8 @@ package visidia.simulation.agents;
 import visidia.graph.*;
 import visidia.agents.*;
 
+import visidia.visidiassert.VisidiaAssertion;
+
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Enumeration;
@@ -18,11 +20,14 @@ public class AgentSimulator {
 
     private Hashtable agents;
 
+    private AgentMover defaultAgentMover = null;
+
     public AgentSimulator(SimpleGraph netGraph) {
         this(netGraph, new Hashtable());
     }
 
-    public AgentSimulator(SimpleGraph netGraph, Hashtable defaultAgentValues) {
+    public AgentSimulator(SimpleGraph netGraph, 
+                          Hashtable defaultAgentValues) {
 	graph = (SimpleGraph) netGraph.clone();
 	threadGroup = new ThreadGroup("simulator");
 
@@ -75,8 +80,9 @@ public class AgentSimulator {
 	    data.vertex = vertex;
             data.agent = ag;
             agents.put(ag, data);
-	    System.out.println("Creation de l'agent " + ag.getIdentity()
-			       + " sur le sommet " + vertex.identity());
+	    System.out.println("Creation of the agent " + ag.getIdentity()
+                               + " (" + agentClass.getName()
+			       + ") on the vertex " + vertex.identity());
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
@@ -88,9 +94,13 @@ public class AgentSimulator {
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
 
+        VisidiaAssertion.verify( (0 <= door) && (door <= getArity(ag)) ,
+                                 "In moveAgentTo(ag,door) : This door doesn't exist !",
+                                 this);
+
         data.vertex = data.vertex.neighbour(door);
-        System.out.println("L'agent " + ag.getIdentity()
-                           + " se deplace vers le sommet "
+        System.out.println("The agent " + ag.getIdentity()
+                           + " is moving to the vertex "
                            + data.vertex.identity());
     }
 
@@ -125,6 +135,10 @@ public class AgentSimulator {
         }
     }
 
+    public int getNetSize() {
+        return graph.size();
+    }
+
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
     }
@@ -133,10 +147,18 @@ public class AgentSimulator {
 //         return getAgentIdentityFor(ag);
 //     }
 
+    public void setDefaultAgentMover(AgentMover am) {
+        defaultAgentMover = am;
+    }
+
+    public boolean hasDefaultAgentMover() { 
+        return defaultAgentMover!=null;
+    }
+
     public void clone(Agent ag) {
         Agent ag2;
-	System.out.println("L'agent " + ag.getIdentity()
-			   + " crée un clone.");
+	System.out.println("The agent " + ag.getIdentity()
+			   + " creates a clone.");
         ag2 = createAgent(ag.getClass(), getVertexFor(ag), new Hashtable());
         createThreadFor(ag2).start();
     }
@@ -148,9 +170,9 @@ public class AgentSimulator {
                          getVertexFor(ag).neighbour(door),
                          new Hashtable());
 
-	System.out.println("L'agent " + ag.getIdentity()
-			   + " crée un clone (num " + ag2.getIdentity()
-                           + ") et l'envoie sur le sommet "
+	System.out.println("The agent " + ag.getIdentity()
+			   + " creates a clone (num " + ag2.getIdentity()
+                           + ") and send him to the vertex "
 			   + getVertexFor(ag).neighbour(door).identity());
         
         createThreadFor(ag2).start();        
