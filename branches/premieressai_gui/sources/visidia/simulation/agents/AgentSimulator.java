@@ -195,16 +195,11 @@ public class AgentSimulator {
         return getDataFor(ag).vertex;
     }
 
-//     private int getAgentIdentityFor(Agent ag) {
-//         return getDataFor(ag).agentIdentity;
-//     }
-
     private ProcessData getDataFor(Agent ag) {
         return (ProcessData)agents.get(ag);
     }
 
     private class ProcessData {
-	//        public int    agentIdentity;
         public Agent  agent;
         public Vertex vertex;
         public Thread thread;

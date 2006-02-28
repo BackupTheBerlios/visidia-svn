@@ -1,6 +1,4 @@
-//import java.lang.reflect.Constructor;
-
-package visidia.simulation;
+package visidia.simulation.agents;
 
 /**
  * Abstract class providing different moving types for the agents. 
@@ -8,9 +6,9 @@ package visidia.simulation;
 public abstract class AgentMover {
     
   private Agent agent;
-  private Simulator simulator;
+  private AgentSimulator simulator;
 
-  public AgentMover(Agent ag, Simulator sim) {
+  public AgentMover(Agent ag, AgentSimulator sim) {
     this.agent = ag;
     this.simulator = sim;
   }

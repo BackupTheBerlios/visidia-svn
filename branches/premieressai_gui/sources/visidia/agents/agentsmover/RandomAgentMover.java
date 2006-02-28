@@ -2,9 +2,9 @@ package visidia.agentsmover;
 
 import java.util.Random;
 
-import visidia.simulation.Simulator;
-import visidia.simulation.Agent;
-import visidia.simulation.AgentMover;
+import visidia.simulation.agents.AgentSimulator;
+import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.AgentMover;
 
 /**
  * Provide a random move for an Agent. On a vertex, the agent go to
@@ -12,7 +12,7 @@ import visidia.simulation.AgentMover;
  */
 public class RandomAgentMover extends AgentMover {
     
-    public RandomAgentMover(Agent ag, Simulator sim) {
+    public RandomAgentMover(Agent ag, AgentSimulator sim) {
         super(ag, sim);
     }
 

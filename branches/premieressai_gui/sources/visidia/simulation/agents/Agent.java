@@ -21,7 +21,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     //A specific AgentMover for this Agent
     private AgentMover agentMover = null;
 
-    //The agent's identifier (unique for each Agent)
+    //The agent identifier (unique for each Agent)
     private int agentIdentity;
     
     //The number of created Agents
@@ -54,7 +54,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             String completName = new String("visidia.agentsmover." + agentMoverClassName);
             agClass = Class.forName(completName);
             constructor = agClass.getConstructor(new Class []
-                {Agent.class, Simulator.class});
+                {Agent.class, AgentSimulator.class});
 
             System.out.println(agClass.getName());
 
@@ -134,14 +134,16 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Méthode de l'interface Runnable
+     * Method of the Runnable interface. Launch init().
+     *
+     * @see init();
      */
     public final void run() {
         init();
     };
 
     /**
-     * Méthode qui spécifie l'action de chaque agent
+     * Override this  method to implement  your agent.
      */
     protected abstract void init();
 }

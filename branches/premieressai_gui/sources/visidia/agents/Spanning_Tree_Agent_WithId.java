@@ -2,8 +2,8 @@ package visidia.agents;
 
 import java.util.Hashtable;
 
-import visidia.simulation.Simulator;
-import visidia.simulation.Agent;
+import visidia.simulation.agents.AgentSimulator;
+import visidia.simulation.agents.Agent;
 
 
 /**
@@ -15,7 +15,8 @@ public class Spanning_Tree_Agent_WithId extends Agent {
 
     boolean[] vertexMarks;
 
-    public Spanning_Tree_Agent_WithId (Simulator sim, Hashtable defaultValues) {
+    public Spanning_Tree_Agent_WithId (AgentSimulator sim, 
+                                       Hashtable defaultValues) {
         super(sim, defaultValues);
     }
 

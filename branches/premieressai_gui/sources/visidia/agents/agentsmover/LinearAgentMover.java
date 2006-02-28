@@ -1,8 +1,8 @@
 package visidia.agentsmover;
 
-import visidia.simulation.Simulator;
-import visidia.simulation.Agent;
-import visidia.simulation.AgentMover;
+import visidia.simulation.agents.AgentSimulator;
+import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.AgentMover;
 
 import java.util.Arrays;
 
@@ -17,7 +17,7 @@ public class LinearAgentMover extends AgentMover {
     
     int[] nextDoorToGo;
 
-    public LinearAgentMover(Agent ag, Simulator sim) {
+    public LinearAgentMover(Agent ag, AgentSimulator sim) {
         super(ag, sim);
         nextDoorToGo = new int [ag.getNetSize()];
 

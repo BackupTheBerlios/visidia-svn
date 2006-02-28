@@ -2,8 +2,8 @@ package visidia.agents;
 
 import java.util.Hashtable;
 
-import visidia.simulation.Simulator;
-import visidia.simulation.Agent;
+import visidia.simulation.agents.AgentSimulator;
+import visidia.simulation.agents.Agent;
 
 
 /**
@@ -13,7 +13,8 @@ import visidia.simulation.Agent;
  */
 public class Spanning_Tree_Agent_WithoutId extends Agent {
 
-    public Spanning_Tree_Agent_WithoutId (Simulator sim, Hashtable defaultValues) {
+    public Spanning_Tree_Agent_WithoutId (AgentSimulator sim, 
+                                          Hashtable defaultValues) {
         super(sim, defaultValues);
     }
 
