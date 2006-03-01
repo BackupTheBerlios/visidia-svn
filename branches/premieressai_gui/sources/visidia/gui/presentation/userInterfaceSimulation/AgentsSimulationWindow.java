@@ -188,12 +188,13 @@ public class AgentsSimulationWindow
      *
      **/
     public void addAgents(int id, String agent) {
-		
+
+	Boolean ok;
 	if(!agentsTable.contains(id))
 	    agentsTable.put(id, new ArrayList());
-	//	agentsTable.get(id).add(agent);
+	ok = ((ArrayList)agentsTable.get(id)).add(agent);
 	
-	System.out.println("agent :" + agent + "sur sommet " + id);
+	System.out.println("agent : " + agent + " sur sommet " + id);
 
     }
 
@@ -850,8 +851,8 @@ public class AgentsSimulationWindow
             
             else {
 		boolean ok = true;
-		if(DistributedAlgoSimulator.estStandalone()) {}
-		    //    ok = OpenAgents.open(this);
+		if(DistributedAlgoSimulator.estStandalone())
+		    ok = OpenAgents.open(selection.elements(),this);
 		else
  //                    OpenAlgoApplet.open(this);
                 simulationAlgo = ok ;

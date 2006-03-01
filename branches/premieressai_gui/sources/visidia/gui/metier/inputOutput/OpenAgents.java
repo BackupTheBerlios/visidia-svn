@@ -1,6 +1,7 @@
 package visidia.gui.metier.inputOutput;
 
 import java.io.*;
+import java.lang.Integer;
 import javax.swing.*;
 import java.util.Enumeration;
 import visidia.gui.presentation.userInterfaceSimulation.*;
@@ -37,26 +38,13 @@ public class OpenAgents implements Serializable{
       int index = file_name.lastIndexOf('.');
       String className = file_name.substring(0,index);
       System.out.println(className);
-       try {
-	   /*nada
-	  try {
-	      int id;
-	      while (enum.hasMoreElements()) {
-		  //
-		  window.addAgents(id,className);
-
-	      a = (Algorithm)Class.forName("visidia.algo."+className).newInstance();
-	      
-	      window.getAlgorithms().putAlgorithmToAllVertices((Algorithm) a.clone());
-	      window.getMenuChoice().setListTypes(((Algorithm)Class.forName("visidia.algo."+className).newInstance()).getListTypes());
-	      System.out.println(Class.forName("visidia.algo."+className).newInstance().getClass());
-	  } catch(Exception e) {
-	      a= (SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance();
-	      window.getAlgorithms().putAlgorithmToAllVertices((SyncAlgorithm) a.clone());
-	      window.getMenuChoice().setListTypes(((SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance()).getListTypes());
-	      System.out.println(Class.forName("visidia.algo.synchronous."+className).newInstance().getClass());
-	  }
-	   */
+	  
+      try {
+	  int id;
+	  while (e.hasMoreElements()) {
+	      id = Integer.parseInt(((SommetDessin)e.nextElement()).getEtiquette());
+	      window.addAgents(id,className);
+	  }	 
       }
       catch(Exception excpt) {
 	  System.out.println("Problem: " + excpt);
