@@ -198,7 +198,7 @@ public class AgentsSimulationWindow
 	System.out.println("ok " + ok);
 
 	System.out.println("agent : " + agent + " sur sommet " + id);
-
+        System.out.println("Table : " + agentsTable);
     }
 
 
@@ -587,8 +587,9 @@ public class AgentsSimulationWindow
 	    new Thread(tg, reader).start();
 	}
 	else if (item_nothing.isSelected())
-	    sim = new AgentSimulator(Convertisseur.convert(vueGraphe.getGraphe(),
-							   agentsTable));
+	    sim = new AgentSimulator(Convertisseur
+                                     .convert(vueGraphe.getGraphe(),
+                                              agentsTable));
         
 	/*if(simulationRegles)
 	  algoChoice.putAlgorithmToAllVertices(new AlgoRule(rulesList));

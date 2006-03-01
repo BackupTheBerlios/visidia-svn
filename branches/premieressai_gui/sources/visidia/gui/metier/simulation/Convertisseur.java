@@ -22,23 +22,36 @@ public class Convertisseur {
 		Sommet unSommet;
 		Arete uneArete;
 		
-		while(enumerationSommets.hasMoreElements()){			
+		while(enumerationSommets.hasMoreElements()){ 
 		    unSommet = (Sommet)enumerationSommets.nextElement();
-		    nouveauGraph.put(new Integer(unSommet.getSommetDessin().getEtiquette()));
-		    nouveauGraph.vertex(new Integer(unSommet.getSommetDessin().getEtiquette())).setData(unSommet.getSommetDessin().getStateTable().clone());
+		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
+                                                 .getEtiquette()));
+		    nouveauGraph.vertex(new Integer(unSommet
+                                                    .getSommetDessin()
+                                                    .getEtiquette()))
+                        .setData(unSommet.getSommetDessin().getStateTable()
+                                 .clone());
 		}
 		while(enumerationAretes.hasMoreElements()){
 		    uneArete = (Arete)enumerationAretes.nextElement();
-		    if (uneArete.getAreteDessin().forme().equals("FlecheSimple")) {
-			Integer origine = new Integer(uneArete.origine().getSommetDessin().getEtiquette());
-			Integer dest = new Integer(uneArete.destination().getSommetDessin().getEtiquette());
+		    if (uneArete.getAreteDessin().forme()
+                        .equals("FlecheSimple")) {
+			Integer origine = new Integer(uneArete.origine()
+                                                      .getSommetDessin()
+                                                      .getEtiquette());
+			Integer dest = new Integer(uneArete.destination()
+                                                   .getSommetDessin()
+                                                   .getEtiquette());
 			nouveauGraph.orientedLink(origine, dest);
 		    }
 		    
 		    else 
 			     
-			nouveauGraph.link(new Integer(uneArete.origine().getSommetDessin().getEtiquette()),
-			new Integer(uneArete.destination().getSommetDessin().getEtiquette()));
+			nouveauGraph.link(new Integer(uneArete.origine().
+                                                      getSommetDessin().
+                                                      getEtiquette()),
+			new Integer(uneArete.destination().getSommetDessin().
+                                    getEtiquette()));
 		}
 		
 		return nouveauGraph;
@@ -50,6 +63,8 @@ public class Convertisseur {
         int i;
         Enumeration e;
 
+        System.out.println("Convertisseur : " + agentsPosition);
+
         e = agentsPosition.keys();
 
         while(e.hasMoreElements()) {
@@ -57,7 +72,10 @@ public class Convertisseur {
             Integer key = (Integer)e.nextElement();
             Collection agentsNames = (Collection)agentsPosition.get(key);
 
-            graph.vertex(key).setData(new Vector(agentsNames));
+            System.out.println("Pour le sommet " + key 
+                               + " mettre la collection " + agentsNames);
+
+            graph.vertex(key).setAgentsNames(new Vector(agentsNames));
         }
         
         return graph;

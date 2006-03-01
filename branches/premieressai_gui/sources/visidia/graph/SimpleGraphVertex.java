@@ -3,6 +3,7 @@ package visidia.graph;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Collection;
 import java.io.*;
 
 import visidia.visidiassert.VisidiaAssertion;
@@ -25,6 +26,8 @@ public class SimpleGraphVertex  implements Vertex,Serializable,
     private int size = 0;
     
     private WhiteBoard whiteBoard = null;
+
+    private Collection agentsNames;
 
     /**
      *
@@ -198,6 +201,21 @@ public class SimpleGraphVertex  implements Vertex,Serializable,
      */	
     public Object getData(){
 	return data;
+    }
+
+    /**
+     * Set agents on this vertex
+     */
+    public void setAgentsNames(Collection agentsNames) {
+        this.agentsNames = agentsNames;
+    }
+
+
+    /**
+     * Get the agent's names on this vertex
+     */
+    public Collection getAgentsNames() {
+        return agentsNames;
     }
 
     /**

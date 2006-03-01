@@ -1,6 +1,5 @@
 package visidia.graph;
 
-
 import java.util.*;
 /**
 *
@@ -71,6 +70,17 @@ public interface Vertex {
      * retourne l'objet référence par ce sommet.
      */	
     public Object getData();
+
+    /**
+     * Set agents on this vertex
+     */
+    public void setAgentsNames(Collection agentsNames);
+
+
+    /**
+     * Get the agent's names on this vertex
+     */
+    public Collection getAgentsNames();
 
     public Integer getNext();
     public Integer getPrevious();

@@ -7,8 +7,9 @@ import visidia.visidiassert.VisidiaAssertion;
 
 import java.io.*;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Collection;
 
 public class AgentSimulator {
 
@@ -43,11 +44,17 @@ public class AgentSimulator {
 
         while (vertices.hasMoreElements()) {
             Vertex vertex = (Vertex) vertices.nextElement();
-	    Vector vec = (Vector)vertex.getData();
-            Enumeration e = vec.elements();
+            System.out.println("fillAgentsTable>>agents : " 
+                               + vertex.getAgentsNames());
+	    Collection agentsNames = vertex.getAgentsNames();
 
-	    while(e.hasMoreElements()) {
-		String agentName = (String)e.nextElement();
+            if(agentsNames == null)
+                continue;
+
+            Iterator it = agentsNames.iterator();
+
+	    while(it.hasNext()) {
+		String agentName = (String)it.next();
 
 		if (agentName != null) 
 		    createAgent(agentName, vertex, defaultAgentValues);
