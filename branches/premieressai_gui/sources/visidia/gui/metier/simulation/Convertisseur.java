@@ -63,17 +63,12 @@ public class Convertisseur {
         int i;
         Enumeration e;
 
-        System.out.println("Convertisseur : " + agentsPosition);
-
         e = agentsPosition.keys();
 
         while(e.hasMoreElements()) {
 
             Integer key = (Integer)e.nextElement();
             Collection agentsNames = (Collection)agentsPosition.get(key);
-
-            System.out.println("Pour le sommet " + key 
-                               + " mettre la collection " + agentsNames);
 
             graph.vertex(key).setAgentsNames(new Vector(agentsNames));
         }
