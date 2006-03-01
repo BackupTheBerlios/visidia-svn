@@ -11,8 +11,8 @@ import visidia.misc.ForbiddenCallException;
 import visidia.tools.agents.WhiteBoard;
 import visidia.tools.agents.WithWhiteBoard;
 
-public class SimpleGraphVertex  implements Vertex,Serializable,
-                                           WithWhiteBoard {
+public class SimpleGraphVertex  implements Vertex,Serializable {
+                            
     //    StringNodeState nodeState ;// StringNodeState("passive");
     Integer id;
     Integer nextDoor;
@@ -33,7 +33,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable,
      *
      */	
     public SimpleGraphVertex(Integer nodeId){
-        this(nodeId, null);
+        this(nodeId, new Hashtable());
     }
     
     public SimpleGraphVertex(Integer nodeId, Hashtable defaults) {

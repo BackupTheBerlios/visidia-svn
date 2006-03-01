@@ -1,11 +1,14 @@
 package visidia.graph;
 
 import java.util.*;
+
+import visidia.tools.agents.WithWhiteBoard;
+
 /**
 *
 *
 */
-public interface Vertex {
+public interface Vertex extends WithWhiteBoard {
     /**
      * retourne l'identificateur du sommet.
      */

@@ -23,7 +23,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      *Construit un nouveau graphe simple vide.
      */	
     public SimpleGraph(){
-        this(null);
+        this(new Hashtable());
     }
     
     public SimpleGraph(Hashtable defaultVertexValues) {
