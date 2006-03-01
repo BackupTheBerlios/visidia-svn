@@ -615,21 +615,23 @@ public class AgentsSimulationWindow
 	    }
 	    }*/
 	
-	if (item_saveTrace.isSelected())
-	    seh = new SimulEventHandler(this,evtPipeOut,ackPipeIn);
-	else
-	    seh =  new SimulEventHandler(this,evtPipeOut,ackPipeOut);
+//dam   if (item_saveTrace.isSelected())
+// 	    seh = new SimulEventHandler(this,evtPipeOut,ackPipeIn);
+// 	else
+// 	    seh =  new SimulEventHandler(this,evtPipeOut,ackPipeOut);
 
-	seh.start();
+// 	seh.start();
 
-	if (!item_replay.isSelected()) {
-	    sim.startSimulation();
-	}
+// 	if (!item_replay.isSelected()) {
+// 	    sim.startSimulation();
+// 	}
         
 	but_stop.setEnabled(true);
 	but_pause.setEnabled(true);
 	but_start.setEnabled(false);
 	
+        sim.startSimulation();
+
     }
     
     public void but_pause() {
