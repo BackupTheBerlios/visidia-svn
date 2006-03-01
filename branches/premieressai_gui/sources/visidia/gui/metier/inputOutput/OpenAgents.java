@@ -8,8 +8,6 @@ import visidia.simulation.*;
 import visidia.gui.presentation.SommetDessin;
 import java.net.URLClassLoader;
 import java.net.URL;
-
-//PFA2003
 import visidia.algo.*;
 import visidia.rule.*;
 
@@ -20,7 +18,7 @@ public class OpenAgents implements Serializable{
     
     /** Open  ".class" file for agents simulation
 	agents are affected to chosen vertices*/
-  public static boolean open(AgentsSimulationWindow window){
+  public static boolean open(Enumeration e, AgentsSimulationWindow window){
       File file_open = null; 
       JFileChooser fc = new JFileChooser(dir);
       javax.swing.filechooser.FileFilter classFileFilter = new FileFilterClass();
@@ -39,26 +37,30 @@ public class OpenAgents implements Serializable{
       int index = file_name.lastIndexOf('.');
       String className = file_name.substring(0,index);
       System.out.println(className);
-//       try {
-// 	  Algorithm a;
-// 	  //PFA2003
-// 	  try {
-// 	      a = (Algorithm)Class.forName("visidia.algo."+className).newInstance();
+       try {
+	   /*nada
+	  try {
+	      int id;
+	      while (enum.hasMoreElements()) {
+		  //
+		  window.addAgents(id,className);
+
+	      a = (Algorithm)Class.forName("visidia.algo."+className).newInstance();
 	      
-// 	      window.getAlgorithms().putAlgorithmToAllVertices((Algorithm) a.clone());
-// 	      window.getMenuChoice().setListTypes(((Algorithm)Class.forName("visidia.algo."+className).newInstance()).getListTypes());
-// 	      System.out.println(Class.forName("visidia.algo."+className).newInstance().getClass());
-// 	  } catch(Exception e) {
-// 	      a= (SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance();
-// 	      window.getAlgorithms().putAlgorithmToAllVertices((SyncAlgorithm) a.clone());
-// 	      window.getMenuChoice().setListTypes(((SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance()).getListTypes());
-// 	      System.out.println(Class.forName("visidia.algo.synchronous."+className).newInstance().getClass());
-// 	  }
-	  
-//       }
-//       catch(Exception excpt) {
-// 	  System.out.println("Problem: " + excpt);
-//       }
+	      window.getAlgorithms().putAlgorithmToAllVertices((Algorithm) a.clone());
+	      window.getMenuChoice().setListTypes(((Algorithm)Class.forName("visidia.algo."+className).newInstance()).getListTypes());
+	      System.out.println(Class.forName("visidia.algo."+className).newInstance().getClass());
+	  } catch(Exception e) {
+	      a= (SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance();
+	      window.getAlgorithms().putAlgorithmToAllVertices((SyncAlgorithm) a.clone());
+	      window.getMenuChoice().setListTypes(((SyncAlgorithm)Class.forName("visidia.algo.synchronous."+className).newInstance()).getListTypes());
+	      System.out.println(Class.forName("visidia.algo.synchronous."+className).newInstance().getClass());
+	  }
+	   */
+      }
+      catch(Exception excpt) {
+	  System.out.println("Problem: " + excpt);
+      }
       return true;
   }
         

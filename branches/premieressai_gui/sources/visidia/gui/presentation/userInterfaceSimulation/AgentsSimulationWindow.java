@@ -19,8 +19,6 @@ import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
 import visidia.misc.MessageType;
-
-//PFA2003
 import visidia.simulation.rules.*;
 import visidia.simulation.synchro.*;
 import visidia.rule.*;
@@ -85,10 +83,8 @@ public class AgentsSimulationWindow
     /*list of rewriting rules which could be either simple either stared */
     protected Vector rulesList  ;
     protected boolean[][] edgesStates = null;
-    //PFA2003
     protected AbstractRule rsAlgo; // The algorithm witch will simulate the relabeling system
 
-    protected AlgoChoice algoChoice;
     protected boolean simulationAlgo = false;
     protected boolean simulationRules = false;
     protected static ThreadCountFrame threadCountFrame;
@@ -96,12 +92,9 @@ public class AgentsSimulationWindow
     public static boolean visuSynchrMess = true;
     public Editeur editeur;
 
-//     public ChoiceMessage2 getMenuChoice(){
-//         return choiceMessage;
-//     }
-//     public void setMenuChoice(JMenu menu) {
-//         choiceMessage=(ChoiceMessage2) menu;
-//     }
+    protected Hashtable agentsTable;
+
+
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
         this(grapheVisu_edite, COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
@@ -132,9 +125,9 @@ public class AgentsSimulationWindow
         vueGraphe = grapheVisu_edite;
         selection = new SelectionDessin();
         
-        algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
-        
-        // The manager of components
+	agentsTable = new Hashtable();
+
+	// The manager of components
         content = new JPanel();
         content.setLayout(new BorderLayout());
         fichier_edite = fichier_edit;
@@ -152,15 +145,13 @@ public class AgentsSimulationWindow
         vueGraphe = grapheVisu_edite;
         selection = new SelectionDessin();
         
-        algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
-        
-        // The panel where the graph is drawn
+	// The panel where the graph is drawn
         simulationPanel = new SimulationPanel(this);
-        super.setSize(650,600);
+        super.setSize(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT);
         // un setSize est a faire avant l'ajout de composants pour eviter
         // les warnings
         scroller = new JScrollPane(simulationPanel);
-        scroller.setPreferredSize(new Dimension(650,600));
+        scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT));
         simulationPanel.revalidate();
         
         simulationPanel.scrollRectToVisible(new Rectangle((vueGraphe.donnerDimension()).width-10,(vueGraphe.donnerDimension()).height-10,30,30));
@@ -191,6 +182,24 @@ public class AgentsSimulationWindow
         
         this.setContentPane(content);
     }
+
+    
+    /**
+     *
+     **/
+    public void addAgents(int id, String agent) {
+		
+	if(!agentsTable.contains(id))
+	    agentsTable.put(id, new ArrayList());
+	//	agentsTable.get(id).add(agent);
+	
+	System.out.println("agent :" + agent + "sur sommet " + id);
+
+    }
+
+
+
+
     /**
      * This method adds the Menu bar, its menus and items to the editor
      **/
@@ -243,7 +252,6 @@ public class AgentsSimulationWindow
         graph.addActionListener(this);
 	menuBar.add(graph);
 	
-	//PFA2003
 	graph.addSeparator();
 	
 	// graphe connection and disconnection
@@ -340,9 +348,6 @@ public class AgentsSimulationWindow
 	  menuBar.add(visualizationOptions);
          
 	*/
-        
-//         choiceMessage=new ChoiceMessage2(algoChoice);
-//         menuBar.add(choiceMessage);
         
         this.setJMenuBar(menuBar);
     }
@@ -594,7 +599,7 @@ public class AgentsSimulationWindow
 	  }
 	*/
 	
-	if (simulationRules) {
+	/* nada jb	if (simulationRules) {
 	    //System.out.println("rules");
 	    simulationRules = false;
 	} else if (!algoChoice.verticesHaveAlgorithm()) {
@@ -604,7 +609,7 @@ public class AgentsSimulationWindow
 		     "warning", JOptionPane.WARNING_MESSAGE);
 		return;
 	    }
-	}
+	    }*/
 	
 	if (item_saveTrace.isSelected())
 	    seh = new SimulEventHandler(this,evtPipeOut,ackPipeIn);
@@ -661,16 +666,16 @@ public class AgentsSimulationWindow
     }
 
     public void but_experimentation() {
-	if ((vueGraphe.getGraphe().sommets().hasMoreElements()) &&
-	    (algoChoice.verticesHaveAlgorithm())) {
-	    JFrame frame = new ExperimentationFrame(vueGraphe, algoChoice);
-	    frame.setTitle("Algorithm Experiments ["+algoTitle+"]");
-	    frame.pack();
-	    frame.setVisible(true);
-	}
-	else {
-	    JOptionPane.showMessageDialog(this, "Load a graph and an algorithm");
-	}
+//jbnada 	if ((vueGraphe.getGraphe().sommets().hasMoreElements()) &&
+// 	    (algoChoice.verticesHaveAlgorithm())) {
+// 	    JFrame frame = new ExperimentationFrame(vueGraphe, algoChoice);
+// 	    frame.setTitle("Algorithm Experiments ["+algoTitle+"]");
+// 	    frame.pack();
+// 	    frame.setVisible(true);
+// 	}
+// 	else {
+// 	    JOptionPane.showMessageDialog(this, "Load a graph and an algorithm");
+// 	}
     }
     
 
@@ -734,17 +739,17 @@ public class AgentsSimulationWindow
         }
 	//PFA2003
 	else if (b == but_help){
-	    if (algoChoice.verticesHaveAlgorithm()) {
-		Algorithm a = algoChoice.getAlgorithm(0);
-		HelpDialog hd = new HelpDialog(this, "Algorithm description");
-		hd.setText(a.getDescription());
-		hd.setVisible(true);
-		hd.setEditable(false);
-	    } else {
-		JOptionPane.showMessageDialog
-		    (this, "You must enter an algorithm or rules ",
-		     "warning", JOptionPane.WARNING_MESSAGE);
-	    }
+// 	    if (algoChoice.verticesHaveAlgorithm()) {
+// 		Algorithm a = algoChoice.getAlgorithm(0);
+// 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
+// 		hd.setText(a.getDescription());
+// 		hd.setVisible(true);
+// 		hd.setEditable(false);
+// 	    } else {
+// 		JOptionPane.showMessageDialog
+// 		    (this, "You must enter an algorithm or rules ",
+// 		     "warning", JOptionPane.WARNING_MESSAGE);
+// 	    }
 	}
         else if (b == but_reset) {
 	    but_reset();
@@ -787,7 +792,7 @@ public class AgentsSimulationWindow
         if(mi == graph_open){
             OpenGraph.open(this);
             algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
-            algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+//             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
             replaceSelection(new SelectionDessin());
             simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
             simulationPanel.revalidate();
@@ -844,10 +849,9 @@ public class AgentsSimulationWindow
             }
             
             else {
-		// PFA2003
 		boolean ok = true;
-		if(DistributedAlgoSimulator.estStandalone())
-		    ok = OpenAgents.open(this);
+		if(DistributedAlgoSimulator.estStandalone()) {}
+		    //    ok = OpenAgents.open(this);
 		else
  //                    OpenAlgoApplet.open(this);
                 simulationAlgo = ok ;
@@ -926,7 +930,7 @@ public class AgentsSimulationWindow
 	}
 	simulationRules = true;
 	rsAlgo = buildAlgoRule(rSys);
-	getAlgorithms().putAlgorithmToAllVertices(rsAlgo);
+// 	getAlgorithms().putAlgorithmToAllVertices(rsAlgo);
 // 	getMenuChoice().setListTypes(rsAlgo.getListTypes());
 	but_start.setEnabled(true);
     }
@@ -945,7 +949,7 @@ public class AgentsSimulationWindow
             ackPipeOut = new visidia.tools.VQueue();
             
             OpenGraph.open(this,fileSaveTrace);
-            algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+//             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
             replaceSelection(new SelectionDessin());
             simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
             simulationPanel.revalidate();
@@ -968,7 +972,7 @@ public class AgentsSimulationWindow
                 item_file.setText(f.getName());
                 
                 OpenGraph.open(this,fileSaveTrace);
-                algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+//                 algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
                 replaceSelection(new SelectionDessin());
                 simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
                 simulationPanel.revalidate();
@@ -1139,11 +1143,6 @@ public class AgentsSimulationWindow
         scroller.setPreferredSize(new Dimension(650,600));
         scroller.setOpaque(true);
         content.add(scroller, BorderLayout.CENTER);
-    }
-    
-    // load an algorithm
-    public AlgoChoice getAlgorithms(){
-        return algoChoice;
     }
     
     public visidia.tools.VQueue getEvtPipe(){

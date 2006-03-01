@@ -63,11 +63,11 @@ public class AgentBoxChangingVertexState
     monSommet = sommet;
   
     vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
-    String algoString = new String();
-    if (parent.getAlgorithms().getAlgorithm(vertex_id) == null) 
-	algoString = "None";
-    else algoString = parent.getAlgorithms().getAlgorithm(vertex_id).getClass().getName();
-    algoUsed = new JLabel("Algorithm used : "+algoString);
+    // String algoString = new String();
+//     if (parent.getAlgorithms().getAlgorithm(vertex_id) == null) 
+// 	algoString = "None";
+//     else algoString = parent.getAlgorithms().getAlgorithm(vertex_id).getClass().getName();
+//     algoUsed = new JLabel("Algorithm used : "+algoString);
     
     etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
     

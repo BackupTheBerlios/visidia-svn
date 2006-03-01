@@ -87,8 +87,9 @@ public class OpenAlgo implements Serializable{
 		    String id;
 		    while (e.hasMoreElements()){
 			id = ((SommetDessin)e.nextElement()).getEtiquette();
+			System.out.println("Etiquette de sommet : " + id);
 			fenetre.getAlgorithms().putAlgorithm(id, (Algorithm)Class.forName("visidia.algo."+className).newInstance());
-			 fenetre.getMenuChoice().addAtListTypes(((Algorithm)Class.forName("visidia.algo."+className).newInstance()).getListTypes());//we set the list of types used in the chosen algorithm
+			fenetre.getMenuChoice().addAtListTypes(((Algorithm)Class.forName("visidia.algo."+className).newInstance()).getListTypes());//we set the list of types used in the chosen algorithm
 		    }
 		  
 		}
