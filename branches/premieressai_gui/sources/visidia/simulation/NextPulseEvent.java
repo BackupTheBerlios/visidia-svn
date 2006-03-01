@@ -4,7 +4,7 @@ import visidia.misc.*;
 import java.io.Serializable;
 
 /**
- * Cette classe represente l'evenement associe au passage a  un nouveau pulse
+ * Cette classe represente l'evenement associe au passage a un nouveau pulse
  * 
  */
 public class NextPulseEvent implements SimulEvent {
