@@ -3,6 +3,9 @@ package visidia.simulation;
 import visidia.graph.*;
 import visidia.agents.*;
 
+import visidia.tools.*;
+import visidia.misc.*;
+
 import visidia.visidiassert.VisidiaAssertion;
 
 import java.io.*;
@@ -15,19 +18,27 @@ public class Simulator {
     public static final int THREAD_PRIORITY = 1;
     private SimpleGraph graph;
 
-    // simulator threads set
-    private ThreadGroup threadGroup;
+    //NumberGenerator is used for generating event number
+    private NumberGenerator numGen = new NumberGenerator();
+    private VQueue evtQ;
+    private VQueue ackQ;
 
     private Hashtable agents;
-
     private AgentMover defaultAgentMover = null;
 
-    public Simulator(SimpleGraph netGraph) {
-        this(netGraph, new Hashtable());
+    // Simulator threads set
+    private ThreadGroup threadGroup;
+
+    public Simulator(SimpleGraph netGraph,  VQueue evtVQueue, VQueue ackVQueue) {
+        this(netGraph, new Hashtable(), evtVQueue, ackVQueue);
     }
 
-    public Simulator(SimpleGraph netGraph, Hashtable defaultAgentValues) {
+    public Simulator(SimpleGraph netGraph, Hashtable defaultAgentValues, VQueue evtVQueue, VQueue ackVQueue) {
 	graph = (SimpleGraph) netGraph.clone();
+
+        evtQ = evtVQueue;
+	ackQ = ackVQueue;
+
 	threadGroup = new ThreadGroup("simulator");
 
 	fillAgentsTable(netGraph, defaultAgentValues);
@@ -90,6 +101,11 @@ public class Simulator {
         return ag;
     }
 
+    /**
+     * Move agent to a neighbour
+     * @param ag The agent to move
+     * @param door The door used to go to the neighbour
+     */
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
 
@@ -103,12 +119,26 @@ public class Simulator {
                            + data.vertex.identity());
     }
 
+    /**
+     * Return a vertex property
+     * @param ag The agent which is on the desired vertex
+     * @param key The object used as a key
+     */
     public Object getVertexProperty(Agent ag, Object key) {
         return getVertexFor(ag).getProperty(key);
     }
 
     public void setVertexProperty(Agent ag, Object key, Object value) {
         getVertexFor(ag).setProperty(key, value);
+        
+        try {
+        pushNodePropertyChangeEvent(new Integer(getVertexFor(ag).identity()),
+                                    key, value);
+        }
+        catch(InterruptedException e)
+            {
+                // Nothing for now 
+            }
     }
 
     public void startSimulation(){
@@ -141,10 +171,6 @@ public class Simulator {
         return getVertexFor(ag).identity().intValue();
     }
 
-//     public int getIdentity(Agent ag) {
-//         return getAgentIdentityFor(ag);
-//     }
-
     public void setDefaultAgentMover(AgentMover am) {
         defaultAgentMover = am;
     }
@@ -170,10 +196,60 @@ public class Simulator {
 
 	System.out.println("The agent " + ag.getIdentity()
 			   + " creates a clone (num " + ag2.getIdentity()
-                           + ") and send him to the vertex "
+                           + ") and send it to the vertex "
 			   + getVertexFor(ag).neighbour(door).identity());
         
         createThreadFor(ag2).start();        
+    }
+
+    /**
+     * Return the events queue
+     */
+    public VQueue evtVQueueg(){
+	return evtQ;
+    }
+
+    /**
+     * Return the acknowlegdements queue
+     */
+    public VQueue ackVQueue(){
+	return ackQ;
+    }
+
+    /**
+     * Push the event of changing a vertex property (in the events queue)
+     * @param nodeId The vertex identifier
+     * @param key The object used as the key
+     * @param value The object used as the value
+     * @throws java.lang.InterruptedException
+     */
+    private void pushNodePropertyChangeEvent(Integer nodeId, Object key, Object value)throws InterruptedException{
+	Long num = new Long(numGen.alloc());
+        //	Object lock = new Object();
+	//evtObjectTmp.put(num,lock);	
+	NodePropertyChangeEvent npce = new NodePropertyChangeEvent(num,nodeId,key,value);
+	//synchronized(lock){
+	    evtQ.put(npce);
+            //    lock.wait();
+            //}
+    }
+
+    /**
+     * Push the event of changing an edge property (in the events queue)
+     * @param nodeId1 The vertex identifier of the first edge extremity
+     * @param nodeId2 The vertex identifier of the second edge extremity
+     * @param es The new edge state
+     * @throws java.lang.InterruptedException
+     */
+    private void pushEdgeStateChangeEvent(Integer nodeId1, Integer nodeId2, EdgeState es)throws InterruptedException{
+	Long key = new Long(numGen.alloc());
+        //	Object lock = new Object();
+	//evtObjectTmp.put(key,lock);	
+	EdgeStateChangeEvent esce = new EdgeStateChangeEvent(key,nodeId1, nodeId2,es);
+	//synchronized(lock){
+	    evtQ.put(esce);
+	    //lock.wait();
+            //}
     }
 
     private Thread createThreadFor(Agent ag) {
@@ -193,16 +269,11 @@ public class Simulator {
         return getDataFor(ag).vertex;
     }
 
-//     private int getAgentIdentityFor(Agent ag) {
-//         return getDataFor(ag).agentIdentity;
-//     }
-
     private ProcessData getDataFor(Agent ag) {
         return (ProcessData)agents.get(ag);
     }
 
     private class ProcessData {
-	//        public int    agentIdentity;
         public Agent  agent;
         public Vertex vertex;
         public Thread thread;

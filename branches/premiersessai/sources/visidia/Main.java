@@ -4,6 +4,8 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import visidia.graph.*;
+import visidia.tools.*;
+
 import visidia.simulation.Simulator;
 
 public class Main {
@@ -98,7 +100,7 @@ public class Main {
     public static void main (String []args) {
 
         SimpleGraph graph = createSynchronized();
-        Simulator sim = new Simulator(graph);
+        Simulator sim = new Simulator(graph,new VQueue(), new VQueue());
         sim.startSimulation();
     }
 
