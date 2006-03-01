@@ -187,13 +187,16 @@ public class AgentsSimulationWindow
     /**
      *
      **/
-    public void addAgents(int id, String agent) {
+    public void addAgents(Integer id, String agent) {
 
-	Boolean ok;
-	if(!agentsTable.contains(id))
+	boolean ok;
+	if(!agentsTable.containsKey(id)) {
+	    System.out.println("construction");
 	    agentsTable.put(id, new ArrayList());
+	}
 	ok = ((ArrayList)agentsTable.get(id)).add(agent);
-	
+	System.out.println("ok " + ok);
+
 	System.out.println("agent : " + agent + " sur sommet " + id);
 
     }
@@ -584,9 +587,8 @@ public class AgentsSimulationWindow
 	    new Thread(tg, reader).start();
 	}
 	else if (item_nothing.isSelected())
-//dam	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeOut,ackPipeOut,algoChoice);
-	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()));
-	
+	    sim = new AgentSimulator(Convertisseur.convert(vueGraphe.getGraphe(),
+							   agentsTable));
         
 	/*if(simulationRegles)
 	  algoChoice.putAlgorithmToAllVertices(new AlgoRule(rulesList));
@@ -856,7 +858,8 @@ public class AgentsSimulationWindow
 		else
  //                    OpenAlgoApplet.open(this);
                 simulationAlgo = ok ;
-                if(! but_start.isEnabled())
+                System.out.println("table : " + agentsTable.toString());
+		if(! but_start.isEnabled())
 		    but_start.setEnabled(ok);
             }
         }

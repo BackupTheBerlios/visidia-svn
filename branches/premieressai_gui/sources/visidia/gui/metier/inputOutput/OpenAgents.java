@@ -40,9 +40,9 @@ public class OpenAgents implements Serializable{
       System.out.println(className);
 	  
       try {
-	  int id;
+	  Integer id;
 	  while (e.hasMoreElements()) {
-	      id = Integer.parseInt(((SommetDessin)e.nextElement()).getEtiquette());
+	      id = Integer.decode(((SommetDessin)e.nextElement()).getEtiquette());
 	      window.addAgents(id,className);
 	  }	 
       }
