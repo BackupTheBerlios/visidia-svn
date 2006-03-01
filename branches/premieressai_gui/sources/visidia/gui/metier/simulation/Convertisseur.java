@@ -45,14 +45,19 @@ public class Convertisseur {
 	}
 
     public static SimpleGraph convert(Graphe oldGraph,
-                                      List<Collection> agentsPosition) {
+                                      Hashtable agentsPosition) {
         SimpleGraph graph = convertir(oldGraph);
         int i;
+        Enumeration e;
 
-        for (i=0 ; i < agentsPosition.size(); ++i) {
-            Collection<String> agentsNames = agentsPosition.get(i);
+        e = agentsPosition.keys();
 
-            graph.vertex(i).setData(new Vector(agentsNames));
+        while(e.hasMoreElements()) {
+
+            Integer key = (Integer)e.nextElement();
+            Collection agentsNames = (Collection)agentsPosition.get(key);
+
+            graph.vertex(key).setData(new Vector(agentsNames));
         }
         
         return graph;
