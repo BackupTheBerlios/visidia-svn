@@ -44,8 +44,6 @@ public class AgentSimulator {
 
         while (vertices.hasMoreElements()) {
             Vertex vertex = (Vertex) vertices.nextElement();
-            System.out.println("fillAgentsTable>>agents : " 
-                               + vertex.getAgentsNames());
 	    Collection agentsNames = vertex.getAgentsNames();
 
             if(agentsNames == null)
@@ -87,9 +85,6 @@ public class AgentSimulator {
 	    data.vertex = vertex;
             data.agent = ag;
             agents.put(ag, data);
-	    System.out.println("Creation of the agent " + ag.getIdentity()
-                               + " (" + agentClass.getName()
-			       + ") on the vertex " + vertex.identity());
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
@@ -118,12 +113,11 @@ public class AgentSimulator {
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
-        return "coucou";
-        // return getVertexFor(ag).getProperty(key);
+        return getVertexFor(ag).getProperty(key);
     }
 
     public void setVertexProperty(Agent ag, Object key, Object value) {
-        //getVertexFor(ag).setProperty(key, value);
+        getVertexFor(ag).setProperty(key, value);
     }
 
     public void startSimulation(){
