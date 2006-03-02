@@ -39,18 +39,19 @@ public abstract class SynchronizedAgent extends Agent {
 		return;
 	    }
 
-     	}
 	
-	/* Reached by the last thread calling nextPulse */
-	count = 0;
-	synchronisation.notifyAll();
+	    /* Reached by the last thread calling nextPulse */
+	    count = 0;
+	    synchronisation.notifyAll();
+
+     	}
 
     }
 
 
-    public void agentDeath() {
+    public void death() {
 
-	super.agentDeath();
+	super.death();
 
 	synchronized( synchronisation ) {
 

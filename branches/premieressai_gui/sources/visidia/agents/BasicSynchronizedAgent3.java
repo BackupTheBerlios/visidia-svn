@@ -19,12 +19,16 @@ public class BasicSynchronizedAgent3 extends SynchronizedAgent {
 	int test = 0;
 
         do {
-// 	    if(test++ == 2)
-// 		killMe();
+	    
+ 	    if(test++ == 4) {
+		killMe();
+		System.out.println("suis sense etre mort");
+	    }
 	    sleep(300);
-            moveToDoor(rnd.nextInt(getArity()));
 	    nextPulse();
-        } while (test++ < 2);
+            moveToDoor(rnd.nextInt(getArity()));
+
+        } while (1 == 1);
 
     }
 

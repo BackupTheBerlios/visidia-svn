@@ -21,29 +21,34 @@ public class Main {
 	Vector<String> vec;
 
 	vec = new Vector<String>();
-	vec.addElement("Spanning_Tree_Agent_WithId");
+	vec.addElement("BasicSynchronizedAgent4");
 	vec.addElement("BasicSynchronizedAgent2");
-        graph.vertex(new Integer(0)).setData(vec);
-
+        graph.vertex(new Integer(0)).setAgentsNames(vec);
+	
 	vec = new Vector<String>();
 	vec.addElement("BasicSynchronizedAgent3");
-        graph.vertex(new Integer(1)).setData(vec);
+        graph.vertex(new Integer(1)).setAgentsNames(vec);
+
 
 	vec = new Vector<String>();
 	vec.addElement("BasicSynchronizedAgent1");
-        graph.vertex(new Integer(2)).setData(vec);
+        graph.vertex(new Integer(2)).setAgentsNames(vec);
 
-	vec = new Vector<String>();
-	vec.addElement("BasicSynchronizedAgent2");
-        graph.vertex(new Integer(3)).setData(vec);
 
-	vec = new Vector<String>();
-	vec.addElement("BasicSynchronizedAgent1");
-        graph.vertex(new Integer(4)).setData(vec);
+// 	vec = new Vector<String>();
+// 	vec.addElement("BasicSynchronizedAgent2");
+//         graph.vertex(new Integer(3)).setAgentsNames(vec);
 
-	vec = new Vector<String>();
-	vec.addElement("BasicSynchronizedAgent3");
-        graph.vertex(new Integer(5)).setData(vec);
+
+// 	vec = new Vector<String>();
+// 	vec.addElement("BasicSynchronizedAgent1");
+//         graph.vertex(new Integer(4)).setAgentsNames(vec);
+
+
+// 	vec = new Vector<String>();
+// 	vec.addElement("BasicSynchronizedAgent3");
+//         graph.vertex(new Integer(5)).setAgentsNames(vec);
+
 
         return graph;
     }

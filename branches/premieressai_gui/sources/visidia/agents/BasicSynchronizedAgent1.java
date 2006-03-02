@@ -17,10 +17,10 @@ public class BasicSynchronizedAgent1 extends SynchronizedAgent {
 
         Random rnd = new Random();
 
-        for(int i=0; i<3; ++i) {
+        for(int i=0; i<10; ++i) {
 	    sleep(1000);
-            moveToDoor(rnd.nextInt(getArity()));
 	    nextPulse();
+            moveToDoor(rnd.nextInt(getArity()));
 	}
 
     }

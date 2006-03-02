@@ -11,6 +11,9 @@ import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.Collection;
 
+
+import java.util.Vector;
+
 public class AgentSimulator {
 
     public static final int THREAD_PRIORITY = 1;
@@ -30,6 +33,7 @@ public class AgentSimulator {
     public AgentSimulator(SimpleGraph netGraph, 
                           Hashtable defaultAgentValues) {
 	graph = (SimpleGraph) netGraph.clone();
+
 	threadGroup = new ThreadGroup("simulator");
 
 	fillAgentsTable(netGraph, defaultAgentValues);
@@ -96,7 +100,15 @@ public class AgentSimulator {
 
     public void agentDeath(Agent ag) {
 	agents.remove(ag);
+	ag.death();
     }
+
+    public void killAgent(Agent ag) {
+	getThreadFor(ag).interrupt();
+	agentDeath(ag);
+    }
+
+    
 
 
     public void moveAgentTo(Agent ag, int door) {

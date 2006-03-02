@@ -20,13 +20,16 @@ public class BasicSynchronizedAgent4 extends SynchronizedAgent {
 
         do {
 	    sleep(1880);
-            moveToDoor(rnd.nextInt(getArity()));
 	    nextPulse();
+            moveToDoor(rnd.nextInt(getArity()));
 
-// 	    if(test++ == 4)
-// 		killMe();
 
-	} while (test++ < 4);
+ 	    if(test++ == 4) {
+ 		killMe();
+		System.out.println("suis sense etre mort");
+	    }
+	    
+	} while (1 == 1);
 
     }
 
