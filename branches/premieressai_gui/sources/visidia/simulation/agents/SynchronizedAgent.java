@@ -41,6 +41,7 @@ public abstract class SynchronizedAgent extends Agent {
 
 	
 	    /* Reached by the last thread calling nextPulse */
+	    System.out.println(" ------------- TOP ----------------- ");
 	    count = 0;
 	    synchronisation.notifyAll();
 
@@ -65,6 +66,8 @@ public abstract class SynchronizedAgent extends Agent {
 	    }
 
 	}
+
+	System.out.println("Mort de l'agent synchronise " + getIdentity());
 
     }
 

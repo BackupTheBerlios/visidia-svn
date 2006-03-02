@@ -141,6 +141,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     public final void run() {
         init();
 	simulator.agentDeath(this);
+	death();
     };
 
     /* Do nothing now, but may change */

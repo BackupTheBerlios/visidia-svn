@@ -100,7 +100,6 @@ public class AgentSimulator {
 
     public void agentDeath(Agent ag) {
 	agents.remove(ag);
-	ag.death();
     }
 
     public void killAgent(Agent ag) {

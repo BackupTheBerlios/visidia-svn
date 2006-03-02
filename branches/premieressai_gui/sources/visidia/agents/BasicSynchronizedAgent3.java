@@ -20,9 +20,9 @@ public class BasicSynchronizedAgent3 extends SynchronizedAgent {
 
         do {
 	    
- 	    if(test++ == 4) {
+ 	    if(test++ == 6) {
 		killMe();
-		System.out.println("suis sense etre mort");
+		return;
 	    }
 	    sleep(300);
 	    nextPulse();

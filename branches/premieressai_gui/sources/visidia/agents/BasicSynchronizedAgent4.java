@@ -26,7 +26,7 @@ public class BasicSynchronizedAgent4 extends SynchronizedAgent {
 
  	    if(test++ == 4) {
  		killMe();
-		System.out.println("suis sense etre mort");
+		return;
 	    }
 	    
 	} while (1 == 1);
