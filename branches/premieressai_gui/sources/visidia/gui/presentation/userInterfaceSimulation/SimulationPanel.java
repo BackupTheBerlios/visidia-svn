@@ -84,7 +84,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	 setBackground(new Color(0xe6e6fa));
      }
 
-public SimulationPanel(AgentsSimulationWindow simulation) {
+    public SimulationPanel(AgentsSimulationWindow simulation) {
 	agentsSimulationWindow = simulation;
 	objet_sous_souris = null;
 	lePas = PAS_PAR_DEFAUT;
@@ -185,6 +185,7 @@ public SimulationPanel(AgentsSimulationWindow simulation) {
 
 	 if (fenetreDeSimulationDist == null && agentsSimulationWindow == null)
 	     fenetreDeSimulation.getVueGraphe().dessiner(this,g);
+
 	 else if ( fenetreDeSimulation == null && agentsSimulationWindow == null)
 	     fenetreDeSimulationDist.getVueGraphe().dessiner(this,g);
 	 else if ( fenetreDeSimulation == null && fenetreDeSimulationDist == null)
@@ -222,11 +223,13 @@ public SimulationPanel(AgentsSimulationWindow simulation) {
 
 		     //envoyer un message d'acquitement de fin d'animation
 		     try{
-			 if ( fenetreDeSimulationDist == null ) {
+			 if ( fenetreDeSimulationDist == null && agentsSimulationWindow == null) {
 			     fenetreDeSimulation.getAckPipe().put(msa);
 			     //System.out.println("UN MESSAGE TRANSMIS");
 			 }
-			 else if ( fenetreDeSimulation == null ) 
+			 else if ( fenetreDeSimulationDist == null ) 
+                             agentsSimulationWindow.getAckPipe().put(msa);
+                         else
 			     fenetreDeSimulationDist.getAckPipe().put(msa);
 
 		     }
@@ -344,13 +347,23 @@ public SimulationPanel(AgentsSimulationWindow simulation) {
      }
 
     public void animate(MessageSendingEvent mse){
-	if ( fenetreDeSimulationDist == null ) {
+	if ( fenetreDeSimulationDist == null && agentsSimulationWindow == null) {
 	    synchronized(sentMessageVector){
 		SentMessage sentMessage = new SentMessage(mse, fenetreDeSimulation.getVueGraphe().rechercherSommet(mse.sender().toString()).centre(), fenetreDeSimulation.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
 		sentMessageVector.add(sentMessage);
 	    }
 	}
-	else if ( fenetreDeSimulation == null ) {
+	else if ( fenetreDeSimulationDist == null ) {
+	    synchronized(sentMessageVector){
+		SentMessage sentMessage;
+                sentMessage = new
+                    SentMessage(mse,
+                                agentsSimulationWindow.getVueGraphe()
+                                .rechercherSommet(mse.sender().toString()).centre(), agentsSimulationWindow.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
+		sentMessageVector.add(sentMessage);
+	    }
+        }
+        else {
 	    synchronized(sentMessageVector){
 		SentMessage sentMessage = new SentMessage(mse, fenetreDeSimulationDist.getVueGraphe().rechercherSommet(mse.sender().toString()).centre(), fenetreDeSimulationDist.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
 		sentMessageVector.add(sentMessage);

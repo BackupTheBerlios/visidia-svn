@@ -2,8 +2,13 @@ package visidia.simulation.agents;
 
 import visidia.graph.*;
 import visidia.agents.*;
-
+import visidia.tools.VQueue;
 import visidia.visidiassert.VisidiaAssertion;
+import visidia.simulation.MessageSendingEvent;
+import visidia.simulation.MessagePacket;
+import visidia.tools.NumberGenerator;
+import visidia.misc.Message;
+import visidia.misc.StringMessage;
 
 import java.io.*;
 import java.util.Hashtable;
@@ -26,17 +31,24 @@ public class AgentSimulator {
 
     private AgentMover defaultAgentMover = null;
 
-    public AgentSimulator(SimpleGraph netGraph) {
-        this(netGraph, new Hashtable());
+    private VQueue evtQ, ackQ;
+
+    private NumberGenerator numGen = new NumberGenerator();
+
+    public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
+                          VQueue ackVQ) {
+        this(netGraph, new Hashtable(), evtVQ, ackVQ);
     }
 
     public AgentSimulator(SimpleGraph netGraph, 
-                          Hashtable defaultAgentValues) {
+                          Hashtable defaultAgentValues,
+                          VQueue evtVQ, VQueue ackVQ) {
+
 	graph = (SimpleGraph) netGraph.clone();
-
 	threadGroup = new ThreadGroup("simulator");
-
 	fillAgentsTable(netGraph, defaultAgentValues);
+        this.evtQ = evtVQ;
+        this.ackQ = ackVQ;
     }
 
     private void fillAgentsTable(SimpleGraph graph, 
@@ -68,7 +80,8 @@ public class AgentSimulator {
                              Hashtable defaultAgentValues) {
         try {
             String completName = new String("visidia.agents." + agentName);
-            return createAgent(Class.forName(completName), vertex, defaultAgentValues);
+            return createAgent(Class.forName(completName), vertex,
+                               defaultAgentValues);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
         }
@@ -83,7 +96,8 @@ public class AgentSimulator {
             ProcessData data = new ProcessData();
  
             ag = (Agent) agentClass
-                .getConstructor(new Class [] {AgentSimulator.class, Hashtable.class})
+                .getConstructor(new Class [] {AgentSimulator.class, 
+                                              Hashtable.class})
                 .newInstance(new Object [] {this, defaultAgentValues});
 
 	    data.vertex = vertex;
@@ -112,15 +126,26 @@ public class AgentSimulator {
 
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
+        Vertex vertexFrom, vertexTo;
+        Message msg;
+        MessagePacket msgPacket;
 
         VisidiaAssertion.verify( (0 <= door) && (door <= getArity(ag)) ,
-                                 "In moveAgentTo(ag,door) : This door doesn't exist !",
-                                 this);
+                                 "In moveAgentTo(ag,door) : This door "
+                                 + "doesn't exist !", this);
 
-        data.vertex = data.vertex.neighbour(door);
+        vertexFrom = data.vertex;
+        vertexTo = data.vertex.neighbour(door);
+
+        msg = new StringMessage("Moving");
+        msgPacket = new MessagePacket(vertexFrom.identity(), door, 
+                                      vertexTo.identity(), msg);
+	pushMessageSendingEvent(msgPacket);
+
+        data.vertex = vertexTo;
         System.out.println("The agent " + ag.getIdentity()
                            + " is moving to the vertex "
-                           + data.vertex.identity());
+                           + vertexTo.identity());
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
@@ -194,6 +219,24 @@ public class AgentSimulator {
 			   + getVertexFor(ag).neighbour(door).identity());
         
         createThreadFor(ag2).start();        
+    }
+
+    private void pushMessageSendingEvent(MessagePacket mesgPacket) {
+
+	Long key = new Long(numGen.alloc());
+        MessageSendingEvent mse;
+
+        mse = new MessageSendingEvent(key,
+                                      mesgPacket.message(),
+                                      mesgPacket.sender(), 
+                                      mesgPacket.receiver());
+        try {
+            evtQ.put(mse);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("I must throws this exception and "
+                                        + "not catch it !");
+        }
+	
     }
 
     private Thread createThreadFor(Agent ag) {

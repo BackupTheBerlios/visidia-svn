@@ -36,7 +36,7 @@ public class AgentsSimulationWindow
     
     // instance of simulator for stop/pause/start actions
     protected AgentSimulator sim;
-    protected SimulEventHandler seh;
+    protected AgentSimulEventHandler seh;
     protected JToolBar toolBar;
     protected JButton but_start, but_pause, but_save, but_stop, but_help, but_experimentation, but_threadCount;
     protected JButton but_info , but_regles , but_reset;
@@ -589,43 +589,12 @@ public class AgentsSimulationWindow
 	else if (item_nothing.isSelected())
 	    sim = new AgentSimulator(Convertisseur
                                      .convert(vueGraphe.getGraphe(),
-                                              agentsTable));
+                                              agentsTable),
+                                     evtPipeOut, ackPipeOut);
         
-	/*if(simulationRegles)
-	  algoChoice.putAlgorithmToAllVertices(new AlgoRule(rulesList));
-	  else if(!algoChoice.verticesHaveAlgorithm()) {
-	  if (!item_replay.isSelected()) {
-	  JOptionPane.showMessageDialog(this, "you must enter an algorithm or rules ",
-	  "warning",
-	  JOptionPane.WARNING_MESSAGE);
-	  return;
-	  }
-	  }
-	*/
-	
-	/* nada jb	if (simulationRules) {
-	    //System.out.println("rules");
-	    simulationRules = false;
-	} else if (!algoChoice.verticesHaveAlgorithm()) {
-	    if (!item_replay.isSelected()) {
-		JOptionPane.showMessageDialog
-		    (this, "you must enter an algorithm or rules ",
-		     "warning", JOptionPane.WARNING_MESSAGE);
-		return;
-	    }
-	    }*/
-	
-//dam   if (item_saveTrace.isSelected())
-// 	    seh = new SimulEventHandler(this,evtPipeOut,ackPipeIn);
-// 	else
-// 	    seh =  new SimulEventHandler(this,evtPipeOut,ackPipeOut);
+        seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
+ 	seh.start();
 
-// 	seh.start();
-
-// 	if (!item_replay.isSelected()) {
-// 	    sim.startSimulation();
-// 	}
-        
 	but_stop.setEnabled(true);
 	but_pause.setEnabled(true);
 	but_start.setEnabled(false);
