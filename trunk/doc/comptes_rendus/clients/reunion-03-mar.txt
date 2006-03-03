@@ -1,0 +1,74 @@
+compte-rendu de la réunion du 03/03/2006
+----------------------------------------
+
+Rdv 10h au LABRI.
+Mr Derbel est présent.
+Julie, malade, n'a pas pu assister à la réunion.
+
+Présentation :
+--------------
+
+La réunion commence par une présentation du travail réalisé :
+
+- Un  bouton 'Agent  Simulation'  de la  fenêtre  d'édition permet  de
+  lancer la partie simulation sur les agents. 
+
+- Après  la  sélection d'un  ou  plusieurs  sommets,  il est  possible
+  d'affecter un  type d'agent  à tous les  sommets de la  sélection en
+  passant  par  un  menu.   Cette  opération peut  être  répétée  pour
+  affecter d'autres agents.
+
+- L'appuie sur le bouton 'Start' permet de visualiser les déplacements
+  des agents et la création des clones. 
+
+- Des messages sont régulièrement  affichés sur le terminal pour avoir
+  une trace des actions. 
+
+- 3 exemples  sont testés  : les  agents basiques qui  ne font  que se
+  déplacer, les agents virus qui se clonent et les agents synchronisés
+  qui bougent tous en même temps. 
+
+
+Discussion :
+------------
+
+Un discussion suit la présentation. 
+
+Doit on factoriser le code existant  ? En effet, beaucoup de lignes de
+code   résultent   de    duplication   successives   et   l'ajout   de
+fonctionnalités dans le logiciel devient de plus en plus difficile. Si
+factorisation  il y  a, le  temps imparti  nous  empêche d'implémenter
+toutes  les fonctionnalités  graphiques demandées  à l'origine  par le
+client (mais non forcément officialisées dans le cahier des charges). 
+
+Le client semble très intéressé par une factorisation du code, même au
+dépend de certaines fonctionnalités graphiques. Les fonctionnalités de
+simulation  sont  par  contre  absolument nécessaires  et  l'interface
+graphique doit  permettre toutes  les manipulations (la  simplicité et
+les  raccourcis   deviennent  donc   secondaires  par  rapport   à  la
+factorisation). 
+
+Le   client  souhaite   que  les   fonctionnalités   suivantes  soient
+majoritairement présentes pour la réunion prochaine :
+
+- Gestion des accès concurrents sur les WhiteBoards
+- Implantation  de rendez-vous pour  les agents  synchronisés (abandon
+  définitif des rendez-vous sur les agents non synchronisés). 
+- L'interface graphique  doit permettre de modifier  et visualiser les
+  WhiteBoards. 
+- L'interface graphique  doit permettre de voir si  un sommet contient
+  un agent ou pas. 
+- L'interface graphique doit permettre de charger des classes qui vont
+  répartir les agents sur le graphe. 
+- L'API  proposée dans le  cahier des  charges doit  être complètement
+  implantée. 
+
+
+L'organisation du projet ViSiDiA dans son ensemble :
+----------------------------------------------------
+
+Le client souhaite implanter son propre serveur SVN sur lequel il nous
+sera peut-être demandé de migrer. 
+
+Le client nous informe  qu'une équipe marseillaise travaille aussi sur
+ViSiDiA.
