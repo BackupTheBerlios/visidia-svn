@@ -135,17 +135,18 @@ public class AgentSimulator {
                                  + "doesn't exist !", this);
 
         vertexFrom = data.vertex;
-        vertexTo = data.vertex.neighbour(door);
+        vertexTo = vertexFrom.neighbour(door);
 
         msg = new StringMessage("Moving");
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
-	pushMessageSendingEvent(msgPacket);
-
-        data.vertex = vertexTo;
         System.out.println("The agent " + ag.getIdentity()
                            + " is moving to the vertex "
                            + vertexTo.identity());
+
+	pushMessageSendingEvent(msgPacket);
+
+        data.vertex = vertexTo;
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
@@ -208,9 +209,18 @@ public class AgentSimulator {
 
     public void cloneAndSend(Agent ag, int door) {
         Agent ag2;
+        Vertex vertexFrom, vertexTo;
+        Message msg;
+        MessagePacket msgPacket;
+
+        vertexFrom = getVertexFor(ag);
+        vertexTo = vertexFrom.neighbour(door);
+        msg = new StringMessage("Clone");
+        msgPacket = new MessagePacket(vertexFrom.identity(), door, 
+                                      vertexTo.identity(), msg);
 
         ag2 = createAgent(ag.getClass(), 
-                         getVertexFor(ag).neighbour(door),
+                         vertexTo,
                          new Hashtable());
 
 	System.out.println("The agent " + ag.getIdentity()
@@ -218,6 +228,8 @@ public class AgentSimulator {
                            + ") and send him to the vertex "
 			   + getVertexFor(ag).neighbour(door).identity());
         
+        pushMessageSendingEvent(msgPacket);
+
         createThreadFor(ag2).start();        
     }
 
@@ -232,6 +244,7 @@ public class AgentSimulator {
                                       mesgPacket.receiver());
         try {
             evtQ.put(mse);
+            ackQ.get();
         } catch (InterruptedException e) {
             throw new RuntimeException("I must throws this exception and "
                                         + "not catch it !");
