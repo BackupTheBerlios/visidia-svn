@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.io.*;
 
 import visidia.visidiassert.VisidiaAssertion;
@@ -204,7 +205,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
     }
 
     /**
-     * Set agents on this vertex
+     * Set agents on this vertex.
      */
     public void setAgentsNames(Collection agentsNames) {
         this.agentsNames = agentsNames;
@@ -212,10 +213,20 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
 
 
     /**
-     * Get the agent's names on this vertex
+     * Get the agent's names on this vertex.
      */
     public Collection getAgentsNames() {
         return agentsNames;
+    }
+
+    /**
+     * Add an agent name to this vertex.
+     */
+    public void addAgentName(String agentName) {
+        if (getAgentsNames() == null)
+            setAgentsNames(new LinkedList());
+
+        getAgentsNames().add(agentName);
     }
 
     /**

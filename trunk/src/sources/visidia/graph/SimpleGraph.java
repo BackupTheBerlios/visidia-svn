@@ -49,8 +49,9 @@ public class SimpleGraph implements Cloneable, Serializable{
     
     
     /**
-     * retourne une enumration de tous les sommets du graphe. L'enumeration retournée
-     * contient des Objets de type <code>Vertex</code>.
+     * retourne  une  enumeration  de  tous  les  sommets  du  graphe.
+     * L'enumeration   retournée   contient   des   Objets   de   type
+     * <code>Vertex</code>.
      */	
     public Enumeration vertices(){
 	return hash.elements();

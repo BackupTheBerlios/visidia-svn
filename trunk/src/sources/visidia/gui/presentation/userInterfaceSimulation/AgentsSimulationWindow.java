@@ -54,7 +54,7 @@ public class AgentsSimulationWindow
     
     protected JMenuBar menuBar;
     protected JMenu file , rules ,  graph,algo;
-    protected JMenuItem graph_open, algo_open, algo_open_vertices, graph_save , graph_save_as , 
+    protected JMenuItem graph_open, algo_open, algo_placeAgent, algo_open_vertices, graph_save , graph_save_as , 
 	file_quit , file_close, file_help, graph_select_all, graph_disconnect, graph_reconnect;
     protected JMenuItem rules_open, rules_new;
     //protected JMenuItem new_simple_rules ;
@@ -282,13 +282,14 @@ public class AgentsSimulationWindow
         algo.getPopupMenu().setName("PopAlgo");
         algo.setMnemonic('A');
         
-        algo_open = new JMenuItem("Add Agents");
+        algo_open = new JMenuItem("Add Agents...");
         algo_open.addActionListener(this);
         algo.add(algo_open);
-//         algo.addSeparator();
-//         algo_open_vertices = new JMenuItem("Put algorithm to vertices ");
-//         algo_open_vertices.addActionListener(this);
-//         algo.add(algo_open_vertices);
+
+        algo_placeAgent = new JMenuItem("Place Agents...");
+        algo_placeAgent.addActionListener(this);
+        algo.add(algo_placeAgent);
+
         algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
         
 	algo.addActionListener(this);
@@ -829,11 +830,22 @@ public class AgentsSimulationWindow
 		    ok = OpenAgents.open(selection.elements(),this);
 		else
  //                    OpenAlgoApplet.open(this);
+                    ;
                 simulationAlgo = ok ;
                 System.out.println("table : " + agentsTable.toString());
 		if(! but_start.isEnabled())
 		    but_start.setEnabled(ok);
             }
+        }
+
+        if (mi == algo_placeAgent) {
+            boolean ok = true;
+
+            ok = OpenAgentChooser.open(this);
+            simulationAlgo = ok ;
+            System.out.println("table : " + agentsTable.toString());
+            if(! but_start.isEnabled())
+                but_start.setEnabled(ok);
         }
     }
     

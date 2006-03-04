@@ -75,15 +75,19 @@ public interface Vertex extends WithWhiteBoard {
     public Object getData();
 
     /**
-     * Set agents on this vertex
+     * Set agents on this vertex.
      */
     public void setAgentsNames(Collection agentsNames);
 
-
     /**
-     * Get the agent's names on this vertex
+     * Get the agent's names on this vertex.
      */
     public Collection getAgentsNames();
+
+    /**
+     * Add an agent name to this vertex.
+     */
+    public void addAgentName(String agentName);
 
     public Integer getNext();
     public Integer getPrevious();
