@@ -24,10 +24,8 @@ public class BasicSynchronizedAgent4 extends SynchronizedAgent {
             moveToDoor(rnd.nextInt(getArity()));
 
 
- 	    if(test++ == 4) {
- 		killMe();
+ 	    if(test++ == 4)
 		return;
-	    }
 	    
 	} while (1 == 1);
 

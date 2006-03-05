@@ -20,10 +20,8 @@ public class BasicSynchronizedAgent3 extends SynchronizedAgent {
 
         do {
 	    
- 	    if(test++ == 6) {
-		killMe();
+ 	    if(test++ == 6)
 		return;
-	    }
 	    sleep(300);
 	    nextPulse();
             moveToDoor(rnd.nextInt(getArity()));

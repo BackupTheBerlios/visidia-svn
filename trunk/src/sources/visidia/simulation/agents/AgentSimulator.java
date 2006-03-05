@@ -115,13 +115,7 @@ public class AgentSimulator {
     public void agentDeath(Agent ag) {
 	agents.remove(ag);
     }
-
-    public void killAgent(Agent ag) {
-	getThreadFor(ag).interrupt();
-	agentDeath(ag);
-    }
-
-    
+  
 
 
     public void moveAgentTo(Agent ag, int door) {

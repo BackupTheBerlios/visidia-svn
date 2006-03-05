@@ -50,7 +50,7 @@ public abstract class SynchronizedAgent extends Agent {
     }
 
 
-    public void death() {
+    protected void death() {
 
 	super.death();
 
@@ -66,8 +66,6 @@ public abstract class SynchronizedAgent extends Agent {
 	    }
 
 	}
-
-	System.out.println("Mort de l'agent synchronise " + getIdentity());
 
     }
 
