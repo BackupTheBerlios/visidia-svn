@@ -5,20 +5,14 @@
 
 package visidia.simulation.agents;
 
-import java.util.Hashtable;
-
 public abstract class SynchronizedAgent extends Agent {                     
 
     private static int nbAgents = 0;
     private static int count = 0;
     private static Boolean synchronisation = new Boolean(true);
 
-    public SynchronizedAgent(AgentSimulator sim) {
-        this(sim, new Hashtable());
-    }
-
-    public SynchronizedAgent(AgentSimulator sim, Hashtable hash) {
-        super(sim, hash);
+    public SynchronizedAgent() {
+        super();
         ++nbAgents;
     }
 

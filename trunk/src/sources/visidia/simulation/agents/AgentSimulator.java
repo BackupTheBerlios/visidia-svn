@@ -95,11 +95,9 @@ public class AgentSimulator {
 
             ProcessData data = new ProcessData();
  
-            ag = (Agent) agentClass
-                .getConstructor(new Class [] {AgentSimulator.class, 
-                                              Hashtable.class})
-                .newInstance(new Object [] {this, defaultAgentValues});
-
+            ag = (Agent) agentClass.getConstructor().newInstance();
+            ag.setSimulator(this);
+            ag.setWhiteBoard(defaultAgentValues);
 	    data.vertex = vertex;
             data.agent = ag;
             agents.put(ag, data);

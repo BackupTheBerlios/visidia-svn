@@ -1,10 +1,6 @@
 package visidia.agents;
 
-import java.util.Hashtable;
-
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
-
 
 /**
  * Implemente  un algorithme  d'arbre recouvrant  a l'aide  d'un agent
@@ -12,11 +8,6 @@ import visidia.simulation.agents.Agent;
  * d'identifiants.
  */
 public class Spanning_Tree_Agent_WithoutId extends Agent {
-
-    public Spanning_Tree_Agent_WithoutId (AgentSimulator sim, 
-                                          Hashtable defaultValues) {
-        super(sim, defaultValues);
-    }
 
     public void init() {
         

@@ -3,15 +3,10 @@ package visidia.agents;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
 
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
 
 
 public class RecogniseAgent extends Agent {
-
-    public RecogniseAgent(AgentSimulator sim, Hashtable defaultValues) {
-        super(sim, defaultValues);
-    }
 
     protected void init() {
 
