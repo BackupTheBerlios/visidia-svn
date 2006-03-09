@@ -30,7 +30,7 @@ public class AgentBoxChangingVertexState
     /** the button for changing the algorithms */
     protected JButton buttonChange;
     /** The label for displaying the algorithm used */
-    protected JLabel algoUsed;
+    //xav protected JLabel algoUsed;
     protected SommetDessin monSommet;
     protected int vertex_id = -1;
     protected EtatPanel etatPanel;
@@ -42,6 +42,9 @@ public class AgentBoxChangingVertexState
     protected JButton buttonAdd;
     // Button for removing property from the whiteboard
     protected JButton buttonRemove;
+    // Button for refreshing properties from the whiteboard
+    protected JButton buttonRefresh;
+
 
     //xav protected JCheckBox but_drawMessage;
     //xav protected boolean drawMessage= true;
@@ -97,8 +100,6 @@ public class AgentBoxChangingVertexState
     //xav panelCentre.add(algoUsed, BorderLayout.CENTER);
 
     
-    //System.out.println(monSommet.getStateTable());
-
     setProperties((monSommet.getStateTable()));
 
     dialog.getContentPane().setLayout(new BorderLayout());
@@ -139,20 +140,23 @@ public class AgentBoxChangingVertexState
  
   /** Ajoute les boutons en bas de la boite.*/
   public void ajouterBoutons() {
-      //xav panelCentre.add(algoUsed, BorderLayout.CENTER);
-
+    
       JPanel buttonPane = new JPanel( new BorderLayout());
       
-      JPanel addRemovePane = new JPanel(new FlowLayout());
+      JPanel addRemoveRefreshPane = new JPanel(new FlowLayout());
       
       buttonAdd = new JButton("Add");
       buttonAdd.addActionListener(this);
       
       buttonRemove = new JButton("Remove");
       buttonRemove.addActionListener(this);
+
+      buttonRefresh = new JButton("Refresh");
+      buttonRefresh.addActionListener(this);
       
-      addRemovePane.add(buttonAdd);
-      addRemovePane.add(buttonRemove);
+      addRemoveRefreshPane.add(buttonAdd);
+      addRemoveRefreshPane.add(buttonRemove);
+      addRemoveRefreshPane.add(buttonRefresh);
 
       JPanel okCancelApplyPane = new JPanel(new FlowLayout());
       
@@ -169,7 +173,7 @@ public class AgentBoxChangingVertexState
       okCancelApplyPane.add(buttonCancel);    
       okCancelApplyPane.add(buttonApply);
       
-      buttonPane.add(addRemovePane,BorderLayout.NORTH);
+      buttonPane.add(addRemoveRefreshPane,BorderLayout.NORTH);
       buttonPane.add(okCancelApplyPane,BorderLayout.SOUTH);
       
       buttonApply.setEnabled(true);
@@ -223,21 +227,34 @@ public class AgentBoxChangingVertexState
         String value = JOptionPane.showInputDialog(parent, "Enter the value :");
         monSommet.setValue(name,value);
 
-
         setProperties((monSommet.getStateTable()));
         //dialog.dispose();
     }
     //xav
     if(e.getSource() == buttonRemove) {
 	PropertyTableModel mod =(PropertyTableModel)table.getModel();
-        Object key = mod.getValueAt(table.getEditingRow(),0);
 
-	Hashtable hashtable = monSommet.getStateTable();
-        hashtable.remove(key);
+        if (table.getSelectedRow() == -1 ) {
+            JOptionPane.showMessageDialog(parent,
+                                          "No property selected !", 
+                                          "Warning",
+                                          JOptionPane.WARNING_MESSAGE);
+        }
+        else {
 
+            Object key = mod.getValueAt(table.getSelectedRow(),0);
+            
+            Hashtable hashtable = monSommet.getStateTable();
+            hashtable.remove(key);
+            
+            setProperties((monSommet.getStateTable()));
+            //dialog.dispose();
+        }
 
+    }
+    //xav
+    if(e.getSource() == buttonRefresh) {
         setProperties((monSommet.getStateTable()));
-        //dialog.dispose();
     }
 
 

@@ -83,11 +83,21 @@ public class PropertyTableModel extends AbstractTableModel {
         // S 	short
         // Z 	boolean
 
+        Class cellClass = getValueAt(row,col).getClass();
+
         //xav	return ((col == 1) && (!keys.elementAt(row).equals("label")));
-	return ((col == 1) && ((!keys.elementAt(row).equals("label"))
-                               && ( (getValueAt(row,col).getClass() == java.lang.String.class)
-                                    || (getValueAt(row,col).getClass() == java.lang.Integer.class)
-                                    || (getValueAt(row,col).getClass().getName() == "I"))));
+	return ((col == 1) && (!keys.elementAt(row).equals("label"))
+                               && (( cellClass == java.lang.String.class)
+                                   || ( cellClass == java.lang.Integer.class)
+                                   || ( cellClass.getName() == "B")
+                                   || ( cellClass.getName() == "C")
+                                   || ( cellClass.getName() == "D")
+                                   || ( cellClass.getName() == "F")
+                                   || ( cellClass.getName() == "I")
+                                   || ( cellClass.getName() == "J")
+                                   || ( cellClass.getName() == "S")
+                                   || ( cellClass.getName() == "Z")));
+
     }
 
     public String getColumnName(int col){
