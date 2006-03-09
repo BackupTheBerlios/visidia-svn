@@ -33,6 +33,10 @@ public class WhiteBoard {
         this.values = new Hashtable();
     }
 
+    /**
+     * Return the value  associated with the key. If  the key can't be
+     * found, throw NoSuchElementException.
+     */
     public Object getValue(Object key) {
         if (values.containsKey(key))
             return values.get(key);
@@ -42,6 +46,9 @@ public class WhiteBoard {
             throw new NoSuchElementException();
     }
 
+    /**
+     * Insert a value and the corresponding key.
+     */
     public void setValue(Object key, Object value) {
         values.put(key, value);
     }

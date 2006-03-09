@@ -247,7 +247,7 @@ public class AgentSimulator {
             evtQ.put(mse);
             ackQ.get();
         } catch (InterruptedException e) {
-            throw new RuntimeException("I must throws this exception and "
+            throw new RuntimeException("I must throw this exception and "
                                         + "not catch it !");
         }
 	
