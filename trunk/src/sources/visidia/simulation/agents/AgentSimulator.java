@@ -141,6 +141,15 @@ public class AgentSimulator {
 	pushMessageSendingEvent(msgPacket);
 
         data.vertex = vertexTo;
+	data.lastSeen = vertexFrom;
+    }
+
+    public void moveBackAgent(Agent ag){
+	ProcessData data = (ProcessData) agents.get(ag);
+	Vertex vertex = data.vertex;
+	int door = vertex.indexOf(data.lastSeen.identity());
+
+	moveAgentTo(ag, door);
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
@@ -270,6 +279,7 @@ public class AgentSimulator {
     private class ProcessData {
         public Agent  agent;
         public Vertex vertex;
+	public Vertex lastSeen;
         public Thread thread;
     }
 }

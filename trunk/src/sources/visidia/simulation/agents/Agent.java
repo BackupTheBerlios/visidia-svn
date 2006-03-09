@@ -89,6 +89,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         
         agentMover.move();
     }
+    
+    /**
+     * Moves the Agent back to the vertex from where it comes.
+     */
+
+    public void moveBack() {
+	simulator.moveBackAgent(this);
+    }
 
     //protected
     public int getArity() {
@@ -127,6 +135,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
     public void setVertexProperty(Object key, Object value) {
         simulator.setVertexProperty(this, key, value);
+    }
+
+    public void cloneAgent() {
+	simulator.clone(this);
     }
 
     public void cloneAndSend(int door) {
