@@ -286,6 +286,15 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
+     * Return a String which represent the Agent : the name of the
+     * agent class, an '_' and the identity number of the agent. 
+     */
+    public String toString() {
+	return this.getClass().getName() + "_" + getIdentity();
+    }
+
+
+    /**
      * Method of the Runnable interface. Launch init().
      *
      * @see init();
