@@ -1,7 +1,7 @@
 package visidia.agents;
 
-import java.util.Random;
 import java.util.Hashtable;
+import java.util.NoSuchElementException;
 
 import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
@@ -15,23 +15,25 @@ public class RecogniseAgent extends Agent {
 
     protected void init() {
 
-        Random rnd = new Random();
+        setAgentMover("LinearAgentMover");
         
         do {
             sleep(1000);
+            Integer nbPassages;
 
-            Integer nbPassages = (Integer) getVertexProperty("nbPassages");
+            try {
+
+                nbPassages = (Integer) getVertexProperty("nbPassages");
+            } catch (NoSuchElementException e) {
+                nbPassages = 0;
+            }
             nbPassages = new Integer(nbPassages.intValue() + 1);
             setVertexProperty("nbPassages", nbPassages);
 
-            System.out.println("Je suis passe " 
-                               + nbPassages
-                               + " fois pas ce sommet !");
-            
+            System.out.println(getVertexIdentity() + " has seen an agent "
+                               + nbPassages + " time(s).");
 
-            moveToDoor(rnd.nextInt(getArity()));
+            move();
         } while (1 == 1);
-
     }
-
 }
