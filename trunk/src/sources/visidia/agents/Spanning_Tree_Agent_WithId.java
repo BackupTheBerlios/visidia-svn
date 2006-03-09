@@ -7,9 +7,8 @@ import visidia.simulation.agents.Agent;
 
 
 /**
- * Implemente  un algorithme  d'arbre recouvrant  a l'aide  d'un agent
- * mobile. L'algorithme tient  compte d'une identification unique pour
- * chaque sommet.
+ * Implements a spanning tree algorithm with an agent. This agent uses
+ * the unique identification for each vertex.
  */
 public class Spanning_Tree_Agent_WithId extends Agent {
 
@@ -35,7 +34,6 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                     mark(getVertexIdentity());
                     nbVertices ++;
                 }
-                sleep(200);
                 move();
             }
     }
