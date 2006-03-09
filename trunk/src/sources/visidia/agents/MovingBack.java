@@ -1,3 +1,8 @@
+/**
+ * Agents to  verify moveBack() is working.  It simply move  to a door
+ * and then back to the previous vertex.
+ */
+
 package visidia.agents;
 
 import visidia.simulation.agents.Agent;

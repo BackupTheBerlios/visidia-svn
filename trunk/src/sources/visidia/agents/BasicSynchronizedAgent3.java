@@ -1,26 +1,17 @@
 package visidia.agents;
 
-import java.util.Random;
-
 import visidia.simulation.agents.SynchronizedAgent;
 
 public class BasicSynchronizedAgent3 extends SynchronizedAgent {
 
     protected void init() {
+        
+        setAgentMover("RandomAgentMover");
 
-        Random rnd = new Random();
-	int test = 0;
-
-        do {
-	    
- 	    if(test++ == 6)
-		return;
+        for (int i=0; i < 4; ++i) {
 	    sleep(300);
 	    nextPulse();
-            moveToDoor(rnd.nextInt(getArity()));
-
-        } while (1 == 1);
-
+            move();
+	}
     }
-
 }

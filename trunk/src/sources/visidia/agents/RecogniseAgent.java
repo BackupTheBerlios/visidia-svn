@@ -1,10 +1,8 @@
 package visidia.agents;
 
-import java.util.Hashtable;
 import java.util.NoSuchElementException;
 
 import visidia.simulation.agents.Agent;
-
 
 public class RecogniseAgent extends Agent {
 
@@ -13,7 +11,6 @@ public class RecogniseAgent extends Agent {
         setAgentMover("LinearAgentMover");
         
         do {
-            sleep(1000);
             Integer nbPassages;
 
             try {

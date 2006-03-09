@@ -3,9 +3,8 @@ package visidia.agents;
 import visidia.simulation.agents.Agent;
 
 /**
- * Implemente  un algorithme  d'arbre recouvrant  a l'aide  d'un agent
- * mobile.  L'algorithme  fonctionne sur  des  sommets  qui n'ont  pas
- * d'identifiants.
+ * Implements  a spanning  tree  algorith with  an  agent. This  agent
+ * doesn't use unique identifier of vertices.
  */
 public class Spanning_Tree_Agent_WithoutId extends Agent {
 
@@ -19,9 +18,8 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
         while ( nbSelectedEdges < nbVertices - 1 )
             {
                 if ( ! vertexIsMarked() ) {
-                    //setDoorState(new MarkedState(true), entryDoor());
                     markVertex();
-                    nbVertices ++;
+                    nbSelectedEdges ++;
                 }
                 
                 move();
