@@ -77,12 +77,12 @@ public class Main {
     private static SimpleGraph createGraph(Hashtable hash) {
         SimpleGraph graph = new SimpleGraph(hash);
 
-        graph.put(new Integer(0));
-        graph.put(new Integer(1));
-        graph.put(new Integer(2));
-        graph.put(new Integer(3));
-        graph.put(new Integer(4));
-        graph.put(new Integer(5));
+        // graph.put(new Integer(0));
+//         graph.put(new Integer(1));
+//         graph.put(new Integer(2));
+//         graph.put(new Integer(3));
+//         graph.put(new Integer(4));
+//         graph.put(new Integer(5));
 
         graph.link(new Integer(0), new Integer(1));
         graph.link(new Integer(1), new Integer(2));

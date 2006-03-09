@@ -46,6 +46,16 @@ public class SimpleGraph implements Cloneable, Serializable{
 	
         hash.put(id , new SimpleGraphVertex(id, defaultVertexValues));
     }
+
+    //xav
+    public void put(Integer id, Hashtable properties){
+	if( contains(id) ){
+	    System.out.println(id);
+	    throw new AddIdTwiceException();
+	}
+	
+        hash.put(id , new SimpleGraphVertex(id, properties));
+    }
     
     
     /**
@@ -237,6 +247,8 @@ public class SimpleGraph implements Cloneable, Serializable{
      *
      */	
     private SimpleGraphVertex getSimpleGraphVertex(Integer id){
+
+
 	SimpleGraphVertex sgv = (SimpleGraphVertex) hash.get(id);
 	if(sgv == null){
 	    throw new NoSuchIdException();
@@ -244,8 +256,6 @@ public class SimpleGraph implements Cloneable, Serializable{
 
 	return sgv;
     }
-    
-    
 
 
     /**

@@ -24,14 +24,25 @@ public class Convertisseur {
 		
 		while(enumerationSommets.hasMoreElements()){ 
 		    unSommet = (Sommet)enumerationSommets.nextElement();
+
+// 		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
+//                                                  .getEtiquette()));
+
 		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
-                                                 .getEtiquette()));
+                                               .getEtiquette()),
+                                     unSommet.getSommetDessin()
+                                     .getStateTable());
+
 		    nouveauGraph.vertex(new Integer(unSommet
                                                     .getSommetDessin()
                                                     .getEtiquette()))
                         .setData(unSommet.getSommetDessin().getStateTable()
                                  .clone());
+
 		}
+
+                System.out.println("Fin des sommets !");
+
 		while(enumerationAretes.hasMoreElements()){
 		    uneArete = (Arete)enumerationAretes.nextElement();
 		    if (uneArete.getAreteDessin().forme()
@@ -53,6 +64,8 @@ public class Convertisseur {
 			new Integer(uneArete.destination().getSommetDessin().
                                     getEtiquette()));
 		}
+
+                System.out.println("Fin des aretes !");
 		
 		return nouveauGraph;
 	}
@@ -73,6 +86,7 @@ public class Convertisseur {
             graph.vertex(key).setAgentsNames(new Vector(agentsNames));
         }
         
+        System.out.println("Fin des agents !");
         return graph;
     }
 }

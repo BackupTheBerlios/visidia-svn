@@ -29,8 +29,14 @@ public class WhiteBoard {
      * has modified them. 
      */
     public WhiteBoard(Hashtable defaults) {
-        this.defaults = defaults;
-        this.values = new Hashtable();
+        System.out.println("Whiteboard(Hashtable) default" + defaults);
+        // this.defaults = defaults;
+//         this.values = new Hashtable();
+
+        this.values = defaults;
+        this.defaults = new Hashtable();
+
+        //System.out.println("Whiteboard(Hashtable) values" + this.values);
     }
 
     /**

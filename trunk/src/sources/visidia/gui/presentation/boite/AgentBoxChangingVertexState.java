@@ -37,9 +37,15 @@ public class AgentBoxChangingVertexState
     /** a table for the state */
     protected JTable table = new JTable();
 
-    protected JCheckBox but_drawMessage;
-    protected boolean drawMessage= true;
-    protected boolean drawMessageOldValue= drawMessage;
+    //xav
+    // Button for adding property to the whiteboard
+    protected JButton buttonAdd;
+    // Button for removing property from the whiteboard
+    protected JButton buttonRemove;
+
+    //xav protected JCheckBox but_drawMessage;
+    //xav protected boolean drawMessage= true;
+    //xav protected boolean drawMessageOldValue= drawMessage;
     //Constructeurs
 
     /**
@@ -57,6 +63,7 @@ public class AgentBoxChangingVertexState
     public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin sommet, 
 				     String titre) {
     
+        
     this.dialog = new JDialog(parent, titre);
     this.parent = parent;
 
@@ -71,27 +78,29 @@ public class AgentBoxChangingVertexState
     
     etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
     
-
-    drawMessage = monSommet.getDrawMessage();
-    drawMessageOldValue = drawMessage;
-    but_drawMessage= new JCheckBox("Draw sending Message",drawMessage) ;
-    but_drawMessage.addItemListener(this);
+    //xav drawMessage = monSommet.getDrawMessage();
+    //xav drawMessageOldValue = drawMessage;
+    //xav but_drawMessage= new JCheckBox("Draw sending Message",drawMessage) ;
+    //xav but_drawMessage.addItemListener(this);
 
     Panel panelHaut = new Panel();
     panelHaut.setLayout(new BorderLayout());
     panelHaut.add(etatPanel, BorderLayout.NORTH);
-    panelHaut.add(but_drawMessage, BorderLayout.SOUTH);
-    
+    //panelHaut.add(but_drawMessage, BorderLayout.SOUTH);
+
     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     JScrollPane spane = new JScrollPane(table);
-    
+
     JPanel panelCentre = new JPanel();
     panelCentre.setLayout(new BorderLayout());
     panelCentre.add(spane, BorderLayout.NORTH);
-    panelCentre.add(algoUsed, BorderLayout.CENTER);
+    //xav panelCentre.add(algoUsed, BorderLayout.CENTER);
+
     
+    //System.out.println(monSommet.getStateTable());
+
     setProperties((monSommet.getStateTable()));
-       
+
     dialog.getContentPane().setLayout(new BorderLayout());
     //dialog.getContentPane().add(etatPanel, BorderLayout.NORTH);
     dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
@@ -130,24 +139,41 @@ public class AgentBoxChangingVertexState
  
   /** Ajoute les boutons en bas de la boite.*/
   public void ajouterBoutons() {
-    JPanel buttonPane = new JPanel(new FlowLayout());
-    
-    buttonOk = new JButton("Ok");
-    buttonOk.addActionListener(this);
-    
-    buttonCancel = new JButton("Cancel");
-    buttonCancel.addActionListener(this);
+      //xav panelCentre.add(algoUsed, BorderLayout.CENTER);
 
-   
-    buttonApply = new JButton("Apply");
-    buttonApply.addActionListener(this);
-    
-    
-    buttonPane.add(buttonOk);
-    buttonPane.add(buttonCancel);    
-    buttonPane.add(buttonApply);
-    buttonApply.setEnabled(true);
-    dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+      JPanel buttonPane = new JPanel( new BorderLayout());
+      
+      JPanel addRemovePane = new JPanel(new FlowLayout());
+      
+      buttonAdd = new JButton("Add");
+      buttonAdd.addActionListener(this);
+      
+      buttonRemove = new JButton("Remove");
+      buttonRemove.addActionListener(this);
+      
+      addRemovePane.add(buttonAdd);
+      addRemovePane.add(buttonRemove);
+
+      JPanel okCancelApplyPane = new JPanel(new FlowLayout());
+      
+      buttonOk = new JButton("Ok");
+      buttonOk.addActionListener(this);
+      
+      buttonCancel = new JButton("Cancel");
+      buttonCancel.addActionListener(this);
+      
+      buttonApply = new JButton("Apply");
+      buttonApply.addActionListener(this);
+      
+      okCancelApplyPane.add(buttonOk);
+      okCancelApplyPane.add(buttonCancel);    
+      okCancelApplyPane.add(buttonApply);
+      
+      buttonPane.add(addRemovePane,BorderLayout.NORTH);
+      buttonPane.add(okCancelApplyPane,BorderLayout.SOUTH);
+      
+      buttonApply.setEnabled(true);
+      dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
   }
   
 
@@ -191,6 +217,30 @@ public class AgentBoxChangingVertexState
       dialog.setVisible(false);
       dialog.dispose();
     }
+    //xav
+    if(e.getSource() == buttonAdd) {
+        String name = JOptionPane.showInputDialog(parent, "Enter the name :");
+        String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+        monSommet.setValue(name,value);
+
+
+        setProperties((monSommet.getStateTable()));
+        //dialog.dispose();
+    }
+    //xav
+    if(e.getSource() == buttonRemove) {
+	PropertyTableModel mod =(PropertyTableModel)table.getModel();
+        Object key = mod.getValueAt(table.getEditingRow(),0);
+
+	Hashtable hashtable = monSommet.getStateTable();
+        hashtable.remove(key);
+
+
+        setProperties((monSommet.getStateTable()));
+        //dialog.dispose();
+    }
+
+
   }
 
     //Implementation de VueEtatPanel
@@ -202,10 +252,10 @@ public class AgentBoxChangingVertexState
 	PropertyTableModel mod =(PropertyTableModel)table.getModel();
 	mod.putProperty("label",etatPanel.ardoise().donneEtat());
     
-	if(drawMessage)
-	    mod.putProperty("draw messages","yes");
-	else
-	    mod.putProperty("draw messages","no");
+	//xav if(drawMessage)
+	//xav     mod.putProperty("draw messages","yes");
+	//xav else
+	//xav     mod.putProperty("draw messages","no");
     }
       
     /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
@@ -214,7 +264,7 @@ public class AgentBoxChangingVertexState
 	PropertyTableModel mod =(PropertyTableModel)table.getModel();
 	int nbRows = mod.getRowCount();
 	monSommet.setEtat(etat);
-	monSommet.setDrawMessage(drawMessage);
+	//xav monSommet.setDrawMessage(drawMessage);
 
 	try{
 	    for (int i=0;i<nbRows;i++){
@@ -240,10 +290,11 @@ public class AgentBoxChangingVertexState
 
     public void itemStateChanged(ItemEvent evt) {
 	
-	if((JCheckBox)evt.getSource() == but_drawMessage){
-	    drawMessage = !drawMessage;
-	    elementModified();
-	}
+//xav 	if((JCheckBox)evt.getSource() == but_drawMessage){
+//xav 	    drawMessage = !drawMessage;
+//xav 	    elementModified();
+//xav 	}
+
     }
     
 }

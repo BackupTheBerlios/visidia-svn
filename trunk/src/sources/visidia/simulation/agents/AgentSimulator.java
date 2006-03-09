@@ -44,7 +44,12 @@ public class AgentSimulator {
                           Hashtable defaultAgentValues,
                           VQueue evtVQ, VQueue ackVQ) {
 
-	graph = (SimpleGraph) netGraph.clone();
+	//xav graph = (SimpleGraph) netGraph.clone();
+
+        //xav temp 
+        graph = netGraph;
+        //xav temp
+
 	threadGroup = new ThreadGroup("simulator");
 	fillAgentsTable(netGraph, defaultAgentValues);
         this.evtQ = evtVQ;

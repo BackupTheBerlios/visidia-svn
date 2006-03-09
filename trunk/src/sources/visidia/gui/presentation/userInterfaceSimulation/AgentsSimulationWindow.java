@@ -592,10 +592,11 @@ public class AgentsSimulationWindow
                                      .convert(vueGraphe.getGraphe(),
                                               agentsTable),
                                      evtPipeOut, ackPipeOut);
-        
+        System.out.println("Fin du simulateur !");
         seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
  	seh.start();
 
+        System.out.println("Fin du simulhandler !");
 	but_stop.setEnabled(true);
 	but_pause.setEnabled(true);
 	but_start.setEnabled(false);
