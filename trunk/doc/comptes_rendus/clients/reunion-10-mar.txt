@@ -1,0 +1,59 @@
+compte-rendu de la réunion du 10/03/2006
+----------------------------------------
+
+Rdv 10h au LABRI.
+M. Derbel et M. Mosbah sont présents.
+Hicham n'a pas pu assister à la réunion.
+
+Présentation  :
+-------------- 
+
+Lors de la réunion les clients  ont principalement fait un point de ce
+qui restait à faire et M. Derbel a proposé des suites possibles et intéressantes 
+à réfléchir s'il reste du temps.
+
+Pour M.  Derbel voici une liste  des travaux à  réaliser suivant leur
+priorité :
+
+1.
+- exclusion mutuelle  sur les whiteboards.  
+- détection  graphique de la présence d'agents sur un sommet.
+
+2.
+
+- implantation  d'une fenêtre  d'expérimentation qui  va  permettre de
+faire des statistiques sur le  graphe. Cette fenêtre doit permettre de
+pouvoir calculer  toute sorte  de chose au  sujet de  l'exécution d'un
+algorithme  à  base  d'agents  sur  un graphe.   (pourvoir  faire  des
+opérations sur les  valeurs etc...).  Ceci va aussi  nous permettre de
+travailler sur les algorithmes distribués de façon plus théorique.
+
+- ajout du marquage des arêtes.
+
+- penser au règles de réécriture  et à l'implantation graphique qui va
+  avec.  M. Derbel nous  donnera un  algorithme permettant  de valider
+  cette fonctionnalité.
+
+- ajout  des arêtes  sur les  grands graphe  et en  général  penser au
+  travail des agents sur les grands graphes dont le but est de pouvoir
+  faire des expérimentations dessus
+
+- commencer le rapport.
+
+- factoriser  le code  si  possible  surtout en  ce  qui concerne  les
+  fenêtres de simulation.
+
+- si on a le temps commencer à penser à la version distribuée pour les
+agents et aux appels de méthodes à distance.
+
+Nous avons organisé une démonstration  de notre module pour la semaine
+prochaine.   Cette version  du  module doit  contenir les  principales
+fonctionnalités énoncées dans le  cahier des charges.  Entre temps, M.
+Derbel  va   nous  faire   parvenir  quelques  algorithmes   qui  nous
+permettrons de tester notre API.  On devra donner une version de notre
+module dans  le courant  de la semaine  prochaine afin que  Mlle Abbas
+puisse tester l'API de son coté.  
+
+Un mail de  rappel des choses à faire pour la  semaine prochaine a été
+envoyé  par  M.   Derbel  a  la  fin  de  la   réunion  sur  la  liste
+visidia-pfa.berlios.de.
