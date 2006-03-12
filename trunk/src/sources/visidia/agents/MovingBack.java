@@ -14,6 +14,7 @@ public class MovingBack extends Agent {
 	for(int i = 0; i < getArity(); ++i) {
 	    moveToDoor(i);
 	    moveBack();
+            markEntryDoor(); // put the edge in bold
 	}
     }
 }

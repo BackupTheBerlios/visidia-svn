@@ -12,6 +12,8 @@ import java.lang.reflect.Constructor;
 
 import visidia.tools.agents.WithWhiteBoard;
 import visidia.tools.agents.WhiteBoard;
+import visidia.misc.EdgeState;
+import visidia.misc.MarkedState;
 
 import visidia.visidiassert.*;
 
@@ -152,6 +154,13 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
+     * Return the door from which the agents come from.
+     */
+    protected int entryDoor() {
+        return simulator.entryDoor(this);
+    }
+
+    /**
      * Low level method to move me.  You might prefer to use move() in
      * conjunction with an AgentMover.
      *
@@ -183,7 +192,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Moves the Agent back to the vertex from where it comes.
      */
     public void moveBack() {
-	simulator.moveBackAgent(this);
+	moveToDoor(entryDoor());
     }
 
     /**
@@ -266,6 +275,25 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public void setVertexProperty(Object key, Object value) {
         simulator.setVertexProperty(this, key, value);
+    }
+
+    /**
+     * Used to change the edge associated with the door on the current
+     * vertex.
+     *
+     * @param state The new state to affect to the edge
+     * @param door Door from which the edge will be changed
+     */
+    public void changeDoorState(int door, EdgeState state) {
+        simulator.changeDoorState(this, door, state);
+    }
+
+    /**
+     * A  shortcut to  changeDoorState(). It  marks the  last  edge on
+     * which the agents has moved.
+     */
+    public void markEntryDoor() {
+        changeDoorState(entryDoor(), new MarkedState(true));
     }
 
     /**

@@ -1,5 +1,7 @@
 package visidia.agents;
 
+import java.util.Arrays;
+
 import visidia.simulation.agents.Agent;
 
 
@@ -15,19 +17,25 @@ public class Spanning_Tree_Agent_WithId extends Agent {
         
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
-
+        
         setAgentMover("RandomAgentMover");
-        vertexMarks = new boolean [nbVertices];
 
-        while ( nbSelectedEdges < (nbVertices - 1) )
-            {
-                if ( ! isMarked(getVertexIdentity()) ) {
-                    //setDoorState(new MarkedState(true), entryDoor());
-                    mark(getVertexIdentity());
-                    nbVertices ++;
-                }
-                move();
+        vertexMarks = new boolean [nbVertices];
+        Arrays.fill(vertexMarks, false);
+
+        mark(getVertexIdentity());
+
+        while ( nbSelectedEdges < (nbVertices - 1) ) {
+
+            move();
+
+            if ( ! isMarked(getVertexIdentity()) ) {
+                markEntryDoor();
+                mark(getVertexIdentity());
+                nbSelectedEdges ++;
             }
+
+        }
     }
 
     private void mark (int vertex) {

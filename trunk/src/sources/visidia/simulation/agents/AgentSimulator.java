@@ -6,9 +6,11 @@ import visidia.tools.VQueue;
 import visidia.visidiassert.VisidiaAssertion;
 import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
+import visidia.simulation.EdgeStateChangeEvent;
 import visidia.tools.NumberGenerator;
 import visidia.misc.Message;
 import visidia.misc.StringMessage;
+import visidia.misc.EdgeState;
 
 import java.io.*;
 import java.util.Hashtable;
@@ -145,15 +147,33 @@ public class AgentSimulator {
 	pushMessageSendingEvent(msgPacket);
 
         data.vertex = vertexTo;
-	data.lastSeen = vertexFrom;
+	data.lastVertexSeen = vertexFrom;
     }
 
-    public void moveBackAgent(Agent ag){
-	ProcessData data = (ProcessData) agents.get(ag);
-	Vertex vertex = data.vertex;
-	int door = vertex.indexOf(data.lastSeen.identity());
+    public void changeDoorState(Agent ag, int door, EdgeState state) {
+        Vertex vertexFrom, vertexTo;
+        Long key = new Long(numGen.alloc());
+        EdgeStateChangeEvent event;
 
-	moveAgentTo(ag, door);
+        vertexFrom = getVertexFor(ag);
+        vertexTo = vertexFrom.neighbour(door);
+
+        event = new EdgeStateChangeEvent(key, 
+                                         vertexFrom.identity(),
+                                         vertexTo.identity(),
+                                         state);
+        try {
+            evtQ.put(event);
+            movingMonitor.waitForAnswer(key);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("I must throw this exception and " +
+                                       "not catch it !");
+        }
+                        
+    }
+
+    public int entryDoor(Agent ag) {
+        return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
@@ -193,10 +213,6 @@ public class AgentSimulator {
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
     }
-
-//     public int getIdentity(Agent ag) {
-//         return getAgentIdentityFor(ag);
-//     }
 
     public void setDefaultAgentMover(AgentMover am) {
         defaultAgentMover = am;
@@ -276,6 +292,10 @@ public class AgentSimulator {
         return getDataFor(ag).vertex;
     }
 
+    private Vertex getLastVertexSeen(Agent ag) {
+        return getDataFor(ag).lastVertexSeen;
+    }
+
     private ProcessData getDataFor(Agent ag) {
         return (ProcessData)agents.get(ag);
     }
@@ -283,7 +303,7 @@ public class AgentSimulator {
     private class ProcessData {
         public Agent  agent;
         public Vertex vertex;
-	public Vertex lastSeen;
+        public Vertex lastVertexSeen;
         public Thread thread;
     }
 }

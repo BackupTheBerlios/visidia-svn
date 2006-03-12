@@ -1,5 +1,7 @@
 package visidia.agents;
 
+import java.util.NoSuchElementException;
+
 import visidia.simulation.agents.Agent;
 
 /**
@@ -13,17 +15,19 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
         int nbSelectedEdges = 0;
         int nbVertices = getNetSize();
 
-        setAgentMover("LinearAgentMover");
+        setAgentMover("RandomAgentMover");
 
-        while ( nbSelectedEdges < nbVertices - 1 )
-            {
-                if ( ! vertexIsMarked() ) {
-                    markVertex();
-                    nbSelectedEdges ++;
-                }
-                
-                move();
+        markVertex();
+
+        while ( nbSelectedEdges < nbVertices - 1 ) {
+            move();
+
+            if ( ! vertexIsMarked() ) {
+                markEntryDoor();
+                markVertex();
+                nbSelectedEdges ++;
             }
+        }
     }
 
     private void markVertex () {
@@ -31,6 +35,16 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
     }
 
     private boolean vertexIsMarked() {
-        return ((Boolean)getVertexProperty("marked")).booleanValue();
+        boolean mark;
+
+        // If the vertex is not already marked, an exception is thrown
+        // by the WhiteBoard.
+        try {
+            mark = ((Boolean)getVertexProperty("marked")).booleanValue();
+        } catch (NoSuchElementException e) {
+            mark = false;
+        }
+
+        return mark;
     }
 }

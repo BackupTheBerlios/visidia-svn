@@ -38,10 +38,8 @@ public class MovingMonitor implements Runnable {
      * Used by the Runnable interface to start the thread.
      */
     public final void run() {
-        System.out.println("Launching monitor");
 
         fromQueue = null;
-
 
         while (true) {
             synchronized ( synchronisation ) {
