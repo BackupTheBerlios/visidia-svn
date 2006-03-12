@@ -35,6 +35,8 @@ public class AgentSimulator {
 
     private NumberGenerator numGen = new NumberGenerator();
 
+    private MovingMonitor movingMonitor;
+
     public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
                           VQueue ackVQ) {
         this(netGraph, new Hashtable(), evtVQ, ackVQ);
@@ -50,6 +52,9 @@ public class AgentSimulator {
 	fillAgentsTable(graph, defaultAgentValues);
         this.evtQ = evtVQ;
         this.ackQ = ackVQ;
+
+        movingMonitor = new MovingMonitor(ackQ);
+        new Thread(threadGroup, movingMonitor).start();
     }
 
     private void fillAgentsTable(SimpleGraph graph, 
@@ -246,7 +251,7 @@ public class AgentSimulator {
                                       mesgPacket.receiver());
         try {
             evtQ.put(mse);
-            ackQ.get();
+            movingMonitor.waitForAnswer(key);
         } catch (InterruptedException e) {
             throw new RuntimeException("I must throw this exception and "
                                         + "not catch it !");
