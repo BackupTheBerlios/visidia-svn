@@ -1,0 +1,12 @@
+0* use jdk1.4 or more : export PATH=$YOUR_JAVA_1.4_Or_1.5:$PATH
+1* To run ViSiDiA : ./visidia.sh
+2* To compile : + ./clean.sh
+		+ ./compile.sh : main api
+		+ ./rmic.sh : make the stubs for the distributed version
+		+ ./acompile.sh : compile algorithms
+3* To run a nodes server for the distributed version ./server.sh
+
+ ########################################
+#    IMPORTANT : UNSTABLE VERSION        #
+ ########################################
+4* this verion of visidia allows to write and to simulate synchronous algorithms. It has not been tested intensively. PLease report any bug or problem when using it.
