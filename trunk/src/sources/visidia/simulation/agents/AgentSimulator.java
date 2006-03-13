@@ -4,6 +4,7 @@ import visidia.graph.*;
 import visidia.agents.*;
 import visidia.tools.VQueue;
 import visidia.visidiassert.VisidiaAssertion;
+import visidia.simulation.AlgorithmEndEvent;
 import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
@@ -120,6 +121,18 @@ public class AgentSimulator {
 
     public void agentDeath(Agent ag) {
 	agents.remove(ag);
+
+	/* Detecting the end of the algorithm */
+	if(agents.isEmpty()) {
+	    try {
+		evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
+	    } catch (InterruptedException e) {
+		throw new RuntimeException("I must throw this exception and " +
+					   "not catch it !");
+	    }
+	    System.out.println("Algorithm Terminated");
+	}
+	
     }
   
 
