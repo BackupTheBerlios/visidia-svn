@@ -4,10 +4,14 @@ import visidia.graph.*;
 import visidia.agents.*;
 import visidia.tools.VQueue;
 import visidia.visidiassert.VisidiaAssertion;
+
 import visidia.simulation.AlgorithmEndEvent;
 import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
+import visidia.simulation.SimulationAbortError;
+import visidia.simulation.SimulatorThreadGroup;
+
 import visidia.tools.NumberGenerator;
 import visidia.misc.Message;
 import visidia.misc.StringMessage;
@@ -28,7 +32,7 @@ public class AgentSimulator {
     private SimpleGraph graph;
 
     // simulator threads set
-    private ThreadGroup threadGroup;
+    private SimulatorThreadGroup threadGroup;
 
     private Hashtable agents;
     
@@ -53,7 +57,7 @@ public class AgentSimulator {
 
 	graph = (SimpleGraph) netGraph;
 
-	threadGroup = new ThreadGroup("simulator");
+	threadGroup = new SimulatorThreadGroup("simulator");
 	fillAgentsTable(graph, defaultAgentValues);
         this.evtQ = evtVQ;
         this.ackQ = ackVQ;
@@ -95,7 +99,7 @@ public class AgentSimulator {
     }
     
     private Agent createAgent(String agentName, Vertex vertex,
-                             Hashtable defaultAgentValues) {
+                              Hashtable defaultAgentValues) {
         try {
             String completName = new String("visidia.agents." + agentName);
             return createAgent(Class.forName(completName), vertex,
@@ -106,7 +110,7 @@ public class AgentSimulator {
     }
 
     private Agent createAgent(Class agentClass, Vertex vertex,
-                             Hashtable defaultAgentValues) {
+                              Hashtable defaultAgentValues) {
         Agent ag;
 
         try {
@@ -128,23 +132,17 @@ public class AgentSimulator {
     }
 
 
-    public void agentDeath(Agent ag) {
+    public void agentDeath(Agent ag) throws InterruptedException {
 	agents.remove(ag);
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
-	    try {
-		evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
-	    } catch (InterruptedException e) {
-		throw new RuntimeException("I must throw this exception and " +
-					   "not catch it !");
-	    }
-	    System.out.println("Algorithm Terminated");
-	}
-	
+            evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
+        }
+        System.out.println("Algorithm Terminated");
     }
-
-    public void moveAgentTo(Agent ag, int door) {
+	
+    public void moveAgentTo(Agent ag, int door) throws InterruptedException {
         ProcessData data = (ProcessData) agents.get(ag);
         Vertex vertexFrom, vertexTo;
         Message msg;
@@ -170,7 +168,9 @@ public class AgentSimulator {
 	data.lastVertexSeen = vertexFrom;
     }
 
-    public void changeDoorState(Agent ag, int door, EdgeState state) {
+    public void changeDoorState(Agent ag, int door, EdgeState state) 
+        throws InterruptedException {
+
         Vertex vertexFrom, vertexTo;
         Long key = new Long(numGen.alloc());
         EdgeStateChangeEvent event;
@@ -182,14 +182,8 @@ public class AgentSimulator {
                                          vertexFrom.identity(),
                                          vertexTo.identity(),
                                          state);
-        try {
-            evtQ.put(event);
-            movingMonitor.waitForAnswer(key);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("I must throw this exception and " +
-                                       "not catch it !");
-        }
-                        
+        evtQ.put(event);
+        movingMonitor.waitForAnswer(key);
     }
 
     public int entryDoor(Agent ag) {
@@ -214,16 +208,26 @@ public class AgentSimulator {
         System.out.println("Start");
     }
 
+    public void abortSimulation() {
+        
+        while(threadGroup.activeCount() > 0) {
+            threadGroup.interrupt();
+            System.out.println("Reste " + threadGroup.activeCount());
+            try {
+                Thread.currentThread().sleep(50);
+            } catch (InterruptedException e) {
+                throw new SimulationAbortError(e);
+            }
+
+        }
+    }
+
     public int getArity(Agent ag) {
         return getVertexFor(ag).degree();
     }
 
-    public void sleep(Agent ag, long millis) {
-        try {
-            getThreadFor(ag).sleep(millis);
-        } catch (InterruptedException e) {
-            
-        }
+    public void sleep(Agent ag, long millis) throws InterruptedException {
+        getThreadFor(ag).sleep(millis);
     }
 
     public int getNetSize() {
@@ -250,7 +254,9 @@ public class AgentSimulator {
         createThreadFor(ag2).start();
     }
 
-    public void cloneAndSend(Agent ag, int door) {
+    public void cloneAndSend(Agent ag, int door) 
+        throws InterruptedException {
+        
         Agent ag2;
         Vertex vertexFrom, vertexTo;
         Message msg;
@@ -263,8 +269,8 @@ public class AgentSimulator {
                                       vertexTo.identity(), msg);
 
         ag2 = createAgent(ag.getClass(), 
-                         vertexTo,
-                         new Hashtable());
+                          vertexTo,
+                          new Hashtable());
 
 	System.out.println("The agent " + ag.getIdentity()
 			   + " creates a clone (num " + ag2.getIdentity()
@@ -276,7 +282,8 @@ public class AgentSimulator {
         createThreadFor(ag2).start();        
     }
 
-    private void pushMessageSendingEvent(MessagePacket mesgPacket) {
+    private void pushMessageSendingEvent(MessagePacket mesgPacket) 
+        throws InterruptedException {
 
 	Long key = new Long(numGen.alloc());
         MessageSendingEvent mse;
@@ -285,13 +292,8 @@ public class AgentSimulator {
                                       mesgPacket.message(),
                                       mesgPacket.sender(), 
                                       mesgPacket.receiver());
-        try {
-            evtQ.put(mse);
-            movingMonitor.waitForAnswer(key);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("I must throw this exception and "
-                                        + "not catch it !");
-        }
+        evtQ.put(mse);
+        movingMonitor.waitForAnswer(key);
 	
     }
 

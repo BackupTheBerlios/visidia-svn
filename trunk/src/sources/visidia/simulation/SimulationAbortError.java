@@ -6,4 +6,11 @@ package visidia.simulation;
  */
 public class SimulationAbortError extends Error{
 
+    public SimulationAbortError() {
+        super();
+    }
+
+    public SimulationAbortError(Throwable cause) {
+        super(cause);
+    }
 }

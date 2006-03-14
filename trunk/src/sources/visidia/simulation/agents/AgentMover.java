@@ -23,14 +23,14 @@ public abstract class AgentMover {
   /**
    * Move the agent to the next door.
    */
-  public final void move() {
+  public final void move() throws InterruptedException {
     move(findNextDoor());
   }
     
   /**
    * Move the agent to a specified door.
    */
-  public final void move(int door) {
+  public final void move(int door) throws InterruptedException {
     simulator.moveAgentTo(agent(), door);
   }
 

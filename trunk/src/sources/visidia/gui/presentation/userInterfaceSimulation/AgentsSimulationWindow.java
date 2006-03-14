@@ -622,8 +622,8 @@ public class AgentsSimulationWindow
 	System.out.println("  ==> Stopped");
 	System.out.println("Stopping the Simulator");
 	if (sim != null)
-//dam 	    sim.abortSimulation();
-            ;
+ 	    sim.abortSimulation();
+
 	System.out.println("  ==> Stopped");
 	
 	System.out.println("Stopping the Simulator Event Handler");

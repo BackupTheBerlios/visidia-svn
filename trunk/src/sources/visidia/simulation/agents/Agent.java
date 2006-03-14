@@ -15,6 +15,8 @@ import visidia.tools.agents.WhiteBoard;
 import visidia.misc.EdgeState;
 import visidia.misc.MarkedState;
 
+import visidia.simulation.SimulationAbortError;
+
 import visidia.visidiassert.*;
 
 public abstract class Agent implements Runnable, WithWhiteBoard {
@@ -169,7 +171,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see move()
      */
     public void moveToDoor(int door) {
-        simulator.moveAgentTo(this, door);
+        try {
+            simulator.moveAgentTo(this, door);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     }
 
     /**
@@ -182,10 +188,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public void move() {
         VisidiaAssertion.verify( agentMover != null ,
-                                 "In move() : The AgentMover hasn't been specified yet !",
+                                 "In move() : The AgentMover hasn't been " +
+                                 "specified yet !",
                                  this);
-        
-        agentMover.move();
+        try {
+            agentMover.move();
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     }
     
     /**
@@ -209,7 +219,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param Milliseconds to sleep.
      */
     protected void sleep(long millis) {
-        simulator.sleep(this, millis);
+        try {
+            simulator.sleep(this, millis);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     }
 
     /**
@@ -285,7 +299,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param door Door from which the edge will be changed
      */
     public void changeDoorState(int door, EdgeState state) {
-        simulator.changeDoorState(this, door, state);
+        try {
+            simulator.changeDoorState(this, door, state);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     }
 
     /**
@@ -310,7 +328,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param door Door where to send the clone.
      */
     public void cloneAndSend(int door) {
-        simulator.cloneAndSend(this, door);
+        try {
+            simulator.cloneAndSend(this, door);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     }
 
     /**
@@ -341,7 +363,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Kill the agent.
      */
     protected void death() {
-        simulator.agentDeath(this);
+        try {
+            simulator.agentDeath(this);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
     };
 
 }

@@ -6,6 +6,7 @@
 package visidia.simulation.agents;
 
 import visidia.simulation.SimulAck;
+import visidia.simulation.SimulationAbortError;
 import visidia.tools.VQueue;
 
 public class MovingMonitor implements Runnable {
@@ -55,36 +56,28 @@ public class MovingMonitor implements Runnable {
                     synchronisation.notifyAll();
 
                 } catch (InterruptedException e) {
-                    e.getStackTrace();
-                    return;
+                    throw new SimulationAbortError(e);
                 }
             }
         }
     }
 
-    public SimulAck waitForAnswer(Long key) {
+    public SimulAck waitForAnswer(Long key) throws InterruptedException {
 
         synchronized( synchronisation ) {
 
-            try {
-
-                // Wait until the answer is for me.
-                while(fromQueue == null || ! fromQueue.number().equals(key))
-                    synchronisation.wait();
-
-                // The   object   grab    from   the   queue   is   my
-                // acknowledgment. I need to return now.
-                SimulAck forMe = fromQueue;
+            // Wait until the answer is for me.
+            while(fromQueue == null || ! fromQueue.number().equals(key))
+                synchronisation.wait();
             
-                fromQueue = null;
-                synchronisation.notifyAll();
+            // The   object   grab    from   the   queue   is   my
+            // acknowledgment. I need to return now.
+            SimulAck forMe = fromQueue;
+            
+            fromQueue = null;
+            synchronisation.notifyAll();
 
-                return forMe;
-
-            } catch (InterruptedException e) {
-                e.getStackTrace();
-                return null;
-            }
+            return forMe;
 
         }
 

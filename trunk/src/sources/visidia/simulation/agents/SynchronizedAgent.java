@@ -5,6 +5,8 @@
 
 package visidia.simulation.agents;
 
+import visidia.simulation.SimulationAbortError;
+
 public abstract class SynchronizedAgent extends Agent {                     
 
     private static int nbAgents = 0;
@@ -26,8 +28,7 @@ public abstract class SynchronizedAgent extends Agent {
 		try {
 		    synchronisation.wait();
 		} catch(InterruptedException e) {
-		    System.out.println("Synchronisation problem : " + e);
-		    System.exit(1);
+                    throw new SimulationAbortError(e);
 		}
 		
 		return;
@@ -64,5 +65,3 @@ public abstract class SynchronizedAgent extends Agent {
     }
 
 }
-
-
