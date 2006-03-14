@@ -355,12 +355,30 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	}
 	else if ( fenetreDeSimulationDist == null ) {
 	    synchronized(sentMessageVector){
+		Integer srcID; //jb
+		Integer destID; 
 		SentMessage sentMessage;
+		Color col;
                 sentMessage = new
                     SentMessage(mse,
                                 agentsSimulationWindow.getVueGraphe()
-                                .rechercherSommet(mse.sender().toString()).centre(), agentsSimulationWindow.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
+                                .rechercherSommet(mse.sender().toString()).centre(),
+				agentsSimulationWindow.getVueGraphe().
+				rechercherSommet(mse.receiver().toString()).centre(), lePas);
 		sentMessageVector.add(sentMessage);
+		srcID = mse.sender(); //jb
+		destID = mse.receiver();
+		// redessiner le sommet
+		col = agentsSimulationWindow.getVueGraphe().
+		    rechercherSommet(srcID.toString()).couleurFond();
+		System.out.println(col);
+		col = Color.white;
+		agentsSimulationWindow.getVueGraphe().
+		    rechercherSommet(srcID.toString()).changerCouleurFond(col);
+		col = Color.red;
+		agentsSimulationWindow.getVueGraphe().
+		    rechercherSommet(destID.toString()).changerCouleurFond(col);
+		//jb
 	    }
         }
         else {
