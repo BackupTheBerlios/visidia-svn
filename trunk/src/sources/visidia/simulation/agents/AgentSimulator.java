@@ -31,11 +31,13 @@ public class AgentSimulator {
     private ThreadGroup threadGroup;
 
     private Hashtable agents;
+    
+    private Hashtable vertexAgentsNumber;
 
     private AgentMover defaultAgentMover = null;
-
+    
     private VQueue evtQ, ackQ;
-
+    
     private NumberGenerator numGen = new NumberGenerator();
 
     private MovingMonitor movingMonitor;
@@ -65,26 +67,33 @@ public class AgentSimulator {
         Enumeration vertices;
 
         agents = new Hashtable();
+	vertexAgentsNumber = new Hashtable();
+	
         vertices = graph.vertices();
 
         while (vertices.hasMoreElements()) {
             Vertex vertex = (Vertex) vertices.nextElement();
 	    Collection agentsNames = vertex.getAgentsNames();
-
-            if(agentsNames == null)
-                continue;
-
+	    
+            if(agentsNames == null){
+		vertexAgentsNumber.put(vertex, vertex.getAgentsNumber());
+		continue;
+	    }
+	    
             Iterator it = agentsNames.iterator();
 
 	    while(it.hasNext()) {
 		String agentName = (String)it.next();
-
-		if (agentName != null) 
+		
+		if (agentName != null) {
 		    createAgent(agentName, vertex, defaultAgentValues);
+		    vertex.incrementAgentsNumber();
+		}
 	    }
+	    vertexAgentsNumber.put(vertex, vertex.getAgentsNumber());
         }
     }
-
+    
     private Agent createAgent(String agentName, Vertex vertex,
                              Hashtable defaultAgentValues) {
         try {
@@ -134,8 +143,6 @@ public class AgentSimulator {
 	}
 	
     }
-  
-
 
     public void moveAgentTo(Agent ag, int door) {
         ProcessData data = (ProcessData) agents.get(ag);
