@@ -29,6 +29,21 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
     private WhiteBoard whiteBoard = null;
 
     private Collection agentsNames;
+    
+    private int agentsNumber = 0;
+
+
+    public int getAgentsNumber(){
+	return agentsNumber;
+    }
+
+    public void incrementAgentsNumber(){
+	agentsNumber++;
+    }
+
+    public void decrementAgentsNumber(){
+       agentsNumber--;
+    }
 
     /**
      *

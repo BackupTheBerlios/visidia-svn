@@ -95,6 +95,9 @@ public interface Vertex extends WithWhiteBoard {
     public void setPrevious(Integer i);
     public void setVisualization(boolean s);
     public boolean getVisualization();
+    public int getAgentsNumber();
+    public void incrementAgentsNumber();
+    public void decrementAgentsNumber();
 }
 
 
