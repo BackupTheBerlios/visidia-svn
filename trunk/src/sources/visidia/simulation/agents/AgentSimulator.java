@@ -307,16 +307,11 @@ public class AgentSimulator {
 				  mesgPacket.receiver(),
 				  new Integer(1));
 	
-        try {
-	    evtQ.put(dep);
-            evtQ.put(mse);
-            movingMonitor.waitForAnswer(key);
-	    evtQ.put(arr);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("I must throw this exception and "
-                                        + "not catch it !");
-        }
-	
+	evtQ.put(dep);
+	evtQ.put(mse);
+	movingMonitor.waitForAnswer(key);
+	evtQ.put(arr);
+        	
     }
 
     private Thread createThreadFor(Agent ag) {
