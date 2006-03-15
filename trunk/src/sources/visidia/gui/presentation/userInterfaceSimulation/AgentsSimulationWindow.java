@@ -588,6 +588,8 @@ public class AgentsSimulationWindow
                                               agentsTable),
                                      evtPipeOut, ackPipeOut);
 
+        selection.deSelect();
+
         seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
  	seh.start();
 
@@ -655,7 +657,8 @@ public class AgentsSimulationWindow
 	if (sim != null)
  	    sim.abortSimulation();
 	
-	seh.abort();
+        if (seh != null)
+            seh.abort();
 	
 	/*
 	  if (fichier_edite != null)
@@ -678,7 +681,7 @@ public class AgentsSimulationWindow
 	
 	//algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
 	
-	but_start.setEnabled(true);
+	but_start.setEnabled(false);
 	but_pause.setEnabled(false);
 	but_stop.setEnabled(false);
 	but_reset.setEnabled(false);
