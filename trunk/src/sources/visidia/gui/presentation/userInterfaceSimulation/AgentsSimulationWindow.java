@@ -659,8 +659,7 @@ public class AgentsSimulationWindow
     public void but_reset() {
 	simulationPanel.stop();
 	if (sim != null)
-//dam 	    sim.abortSimulation();
-            ;
+ 	    sim.abortSimulation();
 	
 	seh.abort();
 	
@@ -669,6 +668,8 @@ public class AgentsSimulationWindow
 	  OpenGraph.open(this,fichier_edite);
 	*/
 	
+        agentsTable.clear();
+
 	vueGraphe = editeur.getGraphClone();
 	
 	evtPipeIn = new visidia.tools.VQueue();

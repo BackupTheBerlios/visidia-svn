@@ -89,6 +89,11 @@ public interface Vertex extends WithWhiteBoard {
      */
     public void addAgentName(String agentName);
 
+    /**
+     * Remove all agents names.
+     */
+    public void clearAgentNames();
+
     public Integer getNext();
     public Integer getPrevious();
     public void setNext(Integer i);

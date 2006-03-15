@@ -95,6 +95,7 @@ public class AgentSimulator {
 		}
 	    }
 	    vertexAgentsNumber.put(vertex, vertex.getAgentsNumber());
+            vertex.clearAgentNames();
         }
     }
     
@@ -218,8 +219,9 @@ public class AgentSimulator {
             } catch (InterruptedException e) {
                 throw new SimulationAbortError(e);
             }
-
+            
         }
+        agents.clear();
     }
 
     public int getArity(Agent ag) {

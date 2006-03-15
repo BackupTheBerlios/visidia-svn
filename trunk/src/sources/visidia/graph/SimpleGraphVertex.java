@@ -243,6 +243,12 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
 
         getAgentsNames().add(agentName);
     }
+    /**
+     * Remove all agents names.
+     */
+    public void clearAgentNames() {
+        setAgentsNames(null);
+    }
 
     /**
      * Accesses  the   vertex  white  board  and   returns  the  value
