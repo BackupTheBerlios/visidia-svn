@@ -684,7 +684,7 @@ public class AgentsSimulationWindow
 	but_start.setEnabled(false);
 	but_pause.setEnabled(false);
 	but_stop.setEnabled(false);
-	but_reset.setEnabled(false);
+	but_reset.setEnabled(true);
 	global_clock.initState();
 	
     }

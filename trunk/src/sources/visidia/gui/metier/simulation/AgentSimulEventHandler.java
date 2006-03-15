@@ -80,7 +80,6 @@ public class AgentSimulEventHandler extends Thread {
 
     public void handleMessageSentEvt(SimulEvent se){
 	MessageSendingEvent mse = (MessageSendingEvent) se;
-	//	System.out.println("agentsSimulationWindow.simulationPanel().animate(mse)");
         agentsSimulationWindow.simulationPanel().animate(mse);
     }
     
@@ -105,7 +104,7 @@ public class AgentSimulEventHandler extends Thread {
             arete = vue.rechercherArete(event.nodeId1().toString(),
                                         event.nodeId2().toString());
             arete.setEtat(state.isMarked());
-            
+            agentsSimulationWindow.simulationPanel().repaint();
         }
         else {
             throw new RuntimeException("Other states are not implemented");

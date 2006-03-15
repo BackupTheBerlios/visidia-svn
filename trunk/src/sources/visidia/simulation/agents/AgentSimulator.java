@@ -138,12 +138,15 @@ public class AgentSimulator {
     public void agentDeath(Agent ag) throws InterruptedException {
 	agents.remove(ag);
 
+        System.out.println("Algorithm Terminated");
+
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
             evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
             System.out.println("All algorithms are terminated!");
+            abortSimulation();
         }
-        System.out.println("Algorithm Terminated");
+
     }
 	
     public void moveAgentTo(Agent ag, int door) throws InterruptedException {
