@@ -136,7 +136,15 @@ public class AgentSimulator {
 
 
     public void agentDeath(Agent ag) throws InterruptedException {
+	
+	ProcessData data = (ProcessData) agents.get(ag);
+	Vertex vertex = data.vertex;
+	
 	agents.remove(ag);
+
+	evtQ.put(new AgentMovedEvent(numGen.alloc(),
+				     vertex.identity(),
+				     new Integer(0)));
 
         System.out.println("Algorithm Terminated");
 

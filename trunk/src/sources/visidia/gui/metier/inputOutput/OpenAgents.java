@@ -2,6 +2,7 @@ package visidia.gui.metier.inputOutput;
 
 import java.io.*;
 import java.lang.Integer;
+import java.awt.Color;
 import javax.swing.*;
 import java.util.Enumeration;
 import visidia.gui.presentation.userInterfaceSimulation.*;
@@ -43,11 +44,17 @@ public class OpenAgents implements Serializable{
 	  while (e.hasMoreElements()) {
 	      id = Integer.decode(((SommetDessin)e.nextElement()).getEtiquette());
 	      window.addAgents(id,className);
+	      window.getVueGraphe().
+		  rechercherSommet(id.toString()).
+		  changerCouleurFond(Color.red);
+
+
 	  }	 
       }
       catch(Exception excpt) {
 	  System.out.println("Problem: " + excpt);
       }
+      window.selection.deSelect();
       return true;
   }
         

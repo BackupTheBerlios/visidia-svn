@@ -548,6 +548,9 @@ public class AgentsSimulationWindow
     /*********************************************************/
 
     public void but_start() {
+	// deselect all selected elements
+	selection.deSelect();
+
 	simulationPanel.start();
 	// modifications for the recorder
 	sim = null;
@@ -588,7 +591,7 @@ public class AgentsSimulationWindow
                                               agentsTable),
                                      evtPipeOut, ackPipeOut);
 
-        selection.deSelect();
+	//trop_tard    selection.deSelect();
 
         seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
  	seh.start();
