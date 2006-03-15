@@ -5,6 +5,7 @@ import visidia.tools.MovableObject;
 import visidia.simulation.MessageSendingEvent;
 import visidia.misc.MessageType;
 import visidia.graph.*;
+import javax.swing.ImageIcon;
 
 public class SentMessage extends MovableObject {
     private String mesg;
@@ -28,6 +29,10 @@ public class SentMessage extends MovableObject {
      *
      */
     public void paint(Graphics g){
+	
+	ImageIcon monIcone = new ImageIcon("visidia/gui/donnees/images/aide.gif");
+	Image monImage = monIcone.getImage();
+
 	MessageType messageType = event.message().getType();
 	if (messageType.getToPaint()){
 	   
@@ -35,6 +40,7 @@ public class SentMessage extends MovableObject {
 		Point p = currentLocation();
 		g.setColor(messageType.getColor());
 		g.drawString(mesg, p.x, p.y);
+		g.drawImage(monImage,p.x,p.y,null,null);
 	    }
 	}
     }
