@@ -141,6 +141,7 @@ public class AgentSimulator {
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
             evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
+            System.out.println("All algorithms are terminated!");
         }
         System.out.println("Algorithm Terminated");
     }
