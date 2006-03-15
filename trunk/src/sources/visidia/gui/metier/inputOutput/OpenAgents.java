@@ -37,7 +37,6 @@ public class OpenAgents implements Serializable{
       
       int index = file_name.lastIndexOf('.');
       String className = file_name.substring(0,index);
-      System.out.println(className);
 	  
       try {
 	  Integer id;

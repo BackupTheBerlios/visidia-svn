@@ -127,8 +127,6 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             constructor = agClass.getConstructor(new Class []
                 {Agent.class, AgentSimulator.class});
 
-            System.out.println(agClass.getName());
-
             setAgentMover( (AgentMover) 
                            constructor.newInstance(new Object[]
                                {this, simulator}));

@@ -14,42 +14,39 @@ public class OpenAgentChooser implements Serializable{
 
     protected static final String dir = new String("visidia/agents/agentchooser");
     
-  public static boolean open(AgentsSimulationWindow window){
+    public static boolean open(AgentsSimulationWindow window){
 
-      File file_open = null; 
-      JFileChooser fc = new JFileChooser(dir);
-      javax.swing.filechooser.FileFilter classFileFilter = 
-          new FileFilterClass();
-      fc.addChoosableFileFilter(classFileFilter);
-      fc.setFileFilter(classFileFilter);
+        File file_open = null; 
+        JFileChooser fc = new JFileChooser(dir);
+        javax.swing.filechooser.FileFilter classFileFilter = 
+            new FileFilterClass();
+        fc.addChoosableFileFilter(classFileFilter);
+        fc.setFileFilter(classFileFilter);
       
-      int returnVal = fc.showOpenDialog(window);
-      if(returnVal == JFileChooser.APPROVE_OPTION)
-	  file_open = fc.getSelectedFile();
+        int returnVal = fc.showOpenDialog(window);
+        if(returnVal == JFileChooser.APPROVE_OPTION)
+            file_open = fc.getSelectedFile();
       
-      String file_name = fc.getName(file_open);
-      if (file_name == null) 
-	  return false ; // if canceled
-      window.mettreAJourTitreFenetre(file_name);
+        String file_name = fc.getName(file_open);
+        if (file_name == null) 
+            return false ; // if canceled
+        window.mettreAJourTitreFenetre(file_name);
       
-      int index = file_name.lastIndexOf('.');
-      String className = "visidia.agents.agentchooser." 
-          + file_name.substring(0,index);
-      System.out.println(className);
+        int index = file_name.lastIndexOf('.');
+        String className = "visidia.agents.agentchooser." 
+            + file_name.substring(0,index);
 	  
-      try {
-          Class classChooser = Class.forName(className);
-          Method methodPlace = classChooser
-              .getDeclaredMethod("place", 
-                                 new Class [] { AgentsSimulationWindow.class });
-          methodPlace.invoke(null, window);
-      } catch(Exception excpt) {
-          excpt.printStackTrace();
-          System.out.println("Cause " + excpt.getCause());
-          throw new RuntimeException("");
-      }
-      return true;
-  }
+        try {
+            Class classChooser = Class.forName(className);
+            Method methodPlace = classChooser
+                .getDeclaredMethod("place", 
+                                   new Class [] { AgentsSimulationWindow.class });
+            methodPlace.invoke(null, window);
+        } catch(Exception excpt) {
+            throw new RuntimeException(excpt);
+        }
+        return true;
+    }
         
 }
 

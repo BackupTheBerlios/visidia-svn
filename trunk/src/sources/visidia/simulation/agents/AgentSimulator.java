@@ -206,14 +206,12 @@ public class AgentSimulator {
             ProcessData data = (ProcessData) enumAgents.nextElement();
             createThreadFor(data.agent).start();
         }
-        System.out.println("Start");
     }
 
     public void abortSimulation() {
         
         while(threadGroup.activeCount() > 0) {
             threadGroup.interrupt();
-            System.out.println("Reste " + threadGroup.activeCount());
             try {
                 Thread.currentThread().sleep(50);
             } catch (InterruptedException e) {

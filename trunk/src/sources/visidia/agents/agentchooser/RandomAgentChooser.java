@@ -26,7 +26,6 @@ public class RandomAgentChooser {
             if (choose()) {
                 Integer id;
 
-                System.out.println("Type : " + e.nextElement());
                 id = Integer.decode(((Sommet)e.nextElement())
                                     .getSommetDessin().getEtiquette());
                 window.addAgents(id, agentName());

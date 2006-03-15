@@ -41,8 +41,6 @@ public class Convertisseur {
 
 		}
 
-                System.out.println("Fin des sommets !");
-
 		while(enumerationAretes.hasMoreElements()){
 		    uneArete = (Arete)enumerationAretes.nextElement();
 		    if (uneArete.getAreteDessin().forme()
@@ -65,8 +63,6 @@ public class Convertisseur {
                                     getEtiquette()));
 		}
 
-                System.out.println("Fin des aretes !");
-		
 		return nouveauGraph;
 	}
 
@@ -86,7 +82,6 @@ public class Convertisseur {
             graph.vertex(key).setAgentsNames(new Vector(agentsNames));
         }
         
-        System.out.println("Fin des agents !");
         return graph;
     }
 }

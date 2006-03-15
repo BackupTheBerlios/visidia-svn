@@ -29,7 +29,6 @@ public class WhiteBoard {
      * has modified them. 
      */
     public WhiteBoard(Hashtable defaults) {
-        System.out.println("Whiteboard(Hashtable) default" + defaults);
         // this.defaults = defaults;
 //         this.values = new Hashtable();
 
