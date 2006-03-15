@@ -61,6 +61,9 @@ public class AgentSimulEventHandler extends Thread {
 		case SimulConstants.MESSAGE_SENT :
 		    handleMessageSentEvt(simEvt);
 		    break;
+                case SimulConstants.ALGORITHM_END :
+                    handleAlgorithmEndEvent(simEvt);
+		    break;
                 case SimulConstants.EDGE_STATE_CHANGE :
                     handleEdgeStateChangeEvt(simEvt);
 		}
@@ -77,7 +80,18 @@ public class AgentSimulEventHandler extends Thread {
         agentsSimulationWindow.simulationPanel().animate(mse);
     }
     
-    public void handleEdgeStateChangeEvt(SimulEvent se) {
+    public void handleAlgorithmEndEvent(SimulEvent se) 
+        throws InterruptedException {
+
+        agentsSimulationWindow.but_pause();
+        JOptionPane.showMessageDialog(agentsSimulationWindow,
+                                      "Algorithms are terminated");
+        throw new InterruptedException();	
+    }
+
+    public void handleEdgeStateChangeEvt(SimulEvent se) 
+        throws InterruptedException {
+
         EdgeStateChangeEvent event = (EdgeStateChangeEvent) se;
 
         if(event.state() instanceof MarkedState) {
@@ -96,13 +110,7 @@ public class AgentSimulEventHandler extends Thread {
         EdgeStateChangeAck ack;
         ack = new EdgeStateChangeAck(event.eventNumber());
 
-        try {
-            ackPipe.put(ack);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException("I must throw this exception and " +
-                                       "catch it !");
-        }
+        ackPipe.put(ack);
     }
 
 }
