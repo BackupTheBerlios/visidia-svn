@@ -9,6 +9,8 @@ import visidia.simulation.AlgorithmEndEvent;
 import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
+import visidia.simulation.AgentMovedEvent;
+
 import visidia.simulation.SimulationAbortError;
 import visidia.simulation.SimulatorThreadGroup;
 
@@ -286,14 +288,34 @@ public class AgentSimulator {
         throws InterruptedException {
 
 	Long key = new Long(numGen.alloc());
+	Long keyDep = new Long(numGen.alloc());
+	Long keyArr = new Long(numGen.alloc());
         MessageSendingEvent mse;
+	AgentMovedEvent dep;
+	AgentMovedEvent arr;
 
         mse = new MessageSendingEvent(key,
                                       mesgPacket.message(),
                                       mesgPacket.sender(), 
                                       mesgPacket.receiver());
-        evtQ.put(mse);
-        movingMonitor.waitForAnswer(key);
+
+	dep = new AgentMovedEvent(keyDep,
+				  mesgPacket.sender(),
+				  new Integer(0));
+
+	arr = new AgentMovedEvent(keyDep,
+				  mesgPacket.receiver(),
+				  new Integer(1));
+	
+        try {
+	    evtQ.put(dep);
+            evtQ.put(mse);
+            movingMonitor.waitForAnswer(key);
+	    evtQ.put(arr);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("I must throw this exception and "
+                                        + "not catch it !");
+        }
 	
     }
 

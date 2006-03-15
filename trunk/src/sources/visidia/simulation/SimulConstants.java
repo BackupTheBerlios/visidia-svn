@@ -41,5 +41,7 @@ public class SimulConstants {
      * next pulse event
      */
     public static final int NEXT_PULSE = 7;   
-    
+
+
+    public static final int AGENT_MOVED = 8;
 }

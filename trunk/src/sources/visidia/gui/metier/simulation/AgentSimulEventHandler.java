@@ -48,7 +48,7 @@ public class AgentSimulEventHandler extends Thread {
 	try{
 	    while(!stopped){
 		SimulEvent simEvt = null;
-		try{
+		try{ 
 		    simEvt = (SimulEvent) evtPipe.get();
 		}
 		catch(ClassCastException e){
@@ -66,6 +66,9 @@ public class AgentSimulEventHandler extends Thread {
 		    break;
                 case SimulConstants.EDGE_STATE_CHANGE :
                     handleEdgeStateChangeEvt(simEvt);
+		    break;
+		case SimulConstants.AGENT_MOVED :
+		    handleAgentMovedEvt(simEvt);
 		}
 	    }
 	}
@@ -77,6 +80,7 @@ public class AgentSimulEventHandler extends Thread {
 
     public void handleMessageSentEvt(SimulEvent se){
 	MessageSendingEvent mse = (MessageSendingEvent) se;
+	//	System.out.println("agentsSimulationWindow.simulationPanel().animate(mse)");
         agentsSimulationWindow.simulationPanel().animate(mse);
     }
     
@@ -113,6 +117,20 @@ public class AgentSimulEventHandler extends Thread {
         ackPipe.put(ack);
     }
 
+    public void handleAgentMovedEvt(SimulEvent se){
+	AgentMovedEvent ame = (AgentMovedEvent) se;
+
+
+	if(ame.nbrAg().intValue() == 0)
+	    agentsSimulationWindow.getVueGraphe().
+		rechercherSommet(ame.vertexId().toString()).
+		changerCouleurFond(Color.white);
+	else
+	    agentsSimulationWindow.getVueGraphe().
+		rechercherSommet(ame.vertexId().toString()).
+		changerCouleurFond(Color.red);
+    }
+       
 }
 
 
