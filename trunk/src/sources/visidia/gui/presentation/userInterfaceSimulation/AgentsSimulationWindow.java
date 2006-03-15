@@ -822,6 +822,17 @@ public class AgentsSimulationWindow
             
             else {
 		boolean ok = true;
+
+                if(selection.estVide()) {
+                    JOptionPane
+                        .showMessageDialog(this,
+                                           "You must select at least one"
+                                           + " vertex!",
+                                           "Warning",
+                                           JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
 		if(DistributedAlgoSimulator.estStandalone())
 		    ok = OpenAgents.open(selection.elements(),this);
 		else
