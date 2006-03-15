@@ -56,4 +56,4 @@ puisse tester l'API de son coté.
 
 Un mail de  rappel des choses à faire pour la  semaine prochaine a été
 envoyé  par  M.   Derbel  a  la  fin  de  la   réunion  sur  la  liste
-visidia-pfa.berlios.de.
+https://lists.berlios.de/mailman/private/visidia-pfa/
