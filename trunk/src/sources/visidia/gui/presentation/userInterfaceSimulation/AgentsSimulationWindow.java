@@ -571,6 +571,9 @@ public class AgentsSimulationWindow
 	// deselect all selected elements
 	selection.deSelect();
 
+	// enable drawing on vertices the number of agents
+	GuiProperty.drawNbr = true;
+	
 	simulationPanel.start();
 	// modifications for the recorder
 	sim = null;

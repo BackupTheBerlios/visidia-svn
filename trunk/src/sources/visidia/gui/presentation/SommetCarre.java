@@ -11,10 +11,10 @@ import visidia.gui.metier.*;
 
 /** Raffine sa super-classe pour representer un sommet sous la forme d'un carre.*/
 public class SommetCarre extends SommetDessin{
-
-  // Variables d'instance.
-
-  protected static int monCote = 25; // represente le cote d'un carre
+    
+    // Variables d'instance.
+    
+    protected static int monCote = 25; // represente le cote d'un carre
  
   
   //Constructeurs
@@ -103,6 +103,12 @@ public class SommetCarre extends SommetDessin{
 	   g.setFont((getVueGraphe()).fontNormal());
        g.drawString((getEtiquette())+" , "+getEtat(),x - cote /2 , y + cote + 8);
    }
+
+   // draw on vertices the number of agents
+   if(GuiProperty.drawNbr){
+       g.drawString(getNbr(),x , y );
+   }
+       
    // affichage d'une icone si elle existe
    if(getImage() != null)
        (getImage()).paintIcon(c, g, x - cote / 2, y - cote / 2);
@@ -181,4 +187,5 @@ public class SommetCarre extends SommetDessin{
     public BoiteFormeDessin proprietes(JFrame parent) {
 	return new BoiteSommetCarre(parent, this);
     }
+
 }

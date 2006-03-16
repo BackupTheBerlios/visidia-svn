@@ -13,6 +13,7 @@ import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.presentation.VueGraphe;
 import visidia.gui.presentation.AreteDessin;
 import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.SommetCarre;
   
 /** This class is responsible of dealing with the 
     events coming from the simulator */
@@ -124,15 +125,22 @@ public class AgentSimulEventHandler extends Thread {
 
         SommetDessin vert = agentsSimulationWindow.getVueGraphe().
             rechercherSommet(ame.vertexId().toString());
+	
+	int nbr = ame.nbrAg().intValue();
+	String nbrStr = new String();
+	nbrStr = nbrStr.valueOf(nbr);
 
         // Updating the AgentBoxChangingVertexState
         agentsSimulationWindow.updateVertexState(ame.vertexId());
 
-	if(ame.nbrAg().intValue() == 0)
+	if(nbr == 0)
 	    vert.changerCouleurFond(Color.white);
 	
 	else
 	    vert.changerCouleurFond(Color.red);
+	
+	((SommetCarre)vert).setNbr(nbrStr);
+	
 	agentsSimulationWindow.simulationPanel().repaint();
     }
 

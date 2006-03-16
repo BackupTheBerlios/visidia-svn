@@ -17,7 +17,10 @@ public abstract class SommetDessin extends FormeDessin {
     protected ImageIcon uneImage = null;   
     protected String monEtiquette; // label of a vertex
     protected Hashtable stateTable = new Hashtable();
-   
+
+    // number displayed in the middle of a vertex
+    protected String nbr = new String("0");
+    
     // Constructor
     public SommetDessin(VueGraphe vg, int x, int y, String etiquette, Sommet s){
 	this.vueGraphe = vg;
@@ -163,6 +166,14 @@ public abstract class SommetDessin extends FormeDessin {
     public boolean getDrawMessage() {
         return drawMessage;
     }
+
+    public void setNbr(String nbr){
+	this.nbr = nbr;
+    }
+    public String getNbr(){
+	return nbr;
+    }
+    
 }
 
 
