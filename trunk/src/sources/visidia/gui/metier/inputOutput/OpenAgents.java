@@ -44,9 +44,9 @@ public class OpenAgents implements Serializable{
 	  while (e.hasMoreElements()) {
 	      id = Integer.decode(((SommetDessin)e.nextElement()).getEtiquette());
 	      window.addAgents(id,className);
-	      window.getVueGraphe().
-		  rechercherSommet(id.toString()).
-		  changerCouleurFond(Color.red);
+// 	      window.getVueGraphe().
+// 		  rechercherSommet(id.toString()).
+// 		  changerCouleurFond(Color.red);
 
 
 	  }	 

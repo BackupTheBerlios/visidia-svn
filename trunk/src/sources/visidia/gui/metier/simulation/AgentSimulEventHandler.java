@@ -124,10 +124,12 @@ public class AgentSimulEventHandler extends Thread {
 	    agentsSimulationWindow.getVueGraphe().
 		rechercherSommet(ame.vertexId().toString()).
 		changerCouleurFond(Color.white);
+	
 	else
 	    agentsSimulationWindow.getVueGraphe().
 		rechercherSommet(ame.vertexId().toString()).
 		changerCouleurFond(Color.red);
+	agentsSimulationWindow.simulationPanel().repaint();
     }
        
 }

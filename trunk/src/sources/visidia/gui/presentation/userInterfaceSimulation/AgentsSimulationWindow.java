@@ -194,6 +194,10 @@ public class AgentsSimulationWindow
 	    agentsTable.put(id, new ArrayList());
 	}
 	ok = ((ArrayList)agentsTable.get(id)).add(agent);
+	this.getVueGraphe().
+	    rechercherSommet(id.toString()).
+	    changerCouleurFond(Color.red);
+	
     }
 
 

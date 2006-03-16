@@ -23,13 +23,13 @@ public class RandomAgentChooser {
         Enumeration e = graph.sommets();
 
         while(e.hasMoreElements()) {
+	    Sommet vertex = (Sommet)e.nextElement();
             if (choose()) {
                 Integer id;
 
-                id = Integer.decode(((Sommet)e.nextElement())
-                                    .getSommetDessin().getEtiquette());
+                id = Integer.decode(vertex.getSommetDessin().getEtiquette());
                 window.addAgents(id, agentName());
-
+		
                 System.out.println("Place agent " + agentName() 
                                    + " on vertex " + id + ".");
             }
@@ -56,6 +56,7 @@ public class RandomAgentChooser {
             throw new IllegalArgumentException("Probability must be "
                                                + "between 0 and 1.");
 
+	System.out.println(rand);
         return (rand < probability());
             
     }
