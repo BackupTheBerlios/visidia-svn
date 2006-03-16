@@ -268,6 +268,7 @@ public class AgentSimulator {
 
         stats.printStats();
         agents.clear();
+        SynchronizedAgent.clear();
 	vertexAgentsNumber.clear();
     }
 

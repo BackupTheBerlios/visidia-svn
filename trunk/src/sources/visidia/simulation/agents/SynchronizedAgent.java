@@ -18,6 +18,10 @@ public abstract class SynchronizedAgent extends Agent {
         ++nbAgents;
     }
 
+    public static void clear() {
+        nbAgents = 0;
+        count = 0;
+    }
 
     public void nextPulse() {
      
@@ -36,14 +40,12 @@ public abstract class SynchronizedAgent extends Agent {
 
 	
 	    /* Reached by the last thread calling nextPulse */
-	    System.out.println(" ------------- TOP ----------------- ");
 	    count = 0;
 	    synchronisation.notifyAll();
 
      	}
 
     }
-
 
     protected void death() {
 
