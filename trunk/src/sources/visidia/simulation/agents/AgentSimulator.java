@@ -181,7 +181,7 @@ public class AgentSimulator {
         vertexFrom = data.vertex;
         vertexTo = vertexFrom.neighbour(door);
 
-        msg = new StringMessage("Moving");
+        msg = new StringMessage(ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
         System.out.println("The agent " + ag.getIdentity()
@@ -315,7 +315,7 @@ public class AgentSimulator {
 
         vertexFrom = getVertexFor(ag);
         vertexTo = vertexFrom.neighbour(door);
-        msg = new StringMessage("Clone");
+        msg = new StringMessage("Sent clone of "+ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
 

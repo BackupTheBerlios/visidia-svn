@@ -338,7 +338,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * agent class, an '_' and the identity number of the agent. 
      */
     public String toString() {
-	return this.getClass().getName() + "_" + getIdentity();
+
+	String class_name = this.getClass().getName();
+	return class_name.substring(class_name.lastIndexOf('.')+1) 
+	    + "_" + getIdentity();
     }
 
 
