@@ -5,15 +5,17 @@ import visidia.tools.MovableObject;
 import visidia.simulation.MessageSendingEvent;
 import visidia.misc.MessageType;
 import visidia.graph.*;
+import visidia.gui.donnees.TableImages;
 
-public class SentMessage extends MovableObject {
+
+public class SentAgent extends MovableObject {
     private String mesg;
     private MessageSendingEvent event;
     
     /**
      * for dealing with the action made on sending message
      */
-    public SentMessage(MessageSendingEvent event, Point a, Point b, double step){
+    public SentAgent(MessageSendingEvent event, Point a, Point b, double step){
 	super(a, b, step);
 	this.event = event;
 	this.mesg = event.message().toString();
@@ -36,6 +38,7 @@ public class SentMessage extends MovableObject {
 		Point p = currentLocation();
 		g.setColor(messageType.getColor());
 		g.drawString(mesg, p.x, p.y);
+		g.drawImage(TableImages.getImage("homme"),p.x,p.y,null,null);
 	    }
 	}
     }

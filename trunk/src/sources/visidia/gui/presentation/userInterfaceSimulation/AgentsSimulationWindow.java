@@ -68,7 +68,7 @@ public class AgentsSimulationWindow
     protected JLabel speed_label;
     
     /** Panel where the VueGraphe is drawn*/
-    protected SimulationPanel simulationPanel;
+    protected AgentsSimulationPanel simulationPanel;
     protected File fichier_rules_edite;
     
     /* event pipe for events coming from the simulator */
@@ -146,7 +146,7 @@ public class AgentsSimulationWindow
         selection = new SelectionDessin();
         
 	// The panel where the graph is drawn
-        simulationPanel = new SimulationPanel(this);
+        simulationPanel = new AgentsSimulationPanel(this);
         super.setSize(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT);
         // un setSize est a faire avant l'ajout de composants pour eviter
         // les warnings
@@ -497,7 +497,7 @@ public class AgentsSimulationWindow
     /* Returns the panel "simulationPanel" which corresponds  */
     /*   to the graph visualisation during the simulation     */
     /**********************************************************/
-    public SimulationPanel simulationPanel() {
+    public AgentsSimulationPanel simulationPanel() {
         return simulationPanel;
     }
     
@@ -1142,7 +1142,7 @@ public class AgentsSimulationWindow
         content.remove(scroller);
         selection.deSelect();
         this.vueGraphe = grapheVisu;
-        this.simulationPanel = new SimulationPanel(this);
+        this.simulationPanel = new AgentsSimulationPanel(this);
         simulationPanel.updatePas(speed_slider.getValue());
         scroller = new JScrollPane(this.simulationPanel);
         scroller.setPreferredSize(new Dimension(650,600));
