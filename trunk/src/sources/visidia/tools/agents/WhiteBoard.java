@@ -7,6 +7,7 @@
 package visidia.tools.agents;
 
 import java.util.Hashtable;
+import java.util.Set;
 import java.util.NoSuchElementException;
 
 public class WhiteBoard {
@@ -64,6 +65,15 @@ public class WhiteBoard {
      */
     public void setValue(Object key, Object value) {
         values.put(key, value);
+        System.out.println("Values " + values);
+        System.out.println("Defaults : " + defaults);
     }
     
+    public Set keys() {
+        Hashtable common = (Hashtable)defaults.clone();
+        common.putAll(values);
+
+        return common.keySet();
+    }
+
 }

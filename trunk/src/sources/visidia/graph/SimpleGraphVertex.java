@@ -1,6 +1,7 @@
 package visidia.graph;
 
 import java.util.Hashtable;
+import java.util.Set;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Collection;
@@ -274,6 +275,10 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
                                        "board. You should have pass a " +
                                        "Hashtable to the constructor");
         whiteBoard.setValue(key, value);
+    }
+
+    public Set getPropertyKeys() {
+        return whiteBoard.keys();
     }
 
     public void setNext(Integer i) {

@@ -21,6 +21,7 @@ import visidia.misc.EdgeState;
 
 import java.io.*;
 import java.util.Hashtable;
+import java.util.Set;
 import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.Collection;
@@ -235,6 +236,10 @@ public class AgentSimulator {
     public void setVertexProperty(Agent ag, Object key, Object value) {
         stats.incrementStat("Changes in vertices WhiteBoard");
         getVertexFor(ag).setProperty(key, value);
+    }
+
+    public Set getVertexPropertyKeys(Agent ag) {
+        return getVertexFor(ag).getPropertyKeys();
     }
 
     public void startSimulation(){

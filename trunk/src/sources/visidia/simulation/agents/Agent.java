@@ -8,6 +8,7 @@
 package visidia.simulation.agents;
 
 import java.util.Hashtable;
+import java.util.Set;
 import java.lang.reflect.Constructor;
 
 import visidia.tools.agents.WithWhiteBoard;
@@ -269,6 +270,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         whiteBoard.setValue(key, value);
     }
         
+    public Set getPropertyKeys() {
+        return whiteBoard.keys();
+    }
+
     /**
      * Like getProperty(), but for  the current vertex. Get a property
      * behind a key on the vertex.
@@ -287,6 +292,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public void setVertexProperty(Object key, Object value) {
         simulator.setVertexProperty(this, key, value);
+    }
+
+    public Set getVertexPropertyKeys() {
+        return simulator.getVertexPropertyKeys(this);
     }
 
     /**

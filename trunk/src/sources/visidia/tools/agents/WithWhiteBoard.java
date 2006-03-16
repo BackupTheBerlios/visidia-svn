@@ -5,6 +5,8 @@
 
 package visidia.tools.agents;
 
+import java.util.Set;
+
 public interface WithWhiteBoard {
 
     /**
@@ -18,4 +20,5 @@ public interface WithWhiteBoard {
      */
     public void setProperty(Object key, Object value);
 
+    public Set getPropertyKeys();
 }
