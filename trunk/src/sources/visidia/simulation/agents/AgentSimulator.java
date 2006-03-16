@@ -47,6 +47,9 @@ public class AgentSimulator {
     private NumberGenerator numGen = new NumberGenerator();
 
     private MovingMonitor movingMonitor;
+    private Thread movingMonitorThread;
+
+    private AgentStats stats;
 
     public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
                           VQueue ackVQ) {
@@ -58,6 +61,7 @@ public class AgentSimulator {
                           VQueue evtVQ, VQueue ackVQ) {
 
 	graph = (SimpleGraph) netGraph;
+        stats = new AgentStats();
 
 	threadGroup = new SimulatorThreadGroup("simulator");
 	fillAgentsTable(graph, defaultAgentValues);
@@ -65,7 +69,8 @@ public class AgentSimulator {
         this.ackQ = ackVQ;
 
         movingMonitor = new MovingMonitor(ackQ);
-        new Thread(threadGroup, movingMonitor).start();
+        movingMonitorThread = new Thread(movingMonitor);
+        movingMonitorThread.start();
     }
 
     private void fillAgentsTable(SimpleGraph graph, 
@@ -108,7 +113,7 @@ public class AgentSimulator {
             return createAgent(Class.forName(completName), vertex,
                                defaultAgentValues);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.toString());
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -128,8 +133,10 @@ public class AgentSimulator {
             agents.put(ag, data);
 
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.toString());
+            throw new IllegalArgumentException(e);
         }
+
+        stats.incrementStat("Created agents");
 
         return ag;
     }
@@ -147,16 +154,14 @@ public class AgentSimulator {
 				     new Integer(0)));
 
         System.out.println("Algorithm Terminated");
+        stats.incrementStat("Terminated algorithms");
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
             evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
-            System.out.println("All algorithms are terminated!");
-            abortSimulation();
         }
-
     }
-	
+    
     public void moveAgentTo(Agent ag, int door) throws InterruptedException {
         ProcessData data = (ProcessData) agents.get(ag);
         Vertex vertexFrom, vertexTo;
@@ -181,6 +186,8 @@ public class AgentSimulator {
 
         data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
+
+        stats.incrementStat("Moves");
     }
 
     public void changeDoorState(Agent ag, int door, EdgeState state) 
@@ -199,6 +206,7 @@ public class AgentSimulator {
                                          state);
         evtQ.put(event);
         movingMonitor.waitForAnswer(key);
+        stats.incrementStat("Edge state changes");
     }
 
     public int entryDoor(Agent ag) {
@@ -206,10 +214,12 @@ public class AgentSimulator {
     }
 
     public Object getVertexProperty(Agent ag, Object key) {
+        stats.incrementStat("Accesses to vertices WhiteBoard");
         return getVertexFor(ag).getProperty(key);
     }
 
     public void setVertexProperty(Agent ag, Object key, Object value) {
+        stats.incrementStat("Changes in vertices WhiteBoard");
         getVertexFor(ag).setProperty(key, value);
     }
 
@@ -223,7 +233,7 @@ public class AgentSimulator {
     }
 
     public void abortSimulation() {
-        
+
         while(threadGroup.activeCount() > 0) {
             threadGroup.interrupt();
             try {
@@ -231,8 +241,18 @@ public class AgentSimulator {
             } catch (InterruptedException e) {
                 throw new SimulationAbortError(e);
             }
-            
         }
+
+        while(movingMonitorThread.isAlive()) {
+            movingMonitorThread.interrupt();
+            try {
+                Thread.currentThread().sleep(50);
+            } catch (InterruptedException e) {
+                throw new SimulationAbortError(e);
+            }
+        }
+
+        stats.printStats();
         agents.clear();
     }
 
@@ -242,6 +262,7 @@ public class AgentSimulator {
 
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
+        stats.incrementStat("Asleep (ms)", millis);
     }
 
     public int getNetSize() {

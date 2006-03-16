@@ -56,7 +56,8 @@ public class MovingMonitor implements Runnable {
                     synchronisation.notifyAll();
 
                 } catch (InterruptedException e) {
-                    throw new SimulationAbortError(e);
+                    // No pb here, simulator has stoped me.
+                    return;
                 }
             }
         }

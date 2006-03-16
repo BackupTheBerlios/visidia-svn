@@ -89,6 +89,7 @@ public class AgentSimulEventHandler extends Thread {
         agentsSimulationWindow.but_pause();
         JOptionPane.showMessageDialog(agentsSimulationWindow,
                                       "Algorithms are terminated");
+        agentsSimulationWindow.but_stop();
         throw new InterruptedException();	
     }
 
