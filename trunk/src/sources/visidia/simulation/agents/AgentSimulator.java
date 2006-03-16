@@ -234,8 +234,8 @@ public class AgentSimulator {
 
     public void abortSimulation() {
 
-        while(threadGroup.activeCount() > 0) {
-            threadGroup.interrupt();
+        while(movingMonitorThread.isAlive()) {
+            movingMonitorThread.interrupt();
             try {
                 Thread.currentThread().sleep(50);
             } catch (InterruptedException e) {
@@ -243,8 +243,8 @@ public class AgentSimulator {
             }
         }
 
-        while(movingMonitorThread.isAlive()) {
-            movingMonitorThread.interrupt();
+        while(threadGroup.activeCount() > 0) {
+            threadGroup.interrupt();
             try {
                 Thread.currentThread().sleep(50);
             } catch (InterruptedException e) {
