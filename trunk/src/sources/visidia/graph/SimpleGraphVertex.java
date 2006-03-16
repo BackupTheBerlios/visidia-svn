@@ -30,21 +30,6 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
 
     private Collection agentsNames;
     
-    private int agentsNumber = 0;
-
-
-    public int getAgentsNumber(){
-	return agentsNumber;
-    }
-
-    public void incrementAgentsNumber(){
-	agentsNumber++;
-    }
-
-    public void decrementAgentsNumber(){
-       agentsNumber--;
-    }
-
     /**
      *
      */	

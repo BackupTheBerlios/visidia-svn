@@ -38,7 +38,7 @@ public class AgentSimulator {
 
     private Hashtable agents;
     
-    private Hashtable vertexAgentsNumber;
+    private Hashtable<Vertex,Integer> vertexAgentsNumber;
 
     private AgentMover defaultAgentMover = null;
     
@@ -85,9 +85,10 @@ public class AgentSimulator {
         while (vertices.hasMoreElements()) {
             Vertex vertex = (Vertex) vertices.nextElement();
 	    Collection agentsNames = vertex.getAgentsNames();
+
+	    vertexAgentsNumber.put(vertex,new Integer(0));
 	    
             if(agentsNames == null){
-		vertexAgentsNumber.put(vertex, vertex.getAgentsNumber());
 		continue;
 	    }
 	    
@@ -98,10 +99,9 @@ public class AgentSimulator {
 		
 		if (agentName != null) {
 		    createAgent(agentName, vertex, defaultAgentValues);
-		    vertex.incrementAgentsNumber();
 		}
 	    }
-	    vertexAgentsNumber.put(vertex, vertex.getAgentsNumber());
+
             vertex.clearAgentNames();
         }
     }
@@ -124,14 +124,16 @@ public class AgentSimulator {
         try {
 
             ProcessData data = new ProcessData();
- 
+
             ag = (Agent) agentClass.getConstructor().newInstance();
             ag.setSimulator(this);
             ag.setWhiteBoard(defaultAgentValues);
 	    data.vertex = vertex;
             data.agent = ag;
             agents.put(ag, data);
-
+	    int nbr = (vertexAgentsNumber.get(vertex)).intValue();
+	    vertexAgentsNumber.put(vertex,
+				   new Integer(nbr+1));
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -148,10 +150,14 @@ public class AgentSimulator {
 	Vertex vertex = data.vertex;
 	
 	agents.remove(ag);
+	int nbr = (vertexAgentsNumber.get(vertex)).intValue();
+	vertexAgentsNumber.put(vertex,
+			       new Integer(nbr-1));
+	
 
 	evtQ.put(new AgentMovedEvent(numGen.alloc(),
 				     vertex.identity(),
-				     new Integer(0)));
+				     new Integer(nbr-1)));
 
         System.out.println("Algorithm Terminated");
         stats.incrementStat("Terminated algorithms");
@@ -182,8 +188,16 @@ public class AgentSimulator {
                            + " is moving to the vertex "
                            + vertexTo.identity());
 
+	int nbr = (vertexAgentsNumber.get(vertexFrom)).intValue();
+	vertexAgentsNumber.put(vertexFrom,
+			       new Integer(nbr-1));
+
 	pushMessageSendingEvent(msgPacket);
 
+	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
+	vertexAgentsNumber.put(vertexTo,
+			       new Integer(nbr+1));
+	
         data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
@@ -254,6 +268,7 @@ public class AgentSimulator {
 
         stats.printStats();
         agents.clear();
+	vertexAgentsNumber.clear();
     }
 
     public int getArity(Agent ag) {
@@ -324,21 +339,27 @@ public class AgentSimulator {
 	Long keyDep = new Long(numGen.alloc());
 	Long keyArr = new Long(numGen.alloc());
         MessageSendingEvent mse;
-	AgentMovedEvent dep;
-	AgentMovedEvent arr;
+	AgentMovedEvent dep, arr;
+	Vertex vertexTo, vertexFrom;
 
         mse = new MessageSendingEvent(key,
                                       mesgPacket.message(),
                                       mesgPacket.sender(), 
                                       mesgPacket.receiver());
 
+	vertexFrom = graph.vertex(mesgPacket.sender());
+	int nbr = (vertexAgentsNumber.get(vertexFrom)).intValue();
+
 	dep = new AgentMovedEvent(keyDep,
 				  mesgPacket.sender(),
-				  new Integer(0));
+				  new Integer(nbr));
+
+	vertexTo = graph.vertex(mesgPacket.receiver());
+	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
 
 	arr = new AgentMovedEvent(keyDep,
 				  mesgPacket.receiver(),
-				  new Integer(1));
+				  new Integer(nbr+1));
 	
 	evtQ.put(dep);
 	evtQ.put(mse);
