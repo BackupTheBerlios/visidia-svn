@@ -31,14 +31,18 @@ public class SentAgent extends MovableObject {
      */
     public void paint(Graphics g){
 	
+	Image img = TableImages.getImage("homme");
+	int height = img.getHeight(null);
+	int width = img.getWidth(null);
+
 	MessageType messageType = event.message().getType();
 	if (messageType.getToPaint()){
 	   
 	    if ((event.message()).getVisualization()) {
 		Point p = currentLocation();
 		g.setColor(messageType.getColor());
-		g.drawString(mesg, p.x, p.y);
-		g.drawImage(TableImages.getImage("homme"),p.x,p.y,null,null);
+		g.drawString(mesg, p.x-(width/2), p.y+(height/2));
+		g.drawImage(img,p.x-(width/2),p.y-(height/2),null,null);
 	    }
 	}
     }
