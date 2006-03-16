@@ -44,7 +44,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, null, defaultVertexValues));
+        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues, null ));
     }
 
     //xav
@@ -54,7 +54,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, properties, defaultVertexValues));
+        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues,properties));
     }
 
     public void setDefaultVertexProperties(Hashtable def) {

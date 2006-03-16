@@ -41,8 +41,8 @@ public class WhiteBoard {
      * @param properties Specifics values that will be used for this
      * Whiteboard.
      */
-    public WhiteBoard(Hashtable defaults, Hashtable properties ) {
-        this.defaults = defaults;
+    public WhiteBoard(Hashtable def, Hashtable properties ) {
+        this.defaults = def;
         this.values = properties;
     }
 
