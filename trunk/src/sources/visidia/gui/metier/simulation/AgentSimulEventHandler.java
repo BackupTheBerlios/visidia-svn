@@ -12,6 +12,7 @@ import visidia.tools.*;
 import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.presentation.VueGraphe;
 import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.SommetDessin;
   
 /** This class is responsible of dealing with the 
     events coming from the simulator */
@@ -69,6 +70,7 @@ public class AgentSimulEventHandler extends Thread {
 		    break;
 		case SimulConstants.AGENT_MOVED :
 		    handleAgentMovedEvt(simEvt);
+                    break;
 		}
 	    }
 	}
@@ -120,19 +122,20 @@ public class AgentSimulEventHandler extends Thread {
     public void handleAgentMovedEvt(SimulEvent se){
 	AgentMovedEvent ame = (AgentMovedEvent) se;
 
+        SommetDessin vert = agentsSimulationWindow.getVueGraphe().
+            rechercherSommet(ame.vertexId().toString());
+
+        // Updating the AgentBoxChangingVertexState
+        agentsSimulationWindow.updateVertexState(ame.vertexId());
 
 	if(ame.nbrAg().intValue() == 0)
-	    agentsSimulationWindow.getVueGraphe().
-		rechercherSommet(ame.vertexId().toString()).
-		changerCouleurFond(Color.white);
+	    vert.changerCouleurFond(Color.white);
 	
 	else
-	    agentsSimulationWindow.getVueGraphe().
-		rechercherSommet(ame.vertexId().toString()).
-		changerCouleurFond(Color.red);
+	    vert.changerCouleurFond(Color.red);
 	agentsSimulationWindow.simulationPanel().repaint();
     }
-       
+
 }
 
 

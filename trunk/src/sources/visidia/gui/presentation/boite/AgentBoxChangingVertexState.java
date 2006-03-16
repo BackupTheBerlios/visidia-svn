@@ -9,6 +9,9 @@ import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.presentation.*;
 import visidia.gui.donnees.*;
 
+import visidia.gui.presentation.userInterfaceEdition.Fenetre;
+import javax.swing.event.*;
+
 /**
  * Cette classe cree une boite utilisee pour modifier l'etat d'un    
  * ou de plusieurs sommets selectionne elle est appelee quand on ne    
@@ -44,7 +47,6 @@ public class AgentBoxChangingVertexState
     protected JButton buttonRemove;
     // Button for refreshing properties from the whiteboard
     protected JButton buttonRefresh;
-
 
     //xav protected JCheckBox but_drawMessage;
     //xav protected boolean drawMessage= true;
@@ -98,7 +100,6 @@ public class AgentBoxChangingVertexState
     panelCentre.setLayout(new BorderLayout());
     panelCentre.add(spane, BorderLayout.NORTH);
     //xav panelCentre.add(algoUsed, BorderLayout.CENTER);
-
     
     setProperties((monSommet.getStateTable()));
 
@@ -109,15 +110,15 @@ public class AgentBoxChangingVertexState
     dialog.setSize(400,200);
     
     ajouterBoutons();
-    
-  }
+
+    }
 
     //Methodes  
     
        
   /** setting the state */
   public void setProperties(Hashtable props){
-  	table.setModel(new PropertyTableModel(props));}  
+  	table.setModel(new AgentPropertyTableModel(props,parent.defaultProperties));}  
     
   /** Affiche la boite et la centre par rapport a "parent".*/
   public void show(Frame parent) {
@@ -125,6 +126,10 @@ public class AgentBoxChangingVertexState
     dialog.show();
     dialog.setLocationRelativeTo(parent);
   }
+
+    public void updateBox() {
+        setProperties(monSommet.getStateTable());
+    }
   
   /** Ajoute un bouton nomme "label" au panel "pane" */
   public JButton addButton(JPanel pane, String label) {
@@ -232,7 +237,7 @@ public class AgentBoxChangingVertexState
     }
     //xav
     if(e.getSource() == buttonRemove) {
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
+	AgentPropertyTableModel mod =(AgentPropertyTableModel)table.getModel();
 
         if (table.getSelectedRow() == -1 ) {
             JOptionPane.showMessageDialog(parent,
@@ -266,7 +271,7 @@ public class AgentBoxChangingVertexState
     }
     
     public void elementModified(){
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
+	AgentPropertyTableModel mod =(AgentPropertyTableModel)table.getModel();
 	mod.putProperty("label",etatPanel.ardoise().donneEtat());
     
 	//xav if(drawMessage)
@@ -278,7 +283,7 @@ public class AgentBoxChangingVertexState
     /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
     public void buttonOk() {
 	String etat = etatPanel.ardoise().donneEtat();
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
+	AgentPropertyTableModel mod =(AgentPropertyTableModel)table.getModel();
 	int nbRows = mod.getRowCount();
 	monSommet.setEtat(etat);
 	//xav monSommet.setDrawMessage(drawMessage);
@@ -313,6 +318,6 @@ public class AgentBoxChangingVertexState
 //xav 	}
 
     }
-    
+
 }
 

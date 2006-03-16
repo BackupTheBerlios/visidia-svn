@@ -29,7 +29,7 @@ import visidia.simulation.synchro.synObj.*;
 public class AgentsSimulationWindow 
     extends Fenetre
     implements Serializable, ActionListener, WindowListener, ChangeListener,
-	       ApplyStarRulesSystem {
+               ApplyStarRulesSystem {
     
     protected static final String GENERAL_TITLE = "Agents Simulator";
     protected String algoTitle;
@@ -40,6 +40,7 @@ public class AgentsSimulationWindow
     protected JToolBar toolBar;
     protected JButton but_start, but_pause, but_save, but_stop, but_help, but_experimentation, but_threadCount;
     protected JButton but_info , but_regles , but_reset;
+    protected JButton but_default;
     protected PulseButton global_clock;
 
     // save an execution
@@ -94,6 +95,13 @@ public class AgentsSimulationWindow
 
     protected Hashtable agentsTable;
 
+    
+    protected Hashtable boxVertices; // To store the
+                                     // AgentBoxChangingVertex for
+                                     // each Vertex (SommetDessin)
+
+    public Hashtable defaultProperties; // To initialize the whiteboards
+
 
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
@@ -127,6 +135,9 @@ public class AgentsSimulationWindow
         
 	agentsTable = new Hashtable();
 
+        boxVertices = new Hashtable();
+        defaultProperties = new Hashtable();
+        
 	// The manager of components
         content = new JPanel();
         content.setLayout(new BorderLayout());
@@ -434,13 +445,18 @@ public class AgentsSimulationWindow
 
         toolBar.addSeparator();
 
-	
-        
+   
         but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
         but_info.setToolTipText("Info");
         but_info.setAlignmentY(CENTER_ALIGNMENT);
         but_info.addActionListener(this);
         toolBar.add(but_info);
+
+        but_default = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        but_default.setToolTipText("Initialisation");
+        but_default.setAlignmentY(CENTER_ALIGNMENT);
+        but_default.addActionListener(this);
+        toolBar.add(but_default);
         
         toolBar.addSeparator();
         
@@ -592,11 +608,11 @@ public class AgentsSimulationWindow
 	else if (item_nothing.isSelected())
 	    sim = new AgentSimulator(Convertisseur
                                      .convert(vueGraphe.getGraphe(),
-                                              agentsTable),
+                                              agentsTable,
+                                              defaultProperties),
                                      evtPipeOut, ackPipeOut);
 
-	//trop_tard    selection.deSelect();
-
+	
         seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
  	seh.start();
 
@@ -718,6 +734,9 @@ public class AgentsSimulationWindow
         }
         else if (b == but_info){
             propertiesControl();
+        }
+        else if (b == but_default){
+            but_initWhiteboard();
         }
 	//PFA2003
 	else if (b == but_help){
@@ -1124,9 +1143,15 @@ public class AgentsSimulationWindow
             }
             else if ((selection.nbElements() == 1) &&
 		     (firstElement.type().equals("vertex"))){
-                AgentBoxChangingVertexState boiteSommet =
-		    new AgentBoxChangingVertexState(this, (SommetDessin)firstElement);
-                boiteSommet.show(this);
+
+                // if ( boxVertices.containsKey(firstElement) ) {
+//                     boxVertices.remove(firstElement);
+//                 }
+                
+                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, (SommetDessin)firstElement);
+                boxVertices.put(firstElement,agentBox);
+                agentBox.show(this);
+                
             }
             else{
                 e = selection.elements();
@@ -1136,6 +1161,15 @@ public class AgentsSimulationWindow
 		AgentBoxSimulationSelection.show(this, selection, table_des_types);
             }
         }
+    }
+
+    private void but_initWhiteboard() {
+        DefaultBoxVertex defBox = new DefaultBoxVertex(this,defaultProperties);
+        defBox.show(this);
+    }
+
+    public void removeWindow(SommetDessin vert) {
+        
     }
     
     public void changerVueGraphe(VueGraphe grapheVisu){
@@ -1229,5 +1263,17 @@ public class AgentsSimulationWindow
 	return algo;
 	
     }
+
+
+    public void updateVertexState(Integer vert) {
+        AgentBoxChangingVertexState box = 
+            (AgentBoxChangingVertexState) boxVertices.get(getVueGraphe().
+                                                          rechercherSommet(vert.toString()));
+
+        if (box!=null)          // An AgentBoxChangingVertexState is
+            box.updateBox();    // open for this vertex
+
+    }
+
 }
 

@@ -11,64 +11,71 @@ import java.io.*;
  * les algorithmes de simulation
  */
 public class Convertisseur {
-	
-	public static SimpleGraph convertir(Graphe  ancienGraphe){
+
+    public static SimpleGraph convertir(Graphe  ancienGraphe){
+        return convertir(ancienGraphe,null);
+    }
+
+    public static SimpleGraph convertir(Graphe  ancienGraphe,Hashtable defProps) {
 		
-		SimpleGraph nouveauGraph = new SimpleGraph();
-		Enumeration enumerationSommets = ancienGraphe.sommets();
+        SimpleGraph nouveauGraph = new SimpleGraph();
+        Enumeration enumerationSommets = ancienGraphe.sommets();
 	       
-		Enumeration enumerationAretes = ancienGraphe.aretes();
-		int taille = ancienGraphe.ordre(); 
-		Sommet unSommet;
-		Arete uneArete;
-		
-		while(enumerationSommets.hasMoreElements()){ 
-		    unSommet = (Sommet)enumerationSommets.nextElement();
+        Enumeration enumerationAretes = ancienGraphe.aretes();
+        int taille = ancienGraphe.ordre(); 
+        Sommet unSommet;
+        Arete uneArete;
 
-// 		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
-//                                                  .getEtiquette()));
+        nouveauGraph.setDefaultVertexProperties(defProps);
 
-		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
-                                               .getEtiquette()),
-                                     unSommet.getSommetDessin()
-                                     .getStateTable());
+        while(enumerationSommets.hasMoreElements()){ 
+            unSommet = (Sommet)enumerationSommets.nextElement();
 
-		    nouveauGraph.vertex(new Integer(unSommet
-                                                    .getSommetDessin()
-                                                    .getEtiquette()))
-                        .setData(unSommet.getSommetDessin().getStateTable()
-                                 .clone());
+            // 		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
+            //                                                  .getEtiquette()));
 
-		}
+            nouveauGraph.put(new Integer(unSommet.getSommetDessin()
+                                         .getEtiquette()),
+                             unSommet.getSommetDessin()
+                             .getStateTable());
 
-		while(enumerationAretes.hasMoreElements()){
-		    uneArete = (Arete)enumerationAretes.nextElement();
-		    if (uneArete.getAreteDessin().forme()
-                        .equals("FlecheSimple")) {
-			Integer origine = new Integer(uneArete.origine()
-                                                      .getSommetDessin()
-                                                      .getEtiquette());
-			Integer dest = new Integer(uneArete.destination()
-                                                   .getSommetDessin()
-                                                   .getEtiquette());
-			nouveauGraph.orientedLink(origine, dest);
-		    }
+            nouveauGraph.vertex(new Integer(unSommet
+                                            .getSommetDessin()
+                                            .getEtiquette()))
+                .setData(unSommet.getSommetDessin().getStateTable()
+                         .clone());
+
+        }
+
+        while(enumerationAretes.hasMoreElements()){
+            uneArete = (Arete)enumerationAretes.nextElement();
+            if (uneArete.getAreteDessin().forme()
+                .equals("FlecheSimple")) {
+                Integer origine = new Integer(uneArete.origine()
+                                              .getSommetDessin()
+                                              .getEtiquette());
+                Integer dest = new Integer(uneArete.destination()
+                                           .getSommetDessin()
+                                           .getEtiquette());
+                nouveauGraph.orientedLink(origine, dest);
+            }
 		    
-		    else 
+            else 
 			     
-			nouveauGraph.link(new Integer(uneArete.origine().
-                                                      getSommetDessin().
-                                                      getEtiquette()),
-			new Integer(uneArete.destination().getSommetDessin().
-                                    getEtiquette()));
-		}
+                nouveauGraph.link(new Integer(uneArete.origine().
+                                              getSommetDessin().
+                                              getEtiquette()),
+                                  new Integer(uneArete.destination().getSommetDessin().
+                                              getEtiquette()));
+        }
 
-		return nouveauGraph;
-	}
+        return nouveauGraph;
+    }
 
     public static SimpleGraph convert(Graphe oldGraph,
-                                      Hashtable agentsPosition) {
-        SimpleGraph graph = convertir(oldGraph);
+                                      Hashtable agentsPosition,
+                                      Hashtable defProps) {
+        SimpleGraph graph = convertir(oldGraph,defProps);
         int i;
         Enumeration e;
 
@@ -83,5 +90,10 @@ public class Convertisseur {
         }
         
         return graph;
+    }
+
+    public static SimpleGraph convert(Graphe oldGraph,
+                                      Hashtable agentsPosition) {
+        return convert(oldGraph,agentsPosition,null);
     }
 }

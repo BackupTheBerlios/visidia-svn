@@ -9,27 +9,35 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 
-public class PropertyTableModel extends AbstractTableModel {
+public class AgentPropertyTableModel extends AbstractTableModel {
     protected Hashtable properties = null;
+    protected Hashtable defProps = null;
     protected Vector keys = null;
     
     
     /**
      * Constructs new empty property table model.
      */
-    public PropertyTableModel(){
-        this(null);
+    public AgentPropertyTableModel(){
+        this(null,null);
     }
 
     /**
      * Constructs new property table model from <code>props</code>.
      */
-    public PropertyTableModel(Hashtable props){
+    public AgentPropertyTableModel(Hashtable props, Hashtable def){
         if(props == null){
             props = new Hashtable();
         }
+
         properties = props;
-        keys = new Vector(props.keySet());
+        defProps = def;
+
+        Hashtable hash = (Hashtable) def.clone();
+        hash.putAll(props);
+
+        keys = new Vector(hash.keySet());        
+
     }
 
     public void setProperties(Hashtable props){
@@ -61,9 +69,17 @@ public class PropertyTableModel extends AbstractTableModel {
     }
     
     public Object getValueAt(int row, int col){
+        Object key;
+
         switch(col){
         case 0: return keys.elementAt(row);
-        case 1: return properties.get(keys.elementAt(row));
+        case 1: key = keys.elementAt(row);
+            
+            if (properties.containsKey(key))
+                return properties.get(key);
+            else if (defProps.containsKey(key))
+                return defProps.get(key);
+            
         }
         throw new IllegalArgumentException();	
     }
@@ -114,7 +130,8 @@ public class PropertyTableModel extends AbstractTableModel {
      * Sets row value to <code>aValue</code>.
      */ 
     public void setValueAt(Object aValue, int row, int col){
-        if(!( row < properties.size() ) && ( col == 1)){
+        
+        if(!( row < properties.size() + defProps.size() ) && ( col == 1)){
             throw new IllegalArgumentException();
         }
 	
