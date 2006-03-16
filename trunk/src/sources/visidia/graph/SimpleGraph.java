@@ -44,7 +44,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues));
+        hash.put(id , new SimpleGraphVertex(id, null, defaultVertexValues));
     }
 
     //xav
@@ -54,10 +54,13 @@ public class SimpleGraph implements Cloneable, Serializable{
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, properties));
+        hash.put(id , new SimpleGraphVertex(id, properties, defaultVertexValues));
     }
-    
-    
+
+    public void setDefaultVertexProperties(Hashtable def) {
+        defaultVertexValues = def;
+    }
+
     /**
      * retourne  une  enumeration  de  tous  les  sommets  du  graphe.
      * L'enumeration   retournée   contient   des   Objets   de   type

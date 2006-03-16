@@ -34,17 +34,19 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      *
      */	
     public SimpleGraphVertex(Integer nodeId){
-        this(nodeId, new Hashtable());
+        this(nodeId,null, new Hashtable());
     }
     
-    public SimpleGraphVertex(Integer nodeId, Hashtable defaults) {
+    public SimpleGraphVertex(Integer nodeId, Hashtable defaults, Hashtable properties ) {
 	id = nodeId;
 	neighbours = new Vector(10,0);
 	edg = new Vector(10,0);
 	visualization=true;
 
-        if (defaults != null)
-            whiteBoard = new WhiteBoard(defaults);
+//         if (defaults != null)
+//             whiteBoard = new WhiteBoard(defaults);
+
+        whiteBoard = new WhiteBoard(defaults,properties);
     }
 
     void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge){

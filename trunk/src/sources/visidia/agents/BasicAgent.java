@@ -9,9 +9,14 @@ public class BasicAgent extends Agent {
 
     protected void init() {
 
+        int i=0;
+
         setAgentMover("RandomAgentMover");
 
         do {
+
+            setVertexProperty("mon_int",i);
+            i++;
             move();
         } while (1 == 1);
     }

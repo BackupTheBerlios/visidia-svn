@@ -29,13 +29,21 @@ public class WhiteBoard {
      * has modified them. 
      */
     public WhiteBoard(Hashtable defaults) {
-        // this.defaults = defaults;
-//         this.values = new Hashtable();
+        this(defaults,new Hashtable());
+    }
 
-        this.values = defaults;
-        this.defaults = new Hashtable();
 
-        //System.out.println("Whiteboard(Hashtable) values" + this.values);
+    /**
+     * Construct a new WhiteBoard with default and specifics values. 
+     *
+     * @param defaults  Default values that  will be used  when nobody
+     * has modified them.
+     * @param properties Specifics values that will be used for this
+     * Whiteboard.
+     */
+    public WhiteBoard(Hashtable defaults, Hashtable properties ) {
+        this.defaults = defaults;
+        this.values = properties;
     }
 
     /**
