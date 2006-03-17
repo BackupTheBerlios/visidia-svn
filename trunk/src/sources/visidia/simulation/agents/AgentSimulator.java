@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.Collection;
-
+import java.util.HashSet;
 
 import java.util.Vector;
 
@@ -39,7 +39,7 @@ public class AgentSimulator {
 
     private Hashtable agents;
     
-    private Hashtable<Vertex,Integer> vertexAgentsNumber;
+    private Hashtable<Vertex,Collection> vertexAgentsNumber;
 
     private AgentMover defaultAgentMover = null;
     
@@ -74,6 +74,40 @@ public class AgentSimulator {
         movingMonitorThread.start();
     }
 
+    private int getAgentsVertexNumber(Vertex vertex){
+	//	System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
+	return vertexAgentsNumber.get(vertex).size();
+    }
+    private int addAgentToVertex(Vertex vertex, Agent ag){
+	if( vertexAgentsNumber.get(vertex) != null)
+	    vertexAgentsNumber.get(vertex).add(ag);
+	else{
+	    try{
+		Collection<Agent> colOfAgents  = new HashSet();
+		colOfAgents.add(ag);
+		vertexAgentsNumber.put(vertex,colOfAgents);
+		//		System.out.println("Ajout d'un agent sur le sommet"+vertex.identity().intValue());
+	    } 
+	    catch(IllegalArgumentException iae){
+		System.out.println("Exception "+iae.getMessage());
+	    }
+	}
+	return vertexAgentsNumber.get(vertex).size();
+    }
+    //
+    private int removeAgentFromVertex(Vertex vertex, Agent ag){
+	if( vertexAgentsNumber.get(vertex) != null)
+	    try{
+		System.out.println("remove Agent From vertex :" +vertex.
+				    identity().intValue());
+		vertexAgentsNumber.get(vertex).remove(ag);
+	    }
+	    catch(NullPointerException npe){
+		System.out.println("Exception "+npe.getMessage());
+	    }
+	
+	return vertexAgentsNumber.get(vertex).size();
+    }
     private void fillAgentsTable(SimpleGraph graph, 
                                  Hashtable defaultAgentValues) {
         Enumeration vertices;
@@ -87,7 +121,8 @@ public class AgentSimulator {
             Vertex vertex = (Vertex) vertices.nextElement();
 	    Collection agentsNames = vertex.getAgentsNames();
 
-	    vertexAgentsNumber.put(vertex,new Integer(0));
+	    Collection<Agent> colOfAgents  = new HashSet();
+	    vertexAgentsNumber.put(vertex, colOfAgents);
 	    
             if(agentsNames == null){
 		continue;
@@ -132,9 +167,9 @@ public class AgentSimulator {
 	    data.vertex = vertex;
             data.agent = ag;
             agents.put(ag, data);
-	    int nbr = (vertexAgentsNumber.get(vertex)).intValue();
-	    vertexAgentsNumber.put(vertex,
-				   new Integer(nbr+1));
+
+	    int nbr = addAgentToVertex(vertex, ag);
+
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -150,17 +185,14 @@ public class AgentSimulator {
 	ProcessData data = (ProcessData) agents.get(ag);
 	Vertex vertex = data.vertex;
 	Long key = new Long(numGen.alloc());
+
+	int nbr = removeAgentFromVertex(vertex,ag);
 	
 	agents.remove(ag);
-	int nbr = (vertexAgentsNumber.get(vertex)).intValue();
-	vertexAgentsNumber.put(vertex,
-			       new Integer(nbr-1));
-	
 
 	evtQ.put(new AgentMovedEvent(key,
 				     vertex.identity(),
-				     new Integer(nbr-1)));
-
+				     new Integer(nbr)));
 	movingMonitor.waitForAnswer(key);
 
         System.out.println("Algorithm Terminated");
@@ -177,7 +209,6 @@ public class AgentSimulator {
         Vertex vertexFrom, vertexTo;
         Message msg;
         MessagePacket msgPacket;
-
         VisidiaAssertion.verify( (0 <= door) && (door <= getArity(ag)) ,
                                  "In moveAgentTo(ag,door) : This door "
                                  + "doesn't exist !", this);
@@ -189,9 +220,9 @@ public class AgentSimulator {
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
 	
-	pushMessageSendingEvent(msgPacket);
-
+	pushMessageSendingEvent(msgPacket,ag);
 	
+
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
@@ -218,7 +249,7 @@ public class AgentSimulator {
     }
 
     public int entryDoor(Agent ag) {
-        if (getLastVertexSeen(ag) == null)
+	if (getLastVertexSeen(ag) == null)
             throw new IllegalStateException();
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
@@ -318,24 +349,23 @@ public class AgentSimulator {
         msg = new StringMessage("Sent clone of "+ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
-	//
+
         ag2 = createAgent(ag.getClass(), 
                           vertexFrom,
                           new Hashtable());
-	
-	moveAgentTo(ag2, door);
 
+	moveAgentTo(ag2, door);
+	
 	System.out.println("The agent " + ag.getIdentity()
 			   + " creates a clone (num " + ag2.getIdentity()
                            + ") and send him to the vertex "
 			   + getVertexFor(ag).neighbour(door).identity());
         
-        //pushMessageSendingEvent(msgPacket);
-	//
+
         createThreadFor(ag2).start();        
     }
 
-    private void pushMessageSendingEvent(MessagePacket mesgPacket) 
+    private void pushMessageSendingEvent(MessagePacket mesgPacket, Agent ag) 
         throws InterruptedException {
 
 	Long key = new Long(numGen.alloc());
@@ -354,34 +384,29 @@ public class AgentSimulator {
                                       mesgPacket.receiver());
 
 
-
-	int nbr = (vertexAgentsNumber.get(vertexFrom)).intValue();
-	vertexAgentsNumber.put(vertexFrom,
-			       new Integer(nbr-1));
-
+	int nbr = removeAgentFromVertex(vertexFrom, ag);
+	/*	System.out.println("--"+ vertexFrom.identity().intValue()+"--"+nbr);*/
+	
 	dep = new AgentMovedEvent(keyDep,
 				  mesgPacket.sender(),
-				  new Integer(nbr-1));
-	
+				  new Integer(nbr));
+
+
 	evtQ.put(dep);
 	movingMonitor.waitForAnswer(keyDep);
 
 	evtQ.put(mse);
 	movingMonitor.waitForAnswer(key);
 
-	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
-	vertexAgentsNumber.put(vertexTo,
-			       new Integer(nbr+1));
 
+	nbr = addAgentToVertex(vertexTo, ag);
 
 	arr = new AgentMovedEvent(keyArr,
 				  mesgPacket.receiver(),
-				  new Integer(nbr+1));
-
-
+				  new Integer(nbr));
+	
 	evtQ.put(arr);
 	movingMonitor.waitForAnswer(keyArr);
-        	
     }
 
     private Thread createThreadFor(Agent ag) {
