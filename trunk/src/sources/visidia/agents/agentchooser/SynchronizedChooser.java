@@ -10,12 +10,7 @@ import visidia.gui.metier.Sommet;
 import visidia.gui.presentation.SommetDessin;
 import visidia.gui.presentation.userInterfaceSimulation.*;
 
-/**
- * Allow user  to randomize agent position. To  specialize this class,
- * override agentName() and  probability(). This class puts BasicAgent
- * with a probability of 1/2.
- */
-public class RandomAgentChooser {
+public class SynchronizedChooser {
 
     public static void place(AgentsSimulationWindow window) {
 
@@ -36,14 +31,6 @@ public class RandomAgentChooser {
         }
     }
 
-    protected static String agentName() {
-        return "BasicAgent";
-    }
-
-    protected static float probability() {
-        return (float)0.5;
-    }
-
     /**
      * Return a  random boolean  with a probability  of True  given by
      * probability().
@@ -59,6 +46,18 @@ public class RandomAgentChooser {
 	System.out.println(rand);
         return (rand < probability());
             
+    }
+
+
+    protected static String agentName() {
+        Random generator = new Random();
+        int value = generator.nextInt(4) + 1;
+
+        return "BasicSynchronizedAgent" + value;
+    }
+
+    protected static float probability() {
+        return (float)0.7;
     }
 
 }

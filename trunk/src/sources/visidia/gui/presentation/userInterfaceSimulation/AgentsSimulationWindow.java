@@ -109,7 +109,7 @@ public class AgentsSimulationWindow
 	     DIM_Y_PAR_DEFAUT, fichier_edit);
         this.addWindowListener(this);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.setSize(650, 600);
+        this.setSize(DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT);
         this.pack();
         this.setVisible(true);
 	this.editeur = editeur;
