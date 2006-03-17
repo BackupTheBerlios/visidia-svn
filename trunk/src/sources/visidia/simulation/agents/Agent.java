@@ -157,7 +157,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Return the door from which the agents come from.
      */
-    protected int entryDoor() {
+    public int entryDoor() {
         return simulator.entryDoor(this);
     }
 
@@ -197,6 +197,28 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         }
     }
     
+    /**
+     * Move the  Agent using the  AgentMover to a specified  door. You
+     * should   have    set   an   AgentMover    before   that   using
+     * setAgentMover(String) or setAgentMover(AgentMover).
+     *
+     * @param door The door to which move
+     *
+     * @see setAgentMover(String)
+     * @see setAgentMover(AgentMover)
+     */
+    public void move(int door) {
+        VisidiaAssertion.verify( agentMover != null ,
+                                 "In move() : The AgentMover hasn't been " +
+                                 "specified yet !",
+                                 this);
+        try {
+            agentMover.move(door);
+        } catch (InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
+    }
+
     /**
      * Moves the Agent back to the vertex from where it comes.
      */
@@ -314,11 +336,27 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * A  shortcut to  changeDoorState(). It  marks the  last  edge on
-     * which the agents has moved.
+     * A shortcut to changeDoorState(). It marks one edges in bold.
+     *
+     * @param door the door on which you want to mark the edge
+     *
+     * @see unmarkEntryDoor()
+     * @see changeDoorState()
      */
-    public void markEntryDoor() {
-        changeDoorState(entryDoor(), new MarkedState(true));
+    public void markDoor(int door) {
+        changeDoorState(door, new MarkedState(true));
+    }
+
+    /**
+     * Remove the mark previously done  by markDoor(). The door do not
+     * need to  be the same used in  markDoor() ; it can  be the other
+     * site of the edge.
+     *
+     * @see markDoor()
+     * @see changeDoorState()
+     */
+    public void unmarkDoor(int door) {
+        changeDoorState(door, new MarkedState(false));
     }
 
     /**

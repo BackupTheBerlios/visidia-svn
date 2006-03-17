@@ -218,6 +218,8 @@ public class AgentSimulator {
     }
 
     public int entryDoor(Agent ag) {
+        if (getLastVertexSeen(ag) == null)
+            throw new IllegalStateException();
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
 

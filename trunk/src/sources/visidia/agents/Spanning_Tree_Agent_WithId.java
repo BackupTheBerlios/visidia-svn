@@ -30,7 +30,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
             move();
 
             if ( ! isMarked(getVertexIdentity()) ) {
-                markEntryDoor();
+                markDoor(entryDoor());
                 mark(getVertexIdentity());
                 nbSelectedEdges ++;
             }
