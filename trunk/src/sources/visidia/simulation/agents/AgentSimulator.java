@@ -316,18 +316,20 @@ public class AgentSimulator {
         msg = new StringMessage("Sent clone of "+ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
-
+	//
         ag2 = createAgent(ag.getClass(), 
-                          vertexTo,
+                          vertexFrom,
                           new Hashtable());
+	
+	moveAgentTo(ag2, door);
 
 	System.out.println("The agent " + ag.getIdentity()
 			   + " creates a clone (num " + ag2.getIdentity()
                            + ") and send him to the vertex "
 			   + getVertexFor(ag).neighbour(door).identity());
         
-        pushMessageSendingEvent(msgPacket);
-
+        //pushMessageSendingEvent(msgPacket);
+	//
         createThreadFor(ag2).start();        
     }
 
