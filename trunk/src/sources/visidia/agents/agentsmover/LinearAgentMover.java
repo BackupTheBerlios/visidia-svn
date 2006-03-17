@@ -15,13 +15,14 @@ import java.util.Arrays;
  */
 public class LinearAgentMover extends AgentMover {
     
+    // Remember the door on which the agent will go next time
     int[] nextDoorToGo;
 
     public LinearAgentMover(Agent ag, AgentSimulator sim) {
         super(ag, sim);
         nextDoorToGo = new int [ag.getNetSize()];
 
-        /* On part de la premiere porte */
+        /* Start on the first door */
         Arrays.fill(nextDoorToGo, 0);
     }
 
@@ -30,7 +31,7 @@ public class LinearAgentMover extends AgentMover {
         int doorToGo = nextDoorToGo[vertex];
         int arity = agent().getArity();
 
-        /* Calcul de la porte suivante */
+        /* The following door is the current one plus 1 */
         nextDoorToGo[vertex] = (nextDoorToGo[vertex] + 1) % arity;
 
         return doorToGo;
