@@ -188,10 +188,6 @@ public class AgentSimulator {
         msg = new StringMessage(ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
-        System.out.println("The agent " + ag.getIdentity()
-                           + " is moving to the vertex "
-                           + vertexTo.identity());
-
 	
 	pushMessageSendingEvent(msgPacket);
 
