@@ -120,6 +120,11 @@ public class AgentsSimulationWindow
 			       int dim_y, File fichier_edit) {
         
         super();
+
+	//tmp tmp tmp
+	GuiProperty.drawNbr = true;
+
+
         evtPipeIn = new visidia.tools.VQueue();
         evtPipeOut = new visidia.tools.VQueue();
         ackPipeIn = new visidia.tools.VQueue();
@@ -201,13 +206,23 @@ public class AgentsSimulationWindow
     public void addAgents(Integer id, String agent) {
 
 	boolean ok;
+	SommetDessin vert = getVueGraphe().rechercherSommet(id.toString());
+	int nbr;
+	
 	if(!agentsTable.containsKey(id)) {
 	    agentsTable.put(id, new ArrayList());
 	}
 	ok = ((ArrayList)agentsTable.get(id)).add(agent);
-	this.getVueGraphe().
-	    rechercherSommet(id.toString()).
-	    changerCouleurFond(Color.red);
+	
+	vert.changerCouleurFond(Color.red);
+	
+	nbr = ((ArrayList)agentsTable.get(id)).size();
+	String nbrStr = new String().valueOf(nbr);
+	
+	((SommetCarre)vert).setNbr(nbrStr);
+	
+	this.simulationPanel().repaint();
+
 	
     }
 
