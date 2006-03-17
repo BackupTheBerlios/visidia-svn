@@ -1,0 +1,42 @@
+compte-rendu de la réunion du 17/03/2006
+----------------------------------------
+
+Rdv 10h30 au LABRI.
+M. Derbel et M. Mosbah sont présents.
+Des chercheurs supplémentaires sont présents.
+Tous les membres de l'équipe sont présents.
+
+Présentation  :
+-------------- 
+
+Cette réunion a  été consacrée à une démonstration  du travail réalisé
+sur ViSiDiA. La plupart des fonctionnalités ont été expérimentées.
+
+Un  problème  est  arrivé   alors  que  nous  expérimentions  avec  le
+Virus. Certains sommets affichaient des nombres négatifs à la place du
+nombre d'agents.
+
+M. Mosbah  nous a  demandé de lui  fournir une  version fonctionnelle,
+rapidement ainsi qu'un mode  d'emploi pour que les chercheurs puissent
+commencer à expérimenter.
+
+Les points suivants sont à réaliser dans les prochains jours :
+
+- une fenêtre d'expérimentation  (voir rapport 10 mars). L'utilisateur
+  devra pouvoir choisir au moyen de l'interface graphique quel type de
+  fenêtre il souhaite.
+- un  mode d'emploi  sommaire pour  que les  expérimentations débutent
+  rapidement.
+- correction du  bug avec les  nombres négatifs lorsqu'on  utilise des
+  Virus.
+- implantation d'un agent qui garde  la trace de la route par laquelle
+  il passe.
+- affichage et modification des whiteboards des agents.
+- typage de valeurs des whiteboards (entiers et booléens).
+- accès concurrents pour les whiteboards.
+- rencontre d'agents asynchrones.
+- règles de réécritures.
+- rapport.
+- créer  une  version  stable  (0.3)  et informer  le  client  de  son
+  existence.
+
