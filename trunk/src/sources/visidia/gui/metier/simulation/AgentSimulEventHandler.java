@@ -120,7 +120,8 @@ public class AgentSimulEventHandler extends Thread {
         ackPipe.put(ack);
     }
 
-    public void handleAgentMovedEvt(SimulEvent se){
+    public void handleAgentMovedEvt(SimulEvent se)
+	throws InterruptedException {
 	AgentMovedEvent ame = (AgentMovedEvent) se;
 
         SommetDessin vert = agentsSimulationWindow.getVueGraphe().
@@ -142,6 +143,12 @@ public class AgentSimulEventHandler extends Thread {
 	((SommetCarre)vert).setNbr(nbrStr);
 	
 	agentsSimulationWindow.simulationPanel().repaint();
+
+	AgentMovedAck ack;
+        ack = new AgentMovedAck(ame.eventNumber());
+
+        ackPipe.put(ack);
+	
     }
 
 }

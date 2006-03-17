@@ -149,6 +149,7 @@ public class AgentSimulator {
 	
 	ProcessData data = (ProcessData) agents.get(ag);
 	Vertex vertex = data.vertex;
+	Long key = new Long(numGen.alloc());
 	
 	agents.remove(ag);
 	int nbr = (vertexAgentsNumber.get(vertex)).intValue();
@@ -156,9 +157,11 @@ public class AgentSimulator {
 			       new Integer(nbr-1));
 	
 
-	evtQ.put(new AgentMovedEvent(numGen.alloc(),
+	evtQ.put(new AgentMovedEvent(key,
 				     vertex.identity(),
 				     new Integer(nbr-1)));
+
+	movingMonitor.waitForAnswer(key);
 
         System.out.println("Algorithm Terminated");
         stats.incrementStat("Terminated algorithms");
@@ -189,17 +192,11 @@ public class AgentSimulator {
                            + " is moving to the vertex "
                            + vertexTo.identity());
 
-	int nbr = (vertexAgentsNumber.get(vertexFrom)).intValue();
-	vertexAgentsNumber.put(vertexFrom,
-			       new Integer(nbr-1));
-
+	
 	pushMessageSendingEvent(msgPacket);
 
-	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
-	vertexAgentsNumber.put(vertexTo,
-			       new Integer(nbr+1));
 	
-        data.vertex = vertexTo;
+	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
         stats.incrementStat("Moves");
@@ -348,29 +345,42 @@ public class AgentSimulator {
 	AgentMovedEvent dep, arr;
 	Vertex vertexTo, vertexFrom;
 
+	vertexFrom = graph.vertex(mesgPacket.sender());
+	vertexTo = graph.vertex(mesgPacket.receiver());
+
         mse = new MessageSendingEvent(key,
                                       mesgPacket.message(),
                                       mesgPacket.sender(), 
                                       mesgPacket.receiver());
 
-	vertexFrom = graph.vertex(mesgPacket.sender());
+
+
 	int nbr = (vertexAgentsNumber.get(vertexFrom)).intValue();
+	vertexAgentsNumber.put(vertexFrom,
+			       new Integer(nbr-1));
 
 	dep = new AgentMovedEvent(keyDep,
 				  mesgPacket.sender(),
-				  new Integer(nbr));
-
-	vertexTo = graph.vertex(mesgPacket.receiver());
-	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
-
-	arr = new AgentMovedEvent(keyDep,
-				  mesgPacket.receiver(),
-				  new Integer(nbr+1));
+				  new Integer(nbr-1));
 	
 	evtQ.put(dep);
+	movingMonitor.waitForAnswer(keyDep);
+
 	evtQ.put(mse);
 	movingMonitor.waitForAnswer(key);
+
+	nbr = (vertexAgentsNumber.get(vertexTo)).intValue();
+	vertexAgentsNumber.put(vertexTo,
+			       new Integer(nbr+1));
+
+
+	arr = new AgentMovedEvent(keyArr,
+				  mesgPacket.receiver(),
+				  new Integer(nbr+1));
+
+
 	evtQ.put(arr);
+	movingMonitor.waitForAnswer(keyArr);
         	
     }
 
