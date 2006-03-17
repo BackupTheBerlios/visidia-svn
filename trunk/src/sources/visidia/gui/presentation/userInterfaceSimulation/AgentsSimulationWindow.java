@@ -1035,6 +1035,8 @@ public class AgentsSimulationWindow
 //dam             sim.abortSimulation();
             seh.abort();
         }
+
+	GuiProperty.drawNbr = false; 
         setVisible(false);
         dispose();
         // collecting the garbage
