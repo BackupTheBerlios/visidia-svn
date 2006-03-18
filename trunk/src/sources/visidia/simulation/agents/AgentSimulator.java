@@ -209,9 +209,10 @@ public class AgentSimulator {
         Vertex vertexFrom, vertexTo;
         Message msg;
         MessagePacket msgPacket;
-        VisidiaAssertion.verify( (0 <= door) && (door <= getArity(ag)) ,
-                                 "In moveAgentTo(ag,door) : This door "
-                                 + "doesn't exist !", this);
+        
+        
+        if( door < 0 || door >= getArity(ag))
+            throw new IllegalArgumentException("This door doesn't exist !");
 
         vertexFrom = data.vertex;
         vertexTo = vertexFrom.neighbour(door);
