@@ -5,12 +5,10 @@ package visidia.simulation.agents;
  */
 public abstract class AgentMover {
     
-    private Agent agent;
-    private AgentSimulator simulator;
+    private Agent agent=null;
 
-    public AgentMover(Agent ag, AgentSimulator sim) {
-        this.agent = ag;
-        this.simulator = sim;
+    public AgentMover(Agent ag) {
+        agent = ag;
     }
 
     /**
@@ -31,7 +29,7 @@ public abstract class AgentMover {
      * Move the agent to a specified door.
      */
     public final void move(int door) throws InterruptedException {
-        simulator.moveAgentTo(agent(), door);
+        agent.moveToDoor(door);
     }
 
     /** 

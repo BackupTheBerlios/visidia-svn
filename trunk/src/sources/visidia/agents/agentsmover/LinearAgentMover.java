@@ -18,8 +18,8 @@ public class LinearAgentMover extends AgentMover {
     // Remember the door on which the agent will go next time
     int[] nextDoorToGo;
 
-    public LinearAgentMover(Agent ag, AgentSimulator sim) {
-        super(ag, sim);
+    public LinearAgentMover(Agent ag) {
+        super(ag);
         nextDoorToGo = new int [ag.getNetSize()];
 
         /* Start on the first door */

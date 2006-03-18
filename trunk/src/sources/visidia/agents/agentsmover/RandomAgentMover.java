@@ -12,8 +12,8 @@ import visidia.simulation.agents.AgentMover;
  */
 public class RandomAgentMover extends AgentMover {
     
-    public RandomAgentMover(Agent ag, AgentSimulator sim) {
-        super(ag, sim);
+    public RandomAgentMover(Agent ag) {
+        super(ag);
     }
 
     protected int findNextDoor() {

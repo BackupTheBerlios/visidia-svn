@@ -12,8 +12,8 @@ import java.util.Arrays;
 
 public class NoBackMover extends LinearAgentMover {
     
-    public NoBackMover(Agent ag, AgentSimulator sim) {
-        super(ag, sim);
+    public NoBackMover(Agent ag) {
+        super(ag);
     }
 
     protected int findNextDoor() {

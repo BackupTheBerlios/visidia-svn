@@ -117,24 +117,22 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see setAgentMover(AgentMover)
      */
     public void setAgentMover(String agentMoverClassName) {
-        Constructor  constructor;
-        Class agClass;
 
         try {
+            Constructor  constructor;
+            Class agClass;
             String completName;
-            completName = new String("visidia.agentsmover."
+            AgentMover mover;
+
+            completName = new String("visidia.agentsmover." 
                                      + agentMoverClassName);
             agClass = Class.forName(completName);
-            constructor = agClass.getConstructor(new Class []
-                {Agent.class, AgentSimulator.class});
-
-            setAgentMover( (AgentMover) 
-                           constructor.newInstance(new Object[]
-                               {this, simulator}));
-            
+            constructor = agClass.getConstructor(Agent.class);
+            mover = (AgentMover)constructor.newInstance(this);
+            setAgentMover(mover);
         } catch (Exception e) {
             throw new 
-                IllegalArgumentException("Instance can't be created !");
+                IllegalArgumentException("Instance can't be created !", e);
         }
     }
     
