@@ -12,10 +12,14 @@
 \usepackage{indentfirst}
 \usepackage[francais]{babel}
 \usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
 
 \newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\dossier}[1]{$#1$}
+\newcommand{\classe}[1]{$#1$}
+\newcommand{\methode}[1]{$#1$}
 
-\title{Mode d'emploi}
+\title{Mode d'emploi pour \visidia et les agents mobiles}
 \author{L'équipe PFA \visidia 2006}
 \date{Mars 2006}
 
@@ -76,7 +80,7 @@ suivante :
 $ svn checkout svn://svn.berlios.de/visidia/trunk/src visidia
 \end{verbatim}
 
-Cela va créer un répertoire ``visidia'' dans le dossier courant. 
+Cela va créer un répertoire \dossier{visidia} dans le dossier courant. 
 
 
 \subsection{Compilez et lancez \visidia}
@@ -88,8 +92,8 @@ installé et présent dans votre PATH. Pour le vérifier :
 $ javac -version
 \end{verbatim}
 
-Placez-vous dans  le répertoire ``visidia'' et  exécuter les commandes
-suivantes pour compiler puis pour lancer \visidia :
+Placez-vous  dans  le  répertoire  \dossier{visidia} et  exécuter  les
+commandes suivantes pour compiler puis pour lancer \visidia :
 
 \begin{verbatim}
 $ ./compile.sh
@@ -103,10 +107,58 @@ modules  comme les algorithmes,  les agents  etc.  La  troisième lance
 messages d'avertissements concernant les accents. Ces messages ne sont
 pas bloquants, vous pouvez les ignorer.\\
 
-Si tout c'est bien passé, \visidia devrait être lancé. 
+Si tout  c'est bien passé,  \visidia devrait être lancé.  Vous devriez
+voir l'application comme sur la figure \ref{fig:visidia}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{visidia}
+  \caption{Lancement de \visidia}
+  \label{fig:visidia}
+\end{figure}
 
 \section{Programmez des agents}
 
+Dans cette section, nous  commencerons par voir l'API de programmation
+des agents puis la méthode à adopter pour en programmer de nouveaux.\\
+
+
+Vous pouvez aussi  vous baser sur des exemples  d'agents déjà écrits ;
+vous   en    trouverez   un   grand   nombre    dans   le   répertoire
+\dossier{sources/visidia/agents}.
+
+
+\subsection{Description de l'API}
+
+Toute la documentation a été  écrite à l'aide de Javadoc. Pour générer
+des fichiers  HTML, placez vous  dans le dossier  \dossier{visidia} et
+tapez la commande suivante :
+
+\begin{verbatim}
+$ ./agents-doc.sh
+\end{verbatim}
+
+Ceci  fait, ouvrez le  fichier \dossier{visidia/agents-doc/index.html}
+avec un navigateur. 
+
+
+\subsection{Ecrire ses propres agents}
+
+Pour écrire vos propres agents, vous devez créer une sous-classe de la
+classe \classe{Agent} ou de la classe \classe{SynchronizedAgent} et la
+placer   dans  le   dossier  \dossier{visidia/sources/visidia/agents}.
+N'oubliez pas de renseigner le package grâce à la ligne :
+
+\begin{verbatim}
+package visidia.agents;
+\end{verbatim}
+
+Comme  vous  pourrez  le  voir  dans les  nombreux  exemples  d'agents
+disponibles               dans              le              répertoire
+\dossier{visidia/sources/visidia/agents},   il  est  très   facile  de
+programmer  un  agent.   Il  suffit  pour cela  d'écrire  une  méthode
+\methode{init()}  et   d'utiliser  les  différentes   possibilités  de
+l'API.\\
 
 \section{Développez des algorithmes de déplacement}
 
