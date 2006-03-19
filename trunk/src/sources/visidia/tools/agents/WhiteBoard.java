@@ -37,8 +37,8 @@ public class WhiteBoard {
     /**
      * Construct a new WhiteBoard with default and specifics values. 
      *
-     * @param defaults  Default values that  will be used  when nobody
-     * has modified them.
+     * @param def  Default values  that will be  used when  nobody has
+     * modified them.
      * @param properties Specifics values that will be used for this
      * Whiteboard.
      */

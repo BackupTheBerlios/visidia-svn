@@ -1,10 +1,3 @@
-/**
- * I'm an abstract class used  to implement agent based algorithms. If
- * you  want   to  write  a   new  Agent,  subclass  me   or  subclass
- * SynchronizedAgent which allows you to get synchronisation.
- *
- * @see SynchronizedAgent
- */
 package visidia.simulation.agents;
 
 import java.util.Hashtable;
@@ -20,6 +13,16 @@ import visidia.simulation.SimulationAbortError;
 
 import visidia.visidiassert.*;
 
+/**
+ * I'm an abstract class used  to implement agent based algorithms. If
+ * you  want   to  write  a   new  Agent,  subclass  me   or  subclass
+ * SynchronizedAgent which allows you to get synchronisation.<br>
+ *
+ * All new agents MUST be in the package {@link visidia.agents}.
+ *
+ * @see SynchronizedAgent
+ * @see AgentSimulator
+ */
 public abstract class Agent implements Runnable, WithWhiteBoard {
     
     /**
@@ -65,7 +68,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * identifier. Don't forget to  use setSimulator() because I can't
      * do anything without an AgentSimulator.
      *
-     * @see setSimulator()
+     * @see #setSimulator(AgentSimulator)
      */
     public Agent() {
 	agentIdentity = createdAgentCount++;
@@ -85,7 +88,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Remove the existing white board and affect this one.
      *
      * @param wb The white board to affect.
-     * @see getWhiteBoard()
+     * @see #getWhiteBoard()
      */
     public void setWhiteBoard(WhiteBoard wb) {
         this.whiteBoard = wb;
@@ -101,7 +104,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Return the white board associated with this agent.
      *
-     * @see setWhiteBoard()
+     * @see #setWhiteBoard(Hashtable)
      */
     public WhiteBoard getWhiteBoard() {
         return whiteBoard;
@@ -114,7 +117,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      *
      * @param   agentMoverClassName    a   String   representing   the
      * AgentMoverClass. Like \a RandomAgentMover for exemple.
-     * @see setAgentMover(AgentMover)
+     * @see #setAgentMover(AgentMover)
      */
     public void setAgentMover(String agentMoverClassName) {
 
@@ -139,7 +142,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Use the AgentMover as parameter to move me.
      *
-     * @see setAgentMover(String)
+     * @see #setAgentMover(String)
      */
     public void setAgentMover(AgentMover am) {
         agentMover = am;
@@ -163,9 +166,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Low level method to move me.  You might prefer to use move() in
      * conjunction with an AgentMover.
      *
-     * @param The door to which move
-     * @see setAgentMover(String)
-     * @see move()
+     * @param door The door to which move
+     * @see #setAgentMover(String)
+     * @see #move()
      */
     public void moveToDoor(int door) {
         try {
@@ -180,8 +183,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * AgentMover   before   that   using   setAgentMover(String)   or
      * setAgentMover(AgentMover).
      *
-     * @see setAgentMover(String)
-     * @see setAgentMover(AgentMover)
+     * @see #setAgentMover(String)
+     * @see #setAgentMover(AgentMover)
      */
     public void move() {
         VisidiaAssertion.verify( agentMover != null ,
@@ -202,8 +205,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      *
      * @param door The door to which move
      *
-     * @see setAgentMover(String)
-     * @see setAgentMover(AgentMover)
+     * @see #setAgentMover(String)
+     * @see #setAgentMover(AgentMover)
      */
     public void move(int door) {
         VisidiaAssertion.verify( agentMover != null ,
@@ -235,7 +238,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Use this method  if you want to fall asleep  for a given amount
      * of milliseconds.
      *
-     * @param Milliseconds to sleep.
+     * @param millis Milliseconds to sleep.
      */
     protected void sleep(long millis) {
         try {
@@ -271,8 +274,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Get a value from the WhiteBoard.
      *
      * @param key Key behind which found the value.
-     * @see setProperty()
-     * @see setWhiteBoard()
+     * @see #setProperty(Object, Object)
+     * @see #setWhiteBoard(Hashtable)
      */
     public Object getProperty(Object key) {
         return whiteBoard.getValue(key);
@@ -281,8 +284,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Put a value in the WhiteBoard. The key reference this value.
      *
-     * @see getProperty()
-     * @see setWhiteBoard()
+     * @see #getProperty(Object)
+     * @see #setWhiteBoard(Hashtable)
      * @param key Key on which I must store the value
      * @param value Value that must be stored
      */
@@ -338,8 +341,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      *
      * @param door the door on which you want to mark the edge
      *
-     * @see unmarkEntryDoor()
-     * @see changeDoorState()
+     * @see #unmarkDoor(int)
+     * @see #changeDoorState(int, EdgeState)
      */
     public void markDoor(int door) {
         changeDoorState(door, new MarkedState(true));
@@ -350,8 +353,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * need to  be the same used in  markDoor() ; it can  be the other
      * site of the edge.
      *
-     * @see markDoor()
-     * @see changeDoorState()
+     * @see #markDoor(int)
+     * @see #changeDoorState(int, EdgeState)
      */
     public void unmarkDoor(int door) {
         changeDoorState(door, new MarkedState(false));
@@ -393,7 +396,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Method of the Runnable interface. Launch init().
      *
-     * @see init();
+     * @see #init()
      */
     public final void run() {
         init();
