@@ -1,0 +1,98 @@
+\documentclass{article}
+
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{xspace}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{indentfirst}
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+
+\newcommand{\visidia}{ViSiDiA\xspace}
+
+\title{Mode d'emploi}
+\author{L'équipe PFA \visidia 2006}
+\date{Mars 2006}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+\section{Objet}
+
+Ce  document  a pour  objet  d'être  un  aperçu sur  l'utilisation  de
+\visidia avec  les agents mobiles.  Nous considérerons que  le lecteur
+maîtrise déjà  \visidia et  que l'environnement de  développement Java
+est déjà installé et configuré.\\
+
+Dans  un premier  temps, nous  téléchargerons la  branche  de \visidia
+concernant  les  agents   et  compilerons  l'ensemble.   Ensuite  nous
+présenterons  l'API des agents  et détaillerons  la procédure  pour en
+créer  de nouveaux.  Après  cela, nous  étudierons  comment créer  des
+modules de déplacement pour que vos agents changent de sommet de façon
+bien définie. Enfin, nous présenterons la technique qui vous permettra
+de  programmer des algorithmes  de placement  initial d'agents  sur le
+graphe. 
+
+
+
+\section{Installez et lancez \visidia}
+
+Il existe  deux techniques pour  récupérer \visidia doté de  la partie
+agents mobiles.  Soit vous  utilisez une version supposée stable, soit
+vous récupérez une version de développement. 
+
+
+\subsection{Récupérez la version stable}
+
+Pour   récupérer    la   version    stable,   allez   sur    le   site
+\url{https://developer.berlios.de/projects/visidia/}. Au  milieu de la
+page,  vous trouverez  une  section nommée  ``Dernières révisions  des
+fichiers''. Cliquez  alors sur le lien téléchargement  et récupérez le
+fichier le plus récent. Enfin,  décompressez la fichier à l'aide de la
+commande :
+
+\begin{verbatim}
+$ tar xvfj lefichiertelecharge.tar.bz2
+\end{verbatim}
+
+
+\subsection{Récupérez la version en développement}
+
+Pour disposer de la version  de développement, vous devez posséder SVN
+qui   est  un   remplaçant   de   CVS  disponible   sur   le  site   :
+\url{http://subversion.tigris.org/}.\\
+
+Pour  télécharger la  version de  développement, utilisez  la commande
+suivante :
+
+\begin{verbatim}
+$ svn checkout svn://svn.berlios.de/visidia/trunk visidia
+\end{verbatim}
+
+
+
+\section{Programmez des agents}
+
+
+\section{Développez des algorithmes de déplacement}
+
+
+\section{Implantez des techniques de placement initial d'agents}
+
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: latin-1
+%%% TeX-PDF-mode: t
+%%% End: 
