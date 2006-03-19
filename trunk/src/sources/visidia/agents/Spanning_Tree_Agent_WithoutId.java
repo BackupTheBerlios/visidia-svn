@@ -7,9 +7,15 @@ import visidia.simulation.agents.Agent;
 /**
  * Implements  a spanning  tree  algorith with  an  agent. This  agent
  * doesn't use unique identifier of vertices.
+ *
+ * @see Spanning_Tree_Agent_WithId
  */
 public class Spanning_Tree_Agent_WithoutId extends Agent {
 
+
+    /**
+     * Have a look at Spanning_Tree_Agent_WithId#init() for comments.
+     */ 
     public void init() {
         
         int nbSelectedEdges = 0;
@@ -17,28 +23,31 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
 
         setAgentMover("RandomAgentMover");
 
-        markVertex();
+        mark();
 
         while ( nbSelectedEdges < nbVertices - 1 ) {
+
             move();
 
-            if ( ! vertexIsMarked() ) {
+            if ( ! isMarked() ) {
                 markDoor(entryDoor());
-                markVertex();
+                mark();
                 nbSelectedEdges ++;
             }
         }
     }
 
-    private void markVertex () {
+    private void mark () {
         setVertexProperty("marked", new Boolean(true));
     }
 
-    private boolean vertexIsMarked() {
+    private boolean isMarked() {
         boolean mark;
 
-        // If the vertex is not already marked, an exception is thrown
-        // by the WhiteBoard.
+        /**
+         * If the vertex is not already marked, an exception is thrown
+         * by the WhiteBoard.
+         */
         try {
             mark = ((Boolean)getVertexProperty("marked")).booleanValue();
         } catch (NoSuchElementException e) {
