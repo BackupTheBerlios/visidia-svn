@@ -73,10 +73,37 @@ Pour  télécharger la  version de  développement, utilisez  la commande
 suivante :
 
 \begin{verbatim}
-$ svn checkout svn://svn.berlios.de/visidia/trunk visidia
+$ svn checkout svn://svn.berlios.de/visidia/trunk/src visidia
 \end{verbatim}
 
+Cela va créer un répertoire ``visidia'' dans le dossier courant. 
 
+
+\subsection{Compilez et lancez \visidia}
+
+Pour compiler \visidia, le kit de développement Java 5.0 doit être
+installé et présent dans votre PATH. Pour le vérifier :
+
+\begin{verbatim}
+$ javac -version
+\end{verbatim}
+
+Placez-vous dans  le répertoire ``visidia'' et  exécuter les commandes
+suivantes pour compiler puis pour lancer \visidia :
+
+\begin{verbatim}
+$ ./compile.sh
+$ ./acompile.sh
+$ ./visidia.sh
+\end{verbatim}
+
+La première  ligne compile \visidia  alors que la seconde  compile les
+modules  comme les algorithmes,  les agents  etc.  La  troisième lance
+\visidia. Suivant votre installation,  vous pourriez avoir de nombreux
+messages d'avertissements concernant les accents. Ces messages ne sont
+pas bloquants, vous pouvez les ignorer.\\
+
+Si tout c'est bien passé, \visidia devrait être lancé. 
 
 \section{Programmez des agents}
 
