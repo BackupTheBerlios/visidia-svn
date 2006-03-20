@@ -1,3 +1,8 @@
+/**
+ * I'm the class responsible for the simulation. I permit the
+ * communication between agents and the graphic interface.
+ **/
+
 package visidia.simulation.agents;
 
 import visidia.graph.*;
@@ -31,32 +36,68 @@ import java.util.Vector;
 
 public class AgentSimulator {
 
+    /**
+     *
+     */    
     public static final int THREAD_PRIORITY = 1;
+
+    
+    /**
+     * A link to the graph on which the simulation is done 
+     */
     private SimpleGraph graph;
 
     // simulator threads set
     private SimulatorThreadGroup threadGroup;
 
+    /**
+     * Hashtable which store informations for each agents.
+     * These informations are stored in a ProcessData Object.
+     */
     private Hashtable agents;
     
     private Hashtable<Vertex,Collection> vertexAgentsNumber;
 
+    /**
+     * Default AgentMover used only if no AgentMover is affected to
+     * Agent. 
+     */
     private AgentMover defaultAgentMover = null;
     
+    /**
+     * evtQ is the file of events sent to the AgentSimulEventHandler.
+     * ackQ is the file of ackitment received from it.
+     */
     private VQueue evtQ, ackQ;
     
+    /**
+     * Generator of key associated to an event.
+     */
     private NumberGenerator numGen = new NumberGenerator();
 
     private MovingMonitor movingMonitor;
     private Thread movingMonitorThread;
-
+    
+    /**
+     * Storage of statistic informations
+     */
     private AgentStats stats;
 
+    /**
+     * Constructor. Create a new AgentSimulator and affect it the
+     * specified graph, the specified event file, the specified
+     * ackitment file and a default agents Hashtable.
+     */
     public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
                           VQueue ackVQ) {
         this(netGraph, new Hashtable(), evtVQ, ackVQ);
     }
 
+    /**
+     * Constructor. Create a new AgentSimulator and affect it the
+     * specified graph, the specified event file, the specified
+     * ackitment file and the specified agents Hashtable. 
+     */
     public AgentSimulator(SimpleGraph netGraph, 
                           Hashtable defaultAgentValues,
                           VQueue evtVQ, VQueue ackVQ) {
@@ -74,10 +115,15 @@ public class AgentSimulator {
         movingMonitorThread.start();
     }
 
+    /**
+     *
+     */
+
     private int getAgentsVertexNumber(Vertex vertex){
-	//	System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
+	// System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
 	return vertexAgentsNumber.get(vertex).size();
     }
+
     private int addAgentToVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
 	    vertexAgentsNumber.get(vertex).add(ag);
@@ -86,7 +132,7 @@ public class AgentSimulator {
 		Collection<Agent> colOfAgents  = new HashSet();
 		colOfAgents.add(ag);
 		vertexAgentsNumber.put(vertex,colOfAgents);
-		//		System.out.println("Ajout d'un agent sur le sommet"+vertex.identity().intValue());
+		// System.out.println("Ajout d'un agent sur le sommet"+vertex.identity().intValue());
 	    } 
 	    catch(IllegalArgumentException iae){
 		System.out.println("Exception "+iae.getMessage());
@@ -94,7 +140,7 @@ public class AgentSimulator {
 	}
 	return vertexAgentsNumber.get(vertex).size();
     }
-    //
+    
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
 	    try{
@@ -108,6 +154,7 @@ public class AgentSimulator {
 	
 	return vertexAgentsNumber.get(vertex).size();
     }
+
     private void fillAgentsTable(SimpleGraph graph, 
                                  Hashtable defaultAgentValues) {
         Enumeration vertices;
@@ -179,7 +226,9 @@ public class AgentSimulator {
         return ag;
     }
 
-
+    /**
+     * 
+     */
     public void agentDeath(Agent ag) throws InterruptedException {
 	
 	ProcessData data = (ProcessData) agents.get(ag);
@@ -204,6 +253,12 @@ public class AgentSimulator {
         }
     }
     
+    /**
+     * Move an Agent to a door specified.
+     *
+     * @param ag the Agent you want to move
+     * @param door the door to which you want to move the Agent
+     */
     public void moveAgentTo(Agent ag, int door) throws InterruptedException {
         ProcessData data = (ProcessData) agents.get(ag);
         Vertex vertexFrom, vertexTo;
@@ -230,6 +285,13 @@ public class AgentSimulator {
         stats.incrementStat("Moves");
     }
 
+    /**
+     * Change the state of the edge associated with the door on the
+     * vertex where the Agent is.
+     *
+     * @param
+     * @param
+     */
     public void changeDoorState(Agent ag, int door, EdgeState state) 
         throws InterruptedException {
 
