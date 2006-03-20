@@ -64,6 +64,7 @@ commande :
 
 \begin{verbatim}
 $ tar xvfj lefichiertelecharge.tar.bz2
+$
 \end{verbatim}
 
 
@@ -75,8 +76,8 @@ qui   est  un   remplaçant   de   CVS  disponible   sur   le  site   :
 
 Le gestionnaire de version SVN est compilé et disponible sous forme de
 paquets près à l'emploi pour la majorité des distributions Linux. Sous
-Windows, TortoiseCVS permet de travailler sous SVN depuis l'explorateur
-de fichiers. Il est disponible sur le site
+Windows,   TortoiseSVN   permet   de   travailler  sous   SVN   depuis
+l'explorateur   de   fichiers.  Il   est   disponible   sur  le   site
 \url{http://www.tortoisecvs.org/}.\\
 
 
@@ -85,6 +86,7 @@ suivante :
 
 \begin{verbatim}
 $ svn checkout svn://svn.berlios.de/visidia/trunk/src visidia
+$
 \end{verbatim}
 
 Cela va créer un répertoire \dossier{visidia} dans le dossier courant. 
@@ -92,12 +94,14 @@ Cela va créer un répertoire \dossier{visidia} dans le dossier courant.
 
 \subsection{Compilez et lancez \visidia}
 
-Pour compiler \visidia, le kit de développement Java 5.0 doit être
-installé et présent dans votre PATH. Il est disponible sur le site de SUN \url{http://java.sun.com/j2se/1.5.0/download.jsp}.\\
-Pour le vérifier :
+Pour compiler  \visidia, le  kit de développement  Java 5.0  doit être
+installé et présent dans votre PATH.  Il est disponible sur le site de
+SUN   \url{http://java.sun.com/j2se/1.5.0/download.jsp}.\\   Pour   le
+vérifier :
 
 \begin{verbatim}
 $ javac -version
+$
 \end{verbatim}
 
 Placez-vous  dans  le  répertoire  \dossier{visidia} et  exécuter  les
@@ -107,6 +111,7 @@ commandes suivantes pour compiler puis pour lancer \visidia :
 $ ./compile.sh
 $ ./acompile.sh
 $ ./visidia.sh
+$
 \end{verbatim}
 
 La première  ligne compile \visidia  alors que la seconde  compile les
@@ -137,6 +142,7 @@ vous   en    trouverez   un   grand   nombre    dans   le   répertoire
 
 
 \subsection{Description de l'API}
+\label{sec:agent-api}
 
 Toute la documentation a été  écrite à l'aide de Javadoc. Pour générer
 des fichiers  HTML, placez vous  dans le dossier  \dossier{visidia} et
@@ -144,6 +150,7 @@ tapez la commande suivante :
 
 \begin{verbatim}
 $ ./agents-doc.sh
+$
 \end{verbatim}
 
 Ceci  fait, ouvrez le  fichier \dossier{visidia/agents-doc/index.html}
@@ -161,19 +168,37 @@ N'oubliez pas de renseigner le package grâce à la ligne :
 package visidia.agents;
 \end{verbatim}
 
-Comme  vous  pourrez  le  voir  dans les  nombreux  exemples  d'agents
-disponibles               dans              le              répertoire
-\dossier{visidia/sources/visidia/agents},   il  est  très   facile  de
-programmer  un  agent.   Il  suffit  pour cela  d'écrire  une  méthode
-\methode{init()}  et   d'utiliser  les  différentes   possibilités  de
+Comme vous pourrez le voir dans les exemples d'agents disponibles dans
+le  répertoire \dossier{visidia/sources/visidia/agents},  il  est très
+facile  de programmer  un agent.   Il  suffit pour  cela d'écrire  une
+méthode \methode{init()} et d'utiliser les différentes possibilités de
 l'API.\\
 
 \section{Développez des algorithmes de déplacement}
 
+La  méthode  de  création  d'algorithmes de  déplacement  est  presque
+identique à la méthode de création d'agents. Référez vous à la javadoc
+comme  indiqué  en \ref{sec:agent-api}  et  lisez particulièrement  la
+documentation de la classe \classe{AgentMover}.
+
+Les algorithmes  que vous  écrirez devront se  trouver dans  le paquet
+\dossier{visidia.agents.agentsmover}.   Vous  devrez  sous classer  la
+classe     \classe{AgentMover}     et     implanter     la     méthode
+\methode{findNextDoor()}.  Vous pouvez  avoir toutes  les informations
+nécessaires sur l'agent grâce à la méthode \methode{agent()}.
 
 \section{Implantez des techniques de placement initial d'agents}
 
+Comme pour les algorithmes de déplacement des agents sur le graphe, la
+programmation  de nouveaux  algorithmes de  placement d'agent  se fait
+simplement   et  la  lecture   de  la   documentation  de   la  classe
+\classe{AgentChooser}  ainsi  que  le  parcourt des  exemples  devrait
+suffire.\\
 
+Vos algorithmes  de placement d'agents devront être  implantés dans le
+paquet  \dossier{visidia.agents.agentchooser},  devront surcharger  la
+méthode  \methode{chooseForVertex(Integer)}   et  devront  appeler  la
+méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
 
 \end{document}
 
