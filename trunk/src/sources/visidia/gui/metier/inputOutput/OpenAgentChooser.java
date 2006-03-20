@@ -5,10 +5,11 @@ import java.lang.Integer;
 import javax.swing.*;
 import java.util.Enumeration;
 import java.lang.reflect.Method;
+import java.lang.reflect.Constructor;
 
 import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.metier.Graphe;
-import visidia.agents.agentchooser.*;
+import visidia.simulation.agents.AgentChooser;
 
 public class OpenAgentChooser implements Serializable{
 
@@ -38,16 +39,21 @@ public class OpenAgentChooser implements Serializable{
 	  
         try {
             Class classChooser = Class.forName(className);
-            Method methodPlace = classChooser
-                .getDeclaredMethod("place", 
-                                   new Class [] { AgentsSimulationWindow.class });
-            methodPlace.invoke(null, window);
+            Constructor constructor = classChooser.getConstructor();
+            AgentChooser chooser = (AgentChooser)constructor.newInstance();
+            Method placeAgentsMethod;
+
+            placeAgentsMethod = (AgentChooser.class)
+                .getDeclaredMethod("placeAgents",
+                                   AgentsSimulationWindow.class);
+
+            placeAgentsMethod.invoke(chooser, window);
         } catch(Exception excpt) {
-            throw new RuntimeException(excpt);
+            throw new RuntimeException("The agent chooser can't be created",
+                                       excpt);
         }
         return true;
     }
-        
 }
 
 
