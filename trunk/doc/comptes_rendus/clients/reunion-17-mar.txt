@@ -39,5 +39,6 @@ Les points suivants sont à réaliser dans les prochains jours :
 - rapport.
 - créer  une  version  stable  (0.3)  et informer  le  client  de  son
   existence.
+- documenter les classes
 - implanter un move(int door) qui passe par le mover. 
 - les noms des agents peuvent être choisis par le programmeur
