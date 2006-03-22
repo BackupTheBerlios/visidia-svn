@@ -382,8 +382,13 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Return a String which represent the Agent : the name of the
-     * agent class, an '_' and the identity number of the agent. 
+     * Returns a  printable string  to differentiate the  agents. This
+     * string will be printed when  an agent is moving from one vertex
+     * to  another. You  may  want  to override  this  method to  have
+     * something specific for your agents.
+     *
+     * @return The  name of the agent  class, an '_'  and the identity
+     * number of the agent are returned by this method
      */
     public String toString() {
 
@@ -409,7 +414,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     protected abstract void init();
 
     /**
-     * Kill the agent.
+     * Kill  the agent. This  method is  automatically called  and you
+     * should not call it yourself. Instead, if you want your agent to
+     * disappear, you should return from your #init() method.
      */
     protected void death() {
         try {
@@ -419,4 +426,22 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         }
     };
 
+    /**
+     * Increments statistics for the key  \a key. Use this method when
+     * you want to count something and get the result at this end.
+     *
+     * @see incrementStat(String, long)
+     */
+    public void incrementStat(String key) {
+        incrementStat(key, (long)1);
+    }
+
+    /**
+     * Increments statistics by  \a increment for the key  \a key. Use
+     * this method when you want to count something and get the result
+     * at this end.
+     */
+    public void incrementStat(String key, long increment) {
+        simulator.incrementStat(key, increment);
+    }
 }

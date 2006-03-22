@@ -26,10 +26,6 @@ public class AgentStats {
         incrementStat(key, (long)1);
     }
 
-    public void incrementStat(String key, int increment) {
-        incrementStat(key, (long)increment);
-    }
-
     public void incrementStat(String key, long increment) {
         stats.put(key, new Long(getStat(key) + increment));
     }
