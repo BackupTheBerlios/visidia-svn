@@ -680,16 +680,15 @@ public class AgentsSimulationWindow
     }
 
     public void but_experimentation() {
-//jbnada 	if ((vueGraphe.getGraphe().sommets().hasMoreElements()) &&
-// 	    (algoChoice.verticesHaveAlgorithm())) {
-// 	    JFrame frame = new ExperimentationFrame(vueGraphe, algoChoice);
-// 	    frame.setTitle("Algorithm Experiments ["+algoTitle+"]");
-// 	    frame.pack();
-// 	    frame.setVisible(true);
-// 	}
-// 	else {
-// 	    JOptionPane.showMessageDialog(this, "Load a graph and an algorithm");
-// 	}
+	if(sim != null){
+	    JFrame frame = new HashTableFrame(sim.getStats());
+	    frame.setTitle("Agents Experiments");
+	    frame.pack();
+	    frame.setVisible(true);
+	}
+	else{
+	    JOptionPane.showMessageDialog(this, "Start the simulator");
+	}
     }
     
 

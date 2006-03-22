@@ -34,6 +34,10 @@ public class AgentStats {
         stats.put(key, new Long(getStat(key) + increment));
     }
 
+    public Hashtable getHashTable(){
+	return stats;
+    }
+
     public void printStats() {
         Set<String> keys = stats.keySet();
 

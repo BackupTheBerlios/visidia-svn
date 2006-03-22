@@ -391,6 +391,11 @@ public class AgentSimulator {
         return defaultAgentMover!=null;
     }
 
+    public Hashtable getStats(){
+	return stats.getHashTable();
+    }
+
+
     public void clone(Agent ag) {
         Agent ag2;
 	System.out.println("The agent " + ag.getIdentity()
