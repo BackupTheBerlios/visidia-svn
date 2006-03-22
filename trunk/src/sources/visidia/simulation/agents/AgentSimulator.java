@@ -360,7 +360,6 @@ public class AgentSimulator {
             }
         }
 
-        stats.printStats();
         agents.clear();
         SynchronizedAgent.clear();
 	vertexAgentsNumber.clear();
@@ -389,6 +388,10 @@ public class AgentSimulator {
 
     public boolean hasDefaultAgentMover() { 
         return defaultAgentMover!=null;
+    }
+
+    public void incrementStat(String key, Long increment) {
+        stats.incrementStat(key, increment);
     }
 
     public Hashtable getStats(){

@@ -67,6 +67,14 @@ class HashTableModel extends AbstractTableModel {
 	    vDataStats.add(hstats.get(key));
 	}
     }
+
+    public String getColumnName(int col) {
+	switch (col){
+	case 0: return "Keys";
+	case 1: return "Values";
+	}
+	throw new IllegalArgumentException();
+    }
 }
 
 
