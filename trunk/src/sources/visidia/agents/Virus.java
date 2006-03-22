@@ -1,12 +1,13 @@
-/**
- * Implements  a  virus  with an  agent.  When  a  virus arrive  on  a
- * non-infected vertex, it send clones to all neighbours.
- */
 package visidia.agents;
 
 import java.util.NoSuchElementException;
 
 import visidia.simulation.agents.Agent;
+
+/**
+ * Implements  a virus  with  an agent.   When  a virus  arrives on  a
+ * non-infected vertex, it sends clones to all neighbours.
+ */
 
 public class Virus extends Agent {
 

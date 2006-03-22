@@ -7,8 +7,8 @@ import visidia.simulation.agents.AgentMover;
 import java.util.Arrays;
 
 /**
- * I'm a  linear agent mover which  try not to  go to the door  I just
- * came from.
+ * I'm a  linear agent mover which  try not to  go to the door  I have
+ * just come from.
  */
 public class NoBackMover extends LinearAgentMover {
     
@@ -19,11 +19,11 @@ public class NoBackMover extends LinearAgentMover {
     protected int findNextDoor() {
         int doorToGo;
 
-        // Ask the LinearAgentMover for the next door
+        // Asks the LinearAgentMover for the next door
         doorToGo = super.findNextDoor();
 
-        // Here, the  door to go is  verified not to be  from where we
-        // just came from.
+        // Here, the door  to go is checked not to be  the one we have
+        // just come from.
         try {
             if (doorToGo == agent().entryDoor())
                 doorToGo = super.findNextDoor(); //ask the next door another time

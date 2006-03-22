@@ -6,8 +6,8 @@ import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 
 /**
- * Provide a random move for an Agent. On a vertex, the agent go to
- * a random door.
+ * Provides a random move for an Agent. On a vertex, the agent go to a
+ * random door.
  */
 public class RandomAgentMover extends AgentMover {
     

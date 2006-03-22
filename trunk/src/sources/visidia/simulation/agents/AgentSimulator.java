@@ -1,8 +1,3 @@
-/**
- * I'm the class responsible for the simulation. I permit the
- * communication between agents and the graphic interface.
- **/
-
 package visidia.simulation.agents;
 
 import visidia.graph.*;
@@ -34,6 +29,10 @@ import java.util.HashSet;
 
 import java.util.Vector;
 
+/**
+ * Class  in charge  of the  simulation. Allows the communication
+ * between agents and the graphic interface.
+ **/
 public class AgentSimulator {
 
     /**
@@ -51,8 +50,8 @@ public class AgentSimulator {
     private SimulatorThreadGroup threadGroup;
 
     /**
-     * Hashtable which store informations for each agents.
-     * These informations are stored in a ProcessData Object.
+     * Hashtable  which stores  informations for  each  agents.  These
+     * informations are stored in a ProcessData Object.
      */
     private Hashtable agents;
     
@@ -65,8 +64,8 @@ public class AgentSimulator {
     private AgentMover defaultAgentMover = null;
     
     /**
-     * evtQ is the file of events sent to the AgentSimulEventHandler.
-     * ackQ is the file of ackitment received from it.
+     * evtQ is the queue of events sent to the AgentSimulEventHandler.
+     * ackQ is the queue of ackitment received from it.
      */
     private VQueue evtQ, ackQ;
     
@@ -84,9 +83,9 @@ public class AgentSimulator {
     private AgentStats stats;
 
     /**
-     * Constructor. Create a new AgentSimulator and affect it the
-     * specified graph, the specified event file, the specified
-     * ackitment file and a default agents Hashtable.
+     * Constructor.  Creates  a new AgentSimulator and  affect its the
+     * specified  graph,  the  specified  event queue,  the  specified
+     * ackitment queue and a default agents Hashtable.
      */
     public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
                           VQueue ackVQ) {
@@ -94,9 +93,9 @@ public class AgentSimulator {
     }
 
     /**
-     * Constructor. Create a new AgentSimulator and affect it the
-     * specified graph, the specified event file, the specified
-     * ackitment file and the specified agents Hashtable. 
+     * Constructor. Creates  a new  AgentSimulator and affects  it the
+     * specified  graph,  the  specified  event queue,  the  specified
+     * ackitment queue and the specified agents Hashtable.
      */
     public AgentSimulator(SimpleGraph netGraph, 
                           Hashtable defaultAgentValues,
@@ -227,7 +226,9 @@ public class AgentSimulator {
     }
 
     /**
-     * 
+     * Handles  agents'  death.   It   removes  the  agents  from  the
+     * Hashtable. When  the Hashtable  is empty it  is the end  of the
+     * algorithm.
      */
     public void agentDeath(Agent ag) throws InterruptedException {
 	
@@ -254,7 +255,7 @@ public class AgentSimulator {
     }
     
     /**
-     * Move an Agent to a door specified.
+     * Moves an Agent to a specified door.
      *
      * @param ag the Agent you want to move
      * @param door the door to which you want to move the Agent
@@ -286,7 +287,7 @@ public class AgentSimulator {
     }
 
     /**
-     * Change the state of the edge associated with the door on the
+     * Changes the state  of the edge associated with  the door on the
      * vertex where the Agent is.
      *
      * @param ag
@@ -312,6 +313,8 @@ public class AgentSimulator {
         stats.incrementStat("Edge state changes");
     }
 
+    /**
+     */
     public int entryDoor(Agent ag) {
 	if (getLastVertexSeen(ag) == null)
             throw new IllegalStateException();

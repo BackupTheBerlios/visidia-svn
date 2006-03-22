@@ -6,8 +6,7 @@ import visidia.simulation.agents.SynchronizedAgent;
  * I'm one of the synchronized agents.  I was developed to show how to
  * write agents that are waiting each other.  <p>
  *
- * I'm waiting 1  second between each move and I  move 10 times before
- * dying.
+ * I wait 1 second between each move and I move 10 times before dying.
  */
 public class BasicSynchronizedAgent1 extends SynchronizedAgent {
 

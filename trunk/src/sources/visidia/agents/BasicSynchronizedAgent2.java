@@ -4,7 +4,7 @@ import visidia.simulation.agents.SynchronizedAgent;
 
 
 /**
- * I'm waiting 2.5 seconds between each move and I move 7 times before
+ * I wait  2.5 seconds  between each  move and I  move 7  times before
  * dying.
  *
  * @see BasicSynchronizedAgent1

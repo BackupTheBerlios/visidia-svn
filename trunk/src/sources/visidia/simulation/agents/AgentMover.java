@@ -20,21 +20,21 @@ public abstract class AgentMover {
     }
 
     /**
-     * Return the agent associated with this mover.
+     * Returns the agent associated with this mover.
      */
     protected final Agent agent() {
         return agent;
     }
 
     /**
-     * Move the agent to the next door.
+     * Moves the agent to the next door.
      */
     public final void move() throws InterruptedException {
         move(findNextDoor());
     }
     
     /**
-     * Move the agent to a specified door.
+     * Moves the agent to a specified door.
      *
      * @param door Door to which move.
      */
@@ -43,8 +43,8 @@ public abstract class AgentMover {
     }
 
     /** 
-     * Return the door to which the agent will go.  This method needs to
-     * be specialized in the sub-classes.
+     * Returns the door to which the agent will go.  This method needs
+     * to be specialized in the sub-classes.
      */
     protected abstract int findNextDoor();
 

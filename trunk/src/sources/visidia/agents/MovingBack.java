@@ -19,7 +19,7 @@ public class MovingBack extends Agent {
 	    moveBack();
 
             /**
-             * Put the edge associated with the door i in bold.
+             * Puts the edge associated with the door i in bold.
              */
             markDoor(i);
 	}

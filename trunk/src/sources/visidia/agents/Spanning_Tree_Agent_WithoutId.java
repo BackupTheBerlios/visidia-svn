@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import visidia.simulation.agents.Agent;
 
 /**
- * Implements  a spanning  tree  algorith with  an  agent. This  agent
+ * Implements  a spanning  tree  algorithm with  an  agent. This  agent
  * doesn't use unique identifier of vertices.
  *
  * @see Spanning_Tree_Agent_WithId

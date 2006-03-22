@@ -41,8 +41,8 @@ public abstract class AgentChooser {
     }
 
     /**
-     * Add a new agent to the vertex. Call this method when you decide
-     * to put an agent on one vertex.
+     * Adds  a new  agent to  the vertex.  Call this  method  when you
+     * decide to put an agent on one vertex.
      *
      * @param vertexId The vertex identity you want to put a new agent
      * on.

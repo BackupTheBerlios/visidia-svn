@@ -5,8 +5,8 @@ import java.util.Random;
 import visidia.simulation.agents.AgentChooser;
 
 /**
- * Allow user  to randomize agent position. To  specialize this class,
- * override   agentName()  and/or   probability().  This   class  puts
+ * Allows user to randomize  agent position. To specialize this class,
+ * override  agentName()   and/or  probability().   This   class  puts
  * BasicAgent with a probability of 1/2.
  *
  * @see RandomSynchronizedChooser
@@ -16,9 +16,9 @@ public class RandomAgentChooser extends AgentChooser {
     Random generator=null;
 
     /**
-     * Implement  abstract  AgentChooser#chooseForVertex(Integer). For
-     * each call, I decide  with a probability given by #probability()
-     * if an agent  will be placed here or not. The  agents are of the
+     * Implements  abstract AgentChooser#chooseForVertex(Integer). For
+     * each call,  decides with a probability  given by #probability()
+     * if an agent will be placed  there or not. The agents are of the
      * type returned by #agentName().
      *
      * @see #agentName()
@@ -31,7 +31,7 @@ public class RandomAgentChooser extends AgentChooser {
     }
 
     /**
-     * Returns a String which contain  an agent name. This one returns
+     * Returns a String which contains  an agent name. This one returns
      * "BasicAgent" and you may want to override this.
      *
      * @return You can  override this method to return  the agent name
@@ -42,8 +42,8 @@ public class RandomAgentChooser extends AgentChooser {
     }
 
     /**
-     * Probability  by  which adding  an  agent  on  one vertex.  This
-     * methods returns 0.5 but you may want to override this.
+     * Probability  of adding  an agent  on one  vertex.   This method
+     * returns 0.5 but you may want to override this.
      *
      * @return You can override  this method to return the probability
      * you want (between 0 and 1). This one returns 0.5.
@@ -53,7 +53,7 @@ public class RandomAgentChooser extends AgentChooser {
     }
 
     /**
-     * Return a  random boolean  with a probability  of True  given by
+     * Returns a  random boolean with  a probability of True  given by
      * probability().
      *
      * @return true with a probability given by probability(). Returns

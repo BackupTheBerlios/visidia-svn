@@ -7,22 +7,22 @@ import visidia.simulation.agents.AgentMover;
 import java.util.Arrays;
 
 /**
- * Provide a linear move for an Agent. On a vertex, the agent go to
+ * Provides a linear  move for an Agent. On a vertex,  the agent go to
  * the first never-visited door.
  *
- * /!\ Warning, this implementation imply that the vertex have an unique
- * identifier !!!
+ * /!\ Warning,  this implementation implies  that each vertex  has an
+ * unique identifier !!!
  */
 public class LinearAgentMover extends AgentMover {
     
-    // Remember the door on which the agent will go next time
+    // Remembers the door on which the agent will go next time
     int[] nextDoorToGo;
 
     public LinearAgentMover(Agent ag) {
         super(ag);
         nextDoorToGo = new int [ag.getNetSize()];
 
-        /* Start on the first door */
+        /* Starts on the first door */
         Arrays.fill(nextDoorToGo, 0);
     }
 

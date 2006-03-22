@@ -14,7 +14,7 @@ import visidia.simulation.agents.Agent;
 public class Spanning_Tree_Agent_WithId extends Agent {
 
     /**
-     * Remembers if the vertex has already be seen at least once.
+     * Remembers if the vertex has already been seen at least once.
      */
     boolean[] vertexMarks;
 
@@ -28,12 +28,12 @@ public class Spanning_Tree_Agent_WithId extends Agent {
         vertexMarks = new boolean [nbVertices];
 
         /**
-         * Put false on all cells of vertexMarks.
+         * Puts false on all cells of vertexMarks.
          */
         Arrays.fill(vertexMarks, false);
 
         /**
-         * Mark the first vertex as already been seen.
+         * Marks the first vertex as already been seen.
          */
         mark(getVertexIdentity());
 

@@ -3,8 +3,8 @@ package visidia.agents.agentchooser;
 import java.util.Random;
 
 /**
- * Place synchronized agents randomly on the graph. The probability to
- * add  a new  agent is  0.7 on  each vertex.  The agents  to  add are
+ * Places synchronized  agents randomly on the  graph. The probability
+ * to add a  new agent is 0.7  on each vertex.  The agents  to add are
  * choosen randomly between the 4 basic synchronized agents.
  *
  * @see visidia.agents.BasicSynchronizedAgent1
@@ -15,7 +15,7 @@ import java.util.Random;
 public class RandomSynchronizedChooser extends RandomAgentChooser {
 
     /**
-     * Randomly choose one of the four basic synchronized agents.
+     * Randomly chooses one of the four basic synchronized agents.
      *
      * @return "BasicSynchronizedAgent<i>" where <i> is an int between
      * 1 and 4.
@@ -28,7 +28,7 @@ public class RandomSynchronizedChooser extends RandomAgentChooser {
     }
 
     /**
-     * Probability to add an agent on a vertex.
+     * Probability of adding an agent on a vertex.
      *
      * @return 0.7
      */

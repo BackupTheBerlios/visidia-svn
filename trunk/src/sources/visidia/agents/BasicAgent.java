@@ -15,7 +15,7 @@ public class BasicAgent extends Agent {
     protected void init() {
 
         /**
-         * Use an unpredictable deplacement. It chooses one door randomly.
+         * Uses an unpredictable deplacement. It chooses one door randomly.
          */
         setAgentMover("RandomAgentMover");
 

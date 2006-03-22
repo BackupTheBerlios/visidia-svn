@@ -14,8 +14,8 @@ import visidia.simulation.SimulationAbortError;
 import visidia.visidiassert.*;
 
 /**
- * I'm an abstract class used  to implement agent based algorithms. If
- * you  want   to  write  a   new  Agent,  subclass  me   or  subclass
+ * Abstract class  used to implement  agent based algorithms.   If you
+ * want   to   write   a   new   Agent,  subclass   it   or   subclass
  * SynchronizedAgent which allows you to get synchronisation.<br>
  *
  * All new agents MUST be in the package {@link visidia.agents}.
@@ -26,15 +26,15 @@ import visidia.visidiassert.*;
 public abstract class Agent implements Runnable, WithWhiteBoard {
     
     /**
-     * A  link  to  the   simulator  responsible  for  nearly  all  my
-     * actions. I can't do anything alone.
+     * A  link  to  the  simulator  responsible  for  nearly  all  the
+     * actions. Can't do anything alone.
      */
     private AgentSimulator simulator;
 
     /**
      * A  WhiteBoard allows  one to  store  values with  keys (like  a
-     * Hashtable). With  this, I can store information  during my live
-     * time. 
+     * Hashtable). With  this, the class can  store information during
+     * its live time.
      * 
      * @see getProperty()
      * @see setProperty()
@@ -42,8 +42,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     private WhiteBoard whiteBoard;
 
     /**
-     * An AgentMover  is used to move  myself in a specific  way. If I
-     * want to move randomly, I can use RandomAgentMover for example.
+     * An AgentMover is used to move  in a specific way.  For a random
+     * move use RandomAgentMover for example.
      *
      * @see setAgentMover()
      * @see move()
@@ -64,9 +64,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     private static int createdAgentCount = 0;
 
     /**
-     * Default constructor. Create a new agent and assign it an unique
-     * identifier. Don't forget to  use setSimulator() because I can't
-     * do anything without an AgentSimulator.
+     * Default  constructor. Creates  a new  agent and  assigns  it an
+     * unique identifier.  Don't forget to  use setSimulator() because
+     * an agent can't do anything without an AgentSimulator.
      *
      * @see #setSimulator(AgentSimulator)
      */
@@ -75,7 +75,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Affet a simulator  to this agent. This is  mandatory because an
+     * Affets a simulator to this  agent. This is mandatory because an
      * agent can't do anything by itself.
      *
      * @param simulator Affect this simulator to the agent
@@ -85,7 +85,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Remove the existing white board and affect this one.
+     * Removes the existing white board and affect this one.
      *
      * @param wb The white board to affect.
      * @see #getWhiteBoard()
@@ -95,14 +95,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Create a new WhiteBoard with defaults values.
+     * Creates a new WhiteBoard with defaults values.
      */
     public void setWhiteBoard(Hashtable defaults) {
         this.whiteBoard = new WhiteBoard(defaults);
     }
 
     /**
-     * Return the white board associated with this agent.
+     * Returns the WhiteBoard associated with this agent.
      *
      * @see #setWhiteBoard(Hashtable)
      */
@@ -112,8 +112,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
     
     /**
-     * Create a  new agent  mover based on  the name in  parameter and
-     * affect it to me.
+     * Creates a  new agent mover based  on the name  in parameter and
+     * affect it to the agent.
      *
      * @param   agentMoverClassName    a   String   representing   the
      * AgentMoverClass. Like \a RandomAgentMover for exemple.
@@ -140,7 +140,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
     
     /**
-     * Use the AgentMover as parameter to move me.
+     * Uses the AgentMover as parameter to move the agent.
      *
      * @see #setAgentMover(String)
      */
@@ -149,22 +149,22 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Return the current AgentMover.
+     * Returns the current AgentMover.
      */
     public AgentMover getAgentMover() {
         return agentMover;
     }
 
     /**
-     * Return the door from which the agents come from.
+     * Returns the door from which the agent comes.
      */
     public int entryDoor() {
         return simulator.entryDoor(this);
     }
 
     /**
-     * Low level method to move me.  You might prefer to use move() in
-     * conjunction with an AgentMover.
+     * Low level  method to move the  agent.  You might  prefer to use
+     * move() in conjunction with an AgentMover.
      *
      * @param door The door to which move
      * @see #setAgentMover(String)
@@ -179,7 +179,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Move the  Agent using  the AgentMover. You  should have  set an
+     * Moves the  agent using the  AgentMover. You should have  set an
      * AgentMover   before   that   using   setAgentMover(String)   or
      * setAgentMover(AgentMover).
      *
@@ -199,7 +199,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
     
     /**
-     * Move the  Agent using the  AgentMover to a specified  door. You
+     * Moves the agent  using the AgentMover to a  specified door. You
      * should   have    set   an   AgentMover    before   that   using
      * setAgentMover(String) or setAgentMover(AgentMover).
      *
@@ -221,14 +221,15 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Moves the Agent back to the vertex from where it comes.
+     * Moves the agent back to the vertex from where it comes.
      */
     public void moveBack() {
 	moveToDoor(entryDoor());
     }
 
     /**
-     * Return the number of doors available from the vertex I'm in.
+     * Returns the number of doors available from the vertex the agent
+     * is on.
      */
     public int getArity() {
         return simulator.getArity(this);
@@ -249,14 +250,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Return the number of vertices in the graph.
+     * Returns the number of vertices in the graph.
      */
     public int getNetSize() {
         return simulator.getNetSize();
     }
 
     /**
-     * Return  the  unique identifier  that  identifies the  currently
+     * Returns  the unique  identifier that  identifies  the currently
      * visited vertex.
      */
     public int getVertexIdentity() {
@@ -264,14 +265,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Return the unique identifier that identifies me.
+     * Returns the unique identifier that identifies the agent.
      */
     protected int getIdentity() {
         return agentIdentity;
     }
 
     /**
-     * Get a value from the WhiteBoard.
+     * Gets a value from the WhiteBoard.
      *
      * @param key Key behind which found the value.
      * @see #setProperty(Object, Object)
@@ -282,7 +283,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Put a value in the WhiteBoard. The key reference this value.
+     * Puts a value in the WhiteBoard. The key reference this value.
      *
      * @see #getProperty(Object)
      * @see #setWhiteBoard(Hashtable)
@@ -298,7 +299,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Like getProperty(), but for  the current vertex. Get a property
+     * Like getProperty(), but for the current vertex. Gets a property
      * behind a key on the vertex.
      *
      * @param key Key behind which value will be find
@@ -308,7 +309,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Set a value on the current vertex.
+     * Sets a value on the current vertex.
      *
      * @param key Key behind which storing the value
      * @param value Value to store on the vertex
@@ -349,9 +350,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Remove the mark previously done  by markDoor(). The door do not
-     * need to  be the same used in  markDoor() ; it can  be the other
-     * site of the edge.
+     * Removes the  mark previously done by markDoor().  The door does
+     * not need  to be  the same used  in markDoor()  ; it can  be the
+     * other site of the edge.
      *
      * @see #markDoor(int)
      * @see #changeDoorState(int, EdgeState)
@@ -361,14 +362,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Create a new agent of the same type in the same vertex.
+     * Creates a new agent of the same type in the same vertex.
      */
     public void cloneAgent() {
 	simulator.clone(this);
     }
 
     /**
-     * Create a  new agent of the  same type and  put it on one  of my
+     * Creates a new agent of the same  type and puts it on one of the
      * neighboor vertex.
      *
      * @param door Door where to send the clone.
@@ -399,7 +400,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
 
     /**
-     * Method of the Runnable interface. Launch init().
+     * Method of the Runnable interface. Launches init().
      *
      * @see #init()
      */
@@ -414,7 +415,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     protected abstract void init();
 
     /**
-     * Kill  the agent. This  method is  automatically called  and you
+     * Kills the  agent. This method  is automatically called  and you
      * should not call it yourself. Instead, if you want your agent to
      * disappear, you should return from your #init() method.
      */
