@@ -18,7 +18,6 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 
     private FenetreDeSimulationDist fenetreDeSimulationDist;
     private FenetreDeSimulation fenetreDeSimulation;
-    private AgentsSimulationWindow agentsSimulationWindow;
     protected FormeDessin objet_sous_souris ;
     protected int PAS_PAR_DEFAUT = 10 ; 
     protected int lePas;
@@ -84,43 +83,6 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	 setBackground(new Color(0xe6e6fa));
      }
 
-    public SimulationPanel(AgentsSimulationWindow simulation) {
-	agentsSimulationWindow = simulation;
-	objet_sous_souris = null;
-	lePas = PAS_PAR_DEFAUT;
-	
-	if(simulation.getVueGraphe().getGraphe().ordre()!= 0)
-	    {  
-		size = simulation.getVueGraphe().donnerDimension();
-		this.setPreferredSize(size);
-		this.revalidate();		
-	    } else {
-		size = new Dimension(0,0);
-	    }
-
-	selectionUnit = new SelectionUnit
-	    (new SelectionGetData () {
-		    public SelectionDessin getSelectionDessin () {
-			return agentsSimulationWindow.selection;
-		     }
-		     public UndoInfo getUndoInfo () throws NoSuchMethodException {
-			 throw new NoSuchMethodException ("undo processing not used");
-		     }
-		     public RecoverableObject getRecoverableObject () {
-			 return agentsSimulationWindow.getVueGraphe ();
-		     }
-		 },
-	      (JPanel) this);
-
-	 addMouseListener(selectionUnit);
-	 addMouseListener(this);
-	 addMouseMotionListener(selectionUnit);
-	 addMouseMotionListener(this);
-	 addKeyListener(this);
-
-	 timer = new javax.swing.Timer(30,(ActionListener)this);
-	 setBackground(new Color(0xe6e6fa));
-     }
 
      public SimulationPanel(FenetreDeSimulationDist simulation) {
 	 fenetreDeSimulationDist = simulation;
@@ -183,13 +145,11 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
      public void paintComponent(Graphics g) {
 	 super.paintComponent(g);
 
-	 if (fenetreDeSimulationDist == null && agentsSimulationWindow == null)
+	 if (fenetreDeSimulationDist == null)
 	     fenetreDeSimulation.getVueGraphe().dessiner(this,g);
 
-	 else if ( fenetreDeSimulation == null && agentsSimulationWindow == null)
+	 else
 	     fenetreDeSimulationDist.getVueGraphe().dessiner(this,g);
-	 else if ( fenetreDeSimulation == null && fenetreDeSimulationDist == null)
-	     agentsSimulationWindow.getVueGraphe().dessiner(this,g);
 
 	 g.setColor(Color.red);
 	 SentMessage sentMessage;
@@ -223,12 +183,10 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 
 		     //envoyer un message d'acquitement de fin d'animation
 		     try{
-			 if ( fenetreDeSimulationDist == null && agentsSimulationWindow == null) {
+			 if ( fenetreDeSimulationDist == null) {
 			     fenetreDeSimulation.getAckPipe().put(msa);
 			     //System.out.println("UN MESSAGE TRANSMIS");
 			 }
-			 else if ( fenetreDeSimulationDist == null ) 
-                             agentsSimulationWindow.getAckPipe().put(msa);
                          else
 			     fenetreDeSimulationDist.getAckPipe().put(msa);
 
@@ -347,26 +305,12 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
      }
 
     public void animate(MessageSendingEvent mse){
-	if ( fenetreDeSimulationDist == null && agentsSimulationWindow == null) {
+	if ( fenetreDeSimulationDist == null) {
 	    synchronized(sentMessageVector){
 		SentMessage sentMessage = new SentMessage(mse, fenetreDeSimulation.getVueGraphe().rechercherSommet(mse.sender().toString()).centre(), fenetreDeSimulation.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
 		sentMessageVector.add(sentMessage);
 	    }
 	}
-	else if ( fenetreDeSimulationDist == null ) {
-	    synchronized(sentMessageVector){
-		SentMessage sentMessage;
-
-                sentMessage = new
-                    SentMessage(mse,
-                                agentsSimulationWindow.getVueGraphe()
-                                .rechercherSommet(mse.sender().toString()).centre(),
-				agentsSimulationWindow.getVueGraphe().
-				rechercherSommet(mse.receiver().toString()).centre(), lePas);
-		sentMessageVector.add(sentMessage);
-
-	    }
-        }
         else {
 	    synchronized(sentMessageVector){
 		SentMessage sentMessage = new SentMessage(mse, fenetreDeSimulationDist.getVueGraphe().rechercherSommet(mse.sender().toString()).centre(), fenetreDeSimulationDist.getVueGraphe().rechercherSommet(mse.receiver().toString()).centre(), lePas);
