@@ -21,8 +21,8 @@ public class RandomAgentChooser extends AgentChooser {
      * if an agent  will be placed here or not. The  agents are of the
      * type returned by #agentName().
      *
-     * @see agentName()
-     * @see probability()
+     * @see #agentName()
+     * @see #probability()
      */
     protected final void chooseForVertex(Integer vertexIdentity) {
         if (choose()) {
