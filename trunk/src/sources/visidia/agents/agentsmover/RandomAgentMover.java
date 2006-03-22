@@ -1,4 +1,4 @@
-package visidia.agentsmover;
+package visidia.agents.agentsmover;
 
 import java.util.Random;
 
