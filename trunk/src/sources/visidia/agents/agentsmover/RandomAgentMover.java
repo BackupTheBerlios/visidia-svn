@@ -2,7 +2,6 @@ package visidia.agentsmover;
 
 import java.util.Random;
 
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 

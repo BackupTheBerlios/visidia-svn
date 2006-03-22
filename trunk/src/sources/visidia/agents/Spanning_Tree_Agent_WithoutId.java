@@ -34,6 +34,9 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
                 mark();
                 nbSelectedEdges ++;
             }
+            else {
+                incrementStat("Failed moves");
+            }
         }
     }
 

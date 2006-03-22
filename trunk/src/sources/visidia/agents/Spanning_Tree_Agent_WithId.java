@@ -58,6 +58,9 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                 mark(getVertexIdentity());
                 nbSelectedEdges ++;
             }
+            else {
+                incrementStat("Failed moves");
+            }
 
         }
     }
