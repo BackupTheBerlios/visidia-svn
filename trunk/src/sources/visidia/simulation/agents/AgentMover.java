@@ -1,18 +1,26 @@
 package visidia.simulation.agents;
 
 /**
- * Abstract class providing different moving types for the agents. 
+ * Abstract class providing different moving types for the agents. You
+ * should subclass this class to create your own style of move.
+ *
+ * @see visidia.agents.agentsmover
  */
 public abstract class AgentMover {
     
     private Agent agent=null;
 
+    /**
+     * Creates a new agent mover.
+     *
+     * @param ag Agent associated with this mover.
+     */
     public AgentMover(Agent ag) {
         agent = ag;
     }
 
     /**
-     * Return the agent.
+     * Return the agent associated with this mover.
      */
     protected final Agent agent() {
         return agent;
@@ -27,6 +35,8 @@ public abstract class AgentMover {
     
     /**
      * Move the agent to a specified door.
+     *
+     * @param door Door to which move.
      */
     public final void move(int door) throws InterruptedException {
         agent.moveToDoor(door);
