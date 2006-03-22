@@ -289,8 +289,9 @@ public class AgentSimulator {
      * Change the state of the edge associated with the door on the
      * vertex where the Agent is.
      *
-     * @param
-     * @param
+     * @param ag
+     * @param door
+     * @param state
      */
     public void changeDoorState(Agent ag, int door, EdgeState state) 
         throws InterruptedException {

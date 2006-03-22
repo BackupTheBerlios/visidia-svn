@@ -127,7 +127,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             String completName;
             AgentMover mover;
 
-            completName = new String("visidia.agentsmover." 
+            completName = new String("visidia.agents.agentsmover." 
                                      + agentMoverClassName);
             agClass = Class.forName(completName);
             constructor = agClass.getConstructor(Agent.class);
@@ -430,7 +430,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Increments statistics for the key  \a key. Use this method when
      * you want to count something and get the result at this end.
      *
-     * @see incrementStat(String, long)
+     * @see #incrementStat(String, long)
      */
     public void incrementStat(String key) {
         incrementStat(key, (long)1);
