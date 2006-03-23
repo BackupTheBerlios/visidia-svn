@@ -42,10 +42,10 @@ public class DefaultBoxVertex
     protected JButton buttonAdd;
     // Button for removing property from the whiteboard
     protected JButton buttonRemove;
-    // Button for refreshing properties from the whiteboard
-    protected JButton buttonRefresh;
 
     protected PropertyTableModel tbModel;
+
+    protected int lastItemSelected = -1 ;
     
 
     /**
@@ -70,9 +70,6 @@ public class DefaultBoxVertex
         this.dialog = new JDialog(parent, titre);
         this.parent = parent;
 
-        
-        //vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
-        
         etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
         
         Panel panelHaut = new Panel();
@@ -131,7 +128,7 @@ public class DefaultBoxVertex
     
         JPanel buttonPane = new JPanel( new BorderLayout());
       
-        JPanel addRemoveRefreshPane = new JPanel(new FlowLayout());
+        JPanel addRemovePane = new JPanel(new FlowLayout());
       
         buttonAdd = new JButton("Add");
         buttonAdd.addActionListener(this);
@@ -139,12 +136,8 @@ public class DefaultBoxVertex
         buttonRemove = new JButton("Remove");
         buttonRemove.addActionListener(this);
 
-        buttonRefresh = new JButton("Refresh");
-        buttonRefresh.addActionListener(this);
-      
-        addRemoveRefreshPane.add(buttonAdd);
-        addRemoveRefreshPane.add(buttonRemove);
-        addRemoveRefreshPane.add(buttonRefresh);
+        addRemovePane.add(buttonAdd);
+        addRemovePane.add(buttonRemove);
 
         JPanel okCancelApplyPane = new JPanel(new FlowLayout());
       
@@ -161,7 +154,7 @@ public class DefaultBoxVertex
         okCancelApplyPane.add(buttonCancel);    
         okCancelApplyPane.add(buttonApply);
       
-        buttonPane.add(addRemoveRefreshPane,BorderLayout.NORTH);
+        buttonPane.add(addRemovePane,BorderLayout.NORTH);
         buttonPane.add(okCancelApplyPane,BorderLayout.SOUTH);
       
         buttonApply.setEnabled(true);
@@ -211,7 +204,6 @@ public class DefaultBoxVertex
             dialog.setVisible(false);
             dialog.dispose();
         }
-        //xav
         if(e.getSource() == buttonAdd) {
             
             
@@ -262,7 +254,6 @@ public class DefaultBoxVertex
             }
             
         }
-        //xav
         if(e.getSource() == buttonRemove) {
             
             if (table.getSelectedRow() == -1 ) {
@@ -275,11 +266,6 @@ public class DefaultBoxVertex
                 tbModel.removeProperty(table.getSelectedRow());
             }
             
-        }
-        //xav
-        if(e.getSource() == buttonRefresh) {
-            tbModel.fireTableDataChanged();
-            // setProperties(monSommet.getWhiteBoardTable());
         }
         
     }

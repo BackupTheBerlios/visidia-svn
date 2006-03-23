@@ -132,6 +132,14 @@ public class AgentSimulator {
 	// System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
 	return vertexAgentsNumber.get(vertex).size();
     }
+
+    /**
+     * Returns a Set of all the agents.
+     */
+    public Set<Agent> getAllAgents() {
+        return agents.keySet();
+    }
+
     /**
      * Adds a specified  agent to a specified vertex.  Returns the new
      * number of agents on the vertex.

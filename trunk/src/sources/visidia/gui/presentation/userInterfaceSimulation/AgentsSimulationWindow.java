@@ -25,6 +25,8 @@ import visidia.rule.*;
 import visidia.gui.presentation.starRule.*;
 import visidia.simulation.synchro.synObj.*;
 
+import visidia.simulation.agents.Agent;
+
 /* Represents the algorithm simulation window for a graph */
 public class AgentsSimulationWindow 
     extends Fenetre
@@ -41,6 +43,7 @@ public class AgentsSimulationWindow
     protected JButton but_start, but_pause, but_save, but_stop, but_help, but_experimentation, but_threadCount;
     protected JButton but_info , but_regles , but_reset;
     protected JButton but_default;
+    protected JButton but_agents;
     protected PulseButton global_clock;
 
     // save an execution
@@ -98,7 +101,7 @@ public class AgentsSimulationWindow
     
     protected Hashtable boxVertices; // To store the
                                      // AgentBoxChangingVertex for
-                                     // each Vertex (SommetDessin)
+                                     // each SommetDessin (needed for automatic refresh)
 
     private Hashtable defaultProperties; // To initialize the whiteboards
 
@@ -475,6 +478,15 @@ public class AgentsSimulationWindow
         
         toolBar.addSeparator();
         
+        but_agents = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        but_agents.setToolTipText("Agent whiteboard");
+        but_agents.setAlignmentY(CENTER_ALIGNMENT);
+        but_agents.addActionListener(this);
+        toolBar.add(but_agents);
+        
+        toolBar.addSeparator();
+
+
         but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
         but_help.setToolTipText("Help");
         but_help.setAlignmentY(CENTER_ALIGNMENT);
@@ -754,6 +766,9 @@ public class AgentsSimulationWindow
         }
         else if (b == but_default){
             but_initWhiteboard();
+        }
+        else if (b == but_agents){
+            but_agentsWhiteboard();
         }
 	//PFA2003
 	else if (b == but_help){
@@ -1186,6 +1201,27 @@ public class AgentsSimulationWindow
         DefaultBoxVertex defBox = new DefaultBoxVertex(this,defaultProperties);
         defBox.show(this);
     }
+
+    private void but_agentsWhiteboard() {
+
+        Object[] agents = sim.getAllAgents().toArray();
+        
+        Agent ag = (Agent) JOptionPane.showInputDialog(this,
+                                                        "Select the agent:",
+                                                        "Agent's whiteboard editor",
+                                                        JOptionPane.PLAIN_MESSAGE,
+                                                        null,
+                                                        agents,
+                                                        null);
+        
+        if (ag != null) {
+            
+            //            DefaultBoxVertex agentBox = new DefaultBoxVertex(this,new Hashtable(ag.getPropertyKeys()));
+            //agentBox.show(this);            
+        }
+
+    }
+
 
     public void removeWindow(SommetDessin vert) {
         
