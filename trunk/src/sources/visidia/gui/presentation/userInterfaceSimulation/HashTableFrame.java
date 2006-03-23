@@ -25,7 +25,7 @@ public class HashTableFrame extends JFrame {
 	scrollPane = new JScrollPane(resultTable);		
 	getContentPane().add(scrollPane,BorderLayout.CENTER);
 
-	
+	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
 }
