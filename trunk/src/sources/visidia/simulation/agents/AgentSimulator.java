@@ -58,6 +58,12 @@ public class AgentSimulator {
     private Hashtable<Vertex,Collection> vertexAgentsNumber;
 
     /**
+     * If an agent want to lock the WhiteBoard of a Vertex,
+     * all informations are stored here. 
+     */
+    private Hashtable<Vertex,Agent> lockedVertices = new Hashtable();
+
+    /**
      * Default AgentMover used only if no AgentMover is affected to
      * Agent. 
      */
@@ -350,6 +356,47 @@ public class AgentSimulator {
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
 
+    private Agent lockOwner(Vertex v) {
+	return lockedVertices.get(v);
+    }
+
+    public boolean vertexIsLocked(Vertex v) {
+	if(lockOwner(v) == null)
+	    return false;
+	return true;
+    }
+
+    public void lockVertexProperties(Agent ag) {
+	Vertex actualVertex = getVertexFor(ag);
+
+	synchronized(actualVertex) {
+	    while(vertexIsLocked(actualVertex)) {
+		try {
+		    actualVertex.wait();
+		} catch(InterruptedException e) {
+		    throw new SimulationAbortError(e);
+		}
+	    }
+	    lockedVertices.put(actualVertex, ag);
+	}
+    }
+
+    public void unlockVertexProperties(Agent ag) 
+	throws IllegalStateException {
+	Vertex actualVertex = getVertexFor(ag);
+
+	synchronized(actualVertex) {
+	    if(vertexIsLocked(actualVertex)
+	       && (lockOwner(actualVertex) == ag)) {
+		lockedVertices.remove(actualVertex);
+		actualVertex.notifyAll();
+	    }
+	    else
+		throw new IllegalStateException("Try to unlock a WhiteBoard "
+						+ "that doesn't belong to us");
+	}
+    }
+
     /**
      * Accesses the WhiteBoard of the vertex to get a value.
      *
@@ -358,8 +405,20 @@ public class AgentSimulator {
      * @see #setVertexProperty(Agent, Object)
      */
     public Object getVertexProperty(Agent ag, Object key) {
-        stats.incrementStat("Accesses to vertices WhiteBoard");
-        return getVertexFor(ag).getProperty(key);
+	Vertex actualVertex = getVertexFor(ag);
+
+	synchronized(actualVertex) {
+	    while(vertexIsLocked(actualVertex) 
+		  && (lockOwner(actualVertex) != ag)) {
+		try {
+		    actualVertex.wait();
+		} catch(InterruptedException e) {
+		    throw new SimulationAbortError(e);
+		}
+	    }
+	    stats.incrementStat("Accesses to vertices WhiteBoard");
+	    return actualVertex.getProperty(key);
+	}
     }
 
     /**
@@ -371,9 +430,22 @@ public class AgentSimulator {
      * @see #getVertexProperty(Agent, Object)
      */
     public void setVertexProperty(Agent ag, Object key, Object value) {
-        stats.incrementStat("Changes in vertices WhiteBoard");
-        getVertexFor(ag).setProperty(key, value);
+	Vertex actualVertex = getVertexFor(ag);
+
+	synchronized(actualVertex) {
+	    while(vertexIsLocked(actualVertex) 
+		  && (lockOwner(actualVertex) != ag)) {
+		try {
+		    actualVertex.wait();
+		} catch(InterruptedException e) {
+		    throw new SimulationAbortError(e);
+		}
+	    }	
+	    stats.incrementStat("Changes in vertices WhiteBoard");
+	    actualVertex.setProperty(key, value);
+	}
     }
+
 
     /**
      * This  method returns  a collection  of all  the keys  of  a the
@@ -382,7 +454,19 @@ public class AgentSimulator {
      * @param ag agent you want information for.
      */
     public Set getVertexPropertyKeys(Agent ag) {
-        return getVertexFor(ag).getPropertyKeys();
+	Vertex actualVertex = getVertexFor(ag);
+
+	synchronized(actualVertex) {
+	    while(vertexIsLocked(actualVertex) 
+		  && (lockOwner(actualVertex) != ag)) {
+		try {
+		    actualVertex.wait();
+		} catch(InterruptedException e) {
+		    throw new SimulationAbortError(e);
+		}
+	    }
+        return actualVertex.getPropertyKeys();
+	}
     }
 
     /**

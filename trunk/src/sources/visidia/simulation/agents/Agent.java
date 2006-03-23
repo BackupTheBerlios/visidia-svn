@@ -301,6 +301,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         return whiteBoard.keys();
     }
 
+    public void lockVertexProperties() {
+	simulator.lockVertexProperties(this);
+    }
+
+    public void unlockVertexProperties() {
+	simulator.unlockVertexProperties(this);
+    }
+
     /**
      * Like getProperty(), but for the current vertex. Gets a property
      * behind a key on the vertex.
