@@ -1,13 +1,14 @@
-/**
- * I'm  a class  used to  monitor moving  of agents.   Use me  with an
- * acknowledgment queue and send waitForAnswer() when you want to wait
- * for the arrival of your message in the GUI.
- */
 package visidia.simulation.agents;
 
 import visidia.simulation.SimulAck;
 import visidia.simulation.SimulationAbortError;
 import visidia.tools.VQueue;
+
+/**
+ * I'm  a class  used to  monitor moving  of agents.   Use me  with an
+ * acknowledgment queue and send waitForAnswer() when you want to wait
+ * for the arrival of your message in the GUI.
+ */
 
 public class MovingMonitor implements Runnable {
 

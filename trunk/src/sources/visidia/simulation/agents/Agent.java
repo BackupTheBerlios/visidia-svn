@@ -283,17 +283,20 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Puts a value in the WhiteBoard. The key reference this value.
+     * Puts a value in the WhiteBoard. The key references this value.
      *
      * @see #getProperty(Object)
      * @see #setWhiteBoard(Hashtable)
-     * @param key Key on which I must store the value
+     * @param key Key on which the value must be stored
      * @param value Value that must be stored
      */
     public void setProperty(Object key, Object value) {
         whiteBoard.setValue(key, value);
     }
         
+    /**
+     * Returns a collection of all the keys of the WitheBoard.
+     */
     public Set getPropertyKeys() {
         return whiteBoard.keys();
     }
@@ -318,6 +321,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         simulator.setVertexProperty(this, key, value);
     }
 
+    /**
+     * Just like  getPropertyKeys(), this method  returns a collection
+     * of all the keys but for the current vertex.
+     */
     public Set getVertexPropertyKeys() {
         return simulator.getVertexPropertyKeys(this);
     }

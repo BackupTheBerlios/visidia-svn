@@ -36,7 +36,7 @@ import java.util.Vector;
 public class AgentSimulator {
 
     /**
-     *
+     * To set the priority of the thread refering to the agents.
      */    
     public static final int THREAD_PRIORITY = 1;
 
@@ -64,8 +64,8 @@ public class AgentSimulator {
     private AgentMover defaultAgentMover = null;
     
     /**
-     * evtQ is the queue of events sent to the AgentSimulEventHandler.
-     * ackQ is the queue of ackitment received from it.
+     * evtQ is the queue of the events sent to the AgentSimulEventHandler.
+     * ackQ is the queue of ackowledgments received from it.
      */
     private VQueue evtQ, ackQ;
     
@@ -74,6 +74,9 @@ public class AgentSimulator {
      */
     private NumberGenerator numGen = new NumberGenerator();
 
+    /**
+     * The moving monitor of the agents during the simulation
+     */
     private MovingMonitor movingMonitor;
     private Thread movingMonitorThread;
     
@@ -85,7 +88,7 @@ public class AgentSimulator {
     /**
      * Constructor.  Creates  a new AgentSimulator and  affect its the
      * specified  graph,  the  specified  event queue,  the  specified
-     * ackitment queue and a default agents Hashtable.
+     * acknowlegdement queue and a default agents Hashtable.
      */
     public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
                           VQueue ackVQ) {
@@ -95,7 +98,7 @@ public class AgentSimulator {
     /**
      * Constructor. Creates  a new  AgentSimulator and affects  it the
      * specified  graph,  the  specified  event queue,  the  specified
-     * ackitment queue and the specified agents Hashtable.
+     * acknowledgment queue and the specified agents Hashtable.
      */
     public AgentSimulator(SimpleGraph netGraph, 
                           Hashtable defaultAgentValues,
@@ -115,14 +118,20 @@ public class AgentSimulator {
     }
 
     /**
-     *
+     * Returns the number of agents on the specified vertex.
+     * 
+     * @param vertex The vertex on which information is given.
      */
-
     private int getAgentsVertexNumber(Vertex vertex){
 	// System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
 	return vertexAgentsNumber.get(vertex).size();
     }
-
+    /**
+     * Adds a specified  agent to a specified vertex.  Returns the new
+     * number of agents on the vertex.
+     *
+     * @see #removeAgentFromAgent(Vertex, Agent)
+     */
     private int addAgentToVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
 	    vertexAgentsNumber.get(vertex).add(ag);
@@ -140,6 +149,12 @@ public class AgentSimulator {
 	return vertexAgentsNumber.get(vertex).size();
     }
     
+    /**
+     * Removes a specified agent  from a specified vertex. Returns the
+     * new number of agents on the vertex.
+     *
+     * @see #addAgentToVertex(Vertex, Agent)
+     */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
 	    try{
@@ -154,6 +169,14 @@ public class AgentSimulator {
 	return vertexAgentsNumber.get(vertex).size();
     }
 
+    /**
+     * Fills the agent table agents  given a SimpleGraph and a default
+     * values Hashtable
+     *
+     * @param graph The graph on which the simulation is done
+     * @param  defaultAgentValues The  default values  with  which the
+     * agents are created
+     */
     private void fillAgentsTable(SimpleGraph graph, 
                                  Hashtable defaultAgentValues) {
         Enumeration vertices;
@@ -187,7 +210,10 @@ public class AgentSimulator {
             vertex.clearAgentNames();
         }
     }
-    
+    /**
+     *
+     *
+     */
     private Agent createAgent(String agentName, Vertex vertex,
                               Hashtable defaultAgentValues) {
         try {
@@ -314,6 +340,9 @@ public class AgentSimulator {
     }
 
     /**
+     * Returns the door from which an agent comes.
+     * 
+     * @param ag the agent you want information about.
      */
     public int entryDoor(Agent ag) {
 	if (getLastVertexSeen(ag) == null)
@@ -321,20 +350,46 @@ public class AgentSimulator {
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
 
+    /**
+     * Accesses the WhiteBoard of the vertex to get a value.
+     *
+     * @param ag the agent which wants to access the WithBoard.
+     * @param key key behind which found the value.
+     * @see #setVertexProperty(Agent, Object)
+     */
     public Object getVertexProperty(Agent ag, Object key) {
         stats.incrementStat("Accesses to vertices WhiteBoard");
         return getVertexFor(ag).getProperty(key);
     }
 
+    /**
+     * Accesses the WhiteBoard of the vertex to put a value.
+     *
+     * @param ag the agent that stores the information
+     * @param key Key on which the value must be stored
+     * @param value value that must be stored.
+     * @see #getVertexProperty(Agent, Object)
+     */
     public void setVertexProperty(Agent ag, Object key, Object value) {
         stats.incrementStat("Changes in vertices WhiteBoard");
         getVertexFor(ag).setProperty(key, value);
     }
 
+    /**
+     * This  method returns  a collection  of all  the keys  of  a the
+     * current vertex for a given agent.
+     *
+     * @param ag agent you want information for.
+     */
     public Set getVertexPropertyKeys(Agent ag) {
         return getVertexFor(ag).getPropertyKeys();
     }
 
+    /**
+     * This method  is in charge  of the beginning of  the simulation.
+     * It is called when the  start button is pressed.  It creates all
+     * the agents' threads.
+     */
     public void startSimulation(){
         Enumeration enumAgents = agents.elements();
 
@@ -344,6 +399,10 @@ public class AgentSimulator {
         }
     }
 
+    /**
+     * This method  is called to abort the  simulation.  It interrupts
+     * all the threads and clears all data related to their storage.
+     */
     public void abortSimulation() {
 
         while(movingMonitorThread.isAlive()) {
@@ -369,10 +428,23 @@ public class AgentSimulator {
 	vertexAgentsNumber.clear();
     }
 
+    /**
+     * Returns  the degree  of the  current vertex  for  the specified
+     * agent.
+     * 
+     * @param ag agent you want information for. 
+     */
     public int getArity(Agent ag) {
         return getVertexFor(ag).degree();
     }
 
+    /**
+     * Makes the  specified agent  fall asleep for  a given  amount of
+     * milliseconds.
+     * 
+     * @param ag Agent given to fall asleep
+     * @param millis Milliseconds to sleep
+     */
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
         stats.incrementStat("Asleep (ms)", millis);
