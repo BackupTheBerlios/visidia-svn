@@ -31,13 +31,10 @@ public class Convertisseur {
         while(enumerationSommets.hasMoreElements()){ 
             unSommet = (Sommet)enumerationSommets.nextElement();
 
-            // 		    nouveauGraph.put(new Integer(unSommet.getSommetDessin()
-            //                                                  .getEtiquette()));
-
             nouveauGraph.put(new Integer(unSommet.getSommetDessin()
                                          .getEtiquette()),
                              unSommet.getSommetDessin()
-                             .getStateTable());
+                             .getWhiteBoardTable());
 
             nouveauGraph.vertex(new Integer(unSommet
                                             .getSommetDessin()

@@ -17,6 +17,7 @@ public abstract class SommetDessin extends FormeDessin {
     protected ImageIcon uneImage = null;   
     protected String monEtiquette; // label of a vertex
     protected Hashtable stateTable = new Hashtable();
+    protected Hashtable wbTable = new Hashtable();
 
     // number displayed in the middle of a vertex
     protected String nbr = new String("0");
@@ -31,22 +32,12 @@ public abstract class SommetDessin extends FormeDessin {
 	vueGraphe.insererListeAffichage(this);
 	stateTable.put("label","N"); // the state is saved in the table
 	stateTable.put("draw messages","yes");
+        wbTable.put("label","N"); 
     }
 
     public SommetDessin(VueGraphe vg, int x, int y, String etiquette){
-	this.vueGraphe = vg;
-	Sommet s = new Sommet(vg.getGraphe());
-	monEtiquette = etiquette;
-	graphObject = s;
-	s.setSommetDessin(this);
-	this.placer(x, y);
-	vueGraphe.insererListeAffichage(this);
-	stateTable.put("label","N");
-	stateTable.put("draw messages","yes");
+        this(vg,x,y,etiquette,new Sommet(vg.getGraphe()));
     }
-
-
-	
 
     // Abstracts methods
     public abstract void dessiner(Component c, Graphics g);
@@ -97,6 +88,9 @@ public abstract class SommetDessin extends FormeDessin {
     public Hashtable getStateTable(){
 	return stateTable;}
 
+    public Hashtable getWhiteBoardTable(){
+	return wbTable;}
+
       
     public Sommet getSommet(){
 	return ((Sommet)graphObject);
@@ -132,8 +126,16 @@ public abstract class SommetDessin extends FormeDessin {
 	stateTable.put(key,value);
     }
 
+    public void setWhiteBoardValue(String key, Object value){
+        wbTable.remove(key);
+        wbTable.put(key,value);
+    }
+
     public String getValue(String key){
 	return (String)stateTable.get(key);}
+
+    public String getWhiteBoardValue(String key){
+	return (String)wbTable.get(key);}
 
 
     // method which copy all the variable from the SommetDessin given in parameters

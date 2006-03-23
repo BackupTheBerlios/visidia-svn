@@ -30,8 +30,8 @@ public class DefaultBoxVertex
     /** the button for changing the algorithms */
     protected JButton buttonChange;
     /** The label for displaying the algorithm used */
-    //xav protected JLabel algoUsed;
-    //protected SommetDessin monSommet;
+    
+    protected SommetDessin monSommet;
     protected int vertex_id = -1;
     protected EtatPanel etatPanel;
     /** a table for the state */
@@ -45,17 +45,17 @@ public class DefaultBoxVertex
     // Button for refreshing properties from the whiteboard
     protected JButton buttonRefresh;
 
-    //xav protected JCheckBox but_drawMessage;
-    //xav protected boolean drawMessage= true;
-    //xav protected boolean drawMessageOldValue= drawMessage;
-    //Constructeurs
-
-    Hashtable defWhiteboard;
+    protected PropertyTableModel tbModel;
+    
 
     /**
      * Cree une nouvelle boite pour afficher les caractéristiques de
      * "un_objet".  Ces caractéristiques seront modifiables.
      */
+
+    public DefaultBoxVertex(){
+    }
+    
     public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable def) {
 	this(parent, def, "Default Vertex properties state");
     }
@@ -70,7 +70,6 @@ public class DefaultBoxVertex
         this.dialog = new JDialog(parent, titre);
         this.parent = parent;
 
-        defWhiteboard = def;
         
         //vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
         
@@ -88,7 +87,9 @@ public class DefaultBoxVertex
         panelCentre.setLayout(new BorderLayout());
         panelCentre.add(spane, BorderLayout.NORTH);
     
-        setProperties(defWhiteboard);
+        tbModel = new PropertyTableModel(def);
+
+        table.setModel(tbModel);
 
         dialog.getContentPane().setLayout(new BorderLayout());
         dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
@@ -102,10 +103,6 @@ public class DefaultBoxVertex
     //Methodes  
     
        
-    /** setting the state */
-    public void setProperties(Hashtable props){
-  	table.setModel(new PropertyTableModel(props));}  
-    
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
         dialog.pack();
@@ -114,7 +111,7 @@ public class DefaultBoxVertex
     }
 
     public void updateBox() {
-        setProperties(defWhiteboard);
+        tbModel.fireTableDataChanged();
     }
   
     /** Ajoute un bouton nomme "label" au panel "pane" */
@@ -170,9 +167,11 @@ public class DefaultBoxVertex
         buttonApply.setEnabled(true);
         dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
-  
+    
+   
 
     public void actionPerformed(ActionEvent e) {
+        
         if(e.getSource() == buttonOk) {
             try {
                 buttonOk();
@@ -214,17 +213,58 @@ public class DefaultBoxVertex
         }
         //xav
         if(e.getSource() == buttonAdd) {
-            String name = JOptionPane.showInputDialog(parent, "Enter the name :");
-            String value = JOptionPane.showInputDialog(parent, "Enter the value :");
-            defWhiteboard.put(name,value);
+            
+            
+            Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
+                                      "Double|double","Float|float", "Long|long", 
+                                      "Short|short", "Boolean|boolean"};
+            
+            Object objValue;
+            
+            String s = (String) JOptionPane.showInputDialog(parent,
+                                                            "Select the type:",
+                                                            "Type",
+                                                            JOptionPane.PLAIN_MESSAGE,
+                                                            null,
+                                                            possibilities,
+                                                            "String");
+            
+            //If a string was returned, say so.
+            if ((s != null) && (s.length() > 0)) {
+                
+                String name = JOptionPane.showInputDialog(parent, "Enter the name :");
+                String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+                
+                if ( name != null  && value != null )
+                    {
+                        objValue = value;
 
-            setProperties(defWhiteboard);
-            //dialog.dispose();
+                        try{
+
+                            if      ( s.equals("Integer|int") ) {objValue = new Integer(value); }
+                            else if ( s.equals("Byte") ) {objValue = new Byte(value);}
+                            else if ( s.equals("Character|char") ) {objValue = new Character(value.charAt(0));}
+                            else if ( s.equals("Double|double") ) {objValue = new Double(value);}
+                            else if ( s.equals("Float|float") ) {objValue = new Float(value);}
+                            else if ( s.equals("Long|long") ) {objValue = new Long(value);}
+                            else if ( s.equals("Short|short") ) {objValue = new Short(value);}
+                            else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
+
+                            tbModel.putProperty(name,objValue);
+                        }
+                        catch(Exception e2) {
+                            JOptionPane.showMessageDialog(null,
+                                          e2.getMessage(), 
+                                          "Warning",
+                                          JOptionPane.WARNING_MESSAGE); 
+                        }
+                    }
+            }
+            
         }
         //xav
         if(e.getSource() == buttonRemove) {
-            PropertyTableModel mod =(PropertyTableModel)table.getModel();
-
+            
             if (table.getSelectedRow() == -1 ) {
                 JOptionPane.showMessageDialog(parent,
                                               "No property selected !", 
@@ -232,61 +272,43 @@ public class DefaultBoxVertex
                                               JOptionPane.WARNING_MESSAGE);
             }
             else {
-
-                Object key = mod.getValueAt(table.getSelectedRow(),0);
-            
-                defWhiteboard.remove(key);
-            
-                setProperties(defWhiteboard);
-                //dialog.dispose();
+                tbModel.removeProperty(table.getSelectedRow());
             }
-
+            
         }
         //xav
         if(e.getSource() == buttonRefresh) {
-            setProperties(defWhiteboard);
+            tbModel.fireTableDataChanged();
+            // setProperties(monSommet.getWhiteBoardTable());
         }
-
-
+        
     }
-
+    
     //Implementation de VueEtatPanel
     public void elementModified(String s){
 	elementModified();
     }
     
     public void elementModified(){
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
-	mod.putProperty("label",etatPanel.ardoise().donneEtat());
-    
-	//xav if(drawMessage)
-	//xav     mod.putProperty("draw messages","yes");
-	//xav else
-	//xav     mod.putProperty("draw messages","no");
+
+        tbModel.putProperty("label",etatPanel.ardoise().donneEtat());
+
     }
       
     /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
     public void buttonOk() {
-// 	String etat = etatPanel.ardoise().donneEtat();
-// 	PropertyTableModel mod =(PropertyTableModel)table.getModel();
-// 	int nbRows = mod.getRowCount();
-// 	monSommet.setEtat(etat);
-// 	//xav monSommet.setDrawMessage(drawMessage);
+	String etat = etatPanel.ardoise().donneEtat();
+	int nbRows = tbModel.getRowCount();
+	monSommet.setEtat(etat);
 
-// 	try{
-// 	    for (int i=0;i<nbRows;i++){
-// 		table.editCellAt(i,1); // read the new values edited
-// 		monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,1));
-// 	    }
-// 	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
+	try{
+	    for (int i=0;i<nbRows;i++){
+		table.editCellAt(i,1); // read the new values edited
+		monSommet.setValue((String)tbModel.getValueAt(i,0),tbModel.getValueAt(i,1));
+	    }
+	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
     
-
-// 	//if(drawMessageOldValue != drawMessage){
-//         parent.nodeStateChanged(Integer.valueOf(monSommet.getEtiquette()).intValue(), mod.getProperties());
-//         //}
-
 	parent.simulationPanel().repaint();
-    
     }
 
 
@@ -296,11 +318,6 @@ public class DefaultBoxVertex
     }
 
     public void itemStateChanged(ItemEvent evt) {
-	
-        //xav 	if((JCheckBox)evt.getSource() == but_drawMessage){
-        //xav 	    drawMessage = !drawMessage;
-        //xav 	    elementModified();
-        //xav 	}
 
     }
     

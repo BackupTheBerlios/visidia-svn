@@ -300,7 +300,6 @@ public class SimpleGraph implements Cloneable, Serializable{
 	return sg;
     }
 
-    
     public void print(){
 	Enumeration e = hash.elements();
 	while( e.hasMoreElements() ){

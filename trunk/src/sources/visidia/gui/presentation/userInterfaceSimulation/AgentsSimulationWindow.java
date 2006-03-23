@@ -100,7 +100,7 @@ public class AgentsSimulationWindow
                                      // AgentBoxChangingVertex for
                                      // each Vertex (SommetDessin)
 
-    public Hashtable defaultProperties; // To initialize the whiteboards
+    private Hashtable defaultProperties; // To initialize the whiteboards
 
 
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
@@ -1292,6 +1292,10 @@ public class AgentsSimulationWindow
         if (box!=null)          // An AgentBoxChangingVertexState is
             box.updateBox();    // open for this vertex
 
+    }
+
+    public Hashtable getDefaultProperties() {
+        return defaultProperties;
     }
 
 }

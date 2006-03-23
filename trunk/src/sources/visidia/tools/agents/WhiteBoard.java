@@ -65,8 +65,6 @@ public class WhiteBoard {
      */
     public void setValue(Object key, Object value) {
         values.put(key, value);
-        System.out.println("Values " + values);
-        System.out.println("Defaults : " + defaults);
     }
     
     public Set keys() {

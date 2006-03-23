@@ -1,19 +1,17 @@
 package visidia.gui.donnees;
 
-/**
- * Class that maps properties (key, value) entries into
- * a double column table model.
- */ 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 
-public class AgentPropertyTableModel extends AbstractTableModel {
+/**
+ * Class that maps properties (key, value) entries into
+ * a double column table model.
+ */ 
+public class AgentPropertyTableModel extends PropertyTableModel {
     protected Hashtable properties = null;
-    protected Hashtable defProps = null;
-    protected Vector keys = null;
-    
+    protected Hashtable hashKeys = null;
     
     /**
      * Constructs new empty property table model.
@@ -33,10 +31,10 @@ public class AgentPropertyTableModel extends AbstractTableModel {
         properties = props;
         defProps = def;
 
-        Hashtable hash = (Hashtable) def.clone();
-        hash.putAll(props);
+        hashKeys = (Hashtable) def.clone();
+        hashKeys.putAll(props);
 
-        keys = new Vector(hash.keySet());        
+        keys = new Vector(hashKeys.keySet());        
 
     }
 
@@ -52,20 +50,18 @@ public class AgentPropertyTableModel extends AbstractTableModel {
 	fireTableDataChanged();
     }
 
-    public Hashtable getProperties(){
-        return (Hashtable) properties.clone();
+    public void removeProperty(int row) {
+        Object key = getValueAt(row,0);
+
+        properties.remove(key);
+        keys.remove(row);
+        hashKeys.remove(key);
+
+        fireTableDataChanged();
     }
 
-    public Class getColumnClass(int col){
-        return String.class;
-    }
-    
-    public int getColumnCount(){
-        return 2;
-    }
-    
-    public int getRowCount(){
-        return keys.size();
+    public Hashtable getProperties(){
+        return (Hashtable) hashKeys.clone();
     }
     
     public Object getValueAt(int row, int col){
@@ -84,58 +80,57 @@ public class AgentPropertyTableModel extends AbstractTableModel {
         throw new IllegalArgumentException();	
     }
     
-    /**
-     * Only value column cell are editable.
-     */
-    public boolean isCellEditable(int row, int col){
-        //xav	
-        // B  	 byte
-        // C 	char
-        // D 	double
-        // F 	float
-        // I 	int
-        // J 	long
-        // Lclassname; 	classe ou interface
-        // S 	short
-        // Z 	boolean
-
-        Class cellClass = getValueAt(row,col).getClass();
-
-        System.out.println("isCellEditable :" + cellClass.getName());
-
-        //xav	return ((col == 1) && (!keys.elementAt(row).equals("label")));
-	return ((col == 1) && (!keys.elementAt(row).equals("label"))
-                               && (( cellClass == java.lang.String.class)
-                                   || ( cellClass == java.lang.Integer.class)
-                                   || ( cellClass.getName() == "B")
-                                   || ( cellClass.getName() == "C")
-                                   || ( cellClass.getName() == "D")
-                                   || ( cellClass.getName() == "F")
-                                   || ( cellClass.getName() == "I")
-                                   || ( cellClass.getName() == "J")
-                                   || ( cellClass.getName() == "S")
-                                   || ( cellClass.getName() == "Z")));
-
-    }
-
-    public String getColumnName(int col){
-        switch(col){
-        case 0: return "name";
-        case 1: return "value";
-        }
-        throw new IllegalArgumentException();	
-    }
-    
-    /**
+     /**
      * Sets row value to <code>aValue</code>.
      */ 
     public void setValueAt(Object aValue, int row, int col){
-        
+
+        String value=(String) aValue;
+
         if(!( row < properties.size() + defProps.size() ) && ( col == 1)){
             throw new IllegalArgumentException();
         }
 	
-        properties.put(keys.elementAt(row), aValue);
+        Object obj = getValueAt(row,col);
+
+
+        try{
+            
+            if (obj instanceof String)
+                properties.put(keys.elementAt(row),value);
+            else if(obj instanceof Integer) {
+                properties.put(keys.elementAt(row),Integer.decode(value));
+            }
+            else if(obj instanceof  Byte)
+                properties.put(keys.elementAt(row),Byte.decode(value));
+            else if(obj instanceof  Character)
+                properties.put(keys.elementAt(row), value.charAt(0));
+            else if(obj instanceof  Double)
+                properties.put(keys.elementAt(row), Double.parseDouble(value));
+            else if(obj instanceof  Float)
+                properties.put(keys.elementAt(row), Float.parseFloat(value));
+            else if(obj instanceof Long)
+                properties.put(keys.elementAt(row), Long.parseLong(value));
+            else if(obj instanceof  Short)
+                properties.put(keys.elementAt(row), Short.parseShort(value));
+            else if(obj instanceof Boolean)
+                properties.put(keys.elementAt(row), Boolean.parseBoolean(value));
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,
+                                          e.getMessage(), 
+                                          "Warning",
+                                          JOptionPane.WARNING_MESSAGE); 
+        }
+        
         fireTableCellUpdated(row,col);
     }
+
+
+    public void updateKeys() {
+        hashKeys.putAll(properties);
+        
+        keys = new Vector(hashKeys.keySet());        
+    }
+
 }
