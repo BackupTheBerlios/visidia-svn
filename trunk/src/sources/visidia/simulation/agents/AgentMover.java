@@ -7,7 +7,10 @@ package visidia.simulation.agents;
  * @see visidia.agents.agentsmover
  */
 public abstract class AgentMover {
-    
+
+    /**
+     * Associated agent of the mover.
+     */
     private Agent agent=null;
 
     /**

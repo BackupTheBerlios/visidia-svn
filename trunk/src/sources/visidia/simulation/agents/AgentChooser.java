@@ -27,6 +27,15 @@ public abstract class AgentChooser {
         placeAgents(window.getVueGraphe().getGraphe());
     }
 
+    /**
+     * Private     method     used     by    the     public     method
+     * #placeAgents(AgentsSimulatorWndow).   On  each  vertex  of  the
+     * specified graph, it chooses to add an agent or not.
+     * 
+     * @see #chooseForVertex(Integer)
+     * @see #chooseForVertes(Sommet)
+     * @param graph The graph the agents are added to
+     */
     private void placeAgents(Graphe graph) {
         Enumeration e = graph.sommets();
 
@@ -35,6 +44,12 @@ public abstract class AgentChooser {
         }
     }
 
+    /**
+     * For a given vertex this method chooses to add an agent or not.
+     *
+     * @param  vertex  The graphical  interface  vertex  on which  the
+     * choice is done.
+     */
     private void chooseForVertex(Sommet vertex) {
         chooseForVertex(Integer.decode(vertex.getSommetDessin()
                                        .getEtiquette()));
@@ -44,8 +59,8 @@ public abstract class AgentChooser {
      * Adds  a new  agent to  the vertex.  Call this  method  when you
      * decide to put an agent on one vertex.
      *
-     * @param vertexId The vertex identity you want to put a new agent
-     * on.
+     * @param vertexId The identity of a  vertex you want to put a new
+     * agent on.
      * @param agentName Name  of the agent to put  on the vertex. This
      * is the name of a class.
      */

@@ -3,8 +3,8 @@ package visidia.simulation;
 import java.io.Serializable;
 
 /**
- * cette classe est utilisée pour informer le système de simulation 
- * que l'évènement correspondant à un envoie de message
+ * Class used to  inform the simulator that an  agant moving event has
+ * been handled.  que l'évènement correspondant à un envoie de message
  * a été prise en compte.
  */
 public class AgentMovedAck implements  SimulAck {

@@ -1,15 +1,14 @@
-/**
- * A white board  stores properties under names like  a Hashtable. The
- * difference with the hashtable is  given by default values which are
- * not stored to save space. 
- */
-
 package visidia.tools.agents;
 
 import java.util.Hashtable;
 import java.util.Set;
 import java.util.NoSuchElementException;
 
+/**
+ * A white board  stores properties under names like  a Hashtable. The
+ * difference with the hashtable is  given by default values which are
+ * not stored to save space. 
+ */
 public class WhiteBoard {
 
     private Hashtable values;
@@ -24,7 +23,7 @@ public class WhiteBoard {
     }
 
     /**
-     * Construct a new WhiteBoard with default values. 
+     * Constructs a new WhiteBoard with default values. 
      *
      * @param defaults  Default values that  will be used  when nobody
      * has modified them. 
@@ -35,7 +34,7 @@ public class WhiteBoard {
 
 
     /**
-     * Construct a new WhiteBoard with default and specifics values. 
+     * Constructs a new WhiteBoard with default and specifics values. 
      *
      * @param def  Default values  that will be  used when  nobody has
      * modified them.
@@ -48,8 +47,8 @@ public class WhiteBoard {
     }
 
     /**
-     * Return the value  associated with the key. If  the key can't be
-     * found, throw NoSuchElementException.
+     * Returns the value associated with  the key. If the key can't be
+     * found, throws NoSuchElementException.
      */
     public Object getValue(Object key) {
         if (values.containsKey(key))
@@ -61,7 +60,7 @@ public class WhiteBoard {
     }
 
     /**
-     * Insert a value and the corresponding key.
+     * Inserts a value and the corresponding key.
      */
     public void setValue(Object key, Object value) {
         values.put(key, value);

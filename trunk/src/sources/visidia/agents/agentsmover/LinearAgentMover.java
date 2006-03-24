@@ -18,6 +18,10 @@ public class LinearAgentMover extends AgentMover {
     // Remembers the door on which the agent will go next time
     int[] nextDoorToGo;
 
+    /**
+     * Constructor.  Allows to  create a  new AgentMover  for  a given
+     * Agent.
+     */
     public LinearAgentMover(Agent ag) {
         super(ag);
         nextDoorToGo = new int [ag.getNetSize()];

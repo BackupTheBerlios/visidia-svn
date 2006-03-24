@@ -5,8 +5,8 @@ import visidia.simulation.SimulationAbortError;
 import visidia.tools.VQueue;
 
 /**
- * I'm  a class  used to  monitor moving  of agents.   Use me  with an
- * acknowledgment queue and send waitForAnswer() when you want to wait
+ * Class  used  to monitor  moving  of agents.   To  be  used with  an
+ * acknowledgment queue.  Send waitForAnswer()  when you want  to wait
  * for the arrival of your message in the GUI.
  */
 
@@ -23,7 +23,7 @@ public class MovingMonitor implements Runnable {
     private SimulAck fromQueue;
 
     /**
-     * Used to synchronised threads on the queue.
+     * Used to synchronise threads on the queue.
      */
     private Boolean synchronisation = new Boolean(true);
 
@@ -64,6 +64,11 @@ public class MovingMonitor implements Runnable {
         }
     }
 
+    /**
+     * Waits for your message to arrive to the GUI.
+     * 
+     * @param key The number of the message in the queue.
+     */
     public SimulAck waitForAnswer(Long key) throws InterruptedException {
 
         synchronized( synchronisation ) {

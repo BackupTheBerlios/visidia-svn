@@ -29,7 +29,7 @@ public class AgentMovedEvent implements SimulEvent {
     }
    
     /**
-     * give the SimulEvent type.
+     * gives the SimulEvent type.
      */
     public int type(){
 	return SimulConstants.AGENT_MOVED;
