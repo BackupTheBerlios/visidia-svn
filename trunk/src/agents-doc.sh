@@ -8,4 +8,6 @@ javadoc \
     -windowtitle 'ViSiDiA documentation for agents' \
     visidia.simulation.agents \
     visidia.agents \
+    visidia.agents.agentsmover \
+    visidia.agents.agentchooser \
     visidia.tools.agents 
