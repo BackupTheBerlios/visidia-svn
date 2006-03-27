@@ -63,19 +63,23 @@ public class AgentPropertyTableModel extends PropertyTableModel {
     public Hashtable getProperties(){
         return (Hashtable) hashKeys.clone();
     }
+
+    private Object getValueFromHashtables(Object key) {
+        if (properties.containsKey(key))
+            return properties.get(key);
+        
+        return defProps.get(key);
+    }
     
     public Object getValueAt(int row, int col){
         Object key;
 
+        key = keys.elementAt(row);
+            
         switch(col){
         case 0: return keys.elementAt(row);
-        case 1: key = keys.elementAt(row);
-            
-            if (properties.containsKey(key))
-                return properties.get(key);
-            else if (defProps.containsKey(key))
-                return defProps.get(key);
-            
+        case 1: return getValueFromHashtables(key).getClass();
+        case 2: return getValueFromHashtables(key);
         }
         throw new IllegalArgumentException();	
     }
@@ -87,7 +91,7 @@ public class AgentPropertyTableModel extends PropertyTableModel {
 
         String value=(String) aValue;
 
-        if(!( row < properties.size() + defProps.size() ) && ( col == 1)){
+        if(!( row < properties.size() + defProps.size() ) && ( col == 2)){
             throw new IllegalArgumentException();
         }
 	

@@ -63,7 +63,7 @@ public class PropertyTableModel extends AbstractTableModel {
     }
     
     public int getColumnCount(){
-        return 2;
+        return 3;
     }
     
     public int getRowCount(){
@@ -73,7 +73,8 @@ public class PropertyTableModel extends AbstractTableModel {
     public Object getValueAt(int row, int col){
         switch(col){
         case 0: return keys.elementAt(row);
-        case 1: return defProps.get(keys.elementAt(row));
+        case 1: return defProps.get(keys.elementAt(row)).getClass();
+        case 2: return defProps.get(keys.elementAt(row));
         }
         throw new IllegalArgumentException();	
     }
@@ -85,7 +86,7 @@ public class PropertyTableModel extends AbstractTableModel {
         
         Object obj = getValueAt(row,col);
 
-        return ((col == 1) && (!keys.elementAt(row).equals("label"))
+        return ((col == 2) && (!keys.elementAt(row).equals("label"))
                                && (( obj instanceof String)
                                    || ( obj instanceof Integer)
                                    || ( obj instanceof Double)
@@ -100,7 +101,8 @@ public class PropertyTableModel extends AbstractTableModel {
     public String getColumnName(int col){
         switch(col){
         case 0: return "name";
-        case 1: return "value";
+        case 1: return "type";
+        case 2: return "value";
         }
         throw new IllegalArgumentException();	
     }
@@ -109,7 +111,7 @@ public class PropertyTableModel extends AbstractTableModel {
      * Sets row value to <code>aValue</code>.
      */ 
     public void setValueAt(Object aValue, int row, int col){
-        if(!( row < defProps.size() ) && ( col == 1)){
+        if(!( row < defProps.size() ) && ( col == 2)){
             throw new IllegalArgumentException();
         }
 
