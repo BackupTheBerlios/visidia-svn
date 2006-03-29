@@ -305,6 +305,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Lock the Vertex WhiteBoard where the Agent is.
      * If already locked, wait until the owner unlocks it
      *
+     * @exception IllegalStateException if Vertex properties are
+     * already locked by this agent
      * @see #unlockVertexProperties()
      */
     public void lockVertexProperties() {

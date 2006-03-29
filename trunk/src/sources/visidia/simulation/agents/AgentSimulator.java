@@ -418,20 +418,29 @@ public class AgentSimulator {
      * If already locked, wait until the owner unlocks it
      * 
      * @param ag the agent which wants to lock it Vertex
+     * @exception IllegalStateException if Vertex properties are
+     * already locked by the agent given in parameter
      * @see #unlockVertexProperties(Agent)
      */
     public void lockVertexProperties(Agent ag) {
 	Vertex actualVertex = getVertexFor(ag);
 
-	synchronized(actualVertex) {
-	    while(vertexPropertiesLocked(actualVertex)) {
-		try {
-		    actualVertex.wait();
-		} catch(InterruptedException e) {
-		    throw new SimulationAbortError(e);
+	if(getVertexPropertiesOwner(actualVertex) == ag)
+	    throw new  IllegalStateException("Try to lock a WhiteBoard"
+					     + "already locked by me"); 
+
+	else {
+	    synchronized(actualVertex) {
+		while(vertexPropertiesLocked(actualVertex)) {
+		    
+		    try {
+			actualVertex.wait();
+		    } catch(InterruptedException e) {
+			throw new SimulationAbortError(e);
+		    }
 		}
+		lockedVertices.put(actualVertex, ag);
 	    }
-	    lockedVertices.put(actualVertex, ag);
 	}
     }
 
