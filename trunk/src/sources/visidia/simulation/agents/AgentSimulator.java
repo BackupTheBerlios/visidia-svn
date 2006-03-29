@@ -364,16 +364,36 @@ public class AgentSimulator {
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
     }
 
+    /**
+     * Return the Agent which blocks the Vertex WhiteBoard, or null if
+     * nobody has lock the vertex.
+     *
+     * @param v the vertex you want information about
+     * @see #lockVertexProperties(Agent)
+     */
     private Agent lockOwner(Vertex v) {
 	return lockedVertices.get(v);
     }
 
+    /**
+     * Return true if the Vertex v is locked, otherwise false
+     * 
+     * @param v the vertex you want information about
+     * @see #lockVertexProperties(Agent)
+     */
     public boolean vertexIsLocked(Vertex v) {
 	if(lockOwner(v) == null)
 	    return false;
 	return true;
     }
 
+    /**
+     * Lock the Vertex WhiteBoard where the Agent is.
+     * If already locked, wait until the owner unlocks it
+     * 
+     * @param ag the agent which wants to lock it Vertex
+     * @see #unlockVertexProperties(Agent)
+     */
     public void lockVertexProperties(Agent ag) {
 	Vertex actualVertex = getVertexFor(ag);
 
@@ -389,6 +409,14 @@ public class AgentSimulator {
 	}
     }
 
+    /**
+     * Unlock the Vertex WhiteBoard  where the Agent is.
+     *
+     * @param ag the agent which wants to unlock it Vertex
+     * @throws IllegalStateException if the WhiteBoard is
+     * unlock, or if the Agent is not the owner of the lock
+     * @see #lockVertexProperties(Agent)
+     */
     public void unlockVertexProperties(Agent ag) 
 	throws IllegalStateException {
 	Vertex actualVertex = getVertexFor(ag);
@@ -407,10 +435,13 @@ public class AgentSimulator {
 
     /**
      * Accesses the WhiteBoard of the vertex to get a value.
+     * If the Vertex WhiteBoard is locked by another Agent, wait
+     * until the lock's freeing 
      *
      * @param ag the agent which wants to access the WithBoard.
      * @param key key behind which found the value.
-     * @see #setVertexProperty(Agent, Object)
+     * @see #setVertexProperty(Agent, Object, Object)
+     * @see #lockVertexProperties(Agent)
      */
     public Object getVertexProperty(Agent ag, Object key) {
 	Vertex actualVertex = getVertexFor(ag);
@@ -431,11 +462,14 @@ public class AgentSimulator {
 
     /**
      * Accesses the WhiteBoard of the vertex to put a value.
+     * If the Vertex WhiteBoard is locked by another Agent, wait
+     * until the lock's freeing
      *
      * @param ag the agent that stores the information
      * @param key Key on which the value must be stored
      * @param value value that must be stored.
      * @see #getVertexProperty(Agent, Object)
+     * @see #lockVertexProperties(Agent)
      */
     public void setVertexProperty(Agent ag, Object key, Object value) {
 	Vertex actualVertex = getVertexFor(ag);
@@ -458,8 +492,11 @@ public class AgentSimulator {
     /**
      * This  method returns  a collection  of all  the keys  of  a the
      * current vertex for a given agent.
+     * If the Vertex WhiteBoard is locked by another Agent, wait
+     * until the lock's freeing
      *
      * @param ag agent you want information for.
+     * @see #lockVertexProperties(Agent)
      */
     public Set getVertexPropertyKeys(Agent ag) {
 	Vertex actualVertex = getVertexFor(ag);
