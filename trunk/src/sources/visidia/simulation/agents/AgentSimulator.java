@@ -371,22 +371,48 @@ public class AgentSimulator {
      * @param v the vertex you want information about
      * @see #lockVertexProperties(Agent)
      */
-    private Agent lockOwner(Vertex v) {
+    public Agent getVertexPropertiesOwner(Vertex v) {
 	return lockedVertices.get(v);
     }
 
     /**
-     * Return true if the Vertex v is locked, otherwise false
-     * 
-     * @param v the vertex you want information about
+     * Return the Agent which blocks the Vertex WhiteBoard, or null if
+     * nobody has lock the vertex.
+     *
+     * @param ag the Agent which wants to know who has locked the
+     * Vertex Properties
      * @see #lockVertexProperties(Agent)
      */
-    public boolean vertexIsLocked(Vertex v) {
-	if(lockOwner(v) == null)
+    public Agent getVertexPropertiesOwner(Agent ag) {
+	return getVertexPropertiesOwner(getVertexFor(ag));
+    }
+
+
+    /**
+     * Return true if the Vertex is locked, otherwise false
+     * 
+     * @param v the Vertex you want information about
+     * @see #lockVertexProperties(Agent)
+     */
+    public boolean vertexPropertiesLocked(Vertex v) {
+	if(getVertexPropertiesOwner(v) == null)
 	    return false;
 	return true;
     }
 
+
+    /**
+     * Return true if the Vertex is locked, otherwise false
+     * 
+     * @param ag the Agent which wants to know if it Vertex
+     * properties are locked
+     * @see #lockVertexProperties(Agent)
+     */
+    public boolean vertexPropertiesLocked(Agent ag) {
+	return vertexPropertiesLocked(getVertexFor(ag));
+    }
+    
+    
     /**
      * Lock the Vertex WhiteBoard where the Agent is.
      * If already locked, wait until the owner unlocks it
@@ -398,7 +424,7 @@ public class AgentSimulator {
 	Vertex actualVertex = getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    while(vertexIsLocked(actualVertex)) {
+	    while(vertexPropertiesLocked(actualVertex)) {
 		try {
 		    actualVertex.wait();
 		} catch(InterruptedException e) {
@@ -413,7 +439,7 @@ public class AgentSimulator {
      * Unlock the Vertex WhiteBoard  where the Agent is.
      *
      * @param ag the agent which wants to unlock it Vertex
-     * @throws IllegalStateException if the WhiteBoard is
+     * @exception IllegalStateException if the WhiteBoard is
      * unlock, or if the Agent is not the owner of the lock
      * @see #lockVertexProperties(Agent)
      */
@@ -422,8 +448,8 @@ public class AgentSimulator {
 	Vertex actualVertex = getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    if(vertexIsLocked(actualVertex)
-	       && (lockOwner(actualVertex) == ag)) {
+	    if(vertexPropertiesLocked(actualVertex)
+	       && (getVertexPropertiesOwner(actualVertex) == ag)) {
 		lockedVertices.remove(actualVertex);
 		actualVertex.notifyAll();
 	    }
@@ -447,8 +473,8 @@ public class AgentSimulator {
 	Vertex actualVertex = getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    while(vertexIsLocked(actualVertex) 
-		  && (lockOwner(actualVertex) != ag)) {
+	    while(vertexPropertiesLocked(actualVertex) 
+		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
 		try {
 		    actualVertex.wait();
 		} catch(InterruptedException e) {
@@ -475,8 +501,8 @@ public class AgentSimulator {
 	Vertex actualVertex = getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    while(vertexIsLocked(actualVertex) 
-		  && (lockOwner(actualVertex) != ag)) {
+	    while(vertexPropertiesLocked(actualVertex) 
+		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
 		try {
 		    actualVertex.wait();
 		} catch(InterruptedException e) {
@@ -502,8 +528,8 @@ public class AgentSimulator {
 	Vertex actualVertex = getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    while(vertexIsLocked(actualVertex) 
-		  && (lockOwner(actualVertex) != ag)) {
+	    while(vertexPropertiesLocked(actualVertex) 
+		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
 		try {
 		    actualVertex.wait();
 		} catch(InterruptedException e) {

@@ -55,6 +55,7 @@ public abstract class SynchronizedAgent extends Agent {
 		return;
 	    }
 
+	    incrementStat("Pulse");
 	
 	    /* Reached by the last thread calling nextPulse */
 	    count = 0;

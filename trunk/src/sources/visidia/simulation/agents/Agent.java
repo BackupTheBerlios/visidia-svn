@@ -301,19 +301,54 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         return whiteBoard.keys();
     }
 
+    /**
+     * Lock the Vertex WhiteBoard where the Agent is.
+     * If already locked, wait until the owner unlocks it
+     *
+     * @see #unlockVertexProperties()
+     */
     public void lockVertexProperties() {
 	simulator.lockVertexProperties(this);
     }
 
+    /**
+     * Unlock the Vertex WhiteBoard  where the Agent is.
+     *
+     * @exception IllegalStateException if the WhiteBoard is
+     * unlock, or if the Agent is not the owner of the lock
+     * @see #lockVertexProperties()
+     */
     public void unlockVertexProperties() {
 	simulator.unlockVertexProperties(this);
     }
 
     /**
+     * Return true if the Vertex is locked, otherwise false
+     *
+     * @see #lockVertexProperties()
+     */
+    public boolean vertexPropertiesLocked() {
+	return simulator.vertexPropertiesLocked(this);
+    }
+
+    /**
+     * Return the Agent which blocks the Vertex WhiteBoard, or null if
+     * nobody has lock the vertex.
+     *
+     * @see #lockVertexProperties()
+     */
+    public Agent getVertexPropertiesOwner() {
+	return simulator.getVertexPropertiesOwner(this);
+    }
+
+    /**
      * Like getProperty(), but for the current vertex. Gets a property
      * behind a key on the vertex.
+     * If the Vertex properties are locked by another agent, wait until 
+     * the lock's freeing.
      *
-     *Â @param key Key behind which value will be find
+     * @param key Key behind which value will be find
+     * @see #lockVertexProperties()
      */
     public Object getVertexProperty(Object key) {
         return simulator.getVertexProperty(this, key);
@@ -321,9 +356,12 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
     /**
      * Sets a value on the current vertex.
+     * If the Vertex properties are locked by another agent, wait until 
+     * the lock's freeing.
      *
      * @param key Key behind which storing the value
      * @param value Value to store on the vertex
+     * @see #lockVertexProperties()
      */
     public void setVertexProperty(Object key, Object value) {
         simulator.setVertexProperty(this, key, value);
@@ -332,6 +370,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Just like  getPropertyKeys(), this method  returns a collection
      * of all the keys but for the current vertex.
+     * If the Vertex properties are locked by another agent, wait until 
+     * the lock's freeing.
+     *
+     * @see #lockVertexProperties()
      */
     public Set getVertexPropertyKeys() {
         return simulator.getVertexPropertyKeys(this);
@@ -342,7 +384,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * vertex.
      *
      * @param state The new state to affect to the edge
-     *Â @param door Door from which the edge will be changed
+     * @param door Door from which the edge will be changed
      */
     public void changeDoorState(int door, EdgeState state) {
         try {
