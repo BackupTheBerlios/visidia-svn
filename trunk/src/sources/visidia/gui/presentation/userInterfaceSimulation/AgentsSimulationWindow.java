@@ -18,6 +18,7 @@ import visidia.algo.*;
 import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
+import visidia.tools.agents.UpdateTable;
 import visidia.misc.MessageType;
 import visidia.simulation.rules.*;
 import visidia.simulation.synchro.*;
@@ -105,6 +106,7 @@ public class AgentsSimulationWindow
 
     private Hashtable defaultProperties; // To initialize the whiteboards
 
+    private UpdateTable timer;
 
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
@@ -666,6 +668,12 @@ public class AgentsSimulationWindow
     }
 
     public void but_stop() {
+        System.out.println("Stopping the timer");
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
+
 	System.out.println("Stopping the Simulation panel");
 	simulationPanel.stop();
 	System.out.println("  ==> Stopped");
@@ -693,10 +701,15 @@ public class AgentsSimulationWindow
 
     public void but_experimentation() {
 	if(sim != null){
-	    JFrame frame = new HashTableFrame(sim.getStats());
-	    frame.setTitle("Agents Experiments");
-	    frame.pack();
-	    frame.setVisible(true);
+	    HashTableFrame statsFrame = new HashTableFrame(sim.getStats());
+	    statsFrame.setTitle("Agents Experiments");
+	    statsFrame.pack();
+	    statsFrame.setVisible(true);
+
+            if (timer == null) {
+                timer = new UpdateTable(sim, statsFrame.getTableModel());
+                new Thread(timer).start();
+            }
 	}
 	else{
 	    JOptionPane.showMessageDialog(this, "Start the simulator");
