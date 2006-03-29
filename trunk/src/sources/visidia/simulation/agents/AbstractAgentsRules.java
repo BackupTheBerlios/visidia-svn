@@ -35,7 +35,5 @@ public abstract class AbstractAgentsRules extends SynchronizedAgent {
 	}
     }
 
-    protected boolean wb() {
-	
-    }
+
 }
