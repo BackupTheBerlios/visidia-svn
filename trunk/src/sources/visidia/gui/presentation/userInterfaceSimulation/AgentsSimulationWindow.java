@@ -1195,7 +1195,7 @@ public class AgentsSimulationWindow
 //                     boxVertices.remove(firstElement);
 //                 }
                 
-                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, (SommetDessin)firstElement);
+                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, ((SommetDessin)firstElement).getWhiteBoardTable(), defaultProperties);
                 boxVertices.put(firstElement,agentBox);
                 agentBox.show(this);
                 
@@ -1229,8 +1229,8 @@ public class AgentsSimulationWindow
         
         if (ag != null) {
             
-            //            DefaultBoxVertex agentBox = new DefaultBoxVertex(this,new Hashtable(ag.getPropertyKeys()));
-            //agentBox.show(this);            
+            AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard());
+            agentBox.show(this);
         }
 
     }

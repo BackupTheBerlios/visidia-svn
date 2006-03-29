@@ -18,87 +18,108 @@ import javax.swing.event.*;
  * selectionne que des sommets et qu'on appui sur le bouton info     
 */
 public class AgentBoxChangingVertexState
-    extends DefaultBoxVertex
+    extends AbstractDefaultBox
     implements ActionListener, ItemListener, VueEtatPanel
 {
 
     //Constructeurs
 
-    /**
-     * Cree une nouvelle boite pour afficher les caractéristiques de
-     * "un_objet".  Ces caractéristiques seront modifiables.
-     */
-    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin sommet) {
-	this(parent, sommet, "Vertex properties state");
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent,Hashtable spec, Hashtable def)
+    {
+        this(parent,spec,def,"Specific vertex property");
     }
-    
+
     /**
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin sommet, String titre) {
-       
-    this.dialog = new JDialog(parent, titre);
-    this.parent = parent;
-
-    monSommet = sommet;
-  
-    vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
-    
-    etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
-    
-    Panel panelHaut = new Panel();
-    panelHaut.setLayout(new BorderLayout());
-    panelHaut.add(etatPanel, BorderLayout.NORTH);
-
-    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    JScrollPane spane = new JScrollPane(table);
-
-    JPanel panelCentre = new JPanel();
-    panelCentre.setLayout(new BorderLayout());
-    panelCentre.add(spane, BorderLayout.NORTH);
-    
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, Hashtable spec, Hashtable def, String titre) 
+    {
+        super(parent,titre);
         
-    tbModel = new AgentPropertyTableModel(monSommet.getWhiteBoardTable(),
-                                          parent.getDefaultProperties());
-    
-    table.setModel(tbModel);
-
-    dialog.getContentPane().setLayout(new BorderLayout());
-    dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
-    dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
-    dialog.setSize(400,200);
-    
-    ajouterBoutons();
-
+        tbModel = new VertexPropertyTableModel(spec,def);
+        
+        table.setModel(tbModel);
     }
 
     //Methodes  
     
     public void updateBox() {
-        ((AgentPropertyTableModel) tbModel).updateKeys();
+        ((VertexPropertyTableModel) tbModel).updateKeys();
         tbModel.fireTableDataChanged();
     }
   
-   
-      
-    /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
-    public void buttonOk() {
-	String etat = etatPanel.ardoise().donneEtat();
-	AgentPropertyTableModel mod =(AgentPropertyTableModel)table.getModel();
-	int nbRows = mod.getRowCount();
-	monSommet.setEtat(etat);
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == buttonDone) {
+            dialog.setVisible(false);
+            dialog.dispose();
+        }
+        if(e.getSource() == buttonAdd) {
+            
+            
+            Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
+                                      "Double|double","Float|float", "Long|long", 
+                                      "Short|short", "Boolean|boolean"};
+            
+            Object objValue;
+            
+            String s = (String) JOptionPane.showInputDialog(parent,
+                                                            "Select the type:",
+                                                            "Type",
+                                                            JOptionPane.PLAIN_MESSAGE,
+                                                            null,
+                                                            possibilities,
+                                                            "String");
+            
+            //If a string was returned, say so.
+            if ((s != null) && (s.length() > 0)) {
+                
+                String name = JOptionPane.showInputDialog(parent, "Enter the name :");
+                String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+                
+                if ( name != null  && value != null )
+                    {
+                        objValue = value;
 
-	try{
-	    for (int i=0;i<nbRows;i++){
-		table.editCellAt(i,1); // read the new values edited
-		monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,1));
-	    }
-	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
-    
-	parent.simulationPanel().repaint();
+                        try{
+
+                            if      ( s.equals("Integer|int") ) {objValue = new Integer(value); }
+                            else if ( s.equals("Byte") ) {objValue = new Byte(value);}
+                            else if ( s.equals("Character|char") ) {objValue = new Character(value.charAt(0));}
+                            else if ( s.equals("Double|double") ) {objValue = new Double(value);}
+                            else if ( s.equals("Float|float") ) {objValue = new Float(value);}
+                            else if ( s.equals("Long|long") ) {objValue = new Long(value);}
+                            else if ( s.equals("Short|short") ) {objValue = new Short(value);}
+                            else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
+
+                            tbModel.putProperty(name,objValue);
+                        }
+                        catch(Exception e2) {
+                            JOptionPane.showMessageDialog(null,
+                                          e2.getMessage(), 
+                                          "Warning",
+                                          JOptionPane.WARNING_MESSAGE); 
+                        }
+                    }
+            }
+            
+        }
+        if(e.getSource() == buttonRemove) {
+            
+            if (table.getSelectedRow() == -1 ) {
+                JOptionPane.showMessageDialog(parent,
+                                              "No property selected !", 
+                                              "Warning",
+                                              JOptionPane.WARNING_MESSAGE);
+            }
+            else {
+                tbModel.removeProperty(table.getSelectedRow());
+            }
+            
+        }
     }
-
+      
 
 }
 

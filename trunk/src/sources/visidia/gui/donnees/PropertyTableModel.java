@@ -9,9 +9,8 @@ import java.util.*;
  * Class that maps properties (key, value) entries into
  * a double column table model.
  */ 
-public class PropertyTableModel extends AbstractTableModel {
+public class PropertyTableModel extends AbstractPropertyTableModel {
     protected Hashtable defProps = null;
-    protected Vector keys = null;
     
     
     /**
@@ -57,23 +56,11 @@ public class PropertyTableModel extends AbstractTableModel {
     public Hashtable getProperties(){
         return (Hashtable) defProps.clone();
     }
-
-    public Class getColumnClass(int col){
-        return String.class;
-    }
-    
-    public int getColumnCount(){
-        return 3;
-    }
-    
-    public int getRowCount(){
-        return keys.size();
-    }
     
     public Object getValueAt(int row, int col){
         switch(col){
         case 0: return keys.elementAt(row);
-        case 1: return defProps.get(keys.elementAt(row)).getClass();
+        case 1: return getTypeName(defProps.get(keys.elementAt(row)));
         case 2: return defProps.get(keys.elementAt(row));
         }
         throw new IllegalArgumentException();	
@@ -96,15 +83,6 @@ public class PropertyTableModel extends AbstractTableModel {
                                    || ( obj instanceof Short)
                                    || ( obj instanceof Byte) 
                                    || ( obj instanceof Character)));
-    }
-
-    public String getColumnName(int col){
-        switch(col){
-        case 0: return "name";
-        case 1: return "type";
-        case 2: return "value";
-        }
-        throw new IllegalArgumentException();	
     }
     
     /**
@@ -149,5 +127,6 @@ public class PropertyTableModel extends AbstractTableModel {
         }
         
         fireTableCellUpdated(row,col);
+
     }
 }

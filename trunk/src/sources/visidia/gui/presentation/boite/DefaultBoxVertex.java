@@ -15,192 +15,44 @@ import visidia.gui.donnees.*;
  * selectionne que des sommets et qu'on appui sur le bouton info     
  */
 public class DefaultBoxVertex
+    extends AbstractDefaultBox
     implements ActionListener, ItemListener, VueEtatPanel
 {
-    /** La fenetre parent : la boite sera centree sur cette fenetre.*/
-    protected AgentsSimulationWindow parent;
-    /** Le JDialog dans lequel on va tout afficher.*/
-    protected JDialog dialog;
-    /** Le bouton Ok*/
-    protected JButton buttonOk;
-    /** Le bouton Cancel*/
-    protected JButton buttonCancel;
-    /** Le bouton Apply*/
-    protected JButton buttonApply;
-    /** the button for changing the algorithms */
-    protected JButton buttonChange;
-    /** The label for displaying the algorithm used */
-    
-    protected SommetDessin monSommet;
-    protected int vertex_id = -1;
-    protected EtatPanel etatPanel;
-    /** a table for the state */
-    protected JTable table = new JTable();
-
-    //xav
-    // Button for adding property to the whiteboard
-    protected JButton buttonAdd;
-    // Button for removing property from the whiteboard
-    protected JButton buttonRemove;
-
-    protected PropertyTableModel tbModel;
-
-    protected int lastItemSelected = -1 ;
-    
 
     /**
      * Cree une nouvelle boite pour afficher les caractéristiques de
      * "un_objet".  Ces caractéristiques seront modifiables.
      */
 
-    public DefaultBoxVertex(){
-    }
     
-    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable def) {
-	this(parent, def, "Default Vertex properties state");
+    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h) {
+	this(parent, h,  "Default Vertex properties state");
     }
     
     /**
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable def, 
+    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h, 
                             String titre) {
-    
-        this.dialog = new JDialog(parent, titre);
-        this.parent = parent;
 
-        etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
-        
-        Panel panelHaut = new Panel();
-        panelHaut.setLayout(new BorderLayout());
-        panelHaut.add(etatPanel, BorderLayout.NORTH);
-        
-        
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane spane = new JScrollPane(table);
+        super(parent,titre);
 
-        JPanel panelCentre = new JPanel();
-        panelCentre.setLayout(new BorderLayout());
-        panelCentre.add(spane, BorderLayout.NORTH);
-    
-        tbModel = new PropertyTableModel(def);
+        tbModel = new PropertyTableModel(h);
 
         table.setModel(tbModel);
-
-        dialog.getContentPane().setLayout(new BorderLayout());
-        dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
-        dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
-        dialog.setSize(400,200);
-    
-        ajouterBoutons();
-    
     }
 
     //Methodes  
-    
-       
-    /** Affiche la boite et la centre par rapport a "parent".*/
-    public void show(Frame parent) {
-        dialog.pack();
-        dialog.show();
-        dialog.setLocationRelativeTo(parent);
-    }
 
     public void updateBox() {
         tbModel.fireTableDataChanged();
     }
   
-    /** Ajoute un bouton nomme "label" au panel "pane" */
-    public JButton addButton(JPanel pane, String label) {
-        JPanel tmp = new JPanel(new FlowLayout());
-        JButton button = new JButton(label);
-        tmp.add(button);
-        button.setSize(button.getMinimumSize());
-        pane.add(tmp);
-        pane.add(Box.createRigidArea(new Dimension(0, 5)));
-        return button;
-    }
-  
- 
-    /** Ajoute les boutons en bas de la boite.*/
-    public void ajouterBoutons() {
-    
-        JPanel buttonPane = new JPanel( new BorderLayout());
-      
-        JPanel addRemovePane = new JPanel(new FlowLayout());
-      
-        buttonAdd = new JButton("Add");
-        buttonAdd.addActionListener(this);
-      
-        buttonRemove = new JButton("Remove");
-        buttonRemove.addActionListener(this);
-
-        addRemovePane.add(buttonAdd);
-        addRemovePane.add(buttonRemove);
-
-        JPanel okCancelApplyPane = new JPanel(new FlowLayout());
-      
-        buttonOk = new JButton("Ok");
-        buttonOk.addActionListener(this);
-      
-        buttonCancel = new JButton("Cancel");
-        buttonCancel.addActionListener(this);
-      
-        buttonApply = new JButton("Apply");
-        buttonApply.addActionListener(this);
-      
-        okCancelApplyPane.add(buttonOk);
-        okCancelApplyPane.add(buttonCancel);    
-        okCancelApplyPane.add(buttonApply);
-      
-        buttonPane.add(addRemovePane,BorderLayout.NORTH);
-        buttonPane.add(okCancelApplyPane,BorderLayout.SOUTH);
-      
-        buttonApply.setEnabled(true);
-        dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
-    }
-    
-   
 
     public void actionPerformed(ActionEvent e) {
         
-        if(e.getSource() == buttonOk) {
-            try {
-                buttonOk();
-                dialog.setVisible(false);
-                dialog.dispose();
-            } catch(NumberFormatException exception) {
-                StringTokenizer st =
-                    new StringTokenizer(exception.getMessage(), "\n");
-                int nb_lignes = st.countTokens();
-                String message = new String();
-                for(int i = 0; i < nb_lignes; i++)
-                    message = message + "\n" + st.nextToken();
-                JOptionPane.showMessageDialog(parent,
-                                              message, 
-                                              "Warning",
-                                              JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        if(e.getSource() == buttonApply) {
-            try {
-                buttonOk();
-                parent.repaint();
-            } catch(NumberFormatException exception) {
-                StringTokenizer st =
-                    new StringTokenizer(exception.getMessage(), "\n");
-                int nb_lignes = st.countTokens();
-                String message = new String();
-                for(int i = 0; i < nb_lignes; i++)
-                    message = message + "\n" + st.nextToken();
-                JOptionPane.showMessageDialog(parent,
-                                              message, 
-                                              "Warning",
-                                              JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        if(e.getSource() == buttonCancel) {
+        if(e.getSource() == buttonDone) {
             dialog.setVisible(false);
             dialog.dispose();
         }
@@ -268,43 +120,6 @@ public class DefaultBoxVertex
             
         }
         
-    }
-    
-    //Implementation de VueEtatPanel
-    public void elementModified(String s){
-	elementModified();
-    }
-    
-    public void elementModified(){
-
-        tbModel.putProperty("label",etatPanel.ardoise().donneEtat());
-
-    }
-      
-    /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
-    public void buttonOk() {
-	String etat = etatPanel.ardoise().donneEtat();
-	int nbRows = tbModel.getRowCount();
-	monSommet.setEtat(etat);
-
-	try{
-	    for (int i=0;i<nbRows;i++){
-		table.editCellAt(i,1); // read the new values edited
-		monSommet.setValue((String)tbModel.getValueAt(i,0),tbModel.getValueAt(i,1));
-	    }
-	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
-    
-	parent.simulationPanel().repaint();
-    }
-
-
-    /** Retourne le JDialog. */
-    public JDialog dialog() {
-        return dialog;
-    }
-
-    public void itemStateChanged(ItemEvent evt) {
-
     }
     
 }

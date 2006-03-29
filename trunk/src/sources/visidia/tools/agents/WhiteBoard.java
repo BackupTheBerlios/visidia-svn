@@ -65,6 +65,10 @@ public class WhiteBoard {
     public void setValue(Object key, Object value) {
         values.put(key, value);
     }
+
+    public void removeValue(Object key) {
+        values.remove(key);
+    }
     
     public Set keys() {
         Hashtable common = (Hashtable)defaults.clone();
