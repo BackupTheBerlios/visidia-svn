@@ -1,15 +1,15 @@
 package visidia.simulation.agents;
 
-import java.util.Hashtable;
-import java.util.Set;
+import java.util.*;
+
 import java.lang.reflect.Constructor;
 
 import visidia.tools.agents.WithWhiteBoard;
 import visidia.tools.agents.WhiteBoard;
 import visidia.misc.EdgeState;
 import visidia.misc.MarkedState;
-
 import visidia.simulation.SimulationAbortError;
+import visidia.graph.Vertex;
 
 import visidia.visidiassert.*;
 
@@ -262,6 +262,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public int getVertexIdentity() {
         return simulator.getVertexIdentity(this);
+    }
+
+    public Hashtable<Vertex, Collection> getAgentPositions() {
+	return simulator.getAgentPositions();
     }
 
     /**

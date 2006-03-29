@@ -54,16 +54,18 @@ public abstract class SynchronizedAgent extends Agent {
 		
 		return;
 	    }
-
-	    incrementStat("Pulse");
-	
+	    
 	    /* Reached by the last thread calling nextPulse */
+	    unblockAgents();
+     	}
+    }
+
+    public void unblockAgents() {
+	    incrementStat("Pulse");
 	    count = 0;
 	    synchronisation.notifyAll();
-
-     	}
-
     }
+
     /**
      * Handles the death of the synchronized agents.
      */

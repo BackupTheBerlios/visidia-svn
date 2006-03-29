@@ -19,6 +19,8 @@ import visidia.misc.Message;
 import visidia.misc.StringMessage;
 import visidia.misc.EdgeState;
 
+import visidia.rule.RelabelingSystem;
+
 import java.io.*;
 import java.util.Hashtable;
 import java.util.Set;
@@ -96,25 +98,26 @@ public class AgentSimulator {
      * specified  graph,  the  specified  event queue,  the  specified
      * acknowlegdement queue and a default agents Hashtable.
      */
-    public AgentSimulator(SimpleGraph netGraph, VQueue evtVQ, 
-                          VQueue ackVQ) {
-        this(netGraph, new Hashtable(), evtVQ, ackVQ);
+    public AgentSimulator(SimpleGraph netGraph, Vector agentsRules,
+			  VQueue evtVQ, VQueue ackVQ) {
+        this(netGraph, new Hashtable(), new Vector(), evtVQ, ackVQ);
     }
 
     /**
      * Constructor. Creates  a new  AgentSimulator and affects  it the
      * specified  graph,  the  specified  event queue,  the  specified
      * acknowledgment queue and the specified agents Hashtable.
-     */
+     */ 
     public AgentSimulator(SimpleGraph netGraph, 
                           Hashtable defaultAgentValues,
+			  Vector agentsRules,
                           VQueue evtVQ, VQueue ackVQ) {
 
 	graph = (SimpleGraph) netGraph;
         stats = new AgentStats();
 
 	threadGroup = new SimulatorThreadGroup("simulator");
-	fillAgentsTable(graph, defaultAgentValues);
+	fillAgentsTable(graph, defaultAgentValues, agentsRules);
         this.evtQ = evtVQ;
         this.ackQ = ackVQ;
 
@@ -131,6 +134,10 @@ public class AgentSimulator {
     private int getAgentsVertexNumber(Vertex vertex){
 	// System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
 	return vertexAgentsNumber.get(vertex).size();
+    }
+
+    public Hashtable<Vertex, Collection> getAgentPositions() {
+	return vertexAgentsNumber;
     }
 
     /**
@@ -192,7 +199,8 @@ public class AgentSimulator {
      * agents are created
      */
     private void fillAgentsTable(SimpleGraph graph, 
-                                 Hashtable defaultAgentValues) {
+                                 Hashtable defaultAgentValues,
+				 Vector agentsRules) {
         Enumeration vertices;
 
         agents = new Hashtable();
@@ -217,26 +225,46 @@ public class AgentSimulator {
 		String agentName = (String)it.next();
 		
 		if (agentName != null) {
-		    createAgent(agentName, vertex, defaultAgentValues);
+		    createAgent(agentName, vertex, defaultAgentValues, agentsRules);
 		}
 	    }
 
             vertex.clearAgentNames();
         }
     }
+
     /**
      *
      *
      */
     private Agent createAgent(String agentName, Vertex vertex,
-                              Hashtable defaultAgentValues) {
+                              Hashtable defaultAgentValues,
+			      Vector agentsRules) {
+	Agent agent;
+	String completName;
+	boolean mode_rules = false;
+	if(agentName.startsWith("Agents Rules")){
+	    mode_rules = true;
+	    completName = new String("visidia.simulation.agents.AgentRules");
+	}
+	else
+	    completName = new String("visidia.agents." + agentName);
+
         try {
-            String completName = new String("visidia.agents." + agentName);
-            return createAgent(Class.forName(completName), vertex,
+	    agent = createAgent(Class.forName(completName), vertex,
                                defaultAgentValues);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+
+	if (mode_rules) {
+	    int position = agentName.indexOf('_');
+	    String number = agentName.substring(position + 1);
+	    int index = new Integer(number).intValue();
+	    RelabelingSystem rSys = (RelabelingSystem) agentsRules.get(index);
+	    ((AbstractAgentsRules)agent).setRule(rSys);
+	}
+	return agent;
     }
 
     private Agent createAgent(Class agentClass, Vertex vertex,

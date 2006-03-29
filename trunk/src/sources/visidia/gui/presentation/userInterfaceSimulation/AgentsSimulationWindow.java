@@ -98,8 +98,8 @@ public class AgentsSimulationWindow
     public Editeur editeur;
 
     protected Hashtable agentsTable;
-
-    
+    protected Vector agentsRules = null;
+        
     protected Hashtable boxVertices; // To store the
                                      // AgentBoxChangingVertex for
                                      // each SommetDessin (needed for automatic refresh)
@@ -227,12 +227,8 @@ public class AgentsSimulationWindow
 	((SommetCarre)vert).setNbr(nbrStr);
 	
 	this.simulationPanel().repaint();
-
 	
     }
-
-
-
 
     /**
      * This method adds the Menu bar, its menus and items to the editor
@@ -642,6 +638,7 @@ public class AgentsSimulationWindow
                                      .convert(vueGraphe.getGraphe(),
                                               agentsTable,
                                               defaultProperties),
+				     agentsRules,
                                      evtPipeOut, ackPipeOut);
 
 	
@@ -988,7 +985,7 @@ public class AgentsSimulationWindow
 	}
     }
     
-    //PFA2003
+
     public void applyStarRulesSystem(RelabelingSystem rSys) {
 	if (simulationRules) {
 	    JOptionPane.showMessageDialog(this, 
@@ -998,9 +995,18 @@ public class AgentsSimulationWindow
 	    return;
 	}
 	simulationRules = true;
-	rsAlgo = buildAlgoRule(rSys);
-// 	getAlgorithms().putAlgorithmToAllVertices(rsAlgo);
-// 	getMenuChoice().setListTypes(rsAlgo.getListTypes());
+	rulesWarnings(rSys);
+	int size = agentsRules.size();
+	
+	agentsRules.add(rSys);
+
+	Enumeration e = selection.elements();
+	while (e.hasMoreElements()) {
+	    int id;
+	    id = Integer.decode(((SommetDessin)e.nextElement()).getEtiquette());
+	    addAgents(id,"Agents Rules_" + size);
+	}
+
 	but_start.setEnabled(true);
     }
     
@@ -1282,11 +1288,7 @@ public class AgentsSimulationWindow
         //sim.restartNode(nodeId);
     }
 
-    /**
-     * Makes an AbstractRule from a RelabelingSystem
-     */
-    public AbstractRule buildAlgoRule(RelabelingSystem r){
-	AbstractRule algo;
+    public void rulesWarnings(RelabelingSystem r){
 	int synType;//user choice
 	int type;//default choice
 	SynObject synob;
@@ -1311,25 +1313,6 @@ public class AgentsSimulationWindow
 	    /* default option */
 	    synType = r.defaultSynchronisation();
 	}
-	
-	switch(synType){
-	case SynCT.LC2:
-	    r.dupplicateSimpleRules(synType);
-	    algo = new LC2Rule(r);
-	    break;
-	case SynCT.LC1:
-	    algo = new LC1Rule(r);
-	    break;
-	default:
-	    r.dupplicateSimpleRules(synType);
-	    algo = new RDVRule(r);
-	    break;
-	}
-	synob = new SynObjectRules();
-    
-	algo.setSynob(synob);
-	return algo;
-	
     }
 
 
