@@ -1,0 +1,106 @@
+\documentclass{report}
+
+%\usepackage{times}
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{amssymb}
+%\usepackage{epstopdf}
+\usepackage{xspace}
+\usepackage{indentfirst}
+
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{fancyheadings}
+\usepackage[Lenny]{fncychap}
+\pagestyle{fancy}
+\newcommand{\sauteligne}{\vspace{0.5cm}}
+\newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\berlios}{BerliOs.de\xspace}
+\author{}
+\date{}
+
+\title{
+  \begin{flushright}
+    \begin{Huge}
+      \begin{textbf}
+        Projet \visidia\\
+      \end{textbf}
+    \end{Huge}
+    \rule{\textwidth}{2mm}\\
+    \large\rm{Cahier des charges}\\
+    \vspace{2cm}
+    \begin{textbf}\\
+      \underline{Auteurs} :\\
+      \vspace{0.5cm}
+      \sc Nada Ayad\\
+      Damien Cassou\\
+      Xavier Durand\\
+      Jean-Baptiste Gautron\\
+      Hicham Ghriss\\
+      Mathieu Hopmann\\
+      Julie Quagliozzi\\
+      \vspace{5mm}
+    \end{textbf}
+    \rm \today
+  \end{flushright}
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Résumé}
+%\input{resume}
+%damien
+%présentation du projet et but
+\chapter{Domaine d'application}
+%\input{domaine}
+%algorithmique distribuée
+%hicham
+\chapter{Analyse de l'existant}
+%\input{analyse}
+%ViSiDiA + autres simulateurs ADågents
+%damien
+\chapter{Introduction au projet}
+%\input{intro}
+%ViSiDiA/agents
+%julie
+\chapter{Besions non fonctionnels}
+%\input{besoinsNF}
+%jb
+\chapter{Besions fonctionnels}
+%API
+%jb
+\chapter{Implémentation}
+%Structures
+%nada
+\chapter{Limites de l'implémentation}
+%mathieu
+\chapter{Extensibilité}
+%agents sur architecture distribuée
+%gros graphes
+%règles de réecritures
+%hicham
+\chapter{Exemples de fonctionnement}
+%screenshot
+%comment on écrit un algo
+%xavier
+\chapter{Bilan}
+%nada
+
+\end{document}
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: t
+%% coding: latin-1
+%% End:
