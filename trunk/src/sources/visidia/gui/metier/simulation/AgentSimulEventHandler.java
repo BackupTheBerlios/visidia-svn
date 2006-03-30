@@ -162,8 +162,9 @@ public class AgentSimulEventHandler extends Thread {
 
 	LabelChangeEvent lce = (LabelChangeEvent) se;
 
-	Hashtable tableSommet = ((agentsSimulationWindow.getVueGraphe()).rechercherSommet(lce.vertexId().toString())).getStateTable();
-	    tableSommet.put("label",lce.label());
+	Hashtable tableSommet = ((agentsSimulationWindow.getVueGraphe()).
+				 rechercherSommet(lce.vertexId().toString())).getStateTable();
+	tableSommet.put("label",lce.label());
 	    
     }
 }

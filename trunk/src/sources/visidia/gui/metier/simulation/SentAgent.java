@@ -32,8 +32,11 @@ public class SentAgent extends MovableObject {
     public void paint(Graphics g){
 	
 	Image img = TableImages.getImage("homme");
-	int height = img.getHeight(null);
-	int width = img.getWidth(null);
+	int imgHeight = img.getHeight(null);
+	int imgWidth = img.getWidth(null);
+	int stringSize = (int)(g.getFontMetrics().
+			       getStringBounds(mesg,g).getWidth());
+	
 
 	MessageType messageType = event.message().getType();
 	if (messageType.getToPaint()){
@@ -41,8 +44,8 @@ public class SentAgent extends MovableObject {
 	    if ((event.message()).getVisualization()) {
 		Point p = currentLocation();
 		g.setColor(messageType.getColor());
-		g.drawString(mesg, p.x-(width/2), p.y+(height/2));
-		g.drawImage(img,p.x-(width/2),p.y-(height/2),null,null);
+		g.drawString(mesg, p.x-(int)(stringSize/2), p.y+(imgHeight/2));
+		g.drawImage(img,p.x-(imgWidth/2),p.y-(imgHeight/2),null,null);
 	    }
 	}
     }
