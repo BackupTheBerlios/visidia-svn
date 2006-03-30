@@ -1207,10 +1207,9 @@ public class AgentsSimulationWindow
                 //                     boxVertices.remove(firstElement);
                 //                 }
                 
-                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, ((SommetDessin)firstElement).getWhiteBoardTable(), defaultProperties);
+                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, (SommetDessin)firstElement, defaultProperties);
                 boxVertices.put((SommetDessin)firstElement,agentBox);
                 agentBox.show(this);
-                
             }
             else{
                 e = selection.elements();

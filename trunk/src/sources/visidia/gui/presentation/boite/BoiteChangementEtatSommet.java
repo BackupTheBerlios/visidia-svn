@@ -218,8 +218,8 @@ public class BoiteChangementEtatSommet
 
 	try{
 	    for (int i=0;i<nbRows;i++){
-		table.editCellAt(i,1); // read the new values edited
-		monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,1));
+		table.editCellAt(i,2); // read the new values edited
+		monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,2));
 	    }
 	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
     

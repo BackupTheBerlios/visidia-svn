@@ -23,21 +23,24 @@ public class AgentBoxChangingVertexState
 {
 
     //Constructeurs
+    SommetDessin vert;
 
-    public AgentBoxChangingVertexState(AgentsSimulationWindow parent,Hashtable spec, Hashtable def)
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin s, Hashtable def)
     {
-        this(parent,spec,def,"Specific vertex property");
+        this(parent,s,def,"Specific vertex property");
     }
 
     /**
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, Hashtable spec, Hashtable def, String titre) 
+    public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin s, Hashtable def, String titre) 
     {
         super(parent,titre,true);
-        
-        tbModel = new VertexPropertyTableModel(spec,def);
+
+        vert = s;
+
+        tbModel = new VertexPropertyTableModel(s.getWhiteBoardTable(),def);
         
         table.setModel(tbModel);
     }
@@ -53,6 +56,10 @@ public class AgentBoxChangingVertexState
         
         if(e.getSource() == buttonDone) {
             dialog.setVisible(false);
+
+            String etat = etatPanel.ardoise().donneEtat();
+            vert.setEtat(etat);
+
             dialog.dispose();
         }
         if(e.getSource() == buttonAdd) {
