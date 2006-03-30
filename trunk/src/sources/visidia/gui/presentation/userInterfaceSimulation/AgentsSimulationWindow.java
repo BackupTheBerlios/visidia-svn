@@ -463,13 +463,13 @@ public class AgentsSimulationWindow
         toolBar.addSeparator();
 
    
-        but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        but_info = new JButton(new ImageIcon(TableImages.getImage("vertexwb")));
         but_info.setToolTipText("Info");
         but_info.setAlignmentY(CENTER_ALIGNMENT);
         but_info.addActionListener(this);
         toolBar.add(but_info);
 
-        but_default = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        but_default = new JButton(new ImageIcon(TableImages.getImage("vertexdefwb")));
         but_default.setToolTipText("Initialisation");
         but_default.setAlignmentY(CENTER_ALIGNMENT);
         but_default.addActionListener(this);
@@ -477,7 +477,7 @@ public class AgentsSimulationWindow
         
         toolBar.addSeparator();
         
-        but_agents = new JButton(new ImageIcon(TableImages.getImage("agentwb")));//"visidia/gui/donnees/images/agentwb.gif"));
+        but_agents = new JButton(new ImageIcon(TableImages.getImage("agentwb")));
         but_agents.setToolTipText("Agent whiteboard");
         but_agents.setAlignmentY(CENTER_ALIGNMENT);
         but_agents.setEnabled(false);
