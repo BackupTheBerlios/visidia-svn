@@ -40,9 +40,7 @@ public class AgentRules extends AbstractAgentsRules {
                         applyRule();
                     }
 		}
-                System.out.println(step);
                 moveBack();
-                System.out.println(step);
                 setWB(false);
 	    }
 	    else {
