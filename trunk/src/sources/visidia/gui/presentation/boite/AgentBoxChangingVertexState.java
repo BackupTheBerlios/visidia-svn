@@ -37,7 +37,7 @@ public class AgentBoxChangingVertexState
     public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin s, Hashtable def, String titre) 
     {
         super(parent,titre,true);
-
+        etatPanel.ardoise().changerEtat(s.getEtat());
         vert = s;
 
         tbModel = new VertexPropertyTableModel(s.getWhiteBoardTable(),def);

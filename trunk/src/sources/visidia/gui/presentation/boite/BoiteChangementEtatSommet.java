@@ -70,7 +70,7 @@ public class BoiteChangementEtatSommet
     algoUsed = new JLabel("Algorithm used : "+algoString);
     
     etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
-    
+    etatPanel.ardoise().changerEtat(monSommet.getEtat());    
 
     drawMessage = monSommet.getDrawMessage();
     drawMessageOldValue = drawMessage;
