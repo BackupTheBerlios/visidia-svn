@@ -16,7 +16,7 @@ public abstract class SynchronizedAgent extends Agent {
     private static int nbAgents = 0;
     private static int count = 0;
     private static Boolean synchronisation = new Boolean(true);
-
+    SimpleMeetingOrganizer meetOrg = new SimpleMeetingOrganizer(); 
     /**
      * Creates  a new  synchronized  agent. The  variable nbAgents  is
      * incremented  so  that  the  synchronisation is  handled.  Every
@@ -24,6 +24,7 @@ public abstract class SynchronizedAgent extends Agent {
      */
     public SynchronizedAgent() {
         super();
+	meet = true;
         ++nbAgents;
     }
 
@@ -54,10 +55,25 @@ public abstract class SynchronizedAgent extends Agent {
 		
 		return;
 	    }
-	    
+
+	    if( meet == true ){
+		System.out.println("meet est a true");
+		// on ne fait une rencontre que lorsaue le nombre d'agent est
+		// superieur a 2
+		if(this.agentsOnVertex().size() > 1){
+		    System.out.println("Sur ce sommet il y a : "+this.agentsOnVertex().size());
+		    meetOrg.howToMeetTogether(this.agentsOnVertex());
+		}
+	    }
+
 	    /* Reached by the last thread calling nextPulse */
 	    unblockAgents();
+	    
      	}
+    }
+
+    protected void planning(Agent agent){
+	System.out.println(this.toString()+" >>> Hello h r u ? "+agent.toString());
     }
 
     protected void unblockAgents() {
@@ -70,13 +86,13 @@ public abstract class SynchronizedAgent extends Agent {
      * Handles the death of the synchronized agents.
      */
     protected void death() {
-
+	
 	super.death();
-
+	
 	synchronized( synchronisation ) {
-
+	    
 	    --nbAgents;
-
+	    
 	    /* I have to check if the other agents 
 	       are not waiting for me */
 	    if( count == nbAgents ) {
