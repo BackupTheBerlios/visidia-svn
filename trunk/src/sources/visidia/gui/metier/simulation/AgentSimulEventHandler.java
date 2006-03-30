@@ -78,11 +78,14 @@ public class AgentSimulEventHandler extends Thread {
 	catch(InterruptedException e){
 	    // break;
 	}
-		
+
     }
 
     public void handleMessageSentEvt(SimulEvent se){
 	MessageSendingEvent mse = (MessageSendingEvent) se;
+
+        
+
         agentsSimulationWindow.simulationPanel().animate(mse);
     }
     
@@ -132,11 +135,10 @@ public class AgentSimulEventHandler extends Thread {
 	nbrStr = nbrStr.valueOf(nbr);
 
         // Updating the AgentBoxChangingVertexState
-        agentsSimulationWindow.updateVertexState(ame.vertexId());
+        agentsSimulationWindow.updateVertexState(vert);
 
 	if(nbr == 0)
 	    vert.changerCouleurFond(Color.white);
-	
 	else
 	    vert.changerCouleurFond(Color.red);
 	

@@ -132,7 +132,6 @@ public class AgentSimulator {
      * @param vertex The vertex on which information is given.
      */
     private int getAgentsVertexNumber(Vertex vertex){
-	// System.out.println("Le nombre d'agent sur le sommet "+ ((Integer)vertex.identity()).intValue() +" est :"+vertexAgentsNumber.get(vertex).size());
 	return vertexAgentsNumber.get(vertex).size();
     }
 

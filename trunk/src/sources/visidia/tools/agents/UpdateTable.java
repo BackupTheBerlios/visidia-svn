@@ -1,43 +1,29 @@
 package visidia.tools.agents;
 
-import visidia.tools.HashTableModel;
 import visidia.simulation.agents.AgentSimulator;
 
-public class UpdateTable implements Runnable {
+import javax.swing.table.*;
 
-    AgentSimulator sim;
-    HashTableModel table;
+public abstract class UpdateTable implements Runnable {
+
+    AbstractTableModel table;
     long sleepTime;
     boolean stop;
 
-    public UpdateTable(AgentSimulator sim, 
-                       HashTableModel table, long sleepTime) {
-        this.sim = sim;
+    public UpdateTable(AbstractTableModel table, long sleepTime) {
         this.table = table;
         this.sleepTime = sleepTime;
         this.stop = false;
     }
 
-    public UpdateTable(AgentSimulator sim, HashTableModel table) {
-        this(sim, table, 1000);
+    public UpdateTable(AbstractTableModel table) {
+        this(table, 1000);
     }
 
     public void stop() {
         stop = true;
     }
 
-    public void run() {
-        while (! stop) {
-            try {
-                System.out.println("dd //jb");
-                synchronized (this) {
-                    wait(1000);
-                }
-            } catch (InterruptedException e) {
-                stop();
-            }
-            table.setProperties(sim.getStats());
-        }
-    }
+    abstract public void run();
 
 }

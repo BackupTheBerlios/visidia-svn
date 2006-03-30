@@ -31,7 +31,6 @@ public abstract class AbstractDefaultBox
     /** a table for the state */
     protected JTable table = new JTable();
 
-    //xav
     // Button for adding property to the whiteboard
     protected JButton buttonAdd;
     // Button for removing property from the whiteboard
@@ -42,24 +41,28 @@ public abstract class AbstractDefaultBox
     protected int lastItemSelected = -1 ;
     
     public AbstractDefaultBox(AgentsSimulationWindow parent) {
-	this(parent, "Default properties state");
+	this(parent, "Default properties state",true);
     }
     
     /**
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public AbstractDefaultBox(AgentsSimulationWindow parent, String titre) {
+    public AbstractDefaultBox(AgentsSimulationWindow parent, String titre, boolean createEtatPanel) {
+    
+        Panel panelHaut = null;
     
         this.dialog = new JDialog(parent, titre);
         this.parent = parent;
 
-        etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
+        if (createEtatPanel == true)
+            {
+                etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
         
-        Panel panelHaut = new Panel();
-        panelHaut.setLayout(new BorderLayout());
-        panelHaut.add(etatPanel, BorderLayout.NORTH);
-        
+                panelHaut = new Panel();
+                panelHaut.setLayout(new BorderLayout());
+                panelHaut.add(etatPanel, BorderLayout.NORTH);
+            }
         
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane spane = new JScrollPane(table);
@@ -69,7 +72,8 @@ public abstract class AbstractDefaultBox
         panelCentre.add(spane, BorderLayout.NORTH);
     
         dialog.getContentPane().setLayout(new BorderLayout());
-        dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
+        if(createEtatPanel == true)
+            dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
         dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
         dialog.setSize(400,200);
     

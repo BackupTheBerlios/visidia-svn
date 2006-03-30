@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import javax.swing.event.*;
+
 import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.presentation.*;
 import visidia.gui.donnees.*;
-
 import visidia.gui.presentation.userInterfaceEdition.Fenetre;
-import visidia.tools.agents.WhiteBoard;
+import visidia.tools.agents.*;
 
-import javax.swing.event.*;
 
 
 /**
@@ -24,6 +24,8 @@ public class AgentBoxProperty
     extends AbstractDefaultBox
     implements ActionListener, ItemListener, VueEtatPanel
 {
+
+    UpdateTableAgent timer;
 
     //Constructeurs
 
@@ -37,16 +39,21 @@ public class AgentBoxProperty
      */
     public AgentBoxProperty(AgentsSimulationWindow parent, WhiteBoard wb, String titre) 
     {
-        super(parent,titre);
+        super(parent,titre,false);
         
         tbModel = new AgentPropertyTableModel(wb);
         
         table.setModel(tbModel);
+
+        timer = new UpdateTableAgent( (AgentPropertyTableModel) tbModel);
+        new Thread(timer).start();
+
     }
 
     //Methodes  
     
     public void updateBox() {
+        System.out.println("AgentBoxProperty.updateBox()");
         tbModel.fireTableDataChanged();
     }
 
@@ -54,6 +61,10 @@ public class AgentBoxProperty
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == buttonDone) {
+
+            timer.stop();
+            timer=null;
+
             dialog.setVisible(false);
             dialog.dispose();
         }

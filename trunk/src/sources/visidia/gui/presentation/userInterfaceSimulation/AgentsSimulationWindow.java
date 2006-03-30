@@ -1,12 +1,13 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import visidia.gui.DistributedAlgoSimulator;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 import java.io.*;
+
+import visidia.gui.DistributedAlgoSimulator;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.*;
 import visidia.gui.metier.simulation.*;
@@ -18,14 +19,13 @@ import visidia.algo.*;
 import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
-import visidia.tools.agents.UpdateTable;
+import visidia.tools.agents.*;
 import visidia.misc.MessageType;
 import visidia.simulation.rules.*;
 import visidia.simulation.synchro.*;
 import visidia.rule.*;
 import visidia.gui.presentation.starRule.*;
 import visidia.simulation.synchro.synObj.*;
-
 import visidia.simulation.agents.Agent;
 
 /* Represents the algorithm simulation window for a graph */
@@ -67,7 +67,7 @@ public class AgentsSimulationWindow
     // Menu pour les options au niveau de la visualisation
     protected JMenu visualizationOptions ;
     // for the speed scale
-//     protected ChoiceMessage2 choiceMessage;
+    //     protected ChoiceMessage2 choiceMessage;
     protected JMenuItem synchro, others;
     protected JSlider speed_slider;
     protected JLabel speed_label;
@@ -100,11 +100,13 @@ public class AgentsSimulationWindow
     protected Hashtable agentsTable;
     protected Vector agentsRules = null;
         
-    protected Hashtable boxVertices; // To store the
+    protected Hashtable<SommetDessin,AgentBoxChangingVertexState> boxVertices; // To store the
                                      // AgentBoxChangingVertex for
                                      // each SommetDessin (needed for automatic refresh)
 
-    private Hashtable defaultProperties; // To initialize the whiteboards
+    protected Hashtable<Agent,AgentBoxProperty> boxAgents;
+
+    private Hashtable<String,Object> defaultProperties; // To initialize the whiteboards
 
     private UpdateTable timer;
 
@@ -122,7 +124,7 @@ public class AgentsSimulationWindow
     
     
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite , Color couleur_fond, int dim_x,
-			       int dim_y, File fichier_edit) {
+                                  int dim_y, File fichier_edit) {
         
         super();
 
@@ -146,6 +148,7 @@ public class AgentsSimulationWindow
 	agentsTable = new Hashtable();
 
         boxVertices = new Hashtable();
+        boxAgents = new Hashtable();
         defaultProperties = new Hashtable();
         
 	// The manager of components
@@ -180,8 +183,6 @@ public class AgentsSimulationWindow
         
         scroller.setOpaque(true);
         content.add(scroller, BorderLayout.CENTER);
-        
-        
         
         this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
@@ -229,6 +230,7 @@ public class AgentsSimulationWindow
 	this.simulationPanel().repaint();
 	
     }
+
 
     /**
      * This method adds the Menu bar, its menus and items to the editor
@@ -413,7 +415,6 @@ public class AgentsSimulationWindow
         but_pause.addActionListener(this);
         toolBar.add(but_pause);
         
-        
         but_stop = new JButton("stop");
         but_stop.setToolTipText("Stop");
         but_stop.setAlignmentY(CENTER_ALIGNMENT);
@@ -476,9 +477,10 @@ public class AgentsSimulationWindow
         
         toolBar.addSeparator();
         
-        but_agents = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        but_agents = new JButton(new ImageIcon(TableImages.getImage("agentwb")));//"visidia/gui/donnees/images/agentwb.gif"));
         but_agents.setToolTipText("Agent whiteboard");
         but_agents.setAlignmentY(CENTER_ALIGNMENT);
+        but_agents.setEnabled(false);
         but_agents.addActionListener(this);
         toolBar.add(but_agents);
         
@@ -497,6 +499,7 @@ public class AgentsSimulationWindow
         but_experimentation.setToolTipText("Statistics");
         but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
         but_experimentation.addActionListener(this);
+        but_experimentation.setEnabled(false);
         toolBar.add(but_experimentation);
         toolBar.addSeparator();
         
@@ -603,7 +606,7 @@ public class AgentsSimulationWindow
 	// modifications for the recorder
 	sim = null;
 	// destruction of ths old threads
-	while(tg.activeCount() > 0){
+	while(tg.activeCount() > 0) {
 	    tg.interrupt();
 	    try{
 		Thread.currentThread().sleep(50);
@@ -626,7 +629,7 @@ public class AgentsSimulationWindow
 	    RecorderAck recorderAck = new RecorderAck(ackPipeIn, ackPipeOut, writer);
 	    new Thread(tg, recorderEvent).start();
 	    new Thread(tg, recorderAck).start();
-//dam 	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
+            //dam 	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
 	}
 	else if (item_replay.isSelected()){
 	    visidia.simulation.Reader reader = new visidia.simulation.Reader(ackPipeOut, evtPipeOut, fileSaveTrace);
@@ -648,6 +651,9 @@ public class AgentsSimulationWindow
 	but_stop.setEnabled(true);
 	but_pause.setEnabled(true);
 	but_start.setEnabled(false);
+
+        but_agents.setEnabled(true);
+        but_experimentation.setEnabled(true);
 	
         sim.startSimulation();
 
@@ -656,11 +662,11 @@ public class AgentsSimulationWindow
     public void but_pause() {
 	if(simulationPanel.isRunning()){
 	    simulationPanel.pause();
-//dam 	    sim.wedge();
+            //dam 	    sim.wedge();
 	}
 	else {
 	    simulationPanel.start();
-//dam 	    sim.unWedge();
+            //dam 	    sim.unWedge();
 	}
     }
 
@@ -693,24 +699,24 @@ public class AgentsSimulationWindow
 	but_pause.setEnabled(false);
 	but_stop.setEnabled(false);
 	but_reset.setEnabled(true);
+
+        but_agents.setEnabled(false);
+        but_experimentation.setEnabled(false);
+
 	global_clock.initState();
     }
 
     public void but_experimentation() {
-	if(sim != null){
-	    HashTableFrame statsFrame = new HashTableFrame(sim.getStats());
-	    statsFrame.setTitle("Agents Experiments");
-	    statsFrame.pack();
-	    statsFrame.setVisible(true);
 
-            if (timer == null) {
-                timer = new UpdateTable(sim, statsFrame.getTableModel());
-                new Thread(timer).start();
-            }
-	}
-	else{
-	    JOptionPane.showMessageDialog(this, "Start the simulator");
-	}
+        HashTableFrame statsFrame = new HashTableFrame(sim.getStats());
+        statsFrame.setTitle("Agents Experiments");
+        statsFrame.pack();
+        statsFrame.setVisible(true);
+
+        if (timer == null) {
+            timer = new UpdateTableStats(sim, statsFrame.getTableModel());
+            new Thread(timer).start();
+        }
     }
     
 
@@ -782,17 +788,17 @@ public class AgentsSimulationWindow
         }
 	//PFA2003
 	else if (b == but_help){
-// 	    if (algoChoice.verticesHaveAlgorithm()) {
-// 		Algorithm a = algoChoice.getAlgorithm(0);
-// 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
-// 		hd.setText(a.getDescription());
-// 		hd.setVisible(true);
-// 		hd.setEditable(false);
-// 	    } else {
-// 		JOptionPane.showMessageDialog
-// 		    (this, "You must enter an algorithm or rules ",
-// 		     "warning", JOptionPane.WARNING_MESSAGE);
-// 	    }
+            // 	    if (algoChoice.verticesHaveAlgorithm()) {
+            // 		Algorithm a = algoChoice.getAlgorithm(0);
+            // 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
+            // 		hd.setText(a.getDescription());
+            // 		hd.setVisible(true);
+            // 		hd.setEditable(false);
+            // 	    } else {
+            // 		JOptionPane.showMessageDialog
+            // 		    (this, "You must enter an algorithm or rules ",
+            // 		     "warning", JOptionPane.WARNING_MESSAGE);
+            // 	    }
 	}
         else if (b == but_reset) {
 	    but_reset();
@@ -835,7 +841,7 @@ public class AgentsSimulationWindow
         if(mi == graph_open){
             OpenGraph.open(this);
             algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
-//             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+            //             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
             replaceSelection(new SelectionDessin());
             simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
             simulationPanel.revalidate();
@@ -874,16 +880,16 @@ public class AgentsSimulationWindow
     public void menuAlgo(JMenuItem mi) {
 
 	//nada jb
-//         if (mi == algo_open_vertices){
-//             if (!selection.estVide()){
-//                 if(DistributedAlgoSimulator.estStandalone()){
-//  //                    OpenAlgo.openForVertex(selection.elements(),this);
-//                     System.out.println("choix de l'algo reussi");}
-//                 else
-//  //                    OpenAlgoApplet.openForVertices(selection.elements(),this);
-//                 but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
-//             }
-//         }
+        //         if (mi == algo_open_vertices){
+        //             if (!selection.estVide()){
+        //                 if(DistributedAlgoSimulator.estStandalone()){
+        //  //                    OpenAlgo.openForVertex(selection.elements(),this);
+        //                     System.out.println("choix de l'algo reussi");}
+        //                 else
+        //  //                    OpenAlgoApplet.openForVertices(selection.elements(),this);
+        //                 but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
+        //             }
+        //         }
         if(mi == algo_open){
             if(simulationRules){
                 JOptionPane.showMessageDialog(this, "you had already entered rules",
@@ -907,7 +913,7 @@ public class AgentsSimulationWindow
 		if(DistributedAlgoSimulator.estStandalone())
 		    ok = OpenAgents.open(selection.elements(),this);
 		else
- //                    OpenAlgoApplet.open(this);
+                    //                    OpenAlgoApplet.open(this);
                     ;
                 simulationAlgo = ok ;
 
@@ -1024,7 +1030,7 @@ public class AgentsSimulationWindow
             ackPipeOut = new visidia.tools.VQueue();
             
             OpenGraph.open(this,fileSaveTrace);
-//             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+            //             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
             replaceSelection(new SelectionDessin());
             simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
             simulationPanel.revalidate();
@@ -1047,7 +1053,7 @@ public class AgentsSimulationWindow
                 item_file.setText(f.getName());
                 
                 OpenGraph.open(this,fileSaveTrace);
-//                 algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
+                //                 algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
                 replaceSelection(new SelectionDessin());
                 simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
                 simulationPanel.revalidate();
@@ -1065,7 +1071,7 @@ public class AgentsSimulationWindow
     public void commandeClose() {
         if (sim != null) {   // we kill the threads
             simulationPanel.stop();
-//dam             sim.abortSimulation();
+            //dam             sim.abortSimulation();
             seh.abort();
         }
 
@@ -1187,8 +1193,8 @@ public class AgentsSimulationWindow
                 e = selection.elements();
                 Ensemble listeElements = new Ensemble();
                 listeElements.inserer(e);
-//                 BoiteChangementCouleurArete boiteArete =
-// 		    new BoiteChangementCouleurArete(this, listeElements);
+                //                 BoiteChangementCouleurArete boiteArete =
+                // 		    new BoiteChangementCouleurArete(this, listeElements);
                 BoiteChangementEtatArete boiteArete =
 		    new BoiteChangementEtatArete(this, listeElements);
 
@@ -1198,11 +1204,11 @@ public class AgentsSimulationWindow
 		     (firstElement.type().equals("vertex"))){
 
                 // if ( boxVertices.containsKey(firstElement) ) {
-//                     boxVertices.remove(firstElement);
-//                 }
+                //                     boxVertices.remove(firstElement);
+                //                 }
                 
                 AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, ((SommetDessin)firstElement).getWhiteBoardTable(), defaultProperties);
-                boxVertices.put(firstElement,agentBox);
+                boxVertices.put((SommetDessin)firstElement,agentBox);
                 agentBox.show(this);
                 
             }
@@ -1226,16 +1232,17 @@ public class AgentsSimulationWindow
         Object[] agents = sim.getAllAgents().toArray();
         
         Agent ag = (Agent) JOptionPane.showInputDialog(this,
-                                                        "Select the agent:",
-                                                        "Agent's whiteboard editor",
-                                                        JOptionPane.PLAIN_MESSAGE,
-                                                        null,
-                                                        agents,
-                                                        null);
+                                                       "Select the agent:",
+                                                       "Agent's whiteboard editor",
+                                                       JOptionPane.PLAIN_MESSAGE,
+                                                       null,
+                                                       agents,
+                                                       null);
         
         if (ag != null) {
             
             AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard());
+            boxAgents.put(ag,agentBox);
             agentBox.show(this);
         }
 
@@ -1283,7 +1290,7 @@ public class AgentsSimulationWindow
     public void nodeStateChanged(int nodeId, Hashtable properties) {
         //System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
 	if (sim != null)
-//dam 	    sim.setNodeProperties(nodeId, properties);
+            //dam 	    sim.setNodeProperties(nodeId, properties);
             ;
         //sim.restartNode(nodeId);
     }
@@ -1315,11 +1322,9 @@ public class AgentsSimulationWindow
 	}
     }
 
-
-    public void updateVertexState(Integer vert) {
+    public void updateVertexState(SommetDessin vert) {
         AgentBoxChangingVertexState box = 
-            (AgentBoxChangingVertexState) boxVertices.get(getVueGraphe().
-                                                          rechercherSommet(vert.toString()));
+            (AgentBoxChangingVertexState) boxVertices.get(vert);
 
         if (box!=null)          // An AgentBoxChangingVertexState is
             box.updateBox();    // open for this vertex
@@ -1331,4 +1336,3 @@ public class AgentsSimulationWindow
     }
 
 }
-

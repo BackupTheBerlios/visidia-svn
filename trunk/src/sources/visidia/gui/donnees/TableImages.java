@@ -67,6 +67,7 @@ public class TableImages{
 	    tableauImages.put("globalClock", tk.getImage("visidia/gui/donnees/images/globalClock.gif"));
 	    tableauImages.put("noGlobalClock", tk.getImage("visidia/gui/donnees/images/noGlobalClock.gif"));
 	    tableauImages.put("homme", tk.getImage("visidia/gui/donnees/images/homme2.gif"));
+            tableauImages.put("agentwb", tk.getImage("visidia/gui/donnees/images/agentwb.gif"));
 	} catch (Exception e) {
 	    //e.printStackTrace();
 	    System.out.println("Problème lors du chargement des images");

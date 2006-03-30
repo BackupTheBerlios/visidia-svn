@@ -35,7 +35,7 @@ public class AgentBoxChangingVertexState
      */
     public AgentBoxChangingVertexState(AgentsSimulationWindow parent, Hashtable spec, Hashtable def, String titre) 
     {
-        super(parent,titre);
+        super(parent,titre,true);
         
         tbModel = new VertexPropertyTableModel(spec,def);
         
