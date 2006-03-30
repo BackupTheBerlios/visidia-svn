@@ -46,11 +46,9 @@ public class AgentRules extends AbstractAgentsRules {
                 setWB(false);
 	    }
 	    else {
-                System.out.println("Tu ne passeras pas par la!");
                 waitForWB(false);
             }
             randomWalk();
-            waitMe("nextPulse");
             nextPulse();
         }
     }
@@ -70,14 +68,12 @@ public class AgentRules extends AbstractAgentsRules {
         Star contextStar = contextStar();
         RelabelingSystem rSys = getRelabelling();
         int i = rSys.checkForRule(contextStar);
-        waitMe("applyRule");
+
         if (i == -1) {
             step = 2;
-            waitMe("noRule");
         }
         else {
             step = 3;
-            waitMe("found rule");
             Rule rule = rSys.getRule(i);
             Star afterStar = rule.after();
             Neighbour neighbourV = afterStar.neighbour(0);
@@ -101,7 +97,6 @@ public class AgentRules extends AbstractAgentsRules {
     }
 
     private void waitForWB(boolean bool) {
-        waitMe("WaitForWB");
         while (getWB() != bool) {
             try {
                 synchronized (this) {
@@ -114,29 +109,14 @@ public class AgentRules extends AbstractAgentsRules {
     }
 
     private void randomMove() {
-        waitMe("randomMove");
 	setAgentMover("RandomAgentMover");
 	move();
     }
 
     private void randomWalk() {
         step = 5;
-        waitMe("RandomWalk");
 	setAgentMover("RandomWalk");
 	move();
-    }
-
-    private void waitMe(String message) {
-        System.out.println("Waiting: " + message + ". " + " step " 
-                           + step + ". " + toString());
-        try {
-            synchronized (this) {
-                wait(1);
-            } 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Waiting finished: " + message);
     }
 
     private void setWB(boolean bool) {
