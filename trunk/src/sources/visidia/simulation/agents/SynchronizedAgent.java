@@ -60,7 +60,7 @@ public abstract class SynchronizedAgent extends Agent {
      	}
     }
 
-    public void unblockAgents() {
+    protected void unblockAgents() {
 	    incrementStat("Pulse");
 	    count = 0;
 	    synchronisation.notifyAll();

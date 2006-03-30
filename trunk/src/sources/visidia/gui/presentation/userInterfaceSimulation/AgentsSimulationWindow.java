@@ -98,7 +98,7 @@ public class AgentsSimulationWindow
     public Editeur editeur;
 
     protected Hashtable agentsTable;
-    protected Vector agentsRules = null;
+    protected Vector<RelabelingSystem> agentsRules = null;
         
     protected Hashtable<SommetDessin,AgentBoxChangingVertexState> boxVertices; // To store the
                                      // AgentBoxChangingVertex for
@@ -265,7 +265,7 @@ public class AgentsSimulationWindow
         file.add(file_quit);
         file.addActionListener(this);
         menuBar.add(file);
-        graph = new JMenu("graph");
+        graph = new JMenu("Graph");
         graph.getPopupMenu().setName("PopGraph");
         graph.setMnemonic('G');
         
@@ -1002,6 +1002,10 @@ public class AgentsSimulationWindow
 	}
 	simulationRules = true;
 	rulesWarnings(rSys);
+
+        if (agentsRules == null)
+            agentsRules = new Vector();
+
 	int size = agentsRules.size();
 	
 	agentsRules.add(rSys);

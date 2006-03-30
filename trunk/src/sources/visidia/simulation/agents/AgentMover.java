@@ -32,7 +32,7 @@ public abstract class AgentMover {
     /**
      * Moves the agent to the next door.
      */
-    public final void move() throws InterruptedException {
+    public void move() throws InterruptedException {
         move(findNextDoor());
     }
     

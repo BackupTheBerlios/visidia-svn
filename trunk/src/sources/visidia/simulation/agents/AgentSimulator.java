@@ -101,7 +101,7 @@ public class AgentSimulator {
      */
     public AgentSimulator(SimpleGraph netGraph, Vector agentsRules,
 			  VQueue evtVQ, VQueue ackVQ) {
-        this(netGraph, new Hashtable(), new Vector(), evtVQ, ackVQ);
+        this(netGraph, new Hashtable(), agentsRules, evtVQ, ackVQ);
     }
 
     /**
@@ -157,15 +157,9 @@ public class AgentSimulator {
 	if( vertexAgentsNumber.get(vertex) != null)
 	    vertexAgentsNumber.get(vertex).add(ag);
 	else{
-	    try{
-		Collection<Agent> colOfAgents  = new HashSet();
-		colOfAgents.add(ag);
-		vertexAgentsNumber.put(vertex,colOfAgents);
-		// System.out.println("Ajout d'un agent sur le sommet"+vertex.identity().intValue());
-	    } 
-	    catch(IllegalArgumentException iae){
-		System.out.println("Exception "+iae.getMessage());
-	    }
+            Collection<Agent> colOfAgents  = new HashSet();
+            colOfAgents.add(ag);
+            vertexAgentsNumber.put(vertex,colOfAgents);
 	}
 	return vertexAgentsNumber.get(vertex).size();
     }
@@ -178,16 +172,13 @@ public class AgentSimulator {
      */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
-	    try{
-		System.out.println("remove Agent From vertex :" +vertex.
-				    identity().intValue());
-		vertexAgentsNumber.get(vertex).remove(ag);
-	    }
-	    catch(NullPointerException npe){
-		System.out.println("Exception "+npe.getMessage());
-	    }
-	
-	return vertexAgentsNumber.get(vertex).size();
+            vertexAgentsNumber.get(vertex).remove(ag);
+	if( vertexAgentsNumber.get(vertex).isEmpty() ) {
+            vertexAgentsNumber.remove(vertex);
+            return 0;
+        }
+        else
+            return vertexAgentsNumber.get(vertex).size();
     }
 
     /**
@@ -212,13 +203,10 @@ public class AgentSimulator {
             Vertex vertex = (Vertex) vertices.nextElement();
 	    Collection agentsNames = vertex.getAgentsNames();
 
-	    Collection<Agent> colOfAgents  = new HashSet();
-	    vertexAgentsNumber.put(vertex, colOfAgents);
-	    
             if(agentsNames == null){
 		continue;
 	    }
-	    
+
             Iterator it = agentsNames.iterator();
 
 	    while(it.hasNext()) {
@@ -282,7 +270,7 @@ public class AgentSimulator {
             data.agent = ag;
             agents.put(ag, data);
 
-	    int nbr = addAgentToVertex(vertex, ag);
+	    addAgentToVertex(vertex, ag);
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -736,7 +724,6 @@ public class AgentSimulator {
 
 
 	int nbr = removeAgentFromVertex(vertexFrom, ag);
-	/*	System.out.println("--"+ vertexFrom.identity().intValue()+"--"+nbr);*/
 	
 	dep = new AgentMovedEvent(keyDep,
 				  mesgPacket.sender(),

@@ -392,7 +392,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param state The new state to affect to the edge
      * @param door Door from which the edge will be changed
      */
-    public void changeDoorState(int door, EdgeState state) {
+    private void changeDoorState(int door, EdgeState state) {
         try {
             simulator.changeDoorState(this, door, state);
         } catch (InterruptedException e) {

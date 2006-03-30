@@ -49,6 +49,9 @@ public class WhiteBoard {
     /**
      * Returns the value associated with  the key. If the key can't be
      * found, throws NoSuchElementException.
+     *
+     * @throws  NoSuchElementException  Thrown  when  <code>key</code>
+     * doesn't exist in the white board.
      */
     public Object getValue(Object key) {
         if (values.containsKey(key))
