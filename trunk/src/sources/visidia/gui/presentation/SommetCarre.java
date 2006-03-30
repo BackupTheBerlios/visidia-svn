@@ -106,7 +106,11 @@ public class SommetCarre extends SommetDessin{
 
    // draw on vertices the number of agents
    if(GuiProperty.drawNbr){
-       g.drawString(getNbr(),x , y );
+       String mesg = getNbr();
+       int stringSize = (int)(g.getFontMetrics().
+			      getStringBounds(mesg,g).
+			      getWidth());
+       g.drawString(mesg,x-stringSize/2 , y );
    }
        
    // affichage d'une icone si elle existe
