@@ -10,6 +10,7 @@ import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
 import visidia.simulation.AgentMovedEvent;
+import visidia.simulation.LabelChangeEvent;
 
 import visidia.simulation.SimulationAbortError;
 import visidia.simulation.SimulatorThreadGroup;
@@ -547,7 +548,19 @@ public class AgentSimulator {
 	    }	
 	    stats.incrementStat("Changes in vertices WhiteBoard");
 	    actualVertex.setProperty(key, value);
+
+	    if(key.equals("label"))
+		{
+		    Long num = new Long(numGen.alloc());
+		    LabelChangeEvent lce = new LabelChangeEvent(num,actualVertex.identity(),(String)value);
+		    try{
+			evtQ.put(lce);		    
+		    }catch(InterruptedException e){
+			throw new SimulationAbortError(e);
+		    }
+		}
 	}
+
     }
 
 

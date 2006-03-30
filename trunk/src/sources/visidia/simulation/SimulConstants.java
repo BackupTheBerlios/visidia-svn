@@ -44,4 +44,6 @@ public class SimulConstants {
 
 
     public static final int AGENT_MOVED = 8;
+
+    public static final int LABEL_CHANGE = 9;
 }

@@ -72,6 +72,10 @@ public class AgentSimulEventHandler extends Thread {
 		case SimulConstants.AGENT_MOVED :
 		    handleAgentMovedEvt(simEvt);
                     break;
+		case SimulConstants.LABEL_CHANGE :
+		    handleLabelChangeEvt(simEvt);
+                    break;
+
 		}
 	    }
 	}
@@ -153,6 +157,15 @@ public class AgentSimulEventHandler extends Thread {
 	
     }
 
+    public void handleLabelChangeEvt(SimulEvent se)
+	    throws InterruptedException {
+
+	LabelChangeEvent lce = (LabelChangeEvent) se;
+
+	Hashtable tableSommet = ((agentsSimulationWindow.getVueGraphe()).rechercherSommet(lce.vertexId().toString())).getStateTable();
+	    tableSommet.put("label",lce.label());
+	    
+    }
 }
 
 
