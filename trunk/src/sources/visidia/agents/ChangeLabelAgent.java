@@ -11,12 +11,6 @@ public class ChangeLabelAgent extends Agent {
         setAgentMover("RandomAgentMover");
 
         do {
-            try{
-                getVertexProperty("label");
-	    }
-	    catch(NoSuchElementException e) {
-	    }
-
             setVertexProperty("label",label);
             move();
         } while (true);
