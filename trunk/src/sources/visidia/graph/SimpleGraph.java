@@ -70,8 +70,8 @@ public class SimpleGraph implements Cloneable, Serializable{
 	return hash.elements();
     }
     
-
-
+    
+    
     /**
      *Retourne le sommet correspondant à l'identité id.
      */	
@@ -81,7 +81,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	if( v == null ){
 	    throw new NoSuchIdException();
 	}
-
+	
 	return v;
     }
     
