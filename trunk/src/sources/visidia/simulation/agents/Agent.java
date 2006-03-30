@@ -353,7 +353,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * If the Vertex properties are locked by another agent, wait until 
      * the lock's freeing.
      *
-     * @param key Key behind which value will be find
+     * @param key Key behind which value will be find
      * @see #lockVertexProperties()
      */
     public Object getVertexProperty(Object key) {
