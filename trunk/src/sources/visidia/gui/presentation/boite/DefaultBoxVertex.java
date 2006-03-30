@@ -36,7 +36,7 @@ public class DefaultBoxVertex
     public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h, 
                             String titre) {
 
-        super(parent,titre,true);
+        super(parent,titre,false);
 
         tbModel = new PropertyTableModel(h);
 

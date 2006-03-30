@@ -390,7 +390,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * vertex.
      *
      * @param state The new state to affect to the edge
-     * @param door Door from which the edge will be changed
+     * @param door Door from which the edge will be changed
      */
     public void changeDoorState(int door, EdgeState state) {
         try {
