@@ -701,7 +701,7 @@ public class AgentsSimulationWindow
 	but_reset.setEnabled(true);
 
         but_agents.setEnabled(false);
-        but_experimentation.setEnabled(false);
+
 
 	global_clock.initState();
     }
@@ -753,6 +753,7 @@ public class AgentsSimulationWindow
 	but_pause.setEnabled(false);
 	but_stop.setEnabled(false);
 	but_reset.setEnabled(true);
+        but_experimentation.setEnabled(false);
 	global_clock.initState();
 	
     }
