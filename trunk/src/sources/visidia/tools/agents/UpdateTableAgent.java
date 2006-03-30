@@ -16,7 +16,6 @@ public class UpdateTableAgent extends UpdateTable {
     public void run() {
         while (! stop) {
             try {
-                System.out.println("dd //xav&nada");
                 synchronized (this) {
                     wait(1000);
                 }

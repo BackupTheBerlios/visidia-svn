@@ -57,11 +57,12 @@ public class AgentRules extends AbstractAgentsRules {
         moveBack();
         Neighbour neighbourV = afterStar.neighbour(0);
         setVertexProperty("label",neighbourV.state());
-        int doorNum = neighbourV.doorNum();
-        if (neighbourV.mark())
-            markDoor(doorNum);
 
-        moveBack();            
+        moveBack();        
+
+        if (neighbourV.mark())
+            markDoor(door);
+
     }
 
     private Star contextStar() {

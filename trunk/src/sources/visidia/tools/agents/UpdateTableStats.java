@@ -20,7 +20,6 @@ public class UpdateTableStats extends UpdateTable {
     public void run() {
         while (! stop) {
             try {
-                System.out.println("dd //jb");
                 synchronized (this) {
                     wait(1000);
                 }
