@@ -11,6 +11,7 @@ import visidia.gui.donnees.TableImages;
 public class SentAgent extends MovableObject {
     private String mesg;
     private MessageSendingEvent event;
+    private boolean moveForward;
     
     /**
      * for dealing with the action made on sending message
@@ -19,6 +20,11 @@ public class SentAgent extends MovableObject {
 	super(a, b, step);
 	this.event = event;
 	this.mesg = event.message().toString();
+
+	if(a.getX() < b.getX())
+	    moveForward = true;
+	else
+	    moveForward = false;
     }
     
     public MessageSendingEvent getEvent(){
@@ -30,8 +36,14 @@ public class SentAgent extends MovableObject {
      *
      */
     public void paint(Graphics g){
-	
-	Image img = TableImages.getImage("homme");
+
+	Image img;
+
+	if(moveForward)
+	    img = TableImages.getImage("miroirHomme");
+	else
+	    img = TableImages.getImage("homme");
+	    
 	int imgHeight = img.getHeight(null);
 	int imgWidth = img.getWidth(null);
 	int stringSize = (int)(g.getFontMetrics().
