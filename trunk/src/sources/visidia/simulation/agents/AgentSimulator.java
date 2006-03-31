@@ -240,8 +240,10 @@ public class AgentSimulator {
     }
 
     /**
-     *
-     *
+     * In charge of  the creation of agents. This  method gives a name
+     * to the agent created and creat it on a specified vertex.
+     * 
+     * @see #createAgent(Class, Vertex, Hashtable).
      */
     private Agent createAgent(String agentName, Vertex vertex,
                               Hashtable defaultAgentValues,
@@ -272,7 +274,11 @@ public class AgentSimulator {
 	}
 	return agent;
     }
-
+    /**
+     * In charge of the creation  of agent given the agent class. This
+     * method creates  a new ProcessData where  the informations about
+     * the agent are stored.
+     */
     private Agent createAgent(Class agentClass, Vertex vertex,
                               Hashtable defaultAgentValues) {
         Agent ag;
@@ -655,14 +661,29 @@ public class AgentSimulator {
         stats.incrementStat("Asleep (ms)", millis);
     }
 
+    /**
+     * Returns  the number  of  vertices  of the  graph  on which  the
+     * simulation is done.
+     */
     public int getNetSize() {
         return graph.size();
     }
 
+    /**
+     * For a given agent returns the identity of the vertex it is on.
+     *
+     * @param ag The agent you want infromation on.
+     */
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
     }
 
+    /**
+     * Sets the agentMover  of the simulation. This method  is used to
+     * use the specified agentMover that you can create yourself.
+     *
+     * @see AgentMover
+     */
     public void setDefaultAgentMover(AgentMover am) {
         defaultAgentMover = am;
     }

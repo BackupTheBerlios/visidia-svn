@@ -104,11 +104,11 @@ public class AgentsSimulationWindow
                                      // AgentBoxChangingVertex for
                                      // each SommetDessin (needed for automatic refresh)
 
-    protected Hashtable<Agent,AgentBoxProperty> boxAgents;
-
     private Hashtable<String,Object> defaultProperties; // To initialize the whiteboards
 
     private UpdateTable timer;
+
+    private Vector<AgentBoxProperty> boxAgents;
 
     public AgentsSimulationWindow(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
@@ -148,7 +148,7 @@ public class AgentsSimulationWindow
 	agentsTable = new Hashtable();
 
         boxVertices = new Hashtable();
-        boxAgents = new Hashtable();
+        boxAgents = new Vector();
         defaultProperties = new Hashtable();
         
 	// The manager of components
@@ -671,25 +671,8 @@ public class AgentsSimulationWindow
     }
 
     public void but_stop() {
-        System.out.println("Stopping the timer");
-        if (timer != null) {
-            timer.stop();
-            timer = null;
-        }
+	this.stopAll();
 
-	System.out.println("Stopping the Simulation panel");
-	simulationPanel.stop();
-	System.out.println("  ==> Stopped");
-	System.out.println("Stopping the Simulator");
-	if (sim != null)
- 	    sim.abortSimulation();
-
-	System.out.println("  ==> Stopped");
-	
-	System.out.println("Stopping the Simulator Event Handler");
-	seh.abort();
-	System.out.println(" ==> Stopped");
-	
 	evtPipeIn = new visidia.tools.VQueue();
 	evtPipeOut = new visidia.tools.VQueue();
 	ackPipeIn = new visidia.tools.VQueue();
@@ -1068,18 +1051,46 @@ public class AgentsSimulationWindow
         }
     }
     
+    private void stopAll() {
+
+	if (sim != null) {   // we kill the threads
+	    
+	    System.out.println("Stopping the timer");
+	    if (timer != null) {
+		timer.stop();
+		timer = null;
+	    }
+	    
+	    System.out.println("Stopping the Simulation panel");
+	    simulationPanel.stop();
+	    System.out.println("  ==> Stopped");
+	    System.out.println("Stopping the Simulator");
+	    if (sim != null)
+		sim.abortSimulation();
+	    
+	    System.out.println("  ==> Stopped");
+	    
+	    System.out.println("Stopping the Simulator Event Handler");
+	    seh.abort();
+	    System.out.println(" ==> Stopped");
+	    
+            seh.abort();
+	}
+    }
     
-          
     /********************************/
     /** Closing the current window **/
     /********************************/
     public void commandeClose() {
-        if (sim != null) {   // we kill the threads
-            simulationPanel.stop();
-            //dam             sim.abortSimulation();
-            seh.abort();
-        }
-
+	   
+	Iterator it = boxAgents.iterator();
+	while (it.hasNext()){
+	    AgentBoxProperty box = (AgentBoxProperty)it.next();	
+	    box.close();
+	    it.remove();
+	}
+	
+	this.stopAll();
 	GuiProperty.drawNbr = false; 
         setVisible(false);
         dispose();
@@ -1246,15 +1257,15 @@ public class AgentsSimulationWindow
         if (ag != null) {
             
             AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard());
-            boxAgents.put(ag,agentBox);
-            agentBox.show(this);
+            boxAgents.addElement(agentBox);
+	    agentBox.show(this);
         }
 
     }
 
 
-    public void removeWindow(SommetDessin vert) {
-        
+    public void removeWindow(AbstractDefaultBox box) {
+        boxAgents.remove(box);
     }
     
     public void changerVueGraphe(VueGraphe grapheVisu){

@@ -45,6 +45,12 @@ public class AgentBoxProperty
         
         table.setModel(tbModel);
 
+	dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+		closingWindow();
+	    }
+	    });
+
         timer = new UpdateTableAgent( (AgentPropertyTableModel) tbModel);
         new Thread(timer).start();
 
@@ -57,7 +63,15 @@ public class AgentBoxProperty
         tbModel.fireTableDataChanged();
     }
 
-
+    public void closingWindow(){
+	parent.removeWindow(this);
+	close();
+    }
+    
+    public void close() {
+	timer.stop();
+    }
+    
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == buttonDone) {
@@ -134,7 +148,8 @@ public class AgentBoxProperty
         
     }
 
-  
+
+    
 
 
 }
