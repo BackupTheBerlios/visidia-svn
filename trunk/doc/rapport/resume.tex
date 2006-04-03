@@ -55,20 +55,20 @@ sur \visidia tout en permettant l'évolution générale du logiciel.
 Il  existe  plusieurs  modèles  permettant de  gérer  les  algorithmes
 distribués.   Le  plus  commun  est  le modèle  de  communication  par
 message.   Chaque  sommet  exécute  un algorithme  indépendamment  des
-autres et envoie ou reçoit  parfois des messages à ses voisins.  C'est
-le modèle  implanté actuellement dans \visidia.   Cependant, ce modèle
-amène  une surconsommation  des  ressources machines;  en effet,  pour
-chaque noeud du graphe, un processus est créé.  Si cela ne pose pas de
-problème  pour  les  petites   expérimentations,  il  est  par  contre
-impossible   de   simuler   des   algorithmes   sur   de   très   gros
-graphes. L'implantation d'un  autre modèle a donc été  envisagé par le
-coordinateur du projet.
+autres et  peut aussi communiquer  avec ses voisins.  C'est  le modèle
+implanté actuellement  dans \visidia.  Cependant, ce  modèle amène une
+surconsommation des ressources machines  ; en effet, pour chaque noeud
+du graphe,  un processus est  créé.  Si cela  ne pose pas  de problème
+pour  les petites expérimentations,  il est  par contre  impossible de
+simuler des algorithmes sur de très gros graphes. C'est en partie pour
+cette raison que l'implantation d'un  autre modèle a été envisagée par
+le coordinateur.
 
 
 \paragraph{Les agents}
 
 Le  modèle  envisagé par  l'équipe  du  \labri  est celui  des  agents
-mobiles.   Dans  ce  modèle,  les  noeuds  du  graphe  n'exécute  plus
+mobiles.   Dans  ce modèle,  les  noeuds  du  graphe n'exécutent  plus
 d'algorithme, ils  deviennent complètement  passifs et ne  peuvent que
 stocker des  informations.  Les agents  sont des entités  autonomes de
 calcul qui se déplacent dans le graphe. Sur chaque sommet, ils peuvent
@@ -83,13 +83,13 @@ d'actions. Il a été démontré que les deux modèles sont équivalents.
 Dans le cadre de la formation d'ingénieurs de l'ENSEIRB\footnote{École
   Nationale     Supérieure     d'Électronique,     Informatique     et
   Radiocommunication  de  Bordeaux}, il  a  été  demandé  à un  groupe
-d'étudiants  d'implanter  le  modèle  à  base  d'agents  mobiles  dans
-\visidia.  Ce projet, d'une  durée de  quatre mois,  doit se  faire en
-respectant le  plus possible les procédures  habituellement suivie par
-l'industrie :  rédaction et validation  par le client d'un  cahier des
-charges,  présentation  régulière  de  livrables en  accord  avec  les
-attentes du client,  respect de délais stricts et  remise d'un rapport
-et d'un manuel d'utilisation et d'évolution.
+  d'étudiants  d'implanter  le modèle  à  base  d'agents mobiles  dans
+  \visidia.  Ce projet, d'une durée de quatre mois, devait se faire en
+  respectant le plus possible les procédures habituellement suivie par
+  l'industrie : rédaction et validation  par le client d'un cahier des
+  charges,  présentation régulière  de  livrables en  accord avec  les
+  attentes du client, respect de délais stricts et remise d'un rapport
+  et d'un manuel d'utilisation et d'évolution.
 
 
 %%% Local Variables: 
