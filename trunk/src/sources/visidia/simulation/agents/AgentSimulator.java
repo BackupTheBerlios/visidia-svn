@@ -101,8 +101,7 @@ public class AgentSimulator {
      */
     public AgentSimulator(SimpleGraph netGraph, Vector agentsRules,
 			  VQueue evtVQ, VQueue ackVQ) {
-        this(netGraph, new Hashtable(), new Vector(), evtVQ, ackVQ);
-	//        this(netGraph, new Hashtable(), agentsRules, evtVQ, ackVQ);
+        this(netGraph, new Hashtable(), agentsRules, evtVQ, ackVQ);
     }
 
     /**
@@ -122,6 +121,7 @@ public class AgentSimulator {
 	fillAgentsTable(graph, defaultAgentValues, agentsRules);
         this.evtQ = evtVQ;
         this.ackQ = ackVQ;
+
 
         movingMonitor = new MovingMonitor(ackQ);
         movingMonitorThread = new Thread(movingMonitor);
@@ -208,9 +208,6 @@ public class AgentSimulator {
             Vertex vertex = (Vertex) vertices.nextElement();
 	    Collection agentsNames = vertex.getAgentsNames();
 
-	    Collection<Agent> colOfAgents  = new HashSet();
-	    vertexAgentsNumber.put(vertex, colOfAgents);
-	    
             if(agentsNames == null){
 		continue;
 	    }
