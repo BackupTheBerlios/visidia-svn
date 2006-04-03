@@ -10,6 +10,7 @@ import visidia.simulation.MessageSendingEvent;
 import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
 import visidia.simulation.AgentMovedEvent;
+import visidia.simulation.LabelChangeEvent;
 
 import visidia.simulation.SimulationAbortError;
 import visidia.simulation.SimulatorThreadGroup;
@@ -70,8 +71,7 @@ public class AgentSimulator {
      * Agent. 
      */
     private AgentMover defaultAgentMover = null;
-
-
+    
     /**
      * evtQ is the queue of the events sent to the AgentSimulEventHandler.
      * ackQ is the queue of ackowledgments received from it.
@@ -102,6 +102,7 @@ public class AgentSimulator {
     public AgentSimulator(SimpleGraph netGraph, Vector agentsRules,
 			  VQueue evtVQ, VQueue ackVQ) {
         this(netGraph, new Hashtable(), new Vector(), evtVQ, ackVQ);
+	//        this(netGraph, new Hashtable(), agentsRules, evtVQ, ackVQ);
     }
 
     /**
@@ -140,7 +141,6 @@ public class AgentSimulator {
 	
 	return vertexAgentsNumber.get( graph.vertex(new Integer(vertexId)) );
     }
-    
     public Hashtable<Vertex, Collection> getAgentPositions() {
 	return vertexAgentsNumber;
     }
@@ -159,19 +159,12 @@ public class AgentSimulator {
      * @see #removeAgentFromAgent(Vertex, Agent)
      */
     private int addAgentToVertex(Vertex vertex, Agent ag){
-
-	if( vertexAgentsNumber.get(vertex) != null){
+	if( vertexAgentsNumber.get(vertex) != null)
 	    vertexAgentsNumber.get(vertex).add(ag);
-	}
 	else{
-	    try{
-		Collection<Agent> colOfAgents  = new HashSet();
-		colOfAgents.add(ag);
-		vertexAgentsNumber.put(vertex,colOfAgents);		
-	    } 
-	    catch(IllegalArgumentException iae){
-		System.out.println("Exception "+iae.getMessage());
-	    }
+            Collection<Agent> colOfAgents  = new HashSet();
+            colOfAgents.add(ag);
+            vertexAgentsNumber.put(vertex,colOfAgents);
 	}
 	return vertexAgentsNumber.get(vertex).size();
     }
@@ -184,16 +177,13 @@ public class AgentSimulator {
      */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
 	if( vertexAgentsNumber.get(vertex) != null)
-	    try{
-		System.out.println("remove Agent From vertex :" +vertex.
-				    identity().intValue());
-		vertexAgentsNumber.get(vertex).remove(ag);
-	    }
-	    catch(NullPointerException npe){
-		System.out.println("Exception "+npe.getMessage());
-	    }
-	
-	return vertexAgentsNumber.get(vertex).size();
+            vertexAgentsNumber.get(vertex).remove(ag);
+	if( vertexAgentsNumber.get(vertex).isEmpty() ) {
+            vertexAgentsNumber.remove(vertex);
+            return 0;
+        }
+        else
+            return vertexAgentsNumber.get(vertex).size();
     }
 
     /**
@@ -224,7 +214,7 @@ public class AgentSimulator {
             if(agentsNames == null){
 		continue;
 	    }
-	    
+
             Iterator it = agentsNames.iterator();
 
 	    while(it.hasNext()) {
@@ -294,7 +284,7 @@ public class AgentSimulator {
             data.agent = ag;
             agents.put(ag, data);
 
-	    int nbr = addAgentToVertex(vertex, ag);
+	    addAgentToVertex(vertex, ag);
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -333,14 +323,7 @@ public class AgentSimulator {
             evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
         }
     }
-
-    //uncommented method : meting organizer
-    //    public void meeting(){
-	
-	
-    //    }
-
-
+    
     /**
      * Moves an Agent to a specified door.
      *
@@ -567,7 +550,19 @@ public class AgentSimulator {
 	    }	
 	    stats.incrementStat("Changes in vertices WhiteBoard");
 	    actualVertex.setProperty(key, value);
+
+	    if(key.equals("label"))
+		{
+		    Long num = new Long(numGen.alloc());
+		    LabelChangeEvent lce = new LabelChangeEvent(num,actualVertex.identity(),(String)value);
+		    try{
+			evtQ.put(lce);		    
+		    }catch(InterruptedException e){
+			throw new SimulationAbortError(e);
+		    }
+		}
 	}
+
     }
 
 
@@ -660,7 +655,6 @@ public class AgentSimulator {
         getThreadFor(ag).sleep(millis);
         stats.incrementStat("Asleep (ms)", millis);
     }
-
     /**
      * Returns  the number  of  vertices  of the  graph  on which  the
      * simulation is done.
@@ -668,7 +662,6 @@ public class AgentSimulator {
     public int getNetSize() {
         return graph.size();
     }
-
     /**
      * For a given agent returns the identity of the vertex it is on.
      *
@@ -677,7 +670,6 @@ public class AgentSimulator {
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
     }
-
     /**
      * Sets the agentMover  of the simulation. This method  is used to
      * use the specified agentMover that you can create yourself.
