@@ -4,6 +4,56 @@ allons  maintenant  faire  un  tour  d'horizon  de  l'implantation  de
 
 \section{But de \visidia}
 
+Comme  nous  l'avons  déjà  vu,  la  visualisation  et  la  simulation
+d'algorithmes distribués  est de plus en plus  nécessaire pour établir
+de  nouveaux   modèles,  trouver   de  nouveaux  algorithmes   et  les
+prouver. C'est dans cette optique que le projet \visidia a été lancé :
+permettre  d'approfondir   les  connaissances  dans   le  domaine  des
+algorithmes distribués en facilitant la simulation et la visualisation
+en temps réel de leurs exécutions.
+
+\section{Représentation des réseaux}
+
+Dans  \visidia comme  dans beaucoup  de  travaux sur  les réseaux,  la
+représentation à  l'aide de graphes est  utilisé. Cette représentation
+permet  d'associer  d'une  façon  très  claire  les  systèmes  ou  les
+processeurs à des noeuds du  graphe et leurs connexions aux arêtes (ou
+arcs).\\
+
+Cette   représentation  nous   permet  de   décrire   les  différentes
+caractéristiques des réseaux.  Par exemple :
+
+\begin{itemize}
+\item   les  liaisons  unidirectionnelles   de  notre   réseau  seront
+représenté grâce à des arcs sur un graphe orienté,
+\item le  poids des arêtes  représentera les délais  d'acheminement de
+l'information entre deux systèmes connectés etc.
+\end{itemize}
+
+\section{Modèle implanté}
+
+L'algorithmique distribuée  est une science qui n'a  pas encore trouvé
+toutes ses  marques. Il  existe de nombreux  modèles pour  décrire les
+algorithmes et même si certains  de ses modèles sont plus utilisés que
+d'autres, aucun  n'a encore  montré de faculté  à supplanter  tous les
+autres.
+
+\subsection{Communication par messages}
+
+Le modèle  choisit pour l'implantation  de \visidia est l'un  des plus
+répandus : il s'agit de  la communication par messages. Dans ce modèle
+chaque noeud, représentant un système ou un processeur, est habilité à
+exécuter  un algorithme. Cet  algorithme possède  certaines primitives
+qui lui  permettent de communiquer avec les  algorithmes implantés sur
+les  noeuds  voisins.  Il  est  par exemple  possible  à  un noeud  de
+demander une synchronisation  avec un ou plusieurs de  ses voisins, de
+leur envoyer  des messages, d'en recevoir etc.   Nous détaillerons ces
+primitives dans la section \ref{sec:existant-api}.
+
+\subsection{Description de l'API existante}
+\label{sec:existant-api}
+\subsection{Exemple d'utilisation}
+
 \section{Architecture générale}
 \subsection{Interface graphique d'édition}
 \subsection{Interface graphique de simulation}
@@ -14,10 +64,7 @@ allons  maintenant  faire  un  tour  d'horizon  de  l'implantation  de
 \subsection{Système unique}
 \subsection{Distribué}
 
-\section{Modèle implanté}
-\subsection{Communication par messages asynchrones}
-\subsection{Description de l'API existante}
-\subsection{Exemple d'utilisation}
+
 
 \section{Limite du modèle actuel}
 
