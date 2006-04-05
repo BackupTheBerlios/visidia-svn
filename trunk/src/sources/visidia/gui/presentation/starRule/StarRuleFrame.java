@@ -50,7 +50,8 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 		    finalThis.setVisible(false);
 		    fileName = null;
 		}
-	    });
+		});
+	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			   
 	JMenuBar menuBar = new JMenuBar();
 	setJMenuBar(menuBar);
