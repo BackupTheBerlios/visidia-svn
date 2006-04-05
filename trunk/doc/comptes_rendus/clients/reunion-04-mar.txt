@@ -1,0 +1,46 @@
+compte-rendu de la réunion du 04/04/2006
+----------------------------------------
+
+Rdv 16h30 au LABRI.
+M. Derbel
+Un chercheur supplémentaire est présent.
+Tous les membres de l'équipe sont présents.
+
+Présentation :
+-------------- 
+
+Cette réunion a  été consacrée à une démonstration  du travail réalisé
+sur ViSiDiA. Les fonctionnalités suivantes ont été présentées :
+
+- règles de réécritures
+- whiteboards des agents et des sommets
+- bonhomme qui change de sens
+- l'agent qui trace sa route et revient sur ses pas
+- le module d'expérimentations avec les statistiques
+- les noms des agents qui changent pendant l'exécution
+- les rencontres entre agents
+- la gestion des accès concurrents au sommet
+
+Quelques bugs ont étés repérés :
+
+- Dans la partie algorithmes, des '0'sont affichés sur les sommets. Ce
+  bug avait déjà était corrigé par Julie.
+- Il faut que la fenêtre d'expérimentation permette de ne pas visualiser
+- Il faut pouvoir choisir le type de visualisation pour l'expérimentation
+- Il semble que les agents se bloquent parfois et ne fassent plus rien
+- On peut utiliser block/unblock  pour gérer les accès concurrents des
+  agents de règles de réécriture.
+
+Le   chercheur  présent   nous  a   remis  une   liste  de   points  à
+revoir. Certains points ne sont pas des erreurs, mais il se peut qu'il
+est trouvé des bugs.
+
+Un article sur la programmation  visuelle d'agents nous a été présenté
+et remis. Il  est possible d'en parler dans le  rapport pour la partie
+"extension"  => "Programming  agents  with visual  rules" par  Richard
+Robinson, Devin Cook et Steven Tanimoto.
+
+Nous  avons  aussi  demandé  quels  étaient les  travaux  existant  et
+concurrents de  ViSiDiA. Il existe un logiciel  "Network Simulator" et
+on nous a remis un  programme de simulation de réseau cellulaire (type
+grille).
