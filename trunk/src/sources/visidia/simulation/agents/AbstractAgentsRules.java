@@ -2,7 +2,7 @@ package visidia.simulation.agents;
 
 import visidia.rule.RelabelingSystem;
     
-public abstract class AbstractAgentsRules extends Agent {
+public abstract class AbstractAgentsRules extends SynchronizedAgent {
     
     private RelabelingSystem rSys = null;
 

@@ -47,6 +47,7 @@ public class AgentRules extends AbstractAgentsRules {
 	    else {
                 waitForWB();
             }
+            nextPulse();
             randomWalk();
         }
     }
