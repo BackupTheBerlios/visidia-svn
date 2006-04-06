@@ -75,6 +75,9 @@ public class AgentSimulEventHandler extends Thread {
 		case SimulConstants.LABEL_CHANGE :
 		    handleLabelChangeEvt(simEvt);
                     break;
+		case SimulConstants.NEXT_PULSE :
+		    handleNextPulse(simEvt);
+		    break;
 
 		}
 	    }
@@ -166,6 +169,12 @@ public class AgentSimulEventHandler extends Thread {
 				 rechercherSommet(lce.vertexId().toString())).getStateTable();
 	tableSommet.put("label",lce.label());
 	    
+    }
+
+    public void handleNextPulse(SimulEvent se) {
+
+	int pulse = ((NextPulseEvent)se).pulse();
+	agentsSimulationWindow.setPulse(pulse);
     }
 }
 

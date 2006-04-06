@@ -11,6 +11,7 @@ import visidia.simulation.MessagePacket;
 import visidia.simulation.EdgeStateChangeEvent;
 import visidia.simulation.AgentMovedEvent;
 import visidia.simulation.LabelChangeEvent;
+import visidia.simulation.NextPulseEvent;
 
 import visidia.simulation.SimulationAbortError;
 import visidia.simulation.SimulatorThreadGroup;
@@ -389,6 +390,21 @@ public class AgentSimulator {
 	if (getLastVertexSeen(ag) == null)
             throw new IllegalStateException();
         return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
+    }
+
+    /**
+     * Sends an event to tell graphical interface that a new pulse
+     * is starting
+     * @param pulse the current pulse
+     */
+    public void newPulse(int pulse) 
+	throws InterruptedException {
+	
+	Long key = new Long(numGen.alloc());
+	NextPulseEvent event = new NextPulseEvent(key,pulse);
+
+	evtQ.put(event);
+	stats.incrementStat("Pulse");
     }
 
     /**

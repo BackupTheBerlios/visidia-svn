@@ -518,7 +518,20 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
-    };
+    }
+
+
+    /**
+     * Tells the simulator that a SynchronizedAgent starts a new pulse.
+     */ 
+    protected void newPulse(int pulse) {
+	try {
+	    simulator.newPulse(pulse);
+	} catch(InterruptedException e) {
+            throw new SimulationAbortError(e);
+        }
+    }
+
 
     /**
      * Increments statistics for the key  \a key. Use this method when

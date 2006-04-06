@@ -45,7 +45,7 @@ public class AgentsSimulationWindow
     protected JButton but_info , but_regles , but_reset;
     protected JButton but_default;
     protected JButton but_agents;
-    protected PulseButton global_clock;
+    protected AgentPulse global_clock;
 
     // save an execution
     protected JMenu trace;
@@ -452,12 +452,6 @@ public class AgentsSimulationWindow
         
         toolBar.add(speed_panel);
 
-
-        global_clock = new PulseButton();
-	toolBar.add(global_clock);
-
-
-
         toolBar.addSeparator();
 
    
@@ -518,7 +512,11 @@ public class AgentsSimulationWindow
         but_reset.setEnabled((fichier_edite != null));
         toolBar.add(but_reset);
         
+	global_clock = new AgentPulse();
+
         content.add(toolBar, BorderLayout.NORTH);
+	content.add(global_clock, BorderLayout.SOUTH);
+
     }
     
     
@@ -789,7 +787,7 @@ public class AgentsSimulationWindow
     }
 
 
-    public void setUpTimeUnits(int pulse) {
+    public void setPulse(int pulse) {
 	//PulseFrame pulseFrame = new PulseFrame();
 	//pulseFrame.setPulse(pulse);
 	//global_clock.setToolTipText("Click to view time units");

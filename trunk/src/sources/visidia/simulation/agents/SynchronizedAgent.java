@@ -15,6 +15,7 @@ public abstract class SynchronizedAgent extends Agent {
      */
     private static int nbAgents = 0;
     private static int count = 0;
+    private static int pulseNumber = 0;
     private static Boolean synchronisation = new Boolean(true);
     SimpleMeetingOrganizer meetOrg = new SimpleMeetingOrganizer(); 
     /**
@@ -35,6 +36,7 @@ public abstract class SynchronizedAgent extends Agent {
     public static void clear() {
         nbAgents = 0;
         count = 0;
+	pulseNumber = 0;
     }
     /**
      * Call  this   method  when  you   want  synchronisation  between
@@ -42,7 +44,7 @@ public abstract class SynchronizedAgent extends Agent {
      * finished.
      */
     public void nextPulse() {
-     
+	
 	synchronized( synchronisation ) {
 	    ++count;
 
@@ -77,9 +79,9 @@ public abstract class SynchronizedAgent extends Agent {
     }
 
     protected void unblockAgents() {
-	    incrementStat("Pulse");
-	    count = 0;
-	    synchronisation.notifyAll();
+	super.newPulse(++pulseNumber);
+	count = 0;
+	synchronisation.notifyAll();
     }
 
     /**
@@ -95,10 +97,8 @@ public abstract class SynchronizedAgent extends Agent {
 	    
 	    /* I have to check if the other agents 
 	       are not waiting for me */
-	    if( count == nbAgents ) {
-		count = 0;
-		synchronisation.notifyAll();
-	    }
+	    if( count == nbAgents )
+		unblockAgents();
 
 	}
 
