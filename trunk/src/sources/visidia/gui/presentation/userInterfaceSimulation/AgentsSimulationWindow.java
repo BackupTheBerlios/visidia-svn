@@ -650,7 +650,12 @@ public class AgentsSimulationWindow
 
         but_agents.setEnabled(true);
         but_experimentation.setEnabled(true);
-	
+
+	algo_open.setEnabled(false); 
+	algo_placeAgent.setEnabled(false);
+	rules_open.setEnabled(false);
+	rules_new.setEnabled(false);
+
         sim.startSimulation();
 
     }
@@ -734,6 +739,14 @@ public class AgentsSimulationWindow
 	but_stop.setEnabled(false);
 	but_reset.setEnabled(true);
         but_experimentation.setEnabled(false);
+
+	/* enable the button to add agents */
+	algo_open.setEnabled(true); 
+	algo_placeAgent.setEnabled(true);
+	rules_open.setEnabled(true);
+	rules_new.setEnabled(true);
+
+	/* reinitialize the pulse counter */
 	global_clock.initState();
 	
     }
