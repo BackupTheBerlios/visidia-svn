@@ -177,8 +177,7 @@ public class AgentSimulator {
      * @see #addAgentToVertex(Vertex, Agent)
      */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
-	if( vertexAgentsNumber.get(vertex) != null)
-            vertexAgentsNumber.get(vertex).remove(ag);
+        vertexAgentsNumber.get(vertex).remove(ag);
 	if( vertexAgentsNumber.get(vertex).isEmpty() ) {
             vertexAgentsNumber.remove(vertex);
             return 0;
@@ -621,7 +620,6 @@ public class AgentSimulator {
      * all the threads and clears all data related to their storage.
      */
     public void abortSimulation() {
-
         while(movingMonitorThread.isAlive()) {
             movingMonitorThread.interrupt();
             try {
