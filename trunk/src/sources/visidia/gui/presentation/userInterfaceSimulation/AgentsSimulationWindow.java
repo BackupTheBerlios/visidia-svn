@@ -1056,7 +1056,7 @@ public class AgentsSimulationWindow
     /** Closing the current window **/
     /********************************/
     public void commandeClose() {
-	   
+
 	Iterator it = boxAgents.iterator();
 	while (it.hasNext()){
 	    AgentBoxProperty box = (AgentBoxProperty)it.next();	
