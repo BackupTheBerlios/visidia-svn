@@ -3,7 +3,7 @@ package visidia.simulation.agents;
 import java.util.NoSuchElementException;
 
 import visidia.misc.MarkedState;
-
+import visidia.simulation.SimulationAbortError;
 import visidia.rule.Neighbour;
 import visidia.rule.RelabelingSystem;
 import visidia.rule.Rule;
@@ -101,7 +101,7 @@ public class AgentRules extends AbstractAgentsRules {
                     wait(1000);
                 } 
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new SimulationAbortError(e);
             }
         }
     }

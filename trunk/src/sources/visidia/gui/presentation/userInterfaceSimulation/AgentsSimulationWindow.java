@@ -90,8 +90,6 @@ public class AgentsSimulationWindow
     protected boolean[][] edgesStates = null;
     protected AbstractRule rsAlgo; // The algorithm witch will simulate the relabeling system
 
-    protected boolean simulationAlgo = false;
-    protected boolean simulationRules = false;
     protected static ThreadCountFrame threadCountFrame;
     public static boolean visuAlgorithmMess = true;
     public static boolean visuSynchrMess = true;
@@ -705,9 +703,10 @@ public class AgentsSimulationWindow
 
     public void but_reset() {
 	simulationPanel.stop();
-	if (sim != null)
+	if (sim != null) {
  	    sim.abortSimulation();
-	
+            sim = null;
+        }
         if (seh != null)
             seh.abort();
 	
@@ -875,42 +874,33 @@ public class AgentsSimulationWindow
         //             }
         //         }
         if(mi == algo_open){
-            if(simulationRules){
-                JOptionPane.showMessageDialog(this, "you had already entered rules",
-					      "warning",
-					      JOptionPane.WARNING_MESSAGE);
+            boolean ok = true;
+            
+            if(selection.estVide()) {
+                JOptionPane
+                    .showMessageDialog(this,
+                                       "You must select at least one"
+                                       + " vertex!",
+                                       "Warning",
+                                       JOptionPane.WARNING_MESSAGE);
+                return;
             }
             
-            else {
-		boolean ok = true;
-
-                if(selection.estVide()) {
-                    JOptionPane
-                        .showMessageDialog(this,
-                                           "You must select at least one"
-                                           + " vertex!",
-                                           "Warning",
-                                           JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-		if(DistributedAlgoSimulator.estStandalone())
-		    ok = OpenAgents.open(selection.elements(),this);
-		else
-                    //                    OpenAlgoApplet.open(this);
-                    ;
-                simulationAlgo = ok ;
-
-		if(! but_start.isEnabled())
-		    but_start.setEnabled(ok);
-            }
+            if(DistributedAlgoSimulator.estStandalone())
+                ok = OpenAgents.open(selection.elements(),this);
+            else
+                //                    OpenAlgoApplet.open(this);
+                ;
+            
+            if(! but_start.isEnabled())
+                but_start.setEnabled(ok);
+            
         }
-
+        
         if (mi == algo_placeAgent) {
             boolean ok = true;
 
             ok = OpenAgentChooser.open(this);
-            simulationAlgo = ok ;
 
             if(! but_start.isEnabled())
                 but_start.setEnabled(ok);
@@ -921,54 +911,48 @@ public class AgentsSimulationWindow
     /* Method for the fonctionnalities of the "rules" menu.      */
     /*************************************************************/
     public void menuRules(JMenuItem mi) {
+        if(selection.estVide()) {
+            JOptionPane
+                .showMessageDialog(this,
+                                   "You must select at least one"
+                                   + " vertex!",
+                                   "Warning",
+                                   JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
 	if (mi == rules_open) {
-            if(simulationAlgo){
-                JOptionPane.showMessageDialog(this, 
-					      "An algorithm has already been selected",
-					      "Warning",
-					      JOptionPane.WARNING_MESSAGE);
-            } else {
-		final javax.swing.filechooser.FileFilter filter = 
-		    new javax.swing.filechooser.FileFilter () {
-			public boolean accept (File f) {
-			    String n = f.getName ();
-			    return n.endsWith ("srs");
-			}
-			public String getDescription () {
-			    return "srs (star rules system) files";
-			}
-		    };
+            final javax.swing.filechooser.FileFilter filter = 
+                new javax.swing.filechooser.FileFilter () {
+                    public boolean accept (File f) {
+                        String n = f.getName ();
+                        return n.endsWith ("srs");
+                    }
+                    public String getDescription () {
+                        return "srs (star rules system) files";
+                    }
+                };
 		
-		JFileChooser chooser = new JFileChooser ();
-		chooser.setDialogType (JFileChooser.OPEN_DIALOG);
-		chooser.setFileFilter (filter);
-		chooser.setCurrentDirectory (new File ("./"));
-		int returnVal = chooser.showOpenDialog (this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-		    try {
-			String fName = chooser.getSelectedFile().getPath();
-			FileInputStream istream = new FileInputStream(fName);
-			ObjectInputStream p = new ObjectInputStream(istream);
-			RelabelingSystem rSys = (RelabelingSystem) p.readObject();
-			istream.close();
-			applyStarRulesSystem(rSys);
-		    } catch (IOException ioe) {
-			System.out.println (ioe);
-		    } catch (ClassNotFoundException cnfe) {
-			System.out.println (cnfe);
-		    }
-		}
-	    }
+            JFileChooser chooser = new JFileChooser ();
+            chooser.setDialogType (JFileChooser.OPEN_DIALOG);
+            chooser.setFileFilter (filter);
+            chooser.setCurrentDirectory (new File ("./"));
+            int returnVal = chooser.showOpenDialog (this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String fName = chooser.getSelectedFile().getPath();
+                    FileInputStream istream = new FileInputStream(fName);
+                    ObjectInputStream p = new ObjectInputStream(istream);
+                    RelabelingSystem rSys = (RelabelingSystem) p.readObject();
+                    istream.close();
+                    applyStarRulesSystem(rSys);
+                } catch (IOException ioe) {
+                    System.out.println (ioe);
+                } catch (ClassNotFoundException cnfe) {
+                    System.out.println (cnfe);
+                }
+            }
         } else if (mi == rules_new) {
-	    if (simulationAlgo) {
-		int res = JOptionPane.showConfirmDialog 
-		    (this, "The algorithm has already been selected ;\n if " 
-		     + "you continue, you will not be able to apply new rules.\n "
-		     + "Continue ? ", "Open new rule", JOptionPane.YES_NO_OPTION);
-		if (res == JOptionPane.NO_OPTION) {
-		    return;
-		}
-	    }
 	    StarRuleFrame starRuleFrame = new StarRuleFrame((JFrame) this,
 							    (ApplyStarRulesSystem) this);
 	    starRuleFrame.setVisible(true);
@@ -977,14 +961,6 @@ public class AgentsSimulationWindow
     
 
     public void applyStarRulesSystem(RelabelingSystem rSys) {
-	if (simulationRules) {
-	    JOptionPane.showMessageDialog(this, 
-					  "An algorithm has already been selected",
-					  "Warning",
-					  JOptionPane.WARNING_MESSAGE);
-	    return;
-	}
-	simulationRules = true;
 	rulesWarnings(rSys);
 
         if (agentsRules == null)
@@ -1027,12 +1003,10 @@ public class AgentsSimulationWindow
             
         }
         else if (mi == item_nothing) {
-            if (simulationAlgo == false)
-                but_start.setEnabled(false);
+            but_start.setEnabled(false);
         }
         else if (mi == item_saveTrace){
-            if (simulationAlgo == false)
-                but_start.setEnabled(false);
+            but_start.setEnabled(false);
         }
         else if(mi == item_chose) {
             File f = SaveTrace.save(this);
