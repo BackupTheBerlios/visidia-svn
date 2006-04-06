@@ -11,15 +11,13 @@ import visidia.simulation.agents.SimpleMeetingOrganizer;
  * I wait 1 second between each move and I move 10 times before dying.
  */
 public class BasicSynchronizedAgentMeet extends SynchronizedAgent {
-    static int j = 0;
-    int i = 0;
-    //    SimpleMeetingOrganizer meetOrg = new SimpleMeetingOrganizer(); 
-    static {
-	j++;
-    }
-    
-    public void planning(Agent agent){
-	System.out.println(this.toString()+" : Vous etes le monsieur "+(i++)+" que je rencontre today."+ agent.toString());
+
+    static int i = 0;
+
+    /* Exemple of planning
+     */
+    public void planning(SynchronizedAgent agent){
+	System.out.println(this.toString()+" : Your are the  "+(i++)+"th agent that I met : "+ agent.toString());
     }
 
     protected void init() {
@@ -37,7 +35,6 @@ public class BasicSynchronizedAgentMeet extends SynchronizedAgent {
              */
 	    
             nextPulse();
-	    //	    meetOrg.howToMeetTogether(this.agentsOnVertex());
             move();
 	}
 
