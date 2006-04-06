@@ -63,8 +63,8 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
     }
 
     /**
-     * Cree une nouvelle boite appelée "titre" pour afficher les
-     * caractéristiques de "un_objet".
+     * Cree une nouvelle boite appelee "titre" pour afficher les
+     * caracteristiques de "un_objet".
      */
     public BoiteChangementEtatArete(FenetreDeSimulation parent,
 			       Ensemble uneSelection,
@@ -186,11 +186,12 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
     }
     if(e.getSource() == buttonApply) {
 	buttonOk();
-	if ( parentDist == null )
+	if ( parent != null )
 	    parent.repaint();
-	else 
+	else if( parentAgent != null)
+	    parentAgent.repaint();
+	else
 	    parentDist.repaint();
-	//parent.repaint();
 	modif = false;
 	buttonApply.setEnabled(false);
      
@@ -213,39 +214,23 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
     /** Cette methode est appelée si l'utilisateur appuie sur le
      * bouton Ok.*/
     public void buttonOk() {
-	if ( parentDist == null ) {
-	    Enumeration e = selectionAretes.elements();
-	    while(e.hasMoreElements()) {
-		AreteDessin areteCourante = (AreteDessin)e.nextElement();
-		areteCourante.setEtat(estMarquee);
-		//areteCourante.setFailure(hasFailure);
-		//parent.setEdgeState(areteCourante.getId1(),
-		//areteCourante.getId2(), hasFailure);
-		//parent.setEdgeState(areteCourante.getId2(),
-		//areteCourante.getId1(), hasFailure);
-	    }
-	    parent.simulationPanel().repaint();
-	}
-	else {
-	    Enumeration e = selectionAretes.elements();
-	    while(e.hasMoreElements()) {
-		AreteDessin areteCourante = (AreteDessin)e.nextElement();
-		areteCourante.setEtat(estMarquee);
-		//areteCourante.setFailure(hasFailure);
-		//parentDist.setEdgeState(areteCourante.getId1(),
-		//areteCourante.getId2(), hasFailure);
-		//parentDist.setEdgeState(areteCourante.getId2(),
-		//areteCourante.getId1(), hasFailure);
-	    }
-	    parentDist.simulationPanel().repaint();
+	Enumeration e = selectionAretes.elements();
+	while(e.hasMoreElements()) {
+	    AreteDessin areteCourante = (AreteDessin)e.nextElement();
+	    areteCourante.setEtat(estMarquee);
+	    //areteCourante.setFailure(hasFailure);
+	    //parent.setEdgeState(areteCourante.getId1(),
+	    //areteCourante.getId2(), hasFailure);
+	    //parent.setEdgeState(areteCourante.getId2(),
+	    //areteCourante.getId1(), hasFailure);
 	}
 
-	       /*
-	Enumeration e = selectionAretes.elements();
-	while(e.hasMoreElements())
-	((AreteDessin)e.nextElement()).setEtat(estMarquee);
-	parent.simulationPanel().repaint();
-	       */
+	if(parent != null)
+	    parent.simulationPanel().repaint();
+	else if(parentAgent != null)
+	    parentAgent.simulationPanel().repaint();
+	else
+	    parentDist.simulationPanel().repaint();
     }
     
     
