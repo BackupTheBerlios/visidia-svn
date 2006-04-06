@@ -63,6 +63,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     private static int createdAgentCount = 0;
 
+    private static Boolean askForLock = new Boolean(true);
+
     /**
      * Default  constructor. Creates  a new  agent and  assigns  it an
      * unique identifier.  Don't forget to  use setSimulator() because
@@ -348,6 +350,21 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public boolean vertexPropertiesLocked() {
 	return simulator.vertexPropertiesLocked(this);
+    }
+
+    /**
+     *
+     */
+    public boolean lockVertexIfPossible() {
+        boolean lock;
+        
+        synchronized (askForLock) {
+            lock = vertexPropertiesLocked();
+            if (lock)
+                return false;
+            lockVertexProperties();
+            return true;
+        }
     }
 
     /**
