@@ -48,10 +48,8 @@ public class AgentsSimulationWindow
     protected AgentPulse global_clock;
 
     // save an execution
-    protected JMenu trace;
     protected ButtonGroup item_group;
-    protected JRadioButtonMenuItem item_nothing, item_saveTrace, item_replay;
-    protected File fileSaveTrace;
+    protected JRadioButtonMenuItem item_nothing, item_replay;
     protected ObjectWriter writer;
     
     protected JMenuItem item_chose, item_file;
@@ -134,7 +132,7 @@ public class AgentsSimulationWindow
         evtPipeOut = new visidia.tools.VQueue();
         ackPipeIn = new visidia.tools.VQueue();
         ackPipeOut = new visidia.tools.VQueue();
-        fileSaveTrace = new File("trace_1.trace");
+
         writer = new ObjectWriter();
         
         tg = new ThreadGroup("recorder");
@@ -334,45 +332,6 @@ public class AgentsSimulationWindow
 	rules.add(rules_open);
 	
 	menuBar.add(rules);
-                
-        trace = new JMenu("Trace");
-        trace.getPopupMenu().setName("PopTrace");
-        trace.setMnemonic('T');
-        
-        item_nothing = new JRadioButtonMenuItem("Nothing");
-        item_nothing.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        item_nothing.addActionListener(this);
-        item_nothing.setSelected(true);
-        item_group = new ButtonGroup();
-        item_group.add(item_nothing);
-        trace.add(item_nothing);
-        
-        item_saveTrace = new JRadioButtonMenuItem("Save trace");
-        item_saveTrace.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        item_saveTrace.addActionListener(this);
-        item_group.add(item_saveTrace);
-        trace.add(item_saveTrace);
-        
-        item_replay = new JRadioButtonMenuItem("Replay");
-        item_replay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
-        item_replay.addActionListener(this);
-        item_group.add(item_replay);
-        trace.add(item_replay);
-        
-        trace.addSeparator();
-        
-        item_chose = new JMenuItem("Chose a file");
-        item_chose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        item_chose.addActionListener(this);
-        trace.add(item_chose);
-        
-        trace.addSeparator();
-        
-        item_file = new JMenuItem(fileSaveTrace.getName());
-        trace.add(item_file);
-        
-        menuBar.add(trace);
-        
         
         /*
 	  visualizationOptions  = new VisualizationOptions(this);
@@ -525,7 +484,6 @@ public class AgentsSimulationWindow
         file_quit.setEnabled(false);
         rules.setEnabled(false);
         graph.setEnabled(false);
-        trace.setEnabled(false);
         rules_new.setEnabled(false);
         but_save.setEnabled(false);
         but_experimentation.setEnabled(false);
@@ -579,8 +537,6 @@ public class AgentsSimulationWindow
             menuAlgo(mi);
         else if(le_menu == "PopRules")
             menuRules(mi);
-        else if(le_menu == "PopTrace")
-            menuTrace(mi);
         /*else if(le_menu == "PopRules_new")
 	  menuNew(mi);*/
         
@@ -611,36 +567,13 @@ public class AgentsSimulationWindow
 	    }
 	}
         
-	if (item_saveTrace.isSelected()){
-	    fileSaveTrace.delete();
-	    try {
-		writer.close();
-	    }
-	    catch (Exception e) {
-	    }
-	    writer.open(fileSaveTrace);
-	    writer.writeObject(vueGraphe.getGraphe());
-            
-	    RecorderEvent recorderEvent = new RecorderEvent(evtPipeIn, evtPipeOut, writer);
-	    RecorderAck recorderAck = new RecorderAck(ackPipeIn, ackPipeOut, writer);
-	    new Thread(tg, recorderEvent).start();
-	    new Thread(tg, recorderAck).start();
-            //dam 	    sim = new AgentSimulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
-	}
-	else if (item_replay.isSelected()){
-	    visidia.simulation.Reader reader = new visidia.simulation.Reader(ackPipeOut, evtPipeOut, fileSaveTrace);
-	    reader.read();
-	    new Thread(tg, reader).start();
-	}
-	else if (item_nothing.isSelected())
-	    sim = new AgentSimulator(Convertisseur
-                                     .convert(vueGraphe.getGraphe(),
-                                              agentsTable,
-                                              defaultProperties),
-				     agentsRules,
-                                     evtPipeOut, ackPipeOut);
+        sim = new AgentSimulator(Convertisseur
+                                 .convert(vueGraphe.getGraphe(),
+                                          agentsTable,
+                                          defaultProperties),
+                                 agentsRules,
+                                 evtPipeOut, ackPipeOut);
 
-	
         seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
  	seh.start();
 
@@ -691,16 +624,17 @@ public class AgentsSimulationWindow
     }
 
     public void but_experimentation() {
-
-        HashTableFrame statsFrame = new HashTableFrame(sim.getStats());
+        AgentExperimentationFrame statsFrame;
+        statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
+                                                   defaultProperties, agentsRules);
         statsFrame.setTitle("Agents Experiments");
         statsFrame.pack();
         statsFrame.setVisible(true);
 
-        if (timer == null) {
-            timer = new UpdateTableStats(sim, statsFrame.getTableModel());
-            new Thread(timer).start();
-        }
+     //    if (timer == null) {
+//             timer = new UpdateTableStats(sim, statsFrame.getTableModel());
+//             new Thread(timer).start();
+//         }
     }
     
 
@@ -841,8 +775,10 @@ public class AgentsSimulationWindow
             simulationPanel.revalidate();
             simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
             simulationPanel.repaint();
-            if (item_replay.isSelected())
+            if (item_replay.isSelected()) {
                 but_start.setEnabled(true);
+                but_experimentation.setEnabled(true);
+            }
             else
                 but_start.setEnabled(false);
             but_pause.setEnabled(false);
@@ -903,8 +839,10 @@ public class AgentsSimulationWindow
                 //                    OpenAlgoApplet.open(this);
                 ;
             
-            if(! but_start.isEnabled())
+            if(! but_start.isEnabled()) {
                 but_start.setEnabled(ok);
+                but_experimentation.setEnabled(ok);
+            }
             
         }
         
@@ -913,8 +851,10 @@ public class AgentsSimulationWindow
 
             ok = OpenAgentChooser.open(this);
 
-            if(! but_start.isEnabled())
+            if(! but_start.isEnabled()) {
                 but_start.setEnabled(ok);
+                but_experimentation.setEnabled(ok);
+            }
         }
     }
     
@@ -989,51 +929,7 @@ public class AgentsSimulationWindow
 	}
 
 	but_start.setEnabled(true);
-    }
-    
-    /*************************************************************/
-    /* Method for the fonctionnalities of the "trace" menu.      */
-    /*************************************************************/
-    public void menuTrace(JMenuItem mi) {
-        if (mi == item_replay){
-            but_start.setEnabled(true);
-            but_reset.setEnabled(true);
-            
-            evtPipeIn = new visidia.tools.VQueue();
-            evtPipeOut = new visidia.tools.VQueue();
-            ackPipeIn = new visidia.tools.VQueue();
-            ackPipeOut = new visidia.tools.VQueue();
-            
-            OpenGraph.open(this,fileSaveTrace);
-            //             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-            replaceSelection(new SelectionDessin());
-            simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-            simulationPanel.revalidate();
-            simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-            simulationPanel.repaint();
-            
-        }
-        else if (mi == item_nothing) {
-            but_start.setEnabled(false);
-        }
-        else if (mi == item_saveTrace){
-            but_start.setEnabled(false);
-        }
-        else if(mi == item_chose) {
-            File f = SaveTrace.save(this);
-            if (f != null) {
-                fileSaveTrace = f;
-                item_file.setText(f.getName());
-                
-                OpenGraph.open(this,fileSaveTrace);
-                //                 algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-                replaceSelection(new SelectionDessin());
-                simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-                simulationPanel.revalidate();
-                simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-                simulationPanel.repaint();
-            }
-        }
+        but_experimentation.setEnabled(true);
     }
     
     private void stopAll() {
@@ -1269,10 +1165,7 @@ public class AgentsSimulationWindow
         return evtPipeOut;
     }
     public visidia.tools.VQueue getAckPipe(){
-        if (item_saveTrace.isSelected())
-            return ackPipeIn;
-        else
-            return ackPipeOut;
+        return ackPipeOut;
     }
     public void setEdgeState(int id1, int id2, boolean hasFailure) {
         edgesStates[id1][id2] = hasFailure;
