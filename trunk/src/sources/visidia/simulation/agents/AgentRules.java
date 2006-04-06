@@ -23,31 +23,31 @@ public class AgentRules extends AbstractAgentsRules {
 
 	while (true) {
 
-	    v = getVertexIdentity();
-            labelV = (String)getVertexProperty("label");
-	    if (write(v)) {
+            if (lockVertexIfPossible()) {
+                v = getVertexIdentity();
+                labelV = (String)getVertexProperty("label");
                 step = 1;
-                setWB(true);
+
                 randomMove();
 
 		u = getVertexIdentity();
-                labelU = (String)getVertexProperty("label");
-                door = entryDoor();
+
+                if (lockVertexIfPossible()) {
+                    labelU = (String)getVertexProperty("label");
+                    door = entryDoor();
                 
-		if(write(u)) {
-                    if(!getWB()) {
-                        System.out.print("Handshake success");
-                        applyRule();
-                    }
-		}
+                    System.out.print("Handshake success");
+                    applyRule();
+                    unlockVertexProperties();
+                }
+
                 moveBack();
-                setWB(false);
+                unlockVertexProperties();
 	    }
 	    else {
-                waitForWB(false);
+                waitForWB();
             }
             randomWalk();
-            nextPulse();
         }
     }
 
@@ -94,8 +94,8 @@ public class AgentRules extends AbstractAgentsRules {
         return star;
     }
 
-    private void waitForWB(boolean bool) {
-        while (getWB() != bool) {
+    private void waitForWB() {
+        while (vertexPropertiesLocked()) {
             try {
                 synchronized (this) {
                     wait(1000);
@@ -115,21 +115,6 @@ public class AgentRules extends AbstractAgentsRules {
         step = 5;
 	setAgentMover("RandomWalk");
 	move();
-    }
-
-    private void setWB(boolean bool) {
-        setVertexProperty("wb",new Boolean(bool));
-    }
-   
-    private boolean getWB() {
-        boolean bool;
-        try {
-            bool = ((Boolean)getVertexProperty("wb")).booleanValue();
-        } catch (NoSuchElementException e) {
-            setWB(false);
-            bool = false;
-        }
-        return bool;
     }
 }
 
