@@ -143,12 +143,12 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
 
     // Meeting organizer :
-    protected boolean meet = false;
-    protected void planning(Agent agent){
-	if( meet == true ){
-	    System.out.println("Hello ... how r u ? " + agent.toString());
-	}
-    }
+//     protected boolean meet = false;
+//     protected void planning(Agent agent){
+// 	if( meet == true ){
+// 	    System.out.println("Hello ... how r u ? " + agent.toString());
+// 	}
+//     }
     
     public Collection agentsOnVertex(){
 	return simulator.getAgentsVertexCollection(this.getVertexIdentity());

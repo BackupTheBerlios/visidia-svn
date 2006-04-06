@@ -137,11 +137,17 @@ public class AgentSimulator {
     private int getAgentsVertexNumber(Vertex vertex){
 	return vertexAgentsNumber.get(vertex).size();
     }
-    // no comments *****************
+    /** Return the collection af agents which are on 
+     * the vertex that have the vertexId as the id.
+     *
+     * @param vertexId The vertex id.
+     */
     public Collection getAgentsVertexCollection(int vertexId) {
 	
 	return vertexAgentsNumber.get( graph.vertex(new Integer(vertexId)) );
     }
+    
+    
     public Hashtable<Vertex, Collection> getAgentPositions() {
 	return vertexAgentsNumber;
     }

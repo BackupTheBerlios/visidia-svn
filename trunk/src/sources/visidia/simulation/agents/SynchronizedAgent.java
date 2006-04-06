@@ -1,6 +1,8 @@
 package visidia.simulation.agents;
 
 import visidia.simulation.SimulationAbortError;
+import java.util.Collection;
+import java.util.Hashtable;
 
 /**
  *  Extend this class to implement Synchronized Agents
@@ -17,7 +19,10 @@ public abstract class SynchronizedAgent extends Agent {
     private static int count = 0;
     private static int pulseNumber = 0;
     private static Boolean synchronisation = new Boolean(true);
-    SimpleMeetingOrganizer meetOrg = new SimpleMeetingOrganizer(); 
+    protected    SimpleMeetingOrganizer meetOrg = new SimpleMeetingOrganizer(); 
+    protected boolean meet = false;
+    protected Hashtable<Integer, String> meetedAgentsnames;
+    protected static Integer meetingnum = 0;
     /**
      * Creates  a new  synchronized  agent. The  variable nbAgents  is
      * incremented  so  that  the  synchronisation is  handled.  Every
@@ -26,6 +31,7 @@ public abstract class SynchronizedAgent extends Agent {
     public SynchronizedAgent() {
         super();
 	meet = true;
+	meetedAgentsnames = new Hashtable<Integer,String>();
         ++nbAgents;
     }
 
@@ -42,12 +48,17 @@ public abstract class SynchronizedAgent extends Agent {
      * Call  this   method  when  you   want  synchronisation  between
      * agents. Every  synchronized agent will wait until  the last has
      * finished.
+     * The meeting is organized if the agent accept this and the number
+     * of agents is at less 2.
      */
     public void nextPulse() {
 	
 	synchronized( synchronisation ) {
 	    ++count;
 
+	    if( (meet == true) && (this.agentsOnVertex().size() > 1) )
+		meetOrg.howToMeetTogether(this.agentsOnVertex());
+		
 	    if( count < nbAgents ) {
 		try {
 		    synchronisation.wait();
@@ -58,25 +69,18 @@ public abstract class SynchronizedAgent extends Agent {
 		return;
 	    }
 
-	    if( meet == true ){
-		System.out.println("meet est a true");
-		// on ne fait une rencontre que lorsaue le nombre d'agent est
-		// superieur a 2
-		if(this.agentsOnVertex().size() > 1){
-		    System.out.println("Sur ce sommet il y a : "+this.agentsOnVertex().size());
-		    meetOrg.howToMeetTogether(this.agentsOnVertex());
-		}
-	    }
-
+	
 	    /* Reached by the last thread calling nextPulse */
 	    unblockAgents();
 	    
      	}
     }
 
-    protected void planning(Agent agent){
-	System.out.println(this.toString()+" >>> Hello h r u ? "+agent.toString());
+    protected void planning(SynchronizedAgent agent){
+	if( meet == true )
+	    meetedAgentsnames.put(new Integer(meetingnum+1),agent.toString());
     }
+
 
     protected void unblockAgents() {
 	super.newPulse(++pulseNumber);
