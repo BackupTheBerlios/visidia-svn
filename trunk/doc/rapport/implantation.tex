@@ -1,12 +1,37 @@
+Dans cette  partie, nous  allons nous attacher  à développer  de facon
+détaillée l'implantation de notre  module au sein du logiciel \visidia
+existant.\\
+
+Le projet s'est subdivisé en deux parties essentielles :
+\begin{itemize}
+\item le développement de l'API et de la simulation.
+\item  l'intégration  des  nouvelles  fontionnalités  dans  la  partie
+graphique de \visidia.
+\end{itemize}
 
 
+\section{Agents}
+Cette section  concerne le développement  des agents et donc  de l'API
+fournie aux clients. Le description  de cette API ayant déjà été faite
+dans la  partie précédente  nous ne nous  attarderons pas  dessus ici.
+Elle est  entièrement définie et  implantée dans la  classe Agent.java
+qui se trouve dans  le package visidia.simulation.agents. 
+
+Les méthodes de cette classe sont basées sur des appels au méthodes du
+simulateur qui correspondent.  En effet, comme c'est le simulateur qui
+fait le lien  entre l'interface graphique et les agents  il est tout a
+fait normal qu'il ait la charge des actions effectuées par les agents.
+
+En plus  du simlateur  duquel il  dépend et de  son idetité,  un agent
+contient une  struture de  donnée de type  WhiteBoard définie  dans le
+package visidia.tools.agents  et qui permet  à l'agent de  stocker des
+informations durant son exécution.  Un WhiteBoard s'utilise de la même
+manière qu'une table de  hachage, la différence étant qu'un WhiteBoard
+permet un accès a des valeurs par défaut
+\section{Simulateur}
 
 
-
-
-
-
-
+\section{GUI}
 
 
 
