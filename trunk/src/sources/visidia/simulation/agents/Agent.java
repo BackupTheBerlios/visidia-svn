@@ -279,10 +279,6 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         return simulator.getVertexIdentity(this);
     }
 
-    public Hashtable<Vertex, Collection> getAgentPositions() {
-	return simulator.getAgentPositions();
-    }
-
     /**
      * Returns the unique identifier that identifies the agent.
      */

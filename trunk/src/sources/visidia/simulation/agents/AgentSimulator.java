@@ -151,10 +151,6 @@ public class AgentSimulator {
  	return vertexAgentsNumber.get(graph.vertex(new Integer(vertexId)));
     }
     
-    public Hashtable<Vertex, Collection> getAgentPositions() {
-	return vertexAgentsNumber;
-    }
-
     /**
      * Returns a Set of all the agents.
      */
@@ -169,14 +165,16 @@ public class AgentSimulator {
      * @see #removeAgentFromAgent(Vertex, Agent)
      */
     private int addAgentToVertex(Vertex vertex, Agent ag){
-	if( vertexAgentsNumber.get(vertex) != null)
-	    vertexAgentsNumber.get(vertex).add(ag);
-	else{
-            Collection<Agent> colOfAgents  = new HashSet();
-            colOfAgents.add(ag);
-            vertexAgentsNumber.put(vertex,colOfAgents);
-	}
-	return vertexAgentsNumber.get(vertex).size();
+        synchronized (vertexAgentsNumber) {
+            if( vertexAgentsNumber.get(vertex) != null)
+                vertexAgentsNumber.get(vertex).add(ag);
+            else{
+                Collection<Agent> colOfAgents  = new HashSet();
+                colOfAgents.add(ag);
+                vertexAgentsNumber.put(vertex,colOfAgents);
+            }
+            return vertexAgentsNumber.get(vertex).size();
+        }
     }
     
     /**
@@ -186,13 +184,15 @@ public class AgentSimulator {
      * @see #addAgentToVertex(Vertex, Agent)
      */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
-        vertexAgentsNumber.get(vertex).remove(ag);
-	if( vertexAgentsNumber.get(vertex).isEmpty() ) {
-            vertexAgentsNumber.remove(vertex);
-            return 0;
+        synchronized (vertexAgentsNumber) {
+            vertexAgentsNumber.get(vertex).remove(ag);
+            if( vertexAgentsNumber.get(vertex).isEmpty() ) {
+                vertexAgentsNumber.remove(vertex);
+                return 0;
+            }
+            else
+                return vertexAgentsNumber.get(vertex).size();
         }
-        else
-            return vertexAgentsNumber.get(vertex).size();
     }
 
     /**
