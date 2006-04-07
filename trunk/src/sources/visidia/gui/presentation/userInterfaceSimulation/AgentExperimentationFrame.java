@@ -94,6 +94,8 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         toolBar.add(but_start);
         toolBar.add(but_abort);
         getContentPane().add(toolBar,BorderLayout.NORTH);
+
+        controlEnabling(true);
     }
 
     private void initializeFrame(Map stats) {
@@ -122,9 +124,9 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 	}
     }
 
-    private void controlEnabling(){
-        but_start.setEnabled(true);
-        but_abort.setEnabled(false);
+    public void controlEnabling(boolean enable){
+        but_start.setEnabled(  enable );
+        but_abort.setEnabled( !enable );
     }
 
     public void start() {
@@ -138,6 +140,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
                                                              agentsTable,
                                                              defaultProperties),
                                               agentsRules, this);
+        controlEnabling(false);
 	expThread.start();
     }
     
@@ -145,6 +148,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 	if(expThread != null){
 	    expThread.abortExperimentation();
 	    expThread = null;
+            controlEnabling(true);
 	}
     }
 }
@@ -219,6 +223,7 @@ class ExperimentationThread extends Thread {
             }
         }
         timer.stop();
+
     }
     
     public void eventHandleLoop() throws InterruptedException{
@@ -269,6 +274,8 @@ class ExperimentationThread extends Thread {
 	
     public void handleAlgorithmEndEvent(SimulEvent se) throws InterruptedException{
         terminated = true;
+        JOptionPane.showMessageDialog(null,"Algorithms are terminated");
+        frame.controlEnabling(true);
     }
 
     public void handleAgentMovedEvt(SimulEvent se) throws InterruptedException {
