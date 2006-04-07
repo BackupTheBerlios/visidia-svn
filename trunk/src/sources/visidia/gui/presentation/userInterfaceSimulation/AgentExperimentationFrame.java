@@ -23,6 +23,7 @@ import visidia.gui.presentation.boite.*;
 import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.algo.*;
+import visidia.agents.*;
 import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
@@ -34,6 +35,7 @@ import visidia.rule.*;
 import visidia.gui.presentation.starRule.*;
 import visidia.simulation.synchro.synObj.*;
 import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.*;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -66,6 +68,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private Vector<RelabelingSystem> agentsRules;
     private Hashtable<String,Object> defaultProperties;
     private Hashtable agentsTable;
+    private AbstractExperiment expType;
 
     private ExperimentationThread expThread;
 
@@ -75,12 +78,13 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
     public AgentExperimentationFrame(VueGraphe graph, Hashtable agentsTable, 
                                      Hashtable<String,Object> defaultProperties,
-                                     Vector<RelabelingSystem> agentsRules) {
+                                     Vector<RelabelingSystem> agentsRules, AbstractExperiment expType) {
 	
         this.agentsRules = agentsRules;
         this.graph = graph;
         this.agentsTable = agentsTable;
         this.defaultProperties = defaultProperties;
+	this.expType = expType;
 
         initializeFrame(new Hashtable());
 
@@ -114,6 +118,10 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     public HashTableModel getTableModel() {
         return tableModel;
     } 
+
+    public AbstractExperiment getExpType() {
+	return expType;
+    }
 
     public void actionPerformed(ActionEvent evt) {
 	if(evt.getSource() == but_start){
@@ -210,10 +218,10 @@ class ExperimentationThread extends Thread {
                                        eventVQueue,
                                        ackVQueue);
 
-        timer = new UpdateTableStats(simulator, frame.getTableModel());
+	simulator.startSimulation();
+	frame.getExpType().setStats(simulator.getStats());
+	timer = new UpdateTableStats(simulator, frame.getExpType(), frame.getTableModel());
         new Thread(timer).start();
-
-        simulator.startSimulation();
         terminated = false;
 
         try{

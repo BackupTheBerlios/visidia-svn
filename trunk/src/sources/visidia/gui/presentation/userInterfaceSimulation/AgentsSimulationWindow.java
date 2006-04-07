@@ -27,6 +27,7 @@ import visidia.rule.*;
 import visidia.gui.presentation.starRule.*;
 import visidia.simulation.synchro.synObj.*;
 import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.*;
 
 /* Represents the algorithm simulation window for a graph */
 public class AgentsSimulationWindow 
@@ -625,14 +626,21 @@ public class AgentsSimulationWindow
 
     public void but_experimentation() {
 	AgentExperimentationFrame statsFrame;
+	Map expStats;
+	AbstractExperiment classStats = OpenStats.open(this);
 
 	if (sim == null) {
 	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
-						       defaultProperties, agentsRules);
+						       defaultProperties, agentsRules,
+						       classStats);
 	} else {
-	    statsFrame = new AgentExperimentationFrame(sim.getStats());
+	    classStats.setStats(sim.getStats());
+	    expStats = classStats.getStats();
+	   	    
+	    statsFrame = new AgentExperimentationFrame(expStats);
 	    if (timer == null) {
-		timer = new UpdateTableStats(sim, statsFrame.getTableModel());
+		timer = new UpdateTableStats(sim, classStats, 
+					     statsFrame.getTableModel());
 		new Thread(timer).start();
 	    }
 	}
