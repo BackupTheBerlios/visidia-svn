@@ -124,9 +124,14 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 	}
     }
 
-    public void controlEnabling(boolean enable){
+    private void controlEnabling(boolean enable){
         but_start.setEnabled(  enable );
         but_abort.setEnabled( !enable );
+    }
+
+    public void algoTerminated() {
+        JOptionPane.showMessageDialog(this,"Algorithms are terminated");
+        controlEnabling(true);
     }
 
     public void start() {
@@ -274,8 +279,7 @@ class ExperimentationThread extends Thread {
 	
     public void handleAlgorithmEndEvent(SimulEvent se) throws InterruptedException{
         terminated = true;
-        JOptionPane.showMessageDialog(null,"Algorithms are terminated");
-        frame.controlEnabling(true);
+        frame.algoTerminated();
     }
 
     public void handleAgentMovedEvt(SimulEvent se) throws InterruptedException {
