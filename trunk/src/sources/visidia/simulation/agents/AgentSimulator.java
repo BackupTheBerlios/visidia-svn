@@ -296,7 +296,7 @@ public class AgentSimulator {
             throw new IllegalArgumentException(e);
         }
 
-        stats.incrementStat("Created agents (" + agentClass + ")");
+        stats.incrementStat("Created agents (" + ag.className() + ")");
 
         return ag;
     }

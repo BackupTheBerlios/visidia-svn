@@ -43,8 +43,11 @@ public class AverageStats extends AbstractExperiment {
 
     private String getInParenthesis(String base) {
         int startPar = base.lastIndexOf('(');
+        int startDot = base.indexOf(':', startPar);
+        if (startDot != -1)
+            startPar = startDot + 1;
         int endPar = base.lastIndexOf(')');
-        String className = base.substring(startPar + 1, endPar - 1);
+        String className = base.substring(startPar + 1, endPar);
         return className;
     }
 
