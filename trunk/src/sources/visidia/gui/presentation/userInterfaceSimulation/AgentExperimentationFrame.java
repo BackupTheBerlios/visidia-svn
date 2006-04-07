@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import java.lang.ArrayIndexOutOfBoundsException;
+
 import visidia.gui.DistributedAlgoSimulator;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.*;
@@ -53,6 +55,8 @@ import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.algo.*;
 import visidia.simulation.*;
+
+
 
 
 public class AgentExperimentationFrame extends JFrame implements ActionListener {
@@ -181,7 +185,7 @@ class ReadOnlyHashTableModel extends HashTableModel {
 	else if(column == 1)
 	    return Long.class;
 	else
-	    return null;
+	    throw new ArrayIndexOutOfBoundsException();
     }
 }
 
