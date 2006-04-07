@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 
 import java.util.Vector;
 
@@ -293,7 +294,7 @@ public class AgentSimulator {
             throw new IllegalArgumentException(e);
         }
 
-        stats.incrementStat("Created agents");
+        stats.incrementStat("Created agents (" + agentClass + ")");
 
         return ag;
     }
@@ -319,7 +320,8 @@ public class AgentSimulator {
 	movingMonitor.waitForAnswer(key);
 
         System.out.println("Algorithm Terminated");
-        stats.incrementStat("Terminated algorithms");
+        stats.incrementStat("Terminated algorithms (agentClass: " 
+                            + ag.getClass() + ")");
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
@@ -356,7 +358,7 @@ public class AgentSimulator {
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
-        stats.incrementStat("Moves");
+        stats.incrementStat("Moves (agentClass: " + ag.getClass() + ")");
     }
 
     /**
@@ -383,7 +385,8 @@ public class AgentSimulator {
                                          state);
         evtQ.put(event);
         movingMonitor.waitForAnswer(key);
-        stats.incrementStat("Edge state changes");
+        stats.incrementStat("Edge state changes (agentClass:" 
+                            + ag.getClass() + ")");
     }
 
     /**
@@ -527,19 +530,23 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public Object getVertexProperty(Agent ag, Object key) {
-	Vertex actualVertex = getVertexFor(ag);
+	Vertex vertex = getVertexFor(ag);
 
-	synchronized(actualVertex) {
-	    while(vertexPropertiesLocked(actualVertex) 
-		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
+	synchronized(vertex) {
+	    while(vertexPropertiesLocked(vertex) 
+		  && (getVertexPropertiesOwner(vertex) != ag)) {
 		try {
-		    actualVertex.wait();
+		    vertex.wait();
 		} catch(InterruptedException e) {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-	    stats.incrementStat("Accesses to vertices WhiteBoard");
-	    return actualVertex.getProperty(key);
+	    stats.incrementStat("Vertex WB access (agentClass: " 
+                                + ag.getClass() + ")");
+            stats.incrementStat("Vertex WB access (vertex: "
+                                + vertex.identity() + ")");
+
+	    return vertex.getProperty(key);
 	}
     }
 
@@ -555,23 +562,28 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public void setVertexProperty(Agent ag, Object key, Object value) {
-	Vertex actualVertex = getVertexFor(ag);
+	Vertex vertex = getVertexFor(ag);
 
-	synchronized(actualVertex) {
-	    while(vertexPropertiesLocked(actualVertex) 
-		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
+	synchronized(vertex) {
+	    while(vertexPropertiesLocked(vertex) 
+		  && (getVertexPropertiesOwner(vertex) != ag)) {
 		try {
-		    actualVertex.wait();
+		    vertex.wait();
 		} catch(InterruptedException e) {
 		    throw new SimulationAbortError(e);
 		}
 	    }	
-	    stats.incrementStat("Changes in vertices WhiteBoard");
-	    actualVertex.setProperty(key, value);
+            stats.incrementStat("Vertex WB changes (agentClass: "
+                                + ag.getClass() + ")");
+            stats.incrementStat("Vertex WB changes (vertex: "
+                                + vertex.identity() + ")");
+	    vertex.setProperty(key, value);
 
 	    if(key.equals("label")) {
                 Long num = new Long(numGen.alloc());
-                LabelChangeEvent lce = new LabelChangeEvent(num,actualVertex.identity(),(String)value);
+                LabelChangeEvent lce;
+                lce = new LabelChangeEvent(num,vertex.identity(),
+                                           (String)value);
                 try{
                     evtQ.put(lce);		    
                 }catch(InterruptedException e){
@@ -668,7 +680,8 @@ public class AgentSimulator {
      */
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
-        stats.incrementStat("Asleep (ms)", millis);
+        stats.incrementStat("Asleep (ms) (agentClass: " + ag.getClass() + ")",
+                            millis);
     }
     /**
      * Returns  the number  of  vertices  of the  graph  on which  the
@@ -703,8 +716,8 @@ public class AgentSimulator {
         stats.incrementStat(key, increment);
     }
 
-    public Hashtable getStats(){
-	return stats.getHashTable();
+    public Map getStats(){
+	return stats.asMap();
     }
 
 

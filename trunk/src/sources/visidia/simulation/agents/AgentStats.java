@@ -1,6 +1,7 @@
 package visidia.simulation.agents;
 
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -60,7 +61,7 @@ public class AgentStats {
     /**
      * Returns the Hashtable of the statistics calculated. 
      */
-    public Hashtable getHashTable(){
+    public Map asMap(){
 	return stats;
     }
 

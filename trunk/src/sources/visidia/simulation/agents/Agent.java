@@ -286,7 +286,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     /**
      * Returns the unique identifier that identifies the agent.
      */
-    protected int getIdentity() {
+    public int getIdentity() {
         return agentIdentity;
     }
 
