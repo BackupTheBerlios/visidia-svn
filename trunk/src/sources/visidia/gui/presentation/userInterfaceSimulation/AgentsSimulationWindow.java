@@ -1143,7 +1143,7 @@ public class AgentsSimulationWindow
         
         if (ag != null) {
             
-            AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard());
+            AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard(),ag.toString());
             boxAgents.addElement(agentBox);
 	    agentBox.show(this);
         }

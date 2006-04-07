@@ -29,15 +29,15 @@ public class AgentBoxProperty
 
     //Constructeurs
 
-    public AgentBoxProperty(AgentsSimulationWindow parent, WhiteBoard wb) {
-        this(parent,wb, "Agent property");
+    public AgentBoxProperty(AgentsSimulationWindow parent, WhiteBoard wb, String agentName) {
+        this(parent,wb, "Agent property for " + agentName, agentName );
     }
 
     /**
      * Cree une nouvelle boite appelee "titre" pour afficher les
      * caracteristiques de "un_objet".
      */
-    public AgentBoxProperty(AgentsSimulationWindow parent, WhiteBoard wb, String titre) 
+    public AgentBoxProperty(AgentsSimulationWindow parent, WhiteBoard wb, String titre, String agentName) 
     {
         super(parent,titre,false);
         

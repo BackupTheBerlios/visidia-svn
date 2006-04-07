@@ -27,7 +27,7 @@ public class AgentBoxChangingVertexState
 
     public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin s, Hashtable def)
     {
-        this(parent,s,def,"Specific vertex property");
+        this(parent,s,def,"Specifics vertex properties for vertex " + s.getEtiquette() );
     }
 
     /**

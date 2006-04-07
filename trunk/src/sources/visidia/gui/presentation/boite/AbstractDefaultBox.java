@@ -41,7 +41,7 @@ public abstract class AbstractDefaultBox
     protected int lastItemSelected = -1 ;
     
     public AbstractDefaultBox(AgentsSimulationWindow parent) {
-	this(parent, "Default properties state",true);
+	this(parent, "Default properties state for all vertices",true);
     }
     
     /**
