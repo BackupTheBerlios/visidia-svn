@@ -76,6 +76,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private AbstractExperiment expType;
 
     private ExperimentationThread expThread;
+    private SimulatorThreadGroup threadGroup;
 
     public AgentExperimentationFrame(Map stats) {
         initializeFrame(stats);
@@ -152,9 +153,8 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     public void start() {
         if (expThread != null)
             abort();
-        SimulatorThreadGroup threadGroup;
         getTableModel().setProperties(new Hashtable());
-	threadGroup = new SimulatorThreadGroup("simulator");
+        threadGroup = new SimulatorThreadGroup("simulator");
 	expThread = new ExperimentationThread(threadGroup, 
                                               Convertisseur.convert(graph.getGraphe(),
                                                              agentsTable,
@@ -218,7 +218,7 @@ class ExperimentationThread extends Thread {
                 Thread.currentThread().sleep(10);
             }
             catch(InterruptedException e){
-                throw new RuntimeException(e);
+                throw new SimulationAbortError(e);
             }
         }
     }
@@ -248,25 +248,18 @@ class ExperimentationThread extends Thread {
             //by the simulation stop.
             if( aborted && simulator != null){
                 //abort current simulation
+                timer.stop();
                 simulator.abortSimulation();
             }
         }
         timer.stop();
-
     }
     
     public void eventHandleLoop() throws InterruptedException{
 	    
         SimulEvent simEvt = null;
         while(!terminated){
-            try{
-                simEvt = (SimulEvent) eventVQueue.get();
-                //		    Thread.currentThread().sleep(10);
-            }
-            catch(ClassCastException e){
-                e.printStackTrace();
-                continue;
-            }
+            simEvt = (SimulEvent) eventVQueue.get();
 		
             switch(simEvt.type()){
 		    
