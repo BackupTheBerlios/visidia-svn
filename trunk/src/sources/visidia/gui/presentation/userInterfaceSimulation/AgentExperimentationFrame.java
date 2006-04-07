@@ -54,6 +54,7 @@ import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.algo.*;
 import visidia.simulation.*;
 
+
 public class AgentExperimentationFrame extends JFrame implements ActionListener {
     
     ReadOnlyHashTableModel tableModel;	
@@ -104,7 +105,9 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
     private void initializeFrame(Map stats) {
 	tableModel = new ReadOnlyHashTableModel(stats);
-	resultTable = new JTable(tableModel);
+	TableSorter sorter = new TableSorter(tableModel);
+	resultTable = new JTable(sorter);
+	sorter.setTableHeader(resultTable.getTableHeader());
 	scrollPane = new JScrollPane(resultTable);		
 	getContentPane().add(scrollPane,BorderLayout.CENTER);
         
@@ -170,6 +173,15 @@ class ReadOnlyHashTableModel extends HashTableModel {
     
     public ReadOnlyHashTableModel(Map table){
         super(table);
+    }
+
+    public Class getColumnClass(int column) {
+	if(column == 0)
+	    return String.class;
+	else if(column == 1)
+	    return Long.class;
+	else
+	    return null;
     }
 }
 
