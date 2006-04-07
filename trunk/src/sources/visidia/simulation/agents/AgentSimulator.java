@@ -321,7 +321,7 @@ public class AgentSimulator {
 
         System.out.println("Algorithm Terminated");
         stats.incrementStat("Terminated algorithms (agentClass: " 
-                            + ag.getClass() + ")");
+                            + ag.className() + ")");
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
@@ -358,7 +358,7 @@ public class AgentSimulator {
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
-        stats.incrementStat("Moves (agentClass: " + ag.getClass() + ")");
+        stats.incrementStat("Moves (agentClass: " + ag.className() + ")");
     }
 
     /**
@@ -386,7 +386,7 @@ public class AgentSimulator {
         evtQ.put(event);
         movingMonitor.waitForAnswer(key);
         stats.incrementStat("Edge state changes (agentClass:" 
-                            + ag.getClass() + ")");
+                            + ag.className() + ")");
     }
 
     /**
@@ -542,7 +542,7 @@ public class AgentSimulator {
 		}
 	    }
 	    stats.incrementStat("Vertex WB access (agentClass: " 
-                                + ag.getClass() + ")");
+                                + ag.className() + ")");
             stats.incrementStat("Vertex WB access (vertex: "
                                 + vertex.identity() + ")");
 
@@ -574,7 +574,7 @@ public class AgentSimulator {
 		}
 	    }	
             stats.incrementStat("Vertex WB changes (agentClass: "
-                                + ag.getClass() + ")");
+                                + ag.className() + ")");
             stats.incrementStat("Vertex WB changes (vertex: "
                                 + vertex.identity() + ")");
 	    vertex.setProperty(key, value);
@@ -680,7 +680,7 @@ public class AgentSimulator {
      */
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
-        stats.incrementStat("Asleep (ms) (agentClass: " + ag.getClass() + ")",
+        stats.incrementStat("Asleep (ms) (agentClass: " + ag.className() + ")",
                             millis);
     }
     /**
