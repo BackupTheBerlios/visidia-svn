@@ -136,18 +136,20 @@ public class AgentSimulator {
      * @param vertex The vertex on which information is given.
      */
     private int getAgentsVertexNumber(Vertex vertex){
-	return vertexAgentsNumber.get(vertex).size();
+        if (vertexAgentsNumber.get(vertex) == null)
+            return 0;
+        else
+            return vertexAgentsNumber.get(vertex).size();
     }
-    /** Return the collection af agents which are on 
-     * the vertex that have the vertexId as the id.
+    /** 
+     * Return the  collection af agents  which are on the  vertex that
+     * have the vertexId as the id.
      *
      * @param vertexId The vertex id.
      */
     public Collection getAgentsVertexCollection(int vertexId) {
-	
-	return vertexAgentsNumber.get( graph.vertex(new Integer(vertexId)) );
+ 	return vertexAgentsNumber.get(graph.vertex(new Integer(vertexId)));
     }
-    
     
     public Hashtable<Vertex, Collection> getAgentPositions() {
 	return vertexAgentsNumber;
@@ -543,8 +545,6 @@ public class AgentSimulator {
 	    }
 	    stats.incrementStat("Vertex WB access (agentClass: " 
                                 + ag.className() + ")");
-            stats.incrementStat("Vertex WB access (vertex: "
-                                + vertex.identity() + ")");
 
 	    return vertex.getProperty(key);
 	}
@@ -575,8 +575,7 @@ public class AgentSimulator {
 	    }	
             stats.incrementStat("Vertex WB changes (agentClass: "
                                 + ag.className() + ")");
-            stats.incrementStat("Vertex WB changes (vertex: "
-                                + vertex.identity() + ")");
+
 	    vertex.setProperty(key, value);
 
 	    if(key.equals("label")) {
