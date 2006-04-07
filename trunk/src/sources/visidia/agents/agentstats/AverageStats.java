@@ -13,6 +13,7 @@ public class AverageStats extends AbstractExperiment {
 
     private void calculateCreatedAgentsByClass(Map<String, Long> baseStats) {
         Set<String> keys = baseStats.keySet();
+        agentsByClass = new Hashtable();
 
         for (String key : keys) {
             if (key.startsWith("Created agents")) {
