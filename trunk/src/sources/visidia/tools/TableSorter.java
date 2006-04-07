@@ -209,7 +209,7 @@ public class TableSorter extends AbstractTableModel {
     }
 
     protected Comparator getComparator(int column) {
-        Class columnType = tableModel.getColumnClass(colUmn);
+        Class columnType = tableModel.getColumnClass(column);
         Comparator comparator = (Comparator) columnComparators.get(columnType);
         if (comparator != null) {
             return comparator;
