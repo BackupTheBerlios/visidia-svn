@@ -624,17 +624,23 @@ public class AgentsSimulationWindow
     }
 
     public void but_experimentation() {
-        AgentExperimentationFrame statsFrame;
-        statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
-                                                   defaultProperties, agentsRules);
+	AgentExperimentationFrame statsFrame;
+
+	if (sim == null) {
+	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
+						       defaultProperties, agentsRules);
+	} else {
+	    statsFrame = new AgentExperimentationFrame(sim.getStats());
+	    if (timer == null) {
+		timer = new UpdateTableStats(sim, statsFrame.getTableModel());
+		new Thread(timer).start();
+	    }
+	}
+
         statsFrame.setTitle("Agents Experiments");
         statsFrame.pack();
         statsFrame.setVisible(true);
 
-     //    if (timer == null) {
-//             timer = new UpdateTableStats(sim, statsFrame.getTableModel());
-//             new Thread(timer).start();
-//         }
     }
     
 
