@@ -1,6 +1,6 @@
 package visidia.agents.agentstats;
 
-import visidia.simulation.agents;
+import visidia.simulation.agents.AbstractExperiment;
 
 import java.util.Map;
 
