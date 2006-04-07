@@ -485,11 +485,18 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * number of the agent are returned by this method
      */
     public String toString() {
-
-	String class_name = this.getClass().getName();
-	return class_name.substring(class_name.lastIndexOf('.')+1) 
-	    + "_" + getIdentity();
+	return className() + "_" + getIdentity();
     }
+    
+
+    /**
+     * Return the class name of this agent as a String
+     * @return A String representing the class name of this agent
+     */
+    public String className() {
+	String class_name = this.getClass().getName();
+	return class_name.substring(class_name.lastIndexOf('.')+1);
+    } 
 
 
     /**
