@@ -148,6 +148,10 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     public void algoTerminated() {
         JOptionPane.showMessageDialog(this,"Algorithms are terminated");
         controlEnabling(true);
+	if (expThread != null) {
+	    expThread.abortExperimentation();
+	    expThread = null;
+	}
     }
 
     public void start() {
@@ -211,16 +215,21 @@ class ExperimentationThread extends Thread {
     
     void abortExperimentation(){
         aborted = true;
-	    
+	timer.stop();
         while(isAlive()){
             interrupt();
             try{
                 Thread.currentThread().sleep(10);
             }
             catch(InterruptedException e){
+		if (simulator != null)
+		    simulator.abortSimulation();
                 throw new SimulationAbortError(e);
             }
         }
+
+	if (simulator != null)
+	    simulator.abortSimulation();
     }
     
     
@@ -248,11 +257,10 @@ class ExperimentationThread extends Thread {
             //by the simulation stop.
             if( aborted && simulator != null){
                 //abort current simulation
-                timer.stop();
                 simulator.abortSimulation();
+		simulator = null;
             }
         }
-        timer.stop();
     }
     
     public void eventHandleLoop() throws InterruptedException{

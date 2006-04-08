@@ -629,6 +629,9 @@ public class AgentsSimulationWindow
 	Map expStats;
 	AbstractExperiment classStats = OpenStats.open(this);
 
+	if (classStats == null)
+	    return;
+
 	if (sim == null) {
 	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
 						       defaultProperties, agentsRules,
