@@ -2,7 +2,10 @@ package visidia.simulation.agents;
 
 import java.util.Collection;
 
-
+/**
+ * Class  in charge  of the organization of meeting. Allows the communication
+ * between agents when they are meeted. Describe how to organize agents meeting.
+ **/
 public interface MeetingOrganizer {
 
   /* Implement the strategie of meeting between network agents

@@ -142,7 +142,12 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
                 IllegalArgumentException("Instance can't be created !", e);
         }
     }
-    
+
+    /**
+     * Use identuty of current vertex to get all agents which are on this vertex.
+     * 
+     * @return Collection of agents on the current vertex
+     */
     protected Collection agentsOnVertex(){
 	return simulator.getAgentsVertexCollection(this.getVertexIdentity());
     }

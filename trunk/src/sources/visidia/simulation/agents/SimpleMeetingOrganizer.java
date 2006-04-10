@@ -10,6 +10,11 @@ import java.util.Collection;
 
 import java.util.Vector;
 
+/**
+ * Exemple of meeting organizer Allows a simple communication between
+ * agents when they are meeted. Each agent atempt to execute his
+ * planning with all the agents existing on the vertex.
+ **/
 public class SimpleMeetingOrganizer implements MeetingOrganizer {
   
     /* With this variable we can enable or not the meeting 
