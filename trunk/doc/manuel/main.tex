@@ -138,8 +138,8 @@ voir l'application comme sur la figure \ref{fig:visidia}.
 Une fois \visidia lancé, la fenêtre d'édition de graphe apparaît :
 
 Le graphe se construit à l'aide du clic gauche de la souris. Les
-graphes peuvent également être sauvegardé grâce aux commandes Save
-ou Save as... du menu File.
+graphes peuvent également être sauvegardé grâce aux commandes \textbf{Save}
+ou \textbf{Save as...} du menu \textbf{File}.
 
 Dans le menu Transformation :
 \begin{itemize}
@@ -163,6 +163,41 @@ selon trois mode :
 \item Simulation avec des agents mobiles en local : bouton \textbf{Agents Simulation}
 \end{itemize}
 
+\subsection{Simulation avec des agents mobiles}
+
+La première étape de la simulation avec des agents mobiles est le
+placement d'agents sur des sommets. Pour effectuer ceci deux méthodes
+peuvent être envisagées :
+\begin{itemize}
+\item Le placement manuel : Sélectionner un ou plusieurs sommets avec
+  le clic droit de la souris (si besoin en maintenant la touche SHIFT
+  en cas de sélection multiple).
+\item Le placement automatique grâce au placeur : Lancer la commande
+  \textbf{Place Agents...} du menu \textbf{Agents}. Cette technique de
+  placement ne fonctionne qu'avec les algorithmes compilés avec l'API.
+\end{itemize}
+
+Ensuite, les agents peuvent être ajoutés aux sommets sélectionnés.
+
+\subsubsection{Ajouter des agents écrits avec l'API}
+
+
+Pour les agents écrits avec l'API, utilisez la commande \textbf{Add
+  Agent...} du menu \textbf{Agent}. Sélectionnez ensuite le type
+d'agent à ajouter en sélectionnant l'algorithme compilé dans la boite
+de dialogue. Pour plus d'information sur l'écriture d'algorithmes à
+l'aide de l'API, veuillez vous référez à la section \emph{Programmer
+  des agents}.
+
+\subsubsection{Ajouter des d'agents définis avec des règles de réécritures}
+
+  \begin{itemize}
+  \item Créer un nouveau jeux de règle de réécriture avec la commande utilisez la
+    commande \textbf{New relabeling system} du menu \textbf{Rules}.
+  \item Ouvrir un jeu de règle de réécriture précédemment sauvegardé
+    avec la commande \textbf{Open rules...} du menu \textbf{Rules}.
+  \end{itemize}
+  
 
 
 \section{Programmer des agents}
