@@ -1,20 +1,22 @@
 package visidia.simulation.agents;
 
-import java.util.Map;
+import visidia.tools.Bag;
+
+import visidia.simulation.agents.stats.*;
 
 public abstract class AbstractExperiment {
 
-    private Map stats;
+    private Bag stats;
 
     public AbstractExperiment() {}
 
-    public void setStats(Map stats) {
+    public void setStats(Bag stats) {
         this.stats = stats;
     }
 
-    protected Map getMap() {
+    protected Bag getBag() {
         return stats;
     }
 
-    public abstract Map getStats();
+    public abstract Bag getStats();
 }

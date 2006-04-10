@@ -7,7 +7,6 @@ import visidia.graph.SimpleGraph;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 
-import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -78,7 +77,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private ExperimentationThread expThread;
     private SimulatorThreadGroup threadGroup;
 
-    public AgentExperimentationFrame(Map stats) {
+    public AgentExperimentationFrame(Bag stats) {
         initializeFrame(stats);
     }
 
@@ -92,7 +91,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         this.defaultProperties = defaultProperties;
 	this.expType = expType;
 
-        initializeFrame(new Hashtable());
+        initializeFrame(new Bag());
 
         but_start = new JButton("Start");
         but_start.addActionListener(this);
@@ -108,7 +107,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         controlEnabling(true);
     }
 
-    private void initializeFrame(Map stats) {
+    private void initializeFrame(Bag stats) {
 	tableModel = new ReadOnlyHashTableModel(stats);
 	TableSorter sorter = new TableSorter(tableModel);
 	resultTable = new JTable(sorter);
@@ -179,15 +178,15 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
 class ReadOnlyHashTableModel extends HashTableModel {
     
-    public ReadOnlyHashTableModel(Map table){
-        super(table);
+    public ReadOnlyHashTableModel(Bag table){
+        super(table.asHashTable());
     }
 
     public Class getColumnClass(int column) {
 	if(column == 0)
 	    return String.class;
 	else if(column == 1)
-	    return Long.class;
+	    return Number.class;
 	else
 	    throw new ArrayIndexOutOfBoundsException();
     }

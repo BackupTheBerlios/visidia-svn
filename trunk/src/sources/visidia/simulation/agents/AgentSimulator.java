@@ -16,7 +16,11 @@ import visidia.simulation.NextPulseEvent;
 import visidia.simulation.SimulationAbortError;
 import visidia.simulation.SimulatorThreadGroup;
 
+import visidia.simulation.agents.stats.*;
+
 import visidia.tools.NumberGenerator;
+import visidia.tools.Bag;
+
 import visidia.misc.Message;
 import visidia.misc.StringMessage;
 import visidia.misc.EdgeState;
@@ -94,7 +98,8 @@ public class AgentSimulator {
     /**
      * Storage of statistic informations
      */
-    private AgentStats stats;
+    //    private AgentStats stats;
+    private Bag stats;
 
     /**
      * Constructor.  Creates  a new AgentSimulator and  affect its the
@@ -117,7 +122,7 @@ public class AgentSimulator {
                           VQueue evtVQ, VQueue ackVQ) {
 
 	graph = (SimpleGraph) netGraph;
-        stats = new AgentStats();
+        stats = new Bag();
 
 	threadGroup = new SimulatorThreadGroup("simulator");
 	fillAgentsTable(graph, defaultAgentValues, agentsRules);
@@ -296,7 +301,7 @@ public class AgentSimulator {
             throw new IllegalArgumentException(e);
         }
 
-        stats.incrementStat("Created agents (" + ag.className() + ")");
+        stats.add(new AgentCreationStat(ag.getClass()));
 
         return ag;
     }
@@ -322,8 +327,8 @@ public class AgentSimulator {
 	movingMonitor.waitForAnswer(key);
 
         System.out.println("Algorithm Terminated");
-        stats.incrementStat("Terminated algorithms (agentClass: " 
-                            + ag.className() + ")");
+//         stats.incrementStat("Terminated algorithms (agentClass: " 
+//                             + ag.className() + ")");
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
@@ -360,7 +365,7 @@ public class AgentSimulator {
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
-        stats.incrementStat("Moves (agentClass: " + ag.className() + ")");
+        stats.add(new MoveStat(ag.getClass()));
     }
 
     /**
@@ -387,8 +392,8 @@ public class AgentSimulator {
                                          state);
         evtQ.put(event);
         movingMonitor.waitForAnswer(key);
-        stats.incrementStat("Edge state changes (agentClass:" 
-                            + ag.className() + ")");
+//         stats.incrementStat("Edge state changes (agentClass:" 
+//                             + ag.className() + ")");
     }
 
     /**
@@ -414,7 +419,7 @@ public class AgentSimulator {
 	NextPulseEvent event = new NextPulseEvent(key,pulse);
 
 	evtQ.put(event);
-	stats.incrementStat("Pulse");
+// 	stats.incrementStat("Pulse");
     }
 
     /**
@@ -543,8 +548,8 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-	    stats.incrementStat("Vertex WB access (agentClass: " 
-                                + ag.className() + ")");
+// 	    stats.incrementStat("Vertex WB access (agentClass: " 
+//                                 + ag.className() + ")");
 
 	    return vertex.getProperty(key);
 	}
@@ -573,8 +578,8 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }	
-            stats.incrementStat("Vertex WB changes (agentClass: "
-                                + ag.className() + ")");
+//             stats.incrementStat("Vertex WB changes (agentClass: "
+//                                 + ag.className() + ")");
 
 	    vertex.setProperty(key, value);
 
@@ -679,8 +684,8 @@ public class AgentSimulator {
      */
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
-        stats.incrementStat("Asleep (ms) (agentClass: " + ag.className() + ")",
-                            millis);
+//         stats.incrementStat("Asleep (ms) (agentClass: " + ag.className() + ")",
+//                             millis);
     }
     /**
      * Returns  the number  of  vertices  of the  graph  on which  the
@@ -712,11 +717,11 @@ public class AgentSimulator {
     }
 
     public void incrementStat(String key, Long increment) {
-        stats.incrementStat(key, increment);
+//         stats.incrementStat(key, increment);
     }
 
-    public Map getStats(){
-	return stats.asMap();
+    public Bag getStats(){
+	return stats;
     }
 
 

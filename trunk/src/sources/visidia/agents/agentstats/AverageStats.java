@@ -1,57 +1,58 @@
 package visidia.agents.agentstats;
 
 import visidia.simulation.agents.AbstractExperiment;
+import visidia.simulation.agents.stats.*;
 
-import java.util.Map;
+import visidia.tools.Bag;
+
+
 import java.util.Set;
 import java.util.Hashtable;
 
 public class AverageStats extends AbstractExperiment {
     
-    Map stats;
-    Hashtable<String, Long> agentsByClass;
+    private Hashtable<Class, Integer> agentsByClass;
+    private Bag stats;
 
-    private void calculateCreatedAgentsByClass(Map<String, Long> baseStats) {
-        Set<String> keys = baseStats.keySet();
-        agentsByClass = new Hashtable();
+    private void countAgents() {
+	Set keys;
+	agentsByClass = new Hashtable(10);
 
-        for (String key : keys) {
-            if (key.startsWith("Created agents")) {
-                String className = getInParenthesis(key);
-                agentsByClass.put(className, baseStats.get(key));
-            }
-        }
+	keys = getBag().keySet();
+
+	for(Object key: keys) {
+	    if (key instanceof AgentCreationStat)
+		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
+				  new Integer(getBag().getOccurrencesOf(key)));
+	}
     }
 
     private void computeStats() {
-        Map<String, Long> baseStats = getMap();
-        Set<String> keys = baseStats.keySet();
-        calculateCreatedAgentsByClass(baseStats);
-        stats = new Hashtable();
-        
-        for (String key : keys) {
-            if (key.startsWith("Moves")) {
-                String className = getInParenthesis(key);
-                long nbAgents = agentsByClass.get(className).longValue();
-                long movesByAgent;
-                movesByAgent = baseStats.get(key).longValue() / nbAgents;
-                stats.put("Average moves by agent for " + className,
-                          new Long(movesByAgent));
-            }
-        }
+	Set keys;
+
+	stats = new Bag();
+
+	countAgents();
+
+	keys = getBag().keySet();
+
+	for(Object key: keys) {
+	    float movesByAgent;
+
+	    if (key instanceof MoveStat) {
+		Class agClass = ((MoveStat)key).getAgentClass();
+		int agentsForClass = agentsByClass.get(agClass).intValue();
+		int movesForClass = getBag().getOccurrencesOf(key);
+
+		stats.add("Average moves by agent (" 
+			  + agClass.getSimpleName() + ")",
+			  new Integer(movesForClass / agentsForClass));
+	    }
+	}
     }
 
-    private String getInParenthesis(String base) {
-        int startPar = base.lastIndexOf('(');
-        int startDot = base.indexOf(':', startPar);
-        if (startDot != -1)
-            startPar = startDot + 1;
-        int endPar = base.lastIndexOf(')');
-        String className = base.substring(startPar + 1, endPar);
-        return className;
-    }
 
-    public Map getStats() {
+    public Bag getStats() {
         computeStats();
         return stats;
     }

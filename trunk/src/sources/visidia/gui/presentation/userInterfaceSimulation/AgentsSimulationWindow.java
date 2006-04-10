@@ -626,7 +626,7 @@ public class AgentsSimulationWindow
 
     public void but_experimentation() {
 	AgentExperimentationFrame statsFrame;
-	Map expStats;
+	Bag expStats;
 	AbstractExperiment classStats = OpenStats.open(this);
 
 	if (classStats == null)

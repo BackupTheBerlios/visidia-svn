@@ -3,6 +3,7 @@ package visidia.tools.agents;
 import visidia.tools.HashTableModel;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.AbstractExperiment;
+import visidia.tools.Bag;
 
 public class UpdateTableStats extends UpdateTable {
 
@@ -31,7 +32,9 @@ public class UpdateTableStats extends UpdateTable {
                 stop();
             }
 	    expType.setStats(sim.getStats());
-            ((HashTableModel)table).setProperties(expType.getStats());
+	    Bag stats = expType.getStats();
+	    if (stats != null)
+		((HashTableModel)table).setProperties(stats.asHashTable());
         }
     }
 
