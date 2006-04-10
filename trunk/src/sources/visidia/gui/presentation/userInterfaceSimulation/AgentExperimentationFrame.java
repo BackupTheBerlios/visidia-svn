@@ -90,7 +90,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         this.agentsTable = agentsTable;
         this.defaultProperties = defaultProperties;
 	this.expType = expType;
-
+	
         initializeFrame(new Bag());
 
         but_start = new JButton("Start");
@@ -210,6 +210,13 @@ class ExperimentationThread extends Thread {
         this.agentsRules = agentsRules;
         this.graph = graph;
         this.frame = frame;
+	this.frame.addWindowListener(new WindowAdapter() {
+		public void windowClosing(WindowEvent evt) {
+		    // Exit the application
+		    abortExperimentation();
+		}
+	    });
+
     }
     
     void abortExperimentation(){
