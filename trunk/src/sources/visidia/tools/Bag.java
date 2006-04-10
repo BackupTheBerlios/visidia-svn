@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class Bag {
 
-    private Hashtable<Object, Integer> table;
+    private Hashtable<Object, Long> table;
 
     public Bag() {
 	table = new Hashtable();
     }
 
-    public int getOccurrencesOf(Object o) {
-	Integer occurrences = table.get(o);
+    public long getOccurrencesOf(Object o) {
+	Long occurrences = table.get(o);
 
 	if (occurrences == null)
 	    return 0;
@@ -20,10 +20,10 @@ public class Bag {
 	    return occurrences.intValue();
     }
 
-    public void add (Object o, int occurrences) {
-	int newOccurrences = getOccurrencesOf(o) + occurrences;
+    public void add (Object o, long occurrences) {
+	long newOccurrences = getOccurrencesOf(o) + occurrences;
 
-	table.put(o, new Integer(newOccurrences));
+	table.put(o, new Long(newOccurrences));
     }
 
     public void add (Object o) {

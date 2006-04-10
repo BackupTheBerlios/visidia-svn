@@ -2,13 +2,13 @@ package visidia.simulation.agents.stats;
 
 import visidia.simulation.agents.Agent;
 
-public class AgentCreationStat extends AbstractAgentStat {
+public class VertexWBAccessStat extends AbstractAgentStat {
 
-    public AgentCreationStat(Class agClass) {
+    public VertexWBAccessStat(Class agClass) {
         super(agClass);
     }
 
     public String descriptionName() {
-	return "Created agent";
+	return "Vertex WB changes";
     }
 }

@@ -11,6 +11,8 @@ import visidia.misc.MarkedState;
 import visidia.simulation.SimulationAbortError;
 import visidia.graph.Vertex;
 
+import visidia.simulation.agents.stats.AbstractStat;
+
 import visidia.visidiassert.*;
 
 /**
@@ -537,13 +539,13 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
 
     /**
-     * Increments statistics for the key  \a key. Use this method when
-     * you want to count something and get the result at this end.
+     * Increments statistics for the key  \a stat. Use this method when
+     * you want to count something and get the result at the end.
      *
-     * @see #incrementStat(String, long)
+     * @see #incrementStat(AbstractStat, long)
      */
-    public void incrementStat(String key) {
-        incrementStat(key, (long)1);
+    public void incrementStat(AbstractStat stat) {
+        incrementStat(stat, 1);
     }
 
     /**
@@ -551,7 +553,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * this method when you want to count something and get the result
      * at this end.
      */
-    public void incrementStat(String key, long increment) {
-        simulator.incrementStat(key, increment);
+    public void incrementStat(AbstractStat stat, long increment) {
+        simulator.incrementStat(stat, increment);
     }
 }

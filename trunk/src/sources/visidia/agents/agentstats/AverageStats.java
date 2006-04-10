@@ -11,7 +11,7 @@ import java.util.Hashtable;
 
 public class AverageStats extends AbstractExperiment {
     
-    private Hashtable<Class, Integer> agentsByClass;
+    private Hashtable<Class, Long> agentsByClass;
     private Bag stats;
 
     private void countAgents() {
@@ -23,7 +23,7 @@ public class AverageStats extends AbstractExperiment {
 	for(Object key: keys) {
 	    if (key instanceof AgentCreationStat)
 		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
-				  new Integer(getBag().getOccurrencesOf(key)));
+				  new Long(getBag().getOccurrencesOf(key)));
 	}
     }
 
@@ -41,12 +41,12 @@ public class AverageStats extends AbstractExperiment {
 
 	    if (key instanceof MoveStat) {
 		Class agClass = ((MoveStat)key).getAgentClass();
-		int agentsForClass = agentsByClass.get(agClass).intValue();
-		int movesForClass = getBag().getOccurrencesOf(key);
+		long agentsForClass = agentsByClass.get(agClass).longValue();
+		long movesForClass = getBag().getOccurrencesOf(key);
 
 		stats.add("Average moves by agent (" 
 			  + agClass.getSimpleName() + ")",
-			  new Integer(movesForClass / agentsForClass));
+			  new Long(movesForClass / agentsForClass));
 	    }
 	}
     }

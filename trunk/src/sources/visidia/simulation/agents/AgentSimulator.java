@@ -327,8 +327,7 @@ public class AgentSimulator {
 	movingMonitor.waitForAnswer(key);
 
         System.out.println("Algorithm Terminated");
-//         stats.incrementStat("Terminated algorithms (agentClass: " 
-//                             + ag.className() + ")");
+        stats.add(new TerminatedStat(ag.getClass()));
 
 	/* Detecting the end of the algorithm */
 	if(agents.isEmpty()) {
@@ -392,8 +391,7 @@ public class AgentSimulator {
                                          state);
         evtQ.put(event);
         movingMonitor.waitForAnswer(key);
-//         stats.incrementStat("Edge state changes (agentClass:" 
-//                             + ag.className() + ")");
+        stats.add(new EdgeStateStat(ag.getClass()));
     }
 
     /**
@@ -419,7 +417,7 @@ public class AgentSimulator {
 	NextPulseEvent event = new NextPulseEvent(key,pulse);
 
 	evtQ.put(event);
-// 	stats.incrementStat("Pulse");
+ 	stats.add(new PulseStat());
     }
 
     /**
@@ -548,8 +546,8 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-// 	    stats.incrementStat("Vertex WB access (agentClass: " 
-//                                 + ag.className() + ")");
+            stats.add(new VertexWBAccessStat(ag.getClass()));
+
 
 	    return vertex.getProperty(key);
 	}
@@ -578,8 +576,8 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }	
-//             stats.incrementStat("Vertex WB changes (agentClass: "
-//                                 + ag.className() + ")");
+            stats.add(new VertexWBChangeStat(ag.getClass()));
+
 
 	    vertex.setProperty(key, value);
 
@@ -684,8 +682,8 @@ public class AgentSimulator {
      */
     public void sleep(Agent ag, long millis) throws InterruptedException {
         getThreadFor(ag).sleep(millis);
-//         stats.incrementStat("Asleep (ms) (agentClass: " + ag.className() + ")",
-//                             millis);
+        stats.add(new SleepStat(ag.getClass()), millis);
+
     }
     /**
      * Returns  the number  of  vertices  of the  graph  on which  the
@@ -716,8 +714,8 @@ public class AgentSimulator {
         return defaultAgentMover!=null;
     }
 
-    public void incrementStat(String key, Long increment) {
-//         stats.incrementStat(key, increment);
+    public void incrementStat(AbstractStat stat, long increment) {
+         stats.add(stat, increment);
     }
 
     public Bag getStats(){

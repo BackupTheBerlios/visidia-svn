@@ -3,6 +3,7 @@ package visidia.agents;
 import java.util.NoSuchElementException;
 
 import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.stats.FailedMoveStat;
 
 /**
  * Implements  a spanning  tree  algorithm with  an  agent. This  agent
@@ -35,7 +36,7 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
                 nbSelectedEdges ++;
             }
             else {
-                incrementStat("Failed moves");
+                incrementStat(new FailedMoveStat(this.getClass()));
             }
         }
     }

@@ -9,8 +9,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class HashTableModel extends AbstractTableModel {
 
-    Map table = null;
-    List keys = null;
+    protected Map table = null;
+    protected List keys = null;
 
     public HashTableModel(Map table){
         setProperties(table);

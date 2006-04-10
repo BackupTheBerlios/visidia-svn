@@ -186,9 +186,19 @@ class ReadOnlyHashTableModel extends HashTableModel {
 	if(column == 0)
 	    return String.class;
 	else if(column == 1)
-	    return Number.class;
+	    return Long.class;
 	else
 	    throw new ArrayIndexOutOfBoundsException();
+    }
+
+    public Object getValueAt(int row, int col){
+        switch(col){
+
+        case 0: return keys.get(row).toString();
+        case 1: return table.get(keys.get(row));
+        
+        }
+        throw new IllegalArgumentException();	
     }
 }
 

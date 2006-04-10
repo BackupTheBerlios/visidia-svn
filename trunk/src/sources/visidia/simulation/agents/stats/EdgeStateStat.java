@@ -2,13 +2,13 @@ package visidia.simulation.agents.stats;
 
 import visidia.simulation.agents.Agent;
 
-public class AgentCreationStat extends AbstractAgentStat {
+public class EdgeStateStat extends AbstractAgentStat {
 
-    public AgentCreationStat(Class agClass) {
+    public EdgeStateStat(Class agClass) {
         super(agClass);
     }
 
     public String descriptionName() {
-	return "Created agent";
+	return "Edge state changes";
     }
 }
