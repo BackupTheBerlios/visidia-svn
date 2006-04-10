@@ -19,7 +19,7 @@ import visidia.visidiassert.*;
  * Abstract class  used to implement  agent based algorithms.   If you
  * want   to   write   a   new   Agent,  subclass   it   or   subclass
  * SynchronizedAgent which allows you to get synchronisation.<br>
- *
+ * <p>
  * All new agents MUST be in the package {@link visidia.agents}.
  *
  * @see SynchronizedAgent
@@ -142,17 +142,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
                 IllegalArgumentException("Instance can't be created !", e);
         }
     }
-
-
-    // Meeting organizer :
-//     protected boolean meet = false;
-//     protected void planning(Agent agent){
-// 	if( meet == true ){
-// 	    System.out.println("Hello ... how r u ? " + agent.toString());
-// 	}
-//     }
     
-    public Collection agentsOnVertex(){
+    protected Collection agentsOnVertex(){
 	return simulator.getAgentsVertexCollection(this.getVertexIdentity());
     }
     
@@ -351,7 +342,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
+     * Tries to  lock the vertex as in  #lockVertexProperties(). If it
+     * is  possible to  lock,  locks and  return  true. Else,  returns
+     * false.
      *
+     * @see #lockVertexProperties()
      */
     public boolean lockVertexIfPossible() {
         boolean lock;
@@ -482,7 +477,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     }
 
     /**
-     * Creates a new agent and send it to door.
+     * Creates a new agent and send it to one door.
      *
      */
     public void createAgentAndSend(Class agClass, int door) {
