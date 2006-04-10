@@ -9,6 +9,6 @@ public class VertexWBAccessStat extends AbstractAgentStat {
     }
 
     public String descriptionName() {
-	return "Vertex WB changes";
+	return "Vertex WB access";
     }
 }

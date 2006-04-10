@@ -454,9 +454,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
     /**
      * Creates a new agent of the same type in the same vertex.
+     *
+     * @see #createAgent(Class)
      */
     public void cloneAgent() {
-	simulator.clone(this);
+	createAgent(this.getClass());
     }
 
     /**
@@ -464,10 +466,28 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * neighboor vertex.
      *
      * @param door Door where to send the clone.
+     * @see #createAgentAndSend(Class, int)
      */
     public void cloneAndSend(int door) {
+            createAgentAndSend(this.getClass(), door);
+    }
+
+    /**
+     * Creates a new agent on the current vertex.
+     *
+     * @param agClass Class from which to create the agent.
+     */
+    public void createAgent(Class agClass) {
+        simulator.clone(this, agClass);
+    }
+
+    /**
+     * Creates a new agent and send it to door.
+     *
+     */
+    public void createAgentAndSend(Class agClass, int door) {
         try {
-            simulator.cloneAndSend(this, door);
+            simulator.cloneAndSend(this, agClass, door);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }

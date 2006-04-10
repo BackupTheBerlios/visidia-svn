@@ -723,15 +723,15 @@ public class AgentSimulator {
     }
 
 
-    public void clone(Agent ag) {
+    public void clone(Agent ag, Class agClass) {
         Agent ag2;
 	System.out.println("The agent " + ag.getIdentity()
 			   + " creates a clone.");
-        ag2 = createAgent(ag.getClass(), getVertexFor(ag), new Hashtable());
+        ag2 = createAgent(agClass, getVertexFor(ag), new Hashtable());
         createThreadFor(ag2).start();
     }
 
-    public void cloneAndSend(Agent ag, int door) 
+    public void cloneAndSend(Agent ag, Class agClass, int door) 
         throws InterruptedException {
         
         Agent ag2;
@@ -745,7 +745,7 @@ public class AgentSimulator {
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
 
-        ag2 = createAgent(ag.getClass(), 
+        ag2 = createAgent(agClass, 
                           vertexFrom,
                           new Hashtable());
 
