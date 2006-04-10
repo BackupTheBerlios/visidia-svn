@@ -326,7 +326,6 @@ public class AgentSimulator {
 				     new Integer(nbr)));
 	movingMonitor.waitForAnswer(key);
 
-        System.out.println("Algorithm Terminated");
         stats.add(new TerminatedStat(ag.getClass()));
 
 	/* Detecting the end of the algorithm */
@@ -725,8 +724,7 @@ public class AgentSimulator {
 
     public void clone(Agent ag, Class agClass) {
         Agent ag2;
-	System.out.println("The agent " + ag.getIdentity()
-			   + " creates a clone.");
+
         ag2 = createAgent(agClass, getVertexFor(ag), new Hashtable());
         createThreadFor(ag2).start();
     }
@@ -751,12 +749,6 @@ public class AgentSimulator {
 
 	moveAgentTo(ag2, door);
 	
-	System.out.println("The agent " + ag.getIdentity()
-			   + " creates a clone (num " + ag2.getIdentity()
-                           + ") and send him to the vertex "
-			   + getVertexFor(ag).neighbour(door).identity());
-        
-
         createThreadFor(ag2).start();        
     }
 

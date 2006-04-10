@@ -31,28 +31,27 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	Iterator it = netAgents.iterator();
 	
 	while(it.hasNext()) {
-	    SynchronizedAgent agent = (SynchronizedAgent)it.next();
-	    if( (agent.meet == true) && (netAgents.size() > 1))
-		whatToDoIfMeeted(netAgents, agent);
+            Agent agent = (Agent) it.next();
+            if (agent instanceof SynchronizedAgent && ((SynchronizedAgent)agent).meet == true
+                && netAgents.size() > 1)
+                whatToDoIfMeeted(netAgents, (SynchronizedAgent)agent);
 	}
-	
     }
     
     /* Describe the work done during the meeting, execute agents planning on the network.
      * @param meetedAgents : collection of synchronizedAgents who participate to the meeting.
      * @param agentManager : The agent who manage the meeting
-     * @see visidia.simulation.agents.SynchronizedAgent.planning
+     * @see visidia.simulation.agents.SynchronizedAgent.planningn
      */
     public void whatToDoIfMeeted(Collection meetedAgents, SynchronizedAgent agentManager){
 	if( enable == false ) return;
 	Iterator it = meetedAgents.iterator();
 	
 	while(it.hasNext()) {
-	    SynchronizedAgent agent = (SynchronizedAgent)it.next();
-	    if( (agent.meet == true)  && (agent != agentManager) ){
-		agentManager.planning(agent);
-	    }
+            Agent agent = (Agent)it.next();
+            if (agent instanceof SynchronizedAgent && ((SynchronizedAgent)agent).meet == true
+                && agent != agentManager)
+		agentManager.planning((SynchronizedAgent)agent);
 	}
     }
-    
 }
