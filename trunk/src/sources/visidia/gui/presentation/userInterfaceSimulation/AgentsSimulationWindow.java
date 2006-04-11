@@ -628,10 +628,8 @@ public class AgentsSimulationWindow
 	AgentExperimentationFrame statsFrame;
 	Bag expStats;
 	AbstractExperiment classStats = OpenStats.open(this);
-
 	if (classStats == null)
 	    return;
-
 	if (sim == null) {
 	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
 						       defaultProperties, agentsRules,
@@ -731,25 +729,27 @@ public class AgentsSimulationWindow
         else if (b == but_agents){
             but_agentsWhiteboard();
         }
-	//PFA2003
 	else if (b == but_help){
-            // 	    if (algoChoice.verticesHaveAlgorithm()) {
-            // 		Algorithm a = algoChoice.getAlgorithm(0);
-            // 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
-            // 		hd.setText(a.getDescription());
-            // 		hd.setVisible(true);
-            // 		hd.setEditable(false);
-            // 	    } else {
-            // 		JOptionPane.showMessageDialog
-            // 		    (this, "You must enter an algorithm or rules ",
-            // 		     "warning", JOptionPane.WARNING_MESSAGE);
-            // 	    }
+	    JOptionPane.showMessageDialog
+		(this, "To Start the simulation you must fisrt add " +
+		 "agents on one or more vertices.\n" + "\n" +
+		 "To place agents on vertices according to a given " +
+		 "probability :\n" + 
+		 " use Place Agents ... in Agents menu.\n" + "\n" +
+		 "To add chosen agents on chosen vertices :\n" + 
+		 "you must select the vertices first then choose the agent" +
+		 " using Add Agents...\n in the Agents menu.\n" +
+		 "To start the simulation, press button start.\n" + "\n" +
+		 " For more information about the agents please read " +
+		 "the documentation given by \n" + "Javadoc or comments " +
+		 "given in th classes.\n"
+		 );
 	}
-        else if (b == but_reset) {
-	    but_reset();
+	else if (b == but_reset) {
+	but_reset();
 	}
     }
-
+    
 
     public void setPulse(int pulse) {
 	//PulseFrame pulseFrame = new PulseFrame();
