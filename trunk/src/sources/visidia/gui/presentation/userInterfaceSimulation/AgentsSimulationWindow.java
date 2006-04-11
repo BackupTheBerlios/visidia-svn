@@ -740,6 +740,9 @@ public class AgentsSimulationWindow
 		 "you must select the vertices first then choose the agent" +
 		 " using Add Agents...\n in the Agents menu.\n" +
 		 "To start the simulation, press button start.\n" + "\n" +
+		 "If you do not want graphical simulation, place your " +
+		 "agents on the graph and\n" +
+		 "click the 'Statistics' button\n" + "\n" +
 		 " For more information about the agents please read " +
 		 "the documentation given by \n" + "Javadoc or comments " +
 		 "given in th classes.\n"
