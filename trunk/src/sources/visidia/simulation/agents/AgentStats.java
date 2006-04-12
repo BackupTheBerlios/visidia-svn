@@ -65,17 +65,4 @@ public class AgentStats {
 	return stats;
     }
 
-    /**
-     * Prints the statistics on the terminal.
-     */
-    public void printStats() {
-        Set<String> keys = stats.keySet();
-
-        System.out.println("+---------------------+");
-        System.out.println("|         Stats       |");
-        System.out.println("+---------------------+");
-
-        for(String key : keys)
-            System.out.println(key + ": " + stats.get(key));
-    }
 }

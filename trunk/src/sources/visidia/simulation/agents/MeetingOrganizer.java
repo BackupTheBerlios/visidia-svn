@@ -3,23 +3,28 @@ package visidia.simulation.agents;
 import java.util.Collection;
 
 /**
- * Class  in charge  of the organization of meeting. Allows the communication
- * between agents when they are meeted. Describe how to organize agents meeting.
+ * Class  in  charge  of  the  organization of  meeting.   Allows  the
+ * communication between  agents when they meet  each other. Describes
+ * how to organize agents meeting.
  **/
 public interface MeetingOrganizer {
 
-  /* Implement the strategie of meeting between network agents
+    /** Implements the strategy of meeting between network agents
+     *
      * @param netAgents : collection of network agents (or the set 
      * of agents conserned by the meeting)
-     * @see whatToDoIfMeeted
+     * @see #whatToDoIfMeeted(Collection, SynchronizedAgent)
      */
     public void howToMeetTogether(Collection netAgents);
 
 
-    /* Describe the work done during the meeting, execute agents planning on the network.
-     * @param meetedAgents : collection of synchronizedAgents who participate to the meeting.
-     * @param agentManager : The agent who manage the meeting
-     * @see visidia.simulation.agents.SynchronizedAgent.planning
+    /* Describes  the work  done during  the meeting,  executes agents
+     * planning on the network.
+     *
+     * @param  meetedAgents :  collection of  synchronizedAgents which
+     * take part in the meeting.
+     * @param agentManager : The agent which manages the meeting
+     * @see visidia.simulation.agents.SynchronizedAgent#planning(SynchronizedAgent)
      */
     public void whatToDoIfMeeted(Collection meetedAgents, SynchronizedAgent agentManager);
 
