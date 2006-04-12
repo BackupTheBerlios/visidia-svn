@@ -5,8 +5,8 @@ import visidia.simulation.agents.Agent;
 import java.lang.IllegalStateException;
 
 /**
- * Agent creates to test the whiteBoard Lock
- * It blocks Vertex, move, and unlocks Vertex it has locked
+ * Agent created to test the whiteBoard Lock.
+ * It blocks Vertex, moves, and unlocks Vertex it has locked
  */
 public class Locker extends Agent {
 

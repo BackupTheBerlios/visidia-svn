@@ -50,7 +50,7 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
      * @param  meetedAgents :  collection of  synchronizedAgents which
      * take part in the meeting.
      * @param agentManager : The agent which manages the meeting
-     * @see visidia.simulation.agents.SynchronizedAgent.#planning(SynchronizedAgent)
+     * @see visidia.simulation.agents.SynchronizedAgent#planning(SynchronizedAgent)
      */
     public void whatToDoIfMeeted(Collection meetedAgents, SynchronizedAgent agentManager){
 	if( enable == false ) return;

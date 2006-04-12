@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import visidia.simulation.agents.Agent;
 
 /**
- * Agent that remembers how many times it visited each vertex.
+ * Agent that remembers how many times it has visited each vertex.
  *
  * @see Agent#setVertexProperty(Object, Object)
  * @see Agent#getVertexProperty(Object)

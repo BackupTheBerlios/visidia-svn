@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * This agent moves  randomly in the graph and  prints the whiteboards
- * it mets.
+ * it meets.
  *
  * @see visidia.tools.agents.WhiteBoard
  */

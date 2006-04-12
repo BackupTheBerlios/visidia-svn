@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import visidia.simulation.agents.Agent;
 
 /**
- * Agent creates to test the whiteBoard Lock
+ * Agent created to test the whiteBoard Lock.
  * It just blocks the Vertex WhiteBoard, increments
  * a variable "test", and ends
  */

@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 
 
 /**
- * Agent creates to test the whiteBoard Lock
- * Mark all Vertex by it name
+ * Agent created to test the whiteBoard Lock.
+ * Mark all Vertex by its name
  */
 public class Discover extends Agent {
 
