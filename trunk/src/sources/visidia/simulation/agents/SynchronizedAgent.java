@@ -72,7 +72,12 @@ public abstract class SynchronizedAgent extends Agent {
 	    
      	}
     }
-
+   /**
+    * Add the name of the meeting agent and increment the number of agent 
+    * meeted during the life of the curent agent
+    * @param agent : a meeted agent
+    *
+    **/
     protected void planning(SynchronizedAgent agent){
 	if( meet == true )
 	    meetedAgentsnames.put(new Integer(meetingnum+1),agent.toString());
