@@ -4,11 +4,11 @@ import visidia.tools.Bag;
 
 import visidia.simulation.agents.stats.*;
 
-public abstract class AbstractExperiment {
+public abstract class AbstractStatReport {
 
     private Bag stats;
 
-    public AbstractExperiment() {}
+    public AbstractStatReport() {}
 
     public void setStats(Bag stats) {
         this.stats = stats;

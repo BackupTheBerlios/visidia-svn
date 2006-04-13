@@ -72,7 +72,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private Vector<RelabelingSystem> agentsRules;
     private Hashtable<String,Object> defaultProperties;
     private Hashtable agentsTable;
-    private AbstractExperiment expType;
+    private AbstractStatReport expType;
 
     private ExperimentationThread expThread;
     private SimulatorThreadGroup threadGroup;
@@ -83,7 +83,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
     public AgentExperimentationFrame(VueGraphe graph, Hashtable agentsTable, 
                                      Hashtable<String,Object> defaultProperties,
-                                     Vector<RelabelingSystem> agentsRules, AbstractExperiment expType) {
+                                     Vector<RelabelingSystem> agentsRules, AbstractStatReport expType) {
 	
         this.agentsRules = agentsRules;
         this.graph = graph;
@@ -126,7 +126,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         return tableModel;
     } 
 
-    public AbstractExperiment getExpType() {
+    public AbstractStatReport getExpType() {
 	return expType;
     }
 

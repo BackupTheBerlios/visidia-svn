@@ -9,13 +9,13 @@ import java.lang.reflect.Constructor;
 
 import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.metier.Graphe;
-import visidia.simulation.agents.AbstractExperiment;
+import visidia.simulation.agents.AbstractStatReport;
 
 public class OpenStats implements Serializable{
 
     protected static final String dir = new String("visidia/agents/agentstats");
     
-    public static AbstractExperiment open(AgentsSimulationWindow window){
+    public static AbstractStatReport open(AgentsSimulationWindow window){
 
         File file_open = null; 
         JFileChooser fc = new JFileChooser(dir);
@@ -37,11 +37,11 @@ public class OpenStats implements Serializable{
         String className = "visidia.agents.agentstats." 
             + file_name.substring(0,index);
 	
-	AbstractExperiment stat;
+	AbstractStatReport stat;
 	try {
 	    Class classStats = Class.forName(className);
 	    Constructor constructor = classStats.getConstructor();
-	    stat = (AbstractExperiment)constructor.newInstance();
+	    stat = (AbstractStatReport)constructor.newInstance();
 	    
 	} catch(Exception excpt) {
 	    throw new RuntimeException("The agent chooser can't be created",
