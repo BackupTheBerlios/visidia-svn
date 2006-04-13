@@ -75,9 +75,7 @@ public class AgentBoxProperty
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == buttonDone) {
-
-            timer.stop();
-            timer=null;
+            closingWindow();
 
             dialog.setVisible(false);
             dialog.dispose();

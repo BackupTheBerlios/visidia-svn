@@ -1168,6 +1168,7 @@ public class AgentsSimulationWindow
     public void removeWindow(AbstractDefaultBox box) {
         boxAgents.remove(box);
     }
+
     
     public void changerVueGraphe(VueGraphe grapheVisu){
         content.remove(scroller);
