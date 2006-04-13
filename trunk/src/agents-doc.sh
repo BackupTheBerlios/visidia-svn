@@ -12,5 +12,5 @@ javadoc \
     visidia.agents \
     visidia.agents.agentsmover \
     visidia.agents.agentchooser \
-    visidia.agents.agentstats \
+    visidia.agents.agentreport \
     visidia.tools.agents

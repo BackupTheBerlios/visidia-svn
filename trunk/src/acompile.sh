@@ -9,5 +9,5 @@ javac -encoding utf8 -sourcepath sources -d classes \
     sources/visidia/agents/*.java \
     sources/visidia/agents/agentsmover/*.java \
     sources/visidia/agents/agentchooser/*.java \
-    sources/visidia/agents/agentstats/*.java
+    sources/visidia/agents/agentreport/*.java
 

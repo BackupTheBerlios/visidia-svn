@@ -19,6 +19,16 @@ public class Spanning_Tree_Agent_WithId extends Agent {
      */
     boolean[] vertexMarks;
 
+    /**
+     * Implements the  spanning tree algorithm. This  algorithm uses a
+     * boolean array indexed by the vertices which is initialised with
+     * <code>false</code>.   Every time  the agent  sees a  vertex not
+     * marked (the associated boolean in the array is false), it marks
+     * it (put  the boolean to true)  and mark the edge  he came from.
+     * <p>
+     *
+     * The agent moves randomly in the graph.
+     */
     protected void init() {
         
         int nbSelectedEdges = 0;
@@ -60,6 +70,9 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                 nbSelectedEdges ++;
             }
             else {
+		/**
+		 * Last move did not help building the tree. Count it.
+		 */
                 incrementStat(new FailedMoveStat(this.getClass()));
             }
 

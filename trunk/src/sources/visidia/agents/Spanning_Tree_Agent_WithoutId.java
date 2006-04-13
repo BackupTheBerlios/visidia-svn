@@ -15,7 +15,11 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
 
 
     /**
-     * Have a look at Spanning_Tree_Agent_WithId#init() for comments.
+     * The algorithm used  in this agent to create a  tree is the same
+     * as  for  Spanning_Tree_Agent_WithId.   In  this  algortihm  the
+     * boolean array is replaced by marks on the vertice whiteboards.
+     *
+     * @see Spanning_Tree_Agent_WithId#init()
      */ 
     public void init() {
         

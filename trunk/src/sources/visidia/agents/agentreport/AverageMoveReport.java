@@ -1,4 +1,4 @@
-package visidia.agents.agentstats;
+package visidia.agents.agentreport;
 
 import visidia.simulation.agents.AbstractStatReport;
 import visidia.simulation.agents.stats.*;

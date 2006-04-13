@@ -627,7 +627,7 @@ public class AgentsSimulationWindow
     public void but_experimentation() {
 	AgentExperimentationFrame statsFrame;
 	Bag expStats;
-	AbstractStatReport classStats = OpenStats.open(this);
+	AbstractStatReport classStats = OpenReport.open(this);
 	if (classStats == null)
 	    return;
 	if (sim == null) {

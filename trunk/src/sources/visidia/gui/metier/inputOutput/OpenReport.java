@@ -11,9 +11,9 @@ import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.metier.Graphe;
 import visidia.simulation.agents.AbstractStatReport;
 
-public class OpenStats implements Serializable{
+public class OpenReport implements Serializable{
 
-    protected static final String dir = new String("visidia/agents/agentstats");
+    protected static final String dir = new String("visidia/agents/agentreport");
     
     public static AbstractStatReport open(AgentsSimulationWindow window){
 
@@ -34,7 +34,7 @@ public class OpenStats implements Serializable{
         window.mettreAJourTitreFenetre(file_name);
       
         int index = file_name.lastIndexOf('.');
-        String className = "visidia.agents.agentstats." 
+        String className = "visidia.agents.agentreport." 
             + file_name.substring(0,index);
 	
 	AbstractStatReport stat;
