@@ -61,6 +61,6 @@ public abstract class AbstractStat {
      *
      * @see #descriptionName()
      */
-    public abstract String toString() { }
+    public abstract String toString();
 
 }

@@ -9,7 +9,7 @@ import visidia.simulation.agents.Agent;
  */
 public class PulseStat extends AbstractStat {
 
-    protected String toString() {
+    public String toString() {
         return "Pulse";
     }
 }
