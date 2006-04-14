@@ -17,7 +17,10 @@ public class BasicSynchronizedAgentMeet extends SynchronizedAgent {
     /* Exemple of planning
      */
     public void planning(SynchronizedAgent agent){
-	System.out.println(this.toString()+" : Your are the  "+(i++)+"th agent that I met : "+ agent.toString());
+	System.out.println(this.toString()+" : Your are the  "
+                           +(i++)
+                           +"th agent that I met : "
+                           + agent.toString());
     }
 
     protected void init() {
