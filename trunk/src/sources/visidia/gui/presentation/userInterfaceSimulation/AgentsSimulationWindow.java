@@ -895,7 +895,7 @@ public class AgentsSimulationWindow
                                    JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
 	if (mi == rules_open) {
             final javax.swing.filechooser.FileFilter filter = 
                 new javax.swing.filechooser.FileFilter () {
@@ -936,7 +936,8 @@ public class AgentsSimulationWindow
     
 
     public void applyStarRulesSystem(RelabelingSystem rSys) {
-	rulesWarnings(rSys);
+	if (!rulesWarnings(rSys))
+            return;
 
         if (agentsRules == null)
             agentsRules = new Vector();
@@ -1213,15 +1214,18 @@ public class AgentsSimulationWindow
         //sim.restartNode(nodeId);
     }
 
-    public void rulesWarnings(RelabelingSystem r){
+    public boolean rulesWarnings(RelabelingSystem r){
 	int synType;//user choice
-	int type;//default choice
+	int type = -2;//default choice
 	SynObject synob;
 	RSOptions options = r.getOptions();
+
 	if (options.defaultSynchronisation() != -1) {
 	    type = r.defaultSynchronisation();
 	    /* user choice */
 	    synType = options.defaultSynchronisation();
+            System.out.println("synType: " + synType + " type " + type);
+            System.out.println("RDV: " + SynCT.RDV + " LC1 " + SynCT.LC1);
 	    if ((synType  == SynCT.RDV) && (type == SynCT.LC1)) {
 		JOptionPane.showMessageDialog
 		    (this, "The rendez-vous synchronisation cannot be used\n" +
@@ -1238,6 +1242,16 @@ public class AgentsSimulationWindow
 	    /* default option */
 	    synType = r.defaultSynchronisation();
 	}
+        if (synType != SynCT.RDV || (type != -2 && type != SynCT.RDV)) {
+            JOptionPane
+                .showMessageDialog(this,
+                                   "Only RDV rules can be currently used with"
+                                   + " agents!",
+                                   "Error",
+                                   JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     public void updateVertexState(SommetDessin vert) {
