@@ -71,12 +71,6 @@ public class AgentSimulator {
      * all informations are stored here. 
      */
     private Hashtable<Vertex,Agent> lockedVertices = new Hashtable();
-
-    /**
-     * Default AgentMover used only if no AgentMover is affected to
-     * Agent. 
-     */
-    private AgentMover defaultAgentMover = null;
     
     /**
      * evtQ is the queue of the events sent to the AgentSimulEventHandler.
@@ -698,25 +692,6 @@ public class AgentSimulator {
      */
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
-    }
-    /**
-     * Sets the agentMover  of the simulation. This method  is used to
-     * use the specified agentMover that you can create yourself.
-     *
-     * @see AgentMover
-     */
-    public void setDefaultAgentMover(AgentMover am) {
-        defaultAgentMover = am;
-    }
-
-    /**
-     * Returns true  if the  simulation has a  defaultAgentMover false
-     * otherwise.
-     *
-     * @see #setDefaultAgentMover(AgentMover)
-     */
-    public boolean hasDefaultAgentMover() { 
-        return defaultAgentMover!=null;
     }
 
     /**
