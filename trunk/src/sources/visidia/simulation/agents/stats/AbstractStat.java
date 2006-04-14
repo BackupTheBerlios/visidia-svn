@@ -58,8 +58,6 @@ public abstract class AbstractStat {
     /**
      * Description  of the  event.   Used in  reports when  displaying
      * stats.
-     *
-     * @see #descriptionName()
      */
     public abstract String toString();
 
