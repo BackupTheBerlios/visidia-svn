@@ -63,9 +63,9 @@ Le contenu des slides:
              obtenu ; présentation de la méthode init(). (Julie)
 	4.4. Illustration du code d'un agent et screenshot du résultat
              obtenu ;  l'extension et les différences  entres les deux
-             types d'agents.
+             types d'agents. (mathieu)
 	4.5. Illustration du code d'un agent et screenshot du résultat
-             obtenu ; propriétés des sommets + whiteboards.
+             obtenu ; propriétés des sommets + whiteboards. 
 	4.6. Illustration du code d'un agent et screenshot du résultat
              obtenu ; déplacement d'agents: move() + AgentMover.
 	4.7. Illustration du code d'un agent et screenshot du résultat
@@ -73,7 +73,8 @@ Le contenu des slides:
 
 5. Partie3: implantation:
 -------------------------
-	5.1. types d'agents + présentation de la méthode nextPulse().
+	5.1. types d'agents + présentation de la méthode 
+	     nextPulse(). (mathieu)
 	5.2. AgentMover   :  a   quoi  ca   sert,   différents  types,
              implantation d'autres movers, API spécifique.
 	5.3. Rencontre entre les agents : méthode planning, comment ca
