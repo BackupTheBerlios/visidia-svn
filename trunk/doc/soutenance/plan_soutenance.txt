@@ -1,0 +1,89 @@
+Les slides seront faites  avec OpenOffice.org impress que chacun devra
+s'assurer d'avoir sur son ordinateur de travail.
+
+Voici la première version de notre plan de soutenance:
+
+- introduction.
+- présentation générale.
+- principe de VISiDiA.
+- implantation.
+- organisation.
+- conclusion.
+
+Le contenu des slides:
+
+1. Introduction:
+----------------
+
+* titre du projet/de la soutenance
+* Nom du projet officiel : Exécution d'algorithmes distribués à l'aide
+  d'agents mobiles.
+* Responsables scientifiques : M. Mosbah B. Derbel.
+* Responsable pédagogique : P.Y Gloess.
+* Nom des membres du projet :
+
+2. Plan de la soutenance.
+-------------------------
+
+3. Partie 1: présentation générale:
+-----------------------------------
+	3.1. Algorithmes distribués: 
+	     * présentation de l'algorithmique distribuée
+	     * pourquoi les agents.
+	3.2. ViSiDiA :
+	     * équipe du LaBRI.
+	     * présentation de ViSiDiA en tant qu'outil de simulation.
+	3.3. ViSiDiA tel qu'il existait. 
+	3.4. Les agents : présentation du modèle
+	3.5. Le projet :
+	     * PFA.
+	     * Durée
+	     * clients, responsable pédago.
+	     * cadre.
+	3.6. Écrire un algorithme:
+	     * API disponible sous Javadoc.
+	     * règles de réécriture.
+	3.7. Comment ca marche:
+	     * dessiner graphe.
+	     *  placer agents avec les deux méthodes.
+	     * appuyer sur start.
+	3.8. Résultat d'une simulation.
+
+4. Partie 2: principes de ViSiDiA:
+----------------------------------
+	4.1. Fonctionnement    général   de   ViSiDiA:    Schéma   des
+             interactions entre les différentes parties.
+	4.2. Illustration du code d'un agent et screenshot du résultat
+             obtenu ; présentation de l'algorithme.
+	4.3. Illustration du code d'un agent et screenshot du résultat
+             obtenu ; présentation de la méthode init().
+	4.4. Illustration du code d'un agent et screenshot du résultat
+             obtenu ;  l'extension et les différences  entres les deux
+             types d'agents.
+	4.5. Illustration du code d'un agent et screenshot du résultat
+             obtenu ; propriétés des sommets + whiteboards.
+	4.6. Illustration du code d'un agent et screenshot du résultat
+             obtenu ; déplacement d'agents: move() + AgentMover.
+	4.7. Illustration du code d'un agent et screenshot du résultat
+             obtenu ; statistiques.
+
+5. Partie3: implantation:
+-------------------------
+	5.1. types d'agents + présentation de la méthode nextPulse().
+	5.2. AgentMover   :  a   quoi  ca   sert,   différents  types,
+             implantation d'autres movers, API spécifique.
+	5.3. Rencontre entre les agents : méthode planning, comment ca
+             marche.
+	5.4. Expérimentation.
+
+6. Partie4: organisation:
+-------------------------
+	6.1. Organisation du PFA:
+	     * Berlios + sreenshot du site.
+	     * svn
+	     * planning
+	     * XP
+	     * Licence
+
+7. Conclusion.
+--------------
