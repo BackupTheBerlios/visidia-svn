@@ -22,41 +22,45 @@ Le contenu des slides:
 * Responsable pédagogique : P.Y Gloess.
 * Nom des membres du projet :
 
-2. Plan de la soutenance.
+2. Plan de la soutenance. (Nada)
 -------------------------
 
 3. Partie 1: présentation générale:
 -----------------------------------
-	3.1. Algorithmes distribués: 
+	3.1. Algorithmes distribués: (Nada)
 	     * présentation de l'algorithmique distribuée
 	     * pourquoi les agents.
-	3.2. ViSiDiA :
+	3.2. ViSiDiA : (Nada)
 	     * équipe du LaBRI.
 	     * présentation de ViSiDiA en tant qu'outil de simulation.
-	3.3. ViSiDiA tel qu'il existait. 
-	3.4. Les agents : présentation du modèle
-	3.5. Le projet :
+	3.3. ViSiDiA tel qu'il existait. (Nada)
+	3.4. Les agents : présentation du modèle (Damien)
+	3.5. Le projet : (Damien)
 	     * PFA.
 	     * Durée
 	     * clients, responsable pédago.
 	     * cadre.
-	3.6. Écrire un algorithme:
+	3.6. Écrire un algorithme: (Damien)
 	     * API disponible sous Javadoc.
 	     * règles de réécriture.
-	3.7. Comment ca marche:
+	3.7. Comment ca marche: (Damien)
 	     * dessiner graphe.
 	     *  placer agents avec les deux méthodes.
 	     * appuyer sur start.
-	3.8. Résultat d'une simulation.
+
+	3.8. Screenshot  d'une  simulation  en  cours  (bonhommes  qui
+             marchent) (Julie)
 
 4. Partie 2: principes de ViSiDiA:
 ----------------------------------
+
 	4.1. Fonctionnement    général   de   ViSiDiA:    Schéma   des
-             interactions entre les différentes parties.
+             interactions entre  les différentes parties.  (Xavier: tu
+             assumes tes choix)
 	4.2. Illustration du code d'un agent et screenshot du résultat
-             obtenu ; présentation de l'algorithme.
+             obtenu ; présentation de l'algorithme. (Julie)
 	4.3. Illustration du code d'un agent et screenshot du résultat
-             obtenu ; présentation de la méthode init().
+             obtenu ; présentation de la méthode init(). (Julie)
 	4.4. Illustration du code d'un agent et screenshot du résultat
              obtenu ;  l'extension et les différences  entres les deux
              types d'agents.
