@@ -103,7 +103,7 @@ public class AgentsSimulationWindow
 
     private Hashtable<String,Object> defaultProperties; // To initialize the whiteboards
 
-    private UpdateTable timer;
+    private UpdateTableStats timer;
 
     private Vector<AgentBoxProperty> boxAgents;
 
@@ -644,6 +644,10 @@ public class AgentsSimulationWindow
 					     statsFrame.getTableModel());
 		new Thread(timer).start();
 	    }
+            else {
+                timer.setTableModel(statsFrame.getTableModel());
+                timer.setStatReport(classStats);
+            }
 	}
 
         statsFrame.setTitle("Agents Experiments");

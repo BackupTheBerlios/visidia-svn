@@ -22,6 +22,14 @@ public class UpdateTableStats extends UpdateTable {
         this(sim, expType, table, 1000);
     }
 
+    public void setTableModel(HashTableModel table) {
+        this.table = table;
+    }
+
+    public void setStatReport(AbstractStatReport report) {
+        this.expType = report;
+    }
+
     public void run() {
         while (! stop) {
             try {
