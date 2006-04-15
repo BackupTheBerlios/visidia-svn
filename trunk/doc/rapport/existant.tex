@@ -53,19 +53,154 @@ primitives dans la section \ref{sec:existant-api}.\\
 \subsection{Description de l'API existante}
 \label{sec:existant-api}
 
+Étudions quelques une des fonctions les plus utilisées de l'API.
 
+\begin{description}
+
+\item[sendTo]  Permet d'envoyer  un message  spécifique sur  une porte
+donnée.
+
+\item[sendAll] Envoie  un message à  tous les voisins (sur  toutes les
+portes).
+
+\item[receiveFrom] Attend de recevoir un message provenant d'une porte
+donnée.
+
+\item[receive] Permet de  recevoir un message qui nous  est destiné et
+  la  porte dont  il provient.  L'appel à  cette méthode  attend qu'un
+  message arrive s'il n'y en a pas déjà un dans la file. 
+
+\item[getArity] Retourne  le degré  du sommet en  cours (le  nombre de
+portes). 
+
+\item[getNetSize] Retourne le nombre de sommet du graphe.
+
+\item[setDoorState]   Modifie   l'arête    pointée   par   une   porte
+  donnée. Généralement utilisée pour mettre une arête en gras.
+
+\item[putProperty] Change  une valeur de la table  des propriétés d'un
+  sommet. Presque uniquement utilisée pour changer le label d'un somme
+  (sa couleur). 
+
+\item[getProperty] Récupère une valeur dans la table des propriétés du
+  sommet.  Presque uniquement  utilisée  pour connaître  le label  (la
+  couleur) en cours d'un sommet.
+
+\end{description}
 
 \subsection{Exemple d'utilisation}
 
+Voici un exemple  d'utilisation du modèle par envoie  de messages pour
+calculer un arbre couvrant. A l'origine, tous les sommets ont un label
+``N'' sauf  un qui a un  label égal à ``A''  et qui jouera  le rôle de
+racine.
+
+\begin{verbatim}
+init() {
+
+  if(getProperty(``label'') = ``A'') {
+    sendAll(``Wave'');
+  }
+  else {
+    (message, porteDuPere) := receive();
+
+    setDoorState(MARKED_STATE, porteDuPere); //marque l'arête en gras
+
+    putProperty(``label'', ``A'');
+
+    for(i=0 ; i < getArity() ; i++) {
+      if (i != porteDuPere) {
+        sendTo(i, ``Wave'');
+      }
+    }
+  }
+}
+\end{verbatim}
+
+Voici l'ordre dans lequel se déroulent les étapes :
+
+\begin{enumerate}
+
+\item  Tous les  noeuds ``N''  sont en  attente d'un  message  suite à
+l'appel de la méthode $receive$.
+
+\item La racine envoie simplement un message
+(contenant  le  mot   ``Wave'')  à  tous  ces  voisins   avant  de  se
+terminer. 
+
+\item  Les   voisins  de  la   racine  reçoivent  le  message,  se
+  débloquent et  marquent l'arête de  laquelle provient le  message en
+  gras (cette arête fera partie de l'arbre couvrant).
+
+\item Ces  sommets jouent  ensuite le rôle  de racine et  renvoient un
+  message à tous  leurs voisin (sauf à l'expéditeur  du message qu'ils
+  viennent de  recevoir) puis se terminent. Ceci  débloque de nouveaux
+  sommets qui vont exécuter les étapes 3 et 4.
+
+\item Quand tous  les sommets se sont terminés,  l'algorithme est fini
+  et un arbre recouvre le graphe.
+
+\end{enumerate}
+
+La preuve de  cet algorithme est facile et se base  sur les deux faits
+suivants :
+
+\begin{itemize}
+
+\item Un  seul noeud  lance le processus  initial ce qui  implique que
+  pour tout noeud du graphe,  il existe un chemin remontant jusqu'à la
+  racine. 
+
+\item Chaque noeud marque une et une seule arête.
+
+\end{itemize}
+
 \section{Architecture générale}
-\subsection{Interface graphique d'édition}
-\subsection{Interface graphique de simulation}
+
+Nous allons maintenant nous attarder à décrire l'architecture générale
+du programme \visidia.\\
+
+\visidia se base sur trois grandes structures:
+
+\begin{itemize}
+
+\item L'interface graphique représente tout ce qui va être affiché sur
+  l'écran  de  l'utilisateur  et  tout  ce avec  quoi  il  va  pouvoir
+  interagir.
+
+\item La  partie simulation lance  les algorithmes, gère les  files de
+  messages  et   informe  l'interface  graphique   des  changements  à
+  effectuer pour refléter l'état du systèmes. 
+
+\item  La  dernière  structure   est  composée  d'algorithmes  qui  ne
+  communiquent  qu'avec le  simulateur  dans le  but d'exécuter  leurs
+  tâches.  C'est cette  structure  que l'utilisateur  de \visidia  est
+  invité à modifier pour écrire ses propres algorithmes.
+
+\end{itemize}
+
+\subsection{Interface graphique}
+
+L'interface  graphique   est  une  partie   massive  de  l'application
+\visidia. C'est  grâce à  elle que \visidia  a beaucoup de  succès. En
+effet,  elle permet  de visualiser  en temps  réel le  déplacement des
+messages sur le graphe et l'état des sommets.
+
+\subsubsection{Interface graphique d'édition}
+\subsubsection{Interface graphique de simulation}
+
 \subsection{Simulateur}
+
 \subsection{Algorithmes}
 
-\section{Deux modes d'utilisations}
+\subsection{Communication entre les structures}
+\subsubsection{Entre la partie graphique et le simulateur}
+\subsubsection{Entre les algorithmes et le simulateur}
+
+\section{Modes d'utilisations}
 \subsection{Système unique}
 \subsection{Distribué}
+\subsection{Règles de réécriture}
 
 
 
