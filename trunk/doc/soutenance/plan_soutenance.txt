@@ -76,10 +76,14 @@ Le contenu des slides:
 	5.1. types d'agents + présentation de la méthode 
 	     nextPulse(). (mathieu)
 	5.2. AgentMover   :  a   quoi  ca   sert,   différents  types,
-             implantation d'autres movers, API spécifique.
+             implantation d'autres movers, API spécifique. (Hicham)
 	5.3. Rencontre entre les agents : méthode planning, comment ca
-             marche.
-	5.4. Expérimentation.
+             marche. (Hicham)
+
+	5.4. Expérimentation.        Présenter      la      hiérarchie
+             AbstractStatReport et la hiérarchie AbstractStat. Comment
+             ça   marche,  qui   fait   quoi  ?   Décrire  la   classe
+             Bag. (Hicham)
 
 6. Partie4: organisation:
 -------------------------
