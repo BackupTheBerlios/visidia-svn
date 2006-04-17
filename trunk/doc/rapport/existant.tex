@@ -21,7 +21,7 @@ processeurs à des noeuds du  graphe et leurs connexions aux arêtes (ou
 arcs).\\
 
 Cette   représentation  nous   permet  de   décrire   les  différentes
-caractéristiques des réseaux.  Par exemple :
+caractéristiques des réseaux.  Par exemple :\\
 
 \begin{itemize}
 \item   les  liaisons  unidirectionnelles   de  notre   réseau  seront
@@ -117,7 +117,7 @@ init() {
 }
 \end{verbatim}
 
-Voici l'ordre dans lequel se déroulent les étapes :
+Voici l'ordre dans lequel se déroulent les étapes :\\
 
 \begin{enumerate}
 
@@ -143,7 +143,7 @@ terminer.
 \end{enumerate}
 
 La preuve de  cet algorithme est facile et se base  sur les deux faits
-suivants :
+suivants :\\
 
 \begin{itemize}
 
@@ -160,48 +160,170 @@ suivants :
 Nous allons maintenant nous attarder à décrire l'architecture générale
 du programme \visidia.\\
 
-\visidia se base sur trois grandes structures:
+\visidia se base sur trois grandes structures :\\
 
 \begin{itemize}
 
-\item L'interface graphique représente tout ce qui va être affiché sur
-  l'écran  de  l'utilisateur  et  tout  ce avec  quoi  il  va  pouvoir
-  interagir.
-
-\item La  partie simulation lance  les algorithmes, gère les  files de
-  messages  et   informe  l'interface  graphique   des  changements  à
-  effectuer pour refléter l'état du systèmes. 
-
-\item  La  dernière  structure   est  composée  d'algorithmes  qui  ne
-  communiquent  qu'avec le  simulateur  dans le  but d'exécuter  leurs
-  tâches.  C'est cette  structure  que l'utilisateur  de \visidia  est
-  invité à modifier pour écrire ses propres algorithmes.
+\item l'interface graphique
+\item le simulateur
+\item les algorithmes
 
 \end{itemize}
 
 \subsection{Interface graphique}
 
-L'interface  graphique   est  une  partie   massive  de  l'application
+L'interface graphique est une  partie très importante de l'application
 \visidia. C'est  grâce à  elle que \visidia  a beaucoup de  succès. En
 effet,  elle permet  de visualiser  en temps  réel le  déplacement des
-messages sur le graphe et l'état des sommets.
+messages sur le graphe et l'état des sommets.\\
+
+L'interface graphique se compose de  deux parties : la première partie
+est  consacrée à l'édition  de graphe  et la  seconde à  la simulation
+proprement dite.
 
 \subsubsection{Interface graphique d'édition}
+
+Dans la partie consacrée  à l'édition, l'interface graphique permet de
+créer de nouveaux graphes par la seule utilisation de la souris. Grâce
+à elle, de simples glisser/déposer permettent de placer des sommets et
+de les relier par des arêtes.\\
+
+Cette interface permet aussi de  charger des graphes existants, de les
+compléter\dots
+
 \subsubsection{Interface graphique de simulation}
+
+La partie la plus intéressante de l'interface graphique se trouve dans
+la fenêtre de simulation. De nombreuses tâches peuvent être effectuées
+dans cette partie parmis lesquelles :\\
+
+\begin{itemize}
+
+\item charger un algorithme et le placer sur les sommets du graphe,
+\item lancer la simulation, la mettre en pause et l'arrêter,
+\item voir en temps réel les messages s'échanger sur les arêtes,
+\item choisir des règles de réécriture à appliquer,
+\item éditer les labels des sommets\dots
+
+\end{itemize}
 
 \subsection{Simulateur}
 
+Le simulateur est  le noyau de \visidia. Il a  entre autre pour charge
+de :\\
+
+\begin{itemize}
+\item lancer l'exécution des algorithmes,
+\item gérer les messages du réseau,
+\item informer l'interface graphique des changements,
+\item valider les acquittements de l'interface graphique,
+\item compter les évènements en vue d'établir des statistiques\dots
+\end{itemize}
+
+\sauteligne
+
+Lorsque le simulateur est créé par l'interface graphique, celle-ci lui
+fournit  le  graphe  courant,  l'algorithme  à  exécuter  choisit  par
+l'utilisateur  et deux files  qui serviront  à la  communication (voir
+\ref{sec:existant-communication}). Le simulateur se charge à ce moment
+d'initialiser les  files de messages pour les  algorithmes. Mais c'est
+au moment  où le  simulateur reçoit un  appel à  $startSimulation$ que
+celui-ci commence  réellement son travail.   Il va créer,  pour chaque
+noeud du graphe, un processus  qui va exécuter le code de l'algorithme
+sélectionné.\\
+
+Par la  suite, le rôle  du simulateur sera  de gérer les  demandes des
+algorithmes  (informations sur  le graphes,  envoies et  réceptions de
+messages\dots) et de l'interface graphique (mise en pause ou à l'arrêt
+du simulateur\dots).
+
 \subsection{Algorithmes}
 
+Les algorithmes représentent la  partie évolutive de \visidia. Pour se
+servir  de  \visidia,  l'utilisateur  devra commencer  par  écrire  un
+algorithme en Java  en utilisant l'API fournie (il  est aussi possible
+de dessiner  des règles  de réécritures, nous  en reparlerons  dans la
+partie \ref{sec:existant-reecriture}).\\
+
+Lors   du   lancement  de   l'algorithme,   la   méthode  $init$   est
+appelée.  C'est  cette  méthode  que l'utilisateur  de  \visidia  doit
+implanter. Elle est généralement écrite de la façon suivante :
+
+\begin{verbatim}
+init() {
+
+ // Partie d'initialisation
+
+  while(true) {
+
+    // Mécanisme de synchronisation avec un ou plusieurs voisins
+
+    // Envoies et réceptions de messages
+
+    // Changement de l'état du sommet et/ou d'une arête
+
+    // Quitter la boucle sous certaines conditions
+
+  }
+
+}
+\end{verbatim}
+
+Les algorithmes  ne peuvent rien  faire tout seul. Toutes  les actions
+qu'ils veulent  entreprendre, comme l'envoie de  messages, passent par
+le simulateur.\\
+
+
+\subsubsection{Gestion de l'arrêt d'un algorithme}
+
+Un algorithme  peut se terminer de  deux façons différentes  : soit il
+n'a plus rien à faire et la méthode $init$ se termine simplement, soit
+l'utilisateur demande  explicitement l'arrêt du simulateur  qui va lui
+même interrompre  les algorithmes. C'est cette  deuxième technique que
+nous allons aborder ici.\\
+
+Mettre en place un mécanisme d'interruption propre des processus en Java
+passe  une  gestion  fine   des  exceptions.   Lorsque  l'on  souhaite
+interrompre  un  processus, il  est  nécessaire  de  lui appliquer  la
+méthode  $interrupt$.  Cela  dit,  cette méthode  n'interrompt  pas  à
+proprement parler le processus. Deux  cas peuvent se présenter lors de
+l'appel à cette méthode :
+
+\begin{itemize}
+\item le processus est actif, auquel cas la méthode $interrupt$ n'aura
+  aucun effet et le processus continuera son activité,
+\item le processus est en  attente d'un évènement (typiquement suite à
+  l'appel   à    la   méthode    $wait$)   auquel   cas    un   signal
+  $InterruptedException$ lui est envoyé.
+\end{itemize}
+
+Les  développeurs de \visidia  ont décidé  de capturer  les exceptions
+$InterruptedException$     pour      les     remplacer     par     des
+$SimulationAbortError$ qui  ne sont jamais capturées  et qui terminent
+donc  le processus  qui  a reçu  le  signal.
+
 \subsection{Communication entre les structures}
+\label{sec:existant-communication}
+
+Dans  cette partie  nous décrirons  brièvement comment  les structures
+communiquent entre elles.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{existant-communication}
+  \caption{Communication entre les structures}
+  \label{fig:existant-communication}
+\end{figure}
+
 \subsubsection{Entre la partie graphique et le simulateur}
+
 \subsubsection{Entre les algorithmes et le simulateur}
 
 \section{Modes d'utilisations}
 \subsection{Système unique}
 \subsection{Distribué}
 \subsection{Règles de réécriture}
-
+\label{sec:existant-reecriture}
 
 
 \section{Limite du modèle actuel}
@@ -210,7 +332,7 @@ messages sur le graphe et l'état des sommets.
 
 %% Local Variables: 
 %% mode: latex
-%% TeX-master: t
+%% TeX-master: "rapport"
 %% TeX-PDF-mode: t
 %% coding: latin-1
 %% End:
