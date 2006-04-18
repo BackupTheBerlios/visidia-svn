@@ -306,16 +306,70 @@ donc  le processus  qui  a reçu  le  signal.
 \label{sec:existant-communication}
 
 Dans  cette partie  nous décrirons  brièvement comment  les structures
-communiquent entre elles.
+communiquent    entre    elles.     Le    schéma    de    la    figure
+\ref{fig:existant-communication}   devrait  vous   donner   les  idées
+principales.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=6cm]{existant-communication}
-  \caption{Communication entre les structures}
+  \caption{ Le simulateur envoie  des demandes à l'interface graphique
+    au moyen  d'une file d'évènements.  Celle-ci  exécute les demandes
+    puis confirme  quand le travail  est terminé en utilisant  la file
+    d'acquittements.   Les  algorithmes, quand  à  eux,  ont un  accès
+    direct  au  simulateur  et  aucun mécanisme  supplémentaire  n'est
+    nécessaire.}
   \label{fig:existant-communication}
 \end{figure}
 
 \subsubsection{Entre la partie graphique et le simulateur}
+
+Comme      vous     pouvez     le      voir     sur      la     figure
+\ref{fig:existant-communication},    deux    files    permettent    la
+communication entre  le simulateur et l'interface  graphique. Ces deux
+files  sont crées par  l'interface graphique  et passées  en paramètre
+lors de la construction du simulateur.\\
+
+Quand le  simulateur a besoin  de faire faire  une action à  la partie
+graphique,   ou  lorsque  le   simulateur  souhaite   l'informer  d'un
+évènement, il créé un nouvel objet de type $SimulEvent$ et le place
+dans la file d'évènements. Ces évènements sont de plusieurs types :\\
+
+\begin{itemize}
+\item changement de l'état d'un noeud ou d'une arête,
+\item envoie de message,
+\item nouveau round pour les algorithmes synchronisés et
+\item terminaison de l'ensemble des algorithmes.
+\end{itemize}
+
+\sauteligne
+
+Lorsque l'interface  graphique reçoit un  évènement sur la  file, elle
+exécute  les  tâches nécessaires  puis  elle  confirme l'exécution  en
+envoyant  un acquittement sur  la seconde  file. Le  simulateur attend
+l'acquittement  de  l'interface  graphique  avant  de  considérer  que
+l'action  a  été  effectuée.  Ceci  permet  de  garder  une  interface
+graphique synchronisée avec le simulateur.\\
+
+Voici,  pour bien  comprendre, l'enchaînement  des  actions effectuées
+lors d'un envoie de message :\\
+
+\begin{enumerate}
+\item un algorithme décide d'envoyer un message à un voisin
+\item il appelle la méthode $sendTo$ du simulateur
+\item   le    simulateur   crée   un   nouvel    évènement   de   type
+  $MessageSendingEvent$  contenant   entres  autres  le   message,  le
+  destinataire et l'émetteur
+\item il place cet évènement dans la file d'évènements.
+\item    un   processus    dédié    à   l'écoute    de   cette    file
+  ($SimulEventHandler$)  reçoit le  message et  demande  à l'interface
+  graphique d'animer le message entre l'expéditeur et le destinataire
+\item l'interface graphique anime le message entre les deux sommets de
+  façon  à ce  que  l'utilisateur  voit une  chaîne  de caractères  se
+  déplacer sur son écran
+\item  quand le déplacement  est terminé,  elle place  un acquittement
+  du type $MessageSendingAck$ dans la file
+\end{enumerate}
 
 \subsubsection{Entre les algorithmes et le simulateur}
 
