@@ -369,20 +369,83 @@ lors d'un envoie de message :\\
   déplacer sur son écran
 \item  quand le déplacement  est terminé,  elle place  un acquittement
   du type $MessageSendingAck$ dans la file
+\item  le  processus,  implanté   dans  la  classe  $AckHandler$,  qui
+  surveille  cette file,  reçoit  l'acquittement et  place le  message
+  correspondant dans la file du noeud destinataire
 \end{enumerate}
+
+Grâce au mécanisme ci-dessus, l'utilisateur peut-être sûr que ce qu'il
+voit est réellement en train de se passer dans le simulateur. Ceci lui
+permet  par  exemple  de   mettre  en  pause  la  simulation,  changer
+manuellement des  paramètres sur les  sommets (le label  par exemple),
+relancer la simulation et étudier ce qu'il se passe.
 
 \subsubsection{Entre les algorithmes et le simulateur}
 
+La communication entre les algorithmes  et le simulateur est bien plus
+classique. Chaque algorithme possède un lien direct vers le simulateur
+grâce  à une  variable d'instance.   A  partir de  là, faire  exécuter
+quelque  chose au  simulateur reviens  à appeler  une  méthode d'accès
+publique sur cette variable.
+
 \section{Modes d'utilisations}
-\subsection{Système unique}
-\subsection{Distribué}
+
+Au délà  du noyau de \visidia,  les développeurs qui  se sont succédés
+ont  travaillé sur  différents types  de fonctionnalités.  Nous allons
+dans cette partie en présenter quelques unes.
+
+\subsection{Répartition du simulateur}
+
+\visidia est un logiciel de simulation. Il permet de simuler un réseau
+de processeurs sur  une machine unique. Cela dit,  lorsque les réseaux
+étudiés commencent à prendre de l'ampleur, une seule machine pour tout
+simuler devient insuffisante.
+
+\subsubsection{Système centralisé}
+
+De base,  \visidia possède un  simulateur qui lance des  processus sur
+une  même machine.  Un seul  processeur,  celui sur  lequel tourne  la
+machine virtuelle Java, est en charge  de tous les calculs. Si cela ne
+pose pas de problèmes pour  des graphes de faibles tailles, il devient
+rapidement  impossible de  simuler quoi  que soit  quand le  nombre de
+sommets augmente.
+
+\subsubsection{Système distribué}
+
+C'est pour cette raison qu'un autre système à été implanté. Dans cette
+version,  les différents  processus  sont exécutés  sur  un réseau  de
+machines.  Chaque  machine a  en  charge  un  ou plusieurs  noeuds  du
+graphe. Dans cette modélisation, il  n'y a plus de simulateurs. Chaque
+noeud est capable d'envoyer des messages à ces voisins.\\
+
+La  simulation, quand  à  elle, se  fait  toujours sur  la machine  de
+l'utilisateur.
+
 \subsection{Règles de réécriture}
 \label{sec:existant-reecriture}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=14cm]{existant-regles}
+  \caption{Les  règles de  réécritures sont  implantés  dans \visidia.
+    L'utilisateur peut simplement  dessiner ses algorithmes.  Ici, est
+    présenté une des règles de réécritures utilisées pour l'algorithme
+    d'arbre recouvrant  avec détection de la  terminaison. Cette règle
+    dit: ``Si  $u$ est un sommet de  label ``A'' qui a  pour voisin un
+    sommet $v$  de label ``A'' aussi,  que l'arête qui  les sépare est
+    marquée (en gras) et que $u$  n'a pas de voisin $w$ de label ``N''
+    avec une arête non marquée  (``Context 1'') alors $u$ peut prendre
+    ``F'' comme label (en réalité, il  y a une autre exclusion qui est
+    cachée sous l'onglet ``Context 2'')''.}
+  \label{fig:existant-regles}
+\end{figure}
 
-\section{Limite du modèle actuel}
-
-\section{Un nouveau modèle : les Agents}
+Avec l'écriture de  code, il existe un autre  modèle de représentation
+pour les algorithmes  distribués : les règles de  réécritures. Grâce à
+ces règles,  un utilisateur peut littéralement  dessiner un algorithme
+avec sa souris à l'intérieur de \visidia et le valider pour suivre son
+exécution  comme  s'il l'avait  écrit  en  Java.  Consultez la  figure
+\ref{fig:existant-regles} pour un exemple de règle.
 
 %% Local Variables: 
 %% mode: latex
