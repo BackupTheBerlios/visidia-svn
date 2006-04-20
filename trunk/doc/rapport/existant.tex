@@ -47,13 +47,12 @@ exécuter  un algorithme. Cet  algorithme possède  certaines primitives
 qui lui  permettent de communiquer avec les  algorithmes implantés sur
 les  noeuds  voisins.  Il  est  par exemple  possible  à  un noeud  de
 demander une synchronisation  avec un ou plusieurs de  ses voisins, de
-leur envoyer  des messages, d'en recevoir etc.   Nous détaillerons ces
-primitives dans la section \ref{sec:existant-api}.\\
+leur envoyer  des messages, d'en recevoir etc.
 
 \subsection{Description de l'API existante}
 \label{sec:existant-api}
 
-Étudions quelques une des fonctions les plus utilisées de l'API.
+Étudions quelques une des primitives proposées par l'API de \visidia.
 
 \begin{description}
 
@@ -79,8 +78,8 @@ portes).
   donnée. Généralement utilisée pour mettre une arête en gras.
 
 \item[putProperty] Change  une valeur de la table  des propriétés d'un
-  sommet. Presque uniquement utilisée pour changer le label d'un somme
-  (sa couleur). 
+  sommet.  Presque  uniquement utilisée  pour  changer  le label  d'un
+  sommet (sa couleur).
 
 \item[getProperty] Récupère une valeur dans la table des propriétés du
   sommet.  Presque uniquement  utilisée  pour connaître  le label  (la
@@ -93,24 +92,35 @@ portes).
 Voici un exemple  d'utilisation du modèle par envoie  de messages pour
 calculer un arbre couvrant. A l'origine, tous les sommets ont un label
 ``N'' sauf  un qui a un  label égal à ``A''  et qui jouera  le rôle de
-racine.
+racine. Cet algorithme  est écrit dans un langage  de haut niveau pour
+des raisons  de lisibilité.  En  pratique, il faudrait  l'implanter en
+Java.
 
 \begin{verbatim}
-init() {
+init() { // méthode exécutée par chaque sommet
 
-  if(getProperty(``label'') = ``A'') {
-    sendAll(``Wave'');
+  if(getProperty("label") = "A") { // Si mon label est "A"
+    sendAll("Wave");               // envoyer un message à tous mes
+                                   // voisins contenant le mot "Wave"
   }
   else {
+    // Reçoit un message et le place dans la variable "message".
+    // Le numéro de la porte par lequel le message est arrivé est
+    // placé dans la variable "porteDuPere". L'appel à "receive"
+    // bloque jusqu'à l'arrivée effective d'un message.
     (message, porteDuPere) := receive();
 
-    setDoorState(MARKED_STATE, porteDuPere); //marque l'arête en gras
+    //marque l'arête qui me relie à l'expéditeur du message en gras
+    setDoorState(MARKED_STATE, porteDuPere);
 
-    putProperty(``label'', ``A'');
+    // Mon label est maintenant "A".
+    putProperty("label", "A");
 
+    // Envoyer un message à tous mes voisins sauf à l'expéditeur du
+    // message.
     for(i=0 ; i < getArity() ; i++) {
       if (i != porteDuPere) {
-        sendTo(i, ``Wave'');
+        sendTo(i, "Wave");
       }
     }
   }
@@ -151,7 +161,8 @@ suivants :\\
   pour tout noeud du graphe,  il existe un chemin remontant jusqu'à la
   racine. 
 
-\item Chaque noeud marque une et une seule arête.
+\item Chaque noeud marque  une et une seule arête et est  le seul à la
+  marquer.
 
 \end{itemize}
 
@@ -183,6 +194,15 @@ proprement dite.
 
 \subsubsection{Interface graphique d'édition}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{existant-edition}
+  \caption{Sur cette  capture, vous pouvez  voir que les  réseaux sont
+    représentés  comme  des  graphes  et  qu'il est  possible  de  les
+    visualiser dans \visidia.}
+  \label{fig:existant-edition}
+\end{figure}
+
 Dans la partie consacrée  à l'édition, l'interface graphique permet de
 créer de nouveaux graphes par la seule utilisation de la souris. Grâce
 à elle, de simples glisser/déposer permettent de placer des sommets et
@@ -193,9 +213,17 @@ compléter\dots
 
 \subsubsection{Interface graphique de simulation}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{existant-simulation}
+  \caption{Voici une  capture qui montre \visidia en  train de simuler
+    un algorithme d'arbre recouvrant.}
+  \label{fig:existant-simulation}
+\end{figure}
+
 La partie la plus intéressante de l'interface graphique se trouve dans
 la fenêtre de simulation. De nombreuses tâches peuvent être effectuées
-dans cette partie parmis lesquelles :\\
+dans cette partie parmi lesquelles :\\
 
 \begin{itemize}
 
@@ -269,6 +297,9 @@ init() {
 }
 \end{verbatim}
 
+Chaque  noeud du  graphe va  exécuter sa  propre copie  de  la méthode
+$init$.\\
+
 Les algorithmes  ne peuvent rien  faire tout seul. Toutes  les actions
 qu'ils veulent  entreprendre, comme l'envoie de  messages, passent par
 le simulateur.\\
@@ -283,11 +314,11 @@ même interrompre  les algorithmes. C'est cette  deuxième technique que
 nous allons aborder ici.\\
 
 Mettre en place un mécanisme d'interruption propre des processus en Java
-passe  une  gestion  fine   des  exceptions.   Lorsque  l'on  souhaite
+passe par  une  gestion  fine   des  exceptions.   Lorsque  l'on  souhaite
 interrompre  un  processus, il  est  nécessaire  de  lui appliquer  la
 méthode  $interrupt$.  Cela  dit,  cette méthode  n'interrompt  pas  à
 proprement parler le processus. Deux  cas peuvent se présenter lors de
-l'appel à cette méthode :
+l'appel à cette méthode :\\
 
 \begin{itemize}
 \item le processus est actif, auquel cas la méthode $interrupt$ n'aura
@@ -296,6 +327,8 @@ l'appel à cette méthode :
   l'appel   à    la   méthode    $wait$)   auquel   cas    un   signal
   $InterruptedException$ lui est envoyé.
 \end{itemize}
+
+\sauteligne
 
 Les  développeurs de \visidia  ont décidé  de capturer  les exceptions
 $InterruptedException$     pour      les     remplacer     par     des
@@ -360,15 +393,16 @@ lors d'un envoie de message :\\
 \item   le    simulateur   crée   un   nouvel    évènement   de   type
   $MessageSendingEvent$  contenant   entres  autres  le   message,  le
   destinataire et l'émetteur
-\item il place cet évènement dans la file d'évènements.
+\item il place cet évènement dans la file d'évènements
 \item    un   processus    dédié    à   l'écoute    de   cette    file
   ($SimulEventHandler$)  reçoit le  message et  demande  à l'interface
   graphique d'animer le message entre l'expéditeur et le destinataire
 \item l'interface graphique anime le message entre les deux sommets de
   façon  à ce  que  l'utilisateur  voit une  chaîne  de caractères  se
   déplacer sur son écran
-\item  quand le déplacement  est terminé,  elle place  un acquittement
-  du type $MessageSendingAck$ dans la file
+\item  quand  le déplacement  est  terminé  (la  chaîne est  arrivé  à
+  destination), elle place un acquittement du type $MessageSendingAck$
+  dans la file
 \item  le  processus,  implanté   dans  la  classe  $AckHandler$,  qui
   surveille  cette file,  reçoit  l'acquittement et  place le  message
   correspondant dans la file du noeud destinataire
@@ -378,7 +412,7 @@ Grâce au mécanisme ci-dessus, l'utilisateur peut-être sûr que ce qu'il
 voit est réellement en train de se passer dans le simulateur. Ceci lui
 permet  par  exemple  de   mettre  en  pause  la  simulation,  changer
 manuellement des  paramètres sur les  sommets (le label  par exemple),
-relancer la simulation et étudier ce qu'il se passe.
+débloquer la simulation et étudier ce qu'il se passe.
 
 \subsubsection{Entre les algorithmes et le simulateur}
 
@@ -390,7 +424,7 @@ publique sur cette variable.
 
 \section{Modes d'utilisations}
 
-Au délà  du noyau de \visidia,  les développeurs qui  se sont succédés
+Au delà  du noyau de \visidia,  les développeurs qui  se sont succédés
 ont  travaillé sur  différents types  de fonctionnalités.  Nous allons
 dans cette partie en présenter quelques unes.
 
