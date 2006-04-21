@@ -1,22 +1,40 @@
 
-\paragraph{Lisibilité et extensibilité}
+\section{Lisibilité et extensibilité}
 
 Cette  partie ne concerne  pas directement  la simulation  des agents,
 mais \visidia dans  son ensemble : le programme souffre  de son âge et
 du fait d'être passé entre de nombreuses mains d'élèves ingénieurs peu
-expérimentés (y compris nous).
+expérimentés (y compris nous).\\
 
 De ce fait, il résulte  un programme qui fonctionne correctement, mais
 aux possibilités  d'extension faibles (peu  d'utilisation du mécanisme
 d'héritage). Ainsi,  les rajouts se greffent directement  dans le code
 existant,  ou  via  des   copier-coller,  augmentant  les  risques  de
-plantages et/ou d'incohérences.
+plantages et/ou d'incohérences.\\
 
 Les parties sur  lesquelles nous avons travaillé accusant  ce genre de
 problème sont  l'interface graphique principalement,  et le simulateur
 dans une moindre mesure.
 
-\paragraph{Consommation des ressources}
+Idéalement,  l'interface  graphique  devrait  permettre le  rajout  de
+module sans  avoir à modifier le code  d'origine. Malheureusement pour
+cela, une refonte du  code de l'interface graphique semble inévitable,
+or il  s'agit d'un processus  lourd en temps  et personnes, ce  qui le
+rend peu envisageable.
+
+Concernant le simulateur, une factorisation des différents simulateurs
+existants  seraient   préférables.   Cette  factorisation   n'est  pas
+essentielle actuellement mais le  deviendra si d'autres simulateurs se
+greffent plus tard aux existants.
+
+\section{Simulation sur des graphes de grandes tailles}
+
+Permettre  une visualisation  graphique est  un avantage  certain pour
+mieux comprendre et vérifier le comportement d'un algorithme. Mais une
+fois  que le  nombre de  noeuds d'un  graphe dépasse  la  centaine, il
+devient   difficile   de  suivre   correctement   le  déroulement   de
+cet algorithme.
+Il s'agit donc d'une limitation importante.
 
 
 
