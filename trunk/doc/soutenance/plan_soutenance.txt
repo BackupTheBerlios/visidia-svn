@@ -65,9 +65,9 @@ Le contenu des slides:
              obtenu ;  l'extension et les différences  entres les deux
              types d'agents. (mathieu)
 	4.5. Illustration du code d'un agent et screenshot du résultat
-             obtenu ; propriétés des sommets + whiteboards. 
+             obtenu ; propriétés des sommets + whiteboards. (Xavier)
 	4.6. Illustration du code d'un agent et screenshot du résultat
-             obtenu ; déplacement d'agents: move() + AgentMover.
+             obtenu ; déplacement d'agents: move() + AgentMover. (Xavier)
 	4.7. Illustration du code d'un agent et screenshot du résultat
              obtenu ; statistiques.
 
