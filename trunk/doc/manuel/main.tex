@@ -21,7 +21,7 @@
 
 \title{Mode d'emploi pour \visidia et les agents mobiles}
 \author{L'équipe PFA \visidia 2006}
-\date{Mars 2006}
+\date{Avril 2006}
 
 \begin{document}
 \maketitle
@@ -241,14 +241,14 @@ est possible de créer des statistiques persnnalisées.\\
 
 Vous pouvez aussi vous baser sur des exemples déjà écrits ; vous en
 trouverez un grand nombre dans les répertoires :
-\begin{enumerate}
+\begin{itemize}
 \item \dossier{sources/visidia/agents} pour les agents.
 \item \dossier{sources/visidia/agents/agentsmover} pour les algorithmes de déplacement.
 \item \dossier{sources/visidia/agents/agentchooser} pour le placement
   initial d'agents.
 \item \dossier{sources/visidia/agents/agentreport} pour la creation de
   statistiques.
-\end{enumerate}
+\end{itemize}
 
 
 \subsection{Description de l'API}
@@ -282,7 +282,7 @@ package visidia.agents;
 \end{verbatim}
 
 La programmation de l'agent se fait en implémentant la
-méthode\methode{init()} et en utilisant les différentes possibilités
+méthode \methode{init()} et en utilisant les différentes possibilités
 offertes par l'API.\\
 
 
@@ -312,7 +312,7 @@ offertes par l'API.\\
 \end{verbatim}
 
 L'objectif de cet agent est de compter le nombre de passage des agents
-sur chaque sommet.  Pour mémoriser le nombre de passages sur chaque
+sur chaque sommet.  Pour mémoriser le nombre de passage sur chaque
 sommet, nous avons utilisé le champs ``nbPassages'' du whiteboard du
 sommet.
 
@@ -321,14 +321,14 @@ nombre de passages de ce type d'agent sur le whiteboard du sommet
 courant par le biais de la
 \methode{getVertexProperty(``nbPassages'')}. Si ce champs n'a pas été
 préalablement inscrit dans le whiteboard du sommet, l'appel à la
-méthode \mehode{getVertexProperty(``nbPassages''}} va déclencher une
+méthode \methode{getVertexProperty(``nbPassages'')} va déclencher une
 exception de type \emph{NoSuchElementException}. Si tel est le cas,
 nous considérons qu'il s'agit de notre premier passage. Ceci est
 effectué dans le \emph{catch}.
 
 Ensuite, nous incrémentons le nombre de passages de un, puis l'agent
 réécrit la nouvelle valeur dans le champs ``nbPassages'' du sommet
-courant graçe à la méthode \methode{setVertexProperty(``nbPassages''}.
+courant graçe à la méthode \methode{setVertexProperty(``nbPassages'')}.
 
 \subsubsection{Cas d'un agent synchronisé}
 
@@ -342,7 +342,9 @@ public class BasicSynchronizedAgent1 extends SynchronizedAgent {
 	 
           nextPulse();
           moveToDoor(rand.nextInt(getArity()));
-	}
+
+        }
+
     }
 }
 \end{verbatim}
@@ -374,7 +376,7 @@ trouver dans le paquet \dossier{visidia.agents.agentsmover}.
 
 Voici le code d'un algorithme d'un déplacement aléatoire :
 
-\begin{itemize}
+\begin{verbatim}
 public class RandomAgentMover extends AgentMover {
     
     public RandomAgentMover(Agent ag) {
@@ -387,17 +389,17 @@ public class RandomAgentMover extends AgentMover {
         return rand.nextInt(agent().getArity());
     }
 }
-\end{itemize}
+\end{verbatim}
 
 Pour utiliser cet algorithme de déplacement pour un agent, utilisez le
 méthode \methode{setAgentMover(``RandomAgentMover'')} . Le nom passé
 en paramètre doit correspondre exactement au nom de la classe (casse
-comprise). Le déplacamant ne se fera plus avec
+comprise). Le déplacement ne se fera plus avec
 \methode{moveToDoor(int)} mais avec \methode{move()}
 
 Voici comment nous pouvons réécrire notre BasicSynchronizedAgent1 :
 
-\begin{itemize}
+\begin{verbatim}
 public class BasicSynchronizedAgent1 extends SynchronizedAgent {
 
   protected void init() {
@@ -409,7 +411,7 @@ public class BasicSynchronizedAgent1 extends SynchronizedAgent {
       move();
     }
 }
-\end{itemize}
+\end{verbatim}
 
 Pour plus d'informations, référez vous à la javadoc comme indiqué en
 \ref{sec:agent-api} et lisez particulièrement la documentation de la
@@ -426,9 +428,9 @@ simplement   et  la  lecture   de  la   documentation  de   la  classe
 \classe{AgentChooser}  ainsi  que  le  parcours des  exemples  devrait
 suffire.\\
 
-Vos algorithmes  de placement d'agents devront être  implantés dans le
-paquet  \dossier{visidia.agents.agentchooser},  devront surcharger  la
-méthode  \methode{chooseForVertex(Integer)}   et  devront  appeler  la
+Vos algorithmes de placement d'agents devront être implantés dans le
+paquet \dossier{visidia.agents.agentchooser}, devront surcharger la
+méthode \methode{chooseForVertex(Integer)} et devront appeler la
 méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
 
 
