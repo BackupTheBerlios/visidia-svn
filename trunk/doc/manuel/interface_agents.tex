@@ -1,0 +1,172 @@
+\subsection{Ajouter un ou des agents au graphe}
+
+La  première étape de  la simulation  avec des  agents mobiles  est le
+placement  d'agents sur  des sommets.  Pour effectuer  ceci, plusieurs
+méthodes peuvent être envisagées :
+
+\begin{itemize}
+
+\item Le placement manuel
+
+\item Le placement programmée
+
+\item Les règles de réécritures
+
+\end{itemize}
+
+\subsubsection{Ajouter des agents écrits avec l'API}
+
+Pour les agents écrits avec  l'API, sélectionnez dans un premier temps
+le(s) sommet(s)  sur le(s)quel(s) vous souhaitez ajouter  un agent. La
+selection  se fait  avec un  clic  droit de  la souris  (si besoin  en
+maintenant  la touche SHIFT  en cas  de sélection  multiple).  Ensuite
+utilisez  la commande \textbf{Add  Agent...}  du  menu \textbf{Agent}.
+Sélectionnez  alors  le  type   d'agent  à  ajouter  en  sélectionnant
+l'algorithme   compilé  dans   la  boite   de  dialogue.    Pour  plus
+d'information sur l'écriture d'algorithmes à l'aide de l'API, veuillez
+vous référez à la section \emph{Programmer des agents avec l'API}.
+
+\subsubsection{Ajouter des agents de façon programmée}
+
+Lancer    la    commande    \textbf{Place    Agents...}     du    menu
+  \textbf{Agents}. Cette technique  de placement ne fonctionne qu'avec
+  les algorithmes  compilés avec  l'API, et permet  de placer  un type
+  d'agent choisi de façon programmée sur le graphe : par exemple, vous
+  pourrez placer  un type d'agent sur  les sommets du  graphe avec une
+  probabilité de 1/2 pour chaque sommet.\\
+
+Pour   programmer   votre   placeur,   réferez-vous   à   la   section
+  \emph{Implanter des techniques de placement initial d'agents}
+
+
+\subsubsection{Ajouter des agents définis avec des règles de réécritures}
+
+  \begin{itemize}
+
+  \item Créer un nouveau jeux  de règle de réécriture avec la commande
+    utilisez  la  commande  \textbf{New  relabeling  system}  du  menu
+    \textbf{Rules}.
+
+  \item Ouvrir  un jeu de règle de  réécriture précédemment sauvegardé
+    avec la commande \textbf{Open rules...} du menu \textbf{Rules}.
+
+  \end{itemize}
+
+
+
+\subsection{Utilisation des WhiteBoards}
+
+Les whiteboards sont une particularité de la partie agent de visidia :
+il  s'agit  simplement d'un  regroupement  d'informations  liées à  un
+sommet ou à un agent.
+
+%\begin{figure}[ht]
+%  \centering
+%  \includegraphics[width=10cm]{whiteboards}
+%  \caption{Les 3  icones dédiées  à l'accès et  à la  modification des
+%  whiteboards}
+%  \label{fig:whiteboards-icons}
+%\end{figure}
+
+\subsubsection{WhiteBoards des agents}
+
+Chaque agent  possède un whiteboard pour y  stocker diverses variables
+auxquelles il peut accéder  en lecture et écriture. Concrètement, cela
+revient au même que de déclarer des variables lors de la programmation
+de  l'agent,  mais les  whiteboards  ont  l'avantage  de pouvoir  être
+visualisables  en temps  réel  lors d'une  simulation via  l'interface
+graphique.   Ils  permettent de  plus  la  modification des  variables
+durant la simulation par l'utilisateur.
+
+Pour accéder au whiteboard d'un agent, voici la manipulation à faire :
+\begin{enumerate}
+\item Cliquez sur le bouton ``agent whiteboard'' de l'interface.
+\item  Choisir  l'agent dont  on  souhaite  consulter  ou modifier  le
+whiteboard
+\end{enumerate}
+
+Pour savoir comment modifier le whiteboard d'un agent, consultez la section
+\emph{Modification des whiteboards}.
+
+\subsubsection{WhiteBoards des sommets}
+
+Comme pour  les agents, il est  possible de stocker  des variables sur
+les  sommets en utilisant  des whiteboards  dédiés à  ça. Ce  sont les
+agents  qui   consultent  ou   modifient  ces  whiteboards,   ou  bien
+directement l'utilisateur.\\
+
+L'accès et la modification de valeurs se fait de 2 façons : 
+
+\begin{itemize}
+
+\item  En selectionnant  un sommet  (clic droit  de la  souris  sur le
+sommet) puis  en cliquant  sur le bouton  ``info'' de  l'interface. De
+cette manière on accède au whiteboard local au sommet sélectionné.
+
+\item En  cliquant sur  le bouton ``initialize''  de l'interface  : on
+accède alors  aux champs communs  à tous les sommets,  un ``whiteboard
+global''. Cette action est surtout utile si l'on souhaite rajouter une
+variable qui n'existe pas encore sur tous les sommets.
+
+\end{itemize}
+
+Pour savoir comment modifier les valeurs de ces whiteboards, consultez
+la section \emph{Modification des whiteboards}.
+
+
+\subsubsection{Modification des whiteboards}
+
+Nous   décrirons   ici  la   modification   des  whiteboards   (ajout,
+suppression,modification de variables). L'interface étant la même pour
+les  whiteboards des  sommets et  des  agents, nous  ne décrirons  ces
+possibilités qu'une seule fois.\\
+
+A partir d'ici, on considère qu'un whiteboard est ouvert via une des
+méthodes décrites ci-dessus.\\
+
+\textbf{Ajout d'une variable}\\
+
+\begin{enumerate}
+\item Cliquez sur le bouton add
+\item Selectionnez le type de variables que vous souhaitez intégrer au
+whiteboard (String, int, double, ...)
+\item  Choisissez un  nom pour  votre  variable (attention  : si  vous
+ajoutez une variable  qui porte le nom d'une  variable déjà existante,
+cette dernière sera écrasée)
+\item  Entrez une valeur associée à votre nouvelle variable
+\end{enumerate}
+
+Cas particulier  : On considère que  le whiteboard propre  à un sommet
+est  prioritaire   par  rapport  au  whiteboard  global   à  tous  les
+sommets. Ainsi, si  le nom d'une variable apparaît  en même temps dans
+le  whiteboard global aux  sommets et  dans le  whiteboard local  à un
+sommet, c'est cette  dernière qui sera privilégiée. Ainsi  si un agent
+demande la valeur  de cete variable, ce sera la  valeur local qui sera
+retournée.\\
+
+\textbf{Suppression d'une variable}\\
+
+\begin{enumerate}
+\item Selectionnez la variable à supprimer
+\item Cliquez sur le bouton Delete\\
+\end{enumerate}
+
+\textbf{Modification d'une variable}\\
+
+\begin{enumerate}
+\item Cliquez sur le champ à modifier
+\item Entrez la nouvelle valeur
+\item Appuyez  sur ENTREE  pour que la  nouvelle valeur soit  prise en
+compte
+\end{enumerate}
+
+Cas particulier  : Si  vous souhaitez modifier  le label  d'un sommet,
+vous devez utiliser  la liste déroulante située en  haut à droite des
+whiteboards locaux des sommets.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% coding: latin-1
+%%% TeX-PDF-mode: t
+%%% End: 
