@@ -1,4 +1,4 @@
-\subsection{Ajouter un ou des agents au graphe}
+\section{Ajouter un ou des agents au graphe}
 
 La  première étape de  la simulation  avec des  agents mobiles  est le
 placement  d'agents sur  des sommets.  Pour effectuer  ceci, plusieurs
@@ -14,7 +14,7 @@ méthodes peuvent être envisagées :
 
 \end{itemize}
 
-\subsubsection{Ajouter des agents écrits avec l'API}
+\subsection{Ajouter des agents écrits avec l'API}
 
 Pour les agents écrits avec  l'API, sélectionnez dans un premier temps
 le(s) sommet(s)  sur le(s)quel(s) vous souhaitez ajouter  un agent. La
@@ -26,7 +26,7 @@ l'algorithme   compilé  dans   la  boite   de  dialogue.    Pour  plus
 d'information sur l'écriture d'algorithmes à l'aide de l'API, veuillez
 vous référez à la section \emph{Programmer des agents avec l'API}.
 
-\subsubsection{Ajouter des agents de façon programmée}
+\subsection{Ajouter des agents de façon programmée}
 
 Lancer    la    commande    \textbf{Place    Agents...}     du    menu
   \textbf{Agents}. Cette technique  de placement ne fonctionne qu'avec
@@ -39,7 +39,7 @@ Pour   programmer   votre   placeur,   réferez-vous   à   la   section
   \emph{Implanter des techniques de placement initial d'agents}
 
 
-\subsubsection{Ajouter des agents définis avec des règles de réécritures}
+\subsection{Ajouter des agents définis avec des règles de réécritures}
 
   \begin{itemize}
 
@@ -54,21 +54,22 @@ Pour   programmer   votre   placeur,   réferez-vous   à   la   section
 
 
 
-\subsection{Utilisation des WhiteBoards}
+\section{Utilisation des WhiteBoards}
 
 Les whiteboards sont une particularité de la partie agent de visidia :
 il  s'agit  simplement d'un  regroupement  d'informations  liées à  un
 sommet ou à un agent.
 
-%\begin{figure}[ht]
-%  \centering
-%  \includegraphics[width=10cm]{whiteboards}
-%  \caption{Les 3  icones dédiées  à l'accès et  à la  modification des
-%  whiteboards}
-%  \label{fig:whiteboards-icons}
-%\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm]{whiteboards}
+  \caption{Les 3  icones dédiées  à l'accès et  à la  modification des
+  whiteboards,  dans   l'ordre  :  whiteboard  propre   à  un  sommet,
+  whiteboard commun à tous les sommets, whiteboard propre à un agent}
+  \label{fig:whiteboards-icons}
+\end{figure}
 
-\subsubsection{WhiteBoards des agents}
+\subsection{WhiteBoards des agents}
 
 Chaque agent  possède un whiteboard pour y  stocker diverses variables
 auxquelles il peut accéder  en lecture et écriture. Concrètement, cela
@@ -85,10 +86,19 @@ Pour accéder au whiteboard d'un agent, voici la manipulation à faire :
 whiteboard
 \end{enumerate}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm]{whiteboards-agent}
+  \caption{Après avoir cliqué sur  l'icone whiteboard pour agent, vous
+  devez  selectionner   l'agent  dont  vous   souhaitez  consulter  le
+  whiteboard}
+  \label{fig:whiteboards-agent}
+\end{figure}
+
 Pour savoir comment modifier le whiteboard d'un agent, consultez la section
 \emph{Modification des whiteboards}.
 
-\subsubsection{WhiteBoards des sommets}
+\subsection{WhiteBoards des sommets}
 
 Comme pour  les agents, il est  possible de stocker  des variables sur
 les  sommets en utilisant  des whiteboards  dédiés à  ça. Ce  sont les
@@ -114,7 +124,7 @@ Pour savoir comment modifier les valeurs de ces whiteboards, consultez
 la section \emph{Modification des whiteboards}.
 
 
-\subsubsection{Modification des whiteboards}
+\subsection{Modification des whiteboards}
 
 Nous   décrirons   ici  la   modification   des  whiteboards   (ajout,
 suppression,modification de variables). L'interface étant la même pour

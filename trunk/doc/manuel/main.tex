@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage[pdftex,
   colorlinks=true,
@@ -50,145 +50,23 @@
 %   Placeur
 %   Stats
 
-\section{Objet}
+\chapter{Objet}
 
-Ce  document  a pour  objet  d'être  un  aperçu sur  l'utilisation  de
-\visidia avec  les agents mobiles.  Nous considérerons que  le lecteur
-maîtrise déjà  \visidia et  que l'environnement de  développement Java
-est déjà installé et configuré.\\
+\input{objet}
 
-Dans  un premier  temps, nous  téléchargerons la  branche  de \visidia
-concernant  les  agents   et  compilerons  l'ensemble.   Ensuite  nous
-présenterons  l'API des agents  et détaillerons  la procédure  pour en
-créer  de nouveaux.  Après  cela, nous  étudierons  comment créer  des
-modules de déplacement pour que vos agents changent de sommet de façon
-bien définie. Enfin, nous présenterons la technique qui vous permettra
-de  programmer des algorithmes  de placement  initial d'agents  sur le
-graphe. 
+\chapter{Installer et lancer \visidia}
 
+\input{installer}
 
+\chapter{Creation d'un graphe}
 
-\section{Installer et lancer \visidia}
+\input{creer_graphe}
 
-Il existe  deux techniques pour  récupérer \visidia doté de  la partie
-agents mobiles.  Soit vous  utilisez une version supposée stable, soit
-vous récupérez une version de développement. 
-
-
-\subsection{Récupérer la version stable}
-
-Pour   récupérer    la   version    stable,   allez   sur    le   site
-\url{https://developer.berlios.de/projects/visidia/}. Au  milieu de la
-page,  vous trouverez  une  section nommée  ``Dernières révisions  des
-fichiers''. Cliquez  alors sur le lien téléchargement  et récupérez le
-fichier le plus récent. Enfin,  décompressez le fichier à l'aide de la
-commande :
-
-\begin{verbatim}
-$ tar xvfj lefichiertelecharge.tar.bz2
-$
-\end{verbatim}
-
-
-\subsection{Récupérer la version en développement}
-
-Pour disposer de la version  de développement, vous devez posséder SVN
-qui   est  un   remplaçant   de   CVS  disponible   sur   le  site   :
-\url{http://subversion.tigris.org/}.\\
-
-Le gestionnaire de version SVN est compilé et disponible sous forme de
-paquets près à l'emploi pour la majorité des distributions Linux. Sous
-Windows,   TortoiseSVN   permet   de   travailler  sous   SVN   depuis
-l'explorateur   de   fichiers.  Il   est   disponible   sur  le   site
-\url{http://www.tortoisesvn.tigris.org/}.\\
-
-
-Pour  télécharger la  version de  développement, utilisez  la commande
-suivante :
-
-\begin{verbatim}
-$ svn checkout svn://svn.berlios.de/visidia/trunk/src visidia
-$
-\end{verbatim}
-
-Cela va créer un répertoire \dossier{visidia} dans le dossier courant. 
-
-
-\subsection{Compiler et lancer \visidia}
-
-Pour compiler  \visidia, le  kit de développement  Java 5.0  doit être
-installé et présent dans votre PATH.  Il est disponible sur le site de
-SUN   \url{http://java.sun.com/j2se/1.5.0/download.jsp}.\\   Pour   le
-vérifier :
-
-\begin{verbatim}
-$ javac -version
-javac 1.5.0
-$
-\end{verbatim}
-
-Placez-vous  dans  le  répertoire  \dossier{visidia} et  exécuter  les
-commandes suivantes pour compiler puis pour lancer \visidia :
-
-\begin{verbatim}
-$ ./compile.sh
-$ ./acompile.sh
-$ ./visidia.sh
-$
-\end{verbatim}
-
-La première  ligne compile \visidia  alors que la seconde  compile les
-modules  comme les algorithmes,  les agents  etc.  La  troisième lance
-\visidia. Suivant votre installation,  vous pourriez avoir de nombreux
-messages d'avertissements concernant les accents. Ces messages ne sont
-pas bloquants, vous pouvez les ignorer.\\
-
-Si tout  c'est bien passé,  \visidia devrait être lancé.  Vous devriez
-voir l'application comme sur la figure \ref{fig:visidia}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=10cm]{visidia}
-  \caption{Lancement de \visidia}
-  \label{fig:visidia}
-\end{figure}
-
-\section{Creation d'un graphe}
-
-Une fois \visidia lancé, la fenêtre d'édition de graphe apparaît :
-
-Le graphe se construit à l'aide du clic gauche de la souris. Les
-graphes peuvent également être sauvegardé grâce aux commandes \textbf{Save}
-ou \textbf{Save as...} du menu \textbf{File}.
-
-Dans le menu Transformation :
-\begin{itemize}
-\item \textbf{Complete} permet de transformer le graphe courant en un graphe complet.
-\item \textbf{Delete edges} permet d'effacer les arêtes du graphe.
-\item \textbf{Change edges shape} permet de modifier la nature du graphe
-  (orienté ou non orienté).
-\item \textbf{Change vertices shape} permet de modifier la nature des
-  sommets du graphe.
-\item \textbf{Vertex renumbering} permet de renuméroter les sommets du
-  graphs.
-\end{itemize}
-
-Une fois le graphe créé, il est possible de faire exécuter \visidia
-selon trois mode :
-
-\begin{itemize}
-\item Simulation avec des messages en local : bouton \textbf{Simulation}
-\item Simulation avec des messages avec répartition des noeuds du
-  graphe sur plusieurs machines : bouton \textbf{Network Simulation}
-\item Simulation avec des agents mobiles en local : bouton \textbf{Agents Simulation}
-\end{itemize}
-
-
-\section{Simulation avec des agents mobiles}
+\chapter{Simulation avec des agents mobiles}
 
 \input{interface_agents}
 
-\section{Programmer des agents avec l'API}
+\chapter{Programmer des agents avec l'API}
 
 \input{programmation_agents}
 
