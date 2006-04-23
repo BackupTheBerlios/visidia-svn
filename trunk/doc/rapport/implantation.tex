@@ -2,83 +2,248 @@ Dans cette  partie, nous  allons nous attacher  à développer  de façon
 détaillée l'implantation de notre  module au sein du logiciel \visidia
 existant.\\
 
+\section{Architecture}
+\label{sec:implantation-communication}
+
 Le projet s'est subdivisé en deux parties essentielles :
 \begin{itemize}
-\item le développement de l'API et de la simulation.
+\item le développement de l'API (définie dans le cahier des charges et
+complétée par le client au cours du projet) et de la simulation.
 \item  l'intégration  des  nouvelles  fonctionnalités  dans  la  partie
 graphique de \visidia.
 \end{itemize}
 
+Comme dans la  partie existante de \visidia, notre  module se base sur
+l'interaction   entre  les  agents,   le  simulateur   et  l'interface
+graphique. Ici encore, c'est le  simulateur qui fait le lien entre ces
+différentes    parties.     Ainsi,   le    schéma    de   la    figure
+\ref{fig:implantation-communication} représentant  la communication au
+sein du module est le  même que celui représentant cette communication
+au sein de la partie existante de \visidia.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{implantation-communication}
+  \caption{ Le simulateur envoie  des demandes à l'interface graphique
+    au moyen  d'une file d'évènements.  Celle-ci  exécute les demandes
+    puis confirme  quand le travail  est terminé en utilisant  la file
+    d'acquittements.  Les agents, quand à  eux, ont un accès direct au
+    simulateur et aucun à l'interface graphique.}
+  \label{fig:implantation-communication}
+\end{figure}
 
 \section{Agents}
-Cette section  concerne le développement  des agents et donc  de l'API
-fournie aux clients. Le description  de cette API ayant déjà été faite
-dans la  partie précédente  nous ne nous  attarderons pas  dessus ici.
-Elle est  entièrement définie et  implantée dans la  classe Agent.java
-qui se trouve dans  le package visidia.simulation.agents. 
+Cette  section  concerne  le  développement  des  agents  et  donc  le
+développement de  l'API et le  choix des structures utilisées  pour ce
+développement.
 
-Les méthodes de cette classe sont basées sur des appels au méthodes du
-simulateur qui correspondent.  En effet, comme c'est le simulateur qui
-fait le lien  entre l'interface graphique et les agents  il est tout a
-fait normal qu'il ait la charge des actions effectuées par les agents.
+\subsection{Interface publique de l'application}
+L'API  fournie aux clients  est principalement  celle définie  dans le
+cahier  des  charges.  Cependant,  il  y  a certaines  fonctionnalités
+ajoutées au fur et à mesure  des réunions. Le description de cette API
+ayant  déjà  été  faite  dans   la  partie  précédente  nous  ne  nous
+attarderons pas dessus ici.\\
 
+Il existe deux  types d'agents, des agents synchronisés  et des agents
+non synchronisés dont ils héritent.  L'API de l'ensemble de ces agents
+est entièrement définie et implantée  dans la classe Agent.java qui se
+trouve dans  le paquetage visidia.simulation.agents.   Les méthodes de
+cette classe sont basées sur des appels aux méthodes du simulateur qui
+correspondent.  En effet,  comme c'est le simulateur qui  fait le lien
+entre l'interface  graphique et les agents  il est tout  a fait normal
+qu'il ait la charge des actions effectuées par les agents.\\
+
+L'API spécifique  aux agents synchronisés  est définie dans  la classe
+SynchronizedAgent.java  dans le même  paquetage. Cette  API spécifique
+contient principalement deux méthodes :
+\begin{itemize}
+\item  $nextPulse$   qui  permet   aux  agents  de   s'attendre  entre
+eux. Chaque agent  qui appelle cette méthode va  se bloquer jusqu'à ce
+que le dernier appelle cette  méthode. Le dernier agent appelant cette
+méthode va provoquer le déblocage de tous les autres agents.
+\item  $planning$ qui  permet  de gérer  les  rencontres entre  agents
+synchronisés sur un sommet.
+\end{itemize}
+
+En plus, de la synchronisation,  la méthode $nextPulse$ gère aussi les
+rencontres  entre les  agents.   En effet,  cette  méthode appelle  la
+méthode    $howToMeetTogether$   de    l'interface   MeetingOrganizer.
+L'implantation de  cette interface va permettre de  définir la manière
+dont va se passer la rencontre.\\
+
+Les classes correspondant  à ces deux types d'agents  sont des classes
+abstraites. En effet, l'utilisateur  va pouvoir créer différents types
+d'agents  héritant  d'une  de  ces  deux  classes  et  excécutant  des
+algorithmes spécifiques en redéfinissant la méthode $init$.
+
+
+\subsection{Structures de données}
 En plus  du simulateur duquel il  dépend et de son  identité, un agent
 contient une  structure de donnée  de type WhiteBoard définie  dans le
 package visidia.tools.agents  et qui permet  à l'agent de  stocker des
 informations durant son exécution.  Un WhiteBoard s'utilise de la même
 manière qu'une table de  hachage, la différence étant qu'un WhiteBoard
-permet un accès  a des valeurs par défaut. etc  ...  Nous avons choisi
-de travailler avec  des tables de hachage pour  permettre de gagner de
-l'espace  mémoire. En  effet, l'utilisation  d'une autre  structure de
-données aurait amener a réserver  de l'espace pour un nombre prédéfini
-de champs au départ  et de réallouer de la mémoire au  fur et à mesure
-de l'exécution. Une table de  hachage permet d'allouer l'espace au fur
-et à mesure et si aucun champs n'a été ajouter on ne .... 
+permet un  accès a des valeurs  par défaut. Ces valeurs  par défaut ne
+sont pas crées pour tous les  agents; ceci va donc permettre de gagner
+de l'espace  mémoire. Il est  à noter, et  nous y reviendrons  dans la
+partie  interface graphique, que  les sommets  du graphe  sur lesquels
+travaillent les agents durant la simulation ont aussi des WhiteBoard.
 
-- autre structure de données utilisées  par les agents : agent mover :
-  une  classe  qui  permet   de  déplacer  des  agents.  définie  dans
-  visidia.simulation.agents ...
+Nous  avons choisi  de  travailler  avec des  tables  de hachage  pour
+permettre  de gagner  de  l'espace mémoire.   En effet,  l'utilisation
+d'une autre structure de données  aurait amener a réserver de l'espace
+pour un  nombre prédéfini de  champs au départ  et de réallouer  de la
+mémoire  au fur  et à  mesure de  l'exécution.  Une  table  de hachage
+permet d'allouer  l'espace au fur et  à mesure et si  aucun champs n'a
+été ajouter on n'aura pas allouer de l'espace inutilement.\\
 
-- développer une partie sur agent chooser
+Outres ces  structures, les  agents en contiennent  une autre  de type
+AgentMover. Cette  strcture définie le  type de déplacement  de chaque
+type d'agent. La classe AgentMover.java est une classe abstraite, elle
+définie des méthodes de déplacement pour les agents. Ces méthodes vont
+faire  appel à  la  méthode $moveAgentTo$  du  simulateur. La  méthode
+$findNextDoor$  permet  de définir  la  prochaine  porte par  laquelle
+passera  l'agent à  l'appel de  la méthode  $move$. Cette  méthode est
+abstraite  et   est  à  redéfnir   pour  avoir  un  nouveau   type  de
+déplacement. Un  ensemble de ces  différents types de  déplacement est
+défini dans le paquetage visidia.agents.agentsmover.\\
 
-- reprendre le  digramme de  classe de Damien  en ce qui  concerne les
-  agents.
+Vous trouverez dans la figure \ref{fig:agents-classes} un diagramme de
+classe représentant les différentes relations entre les classes citées
+ci-dessus.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=14cm]{agents-classes}
+  \caption{ Diagramme  de classe représentant les  relations entre les
+  différentes classes liées aux agents}
+  \label{fig:agents-classes}
+\end{figure}
 
 \section{Simulateur}
+Le simulateur est l'axe principal de l'application : rien ne peut être
+fait sans lui.  Il est  défini dans la classe AgentSimulator.java dans
+le  paquetage  visidia.simulation.agents.   En  ce  qui  concerne  les
+structures de données  utilisées, ce sont aussi des  tables de hashage
+pour les même raisons qu'évoquées précédemment.
 
-- axe du module 
-- fait appel à lui pour tous les actions des agents
+\subsection{Relations avec les agents et l'interface graphique}
+Comme nous l'avons déjà dit, c'est le simulateur qui est en charge des
+actions des  agents sur  le graphe  avec lequel il  a un  lien direct.
+C'est  aussi lui  qui a  en charge  la communication  avec l'interface
+graphique. Le  fonctionnnement de  cette communication est  analogue à
+celui du  simulateur déjà existant. Le  simulateur informe l'interface
+graphique d'un  évènement en  créant un objet  de type aproprié  et le
+place dans  la file d'évènements.  Après  récupération de l´évènement,
+l'interface  provoque  les  actions  correspondantes.  Les  évènements
+envoyés par le simulateur sont de plusieurs types :
+\begin{itemize}
+\item déplacement d'un agents,
+\item changement d'état d'un noeud ou d'une arête,
+\item nouveau round pour les agents synchronisés et
+\item fin de l'exécution de l'ensemble des agents. Cet évènement n'est
+envoyé que si tous les agents lancés sont terminés.
+\end{itemize}
 
-- relation interface graphique ( accès au agents et aux sommets)
-- permet la gestion des agents, faire des stats etc ...
-- décrire les structure de données qui y sont + justification
-- synchronisation
-- meeting
+Une  description précise  de  ce mécanisme  de  communication pour  la
+partie  existante  de  l'application  a  été  faite  dans  la  section
+\ref{sec:existant-communication}.
+
+\subsection{Statistiques}
+Une  des  fonctionnalités  de   \visidia  est  de  pouvoir  faire  des
+statistiques nous  devions donc  implanter les outils  nécessaires aux
+calculs  de  celles-ci.  Les  statistiques  sont  stockées sous  forme
+d'évènements dans le champs  stats du simulateur.  Ces évènements sont
+de différents types correspondant  aux informations sur l'éxécution de
+la simulation : nombre  d'agents créés, nombre de déplacements, nombre
+de  round pour les  agents synchronisés,  nombres d'agents  ayant fini
+leur exécution etc \dots\\
+
+Le champs  stats su simulateur permettant les  calculs de statistiques
+est  de type  Bag.  Ce  type est  défini dans  la classe  Bag  dans le
+paquetage visidia.tools.agents. Cette  classe va permattre le stockage
+de tous les  évènements survenus lors de l'exécution  de la simulation
+et  de leur  occurences. L'accès  aux éléments  de cette  structure va
+pemettre par  la suite de faire  des calculs. On peut  donc choisir le
+type  de  statistiques  à  afficher  : toutes  les  statistiques,  des
+moyennes  calculées etc  \dots  L'utilisateur peut  aussi définir  ses
+propres  types  de  rapport  d'exécution en  sous-classant  la  classe
+AbstractStatReport    qui     se    trouve    dans     le    paquetage
+visidia.simulation.agents. Ces  classes devront être  définies dans le
+paquetage visidia.agents.agentreport.
+
+\subsection{Les accès concurrents}
+Lors du développement de notre  application nous avons dû faire face à
+la  gestion des  accès  concurrents aux  différentes structures.   Par
+exemple, l'accès  à des structures contenant des  listes d'agents pour
+faire  des ajouts  ou des  suppressions doit  faire en  sorte  que les
+resultats  obtenus ne  soient pas  erronés afin  de ne  pas  créér des
+dysfonctionnements  au sein  du programme.  Cette gestion  se  fait de
+façon simple en Java en utilisant le mot-clé $synchronized$.
+
+De plus,  les agents peuvent  demander de bloquer les  propriétés d'un
+sommet lors de l'exécution. Le  blocage et le déblogcage se font grâce
+aux  méthodes $lockVertexProperties$ et  $unlockVertexProperties$. Ces
+méthodes utlisent le même mot-clé afin gérer la concurrence.
 
 \section{GUI}
+Cette partie de l'application est la plus important du point de vue de
+l'utilisateur car c'est grâce à  elle qu'il va pouvoir interragir avec
+\visidia.
 
-- partie la  plus importante du point  de vue de  l'utilisateur + pkoi
-- décrire les principales  choses qu'on a ajouté en  relation avec les
-  agents, les  sommets, le simulateur etc ...   
-- implantation  de thread  java qui  permette le  rafraîchissement des
-  fenêtres ...
+Le première  étape d'implantation  ce cette partie  a été de  créer un
+nouvelle fenêtre de simulation correspondant aux agents. Cette fenêtre
+a été  créée de  façon analogue à  celles déjà  existantes. Cependant,
+certaines des fonctionnalités sont spécifiques.
+
+\subsection{Placement des agents}
+Le placements des agents sur le  graphe peut se faire de deux manières
+:
+\begin{itemize} 
+\item soit  de la manière traditionnelle en  selectionnant les sommets
+et les agents à placer.
+\item soit en choisissant un type de placement particulier.
+\end{itemize}
+
+Ce  type  de placement  est  en fait  gérer  par  la classe  abstraite
+AgentChooser.java.   La  méthode  abstraite  $chooseForVertex$  est  à
+redéfnir afin de choisir  le comportement suivant lequel seront placer
+les agents. Il est à noter que les classes dérivées vont se charger de
+choisir  le type  d'agents à  placer.  Des  exemples de  ces  types de
+placements     ont     été     implantés     dans     le     paquetage
+visidia.agents.agentchooser afin de guider l'utilisateur.
+
+\subsection{Propriétés des noeuds et des agents}
+À  travers   l'interface  graphique,  l'utilisateur   aura  accès  aux
+propriétés  des noeuds  et  des  agents.  Ceci  consiste  en fait,  en
+l'affichage des whiteboards des  sommets et des agents. 
+
+Les whiteboards des  sommets sont du même type que  ceux des agents et
+fonctionnent  donc  de  le  même  façon.  Les  sommets  ont  donc  des
+propriétés spécifiques et d'autres  par défaut.  Cette distinction est
+faite pour  les sommets et on  accède de manières  distinctes aux deux
+types de propriétés.
+
+Une  fois que  l'utilisateur a  eu accès  à ces  tables il  va pouvoir
+effectuer  les   changements  qu'il  voudra   ou  simplement  vérifier
+l'exécution de  ses algorithmes. Les changements  seront effectués sur
+les agents  ou les  sommets par le  simulateur avec  lequel communique
+l'interface graphique.\\
+
+\subsection{Structure permettant la gestion des propriétés}
+Pour l'affichage des propriétés et leur 
+
+\subsection{Les statitiques}
+L'implantation  des  statistiques a  été  développer  dans la  section
+précédente.   Au  travers de  l'interface  graphique, l'utilisateur  a
+accès à  ces statistiques. La  structure utilisée pour  l'affichage de
+celles-ci est la même que celle utilisée pour les propriétés. 
+
+implantation  de  thread java  qui  permette  le rafraîchissement  des
+fenêtres ...
 
 
-NOTES
------
-
-- acces concurrents / utilisation du mot cle synchronized
-- 2 types d'agents / comment AgentSynchronized est implante (nextPulse)
-- planning
-- agent mover
-- agent chooser
-- experimentation/statistiques/evenement/rapport de stats
-- faire  une  section  sur  les  whiteboards  (pourquoi  2  tables  de
-- hachages)
-- la classe Bag
-- les tables de hachages a la place des Vector
 - les UpdateTable/TableModel
-
 - revoir le cahier des charges pour avoir d'autres idees
 %% Local Variables: 
 %% mode: latex
