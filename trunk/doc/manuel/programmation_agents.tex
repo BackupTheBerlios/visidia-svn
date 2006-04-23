@@ -25,7 +25,7 @@ trouverez un grand nombre dans les répertoires :
 \end{itemize}
 
 
-\subsection{Description de l'API}
+\section{Description de l'API}
 \label{sec:agent-api}
 
 Toute la documentation a été  écrite à l'aide de Javadoc. Pour générer
@@ -33,15 +33,15 @@ des fichiers  HTML, placez vous  dans le dossier  \dossier{visidia} et
 tapez la commande suivante :
 
 \begin{verbatim}
-$ ./agents-doc.sh
+$ ./mkjavadoc.sh
 $
 \end{verbatim}
 
-Ceci  fait, ouvrez le  fichier \dossier{visidia/agents-doc/index.html}
-avec un navigateur. 
+Ceci  fait, ouvrez le  fichier \dossier{visidia/javadoc/index.html}
+avec un navigateur puis sélectionnez la classe Agent. 
 
 
-\subsection{Ecrire ses propres agents}
+\section{Ecrire ses propres agents}
 
 Il existe deux types d'agents : les agents non-synchronisés et les
 agents synchronisés.
@@ -60,7 +60,7 @@ méthode \methode{init()} et en utilisant les différentes possibilités
 offertes par l'API.\\
 
 
-\subsubsection{Cas d'un agent non-synchronisé}
+\subsection{Cas d'un agent non-synchronisé}
 
 \begin{verbatim}
 
@@ -104,7 +104,7 @@ Ensuite, nous incrémentons le nombre de passages de un, puis l'agent
 réécrit la nouvelle valeur dans le champs ``nbPassages'' du sommet
 courant graçe à la méthode \methode{setVertexProperty(``nbPassages'')}.
 
-\subsubsection{Cas d'un agent synchronisé}
+\subsection{Cas d'un agent synchronisé}
 \label{sec:prog-agent-synchro}
 
 \begin{verbatim}
