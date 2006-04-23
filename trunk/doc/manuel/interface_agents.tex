@@ -54,6 +54,71 @@ Pour   programmer   votre   placeur,   réferez-vous   à   la   section
 
 
 
+\section{Exécution de la simulation}
+
+Une  fois vos agents  en place,  vous pouvez  lancer la  simulation en
+cliquant sur  le bouton start. Tous  les agents que  vous avez ajoutés
+sur  le graphe  seront alors  lancés. Vous  pouvez  cependant toujours
+influer sur le déroulement de la simulation :
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{boutons-exec}
+  \caption{Les boutons pour influer  sur la simulation. Le bouton save
+permet lui de sauvegarder le graphe courant}
+  \label{fig:boutons-exec}
+\end{figure}
+
+\subsection{Bouton pause}
+
+La simulation  se met en  pause le temps  que vous le souhaitez  : les
+agents  et  le  simulateur  cessent  leurs  activités,  mais  existent
+toujours.  Vous  avez donc  accès aux whiteboards  des sommets  et des
+agents, ainsi qu'aux statistiques.\\
+
+Réappuyez sur le bouton pause pour que la simulation reprenne.
+
+\subsection{Bouton stop}
+
+La simulation est stoppé :  contrairement au bouton pause, une fois la
+simulation stoppée,  vous ne pouvez plus la  reprendre.  Le simulateur
+n'existe  plus, les  agents  non  plus, il  n'est  donc plus  possible
+d'accéder  aux whiteboards  des  agents. Les  whiteboards des  sommets
+restent cependant accessibles, tout comme les statistiques.
+
+\subsection{Bouton speed}
+
+Ce  bouton  influence  la  vitesse  de  déplacements  des  agents  sur
+l'interface graphique :  plus la vitesse est lente,  plus ils mettront
+de temps à se déplacer d'un sommet à un autre.\\
+
+\subsection{Bouton reset}
+
+Le bouton reset permet de  remettre l'ensemble des informations à zéro
+(agents, whiteboards, statistiques, etc).  Si vous venez de lancer une
+simulation et  que vous souhaitez en  lancer une autre,  vous devez au
+préalable utiliser  le bouton  reset : vous  pourrez alors  de nouveau
+ajouter des agents sur le graphe.
+
+\subsection{Pulse Counter}
+
+En bas à droite de la fenêtre de simulation se trouve un champ ``Pulse
+Counter''.   Celui-ci  est  dégrisé  lors  de  l'utilisation  d'agents
+synchronisés, et correspond au nombre  de top (ou pulse) effectués par
+les  agents synchronisés.\\
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=3cm]{pulse-counter}
+  \caption{Le  champ  pulse counter  lors  d'une  simulation avec  des
+  agents synchronisés}
+  \label{fig:pulse-counter}
+\end{figure}
+
+Pour plus de renseignements sur les pulses et les agents synchronisés,
+veuillez vous réferrer à la section \emph{Cas d'un agent synchronisé}.
+
+
 \section{Utilisation des WhiteBoards}
 
 Les whiteboards sont une particularité de la partie agent de visidia :
@@ -193,6 +258,10 @@ compte
 \textbf{Cas particulier  :} Si vous  souhaitez modifier le  label d'un
 sommet,  vous devez  utiliser la  liste  déroulante située  en haut  à
 droite des whiteboards locaux des sommets.
+
+
+
+
 
 %%% Local Variables: 
 %%% mode: latex
