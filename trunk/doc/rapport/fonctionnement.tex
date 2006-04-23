@@ -1,86 +1,97 @@
-
 \paragraph{Fonctionnement}
 
 Cette partie va illustrer ce rapport d'un jeux de copies d'écrans
-retracant les fonctionnalités implantés.
+rcapitulant les fonctionnalités implantées.
 
+La première étape à réaliser est l'écriture de l'algorithme (voir
+le Manuel d'utilisation) et sa compilation en bytecode Java.
 
-1 Création du graphe
+L'étape suivante est la création du graphe sur lequel la simulation va s'effectuer.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=10cm]{fonctionnement-matrix-graph}
-  \caption{}
+  \caption{Fenetre d'edition d'un graph : une grille 4x4}
   \label{fig:fonctionnement-matrix-graph}
 \end{figure}
 
-
-2 ajout des agents
+Une fois fois le graphe créé, la fenetre de simulation peut-etre
+lancée. A cette étape, nous ajoutons des agents sur des sommets de
+départ que l'on choisi par sélection ou par algorithme.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=10cm]{fonctionnement-ajout-agent}
-  \caption{}
+  \caption{Ajout d'un type d'agent sur les trois sommets sélectionnés}
   \label{fig:fonctionnement-ajout-agent}
 \end{figure}
 
-3 choix des agents
+La quatrième étape consiste à choisir notre agent compilé dans la
+fenetre de sélection.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=10cm]{fonctionnement-choix-agent}
-  \caption{}
-  \label{fig:fonctionnement-choix-agent}
+  \includegraphics[width=10cm]{fonctionnement-choix-agents}
+  \caption{Selection du type d'agent voulu}
+  \label{fig:fonctionnement-choix-agents}
 \end{figure}
 
-4 simulation en cours
+Ensuite vient l'étape de la simulation proprement dite. Les agents se
+déplacent, marquent des aretes, se clonnent ou se suicident
+conformément à ou aux l'algorithmes d'agent que l'on vient de
+programmer. Ces actions sont représenté graphiquement dans la fenetre
+de simulation.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=10cm]{fonctionnement-sumu1}
-  \caption{}
+  \includegraphics[width=10cm]{fonctionnement-simu1}
+  \caption{Simulation en cours : les agents se déplacent sur le graph}
   \label{fig:fonctionnement-simu1}
 \end{figure}
 
-5 visualisation whiteboard sommet
+On peut également visualiser et éditer les whiteboards des agents et
+des sommets au cours de la simulation en temps réel.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=10cm]{fonctionnement-vertex-properties}
-  \caption{}
+  \caption{Visualtisation des informations du whiteboard d'un sommet}
   \label{fig:fonctionnement-vertex-properties}
 \end{figure}
 
-6 simu-terminé
+Lorsque tous les agents ont terminés, la simulation se termine à son
+tour et en informe l'utilisateur.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=10cm]{fonctionnement-simu-terminated}
-  \caption{}
+  \caption{Les algorithmes sont terminés, tous les agents sont mort}
   \label{fig:fonctionnement-simu-terminated}
 \end{figure}
 
-7 choix stats
+Des statistiques paramétrables peuvent également etre établies. Pour
+cela l'utilisateur doit avoir préalablement programmé sa classe de
+calcul de statistiques et l'avoir compilé (voir le Manuel
+d'utilisation).
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=10cm]{fonctionnement-choix-stats}
-  \caption{}
+  \caption{Choix de la méthode de calcul des satistiques}
   \label{fig:fonctionnement-choix-stats}
 \end{figure}
 
-8 resultats-stats
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=10cm]{}
-  \caption{}
+  \includegraphics[width=10cm]{fonctionnement-stats}
+  \caption{Résultats du calcul de nos statistiques}
   \label{fig:}
 \end{figure}
 
 
 
-\paragraph{Ecriture d'un algorithme}
+%\paragraph{Ecriture d'un algorithme}
 
 
 
