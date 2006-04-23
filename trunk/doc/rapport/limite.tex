@@ -17,15 +17,15 @@ problème sont  l'interface graphique principalement,  et le simulateur
 dans une moindre mesure.
 
 Idéalement,  l'interface  graphique  devrait  permettre le  rajout  de
-module sans  avoir à modifier le code  d'origine. Malheureusement pour
+modules sans avoir à modifier le code d'origine. Malheureusement, pour
 cela, une refonte du  code de l'interface graphique semble inévitable,
 or il  s'agit d'un processus  lourd en temps  et personnes, ce  qui le
 rend peu envisageable.
 
 Concernant le simulateur, une factorisation des différents simulateurs
-existants  seraient   préférables.   Cette  factorisation   n'est  pas
+existants   serait   préférable.    Cette  factorisation   n'est   pas
 essentielle actuellement mais le  deviendra si d'autres simulateurs se
-greffent plus tard aux existants.
+greffent plus tard à ceux existants.
 
 \section{Simulation sur des graphes de grandes tailles}
 
@@ -48,14 +48,14 @@ Utiliser des  agents pour simuler des  algorithmes distribués présente
 l'avantage  de  pouvoir contrôler  le  nombre  de  processus qui  sont
 exécutés  lors de  la simulation  (contrairement à  la  simulation par
 messages qui impose un processus par sommet du graphe).
-Le nombre  de processus dépend  en effet du  nombre d'agent et  non du
-nombre de  sommet. \\
+Le nombre  de processus dépend en  effet du nombre d'agents  et non du
+nombre de sommet. \\
 
-Cette  avantage  a aussi  son  inconvénient :  ce  que  l'on gagne  en
-ressource  machine,  on  le  perd   bien  souvent  en  temps  lors  de
-l'exécution d'algorithmes distribués avec un faible nombre d'agent. Si
-au contraire on souhaite faire tourner un grand nombre d'agent, on est
-rapidemment  limité par  les  ressources  de la  machine  à partir  de
+Cet avantage a aussi son inconvénient : ce que l'on gagne en ressource
+machine,  on  le  perd  bien  souvent en  temps  lors  de  l'exécution
+d'algorithmes  distribués  avec  un  faible nombre  d'agents.   Si  au
+contraire on souhaite  faire tourner un grand nombre  d'agents, on est
+rapidement  limité  par les  ressources  de  la  machine à  partir  de
 quelques milliers d'agents.
 
 Toutefois, cette  flexibilité reste avant tout un  avantage malgré ces
