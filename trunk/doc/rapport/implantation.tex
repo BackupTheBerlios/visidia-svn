@@ -21,7 +21,7 @@ différentes    parties.     Ainsi,   le    schéma    de   la    figure
 sein du module est le  même que celui représentant cette communication
 au sein de la partie existante de \visidia.
 
-\begin{figure}[ht]
+\begin{figure}[h!t]
   \centering
   \includegraphics[width=6cm]{implantation-communication}
   \caption{ Le simulateur envoie  des demandes à l'interface graphique
@@ -112,7 +112,7 @@ Vous trouverez dans la figure \ref{fig:agents-classes} un diagramme de
 classe représentant les différentes relations entre les classes citées
 ci-dessus.
 
-\begin{figure}[ht]
+\begin{figure}[h!t]
   \centering
   \includegraphics[width=14cm]{agents-classes}
   \caption{ Diagramme  de classe représentant les  relations entre les
@@ -231,20 +231,39 @@ les agents  ou les  sommets par le  simulateur avec  lequel communique
 l'interface graphique.\\
 
 \subsection{Structure permettant la gestion des propriétés}
-Pour l'affichage des propriétés et leur 
+Pour l'affichage des propriétés des  sommets et des agents, nous avons
+défini une classe qui permet  de gérer l'affichage de ces tables grâce
+à des  AbstractTableModel. Cette représentation des  tables permet une
+gestion simple de celles-ci au  niveau de l'ajout ou de la suppression
+des   données  notamment   grâce   à  l'utilisation   de  la   méthode
+$fireTableDataChanged$.
 
-\subsection{Les statitiques}
+En  fait, ces  structures seront  des thread  Java qui  vont permettre
+notamment un rafraîchissement des fenêtres contenant les tables toutes
+les secondes.
+
+\subsection{Les statistiques}
 L'implantation  des  statistiques a  été  développer  dans la  section
 précédente.   Au  travers de  l'interface  graphique, l'utilisateur  a
 accès à  ces statistiques. La  structure utilisée pour  l'affichage de
-celles-ci est la même que celle utilisée pour les propriétés. 
+celles-ci  est la  même que  celle utilisée  pour les  propriétés avec
+création  d'un  thread Java  afin  d'assurer  un rafraîchissement  des
+fenêtres.\\
 
-implantation  de  thread java  qui  permette  le rafraîchissement  des
-fenêtres ...
+Le fenêtre  correspondant à l'affichage des  statistiques va permettre
+de lancer  une simulation sur un  graphe sans en  voir l'exécution sur
+l'écran.   Cette fonctionnalité  amène  au lancement  d'une fenêtre  à
+partir de laquelle la simulation  sera lancée. C'est à partir de cette
+fenêtre et  non plus à partir  de la fenêtre  de simulation principale
+que la simulatation sera lancée et arrêtée. 
+
+Cette fenêtre  provequera la création  d'un thread qui se  chargera de
+gérer les évènements envoyés par  le simulateur sans les afficher. Les
+classes liées à cette partie du programme sont définies dans le ficher
+AgentExperimentationFrame.java         dans        le        paquetage
+visidia.gui.presentation.userInterfaceSimulation.
 
 
-- les UpdateTable/TableModel
-- revoir le cahier des charges pour avoir d'autres idees
 %% Local Variables: 
 %% mode: latex
 %% TeX-master: t
