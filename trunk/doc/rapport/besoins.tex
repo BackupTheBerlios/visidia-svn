@@ -14,30 +14,72 @@ l'écriture de l'algorithme sont les suivantes :\\
 \item[getArity]  retourne  le nombre  de  portes  sortantes du  sommet
   courant (la première est numérotée 0)
 \item[getVertexIdentity] retourne le numéro du sommet courant (suppose
-  que l'algorithme utilise un identifiant unique pour chaque sommet)
-\item[getNetSize] retourne le nombre de sommets du graphe
-\item[setMover]  permet de  définir pour  l'agent un  nouveau  type de
-déplacement dont le nom est passé en paramètre
+  que l'algorithme utilise un identifiant unique pour chaque sommet) %
+\item[getNetSize] retourne le nombre de sommets du graphe %
+\item[setAgentMover]  permet de  définir pour  l'agent un  nouveau  type de
+déplacement dont le nom est passé en paramètre %
+\item[getAgentMover] retourne le type de déplacement utilisé par
+l'agent %
 \item[move] permet de déplacer l'agent sur la porte suivante ou sur la
-  porte dont le numéro est passé en paramètre
-\item[moveBack] permet de déplacer l'agent sur la porte dont il vient
+  porte dont le numéro est passé en paramètre %
+\item[moveToDoor] permet de déplacer l'agent sur la porte passée en
+paramètre. Méthode de bas niveau. La méthode move() associée à un
+AgentMover est de plus haut niveau %
+\item[moveBack] permet de déplacer l'agent sur la porte dont il vient %
 \item[entryDoor] retourne  le numéro de la porte  par laquelle l'agent
-  vient d'arriver
-\item[putVertexProperty] place une propriété sur le sommet courant, la
-  valeur et la clé sont passées en paramètre
-\item[getVertexProperty] retourne  la valeur  de la propriété  dont la
-  clé est passée en paramètre
-\item[putDoorProperty] place une propriété sur une porte, le numéro de
-  la porte, la clé et la valeur sont passés en paramètre
+  vient d'arriver %
+\item[getIdentity] retourne l'identifiant unique de l'agent %
+\item[setProperty] place une propriété sur le tableau blanc de
+  l'agent, la valeur et la clé sont passées en paramètre %
+\item[getProperty] retourne la valeur de la propriété du tableau blanc
+  dont la clé est passée en paramètre %
+\item[getPropertyKeys] retourne une collection de toutes les clés du
+tableau blanc de l'agent%
+\item[lockVertexProperties] verrouille le tableau blanc du sommet
+courant. Si le sommet est déjà verrouillé, attend jusqu'à ce que le
+propriétaire déverrouille le sommet %
+\item[unlockVertexProperties] déverrouille le tableau blanc du sommet
+courant %
+\item[vertexPropertiesLocked] retourne vrai si le sommet est
+verrouillé, faux sinon %
+\item[lockVertexIfPossible] verrouille le tableau blanc du sommet
+courant si possible et retourne vrai. Retourne faux sinon %
+\item[getVertexPropertiesOwner] retourne l'Agent qui verrouille le
+tableau blanc du sommet courant ou null si aucun Agent ne bloque le
+sommet %
+\item[getVertexProperty] retourne la valeur de la propriété du tableau blanc
+  du sommet courant dont la clé est passée en paramètre %
+\item[setVertexProperty] place une propriété sur le tableau blanc du
+sommet courant, la valeur et la clé sont passées en paramètre %
+\item[getVertexPropertyKeys] retourne une collection de toutes les clés du
+tableau blanc du sommet courant %
+\item[changeDoorState] change l'état de l'arrête associée à la porte
+passée en paramètre sur le sommet courant %
+\item[markDoor] marque l'arrête associée à la porte passée en
+paramètre en gras %
+\item[unmarkDoor] annule l'effet de markDoor() %
 \item[getDoorProperty] retourne la valeur  de la propriété dont la clé
   est passée en  paramètre, sur la porte dont  le numéro est également
   passé en paramètre
-\item[clone] clone l'agent en cours (avec son tableau blanc)
-\item[cloneAndSend] clone l'agent en cours (avec son tableau blanc) et
-  envoie le clone sur la porte passée en paramètre
-\item[nextTop] bloque l'agent jusqu'à ce que tous les agents de notre
-  graphe  aient appelé  cette  même méthode.  Permet  un mécanisme  de
-  synchronisation\\
+\item[cloneAgent] clone l'agent. Crée un nouvel Agent de même type sur
+le sommet courant %
+\item[cloneAndSend] clone l'agent en cours et envoie le clone sur la
+  porte passée en paramètre %
+\item[createAgent] crée un nouvel agent sur le sommet courant du type
+passé en paramètre %
+\item[createAgentAndSend] est à createAgent() ce que cloneAndSend()
+est à cloneAgent() %
+\item[className] retourne le nom de la classe dont l'agent est une
+instance sous la forme d'une chaîne de caractères %
+\item[sleep] endort l'agent pendant le temps en milisecondes passé en
+paramètre %
+\item[death] tue l'agent. Il est conseillé de sortir de la méthode
+init() pour tuer un agent plutôt que d'utiliser cette méthode %
+\item[newPulse] informe le simulateur qu'un SynchronizedAgent commence
+un nouveau tour %
+\item[incrementStat] incrémente la clé du tableau blanc passée en
+paramètre. Méthode utile dans le cadre de la collecte de statistiques
+\\
 
 \end{description}
 
