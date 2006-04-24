@@ -13,7 +13,7 @@ Dans un réseau asynchrone, les opérations peuvent se produire n'importe où et qu
 \begin{figure}[ht]
   \centering
   \includegraphics[width=8cm]{figures/algodist.png}
-  \caption{Les types des réseaux en terme de synchronisation, un shéma pareil peut être élaboré en s'appuiant sur la reconnaissance ou pas des noeuds du réseau}
+  \caption{Les types des réseaux en terme de synchronisation, un shéma pareil peut être élaboré en s'appuiant sur la connaissance ou pas des noeuds du réseau}
   \label{fig:algodist}
 \end{figure}
 \subsubsection{Algorithmique distribuée}
@@ -39,23 +39,23 @@ désynchronisation entre l'envoyeur et le receveur (exemple, le courrier électron
 
 \section{Quelques algorithmes simples}
 %%%
-\subsection{Algorithme de reconnaissance d\'un graphe connexe}
+\subsection{Algorithme de reconnaissance d'un graphe connexe}
 On part d'un sommet que l'on marque, on empile ses voisins. On les visite, on les marque et on empile les voisins des
 voisins..., Le graphe est connexe\footnote{Un graphe (orienté ou non) est connexe si et seulement si, pour tout couple de
 sommets, il existe une suite d'arêtes reliant ces sommets.
 \label{grapheConnexe}} si tous les sommets sont marqués. Pour la reconnaissance
 d'un graphe fortement connexe, il convient d'utiliser deux marques.
 %%%
-\subsection{Algorithme 1 pour le calcul d'un arbre recouvrant}
+\subsection{Algorithme n°1 pour le calcul d'un arbre recouvrant}
 Cet algorithme permet le calcul
 d'un arbre recouvrant (sans reconnaissance locale de la terminaison globale, cf.
-algorithme 2) .
+algorithme n°2) .
 Considérons la règle de transformation suivante:
 %%%%%%%%%%xfig eps algodist1.eps
 \begin{figure}[ht]
   \centering
   \includegraphics[width=5cm]{figures/algodist1.png}
-  \caption{Exemple d'une transformation A-N}
+  \caption{Algorithme n°1: Exemple d'une transformation A-N}
   \label{fig:algodist1}
 \end{figure}
 
@@ -63,7 +63,7 @@ On se donne un graphe G. Initialement tous les sommets sont dans l'état Neutre. 
 choisit un premier sommet, dans l'état Actif. On applique les transformations à partir de ce
 point. Le sous-graphe défini par les arêtes marquées est un arbre recouvrant du graphe
 initial.
-\subsection{Algorithme 2 pour le calcul d'un arbre recouvrant}
+\subsection{Algorithme n°2 pour le calcul d'un arbre recouvrant}
 Cet algorithme permet le calcul
 d'un arbre recouvrant avec détection locale de la terminaison globale (état F).
 Considérons les règles de transformation suivantes. R1 a une plus grande priorité que R2.
@@ -71,7 +71,7 @@ Considérons les règles de transformation suivantes. R1 a une plus grande priorit
 \begin{figure}[ht]
   \centering
   \includegraphics[width=4cm]{figures/algodist2.png}
-  \caption{Exemple d'algorithme à base de régles de réecritures}
+  \caption{Algorithme n°2 : Exemple d'algorithme à base de régles de réecritures}
   \label{fig:algodist2}
 \end{figure}
 
