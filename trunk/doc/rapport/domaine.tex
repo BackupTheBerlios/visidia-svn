@@ -18,9 +18,9 @@ produire n'importe où et quand.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=8cm]{figures/algodist.png}
-  \caption{Les types des réseaux en terme de synchronisation, un schéma
-  pareil peut  être élaboré en  s'appuyant sur la connaissance  ou pas
-  des noeuds du réseau}
+  \caption{Les  types  des réseaux  en  terme  de synchronisation,  un
+  schéma similaire peut être élaboré en s'appuyant sur la connaissance
+  ou pas des noeuds du réseau}
   \label{fig:algodist}
 \end{figure}
 \subsubsection{Algorithmique distribuée}
@@ -29,17 +29,19 @@ fait  que  chaque  processeur  doit communiquer  uniquement  avec  ses
 voisins, à l'aide de registres partagés, ou par échange de message. De
 manière générale,  on définit un algorithme distribué  par un ensemble
 de  règles  de  transformations  d'état  (avec  un  ordre  partiel  de
-priorité).  Si les  transformations induites  par cet  algorithme sont
-indépendantes, elles sont susceptibles avoir lieu en même temps, sinon
-on choisit une façon non déterministe la transformation à effectuer.
+priorité).  Si  les transformations  induites par cet  algorithme sont
+indépendantes,  elles sont  susceptibles d'avoir  lieu en  même temps,
+sinon  on choisit  d'une façon  non déterministe  la  transformation à
+effectuer.
 
-\subsubsection{Preuve en algorithmique distribuée}
+\subsubsection{Preuve de la correction d'un algorithme distribué}
+
 La preuve d'un tel algorithme se fait en deux temps.  Tout d'abord, on
 prouve  la   terminaison  de  l'algorithme,   par  des  considérations
 combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis
 on   prouve   la  validité,   le   plus   souvent   en  exhibant   des
 invariants... sur lesquels on s'appuie pour rédiger la preuve.
-\subsubsection{messages synchrones}
+\subsubsection{Messages synchrones}
 On parle de messages synchrones lorsque l'envoyeur et le receveur sont
 synchronisés, c'est-à-dire  qu'un rendez-vous est mis en  place par un
 protocole  (exemple,  le  téléphone).  Par  opposition,  on  parle  de
@@ -79,7 +81,8 @@ initial.
 \subsection{Algorithme n°2 pour le calcul d'un arbre recouvrant}
 Cet algorithme  permet le calcul d'un arbre  recouvrant avec détection
 locale de la terminaison globale  (état F).  Considérons les règles de
-transformation suivantes. R1 a une plus grande priorité que R2.
+transformation décrites  sur la  figure \ref{fig:algodist2} .R1  a une
+plus grande priorité que R2.
 
 \begin{figure}[ht]
   \centering
@@ -90,9 +93,9 @@ transformation suivantes. R1 a une plus grande priorité que R2.
 \end{figure}
 
 \section{Exemples de problèmes de l'algorithmique distribuée}
-Dans  le domaine  de l'algorithmique  distribuées on  trouve  plein de
-problème qui sont  connus, dans cette partie il  s'agit pas de traiter
-ces problèmes mais juste de donner une idée sur eux.
+Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
+existent. Dans cette partie il  ne s'agit pas de traiter ces problèmes
+mais juste d'en donner une idée.
 \subsection{Le problème de l'élection}
 On considère  un réseau ; on  souhaite positionner un  unique noeud du
 réseau dans un état élu et tous les autres dans un état non élu.
@@ -130,7 +133,7 @@ de celui de ces voisins si l'algorithme est terminé.
 
 
 \section{Quelques applications}
-L'algorithmique distribuée est appliqué dans plusieurs domaines, Comme
+L'algorithmique distribuée est appliqué dans plusieurs domaines, comme
 par exemple :
 \subsection{Construction d'objets parallèles}
 Un exemple des applications dans ce domaine est mené par le PRISM
