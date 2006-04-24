@@ -1,57 +1,69 @@
 %Introduction
 %Bases & principes
 %
-Dans cette partie, On s'interesse aux bases de l'algorithmique distribuée. Le contenu de cette partie ne sera qu'un minimum à savoir pour aborder le reste de ce rapport. Bienqu'on peut trouver dans ce qui suit des notions sur la théorie des graphes, cette partie suppose une connaissance considérable de certain éléments de cette théorie.
+Dans  cette  partie,  On  s'intéresse  aux  bases  de  l'algorithmique
+distribuée. Le contenu de cette  partie ne sera qu'un minimum à savoir
+pour aborder  le reste de ce  rapport. Bien qu'on peut  trouver dans ce
+qui suit des notions sur  la théorie des graphes, cette partie suppose
+une connaissance considérable de certain éléments de cette théorie.
 \section{Introduction à l'algorithmique distribuée}
 \subsection{Définitions}
 \subsubsection{Réseau}
-On modélise un réseau par un graphe de manière intuitive. Les sommets représentent les
-processeurs, dont l'état nous intéresse par rapport au réseau.
-Dans un réseau synchrone, un top horloge cadence toutes les opérations.
-Dans un réseau asynchrone, les opérations peuvent se produire n'importe où et quand.
+On modélise un réseau par  un graphe de manière intuitive. Les sommets
+représentent les  processeurs, dont l'état nous  intéresse par rapport
+au réseau.   Dans un réseau  synchrone, un top horloge  cadence toutes
+les opérations.  Dans un  réseau asynchrone, les opérations peuvent se
+produire n'importe où et quand.
 %%%
 \begin{figure}[ht]
   \centering
   \includegraphics[width=8cm]{figures/algodist.png}
-  \caption{Les types des réseaux en terme de synchronisation, un shéma pareil peut être élaboré en s'appuiant sur la connaissance ou pas des noeuds du réseau}
+  \caption{Les types des réseaux en terme de synchronisation, un schéma
+  pareil peut  être élaboré en  s'appuyant sur la connaissance  ou pas
+  des noeuds du réseau}
   \label{fig:algodist}
 \end{figure}
 \subsubsection{Algorithmique distribuée}
- La difficulté de l'algorithmique distribuée vient essentiellement
-du fait que chaque processeur doit communiquer uniquement avec ses voisins, à l'aide de
-registres partagés, ou par échange de message.De manière générale, on définit un algorithme distribué par un ensemble de règles de
-transformations d'état (avec un ordre partiel de priorité). Si les transformations induites
-par cet algorithme sont indépendantes, elles sont susceptibles avoir lieu en même temps,
-sinon on choisit une façon non déterministe la transformation à effectuer.
+ La difficulté de  l'algorithmique distribuée vient essentiellement du
+fait  que  chaque  processeur  doit communiquer  uniquement  avec  ses
+voisins, à l'aide de registres partagés, ou par échange de message. De
+manière générale,  on définit un algorithme distribué  par un ensemble
+de  règles  de  transformations  d'état  (avec  un  ordre  partiel  de
+priorité).  Si les  transformations induites  par cet  algorithme sont
+indépendantes, elles sont susceptibles avoir lieu en même temps, sinon
+on choisit une façon non déterministe la transformation à effectuer.
 
 \subsubsection{Preuve en algorithmique distribuée}
-La preuve d'un tel algorithme se fait en deux temps.
-Tout d'abord, on prouve la terminaison de l'algorithme, par des considérations
-combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis on prouve la
-validité, le plus souvent en exhibant des invariants... sur lesquels on s'appuie pour rédiger
-la preuve.
+La preuve d'un tel algorithme se fait en deux temps.  Tout d'abord, on
+prouve  la   terminaison  de  l'algorithme,   par  des  considérations
+combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis
+on   prouve   la  validité,   le   plus   souvent   en  exhibant   des
+invariants... sur lesquels on s'appuie pour rédiger la preuve.
 \subsubsection{messages synchrones}
 On parle de messages synchrones lorsque l'envoyeur et le receveur sont
-synchronisés, c'est-à-dire qu'un rendez-vous est mis en place par un protocole (exemple,
-le téléphone). Par opposition, on parle de messages asynchrones lorsqu'il y a une
-désynchronisation entre l'envoyeur et le receveur (exemple, le courrier électronique).
+synchronisés, c'est-à-dire  qu'un rendez-vous est mis en  place par un
+protocole  (exemple,  le  téléphone).  Par  opposition,  on  parle  de
+messages  asynchrones  lorsqu'il   y  a  une  désynchronisation  entre
+l'envoyeur et le receveur (exemple, le courrier électronique).
 %\section{Des principes de base}
 
 \section{Quelques algorithmes simples}
 %%%
 \subsection{Algorithme de reconnaissance d'un graphe connexe}
-On part d'un sommet que l'on marque, on empile ses voisins. On les visite, on les marque et on empile les voisins des
-voisins..., Le graphe est connexe\footnote{Un graphe (orienté ou non) est connexe si et seulement si, pour tout couple de
-sommets, il existe une suite d'arêtes reliant ces sommets.
-\label{grapheConnexe}} si tous les sommets sont marqués. Pour la reconnaissance
-d'un graphe fortement connexe, il convient d'utiliser deux marques.
-%%%
+On part  d'un sommet que  l'on marque, on  empile ses voisins.  On les
+visite,  on les marque  et on  empile les  voisins des  voisins..., Le
+graphe est connexe\footnote{Un graphe  (orienté ou non) est connexe si
+et  seulement si, pour  tout couple  de sommets,  il existe  une suite
+d'arêtes reliant ces sommets.
+\label{grapheConnexe}}  si  tous les  sommets  sont  marqués. Pour  la
+reconnaissance d'un  graphe fortement connexe,  il convient d'utiliser
+deux marques.
+
 \subsection{Algorithme n°1 pour le calcul d'un arbre recouvrant}
-Cet algorithme permet le calcul
-d'un arbre recouvrant (sans reconnaissance locale de la terminaison globale, cf.
-algorithme n°2) .
-Considérons la règle de transformation suivante:
-%%%%%%%%%%xfig eps algodist1.eps
+Cet  algorithme   permet  le   calcul  d'un  arbre   recouvrant  (sans
+reconnaissance locale de la  terminaison globale, cf.  algorithme n°2)
+. Considérons la règle de transformation suivante:
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=5cm]{figures/algodist1.png}
@@ -59,61 +71,88 @@ Considérons la règle de transformation suivante:
   \label{fig:algodist1}
 \end{figure}
 
-On se donne un graphe G. Initialement tous les sommets sont dans l'état Neutre. On
-choisit un premier sommet, dans l'état Actif. On applique les transformations à partir de ce
-point. Le sous-graphe défini par les arêtes marquées est un arbre recouvrant du graphe
+On  se donne  un graphe  G. Initialement  tous les  sommets  sont dans
+l'état Neutre.  On choisit  un premier sommet,  dans l'état  Actif. On
+applique  les transformations  à partir  de ce  point.  Le sous-graphe
+défini  par les  arêtes marquées  est  un arbre  recouvrant du  graphe
 initial.
 \subsection{Algorithme n°2 pour le calcul d'un arbre recouvrant}
-Cet algorithme permet le calcul
-d'un arbre recouvrant avec détection locale de la terminaison globale (état F).
-Considérons les règles de transformation suivantes. R1 a une plus grande priorité que R2.
-%%%%%xfig
+Cet algorithme  permet le calcul d'un arbre  recouvrant avec détection
+locale de la terminaison globale  (état F).  Considérons les règles de
+transformation suivantes. R1 a une plus grande priorité que R2.
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=4cm]{figures/algodist2.png}
-  \caption{Algorithme n°2 : Exemple d'algorithme à base de régles de réecritures}
+  \caption{Algorithme n°2  : Exemple d'algorithme à base  de règles de
+  réécritures}
   \label{fig:algodist2}
 \end{figure}
 
 \section{Exemples de problèmes de l'algorithmique distribuée}
-Dans le domaine de l'algorithmique distribuées on trouve plein de probleme qui sont connus, dans cette partie il s'agit pas de traiter ces problèmes mais juste de donner une idée sur eux.
+Dans  le domaine  de l'algorithmique  distribuées on  trouve  plein de
+problème qui sont  connus, dans cette partie il  s'agit pas de traiter
+ces problèmes mais juste de donner une idée sur eux.
 \subsection{Le problème de l'élection}
-On considère un réseau ; on souhaite positionner un unique noeud du réseau dans un état élu et
-tous les autres dans un état non élu.
+On considère  un réseau ; on  souhaite positionner un  unique noeud du
+réseau dans un état élu et tous les autres dans un état non élu.
 \subsubsection{Algorithme dans le cas d'un anneau} 
-Soit G un anneau, asynchrone avec échange de
-messages asynchrones, à 3 états : non élu, élu, indéfini. Les sommets sont initialement
-dans l'état indéfinis. Chaque processeur i du réseau possède un identificateur idi unique
-(un entier). L'anneau est orienté, c'est-à-dire que les processeurs ont la notion de gauche
-et de droite. Le processeur élu est celui qui a le plus grand identificateur.
-Chaque processeur transmet à son voisin de droite son identificateur. Lorsqu'un
-processeur reçoit un identificateur, il y a trois possibilités :
+Soit G un anneau, asynchrone avec échange de messages asynchrones, à 3
+états :  non élu,  élu, indéfini. Les  sommets sont  initialement dans
+l'état   indéfinis.  Chaque   processeur  i   du  réseau   possède  un
+identificateur   $id_{i}$  unique  (un   entier).  L'anneau   est  orienté,
+c'est-à-dire  que  les processeurs  ont  la  notion  de gauche  et  de
+droite.   Le  processeur   élu  est   celui  qui   a  le   plus  grand
+identificateur.  Chaque processeur transmet à son voisin de droite son
+identificateur. Lorsqu'un processeur reçoit  un identificateur, il y a
+trois possibilités :
 \begin{itemize}
-\item Si l'identificateur reçu est plus grand que le sien, il le passe au suivant (voisin de
-droite) et passe dans l'état non élu.
-\item Si l'identificateur reçu est plus petit que le sien, il jette le message.
-\item Si l'identificateur reçu est le même que le sien, alors il prend l'état élu.
+\item Si l'identificateur reçu est plus grand que le sien, il le passe
+au suivant (voisin de droite) et passe dans l'état non élu.
+\item Si l'identificateur reçu est plus petit que le sien, il jette le
+message.
+\item Si l'identificateur reçu est le même que le sien, alors il prend
+l'état élu.
 \end{itemize}
 
 \subsection{Problèmes de reconnaissance}
-Peut-on savoir si le réseau est un graphe complet, planaire, si c'est un arbre, un anneau ? Peut-on
-savoir encore si un sommet est une articulation, si une arête est un isthme ? Dans le
-premier cas, il existe un système de réécriture (ou calcul local) tel que, quand il se termine, la
-collecte des étiquettes sert de critère de reconnaissance ; dans le second cas, ce n'est pas
-possible !
+Peut-on savoir si le réseau  est un graphe complet, planaire, si c'est
+un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
+articulation, si  une arête est un  isthme ?  Dans le  premier cas, il
+existe un système de réécriture (ou calcul local) tel que, quand il se
+termine, la collecte des  étiquettes sert de critère de reconnaissance
+; dans le second cas, ce n'est pas possible !
 \subsection{Détection de la terminaison}
-Savoir qu'un protocole distribué est terminé est souvent difficile. On peut chercher à avoir un
-détection locale de la terminaison globale, c'est-à-dire qu'un processeur peut savoir en
-fonction de son état et de celui de ces voisins si l'algorithme est terminé.
+Savoir qu'un protocole distribué est terminé est souvent difficile. On
+peut chercher à  avoir un détection locale de  la terminaison globale,
+c'est-à-dire qu'un processeur  peut savoir en fonction de  son état et
+de celui de ces voisins si l'algorithme est terminé.
 
 
 \section{Quelques applications}
-Pour montrer quelques applications de l'algorithmique distribuée nous avons optées à présenter des résumés de certains études qui sont en cours ou qui sont déjà réalisées.
+L'algorithmique distribuée est appliqué dans plusieurs domaines, Comme
+par exemple :
 \subsection{Construction d'objets parallèles}
-Nous\footnote{recherche mené par le laboratoire de recherche en informatique sur les thèmes du Parallèlisme, des Réseaux, des Systèmes et de la Modélisation.(voir http://www.prism.uvsq.fr/)} avons entrepris la construction d'objets pour l'élaboration d'algorithmes d'algèbre linéaire utilisables par des architectures à mémoire distribuée.  Notre objectif est de séparer l'algorithme numérique (par exemple, les méthodes des itérations de sous-espaces) et les objets de bases (matrices, vecteurs, etc.). De plus, le parallélisme doit être transparent pour l'utilisateur potentiel de nos logiciels. Enfin, cette transparence ne doit pas être obtenue au détriment des performances du code objet. Ceci devra permettre une ré-utilisation des codes aussi bien séquentiels que parallèles. Nous avons développé une bibliothèque de classes de base en C++ pour les applications d'algèbre linéaire.  Le parallélisme est ensuite déduit grâce aux mécanismes d'héritage et de polymorphisme. Les classes séquentielles sont «parallélisées» avec la bibliothèque explicite de passage de messages OOMPI encapsulant les appels à MPI. Les expérimentations sont réalisées sur un réseaux de stations Unix et sur la machine parallèle Cray T3E de l'IDRIS. Ce travail a été mené dans le cadre d'une convention CIFRE avec la société ADULIS et est poursuivi dans le cadre d'une thèse.
-\subsection{Le domaine de l'energie}
-Contrairement\footnote{recherche mené par le laboratoire d'Automatique de Grenoble (voir http://www.lag.ensieg.inpg.fr/)} aux approches traditionnelles qui consistent à ajuster la production d'énergie pour satisfaire à la demande, notre recherche vise à proposer un mécanisme de coopération entre sources et charges de façon à satisfaire au mieux à des critères de satisfaction définis par un usager. Un certain nombre de résultats concernant les grands réseaux ont déjà été proposés, notamment dans le cadre des projets Archon (Jennings, 1994) et DA-SoC (Hägg et Ygge, 1995). En domotique, et plus particulièrement dans le cadre de la production d'énergie autonome et, a fortiori décentralisée (Caire et al, 2003), un problème majeur tient à l'absence de phénomène de nombre : le réseau électrique est propre à un usager et de ce fait, il ne bénéficie pas du lissage induit par un grand nombre de consommateurs d'énergie. Un système domotique, qui peut être vu comme un système de pilotage réparti spatialement visant à maîtriser différentes variables caractéristiques d'environnements (thermique-air, thermique-eau, lumineux, ventilation) et de services (cuisson, lavage,...), doit donc être à la fois très réactif en étant capable, à tout instant, de coordonner les différents équipements afin d'éviter les surcharges électriques. Il doit aussi être capable d'anticiper les demandes importantes prévues afin d'éviter d'aboutir à des situations où il est trop tard pour proposer des solutions satisfaisantes pour l'usager. De plus, le contexte domotique impose des solutions faciles à configurer et conduit naturellement à privilégier les algorithmes qui permettent de co-construire des solutions à travers une coopération entre les sources et les charges. L'enjeu est d'exploiter au mieux les flexibilités disponibles telles que l'accumulation-restitution d'énergie (thermique notamment) et le décalage de service. Deux mécanismes s'appuyant sur le paradigme multi-agent ont été distingués : un mécanisme de protection temps réel, qui permet de réagir rapidement à des perturbations imprévues et un mécanisme de commande  anticipative qui permet d'anticiper les demandes d'énergie prévues sur un horizon de plusieurs heures.
+Un exemple des applications dans ce domaine est mené par le PRISM
+\footnote{le laboratoire  de recherche en informatique  sur les thèmes
+du Parallélisme, des Réseaux, des Systèmes et de la Modélisation.(voir
+http://www.prism.uvsq.fr/)}, il consiste dans la construction d'objets
+pour  l'élaboration d'algorithmes  d'algèbre linéaire  utilisables par
+des architectures à mémoire distribuée.
+\subsection{Le domaine de l'énergie}
+Un  exemple  d'application  dans  ce  domaine  on  le  trouve  au  LAG
+\footnote{le    laboratoire    d'Automatique    de   Grenoble    (voir
+http://www.lag.ensieg.inpg.fr/)}  ,  et  qui  vise  contrairement  aux
+approches  traditionnelles  qui  consistent  à ajuster  la  production
+d'énergie pour  satisfaire à  la demande, à  proposer un  mécanisme de
+coopération entre sources et charges  de façon à satisfaire au mieux à
+des critères de satisfaction définis par un usager. 
 
 \subsection{Autres applications}
-L'algorithmique distribuée est présente partout où on trouve des systèmes distribués, ces derniers sont devenu une solution incontournable dans plusieur doamines. Par exmple la plupart des systèmes de sécurité et de gestion des pannes utilisent les théories de ce domaine, ce qui engendre autant de problèmes à résoudre que de solutions à proposer.
+L'algorithmique  distribuée  est présente  partout  où  on trouve  des
+systèmes   distribués,   ces  derniers   sont   devenu  une   solution
+incontournable  dans  plusieur doamines.  Par  exmple  la plupart  des
+systèmes de sécurité  et de gestion des pannes  utilisent les théories
+de ce domaine,  ce qui engendre autant de problèmes  à résoudre que de
+solutions à proposer.
 
