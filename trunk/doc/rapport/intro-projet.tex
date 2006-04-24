@@ -1,10 +1,152 @@
-- sujet du projet officiel
-- cadre (pfa, enseirb, ingenieur)
-- presentation de l'equipe (fille, prepa, iut, etudiants d'universite)
-- reunions
-- site web/svn
-- organisation dans le code source (packages supplementaires)
-- moyens de communications (wiki/mailing listes)
-- dates (cahier des charges, livrables...) 
-- detailler les livrables prevus/effectifs
-- diagramme de gant
+\section{Le projet}
+
+\subsection{Le sujet du projet}
+
+\visidia est un logiciel permettant de visualiser et de simuler des 
+algorithmes distribués. Le modèle actuellement utilisé consiste à 
+implémenter un processus pour chaque sommet du graphe considéré. Un 
+sommet peut communiquer uniquement avec ses voisins par envois de 
+messages. Le logiciel permet, grâce à l'interface graphique de 
+visualiser l'état de chaque sommet ainsi que les messages reçus et émis.\\
+Ce modèle d'implantation des algorithmes distribués est très utilisé,
+le développement d'un logiciel permettant sa simulation était
+nécessaire et a déjà fourni de nombreux résultats. Néanmoins, la
+simulation de ce modèle a des limites, notamment pour la simulation de
+grands graphes. \\
+
+L'objectif de ce projet est donc de concevoir et développer une 
+version utilisant uniquement des entités mobiles de calcul, 
+appelées agents mobiles. Dans ce modèle, ce ne sont plus les sommets 
+du graphe qui éxecutent un algorithme, mais les agents. Ceux-ci se 
+deplacent sur le graphe et éxecutent un algorithme selon leurs 
+propriétés et celles du sommet sur lequel ils se trouvent.
+
+\subsection{Le cadre}
+
+Ce projet se déroule dans le cadre du PFA \footnote{Projet de Fin d'Année}.
+D'une durée de 4 mois, il s'intègre dans la formation d'ingénieur à l'ENSEIRB.
+Il a pour but de familiariser les élèves avec les méthodes de travail en 
+équipe sur des projets de plus grande taille et de plus longue durée.
+Ce projet est également l'occasion pour les élèves d'établir une 
+véritable relation avec le client, pour pouvoir satisfaire à ses besoins.
+
+\subsection{L'équipe}
+
+Notre équipe est constituée de 7 personnes : Nada Ayad, Damien Cassou, 
+Xavier Durand, Jean-Baptiste Gautron, Hicham Ghriss, Mathieu Hopmann et 
+Julie Quagliozzi. Nous avons la particularité d'avoir une équipe très 
+hétérogène, avec une participation féminine. De plus, tous les parcours 
+scolaires sont représentés. Parmi nous, on peut compter des personnes 
+venant des classes préparatoires, d'IUT et de l'université.
+
+\section{L'organisation}
+
+\subsection{Les moyens techniques}
+
+Ce projet a été l'occasion d'utiliser un portail évolué de développement, 
+sur le modèle du portail SourceForge \cite{SourceForge}.
+Nous avons choisi le portail berliOs.de \cite{berliOs}, pour des raisons de rapidité des 
+serveurs. Ce portail met à notre disposition de nombreux outils pour le 
+développement de projets.\\
+Nous disposons tout d'abord d'une page d'accueil \cite{visidiaPFA} 
+qui est un Wiki \cite{wiki}. Cette 
+page d'accueil est divisée en trois parties, pour les développeurs, les 
+clients et le responsable pédagogique. Dans chaque partie, sont réunis 
+les liens vers les outils proposés par le portail ainsi que des documents 
+consultables par chacun, à savoir les comptes rendus de réunion et la 
+dernière version du cahier des charges.\\
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{accueil}
+  \caption{page d'accueil de \visidia}
+  \label{fig:existant-edition}
+\end{figure}
+
+Nous utilisons également un gestionnaire de versions, Subversion 
+\cite{subversion}, qui nous 
+permet de maintenir les sources de notre extension de \visidia. Les 
+clients ont également la possibilité de suivre l'avancement du projet et 
+accéder aux sources, grâce à deux interfaces viewcvs \cite{viewcvs} 
+et websvn \cite{websvn}.
+Il est également possible de télécharger la dernière version des sources 
+du projet:
+\begin{verbatim}
+svn checkout svn://svn.berlios.de/visidia/trunk
+\end{verbatim}
+Nous avons également mis en place 3 listes de diffusion, une liste pour 
+les développeurs, une liste pour les communication avec les clients, 
+ainsi qu'une liste pour les communications avec le responsable 
+pédagogique. Ces listes sont gérées par le portail \berlios.
+Il est possible de consulter les archives de ces listes, 
+à partir de la page d'accueil
+
+\subsection{Les réunions}
+
+Nous avons choisi de rencontrer les clients une fois par semaine.
+L'horaire du vendredi matin à10h  a été retenu  pour cette  entrevue 
+hebdomadaire. Ces réunions ont été l'occasion de présenter aux clients 
+le travail effectué et de prendre connaissance des suggestions et 
+demandes exprimées par le client. Lors de la plupart de ces réunions, 
+toute l'équipe était présente. Lors de chacun de ces entretiens, une 
+personne était chargée de prendre des notes et rédiger un compte rendu.
+Cette personne était volontaire et toujours différente d'un entretien à 
+l'autre.\\
+
+Les rencontres avec le reponsable pédagogique ont été moins fréquente, 
+essentiellement pour présenter l'état d'avancement du travail. Lors de 
+ces réunions ont été également rédigés des compte rendus. Tous ces 
+comptes rendus sont consultables à partir de la page d'accueil du projet.
+
+\subsection{L'organisation du travail}
+
+On peut diviser le travail en deux grandes phases, une phase de 
+conception et une phase de réalisation. Nous avons choisi de travailler 
+ensemble tous sur la conception. En effet, cette phase étant essentielle 
+au projet, nous avons jugé nécessaire de réfléchir ensemble sur cette 
+partie. \\
+Pour celà, nous avons organisé des réunions, lors desquelles nous avons 
+pu discuter des besoins attendus par le client et voir ainsi si nous 
+avions tous compris la même chose. Lors de ces réunions, nous pouvions 
+confronté nos points de vue et nos idées, face aux questions techniques 
+que nous pouvions rencontrer. \\
+
+Par la suite, plus particulièrement lors de la phase de développement, 
+ces réunions étaient l'occasion de faire le point sur l'avancement du 
+projet, et de se répartir les tâches. Il était fait un récapitulatif des 
+tâches accomplies et à accomplir lors de la période suivante. La 
+répartition des tâches s'est faite par groupe de 1, 2 ou 3 pour les plus 
+importantes, en essayant de satisfaire en désirs de chacun. On peut tout 
+de même ajouter que cette répartition s'est faite de telle sorte que 
+chaque membre de l'équipe à pu travailler sur l'interface graphique.
+
+\subsection{L'échéancier}
+
+Un diagramme  de Gantt \ref{fig:gantt}  planifie les grandes étapes  de la
+réalisation du projet. Ce diagramme établi au début du projet à permis 
+d'établir les différentes tâches à réaliser, et de suivre l'avancement 
+du projet.\\
+
+
+La date de remise des rapports de fin de PFA aux clients est fixée au
+vendredi 14 avril, 17h00 dernière limite.
+
+La remise du projet donnera lieu à une soutenance dont la date est
+fixée au jeudi 27 avril.
+
+%- sujet du projet officiel
+%- cadre (pfa, enseirb, ingenieur)
+%- presentation de l'equipe (fille, prepa, iut, etudiants d'universite)
+%- reunions
+%- site web/svn
+%- organisation dans le code source (packages supplementaires)
+%- moyens de communications (wiki/mailing listes)
+%- dates (cahier des charges, livrables...) 
+%- detailler les livrables prevus/effectifs
+%- diagramme de gant
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: "rapport"
+%% TeX-PDF-mode: t
+%% coding: latin-1
+%% End:
