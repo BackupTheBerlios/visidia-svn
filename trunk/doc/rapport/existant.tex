@@ -78,11 +78,11 @@ portes).
   donnée. Généralement utilisée pour mettre une arête en gras.
 
 \item[putProperty] Change  une valeur de la table  des propriétés d'un
-  sommet.  Presque  uniquement utilisée  pour  changer  le label  d'un
+  sommet.  Presque  uniquement utilisée pour  changer l'étiquette d'un
   sommet (sa couleur).
 
 \item[getProperty] Récupère une valeur dans la table des propriétés du
-  sommet.  Presque uniquement  utilisée  pour connaître  le label  (la
+  sommet.  Presque uniquement  utilisée pour connaître l'étiquette (la
   couleur) en cours d'un sommet.
 
 \end{description}
@@ -90,16 +90,16 @@ portes).
 \subsection{Exemple d'utilisation}
 
 Voici un exemple  d'utilisation du modèle par envoie  de messages pour
-calculer un arbre couvrant. A l'origine, tous les sommets ont un label
-``N'' sauf  un qui a un  label égal à ``A''  et qui jouera  le rôle de
-racine. Cet algorithme  est écrit dans un langage  de haut niveau pour
-des raisons  de lisibilité.  En  pratique, il faudrait  l'implanter en
-Java.
+calculer  un arbre  couvrant. A  l'origine, tous  les sommets  ont une
+étiquette ``N'' sauf un qui a une étiquette égale à ``A'' et qui jouera
+le rôle de  racine.  Cet algorithme est écrit dans  un langage de haut
+niveau  pour des  raisons  de lisibilité.   En  pratique, il  faudrait
+l'implanter en Java.
 
 \begin{verbatim}
 init() { // méthode exécutée par chaque sommet
 
-  if(getProperty("label") = "A") { // Si mon label est "A"
+  if(getProperty("label") = "A") { // Si mon étiquette est "A"
     sendAll("Wave");               // envoyer un message à tous mes
                                    // voisins contenant le mot "Wave"
   }
@@ -113,7 +113,7 @@ init() { // méthode exécutée par chaque sommet
     //marque l'arête qui me relie à l'expéditeur du message en gras
     setDoorState(MARKED_STATE, porteDuPere);
 
-    // Mon label est maintenant "A".
+    // Mon étiquette est maintenant "A".
     putProperty("label", "A");
 
     // Envoyer un message à tous mes voisins sauf à l'expéditeur du
@@ -231,7 +231,7 @@ dans cette partie parmi lesquelles :\\
 \item lancer la simulation, la mettre en pause et l'arrêter,
 \item voir en temps réel les messages s'échanger sur les arêtes,
 \item choisir des règles de réécriture à appliquer,
-\item éditer les labels des sommets\dots
+\item éditer les étiquettes des sommets\dots
 
 \end{itemize}
 
@@ -411,7 +411,7 @@ lors d'un envoie de message :\\
 Grâce au mécanisme ci-dessus, l'utilisateur peut-être sûr que ce qu'il
 voit est réellement en train de se passer dans le simulateur. Ceci lui
 permet  par  exemple  de   mettre  en  pause  la  simulation,  changer
-manuellement des  paramètres sur les  sommets (le label  par exemple),
+manuellement des paramètres sur les sommets (l'étiquette par exemple),
 débloquer la simulation et étudier ce qu'il se passe.
 
 \subsubsection{Entre les algorithmes et le simulateur}
@@ -465,11 +465,11 @@ l'utilisateur.
     L'utilisateur peut simplement  dessiner ses algorithmes.  Ici, est
     présenté une des règles de réécritures utilisées pour l'algorithme
     d'arbre recouvrant  avec détection de la  terminaison. Cette règle
-    dit: ``Si  $u$ est un sommet de  label ``A'' qui a  pour voisin un
-    sommet $v$  de label ``A'' aussi,  que l'arête qui  les sépare est
-    marquée (en gras) et que $u$  n'a pas de voisin $w$ de label ``N''
+    dit: ``Si  $u$ est un sommet d'étiquette ``A'' qui a  pour voisin un
+    sommet $v$  d'étiquette ``A'' aussi,  que l'arête qui  les sépare est
+    marquée (en gras) et que $u$  n'a pas de voisin $w$ d'étiquette ``N''
     avec une arête non marquée  (``Context 1'') alors $u$ peut prendre
-    ``F'' comme label (en réalité, il  y a une autre exclusion qui est
+    ``F'' comme étiquette (en réalité, il  y a une autre exclusion qui est
     cachée sous l'onglet ``Context 2'')''.}
   \label{fig:existant-regles}
 \end{figure}
