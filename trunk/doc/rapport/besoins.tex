@@ -13,6 +13,7 @@ l'écriture de l'algorithme sont les suivantes :\\
 
 \item[getArity]  retourne  le nombre  de  portes  sortantes du  sommet
   courant (la première est numérotée 0)
+\item[getIdentity] permet à un agent de récupérer son identifiant
 \item[getVertexIdentity] retourne le numéro du sommet courant (suppose
   que l'algorithme utilise un identifiant unique pour chaque sommet) %
 \item[getNetSize] retourne le nombre de sommets du graphe %
@@ -75,41 +76,36 @@ instance sous la forme d'une chaîne de caractères %
 paramètre %
 \item[death] tue l'agent. Il est conseillé de sortir de la méthode
 init() pour tuer un agent plutôt que d'utiliser cette méthode %
-\item[newPulse] informe le simulateur qu'un SynchronizedAgent commence
-un nouveau tour %
+\item[nextPulse] bloque  un agent synchronisé jusqu'à ce  que tous les
+autres agents synchronisés aient appelé cette même méthode.  Permet un
+mécanisme de synchronisation %
 \item[incrementStat] incrémente la clé du tableau blanc passée en
 paramètre. Méthode utile dans le cadre de la collecte de statistiques
 \\
 
 \end{description}
 
-Il sera ainsi possible de cloner un \emph{agent}, et éventuellement de
+Il est ainsi possible de  cloner un \emph{agent}, et éventuellement de
 l'envoyer sur  une porte. L'\emph{agent}, ainsi créé,  pourra avoir un
 type de déplacement, ainsi qu'un  algorithme différents de ceux de son
 père.\\
 
-Les  \emph{agents}  auront  également  d'autres  fonctionnalités,  ils
-doivent  notamment   pouvoir  se  rencontrer,   c'est-à-dire,  pouvoir
-détecter qu'un  autre \emph{agent} est sur  le même sommet,  ou sur la
-même arête. Cela  va imposer la mise en place  de règles de priorités,
-pour que  plusieurs \emph{agents}  ne puissent pas  agir simultanément
-sur un même sommet.\\
-
-Enfin,  les agents  pourront, s'ils  le souhaitent,  faire appel  à un
+Les agents synchronisés peuvent, s'ils le souhaitent, faire appel à un
 système de synchronisation afin d'effectuer des actions et se déplacer
-de manière coordonnée.\\
+de manière coordonnée.
 
-L'initialisation  des objets  se fera  au plus  tard. En  effet,  ils ne
-seront initialisés, que lorsqu'ils  seront utilisés. Pour les tableaux
-blancs des  sommets, notamment, leur  initialisation ne se  fera qu'au
-passage d'un \emph{agent}, s'il celui-ci souhaite lire une valeur.
+Les \emph{agents} ont  également d'autres fonctionnalités, ils peuvent
+se  rencontrer,   c'est-à-dire,  détecter  qu'un   autre  \emph{agent}
+synchronisé est sur  le même sommet.  Cela impose la  mise en place de
+règles de priorités, pour  que plusieurs \emph{agents} ne puissent pas
+agir simultanément sur un même sommet.\\
 
 \section {Interface}
 
-Notre  graphe  pourra débuter  avec  autant  d'agent  que le  souhaite
+Notre  graphe  peut  débuter  avec  autant  d'agent  que  le  souhaite
 l'utilisateur, tous les agents n'étant pas forcément du même type.\\
 
-L'utilisateur aura différentes possibilités pour placer ses agents :\\
+L'utilisateur a différentes possibilités pour placer ses agents :\\
 
 \begin{itemize}
 
@@ -118,50 +114,38 @@ et le place  sur les sommets où il souhaite  faire démarrer les agents
 de ce type.   Il peut ensuite choisir d'autres  types d'agent pour les
 placer sur les sommets restants.\\
 
-\item \textbf{Par fichier :  } L'utilisateur crée un fichier contenant
-l'identifiant de chaque sommet où  il souhaite voir démarrer un agent,
-auquel  il rattache  un type  d'agent.  Cela  revient au  même  que la
-méthode à la souris, mais est indispensable pour les graphes de grande
-taille.\\
-
-\item \textbf{Aléatoire  : } L'utilisateur choisit un  type d'agent et
-un nombre d'agents (1,2,...,*).  Le logiciel se charge alors  de répartir ce
-ou ces  agents de  façon aléatoire sur  les sommets du  graphe.  Cette
-méthode pourrait être intéressante pour tester des algorithmes de type
-policiers/voleur, avec plusieurs agents essayant d'en encercler un.
-On souhaite également donner la possibilité à l'utilisateur de
-spécifier un algorithme de placement des agents (en affectant, par
-exemple, à chaque sommet une probabilité d'y placer un agent).
+\item \textbf{Automatique  : } L'utilisateur peut  définir une méthode
+de placement ou choisir une des méthodes déjà implantées
 \end{itemize}
 
-\section{Diagrammes de séquences}
+%%\section{Diagrammes de séquences}
 
-Nous décrirons dans cette  section quelques scénarios possibles durant
-la vie d'un agent.
+%%Nous décrirons dans cette  section quelques scénarios possibles durant
+%%la vie d'un agent.
 
-\subsection{Déplacement}
+%%\subsection{Déplacement}
 
-Figure  \ref{fig:diagramme_seqDeplacement} :  Scénario  de déplacement
-d'un agent sur le graphe.
+%%Figure  \ref{fig:diagramme_seqDeplacement} :  Scénario  de déplacement
+%%d'un agent sur le graphe.
 
-\begin{figure}[h!t]
-  \centering
-  \includegraphics[width=14cm]{seqDeplacement}
-  \caption{Scénario de déplacement}
-  \label{fig:diagramme_seqDeplacement}
-\end{figure}
+%%\begin{figure}[h!t]
+  %%\centering
+  %%\includegraphics[width=14cm]{seqDeplacement}
+  %%\caption{Scénario de déplacement}
+  %%\label{fig:diagramme_seqDeplacement}
+%%\end{figure}
 
-\subsection{Propriétés}
+%%\subsection{Propriétés}
 
-Figure   \ref{fig:diagramme_seqProperties}  :   Scénario   où  l'agent
-souhaite modifier ou obtenir une propriété d'un sommet.
+%%Figure   \ref{fig:diagramme_seqProperties}  :   Scénario   où  l'agent
+%%souhaite modifier ou obtenir une propriété d'un sommet.
 
-\begin{figure}[h!t]
-  \centering
-  \includegraphics[width=14cm]{seqProperties}
-  \caption{Scénario de lecture ou écriture d'une propriété}
-  \label{fig:diagramme_seqProperties}
-\end{figure}
+%%\begin{figure}[h!t]
+  %%\centering
+  %%\includegraphics[width=14cm]{seqProperties}
+  %%\caption{Scénario de lecture ou écriture d'une propriété}
+  %%\label{fig:diagramme_seqProperties}
+%%\end{figure}
 
 
 
@@ -169,21 +153,22 @@ souhaite modifier ou obtenir une propriété d'un sommet.
 
 \subsection{Langage et portabilité}
 
-Notre rôle  est de  développer une extension  de \visidia, écrit  à la
-base en  Java :  c'est donc  en Java que  nous écrirons  l'ensemble de
+Notre rôle était  de développer une extension de  \visidia, écrit à la
+base en Java  : c'est donc en Java que nous  avons écrit l'ensemble de
 notre  programme,   afin  que  notre  module  s'intègre   au  mieux  à
 l'application.\\
 
 Les  développeurs extérieurs seront  obligés de  passer par  notre API
 pour concevoir de nouveaux  algorithmes distribués, ce qui nous impose
 d'être compris le plus aisément possible par tout le monde. Pour cette
-raison,  notre code  sera  rédigé exclusivement  en  anglais. Le  Java
+raison, notre code est rédigé  exclusivement en anglais à part pour la
+partie interface graphique qui reprend  du code déjà existant. Le Java
 semble encore un  choix correspondant à notre volonté,  d'une part car
 il  s'agit d'un  des langages  les plus  utilisés actuellement  (si ce
 n'est  LE plus  utilisé), d'autre  part  pour sa  portabilité sur  les
 différentes plate-formes existantes.\\
 
-La  documentation quant  à  elle  sera réalisée  à  l'aide de  l'outil
+La  documentation quant  à elle  a été  réalisée à  l'aide  de l'outil
 Javadoc.\\
 
 
@@ -209,9 +194,7 @@ Javadoc.\\
 \subsection{Licence} 
 
 L'ensemble de notre  programme sera sous licence GNU  GPL (GNU General
-Public License)  version 2  ou supérieure. Une  version de  la licence
-sera disponible en  français et en anglais dans le  code source, et un
-rappel sera effectué à chaque en-tête de fichier.
+Public License)  version 2  ou supérieure.
 
 
 %% Local Variables:
