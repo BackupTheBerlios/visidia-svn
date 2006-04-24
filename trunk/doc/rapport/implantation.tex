@@ -5,13 +5,14 @@ existant.\\
 \section{Architecture}
 \label{sec:implantation-communication}
 
-Le projet s'est subdivisé en deux parties essentielles :
+Le projet s'est subdivisé en deux parties essentielles :\\
 \begin{itemize}
 \item le développement de l'API (définie dans le cahier des charges et
 complétée par le client au cours du projet) et de la simulation.
 \item  l'intégration  des  nouvelles  fonctionnalités  dans  la  partie
 graphique de \visidia.
 \end{itemize}
+\sauteligne
 
 Comme dans la  partie existante de \visidia, notre  module se base sur
 l'interaction   entre  les  agents,   le  simulateur   et  l'interface
@@ -73,14 +74,14 @@ dont va se passer la rencontre.\\
 
 Les classes correspondant  à ces deux types d'agents  sont des classes
 abstraites. En effet, l'utilisateur  va pouvoir créer différents types
-d'agents  héritant  d'une  de  ces  deux  classes  et  excécutant  des
+d'agents  héritant  d'une  de   ces  deux  classes  et  exécutant  des
 algorithmes spécifiques en redéfinissant la méthode $init$.
 
 
 \subsection{Structures de données}
 En plus  du simulateur duquel il  dépend et de son  identité, un agent
 contient une  structure de donnée  de type WhiteBoard définie  dans le
-package visidia.tools.agents  et qui permet  à l'agent de  stocker des
+paquetage visidia.tools.agents et qui  permet à l'agent de stocker des
 informations durant son exécution.  Un WhiteBoard s'utilise de la même
 manière qu'une table de  hachage, la différence étant qu'un WhiteBoard
 permet un  accès a des valeurs  par défaut. Ces valeurs  par défaut ne
@@ -95,16 +96,16 @@ d'une autre structure de données  aurait amener a réserver de l'espace
 pour un  nombre prédéfini de  champs au départ  et de réallouer  de la
 mémoire  au fur  et à  mesure de  l'exécution.  Une  table  de hachage
 permet d'allouer  l'espace au fur et  à mesure et si  aucun champs n'a
-été ajouter on n'aura pas allouer de l'espace inutilement.\\
+été ajouté on n'aura pas alloué de l'espace inutilement.\\
 
 Outres ces  structures, les  agents en contiennent  une autre  de type
-AgentMover. Cette  strcture définie le  type de déplacement  de chaque
+AgentMover. Cette  structure définie le type de  déplacement de chaque
 type d'agent. La classe AgentMover.java est une classe abstraite, elle
 définie des méthodes de déplacement pour les agents. Ces méthodes vont
 faire  appel à  la  méthode $moveAgentTo$  du  simulateur. La  méthode
 $findNextDoor$  permet  de définir  la  prochaine  porte par  laquelle
 passera  l'agent à  l'appel de  la méthode  $move$. Cette  méthode est
-abstraite  et   est  à  redéfnir   pour  avoir  un  nouveau   type  de
+abstraite  et  est   à  redéfinir  pour  avoir  un   nouveau  type  de
 déplacement. Un  ensemble de ces  différents types de  déplacement est
 défini dans le paquetage visidia.agents.agentsmover.\\
 
@@ -124,19 +125,19 @@ ci-dessus.
 Le simulateur est l'axe principal de l'application : rien ne peut être
 fait sans lui.  Il est  défini dans la classe AgentSimulator.java dans
 le  paquetage  visidia.simulation.agents.   En  ce  qui  concerne  les
-structures de données  utilisées, ce sont aussi des  tables de hashage
-pour les même raisons qu'évoquées précédemment.
+structures de données  utilisées, ce sont aussi des  tables de hachage
+pour les même raisons qu'évoqué précédemment.
 
 \subsection{Relations avec les agents et l'interface graphique}
 Comme nous l'avons déjà dit, c'est le simulateur qui est en charge des
 actions des  agents sur  le graphe  avec lequel il  a un  lien direct.
 C'est  aussi lui  qui a  en charge  la communication  avec l'interface
-graphique. Le  fonctionnnement de  cette communication est  analogue à
+graphique.  Le fonctionnement  de cette  communication est  analogue à
 celui du  simulateur déjà existant. Le  simulateur informe l'interface
-graphique d'un  évènement en  créant un objet  de type aproprié  et le
+graphique d'un  évènement en créant un  objet de type  approprié et le
 place dans  la file d'évènements.  Après  récupération de l´évènement,
-l'interface  provoque  les  actions  correspondantes.  Les  évènements
-envoyés par le simulateur sont de plusieurs types :
+l'interface  provoque  les  actions correspondantes.   Les  évènements
+envoyés par le simulateur sont de plusieurs types :\\
 \begin{itemize}
 \item déplacement d'un agents,
 \item changement d'état d'un noeud ou d'une arête,
@@ -144,7 +145,7 @@ envoyés par le simulateur sont de plusieurs types :
 \item fin de l'exécution de l'ensemble des agents. Cet évènement n'est
 envoyé que si tous les agents lancés sont terminés.
 \end{itemize}
-
+\sauteligne
 Une  description précise  de  ce mécanisme  de  communication pour  la
 partie  existante  de  l'application  a  été  faite  dans  la  section
 \ref{sec:existant-communication}.
@@ -154,20 +155,20 @@ Une  des  fonctionnalités  de   \visidia  est  de  pouvoir  faire  des
 statistiques nous  devions donc  implanter les outils  nécessaires aux
 calculs  de  celles-ci.  Les  statistiques  sont  stockées sous  forme
 d'évènements dans le champs  stats du simulateur.  Ces évènements sont
-de différents types correspondant  aux informations sur l'éxécution de
+de différents types correspondant  aux informations sur l'exécution de
 la simulation : nombre  d'agents créés, nombre de déplacements, nombre
 de  round pour les  agents synchronisés,  nombres d'agents  ayant fini
 leur exécution etc \dots\\
 
-Le champs  stats su simulateur permettant les  calculs de statistiques
+Le champs  stats du simulateur permettant les  calculs de statistiques
 est  de type  Bag.  Ce  type est  défini dans  la classe  Bag  dans le
-paquetage visidia.tools.agents. Cette  classe va permattre le stockage
+paquetage visidia.tools.agents. Cette  classe va permettre le stockage
 de tous les  évènements survenus lors de l'exécution  de la simulation
-et  de leur  occurences. L'accès  aux éléments  de cette  structure va
-pemettre par  la suite de faire  des calculs. On peut  donc choisir le
+et de  leur occurrences.  L'accès aux éléments  de cette  structure va
+permettre par la  suite de faire des calculs. On  peut donc choisir le
 type  de  statistiques  à  afficher  : toutes  les  statistiques,  des
 moyennes  calculées etc  \dots  L'utilisateur peut  aussi définir  ses
-propres  types  de  rapport  d'exécution en  sous-classant  la  classe
+propres  types  de  rapport  d'exécution en  sous classant  la  classe
 AbstractStatReport    qui     se    trouve    dans     le    paquetage
 visidia.simulation.agents. Ces  classes devront être  définies dans le
 paquetage visidia.agents.agentreport.
@@ -177,18 +178,18 @@ Lors du développement de notre  application nous avons dû faire face à
 la  gestion des  accès  concurrents aux  différentes structures.   Par
 exemple, l'accès  à des structures contenant des  listes d'agents pour
 faire  des ajouts  ou des  suppressions doit  faire en  sorte  que les
-resultats  obtenus ne  soient pas  erronés afin  de ne  pas  créér des
-dysfonctionnements  au sein  du programme.  Cette gestion  se  fait de
+résultats  obtenus ne  soient pas  erronés afin  de ne  pas  créer des
+dysfonctionnements  au sein du  programme.  Cette  gestion se  fait de
 façon simple en Java en utilisant le mot-clé $synchronized$.
 
 De plus,  les agents peuvent  demander de bloquer les  propriétés d'un
-sommet lors de l'exécution. Le  blocage et le déblogcage se font grâce
+sommet lors de  l'exécution. Le blocage et le  déblocage se font grâce
 aux  méthodes $lockVertexProperties$ et  $unlockVertexProperties$. Ces
-méthodes utlisent le même mot-clé afin gérer la concurrence.
+méthodes utilisent le même mot-clé afin gérer la concurrence.
 
 \section{GUI}
 Cette partie de l'application est la plus important du point de vue de
-l'utilisateur car c'est grâce à  elle qu'il va pouvoir interragir avec
+l'utilisateur car c'est grâce à  elle qu'il va pouvoir interagir avec
 \visidia.
 
 Le première  étape d'implantation  ce cette partie  a été de  créer un
@@ -198,16 +199,16 @@ certaines des fonctionnalités sont spécifiques.
 
 \subsection{Placement des agents}
 Le placements des agents sur le  graphe peut se faire de deux manières
-:
+:\\
 \begin{itemize} 
-\item soit  de la manière traditionnelle en  selectionnant les sommets
+\item soit  de la manière traditionnelle en  sélectionnant les sommets
 et les agents à placer.
 \item soit en choisissant un type de placement particulier.
 \end{itemize}
-
+\sauteligne
 Ce  type  de placement  est  en fait  gérer  par  la classe  abstraite
 AgentChooser.java.   La  méthode  abstraite  $chooseForVertex$  est  à
-redéfnir afin de choisir  le comportement suivant lequel seront placer
+redéfinir afin de choisir le comportement suivant lequel seront placer
 les agents. Il est à noter que les classes dérivées vont se charger de
 choisir  le type  d'agents à  placer.  Des  exemples de  ces  types de
 placements     ont     été     implantés     dans     le     paquetage
@@ -255,9 +256,9 @@ de lancer  une simulation sur un  graphe sans en  voir l'exécution sur
 l'écran.   Cette fonctionnalité  amène  au lancement  d'une fenêtre  à
 partir de laquelle la simulation  sera lancée. C'est à partir de cette
 fenêtre et  non plus à partir  de la fenêtre  de simulation principale
-que la simulatation sera lancée et arrêtée. 
+que la simulation sera lancée et arrêtée. 
 
-Cette fenêtre  provequera la création  d'un thread qui se  chargera de
+Cette fenêtre  provoquera la création  d'un thread qui se  chargera de
 gérer les évènements envoyés par  le simulateur sans les afficher. Les
 classes liées à cette partie du programme sont définies dans le ficher
 AgentExperimentationFrame.java         dans        le        paquetage
