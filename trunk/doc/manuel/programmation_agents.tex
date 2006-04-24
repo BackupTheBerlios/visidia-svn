@@ -9,9 +9,9 @@
 Dans cette section, nous commencerons par voir l'API de programmation
 des agents puis la méthode à adopter pour en programmer de
 nouveaux. Nous verons également comment programmer des algorithmes de
-déplacement, avant de nous interreser à l'implantation de techniques de
+déplacement, avant de nous intéresser à l'implantation de techniques de
 placement initial d'agents. Et pour conclure nous verrons comment il
-est possible de créer des statistiques persnnalisées.\\
+est possible de créer des statistiques personnalisées.\\
 
 Vous pouvez aussi vous baser sur des exemples déjà écrits ; vous en
 trouverez un grand nombre dans les répertoires :
@@ -20,7 +20,7 @@ trouverez un grand nombre dans les répertoires :
 \item \dossier{sources/visidia/agents/agentsmover} pour les algorithmes de déplacement.
 \item \dossier{sources/visidia/agents/agentchooser} pour le placement
   initial d'agents.
-\item \dossier{sources/visidia/agents/agentreport} pour la creation de
+\item \dossier{sources/visidia/agents/agentreport} pour la création de
   statistiques.
 \end{itemize}
 
@@ -49,13 +49,13 @@ agents synchronisés.
 Dans ces deux cas, vous devez créer respectivement une sous-classe de la classe
 \classe{Agent} ou de la classe \classe{SynchronizedAgent} et la placer
 dans le dossier \dossier{visidia/sources/visidia/agents}.  N'oubliez
-pas de renseigner le package grâce à la ligne :
+pas de renseigner le paquetage grâce à la ligne :
 
 \begin{verbatim}
 package visidia.agents;
 \end{verbatim}
 
-La programmation de l'agent se fait en implémentant la
+La programmation de l'agent se fait en implantant la
 méthode \methode{init()} et en utilisant les différentes possibilités
 offertes par l'API.\\
 
@@ -85,10 +85,10 @@ offertes par l'API.\\
   }
 \end{verbatim}
 
-L'objectif de cet agent est de compter le nombre de passage des agents
-sur chaque sommet.  Pour mémoriser le nombre de passage sur chaque
-sommet, nous avons utilisé le champs ``nbPassages'' du whiteboard du
-sommet.
+L'objectif  de cet  agent est  de compter  le nombre  de  passages des
+agents sur  chaque sommet.  Pour  mémoriser le nombre de  passages sur
+chaque  sommet,  nous  avons   utilisé  le  champs  ``nbPassages''  du
+whiteboard du sommet.
 
 Pour ce faire, nous essayons dans un premier temps de récupérer le
 nombre de passages de ce type d'agent sur le whiteboard du sommet
@@ -129,10 +129,10 @@ bout de 10 déplacements. Veuillez noter l'appel à la méthode
 \methode{nextPulse()} qui permet de synchroniser les agents : chaque
 agent synchronisé sera bloqué à l'appel de cette méthode jusqu'à ce
 que le dernier agent synchronisé fasse à son tour appel à cette
-méthode. Un rendez-vous, c'est à dire une rencontre entre agents, peut
-alors être organisé.
+méthode. Un rendez-vous, c'est-à-dire une rencontre entre agents, peut
+alors être organisée.
 
-Le rendez-vous est réalisé en implémentant la méthode
+Le rendez-vous est réalisé en implantant la méthode
 \methode{planning(SynchronizedAgent)} qui sera appelé à chaque fois
 qu'un rendez-vous à lieu sur un sommet.
 
@@ -167,7 +167,7 @@ public class RandomAgentMover extends AgentMover {
 \end{verbatim}
 
 Pour utiliser cet algorithme de déplacement pour un agent, utilisez le
-méthode \methode{setAgentMover(``RandomAgentMover'')} . Le nom passé
+méthode \methode{setAgentMover(``RandomAgentMover'')}. Le nom passé
 en paramètre doit correspondre exactement au nom de la classe (casse
 comprise). Le déplacement ne se fera plus avec
 \methode{moveToDoor(int)} mais avec \methode{move()}
@@ -205,7 +205,7 @@ simplement   et  la  lecture   de  la   documentation  de   la  classe
 suffire.\\
 
 Vos algorithmes de placement d'agents devront être implantés dans le
-paquet \dossier{visidia.agents.agentchooser}, devront surcharger la
+paquetage \dossier{visidia.agents.agentchooser}, devront surcharger la
 méthode \methode{chooseForVertex(Integer)} et devront appeler la
 méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
 
@@ -214,7 +214,7 @@ méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
 \section{Création de statistiques personnalisées}
 \label{sec:prog-stats}
 
-La création de statistiques peut etre entièrement personnalisée.  Pour
+La création de statistiques peut être entièrement personnalisée.  Pour
 cela il vous faudra écrire une classe héritant de
 \classe{AbstractStatReport} dans laquelle vous devrez redéfinir la
 méthode \methode{getStats()} qui retournera l'ensemble des
