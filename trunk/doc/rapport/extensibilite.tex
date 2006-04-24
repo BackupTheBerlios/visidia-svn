@@ -1,4 +1,8 @@
 %%% Extensibilité
+La version actuelle  de \visidia constitue une bonne  base dans le but
+de  développer un  logiciel complet  de visualisation  des algorithmes
+distribués,   dans   cette  partie   on   citera   quelques   points
+d'extensibilité de la version actuelle.
 \section{Les Agents sur les architectures distribuées}
 Une trés grande issue sur la quelle le logiciel peut évoluer touche le
 domaine   des    architectures   distribuées   vu    que   aujourd'hui
@@ -7,23 +11,23 @@ résolution  des  problèmes   relatives  à  ce  genre  d'architectures.
 \visidia Agent offre  des outils de base pour  un développement future
 qui    met   en   oeuvre    des   solutions    pour   ce    genre   de
 structure. L'utilisation des Agents  mobiles sur des structures pareil
-va  économiser énormément  de ressources.  Le nombre  de  processus qui
+va économiser  énormément de ressources.   Le nombre de  processus qui
 tournent ne sera plus comparé  aux nombre des noeuds du systèmes comme
 se  qui  se  passe  avec  la  version normale  de  \visidia  (sauf  si
 l'utilisateur  le voudra, en  placent autant  d'agent qu'il  existe de
-noeud du système).  Et dans d'autre cas il  permettra de rentabiliser
-les ressources pour une vitesse d'exécution beaucoup plus grande (c'est
-le cas  qu'on place  un nombre d'agent  supérieur à la  cardinalité du
-réseau).   Avec \visidia en  version d'agent  mobile, le  problème qui
-reste posée est celui de la visualisation graphique, en fait une telle
-chose diminue  beaucoup la vitesse de l'exécution  vu qu'elle consomme
-plus  de  ressources du  système.  Sur  une  telle structure  un  autre
-problème   peut   apparaître  c'est   celui   de  l'optimisation   des
-déplacements  des  Agents (une  des  solutions  que  offre la  version
-actuelle  est   l'utilisation  d'un   AgentMover  dans  ce   but).  Le
-développement d'un système complet  de rencontre peut aussi contribuer
-dans la procédure de l'optimisation des ressources et d'augmentation de
-la rapidité du système.
+noeud du système).   Et dans d'autre cas il  permettra de rentabiliser
+les  ressources  pour une  vitesse  d'exécution  beaucoup plus  grande
+(c'est le cas qu'on place un nombre d'agent supérieur à la cardinalité
+du réseau). Dans le cas  des structures compiqués avec un grand réseau
+la version agent de \visidia, le problème qui reste posée est celui de
+la visualisation graphique, en fait une telle chose diminuera beaucoup
+la vitesse  de l'exécution vu  qu'elle consomme plus de  ressources du
+système.  Sur  une telle structure un autre  problème peut apparaître,
+il  ságit  de l'optimisation  des  déplacements  des  Agents (une  des
+solutions  que  offre  la  version  actuelle  est  l'utilisation  d'un
+AgentMover  dans ce but).   Le développement  d'un système  complet de
+rencontre peut  aussi contribuer  dans la procédure  de l'optimisation
+des ressources et d'augmentation de la rapidité du système.
 
 \section{Les Gros graphes}
 À  part le  problème de  la visualisation  graphique déjà  vu  dans le
@@ -43,7 +47,9 @@ statistiques de l'exécutions toute en gardant une trace.
 \section{Les Règles de réécritures}
 Dans la version actuelle de \visidia seule les règles de réécriture de
 type rendez-vous  sont implanter dans  cette version. Les  deux autres
-types LC1 et LC2 reste a implanter dans une version future.
+types   LC1   et   LC2    reste   a   implanter   dans   une   version
+future.  L'interface permettant  l'utilisation  de ces  règles et  les
+liées au graphe en question est déjà implanté aussi.
 
 
 %% Local Variables: 
