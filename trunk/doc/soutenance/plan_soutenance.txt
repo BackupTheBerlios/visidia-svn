@@ -27,19 +27,19 @@ Le contenu des slides:
 
 3. Partie 1: présentation générale:
 -----------------------------------
-	3.1. Algorithmes distribués: (Nada)
-	     * présentation de l'algorithmique distribuée
-	     * pourquoi les agents.
-	3.2. ViSiDiA : (Nada)
-	     * équipe du LaBRI.
-	     * présentation de ViSiDiA en tant qu'outil de simulation.
-	3.3. ViSiDiA tel qu'il existait. (Nada)
-	3.4. Les agents : présentation du modèle (Damien)
-	3.5. Le projet : (Damien)
+	3.1. Le projet : (Damien)
 	     * PFA.
 	     * Durée
 	     * clients, responsable pédago.
 	     * cadre.
+	3.2. Algorithmes distribués: (Nada)
+	     * présentation de l'algorithmique distribuée
+	     * pourquoi les agents.
+	3.3. ViSiDiA : (Nada)
+	     * équipe du LaBRI.
+	     * présentation de ViSiDiA en tant qu'outil de simulation.
+	3.4. ViSiDiA tel qu'il existait. (Nada)
+	3.5. Les agents : présentation du modèle (Damien)
 	3.6. Écrire un algorithme: (Damien)
 	     * API disponible sous Javadoc.
 	     * règles de réécriture.
@@ -47,7 +47,6 @@ Le contenu des slides:
 	     * dessiner graphe.
 	     *  placer agents avec les deux méthodes.
 	     * appuyer sur start.
-
 	3.8. Screenshot  d'une  simulation  en  cours  (bonhommes  qui
              marchent) (Julie)
 
