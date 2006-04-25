@@ -12,7 +12,7 @@ Voici la première version de notre plan de soutenance:
 
 Le contenu des slides:
 
-1. Introduction:
+1. Introduction: (Nada)
 ----------------
 
 * titre du projet/de la soutenance
@@ -34,7 +34,6 @@ Le contenu des slides:
 	     * cadre.
 	3.2. Algorithmes distribués: (Nada)
 	     * présentation de l'algorithmique distribuée
-	     * pourquoi les agents.
 	3.3. ViSiDiA : (Nada)
 	     * équipe du LaBRI.
 	     * présentation de ViSiDiA en tant qu'outil de simulation.
@@ -62,7 +61,7 @@ Le contenu des slides:
              obtenu ; présentation de la méthode init(). (Julie)
 	4.4. Illustration du code d'un agent et screenshot du résultat
              obtenu ;  l'extension et les différences  entres les deux
-             types d'agents. (mathieu)
+             types d'agents. (Mathieu)
 	4.5. Illustration du code d'un agent et screenshot du résultat
              obtenu ; propriétés des sommets + whiteboards. (Xavier)
 	4.6. Illustration du code d'un agent et screenshot du résultat
@@ -73,7 +72,7 @@ Le contenu des slides:
 5. Partie3: implantation:
 -------------------------
 	5.1. types d'agents + présentation de la méthode 
-	     nextPulse(). (mathieu)
+	     nextPulse(). (Mathieu)
 	5.2. AgentMover   :  a   quoi  ca   sert,   différents  types,
              implantation d'autres movers, API spécifique. (Hicham)
 	5.3. Rencontre entre les agents : méthode planning, comment ca
