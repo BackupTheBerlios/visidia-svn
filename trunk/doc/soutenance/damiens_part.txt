@@ -1,0 +1,27 @@
+3.4. Les agents mobiles : le modèle
+
+   - Terme générique utilisé dans de nombreux domaines
+   - Pour visidia : Entité autonome de calcul qui se déplace
+   - Livre : "Mobile Agents" de Peter Braun and Wilhelm R. Rossak
+   - <3.4_Agent.png>
+
+3.5. Le projet :
+     * ENSEIRB    
+     * PFA
+     * Durée de 4 mois
+     * Responsables scientifiques
+       + Client
+       + M. Mosbah, B. Derbel
+     * Responsable Pédagogique
+       + Encadre et évalue
+       + M
+     * cadre.
+
+3.6. Écrire un algorithme:
+     * API disponible sous Javadoc.
+     * règles de réécriture.
+
+3.7. Comment ca marche:
+     * dessiner graphe.
+     *  placer agents avec les deux méthodes.
+     * appuyer sur start.
