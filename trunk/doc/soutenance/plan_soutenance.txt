@@ -83,14 +83,11 @@ Le contenu des slides:
              ça   marche,  qui   fait   quoi  ?   Décrire  la   classe
              Bag. (Hicham)
 
-6. Partie4: organisation:
+6. Partie4: organisation du PFA: (JB)
 -------------------------
-	6.1. Organisation du PFA:
-	     * Berlios + sreenshot du site.
-	     * svn
-	     * planning
-	     * XP
-	     * Licence
+	6.1. Berlios. 
+
+	6.2. planning, XP, Licence
 
 7. Conclusion.
 --------------

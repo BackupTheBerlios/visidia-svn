@@ -1,0 +1,18 @@
+6.1. Berlios : offre un ensemble de services de développement
+      * listes de diffusion et archives
+	+ dev
+	+ client
+	+ pedago
+      * gestionnaire de versions : svn
+      * système de livraison des versions
+      * hébergement web : un Wiki en page d'accueil
+      * <6.1_wiki.png> | <6.1_wiki_bis.png>
+     
+6.2. Rigueur et discipline =>[]
+     * planning : diagramme de Gantt
+     * XP : 
+     * Licence GPL
+     * <6.2_gnu-head-sm.jpg>
+
+
+
