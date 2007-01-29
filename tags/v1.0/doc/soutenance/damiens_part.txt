@@ -1,0 +1,35 @@
+3.1. Le projet :
+     * ENSEIRB    
+     * PFA
+     * Durée de 4 mois
+     * Responsables scientifiques
+       + Client
+       + M. Mosbah, B. Derbel
+     * Responsable Pédagogique
+       + Encadre et évalue
+       + P.Y. Gloess 
+     * <3.1_Enseirb.jpg>
+
+3.5. Les agents mobiles : le modèle
+     * Terme générique utilisé dans de nombreux domaines
+     * Pour visidia : Entité autonome de calcul qui se déplace
+     * Livre : "Mobile Agents" de Peter Braun and Wilhelm R. Rossak
+     * Résout des problèmes de surconsommation
+     * <3.5_Agent.png>
+
+3.6. Écrire un algorithme:
+     * 2 méthodes
+       + Écrire du code Java
+         # Sous-classer visidia.simulation.agents.Agent
+         # Utiliser l'API disponible sous Javadoc
+       + Règles de réécriture
+         # Dessiner les règles directement sous ViSiDiA
+     * <regles_de_reecriture>
+
+3.7. Comment ca marche:
+     * Dessiner ou charger un graphe
+     * Placer les agents sur les sommets
+       + A la souris
+       + Avec un placeur développé pour l'occasion en Java
+     * Appuyer sur start
+     * <graphe>

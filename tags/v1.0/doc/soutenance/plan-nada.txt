@@ -1,0 +1,26 @@
+transparent 1:
+	 - titre du projet : Exécution d'algorithmes distribués à l'aide d'agents mobiles 
+	 - noms des responsables.
+	 - noms des membres du groupe.
+
+transparent 3.2 : Algos distribués : 
+	    - algorithme distribués de plus en plus courants, utiles et demandés
+	    - représentation des réseaux
+	    - communication synchrone asynchrone, par messages.
+	    - règles de transformations et de réécritures.
+	    - correction des algos, les preuves.
+	    - aller voir ce que j'ai mis pour l'intro du cdc.
+	    <star.gif>
+
+transparent 3.3 : le projet ViSiDia :
+	    - présentation de l'équipe du LaBRI et des personnes concernées par le projet.
+	    - Pourquoi ViSiDiA ...( voir intro et documents du cdc)
+	    <screenshot visidia>
+
+transparent 3.4 : ViSiDiA avant ce PFA :
+	    - communication par message grâce à une API de haut niveau.
+	    - description brève de l'API
+	    - utilisation de cette API.
+	    <screenshot>
+
+(en tout j'ai 5 transparents à faire ...)

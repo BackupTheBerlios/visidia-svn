@@ -1,0 +1,204 @@
+Dans  cette partie  nous décrirons  les besoins  fonctionnels  liés au
+projet  (A.P.I,  interface) ainsi  que  les  besoins non  fonctionnels
+(langage, licence, etc).
+
+
+\section{Description de l'A.P.I}
+\label{sec:api}
+
+Les méthodes de la classe \emph{Agent} fournies à l'utilisateur pour
+l'écriture de l'algorithme sont les suivantes :\\
+
+\begin{description}
+
+\item[getArity]  retourne  le nombre  de  portes  sortantes du  sommet
+  courant (la première est numérotée 0)
+\item[getIdentity] permet à un agent de récupérer son identifiant
+\item[getVertexIdentity] retourne le numéro du sommet courant (suppose
+  que l'algorithme utilise un identifiant unique pour chaque sommet) %
+\item[getNetSize] retourne le nombre de sommets du graphe %
+\item[setAgentMover]  permet de  définir pour  l'agent un  nouveau  type de
+déplacement dont le nom est passé en paramètre %
+\item[getAgentMover] retourne le type de déplacement utilisé par
+l'agent %
+\item[move] permet de déplacer l'agent sur la porte suivante ou sur la
+  porte dont le numéro est passé en paramètre %
+\item[moveToDoor] permet de déplacer l'agent sur la porte passée en
+paramètre. Méthode de bas niveau. La méthode move() associée à un
+AgentMover est de plus haut niveau %
+\item[moveBack] permet de déplacer l'agent sur la porte dont il vient %
+\item[entryDoor] retourne  le numéro de la porte  par laquelle l'agent
+  vient d'arriver %
+\item[getIdentity] retourne l'identifiant unique de l'agent %
+\item[setProperty] place une propriété sur le tableau blanc de
+  l'agent, la valeur et la clé sont passées en paramètre %
+\item[getProperty] retourne la valeur de la propriété du tableau blanc
+  dont la clé est passée en paramètre %
+\item[getPropertyKeys] retourne une collection de toutes les clés du
+tableau blanc de l'agent%
+\item[lockVertexProperties] verrouille le tableau blanc du sommet
+courant. Si le sommet est déjà verrouillé, attend jusqu'à ce que le
+propriétaire déverrouille le sommet %
+\item[unlockVertexProperties] déverrouille le tableau blanc du sommet
+courant %
+\item[vertexPropertiesLocked] retourne vrai si le sommet est
+verrouillé, faux sinon %
+\item[lockVertexIfPossible] verrouille le tableau blanc du sommet
+courant si possible et retourne vrai. Retourne faux sinon %
+\item[getVertexPropertiesOwner] retourne l'Agent qui verrouille le
+tableau blanc du sommet courant ou null si aucun Agent ne bloque le
+sommet %
+\item[getVertexProperty] retourne la valeur de la propriété du tableau blanc
+  du sommet courant dont la clé est passée en paramètre %
+\item[setVertexProperty] place une propriété sur le tableau blanc du
+sommet courant, la valeur et la clé sont passées en paramètre %
+\item[getVertexPropertyKeys] retourne une collection de toutes les clés du
+tableau blanc du sommet courant %
+\item[changeDoorState] change l'état de l'arrête associée à la porte
+passée en paramètre sur le sommet courant %
+\item[markDoor] marque l'arrête associée à la porte passée en
+paramètre en gras %
+\item[unmarkDoor] annule l'effet de markDoor() %
+\item[getDoorProperty] retourne la valeur  de la propriété dont la clé
+  est passée en  paramètre, sur la porte dont  le numéro est également
+  passé en paramètre
+\item[cloneAgent] clone l'agent. Crée un nouvel Agent de même type sur
+le sommet courant %
+\item[cloneAndSend] clone l'agent en cours et envoie le clone sur la
+  porte passée en paramètre %
+\item[createAgent] crée un nouvel agent sur le sommet courant du type
+passé en paramètre %
+\item[createAgentAndSend] est à createAgent() ce que cloneAndSend()
+est à cloneAgent() %
+\item[className] retourne le nom de la classe dont l'agent est une
+instance sous la forme d'une chaîne de caractères %
+\item[sleep] endort l'agent pendant le temps en milisecondes passé en
+paramètre %
+\item[death] tue l'agent. Il est conseillé de sortir de la méthode
+init() pour tuer un agent plutôt que d'utiliser cette méthode %
+\item[nextPulse] bloque  un agent synchronisé jusqu'à ce  que tous les
+autres agents synchronisés aient appelé cette même méthode.  Permet un
+mécanisme de synchronisation %
+\item[incrementStat] incrémente la clé du tableau blanc passée en
+paramètre. Méthode utile dans le cadre de la collecte de statistiques
+\\
+
+\end{description}
+
+Il est ainsi possible de  cloner un \emph{agent}, et éventuellement de
+l'envoyer sur  une porte. L'\emph{agent}, ainsi créé,  pourra avoir un
+type de déplacement, ainsi qu'un  algorithme différents de ceux de son
+père.\\
+
+Les agents synchronisés peuvent, s'ils le souhaitent, faire appel à un
+système de synchronisation afin d'effectuer des actions et se déplacer
+de manière coordonnée.
+
+Les \emph{agents} ont  également d'autres fonctionnalités, ils peuvent
+se  rencontrer,   c'est-à-dire,  détecter  qu'un   autre  \emph{agent}
+synchronisé est sur  le même sommet.  Cela impose la  mise en place de
+règles de priorités, pour  que plusieurs \emph{agents} ne puissent pas
+agir simultanément sur un même sommet.\\
+
+\section {Interface}
+
+Notre  graphe  peut  débuter  avec  autant  d'agent  que  le  souhaite
+l'utilisateur, tous les agents n'étant pas forcément du même type.\\
+
+L'utilisateur a différentes possibilités pour placer ses agents :\\
+
+\begin{itemize}
+
+\item \textbf{A la  souris : } L'utilisateur choisit  un type d'agent,
+et le place  sur les sommets où il souhaite  faire démarrer les agents
+de ce type.   Il peut ensuite choisir d'autres  types d'agent pour les
+placer sur les sommets restants.\\
+
+\item \textbf{Automatique  : } L'utilisateur peut  définir une méthode
+de placement ou choisir une des méthodes déjà implantées
+\end{itemize}
+
+%%\section{Diagrammes de séquences}
+
+%%Nous décrirons dans cette  section quelques scénarios possibles durant
+%%la vie d'un agent.
+
+%%\subsection{Déplacement}
+
+%%Figure  \ref{fig:diagramme_seqDeplacement} :  Scénario  de déplacement
+%%d'un agent sur le graphe.
+
+%%\begin{figure}[h!t]
+  %%\centering
+  %%\includegraphics[width=14cm]{seqDeplacement}
+  %%\caption{Scénario de déplacement}
+  %%\label{fig:diagramme_seqDeplacement}
+%%\end{figure}
+
+%%\subsection{Propriétés}
+
+%%Figure   \ref{fig:diagramme_seqProperties}  :   Scénario   où  l'agent
+%%souhaite modifier ou obtenir une propriété d'un sommet.
+
+%%\begin{figure}[h!t]
+  %%\centering
+  %%\includegraphics[width=14cm]{seqProperties}
+  %%\caption{Scénario de lecture ou écriture d'une propriété}
+  %%\label{fig:diagramme_seqProperties}
+%%\end{figure}
+
+
+
+\section{Contraintes}
+
+\subsection{Langage et portabilité}
+
+Notre rôle était  de développer une extension de  \visidia, écrit à la
+base en Java  : c'est donc en Java que nous  avons écrit l'ensemble de
+notre  programme,   afin  que  notre  module  s'intègre   au  mieux  à
+l'application.\\
+
+Les  développeurs extérieurs seront  obligés de  passer par  notre API
+pour concevoir de nouveaux  algorithmes distribués, ce qui nous impose
+d'être compris le plus aisément possible par tout le monde. Pour cette
+raison, notre code est rédigé  exclusivement en anglais à part pour la
+partie interface graphique qui reprend  du code déjà existant. Le Java
+semble encore un  choix correspondant à notre volonté,  d'une part car
+il  s'agit d'un  des langages  les plus  utilisés actuellement  (si ce
+n'est  LE plus  utilisé), d'autre  part  pour sa  portabilité sur  les
+différentes plate-formes existantes.\\
+
+La  documentation quant  à elle  a été  réalisée à  l'aide  de l'outil
+Javadoc.\\
+
+
+\subsection{Standard de codage}
+
+*Utilisation des conventions JAVA :
+\begin{itemize}
+\item noms des classes commençant par une majuscule
+\item noms des méthodes commencent par une minuscule
+\item majuscules pour séparer les différents mots composant un nom 
+\item accesseurs commençant par 'get'
+\item modificateur commençant par 'set'\\
+\end{itemize}
+
+*Autres standards
+\begin{itemize}
+\item nom des classes et des méthodes en anglais
+\item reprise au maximum des noms existant
+\item utilisation de noms explicites
+\item commentaires en anglais style Javadoc
+\end{itemize}
+
+\subsection{Licence} 
+
+L'ensemble de notre  programme sera sous licence GNU  GPL (GNU General
+Public License)  version 2  ou supérieure.
+
+
+%% Local Variables:
+%% mode: latex
+%% coding: latin-1
+%% TeX-master: "main"
+%% End:

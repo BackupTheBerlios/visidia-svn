@@ -1,0 +1,54 @@
+compte-rendu de la réunion du 03/02/2006
+----------------------------------------
+
+rdv 10h au LABRI
+Mr Mosbah et Mr Derbel sont présents.
+toute l'équipe est présente. 
+
+- Un des  paragraphes de  l'introduction n'est pas  du tout  adapté. M
+  Derbel  nous donne  un  document manuscrit  pour  le remplacer:  les
+  agents sont juste un des moyen d'alléger l'exécution de ViSiDiA. 
+
+- Les règles de réécriture ne sont  pas un but principal du projet. Il
+  ne faut  pas les mettre  dans les UseCases,  ou les mettre  plus loin
+  (elles sont décrites au début des UseCases pour le moment). M Derbel
+  nous conseille  de les  décrire au travers  d'un paragraphe  et avec
+  une définition dans le lexique. 
+
+- Ajouter  une  partie parlant  de  la  visualisation  dans la  partie
+  parlant  du  diagramme  de  classe (2.6.3).  La  visualisation  doit
+  permettre l'affichage de la  position des agents, l'état des noeuds,
+  et les déplacements.
+
+- L'introduction est très importante.  Décrire plus précisément ce que
+  sont  les  agents  mobiles.  Remanier  l'introduction.  Refaire  les
+  paragraphes pour  clarifier. Peut-être aussi ajouter  un petit titre
+  en  gras  devant  les  paragraphes:  But,  Existant...  Utiliser  la
+  commande \paragraph ou \subparagraph (c'est comme \section).
+
+- Changer implémentation en implantation
+
+- L'interface utilisateur  doit permettre  de choisir les  sommets qui
+  vont contenir  des agents  (et aussi le  type d'agent à  affecter au
+  sommet). 
+
+- Une  nouvelle  mission  nous a  été  affectée  :  la gestion  de  la
+  synchronisation.  Après  moult  discussions,  il semblerait  que  le
+  client souhaite qu'en cas  de synchronisation, le simulateur attende
+  que chaque agent ait pris  une décision (bouger ou rester sur place)
+  avant de les débloquer tous en même temps. 2 choix s'offrent alors à
+  nous (peut-être plus) :
+
+   - Ajouter une méthode wait() dans  l'API et rendre wait() et move()
+     bloquants. Une fois  que chaque agent a choisit  d'attendre ou de
+     bouger, le simulateur les débloque tous en même temps. 
+   - Utilisation  d'une méthode nextStep().  Il faudra  m'expliquer ce
+     que ça fait exactement et comment ça marche avec les move(). 
+
+- Écrire un  mail pour les aider  à créer des  comptes développeur sur
+  BerliOS.
+
+- L'équipe  ViSiDiA souhaite installer  un serveur  SVN et  gérer leur
+  code source avec. Il faudra étudier les moyens de rester synchronisé
+  au niveau  du code  source et/ou de  transféré notre  projet BerliOS
+  vers le LaBRI.

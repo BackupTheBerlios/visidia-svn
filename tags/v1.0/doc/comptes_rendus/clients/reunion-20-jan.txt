@@ -1,0 +1,101 @@
+compte-rendu de la réunion du 20/01/2006
+----------------------------------------
+
+rdv 16h au LABRI
+Mr Mosbah et Mr Derbel sont présents.
+toute l'équipe est présente. 
+
+* mise au point d'un horaire fixe de rdv hebdomadaire:
+  Tous les vendredi à 9h30, si possible au LABRI. 
+  Pour le 27 janvier à 10h avec Mr Derbel seulement. 
+
+* présentation de la plateforme de développement berliOS.de:
+  Ok pour utiliser cet outil. 
+  Mettre en place une mailing-list pour dialoguer avec les clients. 
+  Idem avec le responsable pédagogique. 
+  Garder une mailing-list interne aux développeurs. 
+
+* Mr Gloess voudrait assister à une réunion avec les clients. 
+
+* cahier des charges -cdc-:
+  Mr Pelegrini ne nous a pas donné de modèle. 
+  Mr Mosbah nous enverra un plan type de cdc. 
+ 
+  Inverser  les parties  1 et  2 dans  notre premier  plan (*Organisation*
+  secondaire par rapport à *Structure du projet*).
+  
+  Mettre  en   avant  le  fait  que   c'est  une  extension   et  non  une
+  reprise.  Mettre en place  le contexte:  plateforme de  visualisation (1
+  page sur ViSiDiA).  Donner des cas d'utilisation: UML.  Quelles sont les
+  fonctionnalités attendues. besoin non fonctionnel: garder JaVa. 
+
+  Donner l'API. Liste des fonctions qui seront implémentées. 
+
+  2ème  partie.   Donner  un  échéancier.  Planification   des  étapes  du
+  projet! Et non planifier dans le cdc les rdv. 
+
+  90% partie 1: API/ projet / UML
+  10% partie 2: organisation
+
+* exigence  n°1: implémentation  la plus  simple  possible.  
+  transactions: un agent fait tout le travail sur un sommet ou ne fait
+  rien.
+
+* rencontre de deux agents sur une arrête. 
+
+  Exposition  de l'idée  agents 006/007  (marquage des  portes,  règles de
+  priorité, accès  concurrents, marquage présence). ->  solution au niveau
+  API.  Mr  Derbel   pensait  a  priori  à  une   solution  au  niveau  du
+  simulateur. Le simulateur détecte le croisement. => à réfléchir. 
+
+* question au sujet méthode init(). 
+
+  Manque méthode run(). 
+  Agent implements Runnable. 
+  http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Runnable.html
+
+* un seul niveau d'abstraction  possible pour l'écriture d'algorithmes par
+  l'utilisateur. 
+
+  Ne pas  permettre d'utiliser move() et findNextDoor()  dans un algo.
+  Définir un AgentMover par  défaut et donner méthode pour positionner
+  AgentMover en début  d'algo. => Il faut que  l'utilisateur ne puisse
+  pas directement acceder a des methodes bas niveau.
+
+* API doit permettre de cloner un agent / de tuer un agent. 
+
+  Tuer revient à donner un ordre  de se suicider qui doit être exécuté
+  par l'agent.
+
+* manque constructeur pour Agent.
+
+* visualisation -> temps réel
+		-> a posteriori
+
+  Le   simulateur  doit  aussi   être  un   outil  de   mesure:  compteur,
+  enregistrement de valeurs, production de statistiques. 
+
+* agent avec Id / sans Id. Les deux cas doivent être possibles. 
+
+  Idem  pour  les sommets.   C'est  a  l'utilisateur  de choisir  s'il
+  souhaite  utiliser  des  identifiants  pour les  sommets  et/ou  les
+  agents.
+
+  Le programmeur peut donner une étiquette à un agent: fonction set(). 
+
+* tableau blanc -white board-. 
+
+ Écrire  des infos sur  un sommet  de façon  dynamique.  Une  table de
+ hachage  par   sommet  par  exemple.   Possibilité   de  définir  des
+ propriétés à  l'initialisation. Possibilité de ne pas  tout définir à
+ l'initialisation.  set_all_white_board() true/false  => c'est a dire,
+ que  les   whites  board  ne  sont  initialises   que  lorsque  c'est
+ necessaire, pas tous au debut du programme.
+
+ Possibilité de gérer des accès concurrents au white board. 
+ Configuration en début d'algo: set() true/false. 
+
+* choix des sommets de départ pour les agents
+
+  Possibilité  d'un  choix  probabiliste.  Possibilité d'un  choix  manuel
+  (souris/GUI). méthode agent_chooser().

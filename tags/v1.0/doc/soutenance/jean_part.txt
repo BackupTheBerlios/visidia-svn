@@ -1,0 +1,52 @@
+1. Introduction
+
+   * ViSiDiA 
+   * Projet de Fin d'Année
+   * Exécution d'algorithmes distribués à l'aide d'agents mobiles 
+   * Responsables scientifiques  : M.  Mosbah B. Derbel
+   * Responsable pédagogique : P.Y Gloess
+   * Équipe
+     + Nada Ayad
+     + Damien Cassou
+     + Xavier Durand
+     + Jean-Baptiste Gautron
+     + Hicham Ghriss
+     + Mathieu Hopmann
+     + Julie Quagliozzi
+
+4.7. Statistiques
+	
+     /**
+     * Base abstract class for all reports you want to develop. You must
+     * override #getStats() in order to provide a new report.
+     *
+     * @see visidia.agents.agentreport For different kind of reports.
+     */
+     public abstract class AbstractStatReport {
+      
+     import visidia.simulation.agents.stats.*;
+
+     * <4.7_stats.png>
+
+6.1. Berlios : offre un ensemble de services de développement
+      * listes de diffusion et archives
+	+ dev
+	+ client
+	+ pedago
+      * gestionnaire de versions : svn
+      * système de livraison des versions
+      * hébergement web : un Wiki en page d'accueil
+      * <6.1_wiki.png> | <6.1_wiki_bis.png>
+     
+6.2. Rigueur et discipline =>[] (autre titre possible: ascèse codistique)
+     * planning : diagramme de Gantt
+     * XP : 
+     * Licence GPL
+     * <6.2_gnu-head-sm.jpg>
+
+7. Conclusion
+   * travail de groupe
+   * POO
+   * algorithmique distribuée sous un nouveau jour: les agents
+   * outils de développement
+

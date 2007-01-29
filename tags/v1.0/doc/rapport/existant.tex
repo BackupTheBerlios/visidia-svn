@@ -1,0 +1,489 @@
+Après avoir  présenté le  domaine de l'algorithmique  distribuée, nous
+allons  maintenant  faire  un  tour  d'horizon  de  l'implantation  de
+\visidia telle qu'elle existait avant notre apport. 
+
+\section{But de \visidia}
+
+Comme  nous  l'avons  déjà  vu,  la  visualisation  et  la  simulation
+d'algorithmes distribués  est de plus en plus  nécessaire pour établir
+de  nouveaux   modèles,  trouver   de  nouveaux  algorithmes   et  les
+prouver. C'est dans cette optique que le projet \visidia a été lancé :
+permettre  d'approfondir   les  connaissances  dans   le  domaine  des
+algorithmes distribués en facilitant la simulation et la visualisation
+en temps réel de leurs exécutions.
+
+\section{Représentation des réseaux}
+
+Dans  \visidia comme  dans beaucoup  de  travaux sur  les réseaux,  la
+représentation à  l'aide de graphes est  utilisé. Cette représentation
+permet  d'associer  d'une  façon  très  claire  les  systèmes  ou  les
+processeurs à des noeuds du  graphe et leurs connexions aux arêtes (ou
+arcs).\\
+
+Cette   représentation  nous   permet  de   décrire   les  différentes
+caractéristiques des réseaux.  Par exemple :\\
+
+\begin{itemize}
+\item   les  liaisons  unidirectionnelles   de  notre   réseau  seront
+représenté grâce à des arcs sur un graphe orienté,
+\item le  poids des arêtes  représentera les délais  d'acheminement de
+l'information entre deux systèmes connectés etc.
+\end{itemize}
+
+\section{Modèle implanté}
+
+L'algorithmique distribuée  est une science qui n'a  pas encore trouvé
+toutes ses  marques. Il  existe de nombreux  modèles pour  décrire les
+algorithmes et même si certains  de ses modèles sont plus utilisés que
+d'autres, aucun  n'a encore  montré de faculté  à supplanter  tous les
+autres.
+
+\subsection{Communication par messages}
+
+Le modèle  choisit pour l'implantation  de \visidia est l'un  des plus
+répandus : il s'agit de  la communication par messages. Dans ce modèle
+chaque noeud, représentant un système ou un processeur, est habilité à
+exécuter  un algorithme. Cet  algorithme possède  certaines primitives
+qui lui  permettent de communiquer avec les  algorithmes implantés sur
+les  noeuds  voisins.  Il  est  par exemple  possible  à  un noeud  de
+demander une synchronisation  avec un ou plusieurs de  ses voisins, de
+leur envoyer  des messages, d'en recevoir etc.
+
+\subsection{Description de l'API existante}
+\label{sec:existant-api}
+
+Étudions quelques une des primitives proposées par l'API de \visidia.
+
+\begin{description}
+
+\item[sendTo]  Permet d'envoyer  un message  spécifique sur  une porte
+donnée.
+
+\item[sendAll] Envoie  un message à  tous les voisins (sur  toutes les
+portes).
+
+\item[receiveFrom] Attend de recevoir un message provenant d'une porte
+donnée.
+
+\item[receive] Permet de  recevoir un message qui nous  est destiné et
+  la  porte dont  il provient.  L'appel à  cette méthode  attend qu'un
+  message arrive s'il n'y en a pas déjà un dans la file. 
+
+\item[getArity] Retourne  le degré  du sommet en  cours (le  nombre de
+portes). 
+
+\item[getNetSize] Retourne le nombre de sommet du graphe.
+
+\item[setDoorState]   Modifie   l'arête    pointée   par   une   porte
+  donnée. Généralement utilisée pour mettre une arête en gras.
+
+\item[putProperty] Change  une valeur de la table  des propriétés d'un
+  sommet.  Presque  uniquement utilisée pour  changer l'étiquette d'un
+  sommet (sa couleur).
+
+\item[getProperty] Récupère une valeur dans la table des propriétés du
+  sommet.  Presque uniquement  utilisée pour connaître l'étiquette (la
+  couleur) en cours d'un sommet.
+
+\end{description}
+
+\subsection{Exemple d'utilisation}
+
+Voici un exemple  d'utilisation du modèle par envoie  de messages pour
+calculer  un arbre  couvrant. A  l'origine, tous  les sommets  ont une
+étiquette ``N'' sauf un qui a une étiquette égale à ``A'' et qui jouera
+le rôle de  racine.  Cet algorithme est écrit dans  un langage de haut
+niveau  pour des  raisons  de lisibilité.   En  pratique, il  faudrait
+l'implanter en Java.
+
+\begin{verbatim}
+init() { // méthode exécutée par chaque sommet
+
+  if(getProperty("label") = "A") { // Si mon étiquette est "A"
+    sendAll("Wave");               // envoyer un message à tous mes
+                                   // voisins contenant le mot "Wave"
+  }
+  else {
+    // Reçoit un message et le place dans la variable "message".
+    // Le numéro de la porte par lequel le message est arrivé est
+    // placé dans la variable "porteDuPere". L'appel à "receive"
+    // bloque jusqu'à l'arrivée effective d'un message.
+    (message, porteDuPere) := receive();
+
+    //marque l'arête qui me relie à l'expéditeur du message en gras
+    setDoorState(MARKED_STATE, porteDuPere);
+
+    // Mon étiquette est maintenant "A".
+    putProperty("label", "A");
+
+    // Envoyer un message à tous mes voisins sauf à l'expéditeur du
+    // message.
+    for(i=0 ; i < getArity() ; i++) {
+      if (i != porteDuPere) {
+        sendTo(i, "Wave");
+      }
+    }
+  }
+}
+\end{verbatim}
+
+Voici l'ordre dans lequel se déroulent les étapes :\\
+
+\begin{enumerate}
+
+\item  Tous les  noeuds ``N''  sont en  attente d'un  message  suite à
+l'appel de la méthode $receive$.
+
+\item La racine envoie simplement un message
+(contenant  le  mot   ``Wave'')  à  tous  ces  voisins   avant  de  se
+terminer. 
+
+\item  Les   voisins  de  la   racine  reçoivent  le  message,  se
+  débloquent et  marquent l'arête de  laquelle provient le  message en
+  gras (cette arête fera partie de l'arbre couvrant).
+
+\item Ces  sommets jouent  ensuite le rôle  de racine et  renvoient un
+  message à tous  leurs voisin (sauf à l'expéditeur  du message qu'ils
+  viennent de  recevoir) puis se terminent. Ceci  débloque de nouveaux
+  sommets qui vont exécuter les étapes 3 et 4.
+
+\item Quand tous  les sommets se sont terminés,  l'algorithme est fini
+  et un arbre recouvre le graphe.
+
+\end{enumerate}
+
+La preuve de  cet algorithme est facile et se base  sur les deux faits
+suivants :\\
+
+\begin{itemize}
+
+\item Un  seul noeud  lance le processus  initial ce qui  implique que
+  pour tout noeud du graphe,  il existe un chemin remontant jusqu'à la
+  racine. 
+
+\item Chaque noeud marque  une et une seule arête et est  le seul à la
+  marquer.
+
+\end{itemize}
+
+\section{Architecture générale}
+
+Nous allons maintenant nous attarder à décrire l'architecture générale
+du programme \visidia.\\
+
+\visidia se base sur trois grandes structures :\\
+
+\begin{itemize}
+
+\item l'interface graphique
+\item le simulateur
+\item les algorithmes
+
+\end{itemize}
+
+\subsection{Interface graphique}
+
+L'interface graphique est une  partie très importante de l'application
+\visidia. C'est  grâce à  elle que \visidia  a beaucoup de  succès. En
+effet,  elle permet  de visualiser  en temps  réel le  déplacement des
+messages sur le graphe et l'état des sommets.\\
+
+L'interface graphique se compose de  deux parties : la première partie
+est  consacrée à l'édition  de graphe  et la  seconde à  la simulation
+proprement dite.
+
+\subsubsection{Interface graphique d'édition}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{existant-edition}
+  \caption{Sur cette  capture, vous pouvez  voir que les  réseaux sont
+    représentés  comme  des  graphes  et  qu'il est  possible  de  les
+    visualiser dans \visidia.}
+  \label{fig:existant-edition}
+\end{figure}
+
+Dans la partie consacrée  à l'édition, l'interface graphique permet de
+créer de nouveaux graphes par la seule utilisation de la souris. Grâce
+à elle, de simples glisser/déposer permettent de placer des sommets et
+de les relier par des arêtes.\\
+
+Cette interface permet aussi de  charger des graphes existants, de les
+compléter\dots
+
+\subsubsection{Interface graphique de simulation}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{existant-simulation}
+  \caption{Voici une  capture qui montre \visidia en  train de simuler
+    un algorithme d'arbre recouvrant.}
+  \label{fig:existant-simulation}
+\end{figure}
+
+La partie la plus intéressante de l'interface graphique se trouve dans
+la fenêtre de simulation. De nombreuses tâches peuvent être effectuées
+dans cette partie parmi lesquelles :\\
+
+\begin{itemize}
+
+\item charger un algorithme et le placer sur les sommets du graphe,
+\item lancer la simulation, la mettre en pause et l'arrêter,
+\item voir en temps réel les messages s'échanger sur les arêtes,
+\item choisir des règles de réécriture à appliquer,
+\item éditer les étiquettes des sommets\dots
+
+\end{itemize}
+
+\subsection{Simulateur}
+
+Le simulateur est  le noyau de \visidia. Il a  entre autre pour charge
+de :\\
+
+\begin{itemize}
+\item lancer l'exécution des algorithmes,
+\item gérer les messages du réseau,
+\item informer l'interface graphique des changements,
+\item valider les acquittements de l'interface graphique,
+\item compter les évènements en vue d'établir des statistiques\dots
+\end{itemize}
+
+\sauteligne
+
+Lorsque le simulateur est créé par l'interface graphique, celle-ci lui
+fournit  le  graphe  courant,  l'algorithme  à  exécuter  choisit  par
+l'utilisateur  et deux files  qui serviront  à la  communication (voir
+\ref{sec:existant-communication}). Le simulateur se charge à ce moment
+d'initialiser les  files de messages pour les  algorithmes. Mais c'est
+au moment  où le  simulateur reçoit un  appel à  $startSimulation$ que
+celui-ci commence  réellement son travail.   Il va créer,  pour chaque
+noeud du graphe, un processus  qui va exécuter le code de l'algorithme
+sélectionné.\\
+
+Par la  suite, le rôle  du simulateur sera  de gérer les  demandes des
+algorithmes  (informations sur  le graphes,  envoies et  réceptions de
+messages\dots) et de l'interface graphique (mise en pause ou à l'arrêt
+du simulateur\dots).
+
+\subsection{Algorithmes}
+
+Les algorithmes représentent la  partie évolutive de \visidia. Pour se
+servir  de  \visidia,  l'utilisateur  devra commencer  par  écrire  un
+algorithme en Java  en utilisant l'API fournie (il  est aussi possible
+de dessiner  des règles  de réécritures, nous  en reparlerons  dans la
+partie \ref{sec:existant-reecriture}).\\
+
+Lors   du   lancement  de   l'algorithme,   la   méthode  $init$   est
+appelée.  C'est  cette  méthode  que l'utilisateur  de  \visidia  doit
+implanter. Elle est généralement écrite de la façon suivante :
+
+\begin{verbatim}
+init() {
+
+ // Partie d'initialisation
+
+  while(true) {
+
+    // Mécanisme de synchronisation avec un ou plusieurs voisins
+
+    // Envoies et réceptions de messages
+
+    // Changement de l'état du sommet et/ou d'une arête
+
+    // Quitter la boucle sous certaines conditions
+
+  }
+
+}
+\end{verbatim}
+
+Chaque  noeud du  graphe va  exécuter sa  propre copie  de  la méthode
+$init$.\\
+
+Les algorithmes  ne peuvent rien  faire tout seul. Toutes  les actions
+qu'ils veulent  entreprendre, comme l'envoie de  messages, passent par
+le simulateur.\\
+
+
+\subsubsection{Gestion de l'arrêt d'un algorithme}
+
+Un algorithme  peut se terminer de  deux façons différentes  : soit il
+n'a plus rien à faire et la méthode $init$ se termine simplement, soit
+l'utilisateur demande  explicitement l'arrêt du simulateur  qui va lui
+même interrompre  les algorithmes. C'est cette  deuxième technique que
+nous allons aborder ici.\\
+
+Mettre en place un mécanisme d'interruption propre des processus en Java
+passe par  une  gestion  fine   des  exceptions.   Lorsque  l'on  souhaite
+interrompre  un  processus, il  est  nécessaire  de  lui appliquer  la
+méthode  $interrupt$.  Cela  dit,  cette méthode  n'interrompt  pas  à
+proprement parler le processus. Deux  cas peuvent se présenter lors de
+l'appel à cette méthode :\\
+
+\begin{itemize}
+\item le processus est actif, auquel cas la méthode $interrupt$ n'aura
+  aucun effet et le processus continuera son activité,
+\item le processus est en  attente d'un évènement (typiquement suite à
+  l'appel   à    la   méthode    $wait$)   auquel   cas    un   signal
+  $InterruptedException$ lui est envoyé.
+\end{itemize}
+
+\sauteligne
+
+Les  développeurs de \visidia  ont décidé  de capturer  les exceptions
+$InterruptedException$     pour      les     remplacer     par     des
+$SimulationAbortError$ qui  ne sont jamais capturées  et qui terminent
+donc  le processus  qui  a reçu  le  signal.
+
+\subsection{Communication entre les structures}
+\label{sec:existant-communication}
+
+Dans  cette partie  nous décrirons  brièvement comment  les structures
+communiquent    entre    elles.     Le    schéma    de    la    figure
+\ref{fig:existant-communication}   devrait  vous   donner   les  idées
+principales.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{existant-communication}
+  \caption{ Le simulateur envoie  des demandes à l'interface graphique
+    au moyen  d'une file d'évènements.  Celle-ci  exécute les demandes
+    puis confirme  quand le travail  est terminé en utilisant  la file
+    d'acquittements.   Les  algorithmes, quand  à  eux,  ont un  accès
+    direct  au  simulateur  et  aucun mécanisme  supplémentaire  n'est
+    nécessaire.}
+  \label{fig:existant-communication}
+\end{figure}
+
+\subsubsection{Entre la partie graphique et le simulateur}
+
+Comme      vous     pouvez     le      voir     sur      la     figure
+\ref{fig:existant-communication},    deux    files    permettent    la
+communication entre  le simulateur et l'interface  graphique. Ces deux
+files  sont crées par  l'interface graphique  et passées  en paramètre
+lors de la construction du simulateur.\\
+
+Quand le  simulateur a besoin  de faire faire  une action à  la partie
+graphique,   ou  lorsque  le   simulateur  souhaite   l'informer  d'un
+évènement, il créé un nouvel objet de type $SimulEvent$ et le place
+dans la file d'évènements. Ces évènements sont de plusieurs types :\\
+
+\begin{itemize}
+\item changement de l'état d'un noeud ou d'une arête,
+\item envoie de message,
+\item nouveau round pour les algorithmes synchronisés et
+\item terminaison de l'ensemble des algorithmes.
+\end{itemize}
+
+\sauteligne
+
+Lorsque l'interface  graphique reçoit un  évènement sur la  file, elle
+exécute  les  tâches nécessaires  puis  elle  confirme l'exécution  en
+envoyant  un acquittement sur  la seconde  file. Le  simulateur attend
+l'acquittement  de  l'interface  graphique  avant  de  considérer  que
+l'action  a  été  effectuée.  Ceci  permet  de  garder  une  interface
+graphique synchronisée avec le simulateur.\\
+
+Voici,  pour bien  comprendre, l'enchaînement  des  actions effectuées
+lors d'un envoie de message :\\
+
+\begin{enumerate}
+\item un algorithme décide d'envoyer un message à un voisin
+\item il appelle la méthode $sendTo$ du simulateur
+\item   le    simulateur   crée   un   nouvel    évènement   de   type
+  $MessageSendingEvent$  contenant   entres  autres  le   message,  le
+  destinataire et l'émetteur
+\item il place cet évènement dans la file d'évènements
+\item    un   processus    dédié    à   l'écoute    de   cette    file
+  ($SimulEventHandler$)  reçoit le  message et  demande  à l'interface
+  graphique d'animer le message entre l'expéditeur et le destinataire
+\item l'interface graphique anime le message entre les deux sommets de
+  façon  à ce  que  l'utilisateur  voit une  chaîne  de caractères  se
+  déplacer sur son écran
+\item  quand  le déplacement  est  terminé  (la  chaîne est  arrivé  à
+  destination), elle place un acquittement du type $MessageSendingAck$
+  dans la file
+\item  le  processus,  implanté   dans  la  classe  $AckHandler$,  qui
+  surveille  cette file,  reçoit  l'acquittement et  place le  message
+  correspondant dans la file du noeud destinataire
+\end{enumerate}
+
+Grâce au mécanisme ci-dessus, l'utilisateur peut-être sûr que ce qu'il
+voit est réellement en train de se passer dans le simulateur. Ceci lui
+permet  par  exemple  de   mettre  en  pause  la  simulation,  changer
+manuellement des paramètres sur les sommets (l'étiquette par exemple),
+débloquer la simulation et étudier ce qu'il se passe.
+
+\subsubsection{Entre les algorithmes et le simulateur}
+
+La communication entre les algorithmes  et le simulateur est bien plus
+classique. Chaque algorithme possède un lien direct vers le simulateur
+grâce  à une  variable d'instance.   A  partir de  là, faire  exécuter
+quelque  chose au  simulateur reviens  à appeler  une  méthode d'accès
+publique sur cette variable.
+
+\section{Modes d'utilisations}
+
+Au delà  du noyau de \visidia,  les développeurs qui  se sont succédés
+ont  travaillé sur  différents types  de fonctionnalités.  Nous allons
+dans cette partie en présenter quelques unes.
+
+\subsection{Répartition du simulateur}
+
+\visidia est un logiciel de simulation. Il permet de simuler un réseau
+de processeurs sur  une machine unique. Cela dit,  lorsque les réseaux
+étudiés commencent à prendre de l'ampleur, une seule machine pour tout
+simuler devient insuffisante.
+
+\subsubsection{Système centralisé}
+
+De base,  \visidia possède un  simulateur qui lance des  processus sur
+une  même machine.  Un seul  processeur,  celui sur  lequel tourne  la
+machine virtuelle Java, est en charge  de tous les calculs. Si cela ne
+pose pas de problèmes pour  des graphes de faibles tailles, il devient
+rapidement  impossible de  simuler quoi  que soit  quand le  nombre de
+sommets augmente.
+
+\subsubsection{Système distribué}
+
+C'est pour cette raison qu'un autre système à été implanté. Dans cette
+version,  les différents  processus  sont exécutés  sur  un réseau  de
+machines.  Chaque  machine a  en  charge  un  ou plusieurs  noeuds  du
+graphe. Dans cette modélisation, il  n'y a plus de simulateurs. Chaque
+noeud est capable d'envoyer des messages à ces voisins.\\
+
+La  simulation, quand  à  elle, se  fait  toujours sur  la machine  de
+l'utilisateur.
+
+\subsection{Règles de réécriture}
+\label{sec:existant-reecriture}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=14cm]{existant-regles}
+  \caption{Les  règles de  réécritures sont  implantés  dans \visidia.
+    L'utilisateur peut simplement  dessiner ses algorithmes.  Ici, est
+    présenté une des règles de réécritures utilisées pour l'algorithme
+    d'arbre recouvrant  avec détection de la  terminaison. Cette règle
+    dit: ``Si  $u$ est un sommet d'étiquette ``A'' qui a  pour voisin un
+    sommet $v$  d'étiquette ``A'' aussi,  que l'arête qui  les sépare est
+    marquée (en gras) et que $u$  n'a pas de voisin $w$ d'étiquette ``N''
+    avec une arête non marquée  (``Context 1'') alors $u$ peut prendre
+    ``F'' comme étiquette (en réalité, il  y a une autre exclusion qui est
+    cachée sous l'onglet ``Context 2'')''.}
+  \label{fig:existant-regles}
+\end{figure}
+
+Avec l'écriture de  code, il existe un autre  modèle de représentation
+pour les algorithmes  distribués : les règles de  réécritures. Grâce à
+ces règles,  un utilisateur peut littéralement  dessiner un algorithme
+avec sa souris à l'intérieur de \visidia et le valider pour suivre son
+exécution  comme  s'il l'avait  écrit  en  Java.  Consultez la  figure
+\ref{fig:existant-regles} pour un exemple de règle.
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: "rapport"
+%% TeX-PDF-mode: t
+%% coding: latin-1
+%% End:

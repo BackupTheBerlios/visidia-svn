@@ -1,0 +1,118 @@
+\chapter{Modèle du système}
+
+Dans  cette partie, nous  étudierons tout  d'abord les  différents cas
+d'utilisation du  logiciel. Dans un second temps,  nous réfléchirons à
+une hiérarchie qui répondra au mieux aux attentes.
+
+\section{Cas d'utilisation}
+
+Voici tout d'abord une représentation simplifiée du diagramme des cas
+d'utilisation sur la figure \ref{fig:diagramme_simple}. On remarquera
+ainsi que le système se décompose en trois grandes fonctionnalités :
+\begin{itemize}
+  \item la gestion du graphe
+  \item la gestion des agents 
+  \item la gestion de la simulation
+\end{itemize}
+
+Une version plus complète est présentée sur la figure
+\ref{fig:diagramme_UseCase}.
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=10cm]{simple}
+  \caption{Diagramme simplifié des cas d'utilisation}
+  \label{fig:diagramme_simple}
+\end{figure}
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=12cm]{UseCase}  
+  \caption{Diagramme complet des cas d'utilisation}
+  \label{fig:diagramme_UseCase}
+\end{figure}
+
+\input{desc_choisirGraphe.tex}
+\input{desc_choisirAgent.tex}
+\input{desc_ParamSimu.tex}
+\input{desc_lancerSimulation.tex}
+\input{desc_RegleEcriture.tex}
+
+\section{Diagramme de classes}
+
+Notre  projet  s'architecture autour  d'une  classe principale  nommée
+Agent.  Le diagramme  UML  de  classes est  disponible  sur la  figure
+\ref{fig:diagramme_classes}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=14cm]{classes} 
+  \caption{Diagramme de classes}
+  \label{fig:diagramme_classes}
+\end{figure}
+
+\subsection{La classe Agent et ses sous-classes}
+
+La  classe  Agent  implante  toutes les  méthodes  nécessaires  pour
+faciliter  le  travail du  futur  développeur  d'agents mobiles.   Les
+méthodes  seront  décrites dans  la  partie  \ref{sec:api}  à la  page
+\pageref{sec:api}. \\
+
+De façon générale, on peut  trouver des méthodes d'informations sur le
+graphe, des méthodes  de gestion de propriétés (au  niveau des sommets
+et des portes), des méthodes de déplacements et de clonage.\\
+
+Le futur développeur devra,  pour implanter ses agents, sous-classer
+cette classe Agent et implanter la méthode abstraite suivante : \\
+
+\begin{description}
+\item[init] Utilisée pour implanter le code général de l'algorithme.
+  C'est cette méthode qui sera lancée lorsque l'agent sera exécuté.
+\end{description}
+
+
+\subsubsection{Synchronisation}
+
+Les  agents seront  de deux  types  : synchrone  ou non.  Dans le  cas
+d'agents synchrone, le simulateur  devra attendre que chaque agent ait
+demandé à  se déplacer ou à rester  sur place avant de  les faire tous
+bouger en  même temps.  Les méthodes de  déplacement ou  d'attente sur
+place seront  donc bloquantes. Elle  seront débloquées toutes  en même
+temps.\\
+
+Dans  le cas  d'une non  synchronisation,  chaque agent  demande à  se
+déplacer quand  il le souhaite  et le simulateur traite  cette demande
+immédiatement.
+
+\subsection{La classe AgentMover}
+
+AgentMover  est  une classe  qui  a pour  but  d'apporter  un type  de
+déplacement aux agents. Certains  types de déplacements seront fournis
+par \visidia  et d'autres pourront  être implantés par  le développeur
+lorsqu'il en ressentira le besoin. \\
+
+Lors de l'implantation d'un agent, le développeur devra utiliser les
+méthodes  ``move'' pour  se déplacer.  Ces méthodes  sont en  fait des
+appels cachés aux méthodes de AgentMover. \\
+
+Pour développer  un nouveau  type de déplacement,  l'utilisateur devra
+donc implanter  une nouvelle sous classe de  AgentMover et redéfinir
+la méthode ``findNextDoor''.
+
+\subsection{Le paquetage Interface Graphique}
+
+L'interface  graphique  de  l'application  devra permettre  de  suivre
+l'évolution de  l'exécution des algorithmes. Cette  interface est très
+importante   car  c'est  elle   qui  apporte   la  valeur   ajoutée  à
+l'application comparée à d'autres systèmes.\\
+
+Dans le  cas des  agents mobiles, cette  interface devra  permettre de
+suivre  l'emplacement  des  agents  en  temps réel  et  de  voir  leur
+déplacement dans  le graphe. Il faudra aussi  pouvoir consulter l'état
+de chaque sommet indépendamment.
+
+%% Local Variables:
+%% mode: latex
+%% coding: latin-1
+%% TeX-master: "main"
+%% End:

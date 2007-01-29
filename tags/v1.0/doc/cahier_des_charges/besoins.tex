@@ -1,0 +1,181 @@
+\chapter{Besoins fonctionnels et non fonctionnels}
+
+Dans  cette partie  nous décrirons  les besoins  fonctionnels  liés au
+projet  (A.P.I,  interface) ainsi  que  les  besoins non  fonctionnels
+(langage, licence, etc).
+
+
+\section{Description de l'A.P.I}
+\label{sec:api}
+
+Les méthodes de la classe \emph{Agent} fournies à l'utilisateur pour
+l'écriture de l'algorithme sont les suivantes :\\
+
+\begin{description}
+
+\item[getArity]  retourne  le nombre  de  portes  sortantes du  sommet
+  courant (la première est numérotée 0)
+\item[getVertexIdentity] retourne le numéro du sommet courant (suppose
+  que l'algorithme utilise un identifiant unique pour chaque sommet)
+\item[getNetSize] retourne le nombre de sommets du graphe
+\item[setMover]  permet de  définir pour  l'agent un  nouveau  type de
+déplacement dont le nom est passé en paramètre
+\item[move] permet de déplacer l'agent sur la porte suivante ou sur la
+  porte dont le numéro est passé en paramètre
+\item[moveBack] permet de déplacer l'agent sur la porte dont il vient
+\item[entryDoor] retourne  le numéro de la porte  par laquelle l'agent
+  vient d'arriver
+\item[putVertexProperty] place une propriété sur le sommet courant, la
+  valeur et la clé sont passées en paramètre
+\item[getVertexProperty] retourne  la valeur  de la propriété  dont la
+  clé est passée en paramètre
+\item[putDoorProperty] place une propriété sur une porte, le numéro de
+  la porte, la clé et la valeur sont passés en paramètre
+\item[getDoorProperty] retourne la valeur  de la propriété dont la clé
+  est passée en  paramètre, sur la porte dont  le numéro est également
+  passé en paramètre
+\item[clone] clone l'agent en cours (avec son tableau blanc)
+\item[cloneAndSend] clone l'agent en cours (avec son tableau blanc) et
+  envoie le clone sur la porte passée en paramètre
+\item[nextTop] bloque l'agent jusqu'à ce que tous les agents de notre
+  graphe  aient appelé  cette  même méthode.  Permet  un mécanisme  de
+  synchronisation\\
+
+\end{description}
+
+Il sera ainsi possible de cloner un \emph{agent}, et éventuellement de
+l'envoyer sur  une porte. L'\emph{agent}, ainsi créé,  pourra avoir un
+type de déplacement, ainsi qu'un  algorithme différents de ceux de son
+père.\\
+
+Les  \emph{agents}  auront  également  d'autres  fonctionnalités,  ils
+doivent  notamment   pouvoir  se  rencontrer,   c'est-à-dire,  pouvoir
+détecter qu'un  autre \emph{agent} est sur  le même sommet,  ou sur la
+même arête. Cela  va imposer la mise en place  de règles de priorités,
+pour que  plusieurs \emph{agents}  ne puissent pas  agir simultanément
+sur un même sommet.\\
+
+Enfin,  les agents  pourront, s'ils  le souhaitent,  faire appel  à un
+système de synchronisation afin d'effectuer des actions et se déplacer
+de manière coordonnée.\\
+
+L'initialisation  des objets  se fera  au plus  tard. En  effet,  ils ne
+seront initialisés, que lorsqu'ils  seront utilisés. Pour les tableaux
+blancs des  sommets, notamment, leur  initialisation ne se  fera qu'au
+passage d'un \emph{agent}, s'il celui-ci souhaite lire une valeur.
+
+\section {Interface}
+
+Notre  graphe  pourra débuter  avec  autant  d'agent  que le  souhaite
+l'utilisateur, tous les agents n'étant pas forcément du même type.\\
+
+L'utilisateur aura différentes possibilités pour placer ses agents :\\
+
+\begin{itemize}
+
+\item \textbf{A la  souris : } L'utilisateur choisit  un type d'agent,
+et le place  sur les sommets où il souhaite  faire démarrer les agents
+de ce type.   Il peut ensuite choisir d'autres  types d'agent pour les
+placer sur les sommets restants.\\
+
+\item \textbf{Par fichier :  } L'utilisateur crée un fichier contenant
+l'identifiant de chaque sommet où  il souhaite voir démarrer un agent,
+auquel  il rattache  un type  d'agent.  Cela  revient au  même  que la
+méthode à la souris, mais est indispensable pour les graphes de grande
+taille.\\
+
+\item \textbf{Aléatoire  : } L'utilisateur choisit un  type d'agent et
+un nombre d'agents (1,2,...,*).  Le logiciel se charge alors  de répartir ce
+ou ces  agents de  façon aléatoire sur  les sommets du  graphe.  Cette
+méthode pourrait être intéressante pour tester des algorithmes de type
+policiers/voleur, avec plusieurs agents essayant d'en encercler un.
+On souhaite également donner la possibilité à l'utilisateur de
+spécifier un algorithme de placement des agents (en affectant, par
+exemple, à chaque sommet une probabilité d'y placer un agent).
+\end{itemize}
+
+\section{Diagrammes de séquences}
+
+Nous décrirons dans cette  section quelques scénarios possibles durant
+la vie d'un agent.
+
+\subsection{Déplacement}
+
+Figure  \ref{fig:diagramme_seqDeplacement} :  Scénario  de déplacement
+d'un agent sur le graphe.
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=14cm]{seqDeplacement}
+  \caption{Scénario de déplacement}
+  \label{fig:diagramme_seqDeplacement}
+\end{figure}
+
+\subsection{Propriétés}
+
+Figure   \ref{fig:diagramme_seqProperties}  :   Scénario   où  l'agent
+souhaite modifier ou obtenir une propriété d'un sommet.
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=14cm]{seqProperties}
+  \caption{Scénario de lecture ou écriture d'une propriété}
+  \label{fig:diagramme_seqProperties}
+\end{figure}
+
+
+
+\section{Contraintes}
+
+\subsection{Langage et portabilité}
+
+Notre rôle  est de  développer une extension  de \visidia, écrit  à la
+base en  Java :  c'est donc  en Java que  nous écrirons  l'ensemble de
+notre  programme,   afin  que  notre  module  s'intègre   au  mieux  à
+l'application.\\
+
+Les  développeurs extérieurs seront  obligés de  passer par  notre API
+pour concevoir de nouveaux  algorithmes distribués, ce qui nous impose
+d'être compris le plus aisément possible par tout le monde. Pour cette
+raison,  notre code  sera  rédigé exclusivement  en  anglais. Le  Java
+semble encore un  choix correspondant à notre volonté,  d'une part car
+il  s'agit d'un  des langages  les plus  utilisés actuellement  (si ce
+n'est  LE plus  utilisé), d'autre  part  pour sa  portabilité sur  les
+différentes plateformes existantes.\\
+
+La  documentation quant  à  elle  sera réalisée  à  l'aide de  l'outil
+Javadoc.\\
+
+
+\subsection{Standard de codage}
+
+*Utilisation des conventions JAVA :
+\begin{itemize}
+\item noms des classes commencant par une majuscule
+\item noms des méthodes commencent par une minuscule
+\item majuscules pour separer les differents mots composant un nom 
+\item accesseurs commençant par 'get'
+\item modificateur commencant par 'set'\\
+\end{itemize}
+
+*Autres standards
+\begin{itemize}
+\item nom des classes et des methodes en anglais
+\item reprise au maximum des noms existant
+\item utilisation de noms explicites
+\item commentaires en anglais style Javadoc
+\end{itemize}
+
+\subsection{Licence} 
+
+L'ensemble de notre  programme sera sous licence GNU  GPL (GNU General
+Public License)  version 2  ou supérieure. Une  version de  la licence
+sera disponible en  français et en anglais dans le  code source, et un
+rappel sera effectué à chaque en-tête de fichier.
+
+
+%% Local Variables:
+%% mode: latex
+%% coding: latin-1
+%% TeX-master: "main"
+%% End:

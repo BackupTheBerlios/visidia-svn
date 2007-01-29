@@ -1,0 +1,97 @@
+compte-rendu de la réunion du 27/01/2006
+----------------------------------------
+
+Rendez-vous 10h au LABRI
+M. Derbel est présents.
+toute l'équipe est présente. 
+
+
+2 sujets majeurs : la cahier des charges et précisions sur l'API.
+
+* Discussion sur le cahier des charges :
+
+  Introduction:  
+
+  Pour l'introduction, Mr Derbel nous incite à reprendre
+  l'introduction du site web visidia du labri.
+
+  Il serait important de faire un petit rappel de l'existant (partie
+  système/contexte).
+
+  Partie "Donner son rôle dans l'organisation" : ne pas parler du PFA
+  mais de ViSiDiA.
+
+  Chapitre 2 : Modèle du système
+
+  Partie Cas d'utilisation :
+  Le diagramme des cas d'utilisations doit être assez simple, il doit
+  être composé des fonctionnalités principales.
+
+  Partie diagramme de classe :
+  Mr Derbel nous précise d'ajouter le whiteboard dans les attributs de
+  la classe Agent.
+
+  Partie Descriptions des différentes classes :
+  Ne pas parler des classes en détail.
+  Présenter les fonctionnalités attendues de notre API bas niveau;
+  Cette description doit être fait clairement avec des phrases en
+  français.
+    ex : Le déplacement de l'agent est effectué de telle façon ...
+
+  Chapitre 3 : Évolution du système
+
+  Cette partie nous (le groupe PFA) semble trouble.
+
+  Mr Derbel résume cette évolution par le fait de vouloir faire en
+  sorte que l'utilisateur doit pouvoir impémenter des algorithmes et les
+  tester.
+
+  Evolution du système : Mr Derbel évoque également une version
+  distribuée utilisant des agents mobiles.
+
+  Chapitre 4 : Besoins fonctionnels et non fonctionnels
+
+  - La méthode putDoorProperty() de la classe agent implique une
+    structure trop lourde. Une solution possible est d'utiliser le
+    whiteboard du sommet pour stoker ces propriétés.
+    Cependant cette méthode doit être défini plus "haut" dans L'API
+    (c'est à dire qu'elle doit être optionnelle et non utilisé de
+    façon systématique).
+
+    Cette méthode était déjà utilisée dans la version qui n'utilise
+    pas d'agents : elle permettait d'effectuer la synchronisation
+    (pour la visualisation)
+    idem pour setEdgeState() 
+
+    Pour les besoins non fonctionnel : utiliser Java.
+  
+* Précision sur l'API :
+
+  Dans la classe Simulator : méthode moveAgentTo()
+
+  Nécessité d'utiliser une composition (lien) entre AgentMover et
+  Simulator pour définir l'action de "bouger".
+  
+  Le lien Simulator <-> Agent doit être un lien pour la visualisation.
+  
+  -> penser à l'initialisation au "dernier" moment, seulement lorsque
+     c'est nécessaire.
+
+  Il ne doit pas y avoir de lien Graph     <-> GUI
+                                 Simulator <-> GUI
+
+  Le Simulateur informe juste le GUI des évènements.
+
+  Est-il possible d'avoir des AgentMover différents pour chaque Agents
+  : Oui, chaque Agent possède son propre AgentMover (de n'importe quel
+  type, pas forcément le même que les autres Agents) ou utilise celui
+  par défaut fournit par le Simulator.
+
+  Il faut également rajouter une méthode bas niveau moveAgentTo() dans
+  la classe Agent afin de pouvoir se passer d'un AgentMover.
+
+  Clonage : on peut cloner et affecter un algo (un Agent) différent à
+  chaque fils cloné. => Méthode clone(Agent) au lien de clone().
+
+  Pour les tests : ceux-ci seront expérimentaux, on utilisera les
+  règles de réécriture.

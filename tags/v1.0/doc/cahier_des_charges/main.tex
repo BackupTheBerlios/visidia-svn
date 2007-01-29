@@ -1,0 +1,75 @@
+\documentclass{report}
+
+%\usepackage{times}
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{amssymb}
+%\usepackage{epstopdf}
+\usepackage{xspace}
+\usepackage{indentfirst}
+
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{fancyheadings}
+\usepackage[Lenny]{fncychap}
+\pagestyle{fancy}
+\newcommand{\sauteligne}{\vspace{0.5cm}}
+\newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\berlios}{BerliOs.de\xspace}
+\author{}
+\date{}
+
+\title{
+  \begin{flushright}
+    \begin{Huge}
+      \begin{textbf}
+        Projet \visidia\\
+      \end{textbf}
+    \end{Huge}
+    \rule{\textwidth}{2mm}\\
+    \large\rm{Cahier des charges}\\
+    \vspace{2cm}
+    \begin{textbf}\\
+      \underline{Auteurs} :\\
+      \vspace{0.5cm}
+      \sc Nada Ayad\\
+      Damien Cassou\\
+      Xavier Durand\\
+      Jean-Baptiste Gautron\\
+      Hicham Ghriss\\
+      Mathieu Hopmann\\
+      Julie Quagliozzi\\
+      \vspace{5mm}
+    \end{textbf}
+    \rm 10 février 2006
+  \end{flushright}
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{introduction}
+\input{modele_systeme}
+\input{besoins}
+\input{organisation}
+\input{lexique}
+\input{biblio}
+
+
+\end{document}
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: t
+%% coding: latin-1
+%% End: 

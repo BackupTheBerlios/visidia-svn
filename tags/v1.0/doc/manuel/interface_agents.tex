@@ -1,0 +1,375 @@
+\section{Ajouter un ou des agents au graphe}
+
+La  première étape de  la simulation  avec des  agents mobiles  est le
+placement  d'agents sur  des sommets.  Pour effectuer  ceci, plusieurs
+méthodes peuvent être envisagées :
+
+\begin{itemize}
+
+\item Le placement manuel
+
+\item Le placement programmé
+
+\item Les règles de réécritures
+
+\end{itemize}
+
+\subsection{Ajouter des agents écrits avec l'API}
+
+Pour les agents écrits avec  l'API, sélectionnez dans un premier temps
+le(s) sommet(s)  sur le(s)quel(s) vous souhaitez ajouter  un agent. La
+selection  se fait  avec un  clic  droit de  la souris  (si besoin  en
+maintenant  la touche SHIFT  en cas  de sélection  multiple).  Ensuite
+utilisez  la commande \textbf{Add  Agent...}  du  menu \textbf{Agent}.
+Sélectionnez  alors  le  type   d'agent  à  ajouter  en  sélectionnant
+l'algorithme   compilé  dans   la  boite   de  dialogue.    Pour  plus
+d'information sur l'écriture d'algorithmes à l'aide de l'API, veuillez
+vous référer à la section \emph{Programmer des agents avec l'API}.
+
+\subsection{Ajouter des agents de façon programmée}
+
+Lancer    la    commande    \textbf{Place    Agents...}     du    menu
+  \textbf{Agents}. Cette technique  de placement ne fonctionne qu'avec
+  les algorithmes  compilés avec  l'API, et permet  de placer  un type
+  d'agent choisi de façon programmée sur le graphe : par exemple, vous
+  pourrez placer  un type d'agent sur  les sommets du  graphe avec une
+  probabilité de 1/2 pour chaque sommet.\\
+
+Pour   programmer   votre   placeur,   réferez-vous   à   la   section
+  \ref{sec:prog-placeur}
+
+
+\subsection{Ajouter des agents définis avec des règles de réécritures}
+
+Avec l'écriture de  code, il existe un autre  modèle de représentation
+pour les algorithmes  distribués : les règles de  réécritures. Grâce à
+ces règles,  un utilisateur peut littéralement  dessiner un algorithme
+avec sa souris à l'intérieur de \visidia et le valider pour suivre son
+exécution  comme  s'il l'avait  écrit  en  Java.  Consultez la  figure
+\ref{fig:existant-regles} pour un exemple de règle.
+
+Vous avez deux possibilités pour vous servir des règles de réécritures
+:
+
+  \begin{itemize}
+
+  \item Créer un nouveau jeu de règles de réécritures avec la commande
+     \textbf{New relabeling system} du menu \textbf{Rules}.
+
+  \item Ouvrir un jeu de règles de réécritures précédemment sauvegardé
+    avec la commande \textbf{Open rules...} du menu \textbf{Rules}.
+
+  \end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=14cm]{regles-reecritures}
+  \caption{Les  règles de réécritures  sont implantées  dans \visidia.
+    L'utilisateur peut simplement  dessiner ses algorithmes.  Ici, est
+    présentée   une   des  règles   de   réécritures  utilisées   pour
+    l'algorithme d'arbre recouvrant  avec détection de la terminaison.
+    Cette règle dit: ``Si $u$ est  un sommet de label ``A'' qui a pour
+    voisin un  sommet $v$  de label ``A''  aussi, que l'arête  qui les
+    sépare est marquée  (en gras) et que $u$ n'a pas  de voisin $w$ de
+    label ``N'' avec une arête  non marquée (``Context 1''), alors $u$
+    peut  prendre ``F''  comme label  (en réalité,  il y  a  une autre
+    exclusion qui est cachée sous l'onglet ``Context 2'')''.}
+  \label{fig:existant-regles}
+\end{figure}
+
+\textbf{Remarque  :}   Dans  la   version  actuelle,  les   règles  de
+réécritures ne sont pas totalement implantées : les contextes sont par
+exemple manquants.
+
+\section{Exécution de la simulation}
+
+Une  fois vos agents  en place,  vous pouvez  lancer la  simulation en
+cliquant sur  le bouton start. Tous  les agents que  vous avez ajoutés
+sur  le graphe  seront alors  lancés. Vous  pouvez  cependant toujours
+influer sur le déroulement de la simulation :
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{boutons-exec}
+  \caption{Les boutons pour influer  sur la simulation. Le bouton save
+permet, lui, de sauvegarder le graphe courant}
+  \label{fig:boutons-exec}
+\end{figure}
+
+\subsection{Bouton pause}
+
+La simulation  se met en  pause le temps  que vous le souhaitez  : les
+agents  et  le  simulateur  cessent  leurs  activités,  mais  existent
+toujours.  Vous  avez donc  accès aux whiteboards  des sommets  et des
+agents, ainsi qu'aux statistiques.\\
+
+Réappuyez sur le bouton \textbf{pause} pour que la simulation reprenne.
+
+\subsection{Bouton stop}
+
+La simulation  est stoppée  : contrairement au  bouton \textbf{pause},
+une fois la simulation stoppée,  vous ne pouvez plus la reprendre.  Le
+simulateur  n'existe plus,  les agents  non plus,  il n'est  donc plus
+possible  d'accéder aux  whiteboards des  agents. Les  whiteboards des
+sommets restent cependant accessibles, tout comme les statistiques.
+
+\subsection{Bouton speed}
+
+Ce  bouton  influence  la   vitesse  de  déplacement  des  agents  sur
+l'interface graphique :  plus la vitesse est lente,  plus ils mettront
+de temps à se déplacer d'un sommet à un autre.\\
+
+\subsection{Bouton RESET}
+
+Le   bouton   \textbf{RESET}  permet   de   remettre  l'ensemble   des
+informations à zéro (agents, whiteboards, statistiques, etc).  Si vous
+venez de  lancer une  simulation et que  vous souhaitez en  lancer une
+autre, vous devez au préalable utiliser le bouton reset : vous pourrez
+alors de nouveau ajouter des agents sur le graphe.
+
+\subsection{Pulse Counter}
+
+En bas à droite de la fenêtre de simulation se trouve un champ ``Pulse
+Counter''.   Celui-ci  est  dégrisé  lors  de  l'utilisation  d'agents
+synchronisés, et  correspond au nombre  de tops (ou  pulses) effectués
+par les agents synchronisés.\\
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=3cm]{pulse-counter}
+  \caption{Le  champ  pulse counter  lors  d'une  simulation avec  des
+  agents synchronisés}
+  \label{fig:pulse-counter}
+\end{figure}
+
+Pour plus de renseignements sur les pulses et les agents synchronisés,
+veuillez vous réferer à la section \ref{sec:prog-agent-synchro}.
+
+
+\section{Utilisation des WhiteBoards}
+
+Les whiteboards sont une particularité  de la partie agent de \visidia
+:  il s'agit simplement  d'un regroupement  d'informations liées  à un
+sommet ou à un agent.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm]{whiteboards}
+  \caption{Les 3  icônes dédiées  à l'accès et  à la  modification des
+  whiteboards,  dans   l'ordre  :  whiteboard  propre   à  un  sommet,
+  whiteboard commun à tous les sommets, whiteboard propre à un agent}
+  \label{fig:whiteboards-icons}
+\end{figure}
+
+\subsection{WhiteBoards des agents}
+
+Chaque agent  possède un whiteboard pour y  stocker diverses variables
+auxquelles il peut accéder  en lecture et écriture. Concrètement, cela
+revient au même que de déclarer des variables lors de la programmation
+de  l'agent,  mais les  whiteboards  ont  l'avantage  de pouvoir  être
+visualisables  en temps  réel  lors d'une  simulation via  l'interface
+graphique.   Ils  permettent de  plus  la  modification des  variables
+durant la simulation par l'utilisateur.
+
+Pour accéder au whiteboard d'un agent, voici la manipulation à faire :
+\begin{enumerate}
+\item Cliquez sur le bouton ``agent whiteboard'' de l'interface.
+\item  Choisir  l'agent dont  on  souhaite  consulter  ou modifier  le
+whiteboard
+\end{enumerate}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm]{whiteboards-agent}
+  \caption{Après avoir cliqué sur  l'icône whiteboard pour agent, vous
+  devez  selectionner   l'agent  dont  vous   souhaitez  consulter  le
+  whiteboard}
+  \label{fig:whiteboards-agent}
+\end{figure}
+
+Pour savoir comment modifier le whiteboard d'un agent, consultez la section
+\ref{sec:interface-whiteboards-modif}.
+
+\subsection{WhiteBoards des sommets}
+
+Comme pour  les agents, il est  possible de stocker  des variables sur
+les  sommets en utilisant  des whiteboards  dédiés à  ça. Ce  sont les
+agents  qui   consultent  ou   modifient  ces  whiteboards,   ou  bien
+directement l'utilisateur.\\
+
+L'accès et la modification de valeurs se font de 2 façons : 
+
+\begin{itemize}
+
+\item  En sélectionnant  un sommet  (clic droit  de la  souris  sur le
+sommet) puis  en cliquant  sur le bouton  ``info'' de  l'interface. De
+cette manière on accède au whiteboard local au sommet sélectionné.
+
+\item En  cliquant sur  le bouton ``initialize''  de l'interface  : on
+accède alors  aux champs communs  à tous les sommets,  un ``whiteboard
+global''. Cette action est surtout utile si l'on souhaite rajouter une
+variable qui n'existe pas encore sur tous les sommets.
+
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=9cm]{whiteboards-sommet}
+  \caption{Après  avoir sélectionné  un sommet  et cliqué  sur l'icône
+``info'', vous  accèderez à  cette fenêtre. Vous  pouvez ici  voir les
+variables  associées à  ce sommet,  les  modifier, en  ajouter, ou  en
+supprimer. La fenêtre  de défilement en haut à  droite est rattachée à
+la variable ``label''}
+  \label{fig:whiteboards-sommet}
+\end{figure}
+
+Pour savoir comment modifier les valeurs de ces whiteboards, consultez
+la section \ref{sec:interface-whiteboards-modif}.
+
+
+\subsection{Modification des whiteboards}
+\label{sec:interface-whiteboards-modif}
+
+Nous   décrirons   ici  la   modification   des  whiteboards   (ajout,
+suppression,  modification de  variables). L'interface  étant  la même
+pour les whiteboards des sommets  et des agents, nous ne décrirons ces
+possibilités qu'une seule fois.\\
+
+A partir d'ici, on considère qu'un whiteboard est ouvert via une des
+méthodes décrites ci-dessus.
+
+\subsubsection{Ajout d'une variable}
+
+\begin{enumerate}
+\item Cliquez sur le bouton \textbf{Add}
+\item Sélectionnez le type de variables que vous souhaitez intégrer au
+whiteboard (String, int, double, ...)
+\item  Choisissez un  nom pour  votre  variable (attention  : si  vous
+ajoutez une variable  qui porte le nom d'une  variable déjà existante,
+cette dernière sera écrasée)
+\item  Entrez une valeur associée à votre nouvelle variable
+\end{enumerate}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6cm]{whiteboards-modif}
+  \caption{Lorsque vous souhaitez ajouter  une variable, 3 étapes sont
+nécessaires : choix du type de la variable, choix du nom puis choix de
+sa valeur.}
+  \label{fig:whiteboards-modif}
+\end{figure}
+
+\textbf{Cas particulier : } On considère que le whiteboard propre à un
+sommet est  prioritaire par  rapport au whiteboard  global à  tous les
+sommets. Ainsi, si  le nom d'une variable apparaît  en même temps dans
+le  whiteboard global aux  sommets et  dans le  whiteboard local  à un
+sommet, c'est cette  dernière qui sera privilégiée. Ainsi  si un agent
+demande la valeur de cette variable, ce sera la valeur locale qui sera
+retournée.
+
+\subsubsection{Suppression d'une variable}
+
+\begin{enumerate}
+\item Sélectionnez la variable à supprimer
+\item Cliquez sur le bouton \textbf{Remove}
+\end{enumerate}
+
+\subsubsection{Modification d'une variable}
+
+\begin{enumerate}
+\item Cliquez sur le champ à modifier
+\item Entrez la nouvelle valeur
+\item Appuyez  sur ENTREE  pour que la  nouvelle valeur soit  prise en
+compte
+\end{enumerate}
+
+\textbf{Cas particulier  :} Si vous  souhaitez modifier le  label d'un
+sommet,  vous devez  utiliser la  liste  déroulante située  en haut  à
+droite des whiteboards locaux des sommets.
+
+
+\section{Visualisation des statistiques}
+
+L'utilisation des statistiques  est un peu particulière :  on peut les
+visualiser pendant  une simulation classique,  avec les agents  qui se
+déplacent de manière visible sur le  graphe, mais on peut aussi ne pas
+lancer la simulation graphique et uniquement voir les statistiques.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=3cm]{statistics-button}
+  \caption{Le bouton Statistics se  dégrise dès l'ajout d'un agent sur
+  le graphe}
+  \label{fig:statistics-button}
+\end{figure}
+
+\subsection{Lancement pendant la simulation}
+
+Vous pouvez  consulter les statistiques en plein  milieu de simulation
+si vous le souhaitez : pour cela, vous devrez placer des agents sur le
+graphe  puis lancer une  simulation comme  expliqué dans  les sections
+précédentes, puis cliquer sur le bouton \textbf{Statistics}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=11cm]{statistics-algo}
+  \caption{Après  avoir  cliqué  sur  Statistics, vous  devez  choisir
+quelles statistiques vous voulez afficher}
+  \label{fig:statistics-algo}
+\end{figure}
+
+Après avoir  cliqué sur le bouton Statistics,  vous devez sélectionner
+la classe  de statistiques que vous  souhaitez. En effet,  il vous est
+permis  de choisir  quelles statistiques  seront affichées  et comment
+elles seront  calculées. Par  exemple, vous pouvez  choisir d'afficher
+toutes les statistiques, ou bien uniquement les statistiques liées aux
+déplacements, ou bien encore une  moyenne des déplacements de tous les
+agents.    
+
+Pour  savoir  comment  créer  ses  propres  classes  de  statistiques,
+réferez-vous   à    la   section   \ref{sec:prog-stats}.\\
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=13cm]{statistics-avec-simu}
+  \caption{Un exemple  d'affichage de statistiques  avec la simulation
+graphique lancée}
+  \label{fig:statistics-avec-simu}
+\end{figure}
+
+Une fois  la classe choisie,  les statistiques s'afficheront  en temps
+réél,  et les  déplacements des  agents seront  toujours  visibles sur
+l'interface graphique.
+
+\subsection{Lancement en dehors d'une simulation}
+
+Si voir les agents se déplacer graphiquement ne vous intéresse pas, et
+que  vous désirez  une simulation  beaucoup plus  rapide,  vous pouvez
+visualiser les statistiques sans lancer la simulation graphique.\\
+
+Avant cela,  vous devez tout  de même dans  un premier temps  créer ou
+charger  votre graphe,  puis placer  des agents  dessus comme  si vous
+alliez lancer  une simulation graphique.  Une fois  cela fait, cliquez
+sur le  bouton \textbf{Statistics}.  Puis, choisissez  votre classe de
+statistiques comme expliqué dans la section précédente.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=13cm]{statistics-sans-simu}
+  \caption{Un exemple  de statistiques sans  simulation graphique. Des
+boutons \textbf{Start}  et \textbf{Abort} sont  apparus, correspondant
+au démarrage et à l'arrêt de la simulation}
+  \label{fig:statistics-sans-simu}
+\end{figure}
+
+Vous pouvez alors cliquer  sur le bouton \textbf{Start} pour commencer
+la simulation : vous verrez  les statistiques évoluer, mais les agents
+resteront  figés sur  le  graphe.  Pour mettre  fin  à la  simulation,
+cliquez simplement sur le bouton \textbf{Abort}.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% coding: latin-1
+%%% TeX-PDF-mode: t
+%%% End: 

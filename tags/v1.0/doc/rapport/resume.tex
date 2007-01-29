@@ -1,0 +1,100 @@
+
+\paragraph{Présentation générale}
+
+La généralisation  des réseaux hétérogènes et de  grandes tailles dans
+de   multiples   domaines  implique   des   études  conséquentes   sur
+l'algorithmique    distribuée.    Le    développement   d'applications
+distribuées est rendu difficile dû  à des problèmes de concurrence aux
+ressources et à la communication inter processus. C'est la raison pour
+laquelle  les chercheurs ont  commencé à  développer des  logiciels de
+simulation.    Ces   logiciels   permettent  de   suivre   l'évolution
+d'algorithmes distribués graphiquement et en temps réel dans le but de
+comprendre leur fonctionnement, d'en  concevoir de nouveaux mais aussi
+dans le but de trouver des propriétés et des invariants nécessaire aux
+preuves formelles.
+
+
+\paragraph{\visidia}
+
+Les chercheurs  du \labri\footnote{Laboratoire Bordelais  de Recherche
+  en Informatique}, sous la  direction des professeurs Mohamed Mosbah,
+coordinateur  du projet,  et  Yves Métivier,  responsable de  l'équipe
+algorithmique  distribuée, ont  mit au  point un  tel  simulateur.  Le
+projet \visidia \footnote{Visualization  and Simulation of Distributed
+  Algorithms} a pour but de faciliter la visualisation et
+la simulation d'algorithmes distribués.
+
+
+\paragraph{Utilisation}
+
+Pour  pouvoir  se  servir  de  \visidia  dans le  but  de  simuler  un
+algorithme  distribué, l'utilisateur  devra commencer  par  écrire son
+algorithme    en   utilisant    le   langage    Java   et    une   API
+\footnote{Application Programming Interface} de haut niveau fournie et
+documentée par  \visidia. Cela fait,  il devra charger ou  dessiner un
+graphe   dans  \visidia   puis  pourra   lancer  l'exécution   de  son
+algorithme. A partir de là, l'utilisateur visionnera en temps réel les
+différentes actions effectuées par son algorithme.
+
+
+\paragraph{Succès}
+
+De part son  unique interface à la fois  simple d'utilisation et riche
+en  fonctionnalités, de  part la  possibilité de  visualiser  en temps
+réels l'exécution  des algorithmes distribués  et de part  la présence
+d'une  API  puissante  et  simple,   \visidia  est  de  plus  en  plus
+utilisé. D'autres  équipes de chercheurs  l'utilisent et une  équipe à
+Marseille  développe même  le  logiciel.  Les  responsables du  projet
+\visidia sont en phase d'installation d'un serveur de gestion de code
+source qui  va permettre à plusieurs équipes  de travailler séparément
+sur \visidia tout en permettant l'évolution générale du logiciel.
+
+
+\paragraph{Limites}
+
+Il  existe  plusieurs  modèles  permettant de  gérer  les  algorithmes
+distribués.   Le  plus  commun  est  le modèle  de  communication  par
+message.   Chaque  sommet  exécute  un algorithme  indépendamment  des
+autres et  peut aussi communiquer  avec ses voisins.  C'est  le modèle
+implanté actuellement  dans \visidia.  Cependant, ce  modèle amène une
+surconsommation des ressources machines  ; en effet, pour chaque noeud
+du graphe,  un processus est  créé.  Si cela  ne pose pas  de problème
+pour  les petites expérimentations,  il est  par contre  impossible de
+simuler des algorithmes sur de très gros graphes. C'est en partie pour
+cette raison que l'implantation d'un  autre modèle a été envisagée par
+le coordinateur.
+
+
+\paragraph{Les agents}
+
+Le  modèle  envisagé par  l'équipe  du  \labri  est celui  des  agents
+mobiles.   Dans  ce modèle,  les  noeuds  du  graphe n'exécutent  plus
+d'algorithme, ils  deviennent complètement  passifs et ne  peuvent que
+stocker des  informations.  Les agents  sont des entités  autonomes de
+calcul qui se déplacent dans le graphe. Sur chaque sommet, ils peuvent
+effectuer  les  actions  qu'ils  désirent  comme lire  ou  écrire  des
+informations  sur  le sommet,  attendre,  se  dupliquer  etc. puis  se
+déplacer  vers  un autre  sommet  et  y  effectuer un  autre  ensemble
+d'actions. Il a été démontré que les deux modèles sont équivalents.
+
+
+\paragraph{Le projet}
+
+Dans le cadre de la formation d'ingénieurs de l'ENSEIRB\footnote{École
+Nationale      Supérieure     d'Électronique,      Informatique     et
+Radiocommunication  de  Bordeaux},  il  a  été  demandé  à  un  groupe
+d'étudiants  d'implanter  le  modèle  à  base  d'agents  mobiles  dans
+\visidia.  Ce projet,  d'une durée de quatre mois,  devait se faire en
+respectant le  plus possible les procédures  habituellement suivie par
+l'industrie :  rédaction et validation  par le client d'un  cahier des
+charges,  présentation  régulière  de  livrables en  accord  avec  les
+attentes du client,  respect de délais stricts et  remise d'un rapport
+et d'un manuel d'utilisation et d'évolution.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "rapport"
+%%% TeX-PDF-mode: t
+%%% coding: latin-1
+%%% End: 

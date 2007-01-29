@@ -1,0 +1,64 @@
+\subsection{Paramétrer Simulateur}
+
+Ce cas d'utilisation va permettre à l'utilisateur de pouvoir
+paramétrer le simulateur. Ce cas d'utilisation sera accessible
+seulement dans la fenêtre simulation.
+
+%\subsection{Cartouche d'identification de la fiche de cas d'utilisation}
+
+%\begin{table}[ht!]
+%\begin{tabular}{|l|l|}
+%\hline
+%Nom fiche de cas d'utilisation & DefineRewritingRule \\  \hline
+%Date de mise a jour & $LastChangedDate$ \\ \hline
+%Version & 0.1 \\ \hline
+%Redacteur & Xavier\\ \hline
+%Priorité du cas d'utilisation & Moyen \\ \hline
+%\end{tabular}
+%\caption{} \label{cartouche_ReglesReecriture}
+%\end{table}
+
+
+\subsubsection{Généralités}
+
+%\begin{table}[h!t]
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+Cas d'utilisation & Paramétrer le simulateur. \\ \hline
+Acteurs & L'utilisateur. \\ \hline
+But & Permettre à l'utilisateur de définir le comportement du simulateur. \\ \hline
+Résumé Métier & L'utilisateur défini ses paramètres par
+l'intermédiaire d'un formulaire. \\ \hline
+Pré conditions & La partie simulation est lancée et le simulateur est arrêté. \\ \hline
+Post conditions & Le simulateur est paramétré. \\ \hline
+Commentaires & Le paramétrage s'applique seulement au simulateur
+courant du système.\\ \hline
+\end{tabular}
+%\caption{} 
+%\label{genralites_ParamSimu}
+%\end{table}
+
+\subsubsection{Scénario Nominal}
+
+%\begin{table}[h!t]
+\begin{tabular}{|c|p{11cm}|}
+  \hline
+  Numéro enchaînement & Action \\  \hline
+  \multirow{5}{0cm}{1} & L'utilisateur saisit les paramètres du
+  simulateur . \\
+%  & Les sommets ont un identifiant : Oui/Non \\
+%  & Les agents ont un identifiant : Oui/Non \\
+  & Choix de la répartition : Choix à la souris (défaut) /
+    Aléatoire : Proba / Spécifique : choix de la classe. \\
+  & Choix de la méthode de synchronisation : Synchrone/Asynchrone. \\
+  & Détection des collisions (deux agents se croisent sur une arête) :
+    Oui/Non \\ \hline
+  2 & Le système enregistre les paramètres du simulateur \\ \hline
+\end{tabular}
+%\caption{}
+%\label{nominal_ParamSimu}
+%\end{table}
+
+\subsubsection{Exceptions}
+
+Pas de scénario d'exception.

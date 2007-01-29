@@ -1,0 +1,78 @@
+\documentclass{report}
+
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{xspace}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{indentfirst}
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+
+\newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\dossier}[1]{$#1$}
+\newcommand{\classe}[1]{$#1$}
+\newcommand{\methode}[1]{$#1$}
+
+\title{Mode d'emploi pour \visidia et les agents mobiles}
+\author{L'équipe PFA \visidia 2006}
+\date{Avril 2006}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+% Simu Agent mobile
+%   Ajouter 1 agent
+%      Via API
+%        - manu
+%        - placeur
+%      Via regles de reecriture
+%   Edition WhiteBoards
+%     WB Agent
+%     WB Sommet
+%       - def
+%       - specif
+%   Execution simulation
+%     pulse stop pause
+%   Statistiques
+%       
+% Programmation      
+%   Agent
+%   Agent Sync
+%   Mover
+%   Placeur
+%   Stats
+
+\chapter{Objet}
+
+\input{objet}
+
+\chapter{Installer et lancer \visidia}
+
+\input{installer}
+
+\chapter{Creation d'un graphe}
+
+\input{creer_graphe}
+
+\chapter{Simulation avec des agents mobiles}
+
+\input{interface_agents}
+
+\chapter{Programmer des agents avec l'API}
+
+\input{programmation_agents}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: latin-1
+%%% TeX-PDF-mode: t
+%%% End: 

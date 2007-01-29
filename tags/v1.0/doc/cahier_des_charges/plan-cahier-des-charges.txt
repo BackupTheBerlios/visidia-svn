@@ -1,0 +1,37 @@
+Le cahier des charges :
+ -- doit spécifier le comportement externe du système
+ -- doit spécifier des contraintes sur l'implémmentation
+ -- doit être modulaire en facile à naviguer
+ -- doit être conçu comme un outil de références pour les mainteneurs
+ -- doit prendre en compte le cycle de vie du système
+ -- doit caractériser les réponses du système face aux événements
+         indésirables
+
+Plan normalisé en chapitres :
+
+1. Introduction et motivation
+ -- Décrire la problématique et la motivation
+ -- Placer le système en contexte
+ -- Donner son rôle dans l'organisation
+
+2. Modèle du système
+ -- Cas d'utilisation (diagrammes UML)
+ -- Modèle abstrait de données (diagrammes UML)
+
+3. Evolution du système
+ -- Suppositions fondamentales
+ -- Evolutions adaptives anticipées
+
+4. Besoins fonctionnels et non fonctionnels
+ -- Services offerts aux utilisateurs
+ -- Modèle d'analyse (diagrammes UML)
+ -- Contraintes : sur le produit (usabilité, efficacité, fiabilité), sur le processus
+   de développement (normes), ou externes (légales, coûts)
+5. Lexique
+6. Bibliographie
+
+
+%%% Local Variables: 
+%%% coding: latin-1
+%%% mode: text
+%%% End:

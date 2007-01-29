@@ -1,0 +1,12 @@
+Slide 1(ajouter au contenu):
+Instancier la classe AgentMover:
+	Implanter la méthode findNextDoor
+Slide 2:supprimé
+Slide 3:
+Principe : ....
+La méthode Planning : implanter dans le code de l'agent, elle présice ce que cet agent doit faire au moment de la rencontre.
+MeetingOrganizer : Précise les conditions des rendez-vous + appele la méthode planning.
+Slide 4:
+1-Hiérarchie AbstractStatReport et la hiérarchie AbstractStat (je le ferais dans une image)
+2- Le role de la classe Bag
+Slide 5: supprimé.

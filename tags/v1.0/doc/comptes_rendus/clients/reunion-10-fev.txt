@@ -1,0 +1,30 @@
+compte-rendu de la réunion du 10/02/2006
+----------------------------------------
+
+Rdv 10h au LABRI.
+Mr Derbel est présent.
+Toute l'équipe est présente. 
+
+La discussion tourne autour du cahier des charges. La remise est à 17h
+dans l'après-midi. 
+
+Introduction:
+- Revoir le découpage en paragraphes. Réunir les §1 et §2.
+- Déplacer le titre `L'existant` au niveau du troisième paragraphe.
+- Renommer le titre `But`en `Motivations et but`.
+
+Use Case:   
+- Renommer le cas d'utilisation `lancer simulation` en `simulation`.
+- Visibilité de la question du synchronisme. Jusqu'à présent le choix
+  entre synchrone et non synchrone est évoqué seulement dans la
+  description du cas d'utilisation. Ajouter une note sur le diagramme à
+  ce propos.
+- Supprimer l'évocation des scénarios alternatifs et des exceptions
+  dans la description des cas d'utilisation.
+
+Diagramme de séquence:
+- Mr Derbel n'aime pas trop ce genre de choses car c'est bien trop précis
+  dès la rédaction du cahier des charges. Ne doit pas être figé mais
+  évolué au cours du projet.
+- Courcircuiter ou non le simulateur? Par exemple pour la méthode
+  setProperty(). Dans l'idéal implémenter une solution puis l'autre.

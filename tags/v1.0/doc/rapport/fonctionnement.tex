@@ -1,0 +1,108 @@
+%\paragraph{Fonctionnement}
+
+Cette partie va illustrer ce rapport d'un jeux de copies d'écrans
+récapitulant les fonctionnalités implantées.
+
+La première étape à réaliser est l'écriture de l'algorithme (voir
+le Manuel d'utilisation) et sa compilation en bytecode Java.
+
+L'étape suivante est la création du graphe sur lequel la simulation va
+s'effectuer (\ref{fig:fonctionnement-matrix-graph}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-matrix-graph}
+  \caption{Fenêtre d'édition d'un graph : une grille 4x4}
+  \label{fig:fonctionnement-matrix-graph}
+\end{figure}
+
+Une fois fois le graphe créé, la fenêtre de simulation peut-être
+lancée. A cette étape, nous ajoutons des agents sur des sommets de
+départ que l'on choisi par sélection ou par algorithme
+(\ref{fig:fonctionnement-ajout-agent}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-ajout-agent}
+  \caption{Ajout d'un type d'agent sur les trois sommets sélectionnés}
+  \label{fig:fonctionnement-ajout-agent}
+\end{figure}
+
+La quatrième étape consiste à choisir notre agent compilé dans la
+fenêtre de sélection (\ref{fig:fonctionnement-choix-agents}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=7cm]{fonctionnement-choix-agents}
+  \caption{Sélection du type d'agent voulu}
+  \label{fig:fonctionnement-choix-agents}
+\end{figure}
+
+Ensuite vient l'étape de la simulation proprement dite. Les agents se
+déplacent, marquent des arêtes, se répliques ou se suicident
+conformément à ou aux algorithmes d'agent que l'on vient de
+programmer. Ces actions sont représenté graphiquement dans la fenêtre
+de simulation (\ref{fig:fonctionnement-simu1}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-simu1}
+  \caption{Simulation en cours : les agents se déplacent sur le graph}
+  \label{fig:fonctionnement-simu1}
+\end{figure}
+
+On peut également visualiser et éditer les whiteboards des agents et
+des sommets au cours de la simulation en temps réel
+(\ref{fig:fonctionnement-vertex-properties}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-vertex-properties}
+  \caption{Visualisation des informations du whiteboard d'un sommet}
+  \label{fig:fonctionnement-vertex-properties}
+\end{figure}
+
+Lorsque tous les agents ont terminés, la simulation se termine à son
+tour et en informe l'utilisateur (\ref{fig:fonctionnement-simu-terminated}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-simu-terminated}
+  \caption{Les algorithmes sont terminés, tous les agents sont mort}
+  \label{fig:fonctionnement-simu-terminated}
+\end{figure}
+
+Des statistiques paramétrables peuvent également être établies
+(\ref{fig:fonctionnement-choix-stats} et
+\ref{fig:fonctionnement-stats}). Pour cela l'utilisateur doit avoir
+préalablement programmé sa classe de calcul de statistiques et l'avoir
+compilé (voir le Manuel d'utilisation).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=7cm]{fonctionnement-choix-stats}
+  \caption{Choix de la méthode de calcul des statistiques}
+  \label{fig:fonctionnement-choix-stats}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{fonctionnement-stats}
+  \caption{Résultats du calcul de nos statistiques}
+  \label{fig:fonctionnement-stats}
+\end{figure}
+
+
+
+%\paragraph{Écriture d'un algorithme}
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master:  "rapport" 
+%%% TeX-PDF-mode: t 
+%%% coding:latin-1 
+%%% End:

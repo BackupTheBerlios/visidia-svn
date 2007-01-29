@@ -1,0 +1,77 @@
+
+\section{Lisibilité et extensibilité}
+
+Cette  partie ne concerne  pas directement  la simulation  des agents,
+mais \visidia dans  son ensemble : le programme souffre  de son âge et
+du fait d'être passé entre de nombreuses mains d'élèves ingénieurs peu
+expérimentés (y compris nous).\\
+
+De ce fait, il résulte  un programme qui fonctionne correctement, mais
+aux possibilités  d'extension faibles (peu  d'utilisation du mécanisme
+d'héritage). Ainsi,  les rajouts se greffent directement  dans le code
+existant,  ou  via  des   copier-coller,  augmentant  les  risques  de
+plantages et/ou d'incohérences.\\
+
+Les parties sur  lesquelles nous avons travaillé accusant  ce genre de
+problème sont  l'interface graphique principalement,  et le simulateur
+dans une moindre mesure.
+
+Idéalement,  l'interface  graphique  devrait  permettre le  rajout  de
+modules sans avoir à modifier le code d'origine. Malheureusement, pour
+cela, une refonte du  code de l'interface graphique semble inévitable,
+or il  s'agit d'un processus  lourd en temps  et personnes, ce  qui le
+rend peu envisageable.
+
+Concernant le simulateur, une factorisation des différents simulateurs
+existants   serait   préférable.    Cette  factorisation   n'est   pas
+essentielle actuellement mais le  deviendra si d'autres simulateurs se
+greffent plus tard à ceux existants.
+
+\section{Simulation sur des graphes de grandes tailles}
+
+Permettre  une visualisation  graphique est  un avantage  certain pour
+mieux comprendre et vérifier le comportement d'un algorithme. Mais une
+fois  que le  nombre de  noeuds d'un  graphe dépasse  la  centaine, il
+devient  difficile  de  suivre  correctement  le  déroulement  de  cet
+algorithme.\\
+
+Il  s'agit  donc  d'une   limitation  importante,  les  chercheurs  ne
+souhaitant  pas  limiter leurs  expérimentations  sur  des graphes  de
+petite  taille. La  solution  à adopter  pourrait  être d'utiliser  le
+simulateur  sans passer par  l'interface graphique  puis d'enregistrer
+chaque   action  dans  un   fichier,  mais   on  perd   clairement  en
+visualisation.
+
+\section{Choix du nombre d'agent}
+
+Utiliser des  agents pour simuler des  algorithmes distribués présente
+l'avantage  de  pouvoir contrôler  le  nombre  de  processus qui  sont
+exécutés  lors de  la simulation  (contrairement à  la  simulation par
+messages qui impose un processus par sommet du graphe).
+Le nombre  de processus dépend en  effet du nombre d'agents  et non du
+nombre de sommet. \\
+
+Cet avantage a aussi son inconvénient : ce que l'on gagne en ressource
+machine,  on  le  perd  bien  souvent en  temps  lors  de  l'exécution
+d'algorithmes  distribués  avec  un  faible nombre  d'agents.   Si  au
+contraire on souhaite  faire tourner un grand nombre  d'agents, on est
+rapidement  limité  par les  ressources  de  la  machine à  partir  de
+quelques milliers d'agents.
+
+Toutefois, cette  flexibilité reste avant tout un  avantage malgré ces
+limites.
+
+\section{Ajouter des agents après le départ de la simulation}
+
+Dans  l'état actuel  des choses,  l'ajout d'agents  sur le  graphe par
+l'utilisateur ne se fait qu'avant le départ de la simulation. Une fois
+que  l'utilisateur a  appuyé  sur le  bouton  start, il  ne peut  plus
+ajouter  de nouveaux  agents  au graphe,  seuls  les agents  eux-mêmes
+peuvent créer d'autres agents (ou se cloner).
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master:  "rapport" 
+%%% TeX-PDF-mode: t 
+%%% coding:latin-1 
+%%% End:

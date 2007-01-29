@@ -1,0 +1,134 @@
+\documentclass{report}
+
+%\usepackage{times}
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{amssymb}
+%\usepackage{epstopdf}
+\usepackage{xspace}
+\usepackage{indentfirst}
+
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{fancyheadings}
+\usepackage[Lenny]{fncychap}
+\pagestyle{fancy}
+\newcommand{\sauteligne}{\vspace{0.5cm}}
+
+\newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\berlios}{BerliOs.de\xspace}
+\newcommand{\labri}{LaBRI\xspace}
+
+\author{}
+\date{}
+
+\title{
+  \begin{flushright}
+    \begin{Huge}
+      \center
+      \begin{textbf}
+        Projet \visidia\\
+      \end{textbf}
+    \end{Huge}
+    \rule{\textwidth}{1mm}\\
+    \center
+    \large\rm{Rapport du Projet de Fin d'Année 2005-2006}\\
+    \vspace{2cm}
+    \center
+      \begin{textbf}\rm
+        Auteurs :\\
+        \rule{3cm}{0.3mm}\\
+        \sc Nada Ayad\\
+        Damien Cassou\\
+        Xavier Durand\\
+        Jean-Baptiste Gautron\\
+        Hicham Ghriss\\
+        Mathieu Hopmann\\
+        Julie Quagliozzi\\
+        % \vspace{5mm}\rm
+        \begin{figure}[ht]
+          \centering
+          \includegraphics[width=8cm]{figures/Complet.jpg}
+        \end{figure}
+        \center
+        Responsable pédagogique :\\
+        \rule{5cm}{0.3mm}\\
+        \sc P.Y. Gloess\\
+        \vspace{10mm}\rm
+        Responsables scientifiques :\\
+        \rule{5cm}{0.3mm}\\
+        \sc B. Derbel\\
+        M. Mosbah\\
+        \vspace{5mm}
+      \end{textbf}
+    \rm \today
+  \end{flushright}
+}
+
+\begin{document}
+% \sloppy %évite que les paragraphes ne dépassent. 
+\maketitle
+\tableofcontents
+
+\chapter{Résumé}
+\input{resume}
+%damien
+%présentation du projet et but
+\chapter{Domaine d'application}
+\input{domaine}
+%algorithmique distribuée
+%hicham
+\chapter{Analyse de l'existant}
+\input{existant}
+%ViSiDiA + autres simulateurs ADågents
+%damien
+\chapter{Présentation du projet}
+\input{intro-projet}
+%ViSiDiA/agents
+%julie
+\chapter{Besoins fonctionnels et non fonctionnels}
+\input{besoins}
+%jb
+
+\chapter{Implantation}
+\input{implantation}
+%Structures
+%nada
+\chapter{Limites de l'implantation}
+\input{limite}
+%mathieu
+\chapter{Extensibilité}
+\input{extensibilite}
+%agents sur architecture distribuée
+%gros graphes
+%règles de réecritures
+%hicham
+\chapter{Exemples de fonctionnement}
+\input{fonctionnement}
+%screenshot
+%comment on écrit un algo
+%xavier
+\chapter{Bilan}
+\input{bilan}
+%nada
+
+\input{lexique}
+\input{biblio}
+
+\end{document}
+
+%% Local Variables: 
+%% mode: latex
+%% TeX-master: t
+%% TeX-PDF-mode: t
+%% coding: latin-1
+%% End:

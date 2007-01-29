@@ -1,0 +1,161 @@
+%Introduction
+%Bases & principes
+%
+Dans  cette  partie,  On  s'intéresse  aux  bases  de  l'algorithmique
+distribuée. Le contenu de cette  partie ne sera qu'un minimum à savoir
+pour aborder  le reste de ce  rapport. Bien qu'on peut  trouver dans ce
+qui suit des notions sur  la théorie des graphes, cette partie suppose
+une connaissance considérable de certain éléments de cette théorie.
+\section{Introduction à l'algorithmique distribuée}
+\subsection{Définitions}
+\subsubsection{Réseau}
+On modélise un réseau par  un graphe de manière intuitive. Les sommets
+représentent les  processeurs, dont l'état nous  intéresse par rapport
+au réseau.   Dans un réseau  synchrone, un top horloge  cadence toutes
+les opérations.  Dans un  réseau asynchrone, les opérations peuvent se
+produire n'importe où et quand.
+%%%
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=8cm]{figures/algodist.png}
+  \caption{Les  types  des réseaux  en  terme  de synchronisation,  un
+  schéma similaire peut être élaboré en s'appuyant sur la connaissance
+  ou pas des noeuds du réseau}
+  \label{fig:algodist}
+\end{figure}
+\subsubsection{Algorithmique distribuée}
+ La difficulté de  l'algorithmique distribuée vient essentiellement du
+fait  que  chaque  processeur  doit communiquer  uniquement  avec  ses
+voisins, à l'aide de registres partagés, ou par échange de message. De
+manière générale,  on définit un algorithme distribué  par un ensemble
+de  règles  de  transformations  d'état  (avec  un  ordre  partiel  de
+priorité).  Si  les transformations  induites par cet  algorithme sont
+indépendantes,  elles sont  susceptibles d'avoir  lieu en  même temps,
+sinon  on choisit  d'une façon  non déterministe  la  transformation à
+effectuer.
+
+\subsubsection{Preuve de la correction d'un algorithme distribué}
+
+La preuve d'un tel algorithme se fait en deux temps.  Tout d'abord, on
+prouve  la   terminaison  de  l'algorithme,   par  des  considérations
+combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis
+on   prouve   la  validité,   le   plus   souvent   en  exhibant   des
+invariants... sur lesquels on s'appuie pour rédiger la preuve.
+\subsubsection{Messages synchrones}
+On parle de messages synchrones lorsque l'envoyeur et le receveur sont
+synchronisés, c'est-à-dire  qu'un rendez-vous est mis en  place par un
+protocole  (exemple,  le  téléphone).  Par  opposition,  on  parle  de
+messages  asynchrones  lorsqu'il   y  a  une  désynchronisation  entre
+l'envoyeur et le receveur (exemple, le courrier électronique).
+%\section{Des principes de base}
+
+\section{Quelques algorithmes simples}
+%%%
+\subsection{Algorithme de reconnaissance d'un graphe connexe}
+On part  d'un sommet que  l'on marque, on  empile ses voisins.  On les
+visite,  on les marque  et on  empile les  voisins des  voisins..., Le
+graphe est connexe\footnote{Un graphe  (orienté ou non) est connexe si
+et  seulement si, pour  tout couple  de sommets,  il existe  une suite
+d'arêtes reliant ces sommets.
+\label{grapheConnexe}}  si  tous les  sommets  sont  marqués. Pour  la
+reconnaissance d'un  graphe fortement connexe,  il convient d'utiliser
+deux marques.
+
+\subsection{Algorithme n°1 pour le calcul d'un arbre recouvrant}
+Cet  algorithme   permet  le   calcul  d'un  arbre   recouvrant  (sans
+reconnaissance locale de la  terminaison globale, cf.  algorithme n°2)
+. Considérons la règle de transformation suivante:
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm]{figures/algodist1.png}
+  \caption{Algorithme n°1: Exemple d'une transformation A-N}
+  \label{fig:algodist1}
+\end{figure}
+
+On  se donne  un graphe  G. Initialement  tous les  sommets  sont dans
+l'état Neutre.  On choisit  un premier sommet,  dans l'état  Actif. On
+applique  les transformations  à partir  de ce  point.  Le sous-graphe
+défini  par les  arêtes marquées  est  un arbre  recouvrant du  graphe
+initial.
+\subsection{Algorithme n°2 pour le calcul d'un arbre recouvrant}
+Cet algorithme  permet le calcul d'un arbre  recouvrant avec détection
+locale de la terminaison globale  (état F).  Considérons les règles de
+transformation décrites  sur la  figure \ref{fig:algodist2} .R1  a une
+plus grande priorité que R2.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=4cm]{figures/algodist2.png}
+  \caption{Algorithme n°2  : Exemple d'algorithme à base  de règles de
+  réécritures}
+  \label{fig:algodist2}
+\end{figure}
+
+\section{Exemples de problèmes de l'algorithmique distribuée}
+Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
+existent. Dans cette partie il  ne s'agit pas de traiter ces problèmes
+mais juste d'en donner une idée.
+\subsection{Le problème de l'élection}
+On considère  un réseau ; on  souhaite positionner un  unique noeud du
+réseau dans un état élu et tous les autres dans un état non élu.
+\subsubsection{Algorithme dans le cas d'un anneau} 
+Soit G un anneau, asynchrone avec échange de messages asynchrones, à 3
+états :  non élu,  élu, indéfini. Les  sommets sont  initialement dans
+l'état   indéfinis.  Chaque   processeur  i   du  réseau   possède  un
+identificateur   $id_{i}$  unique  (un   entier).  L'anneau   est  orienté,
+c'est-à-dire  que  les processeurs  ont  la  notion  de gauche  et  de
+droite.   Le  processeur   élu  est   celui  qui   a  le   plus  grand
+identificateur.  Chaque processeur transmet à son voisin de droite son
+identificateur. Lorsqu'un processeur reçoit  un identificateur, il y a
+trois possibilités :
+\begin{itemize}
+\item Si l'identificateur reçu est plus grand que le sien, il le passe
+au suivant (voisin de droite) et passe dans l'état non élu.
+\item Si l'identificateur reçu est plus petit que le sien, il jette le
+message.
+\item Si l'identificateur reçu est le même que le sien, alors il prend
+l'état élu.
+\end{itemize}
+
+\subsection{Problèmes de reconnaissance}
+Peut-on savoir si le réseau  est un graphe complet, planaire, si c'est
+un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
+articulation, si  une arête est un  isthme ?  Dans le  premier cas, il
+existe un système de réécriture (ou calcul local) tel que, quand il se
+termine, la collecte des  étiquettes sert de critère de reconnaissance
+; dans le second cas, ce n'est pas possible !
+\subsection{Détection de la terminaison}
+Savoir qu'un protocole distribué est terminé est souvent difficile. On
+peut chercher à  avoir un détection locale de  la terminaison globale,
+c'est-à-dire qu'un processeur  peut savoir en fonction de  son état et
+de celui de ces voisins si l'algorithme est terminé.
+
+
+\section{Quelques applications}
+L'algorithmique distribuée est appliqué dans plusieurs domaines, comme
+par exemple :
+\subsection{Construction d'objets parallèles}
+Un exemple des applications dans ce domaine est mené par le PRISM
+\footnote{le laboratoire  de recherche en informatique  sur les thèmes
+du Parallélisme, des Réseaux, des Systèmes et de la Modélisation.(voir
+http://www.prism.uvsq.fr/)}, il consiste dans la construction d'objets
+pour  l'élaboration d'algorithmes  d'algèbre linéaire  utilisables par
+des architectures à mémoire distribuée.
+\subsection{Le domaine de l'énergie}
+Un  exemple  d'application  dans  ce  domaine  on  le  trouve  au  LAG
+\footnote{le Laboratoire    d'Automatique    de   Grenoble    (voir
+http://www.lag.ensieg.inpg.fr/)}  ,  et  qui  vise  contrairement  aux
+approches  traditionnelles  qui  consistent  à ajuster  la  production
+d'énergie pour  satisfaire à  la demande, à  proposer un  mécanisme de
+coopération entre sources et charges  de façon à satisfaire au mieux à
+des critères de satisfaction définis par un usager. 
+
+\subsection{Autres applications}
+L'algorithmique  distribuée  est présente  partout  où  on trouve  des
+systèmes   distribués,  ces   derniers  sont   devenus   une  solution
+incontournable dans  plusieurs domaines.   Par exemple la  plupart des
+systèmes de sécurité  et de gestion des pannes  utilisent les théories
+de ce domaine,  ce qui engendre autant de problèmes  à résoudre que de
+solutions à proposer.
+
