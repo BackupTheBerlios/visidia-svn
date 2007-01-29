@@ -1,0 +1,152 @@
+ \chapter{Besoins fonctionnels et non fonctionnels}
+%          * Services offerts aux utilisateurs
+%          * Collaborations et séquences (diagrammes UML)
+%          * Contraintes : sur le produit (usabilité, efficacité, fiabilité), sur le processus de développement (normes), ou externes (légales, coûts) 
+
+\section{Services offerts aux utilisateurs}
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=14cm]{img/visidia_cu_vue_generale}
+  \caption{Cas d'utilisation : Vue générale de \visidia} 
+  \label{fig:cu_vue_generale}
+\end{figure}
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=24cm,angle=90]{img/visidia_cu_simuler_agent}
+  \caption{Cas d'utilisation : Simuler agent} 
+  \label{fig:cu_simuler}
+\end{figure}
+
+
+\section{Besoins fonctionnels}
+
+\subsection{Mise en pause du programme}
+
+Celle-ci est déjà implémentée et fonctionnelle. Une verification approfondie de son
+fonctionnement devra etre effectuee.
+
+Un objectif secondaire serait de mettre en pause l'execution des agents de maniere
+automatique lors de la modification d'un agent ou d'un n½ud.
+
+\subsection{Modification d'un n½ud}
+
+Il est necessaire de pouvoir modifier un noeud au cours de l'execution du programme.
+Plusieurs stratégies peuvent etre mise en ½uvre pour deconnecter un noeud : déconnexion choisie, panne
+ou suppression d'un n½ud pendant l'exécution.
+
+\subsection{Partie Simulation}
+
+* De petites modifications sont a apportees a l'IHM pour ameliorer l'ergonomie du
+logiciel.\\
+
+* Possibilité d'avoir une conservation des traces (agents, mémoire)\\
+
+
+\subsection{Structure de données}
+
+Actuellement les meme structures sont utilisees pour l'edition et la simulation
+des graphes. Or pour implementer les fonctionnalite de modification en cours 
+d'execution des modification seront peut etre a envisager. Envisager de modifier la structure
+pour la cohérence des algorithmes avec les agents peut prendre un temps
+considérable : il faut encore réfléchir avant d'envisager de modifier
+complètement l'implémentation actuelle.
+
+\subsection{Règle de réécriture des agents}
+
+Pour « marquer » une arête : bloquer les sommets, aller-retour de l'agent entre
+les sommets
+Possibilité : ajouter dans le tableau blanc des sommets les ports marqués
+
+Pour l'instant, seul les rencontres de types « rendez-vous » sont implémentées, il est
+envisageable d'implémenter au moins celles de types « LC1 ».
+
+\subsection{Algorithme de placement des agents}
+
+Les algorithmes de repartition des agents developpes ne separent pas la methode de
+repartition des agents du types d'agent ajoute. Il faudrait envisager de dissocier ces
+deux aspects.
+
+\subsection{Statistiques}
+
+Quelques statistiques sont actuellement fournies sur les algorithmes a base d'agent.
+Cependant les informations fournies sont insufisantes et relative au graphe et non a
+chaque agent et noeud. Il est donc necessaire d'affiner ces informations et les rendres
+disponibles tout au long de l'execution des algorithmes.\\
+
+Une option de visidia permet de compter le nombre approximatif de thread utilises durant la simulation. Un objectif
+secondaire du projet pourrait etre de preciser ce nombre.
+
+
+
+\subsection{Limitation des besoins}
+
+\subsubsection{Sauvegarde du graphe}
+
+La sauvegarde du graphe est possible avant d'entrer dans la partie simulation. Bien que l'utilisateur
+pourra desormais modifier le graphe depuis cette derniere partie, il ne lui sera pas possible de sauvegarder
+ses modifications.
+
+\subsubsection{Action sur le graphe en temps reel}
+
+Les modifications qui pourront etre apportees au graphe pendant la simulation pourront etre faites
+seulement apres la mise en pause de l'execution. Cette mise en pause puis la remise en route pourra 
+etre declenche de maniere automatique par le systeme pour simuler une modification en temps reel.
+
+
+
+% Chapter 4 : Beesoins fonctionnels et non fonctionnels
+
+
+\section{Diagrammes de séquences}
+
+\section{Contraintes}
+
+\subsection{Les contraintes d'interface}
+Notre rôle est de poursuivre le développement d'une extension de
+ViSiDiA écrit en langage Java : nous poursuivrons donc à programmer en
+Java. De plus, le choix d'un tel langage de programmation assure la
+portabilité du programme quel que soit le type de plateforme.
+
+Le programme dans sa version actuelle a été entièrement codé en
+anglais, c'est pourquoi nous rédigerons notre code en anglais : ceci
+permettra d'être compris par le plus grand nombre de développeurs
+extérieurs qui souhaiteraient implémenter de nouveaux algorithmes
+distribués.
+
+L'interface utilisateur conservera aussi les menus en anglais.
+
+\subsection{Standard de codage}
+
+Utilisation des conventions JAVA :
+\begin{itemize}
+\item noms des classes commençant par une majuscule
+\item noms des méthodes commençant par une minuscule
+\item majuscules pour séparer les différents mots composant un nom 
+\item accesseurs commençant par \textit{get}
+\item modificateur commençant par \textit{set}
+\end{itemize}
+
+
+Autres standards
+\begin{itemize}
+\item nom des classes et des méthodes en anglais
+\item reprise au maximum des noms existants
+\item utilisation de noms explicites
+\item commentaires en anglais style Javadoc
+\end{itemize}
+
+\subsection{License}
+L'ensemble de notre  programme sera sous licence GNU  GPL (GNU General
+Public License)  version 2  ou supérieure. Une  version de  la licence
+sera disponible en  français et en anglais dans le  code source, et un
+rappel sera effectué à chaque en-tête de fichier. 
+
+
+\subsection{Les contraintes de performance}
+Aucune contrainte de performance ne nous a été imposée par le
+client. Nous limitions l'utilisation du logiciel sur des graphes
+relativement petits ou simples. Si un uilisateur souhaite effectuer
+des statistiques sur des graphes plus complexes, il n'aura
+probablement pas besoin d'avoir une visualisation graphique. 

@@ -1,0 +1,72 @@
+\chapter{Introduction}
+%          * Décrire la problématique et la motivation
+%          * Placer le système dans son contexte
+%          * Donner son rôle dans l'organisation qui l'englobe 
+
+
+L'algorithmique  distribuée  devient de  nos  jours  de  plus en  plus
+importante au vu des utilisations  possibles sur les réseaux et autres
+systèmes  distribués.
+
+Cependant,  les   applications  distribuées  qui   en  découlent  sont
+difficiles à implanter, tester  et expérimenter.  En effet, celles-ci,
+en  plus  des  problèmes  des  applications  classiques  centralisées,
+doivent  gérer  des problèmes  de  communication  entre processus,  de
+concurrence  et de  conflits  de  ressources.  C'est  dans  le but  de
+faciliter la  tâche à un développeur d'algorithmes  distribués que des
+chercheurs  du  LaBRI  ont   créé  \visidia  (voir  le  site  internet
+\cite{visidiaLaBRI}  et  des articles  à  ce sujet  \cite{bauderon01a}
+\cite{bauderon01b}).  Ce logiciel est un atelier proposant des
+outils  de simulation  et  de visualisation,  au travers  d'animations
+graphiques en temps réel, de l'exécution d'un algorithme distribué sur
+un graphe  donné.  Cet algorithme peut être  choisi parmi  une liste,
+développé par  l'utilisateur ou encore  dessiné grâce à des  règles de
+réécriture.   L'application  va  donc  constituer  à  terme  un  outil
+permettant   la  validation   de  programmes   sur   un  environnement
+distribué.\\
+
+\paragraph{L'existant}
+\visidia  se compose aujourd'hui  de trois  couches. Tout  d'abord une
+interface  graphique qui  permet à  l'utilisateur d'interagir  avec le
+programme. Elle  permet de créer  des réseaux (graphes)  et d'exécuter
+des algorithmes  distribués afin de  les tester avec visualisation ou
+non. Ensuite,  une bibliothèque  de primitives de  base qui  permet de
+définir  des algorithmes distribués  (envoi, réception,  traitement de
+messages etc...).   Enfin, un simulateur dont  le but est  de faire le
+pont entre les  deux autres parties : c'est le  centre de \visidia. Le
+logiciel  propose donc  des outils  pour faciliter  les tests  afin de
+mieux  comprendre  les  comportements  d'un algorithme,  notamment  en
+visualisant son  exécution :  changement de l'état  des noeuds  et des
+arêtes, envoi de messages... et détecter les erreurs éventuelles.\\
+
+Une version de visidia permettant d'executer des algorithmes distribués 
+utilisant les agents mobiles a été développé l'année derniére.\\
+
+Plusieurs définitions des agents mobiles existent.  Dans le  cadre de 
+\visidia, un agent mobile sera une entité autonome de  calcul qui se 
+déplace dans le graphe et agit  sur les  noeuds en fonction de 
+l'algorithme à  exécuter. Une bonne référence  concernant ce   
+type  d'agent se  trouve   dans \cite{agentBook}.\\
+
+
+\paragraph{Motivations et but}
+
+Le logiciel dans l'état actuel propose une extension Agent Mobile 
+partiellement implémentée.
+Plusieurs fonctionnalités supplémentaires restent à développer telles 
+que la possibilité de modifier les données d'un agent mobile et des noeuds, 
+le calcul de statistiques, implémenter des algorithmes avec agent mobile, ...
+Notre but au cours des prochains mois consistera donc à ajouter à l'application tous ces 
+services.
+
+
+
+
+
+
+
+
+
+
+
+
