@@ -1,7 +1,7 @@
-package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import visidia.graph.*;
+package visidia.graph;
+//import visidia.simulation.*;
+//import visidia.misc.*;
+//import visidia.graph.*;
 
 public class StringNodeState  {
     
