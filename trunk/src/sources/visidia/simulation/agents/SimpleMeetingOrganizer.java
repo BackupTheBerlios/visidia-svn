@@ -10,11 +10,6 @@ import java.util.Collection;
 
 import java.util.Vector;
 
-/**
- * Example of meeting organizer. Allows a simple communication between
- * agents when they meet.  Each  agent atempts to execute its planning
- * with all the agents present on the vertex.
- **/
 public class SimpleMeetingOrganizer implements MeetingOrganizer {
   
     /* With this variable we can enable or not the meeting 
@@ -26,11 +21,10 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
     }
 
 
-    /** Implements the strategy of meeting between network agents.
-     *
+    /* Implement the strategie of meeting between network agents
      * @param netAgents : collection of network agents (or the set 
      * of agents conserned by the meeting)
-     * @see #whatToDoIfMeeted(Collection, SynchronizedAgent)
+     * @see whatToDoIfMeeted
      */
     public void howToMeetTogether(Collection netAgents){
 	if(enable == false) return;
@@ -44,13 +38,10 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	}
     }
     
-    /** Describes the  work done  during the meeting,  executes agents
-     * planning on the network.
-     *
-     * @param  meetedAgents :  collection of  synchronizedAgents which
-     * take part in the meeting.
-     * @param agentManager : The agent which manages the meeting
-     * @see visidia.simulation.agents.SynchronizedAgent#planning(SynchronizedAgent)
+    /* Describe the work done during the meeting, execute agents planning on the network.
+     * @param meetedAgents : collection of synchronizedAgents who participate to the meeting.
+     * @param agentManager : The agent who manage the meeting
+     * @see visidia.simulation.agents.SynchronizedAgent.planningn
      */
     public void whatToDoIfMeeted(Collection meetedAgents, SynchronizedAgent agentManager){
 	if( enable == false ) return;

@@ -71,6 +71,12 @@ public class AgentSimulator {
      * all informations are stored here. 
      */
     private Hashtable<Vertex,Agent> lockedVertices = new Hashtable();
+
+    /**
+     * Default AgentMover used only if no AgentMover is affected to
+     * Agent. 
+     */
+    private AgentMover defaultAgentMover = null;
     
     /**
      * evtQ is the queue of the events sent to the AgentSimulEventHandler.
@@ -414,7 +420,7 @@ public class AgentSimulator {
     }
 
     /**
-     * Returns the Agent which blocks the Vertex WhiteBoard, or null if
+     * Return the Agent which blocks the Vertex WhiteBoard, or null if
      * nobody has lock the vertex.
      *
      * @param v the vertex you want information about
@@ -425,7 +431,7 @@ public class AgentSimulator {
     }
 
     /**
-     * Returns the Agent which blocks the Vertex WhiteBoard, or null if
+     * Return the Agent which blocks the Vertex WhiteBoard, or null if
      * nobody has lock the vertex.
      *
      * @param ag the Agent which wants to know who has locked the
@@ -438,7 +444,7 @@ public class AgentSimulator {
 
 
     /**
-     * Returns true if the Vertex is locked, otherwise false
+     * Return true if the Vertex is locked, otherwise false
      * 
      * @param v the Vertex you want information about
      * @see #lockVertexProperties(Agent)
@@ -451,7 +457,7 @@ public class AgentSimulator {
 
 
     /**
-     * Returns true if the Vertex is locked, otherwise false
+     * Return true if the Vertex is locked, otherwise false
      * 
      * @param ag the Agent which wants to know if it Vertex
      * properties are locked
@@ -463,7 +469,7 @@ public class AgentSimulator {
     
     
     /**
-     * Locks the Vertex WhiteBoard where the Agent is.
+     * Lock the Vertex WhiteBoard where the Agent is.
      * If already locked, wait until the owner unlocks it
      * 
      * @param ag the agent which wants to lock it Vertex
@@ -494,11 +500,11 @@ public class AgentSimulator {
     }
 
     /**
-     * Unlocks the Vertex WhiteBoard  where the Agent is.
+     * Unlock the Vertex WhiteBoard  where the Agent is.
      *
      * @param ag the agent which wants to unlock it Vertex
      * @exception IllegalStateException if the WhiteBoard is
-     * unlocked, or if the Agent is not the owner of the lock
+     * unlock, or if the Agent is not the owner of the lock
      * @see #lockVertexProperties(Agent)
      */
     public void unlockVertexProperties(Agent ag) 
@@ -693,34 +699,29 @@ public class AgentSimulator {
     public int getVertexIdentity(Agent ag) {
         return getVertexFor(ag).identity().intValue();
     }
-
     /**
-     * This  method  is  used  to  increment the  field  stat  of  the
-     * statistics.
+     * Sets the agentMover  of the simulation. This method  is used to
+     * use the specified agentMover that you can create yourself.
      *
-     * @param stat The field incremented.
-     * @param increment The increment added to the value of the field.
+     * @see AgentMover
      */
+    public void setDefaultAgentMover(AgentMover am) {
+        defaultAgentMover = am;
+    }
+
+    public boolean hasDefaultAgentMover() { 
+        return defaultAgentMover!=null;
+    }
+
     public void incrementStat(AbstractStat stat, long increment) {
          stats.add(stat, increment);
     }
 
-    /**
-     * Returns all the statistics beeing computed on the simulation.
-     */
     public Bag getStats(){
 	return stats;
     }
 
-    /**
-     * This method allows the agent  ag to create a new agent instance
-     * of agClass. It is named clone  even if ag is not necessarily an
-     * instance of agClass.
-     * 
-     * @param ag The agent which is going to create the other agent.
-     * @param agClass The class which the agent created is going to be
-     * instance of.
-     */
+
     public void clone(Agent ag, Class agClass) {
         Agent ag2;
 
@@ -728,16 +729,6 @@ public class AgentSimulator {
         createThreadFor(ag2).start();
     }
 
-    /**
-     * This method allows the agent  ag to create a new agent instance
-     * of agClass.  It creates the agent  on one of  the neighbours of
-     * the vertex the agent ag is on.
-     *
-     * @see #clone(Agent, Class)
-     * @param ag The agent which is going to create an agent.
-     * @param agClass The class which the agent created is going to be
-     * instance of
-     */
     public void cloneAndSend(Agent ag, Class agClass, int door) 
         throws InterruptedException {
         
@@ -761,11 +752,6 @@ public class AgentSimulator {
         createThreadFor(ag2).start();        
     }
 
-    /**
-     * Private method  that transmits events throught the  evtQ to the
-     * graphical interface.  It is implemented  so that the  events on
-     * the graph are synchronised with the GUI.
-     */
     private void pushMessageSendingEvent(MessagePacket mesgPacket, Agent ag) 
         throws InterruptedException {
 
@@ -808,12 +794,7 @@ public class AgentSimulator {
 	evtQ.put(arr);
 	movingMonitor.waitForAnswer(keyArr);
     }
-    
-    /**
-     * Creates the thread associated to the agent ag.
-     *
-     * @param ag The agent the thread is created for. 
-     */
+
     private Thread createThreadFor(Agent ag) {
         ProcessData data = getDataFor(ag);
 
@@ -823,41 +804,22 @@ public class AgentSimulator {
         return data.thread;
     }
 
-    /**
-     * Returns the thread associated to the agent ag.
-     */
     private Thread getThreadFor(Agent ag) {
         return getDataFor(ag).thread;
     }
 
-    /**
-     * Returns the vertex on which the agent ag is.
-     */
     private Vertex getVertexFor(Agent ag) {
         return getDataFor(ag).vertex;
     }
 
-    /**
-     * Returns the  vertex on which  was the agent ag  before entering
-     * the one it is on.
-     */
     private Vertex getLastVertexSeen(Agent ag) {
         return getDataFor(ag).lastVertexSeen;
     }
-    
-    /**
-     * Returns ProcessData associated with the agent ag.
-     *
-     * @see agents
-     * @see #createAgent(Class, Vertex, Hashtable) 
-     */
+
     private ProcessData getDataFor(Agent ag) {
         return (ProcessData)agents.get(ag);
     }
 
-    /**
-     * Private class that stores information about an agent.
-     */
     private class ProcessData {
         public Agent  agent;
         public Vertex vertex;

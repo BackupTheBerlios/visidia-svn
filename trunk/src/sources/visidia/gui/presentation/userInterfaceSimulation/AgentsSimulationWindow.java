@@ -103,7 +103,7 @@ public class AgentsSimulationWindow
 
     private Hashtable<String,Object> defaultProperties; // To initialize the whiteboards
 
-    private UpdateTableStats timer;
+    private UpdateTable timer;
 
     private Vector<AgentBoxProperty> boxAgents;
 
@@ -627,9 +627,11 @@ public class AgentsSimulationWindow
     public void but_experimentation() {
 	AgentExperimentationFrame statsFrame;
 	Bag expStats;
-	AbstractStatReport classStats = OpenReport.open(this);
+	AbstractExperiment classStats = OpenStats.open(this);
+
 	if (classStats == null)
 	    return;
+
 	if (sim == null) {
 	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
 						       defaultProperties, agentsRules,
@@ -644,10 +646,6 @@ public class AgentsSimulationWindow
 					     statsFrame.getTableModel());
 		new Thread(timer).start();
 	    }
-            else {
-                timer.setTableModel(statsFrame.getTableModel());
-                timer.setStatReport(classStats);
-            }
 	}
 
         statsFrame.setTitle("Agents Experiments");
@@ -733,30 +731,25 @@ public class AgentsSimulationWindow
         else if (b == but_agents){
             but_agentsWhiteboard();
         }
+	//PFA2003
 	else if (b == but_help){
-	    JOptionPane.showMessageDialog
-		(this, "To Start the simulation you must fisrt add " +
-		 "agents on one or more vertices.\n" + "\n" +
-		 "To place agents on vertices according to a given " +
-		 "probability :\n" + 
-		 " use Place Agents ... in Agents menu.\n" + "\n" +
-		 "To add chosen agents on chosen vertices :\n" + 
-		 "you must select the vertices first then choose the agent" +
-		 " using Add Agents...\n in the Agents menu.\n" +
-		 "To start the simulation, press button start.\n" + "\n" +
-		 "If you do not want graphical simulation, place your " +
-		 "agents on the graph and\n" +
-		 "click the 'Statistics' button\n" + "\n" +
-		 " For more information about the agents please read " +
-		 "the documentation given by \n" + "Javadoc or comments " +
-		 "given in th classes.\n"
-		 );
+            // 	    if (algoChoice.verticesHaveAlgorithm()) {
+            // 		Algorithm a = algoChoice.getAlgorithm(0);
+            // 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
+            // 		hd.setText(a.getDescription());
+            // 		hd.setVisible(true);
+            // 		hd.setEditable(false);
+            // 	    } else {
+            // 		JOptionPane.showMessageDialog
+            // 		    (this, "You must enter an algorithm or rules ",
+            // 		     "warning", JOptionPane.WARNING_MESSAGE);
+            // 	    }
 	}
-	else if (b == but_reset) {
-	but_reset();
+        else if (b == but_reset) {
+	    but_reset();
 	}
     }
-    
+
 
     public void setPulse(int pulse) {
 	//PulseFrame pulseFrame = new PulseFrame();
@@ -895,7 +888,7 @@ public class AgentsSimulationWindow
                                    JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
 	if (mi == rules_open) {
             final javax.swing.filechooser.FileFilter filter = 
                 new javax.swing.filechooser.FileFilter () {
@@ -936,8 +929,7 @@ public class AgentsSimulationWindow
     
 
     public void applyStarRulesSystem(RelabelingSystem rSys) {
-	if (!rulesWarnings(rSys))
-            return;
+	rulesWarnings(rSys);
 
         if (agentsRules == null)
             agentsRules = new Vector();
@@ -1173,7 +1165,6 @@ public class AgentsSimulationWindow
     public void removeWindow(AbstractDefaultBox box) {
         boxAgents.remove(box);
     }
-
     
     public void changerVueGraphe(VueGraphe grapheVisu){
         content.remove(scroller);
@@ -1214,18 +1205,15 @@ public class AgentsSimulationWindow
         //sim.restartNode(nodeId);
     }
 
-    public boolean rulesWarnings(RelabelingSystem r){
+    public void rulesWarnings(RelabelingSystem r){
 	int synType;//user choice
-	int type = -2;//default choice
+	int type;//default choice
 	SynObject synob;
 	RSOptions options = r.getOptions();
-
 	if (options.defaultSynchronisation() != -1) {
 	    type = r.defaultSynchronisation();
 	    /* user choice */
 	    synType = options.defaultSynchronisation();
-            System.out.println("synType: " + synType + " type " + type);
-            System.out.println("RDV: " + SynCT.RDV + " LC1 " + SynCT.LC1);
 	    if ((synType  == SynCT.RDV) && (type == SynCT.LC1)) {
 		JOptionPane.showMessageDialog
 		    (this, "The rendez-vous synchronisation cannot be used\n" +
@@ -1242,16 +1230,6 @@ public class AgentsSimulationWindow
 	    /* default option */
 	    synType = r.defaultSynchronisation();
 	}
-        if (synType != SynCT.RDV || (type != -2 && type != SynCT.RDV)) {
-            JOptionPane
-                .showMessageDialog(this,
-                                   "Only RDV rules can be currently used with"
-                                   + " agents!",
-                                   "Error",
-                                   JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
     }
 
     public void updateVertexState(SommetDessin vert) {

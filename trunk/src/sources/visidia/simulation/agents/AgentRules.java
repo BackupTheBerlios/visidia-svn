@@ -36,6 +36,7 @@ public class AgentRules extends AbstractAgentsRules {
                     labelU = (String)getVertexProperty("label");
                     door = entryDoor();
                 
+                    System.out.print("Handshake success");
                     applyRule();
                     unlockVertexProperties();
                 }

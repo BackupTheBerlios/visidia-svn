@@ -15,45 +15,45 @@ import javax.swing.JTable;
 
 import java.lang.ArrayIndexOutOfBoundsException;
 
-//import visidia.gui.DistributedAlgoSimulator;
-//import visidia.gui.donnees.conteneurs.*;
-//import visidia.gui.donnees.*;
+import visidia.gui.DistributedAlgoSimulator;
+import visidia.gui.donnees.conteneurs.*;
+import visidia.gui.donnees.*;
 import visidia.gui.metier.simulation.*;
 import visidia.gui.presentation.*;
-//import visidia.gui.presentation.boite.*;
-//import visidia.gui.metier.inputOutput.*;
-//import visidia.gui.presentation.userInterfaceEdition.*;
-//import visidia.algo.*;
-//import visidia.agents.*;
+import visidia.gui.presentation.boite.*;
+import visidia.gui.metier.inputOutput.*;
+import visidia.gui.presentation.userInterfaceEdition.*;
+import visidia.algo.*;
+import visidia.agents.*;
 import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
 import visidia.tools.agents.*;
-//import visidia.misc.MessageType;
-//import visidia.simulation.rules.*;
-//import visidia.simulation.synchro.*;
-//import visidia.rule.*;
-//import visidia.gui.presentation.starRule.*;
-//import visidia.simulation.synchro.synObj.*;
-//import visidia.simulation.agents.Agent;
+import visidia.misc.MessageType;
+import visidia.simulation.rules.*;
+import visidia.simulation.synchro.*;
+import visidia.rule.*;
+import visidia.gui.presentation.starRule.*;
+import visidia.simulation.synchro.synObj.*;
+import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.*;
 
 import java.awt.event.*;
-//import java.awt.*;
+import java.awt.*;
 import javax.swing.*;
-//import javax.swing.table.*;
-//import javax.swing.event.*;
+import javax.swing.table.*;
+import javax.swing.event.*;
 import java.util.*;
-//import java.io.*;
-//import visidia.gui.donnees.conteneurs.*;
-//import visidia.gui.donnees.*;
-//import visidia.gui.metier.simulation.*;
-//import visidia.gui.presentation.*;
-//import visidia.gui.presentation.boite.*;
-//import visidia.gui.metier.inputOutput.*;
-//import visidia.gui.presentation.userInterfaceEdition.*;
-//import visidia.algo.*;
-//import visidia.simulation.*;
+import java.io.*;
+import visidia.gui.donnees.conteneurs.*;
+import visidia.gui.donnees.*;
+import visidia.gui.metier.simulation.*;
+import visidia.gui.presentation.*;
+import visidia.gui.presentation.boite.*;
+import visidia.gui.metier.inputOutput.*;
+import visidia.gui.presentation.userInterfaceEdition.*;
+import visidia.algo.*;
+import visidia.simulation.*;
 
 
 
@@ -72,7 +72,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private Vector<RelabelingSystem> agentsRules;
     private Hashtable<String,Object> defaultProperties;
     private Hashtable agentsTable;
-    private AbstractStatReport expType;
+    private AbstractExperiment expType;
 
     private ExperimentationThread expThread;
     private SimulatorThreadGroup threadGroup;
@@ -83,7 +83,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
     public AgentExperimentationFrame(VueGraphe graph, Hashtable agentsTable, 
                                      Hashtable<String,Object> defaultProperties,
-                                     Vector<RelabelingSystem> agentsRules, AbstractStatReport expType) {
+                                     Vector<RelabelingSystem> agentsRules, AbstractExperiment expType) {
 	
         this.agentsRules = agentsRules;
         this.graph = graph;
@@ -126,7 +126,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         return tableModel;
     } 
 
-    public AbstractStatReport getExpType() {
+    public AbstractExperiment getExpType() {
 	return expType;
     }
 

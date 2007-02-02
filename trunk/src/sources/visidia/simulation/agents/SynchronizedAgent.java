@@ -12,6 +12,9 @@ import java.util.Hashtable;
 
 public abstract class SynchronizedAgent extends Agent {           
 
+    /**
+     * 
+     */
     private static int nbAgents = 0;
     private static int count = 0;
     private static int pulseNumber = 0;
@@ -45,8 +48,8 @@ public abstract class SynchronizedAgent extends Agent {
      * Call  this   method  when  you   want  synchronisation  between
      * agents. Every  synchronized agent will wait until  the last has
      * finished.
-     * The meeting is organized if  the agent accept it and the number
-     * of agents is at least 2.
+     * The meeting is organized if the agent accept this and the number
+     * of agents is at less 2.
      */
     public void nextPulse() {
 	
@@ -72,24 +75,13 @@ public abstract class SynchronizedAgent extends Agent {
 	    
      	}
     }
-   /**
-    * Adds the name  of the meeting agent and  increment the number of
-    * agent met during the life of the curent agent
-    * @param agent : a met agent
-    *
-    **/
+
     protected void planning(SynchronizedAgent agent){
 	if( meet == true )
 	    meetedAgentsnames.put(new Integer(meetingnum+1),agent.toString());
     }
 
 
-    /**
-     * Notifies all the synchronised agents that everyone has finished
-     * its pulse. Called by the last thread calling nextPulse().
-     *
-     * @see #nextPulse()
-     */
     protected void unblockAgents() {
 	super.newPulse(++pulseNumber);
 	count = 0;

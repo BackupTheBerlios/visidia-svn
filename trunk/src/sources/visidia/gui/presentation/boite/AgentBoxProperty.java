@@ -1,16 +1,16 @@
 package visidia.gui.presentation.boite;
 
-//import java.awt.*;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import java.util.*;
-//import javax.swing.event.*;
+import java.util.*;
+import javax.swing.event.*;
 
 import visidia.gui.presentation.userInterfaceSimulation.*;
-//import visidia.gui.donnees.conteneurs.*;
-//import visidia.gui.presentation.*;
+import visidia.gui.donnees.conteneurs.*;
+import visidia.gui.presentation.*;
 import visidia.gui.donnees.*;
-//import visidia.gui.presentation.userInterfaceEdition.Fenetre;
+import visidia.gui.presentation.userInterfaceEdition.Fenetre;
 import visidia.tools.agents.*;
 
 
@@ -75,7 +75,9 @@ public class AgentBoxProperty
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == buttonDone) {
-            closingWindow();
+
+            timer.stop();
+            timer=null;
 
             dialog.setVisible(false);
             dialog.dispose();

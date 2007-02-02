@@ -5,9 +5,7 @@ import visidia.simulation.agents.Agent;
 /**
  * Agents to  demonstrate how moveBack() is working.   It simply moves
  * to  a  door   and  then  back  to  the   previous  vertex  for  all
- * neighboors. It marks the visited edges too. <p>
- *
- * As a result, a star is drawn.
+ * neighboors. It marks the visited edges too.
  *
  * @see Agent#moveBack()
  * @see Agent#markDoor(int)
