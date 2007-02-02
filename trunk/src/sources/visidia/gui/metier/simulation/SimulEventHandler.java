@@ -1,10 +1,10 @@
 package visidia.gui.metier.simulation;
 
-import java.awt.*;
-import java.awt.event.*;
+//import java.awt.*;
+//import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 import visidia.misc.*;
 import visidia.simulation.*;
 import visidia.tools.*;

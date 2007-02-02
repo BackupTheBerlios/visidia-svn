@@ -1,9 +1,9 @@
 package visidia.gui.donnees;
 
 import java.util.*;
-import java.awt.*;
+//import java.awt.*;
 import javax.swing.JApplet;
-import java.net.URL;
+//import java.net.URL;
 import visidia.algo.*;
 import visidia.simulation.Algorithm;
 

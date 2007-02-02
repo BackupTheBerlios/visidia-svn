@@ -1,11 +1,11 @@
 package visidia.gui.presentation.boite;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+//import java.awt.*;
+//import java.util.*;
 import java.awt.event.*;
 import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.Editeur;
+//import visidia.gui.presentation.userInterfaceEdition.Editeur;
 
 /**
  * Cette classe "raffine" sa super classe en lui ajoutant les champs
