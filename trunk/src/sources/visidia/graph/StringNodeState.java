@@ -1,4 +1,4 @@
-package visidia.algo;
+package visidia.graph;
 import visidia.simulation.*;
 import visidia.misc.*;
 import visidia.graph.*;
