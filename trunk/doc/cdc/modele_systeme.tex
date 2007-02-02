@@ -1,44 +1,65 @@
 \chapter{Modèle du système}
-          * Cas d'utilisation (diagrammes UML)
-          * Modèle abstrait de données (diagrammes UML) 
+%          * Cas d'utilisation (diagrammes UML)
+%          * Modèle abstrait de données (diagrammes UML) 
+
+Dans  cette partie, nous  étudierons tout  d'abord les  différents cas
+d'utilisation du  logiciel.
+
+\section{Vue générale de \visidia}
+Voici tout d'abord une représentation simplifiée du diagramme des cas
+d'utilisation sur la figure \ref{fig:cu_vue_generale}. Nous nous
+intéresserons dans la suite de ce document uniquement au cas
+d'utilisation \textbf{Simuler un calcul distribué basé sur des agents}
+(\ref{fig:cu_simuler}).
 
 
-\begin{figure}[h!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=14cm]{img/visidia_cu_vue_generale}
   \caption{Cas d'utilisation : Vue générale de \visidia} 
   \label{fig:cu_vue_generale}
 \end{figure}
 
-
-\begin{figure}[h!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=24cm,angle=90]{img/visidia_cu_simuler_agent}
   \caption{Cas d'utilisation : Simuler agent} 
   \label{fig:cu_simuler}
 \end{figure}
 
+\section{Description des cas d'utilisation}
+\subsection{Ajout d'un agent}
 
-%\begin{figure}[h!t]
-%  \centering
-%  \includegraphics[width=14cm]{img/visidia_cu_agir_agent}
-%  \caption{Cas d'utilisation : Vue générale de \visidia} 
-%  \label{fig:cu_vue_generale}
-%\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=14cm]{img/visidia_cu_ajouter_agent}
+  \caption{Cas d'utilisation : Ajouter un agent} 
+  \label{fig:cu_ajouter_agent}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%
+%%% à commenter %%%
+%%%%%%%%%%%%%%%%%%%
+
+\subsection{Actions sur les agents}
+
+\input{AgirSurAgent}
+
+\subsection{Action sur le réseau}
+
+\input{AgirSurSommet}
+\input{agir_graphe1}
 
 
-%\begin{figure}[h!t]
-%  \centering
-%  \includegraphics[width=14cm]{img/visidia_cu_agir_graphe}
-%  \caption{Cas d'utilisation : Vue générale de \visidia} 
-%  \label{fig:cu_vue_generale}
-%\end{figure}
+\section{Diagramme de classes}
 
 
-%\begin{figure}[h!t]
-%  \centering
-%  \includegraphics[width=14cm]{img/visidia_cu_ajouter_agent}
-%  \caption{Cas d'utilisation : Vue générale de \visidia} 
-%  \label{fig:cu_vue_generale}
-%\end{figure}
+
+
+
+
+
+
+
+
 

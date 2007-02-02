@@ -1,24 +1,16 @@
-\begin{tabular}{|c|c|}
-\hline
-{Cas d'utilisation}    & ........ \\ \hline
-{Acteur}    & ........ \\ \hline
-{But}    & ........ \\ \hline
-{Résumé métier}    & ........ \\ \hline
-{Pré condition}    & ........ \\ \hline
-{Post condition}    & ........ \\ \hline
-{Commentaires}    & ........ \\ \hline
-\caption{........}
-\hline
-\end{tabular}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=14cm]{img/visidia_cu_agir_graphe}
+  \caption{Cas d'utilisation : Agir sur le réseau} 
+  \label{fig:cu_agir_graphe}
+\end{figure}
 
-
-
-\paragraph*{Modifier la mémoire d'un sommet}
+\subsubsection{Modifier la mémoire d'un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur de modifier la memoire d'un sommet c'est a dire les variables declarees et l'etat
 des ports.
 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}   & Modifier la mémoire d'un sommet. \\ \hline
 {Acteur}              & L'utilisateur. \\ \hline
@@ -27,16 +19,15 @@ des ports.
 {Pré condition}       & L'utilisateur sélectionne le sommet à modifier.\\ \hline
 {Post condition}      & La mémoire du sommet sélectionné est modifiée. \\ \hline
 {Commentaires}        & On ne peut modifier qu'un seul sommet à la fois.\\ \hline
-\hline
 \end{tabular}
 
 
 
-\paragraph*{Eteindre un sommet}
+\subsubsection{Eteindre un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur d'éteindre un sommet 
 sans pour autant le supprimer. 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Eteindre un sommet. \\ \hline
 {Acteur}             & L'utisateur. \\ \hline
@@ -45,36 +36,28 @@ sans pour autant le supprimer.
 {Pré condition}      & L'utilisateur sélectionne le sommet (qui doit etre allume) à éteindre. \\ \hline
 {Post condition}     & Le sommet sélectionné est éteint. \\ \hline
 {Commentaires}       & On ne peut éteindre qu'un seul sommet à la fois.\\ \hline
-\hline
 \end{tabular} 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
 {1}    & L'utilisateur choisit un sommet a eteindre n'hebergeant pas d'agent. \\ \hline
 {2}    & Le systeme eteint le sommet. \\ \hline
-\hline
 \end{tabular}
 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
 {1}    & L'utilisateur choisit un sommet a eteindre hebergeant un agent. \\ \hline
 {2}    & ??????????????????????????????????????????????????????? \\ \hline
 {3}    & Le systeme eteint le sommet. \\ \hline
-\hline
 \end{tabular}
 
-?????????????????????????????/ Agent aur arete
-eteindre : garder la memoire ou pas???????????
-
-
-
-\paragraph*{Consulter un sommet}
+\subsubsection{Consulter un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur de consulter la mémoire d'un sommet.
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Consulter un sommet. \\ \hline
 {Acteur}             & L'utilisateur. \\ \hline
@@ -83,18 +66,17 @@ Ce cas d'utilisation va permettre à l'utilisateur de consulter la mémoire d'un s
 {Pré condition}      & L'utilisateur sélectionne le sommet à consulter. \\ \hline
 {Post condition}     & Le sommet sélectionné est consulté. \\ \hline
 {Commentaires}       & On ne peut consulter que la mémoire d'un seul sommet à la fois. \\ \hline
-\hline
 \end{tabular}
 
 
 
 
-\paragraph*{Allumer un sommet}
+\subsubsection{Allumer un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur d'allumer un sommet. 
 Ce dernier doit être déjà éteint car allumer un sommet qui n'est pas 
 éteint n'a pas de sens.
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Allumer un sommet.  \\ \hline
 {Acteur}             & L'utilisateur. \\ \hline
@@ -103,7 +85,6 @@ Ce dernier doit être déjà éteint car allumer un sommet qui n'est pas
 {Pré condition}      & L'utilisateur sélectionne le sommet à allumer. Ce sommet doit être déjà éteint. \\ \hline
 {Post condition}     & Le sommet sélectionné est allumé.  \\ \hline
 {Commentaires}       & On ne peut allumer qu'un seul sommet(éteind) à la fois.  \\ \hline
-\hline
 \end{tabular}
 
 

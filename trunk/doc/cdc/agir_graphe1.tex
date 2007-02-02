@@ -1,24 +1,25 @@
-\paragraph*{Ajouter une arête pendant l'exécution}
+\subsubsection{Ajouter une arête pendant l'exécution}
 Ce cas d'utilisation va permettre à l'utilisateur d'ajouter une arête sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}    & Ajouter une arête pendant l'exécution \\ \hline
 {Acteur}               & L'utilisateur \\ \hline
 {But}                  & Permettre à l'utilisateur de modifier le graphe pendant une exécution \\ \hline
 {Résumé métier}        & L'utilisateur indique les deux sommets à connecter \\ \hline
 {Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
-{Post-condition}       & L'arête est ajoutée, les deux sommets à connecter prennent en compte la nouvelle arête et l'exécution se poursuit \\ \hline
+{Post-condition}       & L'arête est ajoutée, \\
+                       & les deux sommets à connecter prennent compte la nouvelle arête\\
+		       & et l'exécution se poursuit \\ \hline
 {Commentaires}         & Lors de l'ajout d'une arête, l'exécution est mise en pause \\ \hline
-\hline
 \end{tabular}
 
 
 
-\paragraph*{Supprimer une arête pendant l'exécution}
+\subsubsection{Supprimer une arête pendant l'exécution}
 Ce cas d'utilisation va permettre à l'utilisateur de supprimer une arête sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}    & Supprimer une arête pendant l'exécution \\ \hline
 {Acteur}               & L'utilisateur \\ \hline
@@ -26,16 +27,18 @@ Ce cas d'utilisation va permettre à l'utilisateur de supprimer une arête sur le 
 {Résumé métier}        & L'utilisateur indique l'arête à supprimer \\ \hline
 {Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
 {Post-condition}       & L'arête est supprimée, les deux sommets reliés par cette arête prennent en compte sa suppression \\ \hline
-{Commentaires}         & Lors de la suppression d'une arête, l'exécution est mise en pausee. Les agents éventuellement présents sur l'arête à supprimer sont supprimés \\ \hline
-\hline
+{Commentaires}         & Lors de la suppression d'une arête,
+                         l'exécution est mise en pause.\\
+                       & Les agents éventuellement présents sur l'arête à supprimer sont supprimés \\
+ \hline 
 \end{tabular}
 
 
-\paragraph*{Ajouter un sommet pendant l'exécution}
+\subsubsection{Ajouter un sommet pendant l'exécution}
 Ce cas d'utilisation va permettre à l'utilisateur d'ajouter un sommet sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}    & Ajouter un sommet pendant l'exécution\\ \hline
 {Acteur}               & L'utilisateur \\ \hline
@@ -44,16 +47,15 @@ Ce cas d'utilisation va permettre à l'utilisateur d'ajouter un sommet sur le gra
 {Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
 {Post-condition}       & Le sommet est ajouté au graphe \\ \hline
 {Commentaires}         & Le sommet n'est pas connecté au graphe \\ \hline
-\hline
 \end{tabular}
 
 
 
-\paragraph*{Supprimer un sommet pendant l'exécution}
+\subsubsection{Supprimer un sommet pendant l'exécution}
 Ce cas d'utilisation va permettre à l'utilisateur de supprimer un sommet sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
 
 
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}    & Supprimer un sommet pendant l'exécution\\ \hline
 {Acteur}               & L'utilisateur \\ \hline
@@ -62,7 +64,6 @@ Ce cas d'utilisation va permettre à l'utilisateur de supprimer un sommet sur le 
 {Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
 {Post-condition}       & Le sommet et toute arête incidente à celui-ci est supprimée \\ \hline
 {Commentaires}         & Les agents éventuellement présents sur le sommet et les arêtes incidentes sont supprimés \\ \hline
-\hline
 \end{tabular}
 
 
