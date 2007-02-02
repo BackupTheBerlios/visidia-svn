@@ -1,8 +1,8 @@
 package visidia.algo;
 import visidia.simulation.*;
 import visidia.misc.*;
-import java.util.Random;
-import java.util.Vector;
+//import java.util.Random;
+//import java.util.Vector;
 
 public class Chang_Roberts extends Algorithm {
     

@@ -2,11 +2,11 @@ package visidia.graph;
 
 
 import java.util.Hashtable;
-import java.util.Vector;
+//import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Stack;
 import java.io.*;
-import visidia.visidiassert.VisidiaAssertion;
+//import visidia.visidiassert.VisidiaAssertion;
 
 /**
  * Cette classe implemente une une structure de graphe

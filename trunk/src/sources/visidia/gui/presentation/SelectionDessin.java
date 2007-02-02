@@ -2,8 +2,8 @@ package visidia.gui.presentation;
 
 import java.util.*;
 import visidia.gui.donnees.conteneurs.*;
-import java.io.*;
-import visidia.gui.metier.*;
+//import java.io.*;
+//import visidia.gui.metier.*;
 
 /**
  * Implements a selection of elements of a graph

@@ -1,7 +1,7 @@
 package visidia.misc;
 
 import visidia.rule.*;
-import visidia.misc.*;
+//import visidia.misc.*;
 import java.io.*;
 
 public class Arrow implements Serializable {

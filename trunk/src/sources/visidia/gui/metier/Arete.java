@@ -1,9 +1,9 @@
 package visidia.gui.metier;
 
-import java.util.*;
-import java.io.*;
+//import java.util.*;
+//import java.io.*;
 import visidia.gui.donnees.conteneurs.monde.*;
-import visidia.gui.donnees.conteneurs.*;
+//import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.presentation.AreteDessin;
 
 

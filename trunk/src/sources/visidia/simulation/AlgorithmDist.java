@@ -1,11 +1,11 @@
 package visidia.simulation;
 
 import visidia.network.*;
-import visidia.gui.*;
+//import visidia.gui.*;
 import visidia.misc.Message;
 import visidia.misc.*;
 import visidia.tools.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+//import visidia.gui.presentation.userInterfaceSimulation.*;
 
 import java.util.*;
 import java.io.Serializable;

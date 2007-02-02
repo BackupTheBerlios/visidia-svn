@@ -2,13 +2,13 @@ package visidia.simulation.rules;
 
 import visidia.simulation.synchro.SynCT;
 import visidia.simulation.synchro.synAlgos.*;
-import visidia.simulation.synchro.synObj.*;
+//import visidia.simulation.synchro.synObj.*;
 
-import visidia.simulation.rules.*;
+//import visidia.simulation.rules.*;
 import visidia.rule.*;
-import visidia.misc.*;
-import visidia.simulation.*;
-import java.util.Vector;
+//import visidia.misc.*;
+//import visidia.simulation.*;
+//import java.util.Vector;
  
 public class RDVRule extends AbstractRule{
     

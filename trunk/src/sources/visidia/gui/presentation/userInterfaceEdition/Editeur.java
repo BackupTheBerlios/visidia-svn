@@ -2,12 +2,12 @@ package visidia.gui.presentation.userInterfaceEdition;
 
 import visidia.gui.DistributedAlgoSimulator;
 import java.awt.*;
-import java.awt.geom.*;
+//import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
-import java.lang.reflect.*;
+//import java.lang.reflect.*;
 import visidia.graph.*;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.*;

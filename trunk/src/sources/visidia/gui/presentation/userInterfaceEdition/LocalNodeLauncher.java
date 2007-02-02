@@ -1,13 +1,13 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
 import visidia.network.*;
-import visidia.gui.donnees.*;
+//import visidia.gui.donnees.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.border.*;
-import java.io.*;
+//import java.io.*;
 import java.util.Vector;
 import java.util.Hashtable;
 import java.awt.event.*;

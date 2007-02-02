@@ -4,7 +4,7 @@ import java.awt.*;
 import visidia.tools.MovableObject;
 import visidia.simulation.MessageSendingEvent;
 import visidia.misc.MessageType;
-import visidia.graph.*;
+//import visidia.graph.*;
 
 public class SentMessage extends MovableObject {
     private String mesg;

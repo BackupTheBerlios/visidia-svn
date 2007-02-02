@@ -1,7 +1,7 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
 import visidia.gui.metier.*;
-import visidia.graph.*;
+//import visidia.graph.*;
 import visidia.network.*;
 import java.rmi.*;
 import java.rmi.registry.*; 

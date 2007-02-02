@@ -2,16 +2,16 @@ package visidia.gui.metier.inputOutput;
 
 import java.io.*;
 import java.lang.Integer;
-import java.awt.Color;
+//import java.awt.Color;
 import javax.swing.*;
 import java.util.Enumeration;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.simulation.*;
+//import visidia.simulation.*;
 import visidia.gui.presentation.SommetDessin;
-import java.net.URLClassLoader;
-import java.net.URL;
-import visidia.algo.*;
-import visidia.rule.*;
+//import java.net.URLClassLoader;
+//import java.net.URL;
+//import visidia.algo.*;
+//import visidia.rule.*;
 
 
 public class OpenAgents implements Serializable{

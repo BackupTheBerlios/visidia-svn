@@ -2,10 +2,10 @@ package visidia.network;
 
 import visidia.tools.*;
 import visidia.simulation.*;
-import visidia.graph.*;
+//import visidia.graph.*;
 import java.util.*;
 import java.rmi.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+//import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.misc.MessageType;
 
 public interface NodeInterfaceTry extends Remote {

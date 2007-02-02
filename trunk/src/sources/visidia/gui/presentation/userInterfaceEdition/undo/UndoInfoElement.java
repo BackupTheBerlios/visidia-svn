@@ -1,7 +1,7 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 /** Cette classe contient les informations permettant d'annuler ou de
     restaurer une opération.  C'est une sous-classe de Vector, car une

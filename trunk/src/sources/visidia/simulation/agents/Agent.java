@@ -9,7 +9,7 @@ import visidia.tools.agents.WhiteBoard;
 import visidia.misc.EdgeState;
 import visidia.misc.MarkedState;
 import visidia.simulation.SimulationAbortError;
-import visidia.graph.Vertex;
+//import visidia.graph.Vertex;
 
 import visidia.simulation.agents.stats.AbstractStat;
 

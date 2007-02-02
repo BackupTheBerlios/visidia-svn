@@ -1,14 +1,14 @@
 package visidia.network;
 
 import visidia.network.NodeServer;
-import visidia.network.*;
-import java.rmi.*;
-import java.rmi.registry.*;
-import java.rmi.server.*;
+//import visidia.network.*;
+//import java.rmi.*;
+//import java.rmi.registry.*;
+//import java.rmi.server.*;
 import java.rmi.Naming;
-import java.io.*;
-import java.lang.*;
-import java.net.*;
+//import java.io.*;
+//import java.lang.*;
+//import java.net.*;
 
 //*****************************************************************
 // Cette classe instancie un serveur par machine

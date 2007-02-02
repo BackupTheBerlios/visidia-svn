@@ -1,13 +1,13 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import java.awt.*;
+//import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.event.*;
+//import javax.swing.event.*;
 import java.util.*;
 
 import visidia.misc.*;
-import visidia.gui.metier.simulation.*;
+//import visidia.gui.metier.simulation.*;
 
 //this class will allow us to choose which messages we want to
 //visualize in the graphical interface.

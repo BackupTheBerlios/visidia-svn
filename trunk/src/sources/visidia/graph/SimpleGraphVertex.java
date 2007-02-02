@@ -11,7 +11,7 @@ import java.io.*;
 import visidia.visidiassert.VisidiaAssertion;
 import visidia.misc.ForbiddenCallException;
 import visidia.tools.agents.WhiteBoard;
-import visidia.tools.agents.WithWhiteBoard;
+//import visidia.tools.agents.WithWhiteBoard;
 
 public class SimpleGraphVertex  implements Vertex,Serializable {
                             

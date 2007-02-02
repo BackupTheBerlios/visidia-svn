@@ -7,9 +7,9 @@ import java.util.*;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.*;
 import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+//import visidia.gui.metier.*;
 import visidia.gui.presentation.userInterfaceEdition.undo.*;
-import java.io.*;
+//import java.io.*;
 
 /**
  * Un GrapheVisuPanel est un JPanel sur lequel le graphe est affiché

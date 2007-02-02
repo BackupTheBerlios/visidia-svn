@@ -3,13 +3,13 @@ package visidia.simulation;
 import java.io.*;
 import visidia.tools.VQueue;
 import java.util.Vector;
-import java.util.StringTokenizer;
-import visidia.simulation.SimulConstants;
-import visidia.misc.Message;
+//import java.util.StringTokenizer;
+//import visidia.simulation.SimulConstants;
+//import visidia.misc.Message;
 import visidia.simulation.SimulAck;
 import visidia.simulation.SimulEvent;
 import visidia.tools.Element;
-import visidia.gui.metier.Graphe;
+//import visidia.gui.metier.Graphe;
 
 public class Reader implements Runnable, Cloneable {
     private String trace = null;

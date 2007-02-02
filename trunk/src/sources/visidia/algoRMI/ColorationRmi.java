@@ -1,8 +1,8 @@
 package visidia.algoRMI;
 import visidia.simulation.*;
 import visidia.misc.*;
-import java.util.Random;
-import java.util.Vector;
+//import java.util.Random;
+//import java.util.Vector;
 
 
 public class ColorationRmi extends AlgorithmDist {

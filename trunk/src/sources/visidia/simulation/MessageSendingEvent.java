@@ -1,7 +1,7 @@
 package visidia.simulation;
 
 import visidia.misc.*;
-import java.io.Serializable;
+//import java.io.Serializable;
 
 /**
  * Cette represente l'évènement associe a l'envoie d'un message sur le 

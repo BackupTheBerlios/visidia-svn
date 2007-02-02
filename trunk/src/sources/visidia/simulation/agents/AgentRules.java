@@ -1,8 +1,8 @@
 package visidia.simulation.agents;
 
-import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 
-import visidia.misc.MarkedState;
+//import visidia.misc.MarkedState;
 import visidia.simulation.SimulationAbortError;
 import visidia.rule.Neighbour;
 import visidia.rule.RelabelingSystem;

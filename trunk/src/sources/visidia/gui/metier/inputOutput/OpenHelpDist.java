@@ -8,9 +8,9 @@ package visidia.gui.metier.inputOutput;
 
 import java.awt.*;
 import javax.swing.*;
-import java.util.*;
+//import java.util.*;
 import java.awt.event.*;
-import visidia.gui.donnees.*;
+//import visidia.gui.donnees.*;
 import java.io.*;
 
 /**

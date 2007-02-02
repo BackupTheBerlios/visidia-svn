@@ -4,6 +4,6 @@
 
 package visidia.tests;
 
-import visidia.tests.*;
+//import visidia.tests.*;
 
 

@@ -14,10 +14,10 @@ import visidia.gui.presentation.*;
 import visidia.gui.presentation.boite.*;
 import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.algo.*;
+//import visidia.algo.*;
 import visidia.simulation.*;
-import visidia.tools.*;
-import visidia.misc.MessageType;
+//import visidia.tools.*;
+//import visidia.misc.MessageType;
 
 //PFA2003
 import visidia.simulation.rules.*;

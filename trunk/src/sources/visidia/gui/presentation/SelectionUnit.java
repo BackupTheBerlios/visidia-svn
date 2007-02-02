@@ -4,9 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JPanel;
 import java.util.*;
-import visidia.gui.presentation.*;
+//import visidia.gui.presentation.*;
 import visidia.gui.presentation.userInterfaceEdition.undo.*;
-import java.io.*;
+//import java.io.*;
 
 
 public class SelectionUnit extends MouseAdapter implements MouseMotionListener {

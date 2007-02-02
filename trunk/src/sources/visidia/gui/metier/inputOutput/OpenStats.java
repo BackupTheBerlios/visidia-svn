@@ -1,14 +1,14 @@
 package visidia.gui.metier.inputOutput;
 
 import java.io.*;
-import java.lang.Integer;
+//import java.lang.Integer;
 import javax.swing.*;
-import java.util.Enumeration;
-import java.lang.reflect.Method;
+//import java.util.Enumeration;
+//import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
 
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.metier.Graphe;
+//import visidia.gui.metier.Graphe;
 import visidia.simulation.agents.AbstractExperiment;
 
 public class OpenStats implements Serializable{

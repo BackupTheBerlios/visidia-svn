@@ -1,9 +1,9 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+//import javax.swing.event.*;
 
 /* Cette classe permet l'ajout graphique du menu des options de visualisation
 a la fenetre de visualisation */

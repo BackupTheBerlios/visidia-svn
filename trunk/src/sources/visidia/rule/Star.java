@@ -1,10 +1,10 @@
 package visidia.rule;
 
-import java.io.*;
+//import java.io.*;
 import java.util.*;
-import java.lang.*;
+//import java.lang.*;
 
-import visidia.rule.*;
+//import visidia.rule.*;
 import java.io.Serializable;
 
 

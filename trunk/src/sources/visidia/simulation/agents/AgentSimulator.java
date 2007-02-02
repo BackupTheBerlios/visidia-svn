@@ -1,9 +1,9 @@
 package visidia.simulation.agents;
 
 import visidia.graph.*;
-import visidia.agents.*;
+//import visidia.agents.*;
 import visidia.tools.VQueue;
-import visidia.visidiassert.VisidiaAssertion;
+//import visidia.visidiassert.VisidiaAssertion;
 
 import visidia.simulation.AlgorithmEndEvent;
 import visidia.simulation.MessageSendingEvent;
@@ -27,14 +27,14 @@ import visidia.misc.EdgeState;
 
 import visidia.rule.RelabelingSystem;
 
-import java.io.*;
+//import java.io.*;
 import java.util.Hashtable;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
+//import java.util.Map;
 
 import java.util.Vector;
 

@@ -1,10 +1,10 @@
 package visidia.rule;
 import visidia.simulation.synchro.SynCT;
-import visidia.misc.*;
-import visidia.simulation.*;
-import visidia.rule.*;
+//import visidia.misc.*;
+//import visidia.simulation.*;
+//import visidia.rule.*;
 
-import visidia.algo.*;
+//import visidia.algo.*;
 import java.util.*;
 import java.io.Serializable;
 

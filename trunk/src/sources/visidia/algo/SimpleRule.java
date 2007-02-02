@@ -8,7 +8,7 @@ import java.io.*;
  * Exemple d'implementation des regles de reecriture,a l'aide de vecteurs.
  */
 
-import java.util.Vector;
+//import java.util.Vector;
 
 public class SimpleRule  implements Serializable{
     private Arrow leftMember;

@@ -1,7 +1,7 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
 import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+//import visidia.gui.metier.*;
 
 /** Cette classe permet d'annuler et de restaurer les suppressions
  * d'objets dans un graphe. */

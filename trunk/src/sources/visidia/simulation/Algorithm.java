@@ -2,13 +2,13 @@ package visidia.simulation;
 
 import visidia.misc.*;
 import visidia.tools.*;
-import visidia.graph.*;
+//import visidia.graph.*;
 import java.util.*;
-import java.awt.Color;
+//import java.awt.Color;
 
 import  visidia.simulation.synchro.synObj.*;
 import  visidia.simulation.synchro.synAlgos.*;
-import  visidia.simulation.synchro.SynCT;
+//import  visidia.simulation.synchro.SynCT;
 
 public abstract class Algorithm implements Runnable,Cloneable
 {

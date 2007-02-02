@@ -1,6 +1,6 @@
 package visidia.tools.agents;
 
-import visidia.simulation.agents.AgentSimulator;
+//import visidia.simulation.agents.AgentSimulator;
 
 import javax.swing.table.*;
 

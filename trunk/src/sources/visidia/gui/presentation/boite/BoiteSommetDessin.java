@@ -1,13 +1,13 @@
 package visidia.gui.presentation.boite;
 
 import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.Editeur;
-import visidia.gui.presentation.factory.*; // pour avoir les fabriques
+//import visidia.gui.presentation.userInterfaceEdition.Editeur;
+//import visidia.gui.presentation.factory.*; // pour avoir les fabriques
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.*; // a enlever ?
-import java.util.*;
+//import java.io.*; // a enlever ?
+//import java.util.*;
 
 /** Cette class "raffine" sa super classe en lui ajoutant les champs permettant 
  *  d'afficher et de modifier les caracteristiques specifiques au sommets

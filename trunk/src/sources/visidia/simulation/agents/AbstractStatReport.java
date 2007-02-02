@@ -2,7 +2,7 @@ package visidia.simulation.agents;
 
 import visidia.tools.Bag;
 
-import visidia.simulation.agents.stats.*;
+//import visidia.simulation.agents.stats.*;
 
 /**
  * Base abstract class  for all reports you want  to develop. You must

@@ -1,6 +1,6 @@
 package visidia.simulation;
 
-import java.lang.Class;
+//import java.lang.Class;
 
 public interface AlgoChoiceInterface{
 

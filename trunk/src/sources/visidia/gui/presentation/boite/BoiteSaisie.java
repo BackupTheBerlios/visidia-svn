@@ -1,7 +1,7 @@
 package visidia.gui.presentation.boite;
 
 import javax.swing.*;
-import java.awt.*;
+//import java.awt.*;
 
 /** Cette classe affiche une boite de saisie d'une valeur quelconque. 
 * Les methodes de cette classe doivent etre redefinies en fonction de la saisie attendue.

@@ -1,6 +1,6 @@
 package visidia.misc;
 
-import visidia.algo.*;
+//import visidia.algo.*;
 
 /**
  * Message contenant un boolean.

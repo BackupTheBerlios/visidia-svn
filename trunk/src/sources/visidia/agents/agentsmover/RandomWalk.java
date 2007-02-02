@@ -3,7 +3,7 @@ package visidia.agents.agentsmover;
 import java.util.Random;
 
 import visidia.simulation.agents.Agent;
-import visidia.simulation.agents.AgentMover;
+//import visidia.simulation.agents.AgentMover;
 
 /**
  * Provides a random move for an Agent. On a vertex, the agent goes to

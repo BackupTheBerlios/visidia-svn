@@ -1,6 +1,6 @@
 package visidia.simulation;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
 /**
  * cette classe est utilisée pour informer le système de simulation 

@@ -4,9 +4,9 @@ package visidia.simulation;
 
 import visidia.misc.*;
 import visidia.tools.*;
-import visidia.graph.*;
-import java.util.*;
-import java.awt.Color;
+//import visidia.graph.*;
+//import java.util.*;
+//import java.awt.Color;
 
 
 /**

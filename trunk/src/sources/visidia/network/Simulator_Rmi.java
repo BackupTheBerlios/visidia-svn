@@ -4,8 +4,8 @@ import visidia.simulation.*;
 import visidia.graph.*;
 import visidia.tools.*;
 import visidia.misc.*;
-import visidia.gui.presentation.boite.RemoteObjectBoite;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+//import visidia.gui.presentation.boite.RemoteObjectBoite;
+//import visidia.gui.presentation.userInterfaceSimulation.*;
 
 
 import java.util.Hashtable;

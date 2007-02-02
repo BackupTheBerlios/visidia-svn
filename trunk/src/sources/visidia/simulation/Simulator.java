@@ -7,14 +7,14 @@ import visidia.misc.*;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.io.*;
-import java.awt.Color;
+//import java.util.Iterator;
+//import java.util.NoSuchElementException;
+//import java.io.*;
+//import java.awt.Color;
 
-import visidia.gui.metier.simulation.AlgoChoice;
-import visidia.simulation.rules.AbstractRule;
-import visidia.rule.RSOptions;
+//import visidia.gui.metier.simulation.AlgoChoice;
+//import visidia.simulation.rules.AbstractRule;
+//import visidia.rule.RSOptions;
 
 
 /**

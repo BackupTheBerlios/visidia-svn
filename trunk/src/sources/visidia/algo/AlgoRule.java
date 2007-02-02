@@ -1,7 +1,7 @@
 package visidia.algo;
 
 import visidia.misc.*;
-import visidia.simulation.*;
+//import visidia.simulation.*;
 import visidia.algo.SynchroAlgo;
 /**
  *Fonction qui prend en entree un ensemble de regles de reecriture et 

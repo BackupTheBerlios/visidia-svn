@@ -1,7 +1,7 @@
 package visidia.gui.metier.inputOutput;
 
 import java.io.*;
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 // this class is the file filter which recognizes the hosts

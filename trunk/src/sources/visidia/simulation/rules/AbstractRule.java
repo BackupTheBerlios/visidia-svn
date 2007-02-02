@@ -1,11 +1,11 @@
 package visidia.simulation.rules;
 
 import visidia.simulation.synchro.SynCT;
-import visidia.simulation.synchro.synAlgos.*;
+//import visidia.simulation.synchro.synAlgos.*;
 import visidia.simulation.synchro.synObj.*;
 
 import visidia.rule.*;
-import visidia.algo.*;
+//import visidia.algo.*;
 import visidia.misc.*;
 import visidia.simulation.*;
 import java.util.*;

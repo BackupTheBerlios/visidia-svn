@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.conteneurs.*;
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.*;
+//import visidia.gui.donnees.conteneurs.*;
+//import visidia.gui.presentation.*;
+//import visidia.gui.donnees.*;
 import visidia.gui.metier.inputOutput.*;
 
 /**

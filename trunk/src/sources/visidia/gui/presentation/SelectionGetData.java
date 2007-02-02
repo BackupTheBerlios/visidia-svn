@@ -1,7 +1,7 @@
 package visidia.gui.presentation;
 
 import java.lang.NoSuchMethodException;
-import visidia.gui.presentation.*;
+//import visidia.gui.presentation.*;
 import visidia.gui.presentation.userInterfaceEdition.undo.*;
 
 /*  Those 3 classes are used by SelectUnit and as they can change,

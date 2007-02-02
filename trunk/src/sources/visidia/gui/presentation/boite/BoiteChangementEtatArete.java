@@ -3,11 +3,11 @@ package visidia.gui.presentation.boite;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+//import javax.swing.event.*;
 import java.util.*;
 import visidia.gui.presentation.*;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.userInterfaceEdition.Traitements;
+//import visidia.gui.presentation.userInterfaceEdition.Traitements;
 import visidia.gui.donnees.conteneurs.*;
 
 /*

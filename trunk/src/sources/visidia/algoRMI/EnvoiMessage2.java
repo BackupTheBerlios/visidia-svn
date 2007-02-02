@@ -1,7 +1,7 @@
 package visidia.algoRMI;
 import visidia.simulation.*;
 import visidia.misc.*;
-import java.util.*;
+//import java.util.*;
 
 public class EnvoiMessage2 extends AlgorithmDist {
     

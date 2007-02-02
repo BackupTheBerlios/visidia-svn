@@ -1,10 +1,10 @@
 package visidia.agents.agentsmover;
 
-import visidia.simulation.agents.AgentSimulator;
+//import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
-import visidia.simulation.agents.AgentMover;
+//import visidia.simulation.agents.AgentMover;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 /**
  * I'm a  linear agent mover which  try not to  go to the door  I have

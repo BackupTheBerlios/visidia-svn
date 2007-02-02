@@ -3,7 +3,7 @@ package visidia.gui.presentation.boite;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import visidia.gui.presentation.*;
+//import visidia.gui.presentation.*;
 
 /** 
  * Cette classe crée un panel qui contient un bouton et un label. Le

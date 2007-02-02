@@ -1,21 +1,21 @@
 package visidia.network;
 
 import java.rmi.*;
-import java.rmi.Naming;
+//import java.rmi.Naming;
 import java.rmi.registry.*;
 import java.rmi.server.*;
-import java.io.*;
+//import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.text.*;
+//import javax.swing.text.*;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
+//import visidia.gui.presentation.*;
+//import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.*;
-import visidia.gui.metier.*;
+//import visidia.gui.donnees.*;
+//import visidia.gui.metier.*;
 import visidia.tools.LocalNodeTable;
 
 

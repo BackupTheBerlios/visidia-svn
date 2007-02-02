@@ -8,7 +8,7 @@ import visidia.tools.agents.WhiteBoard;
 
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
-import junit.framework.TestCase;
+//import junit.framework.TestCase;
 
 public class WhiteBoardTest extends junit.framework.TestCase {
     

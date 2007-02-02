@@ -1,7 +1,7 @@
 package visidia.simulation;
 
 import visidia.tools.Criterion;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 
 /**
  * This class is used in the synchronous model. The user can create a

@@ -3,7 +3,7 @@ package visidia.gui.metier.simulation;
 import java.util.*;
 import visidia.gui.metier.*;
 import visidia.graph.*;
-import java.io.*;
+//import java.io.*;
 
 
 /** cette classe contient une methode statique de conversion d'un

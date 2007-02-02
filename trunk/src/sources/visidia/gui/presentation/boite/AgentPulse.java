@@ -1,11 +1,11 @@
 package visidia.gui.presentation.boite;
 
 import java.io.Serializable;
-import visidia.gui.donnees.TableImages;
-import java.awt.*;
+//import visidia.gui.donnees.TableImages;
+//import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+//import javax.swing.event.*;
 
 
 public class AgentPulse extends JLabel implements ActionListener, Serializable {
