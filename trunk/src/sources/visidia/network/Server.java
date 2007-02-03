@@ -51,20 +51,20 @@ public class Server {
     
    
     public static void main(String[] args){
-	int indexOfRegistry=0;
+	//int indexOfRegistry=0;
 	String regPort=null;
 	for (int i=0; i<args.length; i++){
 	    if (args[i].equals("-RMIregistry")){
-		indexOfRegistry = i;
+		//indexOfRegistry = i;
 		regPort = args[i+1];
 	    }
 	}
 	
-	int indexOfUrl=0;
+	//int indexOfUrl=0;
 	String urlServer=null;
 	for (int i=0; i<args.length; i++){
 	    if (args[i].equals("-Name")){
-		indexOfUrl = i;
+		//indexOfUrl = i;
 		urlServer = args[i+1];
 	    }
 	}

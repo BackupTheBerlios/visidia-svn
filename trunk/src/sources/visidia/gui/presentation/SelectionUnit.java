@@ -50,7 +50,7 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
     public void mouseReleased(MouseEvent evt) {
 	int x = evt.getX();
 	int y = evt.getY();
-	boolean changed = false;
+	//boolean changed = false;
      
 	if (carre_selection) {
 	    updateData();

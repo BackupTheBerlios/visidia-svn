@@ -12,7 +12,7 @@ import visidia.rule.Star;
 
 public class AgentRules extends AbstractAgentsRules {
 
-    private int v,u;
+    //private int v,u;
     private String labelV, labelU;
     private int door;
     private int step;
@@ -24,13 +24,13 @@ public class AgentRules extends AbstractAgentsRules {
 	while (true) {
 
             if (lockVertexIfPossible()) {
-                v = getVertexIdentity();
+                //v = getVertexIdentity();
                 labelV = (String)getVertexProperty("label");
                 step = 1;
 
                 randomMove();
 
-		u = getVertexIdentity();
+		//u = getVertexIdentity();
 
                 if (lockVertexIfPossible()) {
                     labelU = (String)getVertexProperty("label");

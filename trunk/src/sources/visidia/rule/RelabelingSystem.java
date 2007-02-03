@@ -245,7 +245,7 @@ public class RelabelingSystem  implements Serializable {
     {
 	int i = rules.count();
 	int j = 0;
-	int k=0;
+	//int k=0;
 	int l=0;
 	boolean boucle = true;
 	Star context = new Star();

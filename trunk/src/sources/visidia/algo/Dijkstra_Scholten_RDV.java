@@ -31,7 +31,7 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
         int sc=0;
         Integer father=null;
         boolean son[];
-        boolean initial=false;
+        //boolean initial=false;
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighbourValue;

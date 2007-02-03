@@ -69,7 +69,7 @@ public class Reader implements Runnable, Cloneable {
     }
     
     public void run(){
-	int i=0, j=0;
+	//int i=0, j=0;
 	Vector ackRcv = new Vector();
 
 	while (messages.size() != 0){ // while there are messages to send

@@ -412,9 +412,9 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	for(int i=0; i<selected.size();i++) {
 	    int row = ((Integer)selected.elementAt(i)).intValue(); 
 	    if (((String)myModel.getValueAt(row,2)).equals("started")) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(row,1);
+//		String hostText = localHost.getText();
+//		String portText = portRegistry.getText();
+//		String url = (String)myModel.getValueAt(row,1);
 		try {
 		    NodeServer nodeServer = (NodeServer)nodeServers.get(new Integer(row));
 		    nodeServer.register(visualizationHost.getText(),visualizationUrl.getText());

@@ -73,7 +73,7 @@ public class Convertisseur {
                                       Hashtable agentsPosition,
                                       Hashtable defProps) {
         SimpleGraph graph = convertir(oldGraph,defProps);
-        int i;
+        //int i;
         Enumeration e;
 
         e = agentsPosition.keys();

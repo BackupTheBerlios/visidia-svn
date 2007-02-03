@@ -185,8 +185,8 @@ public class Rule implements Serializable {
      */   
     
     public boolean isApplicableTo(Star neighbourhood){
-       	int j = 0;
-	int k=0;
+       	//int j = 0;
+	//int k=0;
 	int l=0;
 	boolean boucle = true;
 	Star context = new Star();

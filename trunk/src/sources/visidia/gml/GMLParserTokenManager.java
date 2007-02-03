@@ -538,8 +538,8 @@ int jjmatchedKind;
 
 public final Token getNextToken() 
 {
-  int kind;
-  Token specialToken = null;
+  //int kind;
+  //Token specialToken = null;
   Token matchedToken;
   int curPos = 0;
 
