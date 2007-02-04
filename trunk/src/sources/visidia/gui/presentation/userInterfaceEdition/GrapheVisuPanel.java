@@ -557,7 +557,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      **/
     public void glisseBoutonGauche(int x, int y) {
 	boolean changed = false;
-	AreteDessin areteCree = null;
+	//AreteDessin areteCree = null;
 
 	if(objet_sous_souris != null) {
 	    if(drag_n_drop_sommet)

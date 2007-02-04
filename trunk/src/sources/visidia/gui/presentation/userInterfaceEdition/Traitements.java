@@ -130,7 +130,7 @@ public class Traitements {
 	Hashtable sommets_clones = new Hashtable();
 	Enumeration e;
 	 
-	int i = 0; //a enlever
+	//int i = 0; //a enlever
       
 	e = une_selection.elements();
 	while(e.hasMoreElements()) {

@@ -32,7 +32,7 @@ public class AverageMoveReport extends AbstractStatReport {
      */
     private void countAgents() {
 	Set keys;
-	agentsByClass = new Hashtable(10);
+	agentsByClass = new Hashtable<Class, Long>(10);
 
 	/**
 	 * Keys is  a Set  containing all the  events reported  by the
@@ -67,7 +67,7 @@ public class AverageMoveReport extends AbstractStatReport {
 	keys = getBag().keySet();
 
 	for(Object key: keys) {
-	    float movesByAgent;
+	    //float movesByAgent;
 
 	    if (key instanceof MoveStat) { // if it is a move event
 		Class agClass = ((MoveStat)key).getAgentClass();

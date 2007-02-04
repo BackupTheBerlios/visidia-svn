@@ -20,7 +20,7 @@ public class Broadcast extends Algorithm {
     public void init(){
 	int degres = getArity() ;
 	int fatherDoor;
-	int[] childrenDoors = new int[degres];
+	//int[] childrenDoors = new int[degres];
 	
 	String label = (String) getProperty("label");
 
