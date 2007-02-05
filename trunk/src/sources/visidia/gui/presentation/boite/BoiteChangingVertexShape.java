@@ -1,7 +1,6 @@
 package visidia.gui.presentation.boite;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 import java.io.*;
 import java.awt.event.*;

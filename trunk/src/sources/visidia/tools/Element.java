@@ -1,6 +1,5 @@
 package visidia.tools;
 
-import visidia.misc.Message;
 import visidia.simulation.*;
 
 

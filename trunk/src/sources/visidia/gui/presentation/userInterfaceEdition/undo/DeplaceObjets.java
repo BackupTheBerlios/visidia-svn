@@ -2,7 +2,6 @@ package visidia.gui.presentation.userInterfaceEdition.undo;
 
 import visidia.gui.presentation.*;
 import visidia.gui.donnees.conteneurs.*;
-import java.util.*;
 
 /** Cette classe contient les informations pour annuler les
  * déplacements d'objets */

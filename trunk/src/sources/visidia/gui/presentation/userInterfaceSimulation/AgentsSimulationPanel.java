@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
-import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.presentation.*;
 import visidia.simulation.*;
 import visidia.gui.metier.simulation.SentAgent;
@@ -97,7 +95,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
     {
 	this.lePas = p;
 	synchronized(concurrentObject){
-	    SentAgent sentAgent;
+	    //SentAgent sentAgent;
 	    int size = sentAgentVector.size();
 	    for(int i = 0; i < size; i++){
 		((SentAgent) sentAgentVector.elementAt(i)).setStep(p);

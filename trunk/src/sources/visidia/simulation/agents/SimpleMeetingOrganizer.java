@@ -1,14 +1,8 @@
 package visidia.simulation.agents;
 
-import visidia.agents.*;
-
-import java.util.Hashtable;
 import java.util.Iterator;
 
 import java.util.Collection;
-
-
-import java.util.Vector;
 
 public class SimpleMeetingOrganizer implements MeetingOrganizer {
   

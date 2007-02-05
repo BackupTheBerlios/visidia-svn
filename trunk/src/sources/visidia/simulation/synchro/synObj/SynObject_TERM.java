@@ -1,5 +1,5 @@
 package visidia.simulation.synchro.synObj;
-import visidia.simulation.synchro.SynCT;
+
 import java.io.Serializable;
 /**
  * this class contains of implementation concerning Termination 

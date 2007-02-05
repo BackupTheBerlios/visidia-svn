@@ -28,13 +28,13 @@ public class Spanning_Tree_LC1 extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         Vector synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighboursLabel[];
         //boolean neihboursLink[];
-        String lastName;
-        int pere=-1;
+        //String lastName;
+        //int pere=-1;
         
         neighboursLabel=new String[getArity()];
         

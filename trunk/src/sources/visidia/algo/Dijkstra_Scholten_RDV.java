@@ -23,15 +23,15 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
         final String passive=new String("Pa");
         final Integer p0=new Integer(-1);
         
-        final StringMessage mes=new StringMessage(new String("mes"),labels);
-        final StringMessage sig=new StringMessage(new String("sig"),labels);
+        //final StringMessage mes=new StringMessage(new String("mes"),labels);
+        //final StringMessage sig=new StringMessage(new String("sig"),labels);
         
         String state=passive;
         String my_State=new String("N");
         int sc=0;
         Integer father=null;
         boolean son[];
-        boolean initial=false;
+        //boolean initial=false;
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighbourValue;

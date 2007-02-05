@@ -1,10 +1,7 @@
 package visidia.simulation;
 
 import visidia.misc.*;
-import visidia.tools.*;
-import visidia.graph.*;
 import java.util.*;
-import java.awt.Color;
 
 /**
  * This classe helps the user writing an algorithm in the distibuted

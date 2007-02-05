@@ -2,8 +2,6 @@ package visidia.tests.tools;
 
 import visidia.tools.Bag;
 
-import junit.framework.TestCase;
-
 public class BagTest extends junit.framework.TestCase {
     
     private Bag bag;

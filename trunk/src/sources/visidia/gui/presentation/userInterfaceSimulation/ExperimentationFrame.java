@@ -1,22 +1,13 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import visidia.gui.DistributedAlgoSimulator;
-
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import javax.swing.event.*;
 import java.util.*;
 import java.io.*;
-import visidia.gui.donnees.conteneurs.*;
-import visidia.gui.donnees.*;
 import visidia.gui.metier.simulation.*;
 import visidia.gui.presentation.*;
-import visidia.gui.presentation.boite.*;
-import visidia.gui.metier.inputOutput.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.algo.*;
 import visidia.simulation.*;
 
 

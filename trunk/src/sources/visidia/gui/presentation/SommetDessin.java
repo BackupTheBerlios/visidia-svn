@@ -2,7 +2,6 @@ package visidia.gui.presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 import java.util.*;
 import visidia.gui.metier.*;
 

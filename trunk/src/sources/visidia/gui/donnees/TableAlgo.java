@@ -1,9 +1,7 @@
 package visidia.gui.donnees;
 
 import java.util.*;
-import java.awt.*;
 import javax.swing.JApplet;
-import java.net.URL;
 import visidia.algo.*;
 import visidia.simulation.Algorithm;
 
@@ -14,7 +12,7 @@ public class TableAlgo{
     public static void setTableAlgo(JApplet uneApplet){
 	tableauAlgo = new Hashtable();
 
-	String jarAdress = new String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
+	//String jarAdress = new String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
 	
 	try{
 	    //tableauAlgo.put("Election", new Election());

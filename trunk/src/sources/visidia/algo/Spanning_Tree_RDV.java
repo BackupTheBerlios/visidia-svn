@@ -22,7 +22,7 @@ public class Spanning_Tree_RDV extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighbourValue;

@@ -36,7 +36,7 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
         String state=passive;
         int sc=0;
         Integer father=null;
-        boolean initial=false;
+        //boolean initial=false;
         int synchro;
         boolean run=true;
         String neighboursLabel;

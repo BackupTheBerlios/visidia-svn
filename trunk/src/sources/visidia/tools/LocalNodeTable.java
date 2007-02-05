@@ -1,7 +1,6 @@
 package visidia.tools;
 
 import java.util.*;
-import visidia.network.*;
 import java.io.Serializable;
 
 

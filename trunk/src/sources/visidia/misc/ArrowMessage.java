@@ -1,7 +1,5 @@
 package visidia.misc;
 
-import visidia.algo.*;
-
 /**
  * Message contenant une chaine de caractere.
  */

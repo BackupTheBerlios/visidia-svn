@@ -17,7 +17,7 @@ public class RandomAgentChooser extends AgentChooser {
 
 
     private String algoName = "Handshake"; 
-    private Vector<String> algoNames = new Vector() ; 
+    private Vector<String> algoNames = new Vector<String>() ; 
     private float prob = (float)0.5;
     private Random generator= new Random();
     private Random genNames = new Random();

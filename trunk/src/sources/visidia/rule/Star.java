@@ -1,10 +1,7 @@
 package visidia.rule;
 
-import java.io.*;
 import java.util.*;
-import java.lang.*;
 
-import visidia.rule.*;
 import java.io.Serializable;
 
 
@@ -329,46 +326,47 @@ public class Star implements Serializable {
 	Star s = new Star(this);
 	return s;
     }
-    static public void main(String args[])
-    {
+    
+   // static public void main(String args[])
+   // {
 	//System.out.println("/********* Test of Star ********/");
-	MyVector v = new MyVector();
-	for(int i=0; i<10; i++){
-	    v.add(new Integer(i));
-	}
-	Iterator it = v.randIterator();
-	while(it.hasNext()){
+//	MyVector v = new MyVector();
+//	for(int i=0; i<10; i++){
+//	    v.add(new Integer(i));
+//	}
+//	Iterator it = v.randIterator();
+//	while(it.hasNext()){
 	    //System.out.println("voila "+(Integer)it.next());
-	}
+//	}
 	
 
 
-	Star s = new Star(6);
+//	Star s = new Star(6);
 	//System.out.println("___printing test___");
 	//System.out.println(s);
 	//System.out.println("___ test of setState ___ ");
-	Neighbour n1 = new  Neighbour("A", true);
-	Neighbour n2 = new  Neighbour("A", true);
-	Neighbour n3 = new  Neighbour("B", true);
-	Neighbour n4 = new  Neighbour("B", true);
-	s.setState(1,n1);
-	s.setState(2,n2);
-	s.setState(3,n3);
+//	Neighbour n1 = new  Neighbour("A", true);
+//	Neighbour n2 = new  Neighbour("A", true);
+//	Neighbour n3 = new  Neighbour("B", true);
+//	Neighbour n4 = new  Neighbour("B", true);
+//	s.setState(1,n1);
+//	s.setState(2,n2);
+//	s.setState(3,n3);
 	//System.out.println(s);
 	//System.out.println("? true= "+ n3.equals(n4));
 	//System.out.println("? > -1 = "+ s.contains(n4)+" __test of star.contains(Neigh)__");
 	//System.out.println("___Testing stars comparison___");	
-	Star s2 = new Star(3);
-	Neighbour n12 = new  Neighbour("A", true);
-	Neighbour n32 = new  Neighbour("B", true);
-	s2.setState(0,n1);
-      	s2.setState(1,n3);
+//	Star s2 = new Star(3);
+//	Neighbour n12 = new  Neighbour("A", true);
+//	Neighbour n32 = new  Neighbour("B", true);
+//	s2.setState(0,n1);
+//      	s2.setState(1,n3);
 	//System.out.println("? false= "+ s.contains(s2)+"__portes != -1");
-	Neighbour n34 = new  Neighbour("E", true);
-	s2.setState(2,n34);
+//	Neighbour n34 = new  Neighbour("E", true);
+//	s2.setState(2,n34);
 	//System.out.println("? false= "+ s.contains(s2));
-	n34 = new Neighbour("N",false);
-	s2.setState(2, n34);
+//	n34 = new Neighbour("N",false);
+//	s2.setState(2, n34);
 	//System.out.println("? true= "+ s.contains(s2));
-    }
+//    }
 }

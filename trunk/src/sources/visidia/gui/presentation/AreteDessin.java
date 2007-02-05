@@ -2,7 +2,6 @@ package visidia.gui.presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 import visidia.gui.presentation.boite.*;
 import visidia.gui.metier.*;
 import visidia.tools.ArrowHeadFactory;

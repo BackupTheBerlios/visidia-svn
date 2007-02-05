@@ -8,7 +8,7 @@ public class Bag {
     private Hashtable<Object, Long> table;
 
     public Bag() {
-	table = new Hashtable();
+	table = new Hashtable<Object, Long>();
     }
 
     public long getOccurrencesOf(Object o) {

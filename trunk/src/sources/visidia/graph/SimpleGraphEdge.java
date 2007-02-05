@@ -1,11 +1,6 @@
 package visidia.graph;
 
-import java.util.Vector;
-import java.util.Enumeration;
 import java.io.*;
-import visidia.visidiassert.VisidiaAssertion;
-
-
 
 class SimpleGraphEdge implements Edge, Serializable{
     SimpleGraphVertex vtx1 = null;

@@ -1,7 +1,6 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
 import visidia.gui.metier.*;
-import visidia.graph.*;
 import visidia.network.*;
 import java.rmi.*;
 import java.rmi.registry.*; 
@@ -21,7 +20,6 @@ import visidia.gui.presentation.boite.*;
 import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.algo.*;
-//import visidia.algoRMI.*;
 import visidia.simulation.*;
 import visidia.tools.*;
 import visidia.misc.*;

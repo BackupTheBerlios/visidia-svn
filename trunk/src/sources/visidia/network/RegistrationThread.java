@@ -1,13 +1,7 @@
 package visidia.network;
 
-import visidia.graph.*;
-import visidia.network.NodeInterfaceTry;
-import visidia.network.NodeTry;
 import java.rmi.*;
 import java.rmi.Naming;
-import java.rmi.server.*;
-import java.io.*;
-import java.util.*;
 
 
 public class RegistrationThread extends Thread {

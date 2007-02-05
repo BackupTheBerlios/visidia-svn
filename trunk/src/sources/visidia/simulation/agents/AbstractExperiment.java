@@ -2,8 +2,6 @@ package visidia.simulation.agents;
 
 import visidia.tools.Bag;
 
-import visidia.simulation.agents.stats.*;
-
 public abstract class AbstractExperiment {
 
     private Bag stats;

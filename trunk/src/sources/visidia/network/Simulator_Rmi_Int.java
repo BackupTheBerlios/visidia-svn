@@ -4,10 +4,7 @@ import visidia.simulation.*;
 import visidia.graph.*;
 import visidia.tools.*;
 import visidia.misc.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
 import java.util.Hashtable;
-import java.util.Enumeration;
-import java.util.*;
 import java.rmi.*;
 
 /** This class represents a distributed simulator called also the "console".

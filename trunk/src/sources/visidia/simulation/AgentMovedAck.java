@@ -1,7 +1,5 @@
 package visidia.simulation;
 
-import java.io.Serializable;
-
 /**
  * Class used to  inform the simulator that an  agant moving event has
  * been handled.  que l'évènement correspondant à un envoie de message

@@ -15,12 +15,10 @@ import visidia.gui.presentation.*;
 import visidia.gui.presentation.boite.*;
 import visidia.gui.metier.inputOutput.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.algo.*;
 import visidia.simulation.*;
 import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.*;
 import visidia.tools.agents.*;
-import visidia.misc.MessageType;
 import visidia.simulation.rules.*;
 import visidia.simulation.synchro.*;
 import visidia.rule.*;
@@ -1191,7 +1189,7 @@ public class AgentsSimulationWindow
     public void rulesWarnings(RelabelingSystem r){
 	int synType;//user choice
 	int type;//default choice
-	SynObject synob;
+	//SynObject synob;
 	RSOptions options = r.getOptions();
 	if (options.defaultSynchronisation() != -1) {
 	    type = r.defaultSynchronisation();

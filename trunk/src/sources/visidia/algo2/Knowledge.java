@@ -1,6 +1,5 @@
 package visidia.algo2;
 
-import java.util.Random;
 import java.util.Vector;
 
 public class Knowledge {

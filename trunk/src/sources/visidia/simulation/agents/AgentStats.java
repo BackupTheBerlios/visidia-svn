@@ -20,7 +20,7 @@ public class AgentStats {
      * Creates the AgentStats and its Hashtable.
      */
     public AgentStats() {
-        stats = new Hashtable();
+        stats = new Hashtable<String, Long>();
     }
 
     /**

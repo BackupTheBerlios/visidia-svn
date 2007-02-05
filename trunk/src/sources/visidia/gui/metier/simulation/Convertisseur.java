@@ -3,8 +3,6 @@ package visidia.gui.metier.simulation;
 import java.util.*;
 import visidia.gui.metier.*;
 import visidia.graph.*;
-import java.io.*;
-
 
 /** cette classe contient une methode statique de conversion d'un
  * grapheVisu cree par l'interface graphique en un graphe utilise par
@@ -22,7 +20,7 @@ public class Convertisseur {
         Enumeration enumerationSommets = ancienGraphe.sommets();
 	       
         Enumeration enumerationAretes = ancienGraphe.aretes();
-        int taille = ancienGraphe.ordre(); 
+        //int taille = ancienGraphe.ordre(); 
         Sommet unSommet;
         Arete uneArete;
 
@@ -73,7 +71,7 @@ public class Convertisseur {
                                       Hashtable agentsPosition,
                                       Hashtable defProps) {
         SimpleGraph graph = convertir(oldGraph,defProps);
-        int i;
+        //int i;
         Enumeration e;
 
         e = agentsPosition.keys();

@@ -20,10 +20,10 @@ public class TestSynhro extends SyncAlgorithm {
     
     public void init() {
 
-	int degres = getArity();
+	//int degres = getArity();
 	
 	Integer id = getId();
-	boolean win = true;
+	//boolean win = true;
 	
 	nextPulse();
 	

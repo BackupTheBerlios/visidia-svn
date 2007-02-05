@@ -3,13 +3,9 @@ package visidia.simulation;
 import java.io.*;
 import visidia.tools.VQueue;
 import java.util.Vector;
-import java.util.StringTokenizer;
-import visidia.simulation.SimulConstants;
-import visidia.misc.Message;
 import visidia.simulation.SimulAck;
 import visidia.simulation.SimulEvent;
 import visidia.tools.Element;
-import visidia.gui.metier.Graphe;
 
 public class Reader implements Runnable, Cloneable {
     private String trace = null;
@@ -69,7 +65,8 @@ public class Reader implements Runnable, Cloneable {
     }
     
     public void run(){
-	int i=0, j=0;
+	//int i=0;
+	//int j=0;
 	Vector ackRcv = new Vector();
 
 	while (messages.size() != 0){ // while there are messages to send

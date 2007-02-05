@@ -1,8 +1,5 @@
 package visidia.simulation;
 
-import visidia.misc.*;
-import java.io.Serializable;
-
 /**
  * Cette classe represente l'evenement associe au passage a un nouveau pulse
  * 

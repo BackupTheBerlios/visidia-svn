@@ -28,10 +28,10 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
     public void init(){
         String myColor=new String("X");
         int myC=0;
-        int synchro,myFather=-1;
+        int synchro;//,myFather=-1;
         String neighbours[];
         String myState=new String("X,M,Pa,b,NT");
-        boolean run=true, myToken=false, myCoD=true;
+        boolean run=true, myToken=false;//, myCoD=true;
         String myLabelD=new String("M"), myAP=new String("Pa"), myColorD=new String("b");
         boolean finishedNode[];
         int arite = getArity() ;
@@ -47,7 +47,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
             myAP=new String("Ac");
             myColorD=new String("w");
             myToken=true;
-            myCoD=false;
+            //myCoD=false;
         }
         
         neighbours=new String[getArity()];

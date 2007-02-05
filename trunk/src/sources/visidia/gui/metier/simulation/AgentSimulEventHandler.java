@@ -1,10 +1,8 @@
 package visidia.gui.metier.simulation;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
 
 import visidia.misc.*;
 import visidia.simulation.*;
@@ -13,7 +11,6 @@ import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.gui.presentation.VueGraphe;
 import visidia.gui.presentation.AreteDessin;
 import visidia.gui.presentation.SommetDessin;
-import visidia.gui.presentation.SommetCarre;
   
 /** This class is responsible of dealing with the 
     events coming from the simulator */

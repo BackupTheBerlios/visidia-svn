@@ -1,7 +1,6 @@
 package visidia.gui.metier.inputOutput;
 
 import java.io.*;
-import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 // this class permit to recognize the gml format

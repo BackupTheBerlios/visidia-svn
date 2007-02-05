@@ -27,7 +27,7 @@ public class Election_Tree_RDV extends Algorithm {
         final String nodeF=new String("F");
         final String nodeE=new String("E");
         
-        final int neighbour=getArity();
+        //final int neighbour=getArity();
         
         String neighbourState;
         int synchro;

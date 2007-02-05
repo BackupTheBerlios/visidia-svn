@@ -33,10 +33,11 @@ public class SynchroDist extends Algorithm {
 	int mySynchro=0;
         String myState=new String("N,0");
         String myL=nodeN;
-        Vector synchro;
+        //Vector synchro;
         boolean neighbours[];
-        boolean finishedNode[], run=true;
-        int round=0;
+        //boolean finishedNode[];
+        boolean run=true;
+        //int round=0;
 	String label[];
 	int father=-1;
 	String ssy;

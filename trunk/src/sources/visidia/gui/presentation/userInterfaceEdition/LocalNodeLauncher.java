@@ -1,13 +1,11 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
 import visidia.network.*;
-import visidia.gui.donnees.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.border.*;
-import java.io.*;
 import java.util.Vector;
 import java.util.Hashtable;
 import java.awt.event.*;
@@ -412,8 +410,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	for(int i=0; i<selected.size();i++) {
 	    int row = ((Integer)selected.elementAt(i)).intValue(); 
 	    if (((String)myModel.getValueAt(row,2)).equals("started")) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
+		//String hostText = localHost.getText();
+		//String portText = portRegistry.getText();
 		String url = (String)myModel.getValueAt(row,1);
 		try {
 		    NodeServer nodeServer = (NodeServer)nodeServers.get(new Integer(row));
@@ -434,8 +432,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     private void registerAll() {
 	for(int i=0; i<myModel.getRowCount();i++) {
 	    if (((String)myModel.getValueAt(i,2)).equals("started")) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
+		//String hostText = localHost.getText();
+		//String portText = portRegistry.getText();
 		String url = (String)myModel.getValueAt(i,1);
 		try {
 		    NodeServer nodeServer = (NodeServer)nodeServers.get(new Integer(i));

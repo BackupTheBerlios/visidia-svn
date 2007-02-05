@@ -1,15 +1,10 @@
 package visidia.simulation.synchro.synObj;
 
 import  visidia.simulation.synchro.SynCT;
-import visidia.rule.Star;
-import visidia.rule.Neighbour;
 
 import java.util.Vector;
 import java.io.Serializable;
 
-import  visidia.simulation.synchro.synObj.*;
-import  visidia.simulation.synchro.synAlgos.*;
-import  visidia.simulation.synchro.SynCT;
 
 
 /*The class mother of Synchronisation objects */

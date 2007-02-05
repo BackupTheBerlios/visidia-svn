@@ -1,14 +1,7 @@
 package visidia.network;
 
 import visidia.network.NodeServer;
-import visidia.network.*;
-import java.rmi.*;
-import java.rmi.registry.*;
-import java.rmi.server.*;
 import java.rmi.Naming;
-import java.io.*;
-import java.lang.*;
-import java.net.*;
 
 //*****************************************************************
 // Cette classe instancie un serveur par machine
@@ -51,20 +44,20 @@ public class Server {
     
    
     public static void main(String[] args){
-	int indexOfRegistry=0;
+	//int indexOfRegistry=0;
 	String regPort=null;
 	for (int i=0; i<args.length; i++){
 	    if (args[i].equals("-RMIregistry")){
-		indexOfRegistry = i;
+		//indexOfRegistry = i;
 		regPort = args[i+1];
 	    }
 	}
 	
-	int indexOfUrl=0;
+	//int indexOfUrl=0;
 	String urlServer=null;
 	for (int i=0; i<args.length; i++){
 	    if (args[i].equals("-Name")){
-		indexOfUrl = i;
+		//indexOfUrl = i;
 		urlServer = args[i+1];
 	    }
 	}

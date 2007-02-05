@@ -1,7 +1,5 @@
 package visidia.simulation;
 
-import java.io.Serializable;
-
 /**
  * cette classe est utilisée pour informer le système de simulation 
  * que l'évènement correspondant à un envoie de message

@@ -1,9 +1,6 @@
 
 package visidia.algo2;
 
-import java.util.Random;
-import java.util.Vector;
-
 public class Know {
 	
 	private int maxNumber=0; /* le nombre maximal de l'ensemble*/

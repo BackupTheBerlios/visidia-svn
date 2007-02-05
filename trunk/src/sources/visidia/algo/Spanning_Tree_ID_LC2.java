@@ -28,7 +28,7 @@ public class Spanning_Tree_ID_LC2 extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         int neighboursLink[]=new int[getArity()];
@@ -48,7 +48,7 @@ public class Spanning_Tree_ID_LC2 extends Algorithm {
             if (synchro==starCenter){
                 int neighbourValue[]=new int[getArity()];
                 int neighbourDoor=-1;
-                boolean existHigher=false;
+                //boolean existHigher=false;
                 
                 for (int door=0;door<getArity();door++){
                     neighbourValue[door]=(((IntegerMessage) receiveFrom(door)).data()).intValue();

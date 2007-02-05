@@ -1,7 +1,5 @@
 package visidia.simulation.agents.stats;
 
-import visidia.simulation.agents.Agent;
-
 public abstract class AbstractAgentStat extends AbstractStat {
 
     private Class agClass;

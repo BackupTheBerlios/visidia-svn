@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
-import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.presentation.*;
 import visidia.simulation.*;
 import visidia.gui.metier.simulation.SentMessage;
@@ -131,7 +129,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	 this.lePas = p;
 	 //synchronized(sentMessageVector){
 	 synchronized(concurrentObject){
-	     SentMessage sentMessage;
+	     //SentMessage sentMessage;
 	     int size = sentMessageVector.size();
 	     for(int i = 0; i < size; i++){
 		 ((SentMessage) sentMessageVector.elementAt(i)).setStep(p);

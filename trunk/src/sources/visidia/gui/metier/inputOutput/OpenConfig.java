@@ -6,14 +6,7 @@ import java.util.*;
 import javax.swing.*;
 import java.util.Enumeration;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.simulation.*;
-import visidia.gui.presentation.SommetDessin;
 import java.util.Hashtable;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.*;
-import visidia.gui.metier.*;
 import visidia.tools.LocalNodeTable;
 
 

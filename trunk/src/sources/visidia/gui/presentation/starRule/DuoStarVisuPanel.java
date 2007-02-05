@@ -3,13 +3,7 @@ package visidia.gui.presentation.starRule;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.border.*;
 import visidia.gui.presentation.*;
-import visidia.gui.metier.Graphe;
-import visidia.gui.presentation.boite.EtatPanel;
-import visidia.gui.presentation.boite.VueEtatPanel;
-import visidia.gui.donnees.TableCouleurs;
-import java.util.*;
 
 /**
  * Visualize and permits to compose two stars at the same time.

@@ -1,7 +1,6 @@
 package visidia.agents;
 
 import visidia.simulation.agents.Agent;
-import java.util.Arrays;
 import java.util.Random;
 
 

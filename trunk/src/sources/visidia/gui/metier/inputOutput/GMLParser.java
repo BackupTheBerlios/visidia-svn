@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import visidia.gui.metier.*;
-import visidia.gui.presentation.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 
 /* this class permit to make the exportation of graph in GML format */

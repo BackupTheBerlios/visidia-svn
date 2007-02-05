@@ -1,14 +1,6 @@
 package visidia.agents;
 
-import java.util.Arrays;
-
 import visidia.simulation.agents.SynchronizedAgent;
-
-import visidia.simulation.agents.stats.FailedMoveStat;
-
-import visidia.misc.SyncState;
-
-import java.util.Random;
 
 
 /**

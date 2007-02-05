@@ -29,14 +29,14 @@ public class Election_Complet extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighbourLabel;
         boolean finishedNode[]=new boolean[getArity()];
-        String lastName;
+        //String lastName;
         int nb;
-        Vector name;
+        //Vector name;
         
         for (int i=0; i<getArity();i++)
             finishedNode[i]=false;

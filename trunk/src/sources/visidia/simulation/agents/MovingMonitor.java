@@ -1,7 +1,6 @@
 package visidia.simulation.agents;
 
 import visidia.simulation.SimulAck;
-import visidia.simulation.SimulationAbortError;
 import visidia.tools.VQueue;
 
 /**

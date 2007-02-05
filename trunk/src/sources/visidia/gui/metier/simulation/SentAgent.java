@@ -4,7 +4,6 @@ import java.awt.*;
 import visidia.tools.MovableObject;
 import visidia.simulation.MessageSendingEvent;
 import visidia.misc.MessageType;
-import visidia.graph.*;
 import visidia.gui.donnees.TableImages;
 
 

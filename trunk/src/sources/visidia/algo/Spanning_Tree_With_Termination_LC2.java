@@ -34,14 +34,14 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighboursLabel[];
         boolean neighboursLink[];
         boolean finishedNode[];
-        String lastName;
-        int pere=-1;
+        //String lastName;
+        //int pere=-1;
         
         neighboursLink=new boolean[getArity()];
         for (int i=0; i<getArity();i++)
@@ -122,7 +122,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
                 }
                 else
                     if (synchro!=notInTheStar) {
-                        String newState;
+                        //String newState;
                         int linkOn;
                         sendTo(synchro,new StringMessage((String) getProperty("label"),labels));
                         linkOn=((IntegerMessage) receiveFrom(synchro)).value();

@@ -1,9 +1,7 @@
 package visidia.simulation;
 
 import java.util.Hashtable; 
-import visidia.graph.*;
 import visidia.tools.*;
-import visidia.misc.*;
 
 /**
  * Store net nodes data.

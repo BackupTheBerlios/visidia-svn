@@ -7,9 +7,7 @@ import java.util.*;
 import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.*;
 import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
 import visidia.gui.presentation.userInterfaceEdition.undo.*;
-import java.io.*;
 
 /**
  * Un GrapheVisuPanel est un JPanel sur lequel le graphe est affiché
@@ -557,7 +555,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      **/
     public void glisseBoutonGauche(int x, int y) {
 	boolean changed = false;
-	AreteDessin areteCree = null;
+	//AreteDessin areteCree = null;
 
 	if(objet_sous_souris != null) {
 	    if(drag_n_drop_sommet)

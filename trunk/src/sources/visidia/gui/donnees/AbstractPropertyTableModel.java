@@ -1,7 +1,5 @@
 package visidia.gui.donnees;
 
-import java.awt.*;
-import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 

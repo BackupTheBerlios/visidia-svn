@@ -1,6 +1,5 @@
 package visidia.agents.agentsmover;
 
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 

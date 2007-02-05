@@ -22,7 +22,7 @@ public class BroadcastTermination extends Algorithm {
 	int degres = getArity() ;
 	int fatherDoor;
 	int[] childrenStates = new int[degres];
-	Random generator = new Random();
+	//Random generator = new Random();
 	boolean terminated = false;
 
 	String label = (String) getProperty("label");

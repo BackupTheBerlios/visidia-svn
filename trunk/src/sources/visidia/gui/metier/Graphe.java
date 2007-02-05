@@ -2,11 +2,8 @@ package visidia.gui.metier;
 
 import java.util.*;
 import java.io.*;
-import visidia.gui.donnees.conteneurs.*;
 import visidia.gui.donnees.conteneurs.monde.*;
 import visidia.gui.presentation.*;
-import javax.swing.*;
-import java.awt.*;
 
 /** This class correponds to a theorical graph
  * it simply contains the edges and the vertices used.

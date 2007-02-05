@@ -6,12 +6,6 @@ import java.util.Enumeration;
 import visidia.gui.presentation.userInterfaceSimulation.*;
 import visidia.simulation.*;
 import visidia.gui.presentation.SommetDessin;
-import java.net.URLClassLoader;
-import java.net.URL;
-
-//PFA2003
-import visidia.algo.*;
-import visidia.rule.*;
 
 
 public class OpenAlgo implements Serializable{

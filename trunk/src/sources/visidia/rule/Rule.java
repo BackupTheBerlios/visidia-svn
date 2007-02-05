@@ -1,8 +1,6 @@
 package visidia.rule;
 
 import visidia.simulation.synchro.SynCT;
-import visidia.rule.*;
-import java.io.*;
 import java.util.*;
 import java.io.Serializable;
 
@@ -185,8 +183,8 @@ public class Rule implements Serializable {
      */   
     
     public boolean isApplicableTo(Star neighbourhood){
-       	int j = 0;
-	int k=0;
+       	//int j = 0;
+	//int k=0;
 	int l=0;
 	boolean boucle = true;
 	Star context = new Star();
@@ -306,7 +304,7 @@ public class Rule implements Serializable {
 	//System.out.println("defaultSynch=1 ? "+r1.defaultSynchDegree());
         befor = new Star("A",1);
 	Neighbour nf = new  Neighbour("N", false);
-	Neighbour mf = new  Neighbour("M", false);
+	//Neighbour mf = new  Neighbour("M", false);
 	Neighbour mt = new  Neighbour("M", true);
 	Neighbour at = new  Neighbour("A", true);
 	

@@ -1,17 +1,10 @@
 package visidia.gui.presentation.boite;
 
-import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import java.util.Hashtable;
-import javax.swing.text.*;
 import javax.swing.*;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.*;
-import visidia.gui.metier.*;
+
 
 /**
  * Cette classe cree une boite pour specifier l'emplacement des serveurs 

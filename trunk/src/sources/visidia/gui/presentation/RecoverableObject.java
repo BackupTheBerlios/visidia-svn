@@ -1,7 +1,5 @@
 package visidia.gui.presentation;
 
-import visidia.gui.donnees.*;
-import visidia.gui.donnees.conteneurs.*;
 import java.util.Enumeration;
 
 

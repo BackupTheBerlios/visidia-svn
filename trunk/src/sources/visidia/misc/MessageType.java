@@ -1,7 +1,5 @@
 package visidia.misc;
 
-import java.util.Collection;
-import java.util.*;
 import java.awt.Color;
 import java.io.Serializable;
 /**

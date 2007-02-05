@@ -4,7 +4,6 @@ package visidia.gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.gui.donnees.*;
 

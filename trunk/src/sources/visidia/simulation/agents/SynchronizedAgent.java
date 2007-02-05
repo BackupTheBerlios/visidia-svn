@@ -1,7 +1,6 @@
 package visidia.simulation.agents;
 
 import visidia.simulation.SimulationAbortError;
-import java.util.Collection;
 import java.util.Hashtable;
 
 /**

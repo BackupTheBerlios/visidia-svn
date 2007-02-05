@@ -3,7 +3,6 @@ package visidia.gui.presentation.boite;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.gui.donnees.conteneurs.*;
 
 /** Cette boite affiche les caracteristiques d'une sélection

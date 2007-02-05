@@ -3,7 +3,6 @@ package visidia.gui.presentation.boite;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import visidia.gui.presentation.*;
 
 /** Cette classe cree une boite de type JColorChooser **/
 public class BoiteCouleur implements ActionListener {

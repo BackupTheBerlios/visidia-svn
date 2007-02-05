@@ -1,7 +1,6 @@
 package visidia.gui.metier.inputOutput;
 
 import javax.swing.*;
-import java.io.*;
 
 import visidia.gui.presentation.userInterfaceEdition.*;
 import visidia.gui.presentation.*;

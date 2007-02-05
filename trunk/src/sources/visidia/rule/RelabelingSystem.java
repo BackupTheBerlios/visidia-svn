@@ -1,10 +1,6 @@
 package visidia.rule;
 import visidia.simulation.synchro.SynCT;
-import visidia.misc.*;
-import visidia.simulation.*;
-import visidia.rule.*;
 
-import visidia.algo.*;
 import java.util.*;
 import java.io.Serializable;
 
@@ -245,7 +241,7 @@ public class RelabelingSystem  implements Serializable {
     {
 	int i = rules.count();
 	int j = 0;
-	int k=0;
+	//int k=0;
 	int l=0;
 	boolean boucle = true;
 	Star context = new Star();

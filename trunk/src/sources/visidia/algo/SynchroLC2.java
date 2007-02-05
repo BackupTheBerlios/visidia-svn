@@ -5,7 +5,6 @@
 package visidia.algo;
 import visidia.simulation.*;
 import visidia.misc.*;
-import java.util.Random;
 
 public class SynchroLC2 extends Algorithm {
 	   

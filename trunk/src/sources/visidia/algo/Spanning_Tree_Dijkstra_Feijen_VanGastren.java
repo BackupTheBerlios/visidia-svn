@@ -33,7 +33,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
         
         String myStates=nodeN;
         String state=active;
-        boolean initial=false;
+        //boolean initial=false;
         int synchro;
         boolean run=true;
         String neighbours[];

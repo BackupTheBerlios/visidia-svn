@@ -1,11 +1,6 @@
 package visidia.rule;
 
-import java.io.*;
-import java.lang.*;
-
-import visidia.algo.*;
 import visidia.misc.*;
-import visidia.simulation.*;
 import java.io.Serializable;
 
 
@@ -198,14 +193,14 @@ public class Neighbour implements Serializable{
     
 
     /*test   */
-    static  public void main(String args[])
-    {
-	Neighbour n1 = new Neighbour("A", true);
+    //static  public void main(String args[])
+    //{
+	//Neighbour n1 = new Neighbour("A", true);
 	//System.out.println(n1);
-	Neighbour n2 = new Neighbour("B");
+	//Neighbour n2 = new Neighbour("B");
  	//System.out.println(n2);
 	//System.out.println(n1.equals(n2));
-    }
+    //}
     
 }
  

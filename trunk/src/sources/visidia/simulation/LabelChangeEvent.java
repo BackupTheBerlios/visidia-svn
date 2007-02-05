@@ -1,10 +1,5 @@
 package visidia.simulation;
 
-import visidia.misc.*;
-import java.io.Serializable;
-
-
-
 public class LabelChangeEvent implements SimulEvent {
     private long evtNum;
     protected Integer vertexId = null;

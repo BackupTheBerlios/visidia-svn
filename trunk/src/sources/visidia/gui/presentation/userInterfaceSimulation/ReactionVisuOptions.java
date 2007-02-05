@@ -1,7 +1,5 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-
-import java.awt.*;
 import javax.swing.*;
 
 // Cette clase permet la reaction des cases a cocher 

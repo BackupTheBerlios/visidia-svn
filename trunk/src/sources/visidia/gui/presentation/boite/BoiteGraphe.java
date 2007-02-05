@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.*;
-import visidia.gui.presentation.*;
 import visidia.gui.presentation.userInterfaceEdition.*;
 
 /** Cette boite affiche les proprietes d'un graphe et de son editeur (couleur de fond, taille...)

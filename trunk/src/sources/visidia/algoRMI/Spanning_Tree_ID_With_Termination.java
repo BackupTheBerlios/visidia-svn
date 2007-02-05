@@ -30,7 +30,7 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         //boolean run=true; /* booleen de fin  de l'algorithme */
         Vector neighboursLabel[];
@@ -62,7 +62,7 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
             else
                 if (synchro==starCenter){
                     int neighbourX=-1;
-                    int neighbourM=-1;
+                    //int neighbourM=-1;
                     int nbreNM=0;
                     int nbreF=0;
                     boolean existLowerOrHigher=false;

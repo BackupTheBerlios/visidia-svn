@@ -10,7 +10,6 @@ import visidia.misc.EdgeState;
 import visidia.misc.MarkedState;
 import visidia.misc.SyncState;
 import visidia.simulation.SimulationAbortError;
-import visidia.graph.Vertex;
 
 import visidia.simulation.agents.stats.AbstractStat;
 

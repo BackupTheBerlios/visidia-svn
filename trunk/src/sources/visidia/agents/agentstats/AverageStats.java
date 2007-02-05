@@ -16,7 +16,7 @@ public class AverageStats extends AbstractExperiment {
 
     private void countAgents() {
 	Set keys;
-	agentsByClass = new Hashtable(10);
+	agentsByClass = new Hashtable<Class, Long>(10);
 
 	keys = getBag().keySet();
 
@@ -37,7 +37,6 @@ public class AverageStats extends AbstractExperiment {
 	keys = getBag().keySet();
 
 	for(Object key: keys) {
-	    float movesByAgent;
 
 	    if (key instanceof MoveStat) {
 		Class agClass = ((MoveStat)key).getAgentClass();

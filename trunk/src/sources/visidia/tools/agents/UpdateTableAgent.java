@@ -1,7 +1,6 @@
 package visidia.tools.agents;
 
 import visidia.gui.donnees.AgentPropertyTableModel;
-import visidia.simulation.agents.AgentSimulator;
 
 public class UpdateTableAgent extends UpdateTable {
 

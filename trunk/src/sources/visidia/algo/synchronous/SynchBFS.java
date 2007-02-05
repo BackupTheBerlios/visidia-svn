@@ -22,7 +22,7 @@ public class SynchBFS extends SyncAlgorithm {
 
 	boolean run = true;
 
-	int degres = getArity();
+	//int degres = getArity();
 	Integer id = getId();
 	
 	nextPulse();

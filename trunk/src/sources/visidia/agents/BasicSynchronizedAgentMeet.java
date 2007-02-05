@@ -1,9 +1,6 @@
 package visidia.agents;
 
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.SynchronizedAgent;
-import visidia.simulation.agents.Agent;
-import visidia.simulation.agents.SimpleMeetingOrganizer;
 /**
  * I'm one of the synchronized agents.  I was developed to show how to
  * write agents that are waiting each other.  <p>

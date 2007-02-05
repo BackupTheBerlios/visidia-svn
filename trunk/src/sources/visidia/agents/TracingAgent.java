@@ -1,7 +1,6 @@
 package visidia.agents;
 
 import visidia.simulation.agents.Agent;
-import java.util.Vector;
 
 /**
  * I'm an  agent which draw a path  on the graph. When  I have visited
