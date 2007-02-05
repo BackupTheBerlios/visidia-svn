@@ -1,5 +1,40 @@
+\subsubsection{Ajouter un sommet pendant l'exécution}
+Ce cas d'utilisation va permettre à l'utilisateur d'ajouter un sommet sur le graphe pendant l'exécution d'un algorithme.
+\\
+
+\begin{tabular}{|l|l|}
+\hline
+{Cas d'utilisation}    & Ajouter un sommet pendant l'exécution\\ \hline
+{Acteur}               & L'utilisateur \\ \hline
+{But}                  & Permettre à l'utilisateur de modifier le graphe pendant une exécution \\ \hline
+{Résumé métier}        & L'utilisateur indique dans la fenêtre de simulation l'endroit où ajouter un sommet \\ \hline
+{Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
+{Post-condition}       & Le sommet est ajouté au graphe \\ \hline
+{Commentaires}         & Le sommet n'est pas connecté au graphe \\ \hline
+\end{tabular}
+
+
+
+\subsubsection{Supprimer un sommet pendant l'exécution}
+Ce cas d'utilisation va permettre à l'utilisateur de supprimer un sommet sur le graphe pendant l'exécution d'un algorithme.
+\\
+
+\begin{tabular}{|l|l|}
+\hline
+{Cas d'utilisation}    & Supprimer un sommet pendant l'exécution\\ \hline
+{Acteur}               & L'utilisateur \\ \hline
+{But}                  & Permettre à l'utilisateur de modifier le graphe pendant une exécution \\ \hline
+{Résumé métier}        & L'utilisateur indique dans la fenêtre de simulation le sommet à supprimer \\ \hline
+{Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
+{Post-condition}       & Le sommet et toute arête incidente à celui-ci est supprimée (voir cas d'utilistion supprimer arête) \\ \hline
+{Commentaires}         & Il n'y a pas de notification du crash aux voisins. Les agents éventuellement présents sur le sommet sont supprimés \\ \hline
+\end{tabular}
+
+
 \subsubsection{Ajouter une arête pendant l'exécution}
-Ce cas d'utilisation va permettre à l'utilisateur d'ajouter une arête sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
+Ce cas d'utilisation va permettre à l'utilisateur d'ajouter une arête sur le graphe pendant l'exécution d'un algorithme.
+\\
+
 
 \begin{tabular}{|l|l|}
 \hline
@@ -16,8 +51,10 @@ Ce cas d'utilisation va permettre à l'utilisateur d'ajouter une arête sur le gra
 
 
 
+
 \subsubsection{Supprimer une arête pendant l'exécution}
-Ce cas d'utilisation va permettre à l'utilisateur de supprimer une arête sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
+Ce cas d'utilisation va permettre à l'utilisateur de supprimer une arête sur le graphe pendant l'exécution d'un algorithme.
+\\
 
 \begin{tabular}{|l|l|}
 \hline
@@ -32,38 +69,3 @@ Ce cas d'utilisation va permettre à l'utilisateur de supprimer une arête sur le 
                        & Les agents éventuellement présents sur l'arête à supprimer sont supprimés \\
  \hline 
 \end{tabular}
-
-
-\subsubsection{Ajouter un sommet pendant l'exécution}
-Ce cas d'utilisation va permettre à l'utilisateur d'ajouter un sommet sur le graphe pendant l'exécution d'un algorithme avec agents mobiles.
-
-
-\begin{tabular}{|l|l|}
-\hline
-{Cas d'utilisation}    & Ajouter un sommet pendant l'exécution\\ \hline
-{Acteur}               & L'utilisateur \\ \hline
-{But}                  & Permettre à l'utilisateur de modifier le graphe pendant une exécution \\ \hline
-{Résumé métier}        & L'utilisateur indique dans la fenêtre de simulation l'endroit où ajouter un sommet \\ \hline
-{Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
-{Post-condition}       & Le sommet est ajouté au graphe \\ \hline
-{Commentaires}         & Le sommet n'est pas connecté au graphe \\ \hline
-\end{tabular}
-
-
-
-\subsubsection{Supprimer un sommet pendant l'exécution}
-Ce cas d'utilisation va permettre à l'utilisateur de supprimer un sommet sur le graphe pendant l'exécution d'un algorithme avec agents mobiles. Il s'agit de la simulation d'un crash, d'une panne non attendue.
-
-
-\begin{tabular}{|l|l|}
-\hline
-{Cas d'utilisation}    & Supprimer un sommet pendant l'exécution\\ \hline
-{Acteur}               & L'utilisateur \\ \hline
-{But}                  & Permettre à l'utilisateur de modifier le graphe pendant une exécution \\ \hline
-{Résumé métier}        & L'utilisateur indique dans la fenêtre de simulation le sommet à supprimer \\ \hline
-{Pré-condition}        & L'utilisateur dispose d'un graphe en cours d'exécution \\ \hline
-{Post-condition}       & Le sommet et toute arête incidente à celui-ci est supprimée (voir cas d'utilistion supprimer arête)\\ \hline
-{Commentaires}         & Il n'y a pas de notification du crash aux voisins. Les agents éventuellement présents sur le sommet sont supprimés \\ \hline
-\end{tabular}
-
-
