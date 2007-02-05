@@ -6,77 +6,81 @@
 
 \section{Besoins fonctionnels}
 
-\subsection{Mise en pause du programme}
+\input{BF_agirSommet}
 
-Celle-ci est déjà implémentée et fonctionnelle. Une vérification approfondie de son
-fonctionnement devra etre effectuée.
+\input{BF_agir_graphe1}
 
-Un objectif secondaire serait de mettre en pause l'exécution des agents de manière
-automatique lors de la modification d'un agent ou d'un sommet.
+%% \subsection{Mise en pause du programme}
 
-\subsection{Modification d'un sommet}
+%% Celle-ci est déjà implémentée et fonctionnelle. Une vérification approfondie de son
+%% fonctionnement devra etre effectuée.
 
-Il est nécessaire de pouvoir modifier un sommet au cours de l'exécution du programme.
-Plusieurs stratégies peuvent etre mises en ½uvre pour deconnecter un noeud : déconnexion choisie, panne
-ou suppression d'un sommet pendant l'exécution.
+%% Un objectif secondaire serait de mettre en pause l'exécution des agents de manière
+%% automatique lors de la modification d'un agent ou d'un sommet.
 
-\subsection{Partie Simulation}
+%% \subsection{Modification d'un sommet}
 
-* De petites modifications sont a apportees a l'IHM pour ameliorer l'ergonomie du
-logiciel.\\
+%% Il est nécessaire de pouvoir modifier un sommet au cours de l'exécution du programme.
+%% Plusieurs stratégies peuvent etre mises en ½uvre pour deconnecter un noeud : déconnexion choisie, panne
+%% ou suppression d'un sommet pendant l'exécution.
 
-* Possibilité d'avoir une conservation des traces (agents, mémoire)\\
+%% \subsection{Partie Simulation}
 
+%% * De petites modifications sont a apportees a l'IHM pour ameliorer l'ergonomie du
+%% logiciel.\\
 
-\subsection{Structure de données}
-
-Actuellement les meme structures sont utilisees pour l'edition et la simulation
-des graphes. Or pour implémenter les fonctionnalités de modification en cours 
-d'execution, des modification seront peut être à envisager. Envisager de modifier la structure
-pour la cohérence des algorithmes avec les agents peut prendre un temps
-considérable : il faut encore réfléchir avant d'envisager de modifier
-complètement l'implémentation actuelle.
-
-\subsection{Règle de réécriture des agents}
-
-Pour « marquer » une arête : bloquer les sommets, aller-retour de l'agent entre
-les sommets
-Possibilité : ajouter dans le tableau blanc des sommets les ports marqués
-
-Pour l'instant, seul les rencontres de types « rendez-vous » sont implémentées, il est
-envisageable d'implémenter au moins celles de types « LC1 ».
-
-\subsection{Algorithme de placement des agents}
-
-Les algorithmes de répartition des agents développés ne separent pas la méthode de
-répartition des agents du type d'agent ajouté. Il faudrait envisager de dissocier ces
-deux aspects.
-
-\subsection{Statistiques}
-
-Quelques statistiques sont actuellement fournies sur les algorithmes à base d'agent.
-Cependant les informations fournies sont insuffisantes et relatives au graphe et non a
-chaque agent et noeud. Il est donc necessaire d'affiner ces informations et les rendres
-disponibles tout au long de l'execution des algorithmes.\\
-
-Une option de \visidia permet de compter le nombre approximatif de thread utilises durant la simulation. Un objectif
-secondaire du projet pourrait etre de preciser ce nombre.
+%% * Possibilité d'avoir une conservation des traces (agents, mémoire)\\
 
 
+%% \subsection{Structure de données}
 
-\subsection{Limitation des besoins}
+%% Actuellement les meme structures sont utilisees pour l'edition et la simulation
+%% des graphes. Or pour implémenter les fonctionnalités de modification en cours 
+%% d'execution, des modification seront peut être à envisager. Envisager de modifier la structure
+%% pour la cohérence des algorithmes avec les agents peut prendre un temps
+%% considérable : il faut encore réfléchir avant d'envisager de modifier
+%% complètement l'implémentation actuelle.
 
-\subsubsection{Sauvegarde du graphe}
+%% \subsection{Règle de réécriture des agents}
 
-La sauvegarde du graphe est possible avant d'entrer dans la partie simulation. Bien que l'utilisateur
-pourra desormais modifier le graphe depuis cette derniere partie, il ne lui sera pas possible de sauvegarder
-ses modifications.
+%% Pour « marquer » une arête : bloquer les sommets, aller-retour de l'agent entre
+%% les sommets
+%% Possibilité : ajouter dans le tableau blanc des sommets les ports marqués
 
-\subsubsection{Action sur le graphe en temps reel}
+%% Pour l'instant, seul les rencontres de types « rendez-vous » sont implémentées, il est
+%% envisageable d'implémenter au moins celles de types « LC1 ».
 
-Les modifications qui pourront etre apportees au graphe pendant la simulation pourront etre faites
-seulement apres la mise en pause de l'execution. Cette mise en pause puis la remise en route pourra 
-etre declenche de maniere automatique par le systeme pour simuler une modification en temps reel.
+%% \subsection{Algorithme de placement des agents}
+
+%% Les algorithmes de répartition des agents développés ne separent pas la méthode de
+%% répartition des agents du type d'agent ajouté. Il faudrait envisager de dissocier ces
+%% deux aspects.
+
+%% \subsection{Statistiques}
+
+%% Quelques statistiques sont actuellement fournies sur les algorithmes à base d'agent.
+%% Cependant les informations fournies sont insuffisantes et relatives au graphe et non a
+%% chaque agent et noeud. Il est donc necessaire d'affiner ces informations et les rendres
+%% disponibles tout au long de l'execution des algorithmes.\\
+
+%% Une option de \visidia permet de compter le nombre approximatif de thread utilises durant la simulation. Un objectif
+%% secondaire du projet pourrait etre de preciser ce nombre.
+
+
+
+%% \subsection{Limitation des besoins}
+
+%% \subsubsection{Sauvegarde du graphe}
+
+%% La sauvegarde du graphe est possible avant d'entrer dans la partie simulation. Bien que l'utilisateur
+%% pourra desormais modifier le graphe depuis cette derniere partie, il ne lui sera pas possible de sauvegarder
+%% ses modifications.
+
+%% \subsubsection{Action sur le graphe en temps reel}
+
+%% Les modifications qui pourront etre apportees au graphe pendant la simulation pourront etre faites
+%% seulement apres la mise en pause de l'execution. Cette mise en pause puis la remise en route pourra 
+%% etre declenche de maniere automatique par le systeme pour simuler une modification en temps reel.
 
 \section{Besoins non fonctionnels}
 

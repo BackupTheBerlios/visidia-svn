@@ -4,9 +4,9 @@
 %          * Donner son rôle dans l'organisation qui l'englobe 
 
 
-L'algorithmique  distribuée  devient de  nos  jours  de  plus en  plus
-importante au vu des utilisations  possibles sur les réseaux et autres
-systèmes  distribués.
+L'algorithmique distribuée devient de nos jours de plus en plus
+importante aux vues des utilisations possibles sur les réseaux et
+autres systèmes distribués.
 
 Cependant,  les   applications  distribuées  qui   en  découlent  sont
 difficiles à implanter, tester  et expérimenter.  En effet, celles-ci,
@@ -16,14 +16,14 @@ concurrence  et de  conflits  de  ressources.  C'est  dans  le but  de
 faciliter la  tâche à un développeur d'algorithmes  distribués que des
 chercheurs  du  LaBRI  ont   créé  \visidia  (voir  le  site  internet
 \cite{visidiaLaBRI}  et  des articles  à  ce sujet  \cite{bauderon01a}
-\cite{bauderon01b}).  Ce logiciel est un atelier proposant des
-outils  de simulation  et  de visualisation,  au travers  d'animations
+\cite{bauderon01b}).  Ce logiciel est un atelier proposant des outils
+de simulation  et  de visualisation,  au travers  d'animations 
 graphiques en temps réel, de l'exécution d'un algorithme distribué sur
-un graphe  donné.  Cet algorithme peut être  choisi parmi  une liste,
-développé par  l'utilisateur ou encore  dessiné grâce à des  règles de
-réécriture.   L'application  va  donc  constituer  à  terme  un  outil
-permettant   la  validation   de  programmes   sur   un  environnement
-distribué.\\
+un graphe  donné.  Cet algorithme peut être  choisi dans une liste,
+algorithme développé par  l'utilisateur ou encore  dessiné grâce à des
+règles de réécriture.   L'application  va  donc  constituer  à  terme
+un  outil permettant   la  validation   de  programmes   sur   un
+environnement distribué.\\
 
 \paragraph{L'existant}
 \visidia  se compose aujourd'hui  de trois  couches. Tout  d'abord une
@@ -33,15 +33,18 @@ des algorithmes  distribués afin de  les tester avec visualisation ou
 non. Ensuite,  une bibliothèque  de primitives de  base qui  permet de
 définir  des algorithmes distribués  (envoi, réception,  traitement de
 messages etc...).   Enfin, un simulateur dont  le but est  de faire le
-pont entre les  deux autres parties : c'est le  centre de \visidia. Le
+pont entre les  deux autres parties : c'est le  coeur de \visidia. Le
 logiciel  propose donc  des outils  pour faciliter  les tests  afin de
 mieux  comprendre  les  comportements  d'un algorithme,  notamment  en
-visualisant son  exécution :  changement de l'état  des noeuds  et des
-arêtes, envoi de messages... et détecter les erreurs éventuelles.\\
-
-\visidia dispose d'un module permettant d'executer des algorithmes
-distribués basés sur la notion d'agent mobile :
-une entité autonome de  calcul qui se déplace dans le graphe et agit  
+visualisant son  exécution. Le modèle théorique d'un
+réseau est un graphe dont les sommets (ou noeuds) sont des machines
+(ou processeurs) et les arêtes des liens de communication. Il est
+possible pendant l'exécution de visualiser les envois de messages
+entre processeurs et de détecter les erreurs éventuelles.
+\\
+\visidia dispose d'un module permettant d'exécuter des algorithmes
+distribués basés sur la notion d'agent mobile : une entité
+autonome de  calcul qui se déplace dans le graphe et agit 
 sur les  noeuds en fonction de l'algorithme à  exécuter. 
 
 \paragraph{Motivations et but}
@@ -49,19 +52,8 @@ sur les  noeuds en fonction de l'algorithme à  exécuter.
 Le logiciel dans l'état actuel fournit une extension Agent Mobile 
 partiellement implémentée.
 Plusieurs fonctionnalités supplémentaires restent à développer telles 
-que la possibilité de modifier les données d'un agent mobile et des noeuds, 
-le calcul de statistiques, implémenter des algorithmes avec agent mobile, ...
-Ce projet consistera donc à ajouter à l'application tous ces 
-services.
-
-
-
-
-
-
-
-
-
-
-
-
+que la possibilité de modifier la mémoire d'un agent mobile et
+le tableau blanc (ou \texttt{whiteboard}) des noeuds, d'effectuer le
+calcul de statistiques, d'implémenter des algorithmes avec agent
+mobile... Ce projet consistera donc à ajouter à l'application tous ces 
+nouveaux services.
