@@ -1,0 +1,25 @@
+MESSAGE BILEL : Il y'a un bug dans les rencontres entre agents. Donc,
+si vous utilisez l'api pour gérer les rencontres entre agents c'est à
+vos risques et périls. Remarquer que vous pouvez vous en sortir en
+manipulant les labels des noeuds en mode synchrone. L'erreur vient
+d'un acces concurrent sur un iterateur mal codé. De toute facon, la
+façon avec laquelle les rencontres sont codés est à revoir. Il y'a
+plus simple et plus efficace. Je le fais dès que j'ai le temps. Si
+y'en a qui veulent donner un coup de main c'est avec plaisir.
+
+
+Il n'y a aucun risque que ca plante si vous ne utilisez pas l'api pour
+le srencontres mais vous risquez de voir l'erreur suivante si vous avez un peu chance !
+
+
+Voici l'erreur que vous risquez d'avoir : 
+java.util.ConcurrentModificationException
+        at java.util.HashMap$HashIterator.nextEntry(HashMap.java:787)
+        at java.util.HashMap$KeyIterator.next(HashMap.java:823)
+        at visidia.simulation.agents.SimpleMeetingOrganizer.whatToDoIfMeeted(SimpleMeetingOrganizer.java:51)
+        at visidia.simulation.agents.SimpleMeetingOrganizer.howToMeetTogether(SimpleMeetingOrganizer.java:37)
+        at visidia.simulation.agents.SynchronizedAgent.nextPulse(SynchronizedAgent.java:61)
+        at visidia.agents.Handshake.init(Handshake.java:103)
+        at visidia.simulation.agents.Agent.run(Agent.java:527)
+        at java.lang.Thread.run(Thread.java:595)
+
