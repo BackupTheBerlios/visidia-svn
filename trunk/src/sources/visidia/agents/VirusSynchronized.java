@@ -24,20 +24,20 @@ public class VirusSynchronized extends SynchronizedAgent {
          * should infect it and infect neighbours.
          */
 
-        lockVertexProperties();
+        this.lockVertexProperties();
 
         try {
-            getVertexProperty("alreadyInfected");
-            unlockVertexProperties();
+            this.getVertexProperty("alreadyInfected");
+            this.unlockVertexProperties();
         } catch (NoSuchElementException e) {
-            setVertexProperty("alreadyInfected", this);
-            setVertexProperty("label", "B");
+            this.setVertexProperty("alreadyInfected", this);
+            this.setVertexProperty("label", "B");
 
-            unlockVertexProperties();
+            this.unlockVertexProperties();
 
-            for(int i = 0; i < getArity(); ++i){
-		nextPulse();
-                cloneAndSend(i);
+            for(int i = 0; i < this.getArity(); ++i){
+		this.nextPulse();
+                this.cloneAndSend(i);
 	    }
         }
     }

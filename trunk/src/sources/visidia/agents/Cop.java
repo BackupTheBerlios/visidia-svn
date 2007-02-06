@@ -12,17 +12,17 @@ public class Cop extends Agent {
 	Random randMove = new Random();
 	
 	while ( ! thiefCaptured ) {
-	    int degree = getArity();
+	    int degree = this.getArity();
 	    int randomDirection = Math.abs(randMove.nextInt(degree));
 		
-	    moveToDoor(randomDirection);
+	    this.moveToDoor(randomDirection);
 	    
-	    lockVertexProperties();
-	    if(((String)getVertexProperty("label")).equals("S")) {
+	    this.lockVertexProperties();
+	    if(((String)this.getVertexProperty("label")).equals("S")) {
 		thiefCaptured = true;
-		setVertexProperty("label", new String("C"));
+		this.setVertexProperty("label", new String("C"));
 	    }
-	    unlockVertexProperties();
+	    this.unlockVertexProperties();
 	}
     }
 }

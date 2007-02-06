@@ -20,7 +20,7 @@ public class RDV extends AbSynAlgo implements IntSynchronization {
     public boolean duelWith(int neighbour){
 	int my = 0;
 	int his = 0;
-	while (synob.isConnected(neighbour) && my == his) {
+	while (synob.isConnected(neighbour) && (my == his)) {
 	    my = Math.abs(SynchronizedRandom.nextInt());
 	    boolean b = sendTo(neighbour, new IntegerMessage(my, MSG_TYPES.DUEL));
 	    synob.setConnected(neighbour, b);
@@ -96,7 +96,7 @@ public class RDV extends AbSynAlgo implements IntSynchronization {
 	    }
 	}
 
-	if (synob.isConnected(door) && answer[door] == 1){
+	if (synob.isConnected(door) && (answer[door] == 1)){
 	    if(duelWith(door)) {
 		setDoorState(new SyncState(true),door);
 		synob.addSynchronizedDoor(door);

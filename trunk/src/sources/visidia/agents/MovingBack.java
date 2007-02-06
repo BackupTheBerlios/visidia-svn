@@ -14,14 +14,14 @@ public class MovingBack extends Agent {
 
     protected void init() {
 
-	for(int i = 0; i < getArity(); ++i) {
-	    moveToDoor(i);
-	    moveBack();
+	for(int i = 0; i < this.getArity(); ++i) {
+	    this.moveToDoor(i);
+	    this.moveBack();
 
             /**
              * Puts the edge associated with the door i in bold.
              */
-            markDoor(i);
+            this.markDoor(i);
 	}
     }
 }

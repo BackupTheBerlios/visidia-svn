@@ -13,33 +13,33 @@ public class Thief extends Agent {
 	boolean captured = false;
 	
 	while ( ! captured ) {
-	    int degree = getArity();
+	    int degree = this.getArity();
 	    int randomDirection = Math.abs(randMove.nextInt(degree));
-	    moveToDoor(randomDirection);
+	    this.moveToDoor(randomDirection);
 	    
-	    String oldLabel = (String)getVertexProperty("label");
+	    String oldLabel = (String)this.getVertexProperty("label");
 	    
-	    setVertexProperty("label", new String("H"));
+	    this.setVertexProperty("label", new String("H"));
 	    try{
 		Thread.sleep((Math.abs(randHide.nextInt(5))+1)*500);
 	    } catch (Exception e) {
 	    }
 	    
 	    if(oldLabel.equals("N") ) {
-		setVertexProperty("label", new String("S"));
+		this.setVertexProperty("label", new String("S"));
 		try{
 		    Thread.sleep(3000);
 		} catch (Exception e) {
 		}
 		
-		lockVertexProperties();
-		if(((String)getVertexProperty("label")).equals("C"))
+		this.lockVertexProperties();
+		if(((String)this.getVertexProperty("label")).equals("C"))
 		    captured = true;
 		else 
-		    setVertexProperty("label", new String("D"));
-		unlockVertexProperties();
+		    this.setVertexProperty("label", new String("D"));
+		this.unlockVertexProperties();
 	    } else {
-		setVertexProperty("label", new String("D"));
+		this.setVertexProperty("label", new String("D"));
 	    }
 	}
     }

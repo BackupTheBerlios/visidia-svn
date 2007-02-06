@@ -13,15 +13,15 @@ public class StupidIncrement extends Agent {
 
     protected void init() {
 
-	lockVertexProperties();
+	this.lockVertexProperties();
 	try {
-	    Integer i = (Integer)getVertexProperty("test");
+	    Integer i = (Integer)this.getVertexProperty("test");
 	    i = new Integer(i.intValue() + 1);
-	    setVertexProperty("test",i);
+	    this.setVertexProperty("test",i);
 	} catch (NoSuchElementException e) {
-	    setVertexProperty("test",new Integer(1));
+	    this.setVertexProperty("test",new Integer(1));
 	}
-	unlockVertexProperties();
+	this.unlockVertexProperties();
 	
     }
 

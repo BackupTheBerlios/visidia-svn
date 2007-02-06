@@ -196,7 +196,7 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 		selection_y2 = selection_y;
 	    }
 	    Dimension size = parentPanel.getPreferredSize ();
-	    if (x > 0 && y > 0 && x < size.width && y < size.height) {
+	    if ((x > 0) && (y > 0) && (x < size.width) && (y < size.height)) {
 		parentPanel.setAutoscrolls (false);
 		System.out.println (x + " " + y + " -- " + 
 				    size.width + " " + size.height);

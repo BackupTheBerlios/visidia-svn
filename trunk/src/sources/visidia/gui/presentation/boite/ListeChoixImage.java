@@ -50,7 +50,7 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
     
      ImageIcon donneImage(String s)
     {
-	if(s == null || s.equals("no icon              ")) 
+	if((s == null) || s.equals("no icon              ")) 
 	    return null;
 	else if (s.equals( "PC                   ")) 
 	    return (new ImageIcon("visidia/gui/donnees/images/image1.gif"));

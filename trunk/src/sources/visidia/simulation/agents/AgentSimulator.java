@@ -343,7 +343,7 @@ public class AgentSimulator {
         MessagePacket msgPacket;
         
         
-        if( door < 0 || door >= getArity(ag))
+        if( (door < 0) || (door >= getArity(ag)))
             throw new IllegalArgumentException("This door doesn't exist !");
 
         vertexFrom = data.vertex;

@@ -13,12 +13,12 @@ public class BasicSynchronizedAgent2 extends SynchronizedAgent {
 
     protected void init() {
 
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
 	for(int i=0; i<7;++i) {
-	    sleep(2500);
-	    nextPulse();
-            move();
+	    this.sleep(2500);
+	    this.nextPulse();
+            this.move();
 	}
     }
 }

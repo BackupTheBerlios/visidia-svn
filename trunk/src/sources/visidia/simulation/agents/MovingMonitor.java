@@ -85,7 +85,7 @@ public class MovingMonitor implements Runnable {
         synchronized( synchronisation ) {
 
             // Wait until the answer is for me.
-            while(fromQueue == null || ! fromQueue.number().equals(key))
+            while((fromQueue == null) || ! fromQueue.number().equals(key))
                 synchronisation.wait();
             
             // The   object   grab    from   the   queue   is   my

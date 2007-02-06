@@ -14,16 +14,16 @@ public class Locker extends Agent {
 
     protected void init() {
 
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 	
 	do {
 	    
 	    try {
-		lockVertexProperties();
+		this.lockVertexProperties();
 	    } catch (IllegalStateException e) {
-		unlockVertexProperties();
+		this.unlockVertexProperties();
 	    }
-	    move();
+	    this.move();
 	    
 	} while(true); 
 	

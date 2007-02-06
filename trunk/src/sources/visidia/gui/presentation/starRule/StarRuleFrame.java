@@ -687,7 +687,7 @@ class BuildRulePane extends JPanel {
 	sommetCLeft = vgLeft.creerSommet(centerLeft.x, centerLeft.y);
 	sommetCRight = vgRight.creerSommet(centerRight.x, centerRight.y);
 	
-	if (sLeft != null && sRight != null) {
+	if ((sLeft != null) && (sRight != null)) {
 	    ConvertStarVueGraph.star2StarVueGraphe(sLeft, vgLeft, sommetCLeft);
 	    ConvertStarVueGraph.star2StarVueGraphe(sRight, vgRight, sommetCRight);
 	}
@@ -751,7 +751,7 @@ class BuildRulePane extends JPanel {
 	    });
 	simpleRuleMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    if (vgLeft.nbObjets() > 3 || vgRight.nbObjets() > 3) {
+		    if ((vgLeft.nbObjets() > 3) || (vgRight.nbObjets() > 3)) {
 			simpleRuleMenuItem.setSelected(isSimpleRule);
 			return;
 		    }

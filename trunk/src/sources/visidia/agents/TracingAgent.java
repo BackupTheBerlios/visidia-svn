@@ -11,7 +11,7 @@ import visidia.simulation.agents.Agent;
 public class TracingAgent extends Agent {
 
     protected void init() {
-        int nbVertices = getNetSize();
+        int nbVertices = this.getNetSize();
         
         // The trace array  will remember doors to go  when wanting to
         // go back
@@ -23,23 +23,23 @@ public class TracingAgent extends Agent {
 
         // Use a  special mover  to try  no to go  to the  sames edges
         // again and again. The path followed will the be clearer.
-        setAgentMover("NoBackMover");
+        this.setAgentMover("NoBackMover");
 
         // I want to visit nbVertices vertices (take care one vertex
         // can be visited more than one time).
         for (nbStops = 0 ; nbStops < nbVertices ; ++nbStops) {
-            move();
-            markDoor(entryDoor()); // makes the last  edge bold to draw
+            this.move();
+            this.markDoor(this.entryDoor()); // makes the last  edge bold to draw
                                    // the path.
-            trace[nbStops] = entryDoor(); // remembers the door we came
+            trace[nbStops] = this.entryDoor(); // remembers the door we came
                                           // from.
         }
 
         // Then go back to the first vertex following exactly the same
         // path and undrawing it.
         for (nbStops = nbStops - 1 ; nbStops >= 0 ; --nbStops) {
-            move(trace[nbStops]);
-            unmarkDoor(entryDoor()); // removes  the bold state  on the
+            this.move(trace[nbStops]);
+            this.unmarkDoor(this.entryDoor()); // removes  the bold state  on the
                                      // edge.
         }
     }

@@ -105,14 +105,14 @@ public class ParseException extends Exception {
     }
     String expected = "";
     int maxSize = 0;
-    for (int i = 0; i < expectedTokenSequences.length; i++) {
-      if (maxSize < expectedTokenSequences[i].length) {
-        maxSize = expectedTokenSequences[i].length;
+    for (int[] element : expectedTokenSequences) {
+      if (maxSize < element.length) {
+        maxSize = element.length;
       }
-      for (int j = 0; j < expectedTokenSequences[i].length; j++) {
-        expected += tokenImage[expectedTokenSequences[i][j]] + " ";
+      for (int j = 0; j < element.length; j++) {
+        expected += tokenImage[element[j]] + " ";
       }
-      if (expectedTokenSequences[i][expectedTokenSequences[i].length - 1] != 0) {
+      if (element[element.length - 1] != 0) {
         expected += "...";
       }
       expected += eol + "    ";
@@ -181,7 +181,7 @@ public class ParseException extends Exception {
               retval.append("\\\\");
               continue;
            default:
-              if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
+              if (((ch = str.charAt(i)) < 0x20) || (ch > 0x7e)) {
                  String s = "0000" + Integer.toString(ch, 16);
                  retval.append("\\u" + s.substring(s.length() - 4, s.length()));
               } else {

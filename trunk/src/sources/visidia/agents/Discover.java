@@ -17,23 +17,23 @@ public class Discover extends Agent {
 
 	int markedVertex = 0;
 
-        setAgentMover("LinearAgentMover");
+        this.setAgentMover("LinearAgentMover");
 
-	sleep(10000);
+	this.sleep(10000);
 	
 	do {
 
 	    try {
-		getVertexProperty(this.toString());
+		this.getVertexProperty(this.toString());
 	    } catch (NoSuchElementException e) {
-		setVertexProperty(this.toString(),"PASSE");
-		setProperty("marked",++markedVertex);
+		this.setVertexProperty(this.toString(),"PASSE");
+		this.setProperty("marked",++markedVertex);
 	    }
 
-	    if(markedVertex == getNetSize())
+	    if(markedVertex == this.getNetSize())
 		break;
 
-	    move();
+	    this.move();
 	    
 	} while(true); 
 	

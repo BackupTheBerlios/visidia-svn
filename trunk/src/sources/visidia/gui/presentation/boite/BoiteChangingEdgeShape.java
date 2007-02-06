@@ -52,18 +52,18 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
     	File factoryDirectory = new File(factoryPath);
     	String[] listOfFiles = factoryDirectory.list();
     	Class fabriqueArete = Class.forName(factoryPointPath+interfaceFactoryName);
-    	for (int j=0;j<listOfFiles.length;j++)
-     	 if (accept(listOfFiles[j])){ // we keep only .class files
-     		if (listOfFiles[j].equals(interfaceFactoryName+".class")) continue; // don't keep interface
-        	Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(listOfFiles[j]));
-    		if (fabriqueArete.isAssignableFrom(factFile)) 
-    		{
-    		   FabriqueArete ourFactory = (FabriqueArete)factFile.newInstance();	
-    		   edgesNames.add(index,ourFactory.description());
-    		   edgesFactories.add(index,ourFactory);
-    		   index ++;
-    		}
-     }
+    	for (String element : listOfFiles)
+			if (accept(element)){ // we keep only .class files
+				if (element.equals(interfaceFactoryName+".class")) continue; // don't keep interface
+				Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(element));
+				if (fabriqueArete.isAssignableFrom(factFile)) 
+				{
+				   FabriqueArete ourFactory = (FabriqueArete)factFile.newInstance();	
+				   edgesNames.add(index,ourFactory.description());
+				   edgesFactories.add(index,ourFactory);
+				   index ++;
+				}
+    }
     
     
     }catch(Exception e){System.out.println("Problem : "+e);}

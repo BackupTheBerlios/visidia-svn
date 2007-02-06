@@ -26,8 +26,8 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	
 	while(it.hasNext()) {
             Agent agent = (Agent) it.next();
-            if (agent instanceof SynchronizedAgent && ((SynchronizedAgent)agent).meet == true
-                && netAgents.size() > 1)
+            if ((agent instanceof SynchronizedAgent) && (((SynchronizedAgent)agent).meet == true)
+                && (netAgents.size() > 1))
                 whatToDoIfMeeted(netAgents, (SynchronizedAgent)agent);
 	}
     }
@@ -43,8 +43,8 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	
 	while(it.hasNext()) {
             Agent agent = (Agent)it.next();
-            if (agent instanceof SynchronizedAgent && ((SynchronizedAgent)agent).meet == true
-                && agent != agentManager)
+            if ((agent instanceof SynchronizedAgent) && (((SynchronizedAgent)agent).meet == true)
+                && (agent != agentManager))
 		agentManager.planning((SynchronizedAgent)agent);
 	}
     }

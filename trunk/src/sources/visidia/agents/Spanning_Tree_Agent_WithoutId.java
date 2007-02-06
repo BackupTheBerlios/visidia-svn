@@ -20,29 +20,29 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
     public void init() {
         
         int nbSelectedEdges = 0;
-        int nbVertices = getNetSize();
+        int nbVertices = this.getNetSize();
 
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
-        mark();
+        this.mark();
 
         while ( nbSelectedEdges < nbVertices - 1 ) {
 
-            move();
+            this.move();
 
-            if ( ! isMarked() ) {
-                markDoor(entryDoor());
-                mark();
+            if ( ! this.isMarked() ) {
+                this.markDoor(this.entryDoor());
+                this.mark();
                 nbSelectedEdges ++;
             }
             else {
-                incrementStat(new FailedMoveStat(this.getClass()));
+                this.incrementStat(new FailedMoveStat(this.getClass()));
             }
         }
     }
 
     private void mark () {
-        setVertexProperty("marked", new Boolean(true));
+        this.setVertexProperty("marked", new Boolean(true));
     }
 
     private boolean isMarked() {
@@ -53,7 +53,7 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
          * by the WhiteBoard.
          */
         try {
-            mark = ((Boolean)getVertexProperty("marked")).booleanValue();
+            mark = ((Boolean)this.getVertexProperty("marked")).booleanValue();
         } catch (NoSuchElementException e) {
             mark = false;
         }

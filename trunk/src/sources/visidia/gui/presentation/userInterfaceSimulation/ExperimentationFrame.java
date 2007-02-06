@@ -349,7 +349,7 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 		catch(InterruptedException e){
 		    //this interruption should have been cause
 		    //by the simulation stop.
-		    if( aborted && simulator != null){
+		    if( aborted && (simulator != null)){
 			//abort current simulation
 			simulator.abortSimulation();
 		    }

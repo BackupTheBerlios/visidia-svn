@@ -157,7 +157,7 @@ public class Rule implements Serializable {
     public int defaultSynchDegree(){
 	boolean rdvposs = true;
 	boolean lc1poss = true;
-	if(this.withForbContexts() || this.befor.arity() > 1) {
+	if(this.withForbContexts() || (this.befor.arity() > 1)) {
 	    rdvposs = false;
 	}
 	
@@ -201,7 +201,7 @@ public class Rule implements Serializable {
 		boucle = true;
 		l=0;
 		Star n = new Star();
-		while( boucle && l < v.count())
+		while( boucle && (l < v.count()))
 		    {
 			context =(Star)((Star) v.elementAt(l)).clone();
 			n = (Star) neighbourhood.clone();

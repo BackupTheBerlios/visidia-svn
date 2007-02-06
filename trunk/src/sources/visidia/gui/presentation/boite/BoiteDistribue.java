@@ -215,7 +215,7 @@ public class BoiteDistribue implements ActionListener {
 	Component component = labelPanel.getComponent(2);
 	JTextField texte = (JTextField)component;
 	String textValue = texte.getText();
-	if (textValue.equals("") | textValue == null)
+	if (textValue.equals("") | (textValue == null))
 	    return DEFAULT_URL_FOR_SIMULATOR;
 	else
 	    return textValue;

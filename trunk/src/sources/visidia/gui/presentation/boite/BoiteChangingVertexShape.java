@@ -50,18 +50,18 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
 	    File factoryDirectory = new File(factoryPath);
 	    String[] listOfFiles = factoryDirectory.list();
 	    Class fabriqueSommet = Class.forName(factoryPointPath+interfaceFactoryName);
-	    for (int j=0;j<listOfFiles.length;j++)
-		if (accept(listOfFiles[j])){ // we keep only .class files
-		    if (listOfFiles[j].equals(interfaceFactoryName+".class")) continue; // don't keep interface
-		    Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(listOfFiles[j]));
-		    if (fabriqueSommet.isAssignableFrom(factFile)) 
-			{
-			    FabriqueSommet ourFactory = (FabriqueSommet)factFile.newInstance();	
-			    vertexNames.add(index,ourFactory.description());
-			    vertexFactories.add(index,ourFactory);
-			    index ++;
+	    for (String element : listOfFiles)
+			if (accept(element)){ // we keep only .class files
+			    if (element.equals(interfaceFactoryName+".class")) continue; // don't keep interface
+			    Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(element));
+			    if (fabriqueSommet.isAssignableFrom(factFile)) 
+				{
+				    FabriqueSommet ourFactory = (FabriqueSommet)factFile.newInstance();	
+				    vertexNames.add(index,ourFactory.description());
+				    vertexFactories.add(index,ourFactory);
+				    index ++;
+				}
 			}
-		}
     
     
 	}catch(Exception e){System.out.println("Problem : "+e);}

@@ -68,9 +68,9 @@ public class SynchroLC2 extends Algorithm {
 	
 	/*get the max */
 	int max = choosenNumber;
-	for( int i=0;i < answer.length ; i++){
-	    if( answer[i] >= max )
-		max = answer[i];
+	for (int element : answer) {
+	    if( element >= max )
+		max = element;
 	}
 	
 	for(int i=0; i< getArity(); i++){
@@ -85,9 +85,9 @@ public class SynchroLC2 extends Algorithm {
 	
 	/*get the max */
         max =choosenNumber;
-	for( int i=0;i < answer.length ; i++){
-	    if( answer[i] >= max )
-		max = answer[i];
+	for (int element : answer) {
+	    if( element >= max )
+		max = element;
 	}
 	
 

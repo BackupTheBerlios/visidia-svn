@@ -81,7 +81,7 @@ public class RandomAgentChooser extends AgentChooser {
         float probability = probability();
         float rand = Math.abs(generator.nextFloat());
 
-        if (probability < 0.0 || probability > 1.0)
+        if ((probability < 0.0) || (probability > 1.0))
             throw new IllegalArgumentException("Probability must be "
                                                + "between 0 and 1.");
         return (rand < probability());

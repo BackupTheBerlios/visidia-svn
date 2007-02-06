@@ -22,30 +22,30 @@ public class Spanning_Tree_Agent_WithId extends Agent {
     protected void init() {
         
         int nbSelectedEdges = 0;
-        int nbVertices = getNetSize();
+        int nbVertices = this.getNetSize();
         
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
-        vertexMarks = new boolean [nbVertices];
+        this.vertexMarks = new boolean [nbVertices];
 
         /**
          * Puts false on all cells of vertexMarks.
          */
-        Arrays.fill(vertexMarks, false);
+        Arrays.fill(this.vertexMarks, false);
 
         /**
          * Marks the first vertex as already been seen.
          */
-        mark(getVertexIdentity());
+        this.mark(this.getVertexIdentity());
 
         /**
          * A tree has nbVertices - 1 edges.
          */
         while ( nbSelectedEdges < (nbVertices - 1) ) {
 
-            move();
+            this.move();
 
-            if ( ! isMarked(getVertexIdentity()) ) {
+            if ( ! this.isMarked(this.getVertexIdentity()) ) {
                 /**
                  * The current vertex has not been seen already.
                  */
@@ -54,24 +54,24 @@ public class Spanning_Tree_Agent_WithId extends Agent {
                  * Put the last  edge in bold. It will  be part of the
                  * tree.
                  */
-                markDoor(entryDoor());
+                this.markDoor(this.entryDoor());
 
-                mark(getVertexIdentity());
+                this.mark(this.getVertexIdentity());
                 nbSelectedEdges ++;
             }
             else {
-                incrementStat(new FailedMoveStat(this.getClass()));
+                this.incrementStat(new FailedMoveStat(this.getClass()));
             }
 
         }
     }
 
     private void mark (int vertex) {
-        vertexMarks[vertex] = true;
+        this.vertexMarks[vertex] = true;
     }
 
     private boolean isMarked(int vertex) {
-        return vertexMarks[vertex];
+        return this.vertexMarks[vertex];
     }
 
 }

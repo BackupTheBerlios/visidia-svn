@@ -57,8 +57,8 @@ public class DuoStarVisuPanel extends MouseAdapter implements MouseMotionListene
     private MouseEvent makeMouseEvent(MouseEvent evt, boolean left) {
 	int x = evt.getX();
 	int y = evt.getY();
-	if ((left && x < xPanelCenter) 
-	    || (!left && x >= xPanelCenter)) {
+	if ((left && (x < xPanelCenter)) 
+	    || (!left && (x >= xPanelCenter))) {
 	    return evt;
 	} else {
 	    return new MouseEvent(evt.getComponent(), evt.getID(),

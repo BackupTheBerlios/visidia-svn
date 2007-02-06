@@ -59,7 +59,7 @@ public class DoorPulseCriterion implements Criterion {
 	if ( !(o instanceof MessagePacket)) 
 	    return false;
 	
-	if(pulse == null && door == null) {
+	if((pulse == null) && (door == null)) {
 	    return true;
 	} else if(pulse == null) {
 	    Message msg = ((MessagePacket)o).message();
@@ -78,7 +78,7 @@ public class DoorPulseCriterion implements Criterion {
 	    Message msg = ((MessagePacket)o).message();
 	    int p = msg.getMsgClock();
 	    int d = ((MessagePacket)o).receiverDoor();
-	    if(door.getNum() == d && pulse.intValue() == p)
+	    if((door.getNum() == d) && (pulse.intValue() == p))
 		return true;
 	    return false; 
 	}

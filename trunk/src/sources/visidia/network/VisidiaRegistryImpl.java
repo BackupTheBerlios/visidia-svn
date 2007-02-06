@@ -214,7 +214,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 	    return ;
 	if(sizeOfTheGraph<=localNodeNumber){
 	    int i = 0;
-	    while(!selectedRows.isEmpty() && i<sizeOfTheGraph) {
+	    while(!selectedRows.isEmpty() && (i<sizeOfTheGraph)) {
 		int index =  ((Integer)selectedRows.remove(0)).intValue();
 		String aHost = (String)getValueAt(index,0);
 		String localNode = (String)getValueAt(index,1);

@@ -144,8 +144,8 @@ public class Sommet2Cercle extends SommetDessin{
     // Teste si le sommet est contenu en entier dans une zone rectangulaire.
     // (x1, y1) coordonnees en haut a gauche et (x2, y2) coordonnees en bas a droite.
     public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-	return ((x1 <= (posx - monCote) && (y1 <= posy - monCote)) &&
-		(x2 >= (posx + monCote ) && (y2 >= posy + monCote / 2)));
+	return (((x1 <= (posx - monCote)) && (y1 <= posy - monCote)) &&
+		((x2 >= (posx + monCote )) && (y2 >= posy + monCote / 2)));
     }
 
 	

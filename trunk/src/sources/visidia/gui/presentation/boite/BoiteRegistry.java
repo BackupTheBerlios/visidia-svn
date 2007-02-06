@@ -82,7 +82,7 @@ public class BoiteRegistry implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == buttonOk) {
 	    String portNumber = registryPort.getText();
-	    if (!(portNumber.equals("") | portNumber == null))
+	    if (!(portNumber.equals("") | (portNumber == null)))
 		parent.setRegistryPort(portNumber);
 	  
 	    dialog.setVisible(false);

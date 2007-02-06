@@ -14,22 +14,22 @@ public class PrintWhiteBoards extends Agent {
 
     protected void init() {
 
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
         do {
 
-            Set keys = getVertexPropertyKeys();
+            Set keys = this.getVertexPropertyKeys();
             Iterator it = keys.iterator();
 
-            System.out.println("On vertex " + getVertexIdentity() + ":");
+            System.out.println("On vertex " + this.getVertexIdentity() + ":");
 
             while(it.hasNext()) {
                 Object key = it.next();
 
-                System.out.println(key + ": " + getVertexProperty(key));
+                System.out.println(key + ": " + this.getVertexProperty(key));
             }
 
-            move();
+            this.move();
 
         } while (true);
     }

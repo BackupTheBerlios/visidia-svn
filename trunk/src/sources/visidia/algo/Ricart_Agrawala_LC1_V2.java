@@ -114,7 +114,7 @@ public class Ricart_Agrawala_LC1_V2 extends Algorithm {
 			    }
 			}
 		    }
-		    if(hungryResult == true && hungryResult1==false){
+		    if((hungryResult == true) && (hungryResult1==false)){
 			for(int i=0;i<arity;i++)
 			    setEdgeColor(i, new ColorState(Color.red));
 			putProperty("label",myEatingNode);

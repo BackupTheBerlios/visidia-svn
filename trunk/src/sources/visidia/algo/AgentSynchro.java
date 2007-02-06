@@ -120,7 +120,7 @@ public class AgentSynchro extends Algorithm {
 		for( int i = 0; i < arite; i++){
 		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
 		    IntegerMessage smsg = (IntegerMessage) msg;
-		    if(i == choosenNeighbour && smsg.value() == 1) 
+		    if((i == choosenNeighbour) && (smsg.value() == 1)) 
 			tentative = true;
 		}
 		if (tentative) {

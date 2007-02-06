@@ -14,7 +14,7 @@ public class RecogniseAgent extends Agent {
 
     protected void init() {
 
-        setAgentMover("LinearAgentMover");
+        this.setAgentMover("LinearAgentMover");
         
         do {
             Integer nbPassages;
@@ -24,18 +24,18 @@ public class RecogniseAgent extends Agent {
              * throws a NoSuchElementException.
              */
             try {
-                nbPassages = (Integer) getVertexProperty("nbPassages");
+                nbPassages = (Integer) this.getVertexProperty("nbPassages");
             } catch (NoSuchElementException e) {
                 nbPassages = 0;
             }
 
             nbPassages = new Integer(nbPassages.intValue() + 1);
-            setVertexProperty("nbPassages", nbPassages);
+            this.setVertexProperty("nbPassages", nbPassages);
 
-            System.out.println(getVertexIdentity() + " has seen an agent "
+            System.out.println(this.getVertexIdentity() + " has seen an agent "
                                + nbPassages + " time(s).");
 
-            move();
+            this.move();
         } while (true);
     }
 }

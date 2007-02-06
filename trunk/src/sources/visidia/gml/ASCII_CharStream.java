@@ -255,7 +255,7 @@ public final class ASCII_CharStream
     line = startline;
     column = startcolumn - 1;
 
-    if (buffer == null || buffersize != buffer.length)
+    if ((buffer == null) || (buffersize != buffer.length))
     {
       available = bufsize = buffersize;
       buffer = new char[buffersize];
@@ -346,8 +346,8 @@ public final class ASCII_CharStream
      int i = 0, j = 0, k = 0;
      int nextColDiff = 0, columnDiff = 0;
 
-     while (i < len &&
-            bufline[j = start % bufsize] == bufline[k = ++start % bufsize])
+     while ((i < len) &&
+            (bufline[j = start % bufsize] == bufline[k = ++start % bufsize]))
      {
         bufline[j] = newLine;
         nextColDiff = columnDiff + bufcolumn[k] - bufcolumn[j];

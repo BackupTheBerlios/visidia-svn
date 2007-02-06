@@ -5,7 +5,7 @@ public abstract class AbstractStat {
     public boolean equals(Object o) {
 	if (this == o)
 	    return true;
-	return (o != null && o.getClass() == this.getClass());
+	return ((o != null) && (o.getClass() == this.getClass()));
     }
 
     public int hashCode() {

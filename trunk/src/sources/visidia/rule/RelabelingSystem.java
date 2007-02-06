@@ -85,7 +85,7 @@ public class RelabelingSystem  implements Serializable {
 	    while (i < numRules){
 		Rule r1 =(Rule) rules.get(i); 
 		k = r1.defaultSynchDegree();
-		if (r1.isSimpleRule() && (k == SynCT.RDV) || (k==SynCT.RDV_LC1)) {
+		if ((r1.isSimpleRule() && (k == SynCT.RDV)) || (k==SynCT.RDV_LC1)) {
 		    r = r1.inverseSimpleRule();
 		    if (rules.contains(r) == -1) {
 			rules.add(r);
@@ -264,7 +264,7 @@ public class RelabelingSystem  implements Serializable {
 		    MyVector v = new MyVector(r.forbContexts());
 		    boucle = true;
 		    l=0;
-		    while( boucle && l < v.count())
+		    while( boucle && (l < v.count()))
 			{
 			    context =(Star)((Star) v.elementAt(l)).clone();
 			    neighbourhood = (Star) n.clone();

@@ -182,7 +182,7 @@ public abstract class BoiteChangingShape implements ActionListener {
     // returns true if the string is the name of a ".class" file
     protected boolean accept(String s)	{
     	int i = s.lastIndexOf('.');
-    	if (i > 0 &&  i < s.length() - 1) {
+    	if ((i > 0) &&  (i < s.length() - 1)) {
 	    String extension = s.substring(i+1).toLowerCase();
 	    return (extension.equals("class"));
 	}

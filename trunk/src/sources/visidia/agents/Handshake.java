@@ -11,7 +11,7 @@ public class Handshake extends SynchronizedAgent {
 
 
     protected void init() {
-	setAgentMover("RandomAgentMover");	
+	this.setAgentMover("RandomAgentMover");	
 	
 	boolean wbMarkedByMe = false;
 	boolean wbNeighMarkedByMe = false;
@@ -24,14 +24,14 @@ public class Handshake extends SynchronizedAgent {
 		/**
 		 * l'agent essaye de marquer le noeud courant
 		 **/
-		lockVertexProperties();
-		if(((String)getVertexProperty("label")).equals("N")) {
-		    setVertexProperty("label", new String("M"));
+		this.lockVertexProperties();
+		if(((String)this.getVertexProperty("label")).equals("N")) {
+		    this.setVertexProperty("label", new String("M"));
 		    wbMarkedByMe = true;
 		} 
-		unlockVertexProperties();
+		this.unlockVertexProperties();
 		
-		nextPulse();
+		this.nextPulse();
 		
 		/**
 		 * celui qui réussit à marquer le noeud courant se
@@ -40,47 +40,47 @@ public class Handshake extends SynchronizedAgent {
 		 */
 		if(wbMarkedByMe) {
 		 
-		    move();
-		    nextPulse();
+		    this.move();
+		    this.nextPulse();
 		    
-		    lockVertexProperties();
-		    if(((String)getVertexProperty("label")).equals("N")) {
-			setVertexProperty("label",new String("M"));
+		    this.lockVertexProperties();
+		    if(((String)this.getVertexProperty("label")).equals("N")) {
+			this.setVertexProperty("label",new String("M"));
 			wbNeighMarkedByMe = true;
-			markDoor(entryDoor());
-			syncDoor(entryDoor());
+			this.markDoor(this.entryDoor());
+			this.syncDoor(this.entryDoor());
 			try{
 			    Thread.sleep(1000);
 			} catch (Exception e) {}
 		    } 
-		    unlockVertexProperties();
-		    nextPulse();
+		    this.unlockVertexProperties();
+		    this.nextPulse();
 		    
 		    if(wbNeighMarkedByMe) {
-			setVertexProperty("label",new String("N"));
+			this.setVertexProperty("label",new String("N"));
 		    }
 		    
-		    moveToDoor(entryDoor());
-		    nextPulse();
+		    this.moveToDoor(this.entryDoor());
+		    this.nextPulse();
 		    
 		    if(wbNeighMarkedByMe) {
-			unsyncDoor(entryDoor());
-			unmarkDoor(entryDoor());
+			this.unsyncDoor(this.entryDoor());
+			this.unmarkDoor(this.entryDoor());
 		    }
-		    setVertexProperty("label",new String("N"));
+		    this.setVertexProperty("label",new String("N"));
 		    
 		} else {
 		    
-		    nextPulse();
+		    this.nextPulse();
 		    
-		    nextPulse();
+		    this.nextPulse();
 		    
-		    nextPulse();
+		    this.nextPulse();
 		    
 		}
 		
-		move();
-		nextPulse();
+		this.move();
+		this.nextPulse();
 		
 	    } catch (Exception e) {
 		e.printStackTrace();

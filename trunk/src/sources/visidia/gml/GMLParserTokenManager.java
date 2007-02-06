@@ -148,7 +148,7 @@ private final int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 4;
                   break;
                case 4:
-                  if ((0x3ff000000000000L & l) != 0L && kind > 15)
+                  if (((0x3ff000000000000L & l) != 0L) && (kind > 15))
                      kind = 15;
                   break;
                case 6:
@@ -210,8 +210,6 @@ private final int jjMoveNfa_0(int startState, int curPos)
       }
       else
       {
-         int i2 = (curChar & 0xff) >> 6;
-         long l2 = 1L << (curChar & 077);
          //MatchLoop: 
          do
          {
@@ -300,7 +298,6 @@ private final int jjMoveNfa_1(int startState, int curPos)
       }
       else if (curChar < 128)
       {
-         long l = 1L << (curChar & 077);
          //MatchLoop:
          do
          {
@@ -412,7 +409,6 @@ private final int jjMoveNfa_2(int startState, int curPos)
       }
       else if (curChar < 128)
       {
-         long l = 1L << (curChar & 077);
          //MatchLoop: 
          do
          {
@@ -521,7 +517,7 @@ public void ReInit(ASCII_CharStream stream, int lexState)
 }
 public void SwitchTo(int lexState)
 {
-   if (lexState >= 3 || lexState < 0)
+   if ((lexState >= 3) || (lexState < 0))
       throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
    else
       curLexState = lexState;
@@ -576,7 +572,7 @@ public final Token getNextToken()
      {
        case 0:
          try { input_stream.backup(0);
-            while (curChar <= 32 && (0x100000600L & (1L << curChar)) != 0L)
+            while ((curChar <= 32) && ((0x100000600L & (1L << curChar)) != 0L))
                curChar = input_stream.BeginToken();
          }
          catch (java.io.IOException e1) { continue EOFLoop; }
@@ -632,7 +628,7 @@ public final Token getNextToken()
      catch (java.io.IOException e1) {
         EOFSeen = true;
         error_after = curPos <= 1 ? "" : input_stream.GetImage();
-        if (curChar == '\n' || curChar == '\r') {
+        if ((curChar == '\n') || (curChar == '\r')) {
            error_line++;
            error_column = 0;
         }

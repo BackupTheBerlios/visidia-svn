@@ -82,7 +82,7 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
 	liste.addKeyListener(new KeyAdapter () {
 		public void keyPressed(KeyEvent e) {
 		    char c = e.getKeyChar();
-		    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+		    if (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z'))) {
 			String strC = "" + c;
 			strC = strC.toUpperCase();
 			liste.setSelectedValue(strC, true);

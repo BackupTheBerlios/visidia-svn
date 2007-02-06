@@ -8,11 +8,11 @@ public class ChangeLabelAgent extends Agent {
     protected void init() {
 	String label = new String("B");
 
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
         do {
-            setVertexProperty("label",label);
-            move();
+            this.setVertexProperty("label",label);
+            this.move();
         } while (true);
     }
 }

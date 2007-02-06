@@ -38,7 +38,7 @@ public class PortTable implements Serializable {
     public int getDoor(Integer neighbor){
 	boolean bool = true;
 	int i=0;
-	for(;i<hash.size() && bool;i++) {
+	for(;(i<hash.size()) && bool;i++) {
 	    if ((getNeighbor(new Integer(i))).equals(neighbor)){
 		bool=false;
 	    }

@@ -306,7 +306,7 @@ public class TableSorter extends AbstractTableModel {
 
                 int comparison = 0;
                 // Define null less than everything, except null.
-                if (o1 == null && o2 == null) {
+                if ((o1 == null) && (o2 == null)) {
                     comparison = 0;
                 } else if (o1 == null) {
                     comparison = -1;
@@ -360,10 +360,10 @@ public class TableSorter extends AbstractTableModel {
             // which can be a performance problem for large tables. The last 
             // clause avoids this problem. 
             int column = e.getColumn();
-            if (e.getFirstRow() == e.getLastRow()
-                    && column != TableModelEvent.ALL_COLUMNS
-                    && getSortingStatus(column) == NOT_SORTED
-                    && modelToView != null) {
+            if ((e.getFirstRow() == e.getLastRow())
+                    && (column != TableModelEvent.ALL_COLUMNS)
+                    && (getSortingStatus(column) == NOT_SORTED)
+                    && (modelToView != null)) {
                 int viewIndex = getModelToView()[e.getFirstRow()];
                 fireTableChanged(new TableModelEvent(TableSorter.this, 
                                                      viewIndex, viewIndex, 

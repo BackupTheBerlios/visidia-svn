@@ -609,8 +609,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	    String textError="\n"+e.toString();
 	    write(textError,Color.red);
 	    if(fullDebug.isSelected()) {
-		for(int j=0;j<ste.length;j++){
-		    textError+="\n"+ste[j].toString();
+		for (StackTraceElement element : ste) {
+		    textError+="\n"+element.toString();
 		}
 		write(textError,Color.black);
 	    }

@@ -99,7 +99,7 @@ public class AgentBoxProperty
                 String name = JOptionPane.showInputDialog(parent, "Enter the name :");
                 String value = JOptionPane.showInputDialog(parent, "Enter the value :");
                 
-                if ( name != null  && value != null )
+                if ( (name != null)  && (value != null) )
                     {
                         objValue = value;
 

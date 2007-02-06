@@ -111,8 +111,8 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
     // If isSimpleRule == true, returns the point of the second vertex or null
     private Point getRoundedPosition(int x, int y) {
 	if (isSimpleRule) {
-	    if (x > center.x + ray - 25 && x < center.x + ray + 25
-		&& y > center.y - 50 && y < center.y + 50) 
+	    if ((x > center.x + ray - 25) && (x < center.x + ray + 25)
+		&& (y > center.y - 50) && (y < center.y + 50)) 
 		return new Point (center.x + ray, center.y);
 	    else
 		return null;
@@ -140,8 +140,8 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	//System.out.println (x + " " + y);
 	
 	//Left click
-	if (modifiers == InputEvent.BUTTON1_MASK 
-	    && evt.getClickCount() == 2) {
+	if ((modifiers == InputEvent.BUTTON1_MASK) 
+	    && (evt.getClickCount() == 2)) {
 	    Point p = getRoundedPosition(x, y);
 	    //System.out.println (p);
 			
@@ -161,9 +161,9 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 		renumeberVertex();
 		parent.repaint();
 	    }
-	} else if (modifiers == InputEvent.BUTTON2_MASK ||
-		   modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK)
-		   && ! isSimpleRule) {
+	} else if ((modifiers == InputEvent.BUTTON2_MASK) ||
+		   ((modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK))
+		   && ! isSimpleRule)) {
 	    //Center click or left + shift
 	    try {
 		if (getRoundedPosition(x, y) != null)
@@ -176,7 +176,7 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	    // Right click
 	    try {
 		FormeDessin f = vg.en_dessous(x, y);
-		if (f instanceof AreteDessin || f instanceof SommetDessin)
+		if ((f instanceof AreteDessin) || (f instanceof SommetDessin))
 		    maybeShowPopup(evt, f);
 	    } catch (NoSuchElementException e) {
 		
@@ -285,8 +285,8 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	int y = evt.getY();
 	int modifiers = evt.getModifiers();
 	
-	if (modifiers == InputEvent.BUTTON2_MASK ||
-	    modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK)) {
+	if ((modifiers == InputEvent.BUTTON2_MASK) ||
+	    (modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK))) {
 	    if (drag_n_drop_sommet != null) {
 		Point p = getRoundedPosition(x, y);
 		if (p != null) {

@@ -160,7 +160,7 @@ public class UndoInfo extends Vector {
     public void undo(int i) {
 	int compteur = 0;
 	try{
-	    while (undoMore() && compteur < i) {
+	    while (undoMore() && (compteur < i)) {
 		currentGroup().undo();
 		curseur--;
 		compteur++;
@@ -175,7 +175,7 @@ public class UndoInfo extends Vector {
     public void redo(int i) {
 	int compteur = 0;
 	try{
-	    while (redoMore() && compteur < i) {
+	    while (redoMore() && (compteur < i)) {
 		curseur++;
 		currentGroup().redo();
 		compteur++;

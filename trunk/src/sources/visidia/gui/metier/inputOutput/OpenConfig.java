@@ -106,10 +106,10 @@ public class OpenConfig implements Serializable{
 	if(sizeOfTheGraph<=hostNummer){
 	    int i = 0;
 	    Enumeration hosts = parameters.keys();
-	    while(hosts.hasMoreElements() && i<sizeOfTheGraph){
+	    while(hosts.hasMoreElements() && (i<sizeOfTheGraph)){
 		String aHost = (String)hosts.nextElement();
 		Vector localNodes = (Vector)parameters.get(aHost);
-		while(! localNodes.isEmpty() && i<sizeOfTheGraph){
+		while(! localNodes.isEmpty() && (i<sizeOfTheGraph)){
 		    String localNode = (String)localNodes.remove(0);
 		    Vector v = new Vector();
 		    v.addElement(new Integer(i));

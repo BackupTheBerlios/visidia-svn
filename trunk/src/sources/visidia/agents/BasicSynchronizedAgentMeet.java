@@ -19,10 +19,10 @@ public class BasicSynchronizedAgentMeet extends SynchronizedAgent {
 
     protected void init() {
 	
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 	
         for(int i=0; i<10; ++i) {
-	    sleep(1000);
+	    this.sleep(1000);
 	    
             /**
              * nextPulse() is  the method to use when  you finish your
@@ -31,8 +31,8 @@ public class BasicSynchronizedAgentMeet extends SynchronizedAgent {
              * returns and the next action is executed.
              */
 	    
-            nextPulse();
-            move();
+            this.nextPulse();
+            this.move();
 	}
 
     }

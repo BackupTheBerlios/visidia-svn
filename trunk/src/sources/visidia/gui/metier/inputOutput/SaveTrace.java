@@ -55,7 +55,7 @@ public class SaveTrace extends JFileChooser {
 	File f = getSelectedFile();
 	String s = f.getName();
 	int i = s.lastIndexOf('.');
-	if (i > 0 &&  i < s.length() - 1) {
+	if ((i > 0) &&  (i < s.length() - 1)) {
 	    String extension = s.substring(i+1).toLowerCase();
 	    if (!extension.equals("trace")) {
 		JOptionPane.showMessageDialog(this, 

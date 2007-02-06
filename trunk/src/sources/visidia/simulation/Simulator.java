@@ -633,7 +633,7 @@ public class Simulator {
 	    //if (countNextPulse !=0) {
 	    int i = (countNextPulse+1)%(graph.size()-terminatedThreadCount);
 	    
-	    if(i == 0 && terminatedThreadCount != graph.size()-1) {
+	    if((i == 0) && (terminatedThreadCount != graph.size()-1)) {
 		try{
 		    pushNextPulseEvent();
 		} catch (Exception e) {

@@ -19,24 +19,24 @@ public class BasicAgent extends Agent {
         /**
          * Uses an unpredictable deplacement. It chooses one door randomly.
          */
-        setAgentMover("RandomAgentMover");
+        this.setAgentMover("RandomAgentMover");
 
 
 
         do {
             
             try{
-                in = (Integer)(getVertexProperty("Integer in")) + 1;
+                in = (Integer)(this.getVertexProperty("Integer in")) + 1;
             }
             catch(Exception e) {
                 //   setVertexProperty("Integer in",in);
             }
 
-            setVertexProperty("Integer in",in);
+            this.setVertexProperty("Integer in",in);
 
-            setProperty("test",in);
+            this.setProperty("test",in);
 
-            move();
+            this.move();
         } while (true);
     }
 }
