@@ -4,56 +4,100 @@
 %          * Donner son rôle dans l'organisation qui l'englobe 
 
 
+\subsection*{Contexte d'utilisation}
+
 L'algorithmique distribuée devient de nos jours de plus en plus
 importante aux vues des utilisations possibles sur les réseaux et
-autres systèmes distribués.
+autres systèmes distribués.\\
 
 Cependant,  les   applications  distribuées  qui   en  découlent  sont
 difficiles à implanter, tester  et expérimenter.  En effet, celles-ci,
 en  plus  des  problèmes  des  applications  classiques  centralisées,
-doivent  gérer  des problèmes  de  communication  entre processus,  de
+doivent  gérer  des problèmes  de communication  entre processus,  de
 concurrence  et de  conflits  de  ressources.  C'est  dans  le but  de
-faciliter la  tâche à un développeur d'algorithmes  distribués que des
+faciliter la tâche à un développeur d'algorithmes  distribués que des
 chercheurs  du  LaBRI  ont   créé  \visidia  (voir  le  site  internet
 \cite{visidiaLaBRI}  et  des articles  à  ce sujet  \cite{bauderon01a}
-\cite{bauderon01b}).  Ce logiciel est un atelier proposant des outils
+\cite{bauderon01b}).\\
+
+Ce logiciel est un atelier proposant des outils
 de simulation  et  de visualisation,  au travers  d'animations 
 graphiques en temps réel, de l'exécution d'un algorithme distribué sur
 un graphe  donné.  Cet algorithme peut être  choisi dans une liste,
 algorithme développé par  l'utilisateur ou encore  dessiné grâce à des
-règles de réécriture.   L'application  va  donc  constituer  à  terme
-un  outil permettant   la  validation   de  programmes   sur   un
-environnement distribué.\\
+règles de réécriture.\\ 
 
-\paragraph{L'existant}
-\visidia  se compose aujourd'hui  de trois  couches. Tout  d'abord une
-interface  graphique qui  permet à  l'utilisateur d'interagir  avec le
-programme. Elle  permet de créer  des réseaux (graphes)  et d'exécuter
-des algorithmes  distribués afin de  les tester avec visualisation ou
-non. Ensuite,  une bibliothèque  de primitives de  base qui  permet de
-définir  des algorithmes distribués  (envoi, réception,  traitement de
-messages etc...).   Enfin, un simulateur dont  le but est  de faire le
-pont entre les  deux autres parties : c'est le  coeur de \visidia. Le
-logiciel  propose donc  des outils  pour faciliter  les tests  afin de
-mieux  comprendre  les  comportements  d'un algorithme,  notamment  en
-visualisant son  exécution. Le modèle théorique d'un
-réseau est un graphe dont les sommets (ou noeuds) sont des machines
-(ou processeurs) et les arêtes des liens de communication. Il est
-possible pendant l'exécution de visualiser les envois de messages
-entre processeurs et de détecter les erreurs éventuelles.
+L'application  va  donc  constituer  à  terme un  outil permettant la 
+validation pratique de résultats théoriques sur un environnement
+distribué.\\
+
+
+
+\subsection*{Notions d'algorithmique distribuée}
+
+Il existe de nombreux modèles permettant de décrir des algorithmes distribués,
+parmi eux, deux ont été développés dans \visidia : la commmunicatation par
+échange de message et par agent.\\
+
+\subsubsection*{Communication par message}
+
+Dans ce modèle, chaque noeud représente un système ou un processeur. Sur chaque
+noeud est exécuté un algorithme disponsant de certaines primitives qui lui permettent de
+communiquer à l'aide de messages avec ses noeuds voisons.
+Les noeuds sont reliés entre eux par des canaux de communication par lesquels
+transitent les messages, les arrêtes du graphe.
+
+\subsubsection*{Communication par agent}
+
+Ce second modèle, plus récent que le précédent, considère que le système
+représenté par un noeud ne dispose pas d'unité de calcul mais seulement d'une
+mémoire. Les noeuds sont ainsi dépourvu d'algorithme et ne peuvent donc pas
+communiquer directement entre eux.\\
+
+L'exécution des algorithmes se fait par des agents. Ces entités possèdent une
+capacité de calcul ainsi qu'une mémoire. Un agent se déplace dans le graphe
+et exécute un algorithme qui lui est associé.
+
+
+\subsection*{L'existant}
+
+\visidia implémente aujourd'hui les deux modèles de communication présentés
+précédemment. La gestion des agent a été ajoutée l'année dernière. Seul cette
+partie concernera le projet, la partie sur la communication par message ne sera
+pas étudiée.\\
+
+L'application \visidia avec agent a été réalisée en respectant une séparation en
+trois parties, interface graphique, simultateur et agents.
+L'interface graphique permet à l'utilisateur d'interagir avec le programme et de
+consulter l'avancement d'une exécution d'agent sur un graphe. Elle
+est synchronisée avec le simultateur pour éviter toute incohérence. Elle fournit
+quelques statistiques de base sur l'exécution.
+Le simultateur coordonne les opérations. C'est le coeur de \visidia.
+Enfin, les agents  qui vont réaliser les opérations sur le graphe.\\
+
+Une bibliothèque  de primitives de  base (API), est mise à disposition de
+l'utilisateur afin qu'il puisse réaliser ses propres algorithmes à base d'agent.
 \\
-\visidia dispose d'un module permettant d'exécuter des algorithmes
-distribués basés sur la notion d'agent mobile : une entité
-autonome de  calcul qui se déplace dans le graphe et agit 
-sur les  noeuds en fonction de l'algorithme à  exécuter. 
 
-\paragraph{Motivations et but}
 
-Le logiciel dans l'état actuel fournit une extension Agent Mobile 
-partiellement implémentée.
-Plusieurs fonctionnalités supplémentaires restent à développer telles 
-que la possibilité de modifier la mémoire d'un agent mobile et
-le tableau blanc (ou \texttt{whiteboard}) des noeuds, d'effectuer le
-calcul de statistiques, d'implémenter des algorithmes avec agent
-mobile... Ce projet consistera donc à ajouter à l'application tous ces 
-nouveaux services.
+\subsection*{Motivations et but}
+
+La version avec agent mobile de \visidia offre aujourd'hui suffisemment de
+fonctionnalités pour simuler les algorithmes à base d'agent mobile.\\
+
+Néanmoins, contrairement à la partie de visidia avec communication par message
+qui possède un grand nombre d'algorithmes développés, la partie avec agent mobile
+se limite à quelques uns. L'implémentation des algorithmes dans \visidia n'est
+pas aisée et la procédure est peu documenté, le client a donc besoin qu'ils
+soient implémentés pour lui.\\
+
+Les statistiques sur l'exécution des algorithmes est un point particulièrement
+important pour le client. En effet, \visidia est un outil qui lui permet de
+confronter résultat théorique et expérimentaux. C'est les statistiques qui
+permettent cette comparaison et celles-ci sont actuellement très limitées.\\
+
+Un autre besoin du client est de pouvoir agir sur le graphe au cours de
+l'exécution d'un algorithme. En effet, en algorithmique distribuée on
+s'intéresse aux conséquences d'une évolution de la topologie du réseau, de
+l'altération des mémoires d'un noeud du réseau ou d'un agent voir du crash
+accidentel d'un de ces derniers.
