@@ -30,6 +30,11 @@
 
 Nous proposons ci-dessous une brève description de trois algorithmes à implémenter. Leur description formelle est fournie en anglais par le LaBRI.
 
+\begin{itemize}
+  \item RDV : savoir au bout de combien de temps deux agents vont se rencontrer
+  \item GATHERING : On traite k agents où k est supérieure à 2. Si deux agents se rencontrent, ils fusionnent. Fusionner c'est choisir aléatoirement un agent qui va annexer la mémoire des autres agents à sa propre mémoire. Il est à remarquer qu'une rencontre ne peut pas se faire sur une arête : la rencontre n'a un sens que sur un sommet.
+  \item CALCUL DISTRIBUÉ D'UN ARBRE COUVRANT : on lance en même temps plusieurs agents (ces derniers possèdent des identificateurs ID). Chaque agent fait son propre calcul. Si un agent rencontre une région calculée par un autre agent d'ID plus faible, le premier annexe la région du 2ème, ceci en la récupérant grâce à un clone du 1er qui va effectuer un parcours en profondeur sur la région du 2e.
+\end{itemize}
 
 
 \subsection{Structuration de l'application}
