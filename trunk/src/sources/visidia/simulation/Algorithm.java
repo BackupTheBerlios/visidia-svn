@@ -37,10 +37,10 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected boolean sendTo(Integer door, Message msg)
     {
-	sim.runningControl();
+	this.sim.runningControl();
 	boolean b;
 	try{
-	    b= sim.sendTo(nodeId, door.intValue(), msg) ;	
+	    b= this.sim.sendTo(this.nodeId, door.intValue(), msg) ;	
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -53,10 +53,10 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected boolean sendTo(int door, Message msg)
     {
-	sim.runningControl();
+	this.sim.runningControl();
 	boolean b;
 	try{
-	    b= sim.sendTo(nodeId, door, msg) ;	
+	    b= this.sim.sendTo(this.nodeId, door, msg) ;	
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -66,10 +66,10 @@ public abstract class Algorithm implements Runnable,Cloneable
 
     
     protected boolean sendToNext(Message msg) {
-	sim.runningControl();
+	this.sim.runningControl();
 	boolean b;
 	try{
-	    b=sim.sendToNext(nodeId, msg) ;	
+	    b=this.sim.sendToNext(this.nodeId, msg) ;	
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -83,9 +83,9 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected void sendAll(Message msg)
     {
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	for( int i=0; i < arite ; i++)
-	    sendTo(i, msg );
+	    this.sendTo(i, msg );
     }
     
     /**
@@ -94,11 +94,11 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected Message receiveFrom(int door)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 
 	Message msg = null;
     	try{
-	    msg =  sim.getNextMessage( nodeId ,null, new DoorCriterion(door));
+	    msg =  this.sim.getNextMessage( this.nodeId ,null, new DoorCriterion(door));
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -109,15 +109,15 @@ public abstract class Algorithm implements Runnable,Cloneable
 
     protected Message receiveFrom(Integer door)
     {
-	return receiveFrom(door.intValue());
+	return this.receiveFrom(door.intValue());
     }
     
     
     protected Message receiveFromPrevious() {
-	sim.runningControl();
+	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessageFromPrevious(nodeId , null);
+	    msg = this.sim.getNextMessageFromPrevious(this.nodeId , null);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -129,7 +129,7 @@ public abstract class Algorithm implements Runnable,Cloneable
 
     protected  Message receiveFrom(int door,MessageCriterion mc)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 
 	DoorCriterion dc = new DoorCriterion(door);
 	MessagePacketCriterion mpc = new MessagePacketCriterion(mc);
@@ -139,7 +139,7 @@ public abstract class Algorithm implements Runnable,Cloneable
 
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId , null, c);
+	    msg = this.sim.getNextMessage(this.nodeId , null, c);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -154,10 +154,10 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected Message receive(Door door)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId, door, null);
+	    msg = this.sim.getNextMessage(this.nodeId, door, null);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -168,10 +168,10 @@ public abstract class Algorithm implements Runnable,Cloneable
     
     protected Message receive(Door door, MessageCriterion mc)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId, door, new MessagePacketCriterion(mc));
+	    msg = this.sim.getNextMessage(this.nodeId, door, new MessagePacketCriterion(mc));
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -185,10 +185,10 @@ public abstract class Algorithm implements Runnable,Cloneable
      **/
     protected boolean anyMsg()
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 	boolean msg = false;
     	try{
-	    msg = sim.emptyVQueue(nodeId, null);
+	    msg = this.sim.emptyVQueue(this.nodeId, null);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -203,11 +203,11 @@ public abstract class Algorithm implements Runnable,Cloneable
      **/
     protected boolean anyMsgDoor(int door)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 
 	boolean msg = false;
     	try{
-	    msg = sim.emptyVQueue(nodeId , new DoorCriterion(door));
+	    msg = this.sim.emptyVQueue(this.nodeId , new DoorCriterion(door));
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -222,8 +222,8 @@ public abstract class Algorithm implements Runnable,Cloneable
 
     protected final int getArity()
     {
-    	sim.runningControl();
-	return sim.getArity(nodeId);
+    	this.sim.runningControl();
+	return this.sim.getArity(this.nodeId);
     }
 
     /**
@@ -235,7 +235,7 @@ public abstract class Algorithm implements Runnable,Cloneable
 	int value = 0;
 	for (int k = 0; k < 5; k++) {
 	    
-	    value = Math.abs(r.nextInt() % getArity());
+	    value = Math.abs(r.nextInt() % this.getArity());
 	    
 	}
 	
@@ -244,24 +244,24 @@ public abstract class Algorithm implements Runnable,Cloneable
 
     
     protected final int nextDoor() {
-	Integer next = sim.getGraph().vertex(getId()).getNext();
-	return sim.getGraph().vertex(getId()).indexOf(next);
+	Integer next = this.sim.getGraph().vertex(this.getId()).getNext();
+	return this.sim.getGraph().vertex(this.getId()).indexOf(next);
 
     }
 
     protected final int previousDoor() {
-	Integer previous = sim.getGraph().vertex(getId()).getPrevious();
-	return sim.getGraph().vertex(getId()).indexOf(previous);
+	Integer previous = this.sim.getGraph().vertex(this.getId()).getPrevious();
+	return this.sim.getGraph().vertex(this.getId()).indexOf(previous);
     }
 
     //PFA2003
     public final void copy(Algorithm a){
 	if(a.synob() != null)
-	    setSynob((SynObject) a.synob().clone());
+	    this.setSynob((SynObject) a.synob().clone());
 	if(a.synal() != null){
 	    AbSynAlgo syn = (AbSynAlgo) a.synal().clone();
-	    syn.setSynob(synob());
-	    setSynal( syn );
+	    syn.setSynob(this.synob());
+	    this.setSynal( syn );
 	   
 	}
     }
@@ -278,10 +278,10 @@ public abstract class Algorithm implements Runnable,Cloneable
 	try {	
 	    so =  (SynObject)Class.forName("visidia.simulation.synchro.synObj."+synob_name).newInstance();
 	    a = (AbSynAlgo)Class.forName("visidia.simulation.synchro.synAlgos."+synal_name).newInstance();
-	    setSynob(so);
-	    setSynal(a);
+	    this.setSynob(so);
+	    this.setSynal(a);
 	    a.set(this);
-	    synob.init(getArity());
+	    this.synob.init(this.getArity());
 	}
     
 	catch(Exception excpt) {
@@ -296,9 +296,9 @@ public abstract class Algorithm implements Runnable,Cloneable
      * algorithm.
      */
     public void set(Algorithm a){
-	synob = a.synob();
-	setSimulator(a.getSimulator());
-	setId(a.getId());
+	this.synob = a.synob();
+	this.setSimulator(a.getSimulator());
+	this.setId(a.getId());
     }
    
 
@@ -307,22 +307,22 @@ public abstract class Algorithm implements Runnable,Cloneable
      * simulateur du noeud.
      */
     final void setSimulator(Simulator s){
-	sim = s;
+	this.sim = s;
     }
 
     /**
      * Permet de changer l'identite du noeud, en cas de rv_enumerotation.
      */
     final void setId(Integer id){
-	nodeId = new Integer(id.intValue());
+	this.nodeId = new Integer(id.intValue());
     }
 
     /**
      * retourne l'identite du noeud.
      */
     protected final Integer getId(){
-    	sim.runningControl();
-	return nodeId;
+    	this.sim.runningControl();
+	return this.nodeId;
     }
 
 
@@ -341,9 +341,9 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     public final void run()
     {
-	init();
+	this.init();
 	try{
-	    sim.terminatedAlgorithm();
+	    this.sim.terminatedAlgorithm();
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -351,9 +351,9 @@ public abstract class Algorithm implements Runnable,Cloneable
     }
 
     protected final void setDoorState(EdgeState st,int door){
-    	sim.runningControl();
+    	this.sim.runningControl();
     	try{
-	    sim.changeEdgeState(getId(),door,st);
+	    this.sim.changeEdgeState(this.getId(),door,st);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -361,8 +361,8 @@ public abstract class Algorithm implements Runnable,Cloneable
     }
 
     protected final int getNetSize(){
-    	sim.runningControl();
-	return sim.sizeOfTheGraph();
+    	this.sim.runningControl();
+	return this.sim.sizeOfTheGraph();
     }
 
     /** 
@@ -372,9 +372,9 @@ public abstract class Algorithm implements Runnable,Cloneable
      * @param color A new color for the edge: <i>new ColorState(Color)</i>
      **/
     protected final void setEdgeColor(int door, EdgeColor color){
-	sim.runningControl();
+	this.sim.runningControl();
 	try{
-	    sim.changeEdgeColor(getId(),door,color);
+	    this.sim.changeEdgeColor(this.getId(),door,color);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -405,7 +405,7 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     protected void putProperty(String key, Object value){
 	try{
-	    sim.putNodeProperty(getId().intValue(), key, value);
+	    this.sim.putNodeProperty(this.getId().intValue(), key, value);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -417,37 +417,37 @@ public abstract class Algorithm implements Runnable,Cloneable
      * by <code>key</code> exits, it <code>returns</code> null.
      */
     protected Object getProperty(String key){
-	return sim.getNodeProperty(getId().intValue(),key);
+	return this.sim.getNodeProperty(this.getId().intValue(),key);
     }
 
     public Simulator getSimulator(){
-	sim.runningControl();
-	return sim;
+	this.sim.runningControl();
+	return this.sim;
     }
     public SynObject getSynob(){
-	sim.runningControl();
-	return synob;
+	this.sim.runningControl();
+	return this.synob;
     }
     public AbSynAlgo getSynal(){
-	sim.runningControl();
-	return synal;
+	this.sim.runningControl();
+	return this.synal;
     }
     public SynObject synob(){
-	if(synob != null)
-	    return synob;
+	if(this.synob != null)
+	    return this.synob;
 	return null;
     }
     public AbSynAlgo synal(){
-	if(synal != null)
-	    return synal;
+	if(this.synal != null)
+	    return this.synal;
 	return null;
     }
 
     public void setSynob(SynObject s){
-	synob = s;
+	this.synob = s;
     }
     public void setSynal(AbSynAlgo s){
-        synal = s;
+        this.synal = s;
     }
 
     /**
@@ -457,15 +457,15 @@ public abstract class Algorithm implements Runnable,Cloneable
      */
     //PFA2003
     public final void unlockPause() {
-	if (synal != null) {
-	    synchronized(synal.pauseLock) {
-		synal.unlockPause();
+	if (this.synal != null) {
+	    synchronized(this.synal.pauseLock) {
+		this.synal.unlockPause();
 	    }
 	} else {  // synal == null
 	    // if there is no synal, that instance of AlgorithmDist
 	    // is an synchronisation algorithm, so we apply the notify method 
-	    synchronized(pauseLock) {
-		pauseLock.notifyAll();
+	    synchronized(this.pauseLock) {
+		this.pauseLock.notifyAll();
 	    }
 	}
     }

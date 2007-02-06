@@ -45,20 +45,20 @@ public class BoiteDistribue implements ActionListener {
 	this.parent = parent;
 	this.vueGraphe = vueGraphe; 
 	this.nbrSommets = vueGraphe.getGraphe().ordre();
-	this.sommets = this.tri(vueGraphe.getGraphe().sommets(),nbrSommets);
-	this.nomDesSommets = new String[nbrSommets];
-	mainPane = new JPanel();
-	mainPane.setLayout(new BorderLayout());
-	mainPane.setPreferredSize(new Dimension(400,150));
-	ajouterBoutons();
+	this.sommets = this.tri(vueGraphe.getGraphe().sommets(),this.nbrSommets);
+	this.nomDesSommets = new String[this.nbrSommets];
+	this.mainPane = new JPanel();
+	this.mainPane.setLayout(new BorderLayout());
+	this.mainPane.setPreferredSize(new Dimension(400,150));
+	this.ajouterBoutons();
     }
     
     //Methodes
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     
@@ -69,45 +69,45 @@ public class BoiteDistribue implements ActionListener {
     public void ajouterBoutons() {
 	Sommet unSommet;
 
-	buttonPane = new JPanel(new FlowLayout());
-	labelPanel = new JPanel(new GridLayout(nbrSommets+1,0));
-	toolBarPanel = new JPanel(new GridLayout(1,0));
+	this.buttonPane = new JPanel(new FlowLayout());
+	this.labelPanel = new JPanel(new GridLayout(this.nbrSommets+1,0));
+	this.toolBarPanel = new JPanel(new GridLayout(1,0));
 	
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
 	
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 	
 
 
 	JLabel blank = new JLabel("");
-	hostLabel = new JLabel("Host");
+	this.hostLabel = new JLabel("Host");
 	//portLabel= new JLabel("Port");
-	localNodeLabel= new JLabel("LocalNode");
-	toolBarPanel.add(blank);
-	toolBarPanel.add(hostLabel);
+	this.localNodeLabel= new JLabel("LocalNode");
+	this.toolBarPanel.add(blank);
+	this.toolBarPanel.add(this.hostLabel);
 	//toolBarPanel.add(portLabel);
-	toolBarPanel.add(localNodeLabel);
+	this.toolBarPanel.add(this.localNodeLabel);
 
 	
 	//ajout des champs de saisie de l'emplacement du serveur 
 	//pour chaque noued du graphe
-	nomSimuLabel = new JLabel("Console");
-	nomSimuField = new JTextField("");
+	this.nomSimuLabel = new JLabel("Console");
+	this.nomSimuField = new JTextField("");
 	//nomSimuPort = new JTextField("");
-	nomSimuUrl = new JTextField("");
+	this.nomSimuUrl = new JTextField("");
 		
-	labelPanel.add(nomSimuLabel);
-	labelPanel.add(nomSimuField);
+	this.labelPanel.add(this.nomSimuLabel);
+	this.labelPanel.add(this.nomSimuField);
 	//labelPanel.add(nomSimuPort);
-	labelPanel.add(nomSimuUrl);
+	this.labelPanel.add(this.nomSimuUrl);
 	
 	
 	int i=0;
 
-	while(sommets.hasMoreElements()){
-	    unSommet = (Sommet)sommets.nextElement();
+	while(this.sommets.hasMoreElements()){
+	    unSommet = (Sommet)this.sommets.nextElement();
 	    String identite = unSommet.getSommetDessin().getEtiquette();
 	    JLabel label = new JLabel("Node "+identite);
 	    //label.setPreferredSize(new Dimension (80,20));
@@ -117,25 +117,25 @@ public class BoiteDistribue implements ActionListener {
 	    //lePort.setPreferredSize(new Dimension (80,20));
 	    JTextField urlName = new JTextField("");
 		    
-	    labelPanel.add(label);
-	    labelPanel.add(texte);
+	    this.labelPanel.add(label);
+	    this.labelPanel.add(texte);
 	    //labelPanel.add(lePort);
-	    labelPanel.add(urlName);
-	    nomDesSommets[i] = identite;
+	    this.labelPanel.add(urlName);
+	    this.nomDesSommets[i] = identite;
 	    i++;
 	}
 
 	
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
+	this.buttonPane.add(this.buttonOk);
+	this.buttonPane.add(this.buttonCancel);    
 	
-	scroller = new JScrollPane(labelPanel);
+	this.scroller = new JScrollPane(this.labelPanel);
 	
-	scroller.setOpaque(true);
-	mainPane.add(toolBarPanel,BorderLayout.NORTH);
-	mainPane.add(scroller,BorderLayout.CENTER);
-	mainPane.add(buttonPane,BorderLayout.SOUTH);
-	dialog.getContentPane().add(mainPane,BorderLayout.CENTER);
+	this.scroller.setOpaque(true);
+	this.mainPane.add(this.toolBarPanel,BorderLayout.NORTH);
+	this.mainPane.add(this.scroller,BorderLayout.CENTER);
+	this.mainPane.add(this.buttonPane,BorderLayout.SOUTH);
+	this.dialog.getContentPane().add(this.mainPane,BorderLayout.CENTER);
     }
     
     //retourne la liste des serveurs saisies par l'utilisateur 
@@ -143,9 +143,9 @@ public class BoiteDistribue implements ActionListener {
 	Hashtable tmp = new Hashtable();
 	LocalNodeTable lnt = new LocalNodeTable();
 	int j = 0 ;
-	for(int i=4; i <= 3*nbrSommets+1; i++){
-	    Component component = labelPanel.getComponent(i);
-	    Component componentUrl = labelPanel.getComponent(i+1);
+	for(int i=4; i <= 3*this.nbrSommets+1; i++){
+	    Component component = this.labelPanel.getComponent(i);
+	    Component componentUrl = this.labelPanel.getComponent(i+1);
 	    if ((component instanceof JTextField) && (componentUrl instanceof JTextField)){
 		try{
 		    JTextField texteField = (JTextField)component;
@@ -206,31 +206,31 @@ public class BoiteDistribue implements ActionListener {
     
 
     public String getSimulatorHost() {
-	Component component = labelPanel.getComponent(1);
+	Component component = this.labelPanel.getComponent(1);
 	JTextField texte = (JTextField)component;
 	return texte.getText();
     }
 
     public String getSimulatorUrl() {
-	Component component = labelPanel.getComponent(2);
+	Component component = this.labelPanel.getComponent(2);
 	JTextField texte = (JTextField)component;
 	String textValue = texte.getText();
 	if (textValue.equals("") | (textValue == null))
-	    return DEFAULT_URL_FOR_SIMULATOR;
+	    return this.DEFAULT_URL_FOR_SIMULATOR;
 	else
 	    return textValue;
     }
     
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
-	    parent.setNetworkParam(getParameter(),getSimulatorHost(),getSimulatorUrl());
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonOk) {
+	    this.parent.setNetworkParam(this.getParameter(),this.getSimulatorHost(),this.getSimulatorUrl());
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
 	
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
 
@@ -268,7 +268,7 @@ public class BoiteDistribue implements ActionListener {
 
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
     
 }

@@ -10,11 +10,11 @@ public class Knowledge {
 	
 	
 	public void initial(int graphS) {
-	    setKnowledge=new Vector[graphS+1];
-	    setKnowledge[0]=new Vector();
-	    setKnowledge[0].add(new Integer(0));
+	    this.setKnowledge=new Vector[graphS+1];
+	    this.setKnowledge[0]=new Vector();
+	    this.setKnowledge[0].add(new Integer(0));
 	    for (int i=1;i<=graphS;i++) {
-		setKnowledge[i]=null;
+		this.setKnowledge[i]=null;
 	    }
 	}
 	
@@ -56,74 +56,74 @@ public class Knowledge {
 	    int numNoeud=((Integer) newVector.elementAt(0)).intValue();
 
 	    intVector.removeElementAt(0);
-	    if (maxSet(intVector,setKnowledge[numNoeud])) {
-		setKnowledge[numNoeud]=intVector;
+	    if (this.maxSet(intVector,this.setKnowledge[numNoeud])) {
+		this.setKnowledge[numNoeud]=intVector;
 	    }
-	    if (numNoeud > maxNumber) {
-		maxNumber=numNoeud;
+	    if (numNoeud > this.maxNumber) {
+		this.maxNumber=numNoeud;
 	    }
 	}
 
 	public void changeNeighbours(Vector newName) {
-	    int longKnow=setKnowledge[0].size();
+	    int longKnow=this.setKnowledge[0].size();
 
 	    if ( ((Integer)newName.elementAt(0)).intValue() != ((Integer)newName.elementAt(1)).intValue() ) {
 		//System.out.println("Vecteur = " +setKnowledge[0]);
 		//System.out.println("longueur avant= " +longKnow);
-		boolean b=setKnowledge[0].remove(newName.elementAt(1));
+		boolean b=this.setKnowledge[0].remove(newName.elementAt(1));
 		//System.out.println("longueur apres= " +setKnowledge[0].size());
-		longKnow=setKnowledge[0].size();
+		longKnow=this.setKnowledge[0].size();
 		
-		if (setKnowledge[0].isEmpty())
-		    setKnowledge[0].add(newName.elementAt(0));
+		if (this.setKnowledge[0].isEmpty())
+		    this.setKnowledge[0].add(newName.elementAt(0));
 		else {
 		    if (longKnow>1) {
-			if (((Integer)setKnowledge[0].elementAt(0)).intValue()<((Integer)newName.elementAt(0)).intValue()) {
-			    setKnowledge[0].insertElementAt(newName.elementAt(0),0);
+			if (((Integer)this.setKnowledge[0].elementAt(0)).intValue()<((Integer)newName.elementAt(0)).intValue()) {
+			    this.setKnowledge[0].insertElementAt(newName.elementAt(0),0);
 			}
 			else {
 			    // System.out.println("Longueur= "+longKnow+" ; vecteur = "+setKnowledge[0]);
 			    //System.out.println(" vecteur 2 = "+newName);
-			    if (((Integer)setKnowledge[0].elementAt(longKnow-1)).intValue() > ((Integer)newName.elementAt(0)).intValue()) 
-				setKnowledge[0].addElement(newName.elementAt(0));
+			    if (((Integer)this.setKnowledge[0].elementAt(longKnow-1)).intValue() > ((Integer)newName.elementAt(0)).intValue()) 
+				this.setKnowledge[0].addElement(newName.elementAt(0));
 			    else {
 				for (int i=0;i<longKnow-1;i++)
-				    if ((((Integer)setKnowledge[0].elementAt(i)).intValue()>((Integer)newName.elementAt(0)).intValue()) && (((Integer)setKnowledge[0].elementAt(i+1)).intValue()<=((Integer)newName.elementAt(0)).intValue())) {
-					setKnowledge[0].insertElementAt(newName.elementAt(0),i+1);
+				    if ((((Integer)this.setKnowledge[0].elementAt(i)).intValue()>((Integer)newName.elementAt(0)).intValue()) && (((Integer)this.setKnowledge[0].elementAt(i+1)).intValue()<=((Integer)newName.elementAt(0)).intValue())) {
+					this.setKnowledge[0].insertElementAt(newName.elementAt(0),i+1);
 					break;
 				    }
 			    }
 			}
 		    }
 		    else {
-			if (((Integer)setKnowledge[0].elementAt(0)).intValue()>((Integer)newName.elementAt(0)).intValue())
-			    setKnowledge[0].addElement(newName.elementAt(0));
+			if (((Integer)this.setKnowledge[0].elementAt(0)).intValue()>((Integer)newName.elementAt(0)).intValue())
+			    this.setKnowledge[0].addElement(newName.elementAt(0));
 			else
-			    setKnowledge[0].insertElementAt(newName.elementAt(0),0);
+			    this.setKnowledge[0].insertElementAt(newName.elementAt(0),0);
 		    }
 		}
 	    } 
 	}
 
 	public Vector neighbourNode(int neighbourName) {
-	    return setKnowledge[neighbourName];
+	    return this.setKnowledge[neighbourName];
 	}
 	public Vector neighbour() { /* Fonction qui nous donne les voisins */
-	    return setKnowledge[0];
+	    return this.setKnowledge[0];
 	}
 	
 	public int max() { /* renvois le numero maximal */
-	    return maxNumber;
+	    return this.maxNumber;
 	}
 
 	public void changeName(int newName) {
-	    myName=newName;
-	    if (myName > maxNumber)
-		maxNumber=myName;
+	    this.myName=newName;
+	    if (this.myName > this.maxNumber)
+		this.maxNumber=this.myName;
 	}
 	
 	public int myName() {
-	    return myName;
+	    return this.myName;
 	}
 	
 	public boolean endKnowledge(int graphS) {
@@ -131,12 +131,12 @@ public class Knowledge {
 	    int k;
 	    
 	    for (int i=1;i<=graphS;i++) {
-		if (setKnowledge[i]==null) {
+		if (this.setKnowledge[i]==null) {
 		    var=false;
 		    break;
 		}
 		else
-		    if (setKnowledge[i].contains(new Integer(0))) {
+		    if (this.setKnowledge[i].contains(new Integer(0))) {
 			var=false;
 			break;
 		    }
@@ -144,9 +144,9 @@ public class Knowledge {
 	    
 	    if (var) {
 		for (int i=1;i<=graphS;i++)
-		    for (int j=0;j<setKnowledge[i].size();j++) {
-			k=((Integer)setKnowledge[i].elementAt(j)).intValue();
-			if (!setKnowledge[k].contains(new Integer(i))) {
+		    for (int j=0;j<this.setKnowledge[i].size();j++) {
+			k=((Integer)this.setKnowledge[i].elementAt(j)).intValue();
+			if (!this.setKnowledge[k].contains(new Integer(i))) {
 			    var=false;
 			    break;
 			}

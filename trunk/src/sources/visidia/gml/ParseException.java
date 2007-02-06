@@ -35,10 +35,10 @@ public class ParseException extends Exception {
                        )
   {
     super("");
-    specialConstructor = true;
-    currentToken = currentTokenVal;
-    expectedTokenSequences = expectedTokenSequencesVal;
-    tokenImage = tokenImageVal;
+    this.specialConstructor = true;
+    this.currentToken = currentTokenVal;
+    this.expectedTokenSequences = expectedTokenSequencesVal;
+    this.tokenImage = tokenImageVal;
   }
 
   /**
@@ -53,12 +53,12 @@ public class ParseException extends Exception {
 
   public ParseException() {
     super();
-    specialConstructor = false;
+    this.specialConstructor = false;
   }
 
   public ParseException(String message) {
     super(message);
-    specialConstructor = false;
+    this.specialConstructor = false;
   }
 
   /**
@@ -100,39 +100,39 @@ public class ParseException extends Exception {
    * gets displayed.
    */
   public String getMessage() {
-    if (!specialConstructor) {
+    if (!this.specialConstructor) {
       return super.getMessage();
     }
     String expected = "";
     int maxSize = 0;
-    for (int[] element : expectedTokenSequences) {
+    for (int[] element : this.expectedTokenSequences) {
       if (maxSize < element.length) {
         maxSize = element.length;
       }
-      for (int j = 0; j < element.length; j++) {
-        expected += tokenImage[element[j]] + " ";
+      for (int element0 : element) {
+        expected += this.tokenImage[element0] + " ";
       }
       if (element[element.length - 1] != 0) {
         expected += "...";
       }
-      expected += eol + "    ";
+      expected += this.eol + "    ";
     }
     String retval = "Encountered \"";
-    Token tok = currentToken.next;
+    Token tok = this.currentToken.next;
     for (int i = 0; i < maxSize; i++) {
       if (i != 0) retval += " ";
       if (tok.kind == 0) {
-        retval += tokenImage[0];
+        retval += this.tokenImage[0];
         break;
       }
-      retval += add_escapes(tok.image);
+      retval += this.add_escapes(tok.image);
       tok = tok.next; 
     }
-    retval += "\" at line " + currentToken.next.beginLine + ", column " + currentToken.next.beginColumn + "." + eol;
-    if (expectedTokenSequences.length == 1) {
-      retval += "Was expecting:" + eol + "    ";
+    retval += "\" at line " + this.currentToken.next.beginLine + ", column " + this.currentToken.next.beginColumn + "." + this.eol;
+    if (this.expectedTokenSequences.length == 1) {
+      retval += "Was expecting:" + this.eol + "    ";
     } else {
-      retval += "Was expecting one of:" + eol + "    ";
+      retval += "Was expecting one of:" + this.eol + "    ";
     }
     retval += expected;
     return retval;

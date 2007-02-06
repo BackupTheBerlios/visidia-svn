@@ -21,13 +21,13 @@ public class SentAgent extends MovableObject {
 	this.mesg = event.message().toString();
 
 	if(a.getX() < b.getX())
-	    moveForward = true;
+	    this.moveForward = true;
 	else
-	    moveForward = false;
+	    this.moveForward = false;
     }
     
     public MessageSendingEvent getEvent(){
-	return event;
+	return this.event;
     }
     
     
@@ -38,7 +38,7 @@ public class SentAgent extends MovableObject {
 
 	Image img;
 
-	if(moveForward)
+	if(this.moveForward)
 	    img = TableImages.getImage("miroirHomme");
 	else
 	    img = TableImages.getImage("homme");
@@ -46,16 +46,16 @@ public class SentAgent extends MovableObject {
 	int imgHeight = img.getHeight(null);
 	int imgWidth = img.getWidth(null);
 	int stringSize = (int)(g.getFontMetrics().
-			       getStringBounds(mesg,g).getWidth());
+			       getStringBounds(this.mesg,g).getWidth());
 	
 
-	MessageType messageType = event.message().getType();
+	MessageType messageType = this.event.message().getType();
 	if (messageType.getToPaint()){
 	   
-	    if ((event.message()).getVisualization()) {
-		Point p = currentLocation();
+	    if ((this.event.message()).getVisualization()) {
+		Point p = this.currentLocation();
 		g.setColor(messageType.getColor());
-		g.drawString(mesg, p.x-(stringSize/2), p.y+(imgHeight/2));
+		g.drawString(this.mesg, p.x-(stringSize/2), p.y+(imgHeight/2));
 		g.drawImage(img,p.x-(imgWidth/2),p.y-(imgHeight/2),null,null);
 	    }
 	}

@@ -30,58 +30,58 @@ public class VertexPropertyTableModel extends PropertyTableModel {
             props = new Hashtable();
         }
 
-        properties = props;
-        defProps = def;
+        this.properties = props;
+        this.defProps = def;
 
-        hashKeys = (Hashtable) def.clone();
-        hashKeys.putAll(props);
+        this.hashKeys = (Hashtable) def.clone();
+        this.hashKeys.putAll(props);
 
-        keys = new Vector(hashKeys.keySet());        
+        this.keys = new Vector(this.hashKeys.keySet());        
 
     }
 
     public void setProperties(Hashtable props){
-	properties = props;
-	keys = new Vector(props.keySet());
-	fireTableDataChanged();
+	this.properties = props;
+	this.keys = new Vector(props.keySet());
+	this.fireTableDataChanged();
     }
     
     public void putProperty(String key, Object value){
-	if (!keys.contains(key)) keys.add(key);
-	properties.put(key,value);
-	fireTableDataChanged();
+	if (!this.keys.contains(key)) this.keys.add(key);
+	this.properties.put(key,value);
+	this.fireTableDataChanged();
     }
 
     public void removeProperty(int row) {
-        Object key = keys.elementAt(row);
+        Object key = this.keys.elementAt(row);
 
-        properties.remove(key);
-        keys.remove(row);
-        hashKeys.remove(key);
+        this.properties.remove(key);
+        this.keys.remove(row);
+        this.hashKeys.remove(key);
 
-        fireTableDataChanged();
+        this.fireTableDataChanged();
     }
 
     public Hashtable getProperties(){
-        return (Hashtable) hashKeys.clone();
+        return (Hashtable) this.hashKeys.clone();
     }
 
     private Object getValueFromHashtables(Object key) {
-        if (properties.containsKey(key))
-            return properties.get(key);
+        if (this.properties.containsKey(key))
+            return this.properties.get(key);
         
-        return defProps.get(key);
+        return this.defProps.get(key);
     }
     
     public Object getValueAt(int row, int col){
         Object key;
 
-        key = keys.elementAt(row);
+        key = this.keys.elementAt(row);
             
         switch(col){
-        case 0: return keys.elementAt(row);
-        case 1: return getTypeName(getValueFromHashtables(key));
-        case 2: return getValueFromHashtables(key);
+        case 0: return this.keys.elementAt(row);
+        case 1: return this.getTypeName(this.getValueFromHashtables(key));
+        case 2: return this.getValueFromHashtables(key);
         }
         throw new IllegalArgumentException();	
     }
@@ -93,34 +93,34 @@ public class VertexPropertyTableModel extends PropertyTableModel {
 
         String value=(String) aValue;
 
-        if(!( row < properties.size() + defProps.size() ) && ( col == valueColumn)){
+        if(!( row < this.properties.size() + this.defProps.size() ) && ( col == this.valueColumn)){
             throw new IllegalArgumentException();
         }
 	
-        Object obj = getValueAt(row,col);
+        Object obj = this.getValueAt(row,col);
 
 
         try{
             
             if (obj instanceof String)
-                properties.put(keys.elementAt(row),value);
+                this.properties.put(this.keys.elementAt(row),value);
             else if(obj instanceof Integer) {
-                properties.put(keys.elementAt(row),Integer.decode(value));
+                this.properties.put(this.keys.elementAt(row),Integer.decode(value));
             }
             else if(obj instanceof  Byte)
-                properties.put(keys.elementAt(row),Byte.decode(value));
+                this.properties.put(this.keys.elementAt(row),Byte.decode(value));
             else if(obj instanceof  Character)
-                properties.put(keys.elementAt(row), value.charAt(0));
+                this.properties.put(this.keys.elementAt(row), value.charAt(0));
             else if(obj instanceof  Double)
-                properties.put(keys.elementAt(row), Double.parseDouble(value));
+                this.properties.put(this.keys.elementAt(row), Double.parseDouble(value));
             else if(obj instanceof  Float)
-                properties.put(keys.elementAt(row), Float.parseFloat(value));
+                this.properties.put(this.keys.elementAt(row), Float.parseFloat(value));
             else if(obj instanceof Long)
-                properties.put(keys.elementAt(row), Long.parseLong(value));
+                this.properties.put(this.keys.elementAt(row), Long.parseLong(value));
             else if(obj instanceof  Short)
-                properties.put(keys.elementAt(row), Short.parseShort(value));
+                this.properties.put(this.keys.elementAt(row), Short.parseShort(value));
             else if(obj instanceof Boolean)
-                properties.put(keys.elementAt(row), Boolean.parseBoolean(value));
+                this.properties.put(this.keys.elementAt(row), Boolean.parseBoolean(value));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,
@@ -129,14 +129,14 @@ public class VertexPropertyTableModel extends PropertyTableModel {
                                           JOptionPane.WARNING_MESSAGE); 
         }
         
-        fireTableCellUpdated(row,col);
+        this.fireTableCellUpdated(row,col);
     }
 
 
     public void updateKeys() {
-        hashKeys.putAll(properties);
+        this.hashKeys.putAll(this.properties);
         
-        keys = new Vector(hashKeys.keySet());        
+        this.keys = new Vector(this.hashKeys.keySet());        
     }
 
 }

@@ -38,8 +38,8 @@ public abstract class SynchronizedAgent extends Agent {
      */
     public SynchronizedAgent() {
         super();
-	meet = true;
-	meetedAgentsnames = new Hashtable<Integer,String>();
+	this.meet = true;
+	this.meetedAgentsnames = new Hashtable<Integer,String>();
         ++nbAgents;
     }
 
@@ -68,8 +68,8 @@ public abstract class SynchronizedAgent extends Agent {
 	    // la fonction howToMeetTogether est buggué. à modifier
 	    // acun risque de plantage si la fonction planning n'est
 	    // pas utlisé par l'utilisateur final
-	    if( (meet == true) && (this.agentsOnVertex().size() > 1) )
-		meetOrg.howToMeetTogether(this.agentsOnVertex());
+	    if( (this.meet == true) && (this.agentsOnVertex().size() > 1) )
+		this.meetOrg.howToMeetTogether(this.agentsOnVertex());
 		
 	    if( count < nbAgents ) {
 		try {
@@ -83,14 +83,14 @@ public abstract class SynchronizedAgent extends Agent {
 
 	
 	    /* Reached by the last thread calling nextPulse */
-	    unblockAgents();
+	    this.unblockAgents();
 	    
      	}
     }
 
     protected void planning(SynchronizedAgent agent){
-	if( meet == true )
-	    meetedAgentsnames.put(new Integer(meetingnum+1),agent.toString());
+	if( this.meet == true )
+	    this.meetedAgentsnames.put(new Integer(meetingnum+1),agent.toString());
     }
 
 
@@ -114,7 +114,7 @@ public abstract class SynchronizedAgent extends Agent {
 	    /* I have to check if the other agents 
 	       are not waiting for me */
 	    if( count == nbAgents )
-		unblockAgents();
+		this.unblockAgents();
 
 	}
 

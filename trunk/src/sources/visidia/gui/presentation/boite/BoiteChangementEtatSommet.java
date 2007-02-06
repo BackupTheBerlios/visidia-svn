@@ -38,7 +38,7 @@ public class BoiteChangementEtatSommet
 
     protected JCheckBox but_drawMessage;
     protected boolean drawMessage= true;
-    protected boolean drawMessageOldValue= drawMessage;
+    protected boolean drawMessageOldValue= this.drawMessage;
     //Constructeurs
 
     /**
@@ -59,45 +59,45 @@ public class BoiteChangementEtatSommet
     this.dialog = new JDialog(parent, titre);
     this.parent = parent;
 
-    monSommet = sommet;
+    this.monSommet = sommet;
   
-    vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
+    this.vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
     String algoString = new String();
-    if (parent.getAlgorithms().getAlgorithm(vertex_id) == null) 
+    if (parent.getAlgorithms().getAlgorithm(this.vertex_id) == null) 
 	algoString = "None";
-    else algoString = parent.getAlgorithms().getAlgorithm(vertex_id).getClass().getName();
-    algoUsed = new JLabel("Algorithm used : "+algoString);
+    else algoString = parent.getAlgorithms().getAlgorithm(this.vertex_id).getClass().getName();
+    this.algoUsed = new JLabel("Algorithm used : "+algoString);
     
-    etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
-    etatPanel.ardoise().changerEtat(monSommet.getEtat());    
+    this.etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
+    this.etatPanel.ardoise().changerEtat(this.monSommet.getEtat());    
 
-    drawMessage = monSommet.getDrawMessage();
-    drawMessageOldValue = drawMessage;
-    but_drawMessage= new JCheckBox("Draw sending Message",drawMessage) ;
-    but_drawMessage.addItemListener(this);
+    this.drawMessage = this.monSommet.getDrawMessage();
+    this.drawMessageOldValue = this.drawMessage;
+    this.but_drawMessage= new JCheckBox("Draw sending Message",this.drawMessage) ;
+    this.but_drawMessage.addItemListener(this);
 
     Panel panelHaut = new Panel();
     panelHaut.setLayout(new BorderLayout());
-    panelHaut.add(etatPanel, BorderLayout.NORTH);
-    panelHaut.add(but_drawMessage, BorderLayout.SOUTH);
+    panelHaut.add(this.etatPanel, BorderLayout.NORTH);
+    panelHaut.add(this.but_drawMessage, BorderLayout.SOUTH);
     
-    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    JScrollPane spane = new JScrollPane(table);
+    this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JScrollPane spane = new JScrollPane(this.table);
     
     JPanel panelCentre = new JPanel();
     panelCentre.setLayout(new BorderLayout());
     panelCentre.add(spane, BorderLayout.NORTH);
-    panelCentre.add(algoUsed, BorderLayout.CENTER);
+    panelCentre.add(this.algoUsed, BorderLayout.CENTER);
     
-    setProperties((monSommet.getStateTable()));
+    this.setProperties((this.monSommet.getStateTable()));
        
-    dialog.getContentPane().setLayout(new BorderLayout());
+    this.dialog.getContentPane().setLayout(new BorderLayout());
     //dialog.getContentPane().add(etatPanel, BorderLayout.NORTH);
-    dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
-    dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
-    dialog.setSize(400,200);
+    this.dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
+    this.dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
+    this.dialog.setSize(400,200);
     
-    ajouterBoutons();
+    this.ajouterBoutons();
     
   }
 
@@ -106,13 +106,13 @@ public class BoiteChangementEtatSommet
        
   /** setting the state */
   public void setProperties(Hashtable props){
-  	table.setModel(new PropertyTableModel(props));}  
+  	this.table.setModel(new PropertyTableModel(props));}  
     
   /** Affiche la boite et la centre par rapport a "parent".*/
   public void show(Frame parent) {
-    dialog.pack();
-    dialog.show();
-    dialog.setLocationRelativeTo(parent);
+    this.dialog.pack();
+    this.dialog.show();
+    this.dialog.setLocationRelativeTo(parent);
   }
   
   /** Ajoute un bouton nomme "label" au panel "pane" */
@@ -131,31 +131,31 @@ public class BoiteChangementEtatSommet
   public void ajouterBoutons() {
     JPanel buttonPane = new JPanel(new FlowLayout());
     
-    buttonOk = new JButton("Ok");
-    buttonOk.addActionListener(this);
+    this.buttonOk = new JButton("Ok");
+    this.buttonOk.addActionListener(this);
     
-    buttonCancel = new JButton("Cancel");
-    buttonCancel.addActionListener(this);
+    this.buttonCancel = new JButton("Cancel");
+    this.buttonCancel.addActionListener(this);
 
    
-    buttonApply = new JButton("Apply");
-    buttonApply.addActionListener(this);
+    this.buttonApply = new JButton("Apply");
+    this.buttonApply.addActionListener(this);
     
     
-    buttonPane.add(buttonOk);
-    buttonPane.add(buttonCancel);    
-    buttonPane.add(buttonApply);
-    buttonApply.setEnabled(true);
-    dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+    buttonPane.add(this.buttonOk);
+    buttonPane.add(this.buttonCancel);    
+    buttonPane.add(this.buttonApply);
+    this.buttonApply.setEnabled(true);
+    this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
   }
   
 
   public void actionPerformed(ActionEvent e) {
-    if(e.getSource() == buttonOk) {
+    if(e.getSource() == this.buttonOk) {
       try {
-        buttonOk();
-        dialog.setVisible(false);
-        dialog.dispose();
+        this.buttonOk();
+        this.dialog.setVisible(false);
+        this.dialog.dispose();
       } catch(NumberFormatException exception) {
         StringTokenizer st =
           new StringTokenizer(exception.getMessage(), "\n");
@@ -163,16 +163,16 @@ public class BoiteChangementEtatSommet
   	String message = new String();
         for(int i = 0; i < nb_lignes; i++)
           message = message + "\n" + st.nextToken();
-	JOptionPane.showMessageDialog(parent,
+	JOptionPane.showMessageDialog(this.parent,
 				      message, 
 				      "Warning",
 				      JOptionPane.WARNING_MESSAGE);
       }
     }
-    if(e.getSource() == buttonApply) {
+    if(e.getSource() == this.buttonApply) {
       try {
-	buttonOk();
-	parent.repaint();
+	this.buttonOk();
+	this.parent.repaint();
       } catch(NumberFormatException exception) {
 	StringTokenizer st =
 	  new StringTokenizer(exception.getMessage(), "\n");
@@ -180,28 +180,28 @@ public class BoiteChangementEtatSommet
 	String message = new String();
 	for(int i = 0; i < nb_lignes; i++)
 	  message = message + "\n" + st.nextToken();
-	JOptionPane.showMessageDialog(parent,
+	JOptionPane.showMessageDialog(this.parent,
 				      message, 
 				      "Warning",
 				      JOptionPane.WARNING_MESSAGE);
 	}
     }
-    if(e.getSource() == buttonCancel) {
-      dialog.setVisible(false);
-      dialog.dispose();
+    if(e.getSource() == this.buttonCancel) {
+      this.dialog.setVisible(false);
+      this.dialog.dispose();
     }
   }
 
     //Implementation de VueEtatPanel
     public void elementModified(String s){
-	elementModified();
+	this.elementModified();
     }
     
     public void elementModified(){
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
-	mod.putProperty("label",etatPanel.ardoise().donneEtat());
+	PropertyTableModel mod =(PropertyTableModel)this.table.getModel();
+	mod.putProperty("label",this.etatPanel.ardoise().donneEtat());
     
-	if(drawMessage)
+	if(this.drawMessage)
 	    mod.putProperty("draw messages","yes");
 	else
 	    mod.putProperty("draw messages","no");
@@ -209,39 +209,39 @@ public class BoiteChangementEtatSommet
       
     /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
     public void buttonOk() {
-	String etat = etatPanel.ardoise().donneEtat();
-	PropertyTableModel mod =(PropertyTableModel)table.getModel();
+	String etat = this.etatPanel.ardoise().donneEtat();
+	PropertyTableModel mod =(PropertyTableModel)this.table.getModel();
 	int nbRows = mod.getRowCount();
-	monSommet.setEtat(etat);
-	monSommet.setDrawMessage(drawMessage);
+	this.monSommet.setEtat(etat);
+	this.monSommet.setDrawMessage(this.drawMessage);
 
 	try{
 	    for (int i=0;i<nbRows;i++){
-		table.editCellAt(i,2); // read the new values edited
-		monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,2));
+		this.table.editCellAt(i,2); // read the new values edited
+		this.monSommet.setValue((String)mod.getValueAt(i,0),mod.getValueAt(i,2));
 	    }
 	}catch(Exception exc){System.out.println(" Problem in Box : "+exc);}
     
 
 	//if(drawMessageOldValue != drawMessage){
-  	    parent.nodeStateChanged(Integer.valueOf(monSommet.getEtiquette()).intValue(), mod.getProperties());
+  	    this.parent.nodeStateChanged(Integer.valueOf(this.monSommet.getEtiquette()).intValue(), mod.getProperties());
 	    //}
 
-	parent.simulationPanel().repaint();
+	this.parent.simulationPanel().repaint();
     
     }
 
 
   /** Retourne le JDialog. */
   public JDialog dialog() {
-    return dialog;
+    return this.dialog;
   }
 
     public void itemStateChanged(ItemEvent evt) {
 	
-	if((JCheckBox)evt.getSource() == but_drawMessage){
-	    drawMessage = !drawMessage;
-	    elementModified();
+	if((JCheckBox)evt.getSource() == this.but_drawMessage){
+	    this.drawMessage = !this.drawMessage;
+	    this.elementModified();
 	}
     }
     

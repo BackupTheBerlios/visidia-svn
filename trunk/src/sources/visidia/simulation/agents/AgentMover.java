@@ -19,21 +19,21 @@ public abstract class AgentMover {
      * @param ag Agent associated with this mover.
      */
     public AgentMover(Agent ag) {
-        agent = ag;
+        this.agent = ag;
     }
 
     /**
      * Returns the agent associated with this mover.
      */
     protected final Agent agent() {
-        return agent;
+        return this.agent;
     }
 
     /**
      * Moves the agent to the next door.
      */
     public void move() throws InterruptedException {
-        move(findNextDoor());
+        this.move(this.findNextDoor());
     }
     
     /**
@@ -42,7 +42,7 @@ public abstract class AgentMover {
      * @param door Door to which move.
      */
     public final void move(int door) throws InterruptedException {
-        agent.moveToDoor(door);
+        this.agent.moveToDoor(door);
     }
 
     /** 

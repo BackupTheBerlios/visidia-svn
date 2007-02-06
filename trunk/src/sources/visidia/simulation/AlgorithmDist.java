@@ -16,19 +16,19 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
     protected NodeTry server ; 
     
     public Hashtable getListTypes(){
-	return messageTypeTable;
+	return this.messageTypeTable;
     }
     
     public MessageType getType(MessageType type) {
-	return (MessageType)messageTypeTable.get(type);
+	return (MessageType)this.messageTypeTable.get(type);
     }
     
     protected void addMessageType(MessageType mesgType) {
-	messageTypeTable.put(mesgType.getType(),mesgType);
+	this.messageTypeTable.put(mesgType.getType(),mesgType);
     }
     
     public void setMessageType(MessageType msgType, boolean state) {
-	((MessageType) messageTypeTable.get(msgType.getType())).setToPaint(state);
+	((MessageType) this.messageTypeTable.get(msgType.getType())).setToPaint(state);
     }
 
 
@@ -37,11 +37,11 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * Permet d'envoyer le message "msg" sur la porte "door".
      */
     protected void sendTo(int door, Message msg){
-	msg.setType((MessageType)messageTypeTable.get((msg.getType()).getType()));
-	server.runningControl();
+	msg.setType((MessageType)this.messageTypeTable.get((msg.getType()).getType()));
+	this.server.runningControl();
 	
 	try{
-	    server.sendTo(nodeId, door, msg) ;	
+	    this.server.sendTo(this.nodeId, door, msg) ;	
 	} catch(Exception e){
 	    e.printStackTrace();
 	    System.out.println("Error when sending a message. Please report the error");
@@ -53,9 +53,9 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * Envoie le message "msg" à tous les voisins de ce noeud.
      */
     protected void sendAll(Message msg){
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	for( int i=0; i < arite ; i++)
-	    sendTo(i, msg );
+	    this.sendTo(i, msg );
     }
     
     /**
@@ -64,10 +64,10 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * bloqué.
      */
     protected Message receiveFrom(int door){
-	server.runningControl();
+	this.server.runningControl();
     	Message msg = null;
     	try{
-	    msg =  server.getNextMessage( nodeId ,null, new DoorCriterion(door));
+	    msg =  this.server.getNextMessage( this.nodeId ,null, new DoorCriterion(door));
 	}catch(Exception e){
 	    throw new SimulationAbortError();
 	}
@@ -76,7 +76,7 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
 
 
     protected Message receiveFrom(int door,MessageCriterion mc){
-	server.runningControl();
+	this.server.runningControl();
 	DoorCriterion dc = new DoorCriterion(door);
 	MessagePacketCriterion mpc = new MessagePacketCriterion(mc);
 	CompoundCriterion c = new  CompoundCriterion();
@@ -85,7 +85,7 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
 
 	Message msg = null;
     	try{
-	    msg = server.getNextMessage(nodeId , null, c);
+	    msg = this.server.getNextMessage(this.nodeId , null, c);
 	} catch(Exception e){
 	    throw new SimulationAbortError();
 	}
@@ -98,10 +98,10 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * message.
      */
     protected Message receive(Door door){
-	server.runningControl();
+	this.server.runningControl();
 	Message msg = null;
     	try{
-	    msg = server.getNextMessage(nodeId, door, null);
+	    msg = this.server.getNextMessage(this.nodeId, door, null);
 	}
 	catch(Exception e){
 	    throw new SimulationAbortError();
@@ -110,10 +110,10 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
     }
 
     protected Message receive(Door door, MessageCriterion mc){
-	server.runningControl();
+	this.server.runningControl();
 	Message msg = null;
     	try{
-	    msg = server.getNextMessage(nodeId, door, new MessagePacketCriterion(mc));
+	    msg = this.server.getNextMessage(this.nodeId, door, new MessagePacketCriterion(mc));
 	}
 	catch(Exception e){
 	    throw new SimulationAbortError();
@@ -125,30 +125,30 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * Retourne le degrès du sommet.
      */
     protected int getArity(){
-	server.runningControl();
-	return server.getArity();
+	this.server.runningControl();
+	return this.server.getArity();
     }
 
     /**
      * Permet de relier le noeud à son serveur de noeuds.
      */
     public void setServer(NodeTry s){
-	server = s;
+	this.server = s;
     }
 
     /**
      * Permet de changer l'identité du noeud, en cas de rv_enumerotation.
      */
     public void setId(Integer id){
-	nodeId = new Integer(id.intValue());
+	this.nodeId = new Integer(id.intValue());
     }
 
     /**
      * retourne l'identité du noeud.
      */
     protected Integer getId(){
-	server.runningControl();
-	return nodeId;
+	this.server.runningControl();
+	return this.nodeId;
     }
 
 
@@ -166,9 +166,9 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      * posséder la méthode <code>run()</code>.
      */
     public final void run(){
-	init();
+	this.init();
 	try {
-	    server.terminatedAlgorithm();
+	    this.server.terminatedAlgorithm();
 	}catch(Exception e){
 	    throw new SimulationAbortError();
 	}
@@ -176,17 +176,17 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
 
 
     protected void setDoorState(EdgeState st,int door){
-	server.runningControl();
+	this.server.runningControl();
 	try{
-	    server.changeEdgeState(nodeId,door,st);
+	    this.server.changeEdgeState(this.nodeId,door,st);
 	} catch (Exception ie){
 	    throw new SimulationAbortError();
 	}
     }
 	
     protected int getNetSize(){
-	server.runningControl();
-	return server.sizeOfTheGraph();
+	this.server.runningControl();
+	return this.server.sizeOfTheGraph();
     }
 
     /**
@@ -204,7 +204,7 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
      */
     protected void putProperty(String key, Object value){
 	try{
-	    server.putNodeProperty(nodeId, key, value);
+	    this.server.putNodeProperty(this.nodeId, key, value);
 	} catch (Exception e){
 	    throw new SimulationAbortError();
 	}
@@ -218,7 +218,7 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
     protected Object getProperty(String key){
 	Object obj = new Object();
 	try {
-	    obj = server.getNodeProperty(getId().intValue(),key);
+	    obj = this.server.getNodeProperty(this.getId().intValue(),key);
 	} catch (Exception e) {
 	    throw new SimulationAbortError();
 	}
@@ -227,14 +227,14 @@ public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
  
 
     protected void incrementSynchMessages() {
-	server.incrementSynchMessages();
+	this.server.incrementSynchMessages();
     }
     
     protected void incrementSynch() {
-	server.incrementSynch();
+	this.server.incrementSynch();
     }
 
     protected void incrementLabelMessages(){
-	server.incrementLabelMessages();
+	this.server.incrementLabelMessages();
     }
 }

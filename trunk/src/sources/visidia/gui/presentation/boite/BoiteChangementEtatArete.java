@@ -69,7 +69,7 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
 				    String titre) {
     
 	this.parent = parent;
-    	initialisation(uneSelection,titre);
+    	this.initialisation(uneSelection,titre);
     }
     
     public BoiteChangementEtatArete(AgentsSimulationWindow parent,
@@ -77,7 +77,7 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
 				    String titre) {
     
 	this.parentAgent = parent;
-	initialisation(uneSelection,titre);    
+	this.initialisation(uneSelection,titre);    
     
     }
   
@@ -86,37 +86,37 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
 				    String titre) {
 	
 	this.parentDist = parentDist;
-	initialisation(uneSelection,titre);    
+	this.initialisation(uneSelection,titre);    
     }
   
     public void initialisation(Ensemble uneSelection,
 			  String titre) {
 	
-	this.dialog = new JDialog(parent, titre);
+	this.dialog = new JDialog(this.parent, titre);
 	this.modif = false;
        
 	this.selectionAretes = uneSelection;
 	
-	etatPanel = new JPanel();
-	but_marquage = new JCheckBox("Activate edge(s) state");
-	but_marquage.addItemListener(this);
-	etatPanel.add(but_marquage);
+	this.etatPanel = new JPanel();
+	this.but_marquage = new JCheckBox("Activate edge(s) state");
+	this.but_marquage.addItemListener(this);
+	this.etatPanel.add(this.but_marquage);
 	
-	dialog.getContentPane().setLayout(new BorderLayout());
-	dialog.getContentPane().add(etatPanel, BorderLayout.NORTH);
-	ajouterBoutons();
+	this.dialog.getContentPane().setLayout(new BorderLayout());
+	this.dialog.getContentPane().add(this.etatPanel, BorderLayout.NORTH);
+	this.ajouterBoutons();
     }
     
     //Methodes  
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
+	this.dialog.pack();
+	this.dialog.show();
 	//dialog.setLocationRelativeTo(parent);
-	if ( parentDist == null )
-	    dialog.setLocationRelativeTo(parent);
+	if ( this.parentDist == null )
+	    this.dialog.setLocationRelativeTo(parent);
 	else 
-	    dialog.setLocationRelativeTo(parentDist);
+	    this.dialog.setLocationRelativeTo(this.parentDist);
     
 	
     }
@@ -137,46 +137,46 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
     public void ajouterBoutons() {
 	JPanel buttonPane = new JPanel(new FlowLayout());
     
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
     
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 
    
-	buttonApply = new JButton("Apply");
-	buttonApply.addActionListener(this);
+	this.buttonApply = new JButton("Apply");
+	this.buttonApply.addActionListener(this);
     
     
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
-	buttonPane.add(buttonApply);
-	buttonApply.setEnabled(modif);
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	buttonPane.add(this.buttonOk);
+	buttonPane.add(this.buttonCancel);    
+	buttonPane.add(this.buttonApply);
+	this.buttonApply.setEnabled(this.modif);
+	this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
   
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
-	    buttonOk();
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonOk) {
+	    this.buttonOk();
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
-	if(e.getSource() == buttonApply) {
-	    buttonOk();
-	    if ( parent != null )
-		parent.repaint();
-	    else if( parentAgent != null)
-		parentAgent.repaint();
+	if(e.getSource() == this.buttonApply) {
+	    this.buttonOk();
+	    if ( this.parent != null )
+		this.parent.repaint();
+	    else if( this.parentAgent != null)
+		this.parentAgent.repaint();
 	    else
-		parentDist.repaint();
-	    modif = false;
-	    buttonApply.setEnabled(false);
+		this.parentDist.repaint();
+	    this.modif = false;
+	    this.buttonApply.setEnabled(false);
      
 	}
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
   
@@ -185,17 +185,17 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
      * et FAUX sinon.                                                          
      */ 
     public void elementModified() {
-	modif = true;
-	buttonApply.setEnabled(modif);
+	this.modif = true;
+	this.buttonApply.setEnabled(this.modif);
     }
     
     /** Cette methode est appelée si l'utilisateur appuie sur le
      * bouton Ok.*/
     public void buttonOk() {
-	Enumeration e = selectionAretes.elements();
+	Enumeration e = this.selectionAretes.elements();
 	while(e.hasMoreElements()) {
 	    AreteDessin areteCourante = (AreteDessin)e.nextElement();
-	    areteCourante.setEtat(estMarquee);
+	    areteCourante.setEtat(this.estMarquee);
 	    //areteCourante.setFailure(hasFailure);
 	    //parent.setEdgeState(areteCourante.getId1(),
 	    //areteCourante.getId2(), hasFailure);
@@ -203,26 +203,26 @@ public class BoiteChangementEtatArete implements ActionListener ,ItemListener{
 	    //areteCourante.getId1(), hasFailure);
 	}
 
-	if(parent != null)
-	    parent.simulationPanel().repaint();
-	else if(parentAgent != null)
-	    parentAgent.simulationPanel().repaint();
+	if(this.parent != null)
+	    this.parent.simulationPanel().repaint();
+	else if(this.parentAgent != null)
+	    this.parentAgent.simulationPanel().repaint();
 	else
-	    parentDist.simulationPanel().repaint();
+	    this.parentDist.simulationPanel().repaint();
     }
     
     
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
     
     public void itemStateChanged(ItemEvent evt)  
     { 
-	if((JCheckBox)evt.getSource() == but_marquage)
+	if((JCheckBox)evt.getSource() == this.but_marquage)
 	    {
-		estMarquee = !estMarquee;
-		elementModified();
+		this.estMarquee = !this.estMarquee;
+		this.elementModified();
 		
 	    }
 	

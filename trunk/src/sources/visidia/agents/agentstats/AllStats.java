@@ -7,6 +7,6 @@ import visidia.tools.Bag;
 public class AllStats extends AbstractExperiment {
 
     public Bag getStats() {
-        return getBag();
+        return this.getBag();
     }
 }

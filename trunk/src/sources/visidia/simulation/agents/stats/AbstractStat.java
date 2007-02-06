@@ -11,12 +11,12 @@ public abstract class AbstractStat {
     public int hashCode() {
 	int hash;
 
-	hash = getClass().hashCode();
+	hash = this.getClass().hashCode();
 	return hash;
     }
 
     public String toString() {
-        return descriptionName();
+        return this.descriptionName();
     }
 
     protected abstract String descriptionName();

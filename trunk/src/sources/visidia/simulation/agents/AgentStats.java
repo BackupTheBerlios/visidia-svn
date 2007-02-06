@@ -20,7 +20,7 @@ public class AgentStats {
      * Creates the AgentStats and its Hashtable.
      */
     public AgentStats() {
-        stats = new Hashtable<String, Long>();
+        this.stats = new Hashtable<String, Long>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class AgentStats {
      * @param key The key given to seek in the Hashtable.
      */
     public long getStat(String key) {
-        Long value = stats.get(key);
+        Long value = this.stats.get(key);
         long intValue;
 
         if (value == null)
@@ -45,7 +45,7 @@ public class AgentStats {
      * @param key The key given to seek in the Hashtable.
      */
     public void incrementStat(String key) {
-        incrementStat(key, 1);
+        this.incrementStat(key, 1);
     }
 
     /**
@@ -55,27 +55,27 @@ public class AgentStats {
      * @param increment Increment that will be added to the value.
      */
     public void incrementStat(String key, long increment) {
-        stats.put(key, new Long(getStat(key) + increment));
+        this.stats.put(key, new Long(this.getStat(key) + increment));
     }
 
     /**
      * Returns the Hashtable of the statistics calculated. 
      */
     public Map asMap(){
-	return stats;
+	return this.stats;
     }
 
     /**
      * Prints the statistics on the terminal.
      */
     public void printStats() {
-        Set<String> keys = stats.keySet();
+        Set<String> keys = this.stats.keySet();
 
         System.out.println("+---------------------+");
         System.out.println("|         Stats       |");
         System.out.println("+---------------------+");
 
         for(String key : keys)
-            System.out.println(key + ": " + stats.get(key));
+            System.out.println(key + ": " + this.stats.get(key));
     }
 }

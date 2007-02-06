@@ -12,7 +12,7 @@ public class ThousandOnOne extends AgentChooser {
 	
 	if(vertexIdentity.intValue() == 0) {
 	    for(int i=0; i < 1000; ++i)
-		addAgent(vertexIdentity,agentName());
+		this.addAgent(vertexIdentity,this.agentName());
 	}
 	
     }

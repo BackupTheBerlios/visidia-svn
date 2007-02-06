@@ -17,7 +17,7 @@ public class HashTableModel extends AbstractTableModel {
     protected List keys = null;
 
     public HashTableModel(Map table){
-        setProperties(table);
+        this.setProperties(table);
     }
 
     public void setProperties(Map table){
@@ -27,11 +27,11 @@ public class HashTableModel extends AbstractTableModel {
 
         this.table = table;
         this.keys = new Vector(table.keySet());
-	fireTableDataChanged();
+	this.fireTableDataChanged();
     }
 
     public int getRowCount(){
-        return keys.size();
+        return this.keys.size();
     }
 
     public int getColumnCount() {
@@ -41,8 +41,8 @@ public class HashTableModel extends AbstractTableModel {
     public Object getValueAt(int row, int col){
         switch(col){
 
-        case 0: return keys.get(row);
-        case 1: return table.get(keys.get(row));
+        case 0: return this.keys.get(row);
+        case 1: return this.table.get(this.keys.get(row));
         
         }
         throw new IllegalArgumentException();	

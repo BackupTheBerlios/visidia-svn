@@ -24,7 +24,7 @@ public class Ensemble implements Cloneable, Serializable {
      * Crée un Ensemble vide.
      **/
     public Ensemble() {
-	table = new Hashtable();
+	this.table = new Hashtable();
     }
 
     /**
@@ -43,14 +43,14 @@ public class Ensemble implements Cloneable, Serializable {
      * Nombre d'éléments contenus dans l'ensemble.
      **/
     public int taille() {
-	return table.size();
+	return this.table.size();
     }
 
     /**
      * Teste si l'ensemble est vide.
      **/
     public boolean estVide() {
-	return table.isEmpty();
+	return this.table.isEmpty();
     }
 
     /**
@@ -60,7 +60,7 @@ public class Ensemble implements Cloneable, Serializable {
     public void inserer(Object un_objet) {
 	// Remarque: le deuxieme argument de la methode "put" n'est pas utilise
 	// On peut mettre n'importe quoi dedant
-	table.put(un_objet, un_objet);
+	this.table.put(un_objet, un_objet);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Ensemble implements Cloneable, Serializable {
      **/
     public void inserer(Enumeration e) {
 	while(e.hasMoreElements())
-	    inserer(e.nextElement());
+	    this.inserer(e.nextElement());
     }
 
     /**
@@ -78,35 +78,35 @@ public class Ensemble implements Cloneable, Serializable {
      * rien ne se passe.
      **/
     public void supprimer(Object un_objet) {
-	table.remove(un_objet);
+	this.table.remove(un_objet);
     }
 
     /**
      * Supprime tous les éléments de l'ensemble.
      **/
     public void vider() {
-	table.clear();
+	this.table.clear();
     }
 
     /**
      * Teste si un objet est présent dans l'ensemble.
      **/
     public boolean contient(Object un_objet) {
-	return table.containsKey(un_objet);
+	return this.table.containsKey(un_objet);
     }
 
     /**
      * Fait une copie independante. Ne clone pas les éléments.
      **/
     public Object clone() {
-	return new Ensemble((Hashtable)table.clone());
+	return new Ensemble((Hashtable)this.table.clone());
     }
 
     /**
      * Retourne une enumeration de tous les éléments de l'ensemble.
      **/
     public Enumeration elements() {
-	return table.keys();
+	return this.table.keys();
     }
 
     /**
@@ -116,7 +116,7 @@ public class Ensemble implements Cloneable, Serializable {
 	Enumeration e = un_ensemble.table.keys();
 
 	while(e.hasMoreElements())
-	    inserer(e.nextElement());
+	    this.inserer(e.nextElement());
     }
 
     /**
@@ -126,7 +126,7 @@ public class Ensemble implements Cloneable, Serializable {
     public boolean inclut(Ensemble un_ensemble) {
 	Enumeration e = un_ensemble.table.keys();
 	while(e.hasMoreElements())
-	    if(!table.containsKey(e.nextElement()))
+	    if(!this.table.containsKey(e.nextElement()))
 		return false;
 	return true;
     }
@@ -136,8 +136,8 @@ public class Ensemble implements Cloneable, Serializable {
      * Les éléments sont comparés avec leurs methodes equals().
      **/
     public boolean estEgalA(Ensemble un_ensemble) {
-	return ((table.size() == un_ensemble.table.size()) &&
-		inclut(un_ensemble));
+	return ((this.table.size() == un_ensemble.table.size()) &&
+		this.inclut(un_ensemble));
     }
 
 }

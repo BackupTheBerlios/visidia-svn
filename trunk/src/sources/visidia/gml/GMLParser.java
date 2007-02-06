@@ -10,15 +10,15 @@ public class GMLParser implements GMLParserConstants {
 
   final public SimpleGraph Input() throws ParseException {
  SimpleGraph graph;
-    graph = GML();
-    jj_consume_token(0);
+    graph = this.GML();
+    this.jj_consume_token(0);
                 {if (true) return graph;}
     throw new Error("Missing return statement in function");
   }
 
   final public SimpleGraph GML() throws ParseException {
  GMLList list;
-    list = List();
+    list = this.List();
                 {if (true) return GMLGraphExtractor.extractGraph(list);}
     throw new Error("Missing return statement in function");
   }
@@ -27,15 +27,15 @@ public class GMLParser implements GMLParserConstants {
  GMLList list = new GMLList();
     label_1:
     while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      switch ((this.jj_ntk==-1)?this.jj_ntk():this.jj_ntk) {
       case KEY:
         ;
         break;
       default:
-        jj_la1[0] = jj_gen;
+        this.jj_la1[0] = this.jj_gen;
         break label_1;
       }
-      Pair(list);
+      this.Pair(list);
     }
          {if (true) return list;}
     throw new Error("Missing return statement in function");
@@ -43,46 +43,46 @@ public class GMLParser implements GMLParserConstants {
 
   final public void Pair(GMLList list) throws ParseException {
  Token token; Object value;
-    token = jj_consume_token(KEY);
-    value = Value();
+    token = this.jj_consume_token(KEY);
+    value = this.Value();
                 list.add(token.image, value);
   }
 
   final public Object Value() throws ParseException {
  Object value;
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    switch ((this.jj_ntk==-1)?this.jj_ntk():this.jj_ntk) {
     case INTEGER:
-      value = IntegerValue();
+      value = this.IntegerValue();
                                  {if (true) return value;}
       break;
     case REAL:
-      value = DoubleValue();
+      value = this.DoubleValue();
                                   {if (true) return value;}
       break;
     case STRING:
-      value = StringValue();
+      value = this.StringValue();
                                   {if (true) return value;}
       break;
     case 18:
-      jj_consume_token(18);
-      value = List();
-      jj_consume_token(19);
+      this.jj_consume_token(18);
+      value = this.List();
+      this.jj_consume_token(19);
                                    {if (true) return value;}
       break;
     default:
-      jj_la1[1] = jj_gen;
-      jj_consume_token(-1);
+      this.jj_la1[1] = this.jj_gen;
+      this.jj_consume_token(-1);
       throw new ParseException();
     }
     throw new Error("Missing return statement in function");
   }
 
   final public Integer IntegerValue() throws ParseException {
-    jj_consume_token(INTEGER);
+    this.jj_consume_token(INTEGER);
                 //System.out.println("integer ="+token.image);
                 Integer val = null;
                 try{
-                        val = new Integer(token.image);
+                        val = new Integer(this.token.image);
                 }
                 catch(NumberFormatException e){
                         //throw new ParseException(" bad numerique format at line "+inputStream.getEndLine()+", column "+inputStream.getEndColumn()+" : "+token.image);
@@ -92,11 +92,11 @@ public class GMLParser implements GMLParserConstants {
   }
 
   final public Double DoubleValue() throws ParseException {
-    jj_consume_token(REAL);
+    this.jj_consume_token(REAL);
                 //System.out.println("real ="+token.image);
                 Double val = null;
                 try{
-                        val = new Double(token.image);
+                        val = new Double(this.token.image);
                 }
                 catch(NumberFormatException e){
                         //throw new ParseException(" bad numerique format at line "+inputStream.getEndLine()+", column "+inputStream.getEndColumn()+" : "+token.image);
@@ -106,9 +106,9 @@ public class GMLParser implements GMLParserConstants {
   }
 
   final public String StringValue() throws ParseException {
-    jj_consume_token(STRING);
+    this.jj_consume_token(STRING);
                 //System.out.println("string ="+token.image);
-                {if (true) return token.image;}
+                {if (true) return this.token.image;}
     throw new Error("Missing return statement in function");
   }
 
@@ -121,93 +121,93 @@ public class GMLParser implements GMLParserConstants {
   final private int[] jj_la1_0 = {0x10000,0x4a200,};
 
   public GMLParser(java.io.InputStream stream) {
-    jj_input_stream = new ASCII_CharStream(stream, 1, 1);
-    token_source = new GMLParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.jj_input_stream = new ASCII_CharStream(stream, 1, 1);
+    this.token_source = new GMLParserTokenManager(this.jj_input_stream);
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   public void ReInit(java.io.InputStream stream) {
-    jj_input_stream.ReInit(stream, 1, 1);
-    token_source.ReInit(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.jj_input_stream.ReInit(stream, 1, 1);
+    this.token_source.ReInit(this.jj_input_stream);
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   public GMLParser(java.io.Reader stream) {
-    jj_input_stream = new ASCII_CharStream(stream, 1, 1);
-    token_source = new GMLParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.jj_input_stream = new ASCII_CharStream(stream, 1, 1);
+    this.token_source = new GMLParserTokenManager(this.jj_input_stream);
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   public void ReInit(java.io.Reader stream) {
-    jj_input_stream.ReInit(stream, 1, 1);
-    token_source.ReInit(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.jj_input_stream.ReInit(stream, 1, 1);
+    this.token_source.ReInit(this.jj_input_stream);
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   public GMLParser(GMLParserTokenManager tm) {
-    token_source = tm;
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.token_source = tm;
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   public void ReInit(GMLParserTokenManager tm) {
-    token_source = tm;
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    this.token_source = tm;
+    this.token = new Token();
+    this.jj_ntk = -1;
+    this.jj_gen = 0;
+    for (int i = 0; i < 2; i++) this.jj_la1[i] = -1;
   }
 
   final private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
-    if ((oldToken = token).next != null) token = token.next;
-    else token = token.next = token_source.getNextToken();
-    jj_ntk = -1;
-    if (token.kind == kind) {
-      jj_gen++;
-      return token;
+    if ((oldToken = this.token).next != null) this.token = this.token.next;
+    else this.token = this.token.next = this.token_source.getNextToken();
+    this.jj_ntk = -1;
+    if (this.token.kind == kind) {
+      this.jj_gen++;
+      return this.token;
     }
-    token = oldToken;
-    jj_kind = kind;
-    throw generateParseException();
+    this.token = oldToken;
+    this.jj_kind = kind;
+    throw this.generateParseException();
   }
 
   final public Token getNextToken() {
-    if (token.next != null) token = token.next;
-    else token = token.next = token_source.getNextToken();
-    jj_ntk = -1;
-    jj_gen++;
-    return token;
+    if (this.token.next != null) this.token = this.token.next;
+    else this.token = this.token.next = this.token_source.getNextToken();
+    this.jj_ntk = -1;
+    this.jj_gen++;
+    return this.token;
   }
 
   final public Token getToken(int index) {
-    Token t = token;
+    Token t = this.token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
-      else t = t.next = token_source.getNextToken();
+      else t = t.next = this.token_source.getNextToken();
     }
     return t;
   }
 
   final private int jj_ntk() {
-    if ((jj_nt=token.next) == null)
-      return (jj_ntk = (token.next=token_source.getNextToken()).kind);
+    if ((this.jj_nt=this.token.next) == null)
+      return (this.jj_ntk = (this.token.next=this.token_source.getNextToken()).kind);
     else
-      return (jj_ntk = jj_nt.kind);
+      return (this.jj_ntk = this.jj_nt.kind);
   }
 
   private java.util.Vector jj_expentries = new java.util.Vector();
@@ -215,19 +215,19 @@ public class GMLParser implements GMLParserConstants {
   private int jj_kind = -1;
 
   final public ParseException generateParseException() {
-    jj_expentries.removeAllElements();
+    this.jj_expentries.removeAllElements();
     boolean[] la1tokens = new boolean[20];
     for (int i = 0; i < 20; i++) {
       la1tokens[i] = false;
     }
-    if (jj_kind >= 0) {
-      la1tokens[jj_kind] = true;
-      jj_kind = -1;
+    if (this.jj_kind >= 0) {
+      la1tokens[this.jj_kind] = true;
+      this.jj_kind = -1;
     }
     for (int i = 0; i < 2; i++) {
-      if (jj_la1[i] == jj_gen) {
+      if (this.jj_la1[i] == this.jj_gen) {
         for (int j = 0; j < 32; j++) {
-          if ((jj_la1_0[i] & (1<<j)) != 0) {
+          if ((this.jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
         }
@@ -235,16 +235,16 @@ public class GMLParser implements GMLParserConstants {
     }
     for (int i = 0; i < 20; i++) {
       if (la1tokens[i]) {
-        jj_expentry = new int[1];
-        jj_expentry[0] = i;
-        jj_expentries.addElement(jj_expentry);
+        this.jj_expentry = new int[1];
+        this.jj_expentry[0] = i;
+        this.jj_expentries.addElement(this.jj_expentry);
       }
     }
-    int[][] exptokseq = new int[jj_expentries.size()][];
-    for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = (int[])jj_expentries.elementAt(i);
+    int[][] exptokseq = new int[this.jj_expentries.size()][];
+    for (int i = 0; i < this.jj_expentries.size(); i++) {
+      exptokseq[i] = (int[])this.jj_expentries.elementAt(i);
     }
-    return new ParseException(token, exptokseq, tokenImage);
+    return new ParseException(this.token, exptokseq, tokenImage);
   }
 
   final public void enable_tracing() {

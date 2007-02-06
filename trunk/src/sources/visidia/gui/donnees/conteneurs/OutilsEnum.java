@@ -3,13 +3,13 @@ package visidia.gui.donnees.conteneurs;
 import java.util.*;
 
 /**
- * L'interface enumeration est le mécanisme standard offert par Java
- * pour passer une suite d'objets en argument d'une méthode,
- * independamment de la structure de données qui contient ces
- * objets.<BR> Cette classe propose des méthodes statiques pour
+ * L'interface enumeration est le mï¿½canisme standard offert par Java
+ * pour passer une suite d'objets en argument d'une mï¿½thode,
+ * independamment de la structure de donnï¿½es qui contient ces
+ * objets.<BR> Cette classe propose des mï¿½thodes statiques pour
  * manipuler les enumerations comme par exemple concatener deux
- * enumerations ou encore pour créer simplement de petites
- * enumerations sans être oblige de passer par des stuctures de
+ * enumerations ou encore pour crï¿½er simplement de petites
+ * enumerations sans ï¿½tre oblige de passer par des stuctures de
  * donnees "lourdes" (Vector, ...).
  **/
 public class OutilsEnum {
@@ -31,12 +31,12 @@ public class OutilsEnum {
       // Inner class : methodes.
       
       public boolean hasMoreElements() {
-	return has_more;
+	return this.has_more;
       }
 
       public Object nextElement() {
-	if(has_more) {
-	  has_more = false;
+	if(this.has_more) {
+	  this.has_more = false;
 	  return un_objet;
 	} else
 	  throw new NoSuchElementException("No more element");
@@ -46,7 +46,7 @@ public class OutilsEnum {
 
     
   /**
-   * Retourne une enumeration contenant pour uniques éléments
+   * Retourne une enumeration contenant pour uniques ï¿½lï¿½ments
    * obj1 et obj2, dans cet ordre.
    **/
   public static Enumeration creerEnumeration(final Object obj1, final Object obj2) {
@@ -57,7 +57,7 @@ public class OutilsEnum {
   }
 
   /**
-   * Retourne une enumeration contenant pour uniques éléments
+   * Retourne une enumeration contenant pour uniques ï¿½lï¿½ments
    * obj1, obj2 et obj3, dans cet ordre.
    **/
   public static Enumeration creerEnumeration(final Object obj1, final Object obj2, final Object obj3) {
@@ -70,7 +70,7 @@ public class OutilsEnum {
 
   /**
    * Retourne une enumeration contenant les elements d'un tableau
-   * passé en argument (on a conservation de l'ordre).
+   * passï¿½ en argument (on a conservation de l'ordre).
    **/
   public static Enumeration creerEnumeration(final Object[] un_tableau) {
 
@@ -85,12 +85,12 @@ public class OutilsEnum {
       // Inner class : methodes.
     
       public boolean hasMoreElements() {
-	return (indice_courant < un_tableau.length);
+	return (this.indice_courant < un_tableau.length);
       }
       
       public Object nextElement() {
-	if(indice_courant < un_tableau.length)
-	  return un_tableau[indice_courant++];
+	if(this.indice_courant < un_tableau.length)
+	  return un_tableau[this.indice_courant++];
 	else
 	  throw new NoSuchElementException("No more element");
       }
@@ -100,40 +100,40 @@ public class OutilsEnum {
 
     
   /**
-   * Crée une enumeration qui est la concatenation des deux enumerations
-   * passées en argument (éléments de e1 suivis de ceux de e2).<BR>
-   * Les 2 enumerations sont consommées en même temps que leur concactenation.
+   * Crï¿½e une enumeration qui est la concatenation des deux enumerations
+   * passï¿½es en argument (ï¿½lï¿½ments de e1 suivis de ceux de e2).<BR>
+   * Les 2 enumerations sont consommï¿½es en mï¿½me temps que leur concactenation.
    **/
   public static Enumeration concatener(final Enumeration e1, final Enumeration e2) {
 
-    // "Inner class" qui implémente la concatenation de deux enumerations.
+    // "Inner class" qui implï¿½mente la concatenation de deux enumerations.
     return new Enumeration() {
 
       // Inner class : variable d'instance.
 
       private Enumeration enumeration_courante = e1;
       
-      // Inner class : méthodes.
+      // Inner class : mï¿½thodes.
       
       public boolean hasMoreElements() {
 	return (e2.hasMoreElements() ||
-		((enumeration_courante != e2) &&
-		 enumeration_courante.hasMoreElements()));
+		((this.enumeration_courante != e2) &&
+		 this.enumeration_courante.hasMoreElements()));
       }
       
       public Object nextElement() {
-	if((enumeration_courante != e2) &&
-	   (!enumeration_courante.hasMoreElements()))
-	  enumeration_courante = e2;
-	return enumeration_courante.nextElement();
+	if((this.enumeration_courante != e2) &&
+	   (!this.enumeration_courante.hasMoreElements()))
+	  this.enumeration_courante = e2;
+	return this.enumeration_courante.nextElement();
       }
     };
   }
 
   /**
-   * Crée une enumeration qui est l'union des deux enumerations
-   * passées en argument (ie on supprime les doublons). L'ordre n'est
-   * pas conservé.<BR> Ce traitement est beaucoup plus coûteux qu'une
+   * Crï¿½e une enumeration qui est l'union des deux enumerations
+   * passï¿½es en argument (ie on supprime les doublons). L'ordre n'est
+   * pas conservï¿½.<BR> Ce traitement est beaucoup plus coï¿½teux qu'une
    * simple concatenation.
    **/
   public static Enumeration union(final Enumeration e1, final Enumeration e2) {

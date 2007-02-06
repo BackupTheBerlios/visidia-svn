@@ -23,28 +23,28 @@ public class SynchBFS extends SyncAlgorithm {
 	boolean run = true;
 
 	//int degres = getArity();
-	Integer id = getId();
+	Integer id = this.getId();
 	
-	nextPulse();
+	this.nextPulse();
 	
 	while(run) {
 	    if(id == 1) {
-		putProperty("label", new String("R"));
-		sendAll(new StringMessage("WAVE",wave));
+		this.putProperty("label", new String("R"));
+		this.sendAll(new StringMessage("WAVE",wave));
 		run = false;
-		nextPulse();
+		this.nextPulse();
 	    } else {
-		if(anyMsg()) {
+		if(this.anyMsg()) {
 		    Door door = new Door();
-		    StringMessage msg = (StringMessage)receive(door);
+		    StringMessage msg = (StringMessage)this.receive(door);
 		    // je marque mon père
-		    setDoorState(new MarkedState(true),door.getNum());
-		    putProperty("label", new String("L"));
+		    this.setDoorState(new MarkedState(true),door.getNum());
+		    this.putProperty("label", new String("L"));
 		    // j'envoi à tout le monde
-		    sendAll(new StringMessage("WAVE",wave));
+		    this.sendAll(new StringMessage("WAVE",wave));
 		    run = false;
 		}
-		nextPulse();
+		this.nextPulse();
 	    }
 	}
     }

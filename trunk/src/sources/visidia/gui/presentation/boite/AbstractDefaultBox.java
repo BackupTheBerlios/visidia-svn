@@ -54,27 +54,27 @@ public abstract class AbstractDefaultBox
 
         if (createEtatPanel == true)
             {
-                etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
+                this.etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(),this);
         
                 panelHaut = new Panel();
                 panelHaut.setLayout(new BorderLayout());
-                panelHaut.add(etatPanel, BorderLayout.NORTH);
+                panelHaut.add(this.etatPanel, BorderLayout.NORTH);
             }
         
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane spane = new JScrollPane(table);
+        this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane spane = new JScrollPane(this.table);
 
         JPanel panelCentre = new JPanel();
         panelCentre.setLayout(new BorderLayout());
         panelCentre.add(spane, BorderLayout.NORTH);
     
-        dialog.getContentPane().setLayout(new BorderLayout());
+        this.dialog.getContentPane().setLayout(new BorderLayout());
         if(createEtatPanel == true)
-            dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
-        dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
-        dialog.setSize(400,200);
+            this.dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
+        this.dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
+        this.dialog.setSize(400,200);
     
-        ajouterBoutons();
+        this.ajouterBoutons();
     
     }
 
@@ -83,9 +83,9 @@ public abstract class AbstractDefaultBox
        
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-        dialog.pack();
-        dialog.show();
-        dialog.setLocationRelativeTo(parent);
+        this.dialog.pack();
+        this.dialog.show();
+        this.dialog.setLocationRelativeTo(parent);
     }
 
     abstract public void updateBox();
@@ -109,26 +109,26 @@ public abstract class AbstractDefaultBox
       
         JPanel addRemovePane = new JPanel(new FlowLayout());
       
-        buttonAdd = new JButton("Add");
-        buttonAdd.addActionListener(this);
+        this.buttonAdd = new JButton("Add");
+        this.buttonAdd.addActionListener(this);
       
-        buttonRemove = new JButton("Remove");
-        buttonRemove.addActionListener(this);
+        this.buttonRemove = new JButton("Remove");
+        this.buttonRemove.addActionListener(this);
 
-        addRemovePane.add(buttonAdd);
-        addRemovePane.add(buttonRemove);
+        addRemovePane.add(this.buttonAdd);
+        addRemovePane.add(this.buttonRemove);
 
         JPanel okCancelApplyPane = new JPanel(new FlowLayout());
       
-        buttonDone = new JButton("Done");
-        buttonDone.addActionListener(this);
+        this.buttonDone = new JButton("Done");
+        this.buttonDone.addActionListener(this);
       
-        okCancelApplyPane.add(buttonDone);    
+        okCancelApplyPane.add(this.buttonDone);    
       
         buttonPane.add(addRemovePane,BorderLayout.NORTH);
         buttonPane.add(okCancelApplyPane,BorderLayout.SOUTH);
       
-        dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+        this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
     
    
@@ -138,16 +138,16 @@ public abstract class AbstractDefaultBox
 
     //Implementation de VueEtatPanel
     public void elementModified(String s){
-	elementModified();
+	this.elementModified();
     }
     
     public void elementModified(){
-        tbModel.putProperty("label",etatPanel.ardoise().donneEtat());
+        this.tbModel.putProperty("label",this.etatPanel.ardoise().donneEtat());
     }
 
     /** Retourne le JDialog. */
     public JDialog dialog() {
-        return dialog;
+        return this.dialog;
     }
 
     public void itemStateChanged(ItemEvent evt) {

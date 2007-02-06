@@ -16,11 +16,11 @@ public class EdgeColorChangeAck implements  SimulAck, Serializable{
 	private long num;
     
     public EdgeColorChangeAck(Long evtNumber){
-	num = evtNumber.longValue();
+	this.num = evtNumber.longValue();
     }
 
     public Long number(){
-	return new Long(num);
+	return new Long(this.num);
     }
 
     public int type(){

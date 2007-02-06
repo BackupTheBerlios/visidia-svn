@@ -17,7 +17,7 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
     
     public ListeChoixImage(SommetDessin un_sommet)
     {
-	ardoise = new Ardoise(un_sommet.getImage());
+	this.ardoise = new Ardoise(un_sommet.getImage());
 	Vector listeItems = new Vector();
 	JList liste = new JList(); 
 	JScrollPane listeAvecAscenseur;
@@ -30,22 +30,22 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
 	
 	liste = new JList(listeItems);
 	liste.setSelectedIndex(0);
-	ardoise.image = donneImage((String)liste.getSelectedValue());
+	this.ardoise.image = this.donneImage((String)liste.getSelectedValue());
 	liste.addListSelectionListener(this);
-	setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
-	add(ardoise);
+	this.setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
+	this.add(this.ardoise);
 	listeAvecAscenseur = new JScrollPane(liste);
 	listeAvecAscenseur.setPreferredSize(new Dimension(200,80));
-	add(listeAvecAscenseur);
-	setVisible(true);
+	this.add(listeAvecAscenseur);
+	this.setVisible(true);
     }
     
     
     public void valueChanged(ListSelectionEvent evt)
     {
-	imageChangee = true;	
-	ardoise.changerImage(donneImage((String)((JList)evt.getSource()).getSelectedValue()));
-	ardoise.repaint();
+	this.imageChangee = true;	
+	this.ardoise.changerImage(this.donneImage((String)((JList)evt.getSource()).getSelectedValue()));
+	this.ardoise.repaint();
     }
     
      ImageIcon donneImage(String s)
@@ -66,11 +66,11 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
 	
     }
     public Ardoise ardoise(){
-	return ardoise;
+	return this.ardoise;
     }
     
     public boolean estChangee(){
-	return imageChangee;
+	return this.imageChangee;
     }
 }
 
@@ -84,19 +84,19 @@ class Ardoise extends JPanel
     ImageIcon image = null;
     
     Ardoise(ImageIcon une_image){
-	image = une_image;
-	setPreferredSize(new Dimension(200,60));
-	add(label,BorderLayout.WEST);
+	this.image = une_image;
+	this.setPreferredSize(new Dimension(200,60));
+	this.add(this.label,BorderLayout.WEST);
     }
     public void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
-	if(image != null)
-	    image.paintIcon(this,g,100,20);
+	if(this.image != null)
+	    this.image.paintIcon(this,g,100,20);
         
     }
     public ImageIcon image(){
-	return image;
+	return this.image;
     }
     public void changerImage(ImageIcon uneImage){
 	this.image = uneImage ;

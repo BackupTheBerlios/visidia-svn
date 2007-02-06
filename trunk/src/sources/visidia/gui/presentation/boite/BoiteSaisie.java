@@ -23,9 +23,9 @@ public class BoiteSaisie {
     * @param valeurInit la valeur initiale de la saisie.**/
   public BoiteSaisie(JFrame parent, String titre, String message, Object[] chooseFrom, String valeurInit) {
     this.parent = parent;
-    typedText = valeurInit;
+    this.typedText = valeurInit;
     
-    while (!saisie) {
+    while (!this.saisie) {
       Object typedObject = JOptionPane.showInputDialog(parent, 
 						       message, 
 						       titre, 
@@ -34,22 +34,22 @@ public class BoiteSaisie {
 						       chooseFrom,
 						       valeurInit);
       if (typedObject != null) {
-	typedText = (String)typedObject;
-	if (saisieCorrecte()) {
-	  saisie = true;
-	  boutonOkAppuye();
+	this.typedText = (String)typedObject;
+	if (this.saisieCorrecte()) {
+	  this.saisie = true;
+	  this.boutonOkAppuye();
 	} else {
-	  saisieInvalide();
+	  this.saisieInvalide();
 	}
       } else {
-	saisie = true;
+	this.saisie = true;
       }
     }
   }
 
   /** Retourne la valeur saisie sous forme de chaine de caracteres.*/
   protected String valeurDeRetour() {
-    return typedText;
+    return this.typedText;
   }
   
   /** Cette methode est appelee si la saisie est incorrecte. */

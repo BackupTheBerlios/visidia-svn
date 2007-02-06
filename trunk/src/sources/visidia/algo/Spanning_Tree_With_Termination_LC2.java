@@ -43,99 +43,99 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
         //String lastName;
         //int pere=-1;
         
-        neighboursLink=new boolean[getArity()];
-        for (int i=0; i<getArity();i++)
+        neighboursLink=new boolean[this.getArity()];
+        for (int i=0; i<this.getArity();i++)
             neighboursLink[i]=false;
         
-        finishedNode= new boolean[getArity()];
-        for (int i=0;i<getArity();i++)
+        finishedNode= new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++)
             finishedNode[i]=false;
         
-        neighboursLabel=new String[getArity()];
+        neighboursLabel=new String[this.getArity()];
         
         while(run){
-            synchro=starSynchro(finishedNode);
+            synchro=this.starSynchro(finishedNode);
             if (synchro==-3) {
                 run=false;
 		//breakSynchro();
 	    }
             else
-                if (synchro==starCenter){
+                if (synchro==this.starCenter){
                     int neighbourAM=-1;
                     int nbreN=0;
                     int nbreF=0;
                     int nbreLinkAM=0;
                     
-                    for (int door=0;door<getArity();door++)
+                    for (int door=0;door<this.getArity();door++)
                         if (!finishedNode[door]) {
-                            neighboursLabel[door]=((StringMessage) receiveFrom(door)).data();
+                            neighboursLabel[door]=((StringMessage) this.receiveFrom(door)).data();
                             
-                            if ((neighboursLabel[door].compareTo(aNode)==0) ||
-                            (neighboursLabel[door].compareTo(mNode)==0)) {
+                            if ((neighboursLabel[door].compareTo(this.aNode)==0) ||
+                            (neighboursLabel[door].compareTo(this.mNode)==0)) {
                                 neighbourAM=door;
                                 if (neighboursLink[door])
                                     nbreLinkAM++;
                             }
                             
-                            if (neighboursLabel[door].compareTo(nNode)==0)
+                            if (neighboursLabel[door].compareTo(this.nNode)==0)
                                 nbreN++;
                             
-                            if (neighboursLabel[door].compareTo(fNode)==0)
+                            if (neighboursLabel[door].compareTo(this.fNode)==0)
                                 nbreF++;
                             
                         }
-                    if ((((String) getProperty("label")).compareTo(aNode)==0) &&
-                    (nbreF==getArity()))
+                    if ((((String) this.getProperty("label")).compareTo(this.aNode)==0) &&
+                    (nbreF==this.getArity()))
                         run=false;
                     
-                    if ((((String) getProperty("label")).compareTo(nNode)==0) &&
+                    if ((((String) this.getProperty("label")).compareTo(this.nNode)==0) &&
                     (neighbourAM !=-1)) {
-                        putProperty("label",new String(mNode));
-                        setDoorState(new MarkedState(true),neighbourAM);
+                        this.putProperty("label",new String(this.mNode));
+                        this.setDoorState(new MarkedState(true),neighbourAM);
                         neighboursLink[neighbourAM]=true;
-                        for (int door=0;door<getArity();door++)
+                        for (int door=0;door<this.getArity();door++)
                             if (!finishedNode[door]) {
                                 if (door!=neighbourAM) {
-                                    sendTo(door,new IntegerMessage(new Integer(0),labels));
+                                    this.sendTo(door,new IntegerMessage(new Integer(0),labels));
                                 }
                                 else {
-                                    sendTo(door,new IntegerMessage(new Integer(1),labels));
+                                    this.sendTo(door,new IntegerMessage(new Integer(1),labels));
                                 }
                             }
                     }
                     else {
-                        if ((((String) getProperty("label")).compareTo(mNode)==0) &&
+                        if ((((String) this.getProperty("label")).compareTo(this.mNode)==0) &&
                         (nbreN==0) && (nbreLinkAM<=1)) {
-                            putProperty("label",new String(fNode));
-                            for (int door=0;door<getArity();door++)
+                            this.putProperty("label",new String(this.fNode));
+                            for (int door=0;door<this.getArity();door++)
                                 if (!finishedNode[door]) {
-                                    sendTo(door,new IntegerMessage(new Integer(0),labels));
+                                    this.sendTo(door,new IntegerMessage(new Integer(0),labels));
                                 }
                         }
                         else
-                            for (int door=0;door<getArity();door++)
+                            for (int door=0;door<this.getArity();door++)
                                 if (!finishedNode[door]) {
-                                    sendTo(door,new IntegerMessage(new Integer(0),labels));
+                                    this.sendTo(door,new IntegerMessage(new Integer(0),labels));
                                 }
                     }
-                    breakSynchro();
+                    this.breakSynchro();
                 }
                 else
-                    if (synchro!=notInTheStar) {
+                    if (synchro!=this.notInTheStar) {
                         //String newState;
                         int linkOn;
-                        sendTo(synchro,new StringMessage((String) getProperty("label"),labels));
-                        linkOn=((IntegerMessage) receiveFrom(synchro)).value();
+                        this.sendTo(synchro,new StringMessage((String) this.getProperty("label"),labels));
+                        linkOn=((IntegerMessage) this.receiveFrom(synchro)).value();
                         if (linkOn==1)
                             neighboursLink[synchro]=true;
                     }
         }
-        sendAll(new IntegerMessage(new Integer(-3),termination));
+        this.sendAll(new IntegerMessage(new Integer(-3),termination));
     }
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         boolean theEnd=false;
         
@@ -146,13 +146,13 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -176,13 +176,13 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-3) {
                     theEnd=true;
@@ -201,35 +201,35 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             
             if (! theEnd) {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                        this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
-                return starCenter;
+                return this.starCenter;
             }
             else {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(-3),termination));
+                        this.sendTo(i,new IntegerMessage(new Integer(-3),termination));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
@@ -237,17 +237,17 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
             }
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -258,20 +258,20 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
                         }
                 }
             }
-            if (inTheStar!=notInTheStar)
+            if (inTheStar!=this.notInTheStar)
                 return inTheStar;
             else
                 if (theEnd)
                     return -3;
                 else
-                    return notInTheStar;
+                    return this.notInTheStar;
             
         }
     }
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

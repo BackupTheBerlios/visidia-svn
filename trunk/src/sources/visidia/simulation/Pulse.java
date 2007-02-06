@@ -11,15 +11,15 @@ public class Pulse {
 
 
     public Pulse(int num){
-	pulse = num;
+	this.pulse = num;
     }
 
 
     public int intValue(){
-	return pulse;
+	return this.pulse;
     }
 
     public void setValue(int num){
-	pulse = num;
+	this.pulse = num;
     }
 }	

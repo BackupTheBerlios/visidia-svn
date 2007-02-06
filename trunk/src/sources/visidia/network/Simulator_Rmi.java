@@ -61,8 +61,6 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     private AckFreeHandler ackHandler;
 
-    //simulation execution controle variables
-    private boolean started = false;
     private boolean aborted = false;
     private boolean paused = false;
     private Object pauseLock = new Object();
@@ -82,14 +80,14 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public Simulator_Rmi(SimpleGraph netGraph, VQueue evtVQueue, VQueue ackVQueue, String name,String simUrl, String regPort) throws RemoteException {
 	super();
-	graph = (SimpleGraph) netGraph.clone();
-	evtObjectTmp = new Hashtable();
-	simulatorHost = name;
-	simulatorUrl = simUrl;
-	registryPort = regPort; 
-	evtQ = evtVQueue;
-	ackQ = ackVQueue;
-	threadGroup = new SimulatorThreadGroup("simulator");
+	this.graph = (SimpleGraph) netGraph.clone();
+	this.evtObjectTmp = new Hashtable();
+	this.simulatorHost = name;
+	this.simulatorUrl = simUrl;
+	this.registryPort = regPort; 
+	this.evtQ = evtVQueue;
+	this.ackQ = ackVQueue;
+	this.threadGroup = new SimulatorThreadGroup("simulator");
     }
 
 
@@ -98,7 +96,6 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      * to use in the <i> tag </tag> parameter. 
      */
     public void initializeNodes(LocalNodeTable networkParam) throws RemoteException {
-	started = true;
 	Hashtable hash =  networkParam.content();
 	Enumeration v_enum = hash.keys();
 	while(v_enum.hasMoreElements()) {
@@ -109,12 +106,12 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 		String localNode = (String)e.nextElement();
 		Vector vect = (Vector)localNodes.get(localNode);
 		try{
-		    NodeServer nodeServer = (NodeServer)Naming.lookup("rmi://"+host+":"+registryPort+"/NodeServer/"+localNode);
-		    add(nodeServer.initialize(vect,simulatorHost,simulatorUrl));
+		    NodeServer nodeServer = (NodeServer)Naming.lookup("rmi://"+host+":"+this.registryPort+"/NodeServer/"+localNode);
+		    this.add(nodeServer.initialize(vect,this.simulatorHost,this.simulatorUrl));
 		    Vector v = new Vector();
 		    v.addElement(host);
 		    v.addElement(localNode);
-		    nodeServerStub.put(v,nodeServer);
+		    this.nodeServerStub.put(v,nodeServer);
 		} catch (Exception expt) {
 		    System.out.println("ERREUR : dans l'initialisation des noeuds");
 		    expt.printStackTrace();
@@ -133,36 +130,30 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 		Enumeration theNodes = tableStubTemp.keys();
 		while(theNodes.hasMoreElements()){
 		    String node = (String)theNodes.nextElement();
-		    graphStub.put(node,tableStubTemp.get(node));
+		    this.graphStub.put(node,tableStubTemp.get(node));
 		}
 	    }	
 	}
     }
 
-    private Hashtable generateNeighborsTable(SimpleGraphVertex neighborsGraph) {	
-	return neighborsGraph.connectingPorts();
-    }
-
-
     /** using the table graphStub, the console contact the nodes and 
      * order them to begin running the algorithm
      */ 
     public void startServer(AlgorithmDist algo) throws RemoteException {
-	started = true;
 	/**
 	   Initialisation des noeuds distant : 
 	   Pour chaque noued --> creation d'une table (key = port, value = neighbor identity)
 	**/
-	Enumeration theNodes = graphStub.keys();
+	Enumeration theNodes = this.graphStub.keys();
 	int j=1;
-	int size = graph.size();
+	int size = this.graph.size();
 	Date date1 = new Date();
 	System.out.println("Calcul de la table des voisins et transmission des parametres :");
 	while(theNodes.hasMoreElements()){
 	    try{
 		String nodeLocation = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(nodeLocation);
-		SimpleGraphVertex neighbors = (SimpleGraphVertex)graph.vertex(new Integer(nodeLocation));
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(nodeLocation);
+		SimpleGraphVertex neighbors = (SimpleGraphVertex)this.graph.vertex(new Integer(nodeLocation));
 		Object obj = neighbors.getData();
 		Hashtable neighborsTable = neighbors.connectingPorts();
 		PortTable pt = new PortTable();
@@ -170,7 +161,7 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 		while(keys.hasMoreElements()) {
 		    Integer aPort = (Integer)keys.nextElement();
 		    Integer aNode = (Integer)neighborsTable.get(aPort);
-		    NodeInterfaceTry nit = (NodeInterfaceTry)graphStub.get(aNode.toString());
+		    NodeInterfaceTry nit = (NodeInterfaceTry)this.graphStub.get(aNode.toString());
 		    pt.put(aPort,aNode,nit);
 		}
 		nodeServer.startServer(algo,pt,obj,size);
@@ -190,13 +181,13 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 
 	System.out.println("Demarrage des threads");
 	int i = 0;
-	Enumeration theNodesBis = graphStub.keys();
+	Enumeration theNodesBis = this.graphStub.keys();
 	while(theNodesBis.hasMoreElements()){
 	    try{
 		i++;
 		System.out.print(i+" | ");
 		String nodeLocationBis = (String)theNodesBis.nextElement();
-		NodeInterfaceTry nodeServerBis = (NodeInterfaceTry)graphStub.get(nodeLocationBis);
+		NodeInterfaceTry nodeServerBis = (NodeInterfaceTry)this.graphStub.get(nodeLocationBis);
 		nodeServerBis.startRunning();
 	    } catch (Exception e){
 		System.out.println("Erreur 2 dans startServer-->Simulator_Rmi :"+e);
@@ -206,29 +197,29 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	System.out.println("Demarrage de l initialisation startServer() : "+date1.toString()+" et fin : "+date2.toString());
 	System.out.println("Demarrage des noeuds : "+date2.toString()+" et fin : "+date3.toString());
 	
-	ackHandler = new AckFreeHandler(ackQ,graphStub);
-	ackHandler.setPriority(9);
-	ackHandler.start();
+	this.ackHandler = new AckFreeHandler(this.ackQ,this.graphStub);
+	this.ackHandler.setPriority(9);
+	this.ackHandler.start();
 	
     }
 
 
     public void abortSimulation(){
-	aborted = true;
+	this.aborted = true;
 	try {
-	    Enumeration theServers = nodeServerStub.keys();
+	    Enumeration theServers = this.nodeServerStub.keys();
 	    while(theServers.hasMoreElements()){
 		Vector server = (Vector)theServers.nextElement();
-		NodeServer nodeServer = (NodeServer)nodeServerStub.get(server);
+		NodeServer nodeServer = (NodeServer)this.nodeServerStub.get(server);
 		nodeServer.reInitialiser();
 	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur : tentative d'arret des threads "+e);
 	}
 	
-	if(ackHandler != null){
-	    while(ackHandler.isAlive()){
-		ackHandler.interrupt();
+	if(this.ackHandler != null){
+	    while(this.ackHandler.isAlive()){
+		this.ackHandler.interrupt();
 		try{
 		    Thread.currentThread().sleep(50);
 		}
@@ -241,8 +232,8 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
     /** do nothing
      */
     public boolean containsAliveThreads(){
-	if(ackHandler != null){
-	    return ackHandler.isAlive();
+	if(this.ackHandler != null){
+	    return this.ackHandler.isAlive();
 	}
 	return false;
     }
@@ -252,18 +243,18 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      * it send an AlgorithmEndEvent to the GUI
      */
     public void terminatedAlgorithm() throws RemoteException {
-	synchronized(terminatedThreadCountSynchro){
-	    terminatedThreadCount++;
-	    if(terminatedThreadCount == graph.size()){
+	synchronized(this.terminatedThreadCountSynchro){
+	    this.terminatedThreadCount++;
+	    if(this.terminatedThreadCount == this.graph.size()){
 		try {
 		    
 		    //NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(nodeLocation);
 		    //nodeServer.getRound
-		    System.out.println("Le nombre final des messages est de : "+getMessageNumber());
+		    System.out.println("Le nombre final des messages est de : "+this.getMessageNumber());
 		    Date dateFin = new Date();
 		    System.out.println("Algorithme termine a : "+dateFin.toString());
-		    evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
-		    abortSimulation();
+		    this.evtQ.put(new AlgorithmEndEvent(this.numGen.alloc()));
+		    this.abortSimulation();
 		} catch (Exception e) {}
 	    }
 	}
@@ -274,18 +265,18 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void wedge() throws RemoteException {
 	try {
-	    Enumeration theNodes = graphStub.keys();
+	    Enumeration theNodes = this.graphStub.keys();
 	    while(theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(node);
 		nodeServer.wedge();
 	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur : tentative d interruption des threads"+e);
 	}
     
-	if(!paused){
-	    paused = true;
+	if(!this.paused){
+	    this.paused = true;
 	}
     }
     
@@ -294,20 +285,20 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void unWedge() throws RemoteException {
 	try {
-	    Enumeration theNodes = graphStub.keys();
+	    Enumeration theNodes = this.graphStub.keys();
 	    while(theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(node);
 		nodeServer.unWedge();
 	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur : tentative de relance des threads "+e);
 	}
 
-	if(paused){
-	    synchronized(pauseLock){
-		paused = false;
-		pauseLock.notifyAll();
+	if(this.paused){
+	    synchronized(this.pauseLock){
+		this.paused = false;
+		this.pauseLock.notifyAll();
 	    }
 	}
     }
@@ -316,14 +307,14 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
     /** do nothing 
      */
     public void runningControl(){
-	if(aborted){
+	if(this.aborted){
 	    throw new SimulationAbortError();
 	}
 	
-	if(paused){
-	    synchronized(pauseLock){
+	if(this.paused){
+	    synchronized(this.pauseLock){
 		try{
-		    pauseLock.wait();
+		    this.pauseLock.wait();
 		}
 		catch(InterruptedException e){
 		    throw new SimulationAbortError();
@@ -338,7 +329,7 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
     public void setNodeProperties(int nodeId, Hashtable properties) throws RemoteException {
 	try {
 	    String node = Integer.toString(nodeId);
-	    NodeInterfaceTry nodeServer = ((NodeInterfaceTry)graphStub.get(node));
+	    NodeInterfaceTry nodeServer = ((NodeInterfaceTry)this.graphStub.get(node));
 	    nodeServer.setNodeProperties(properties);
 	} catch (Exception e) {
 	    System.out.println("Erreur : "+e);
@@ -351,10 +342,10 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void setNodeDrawingMessage(boolean bool) throws RemoteException {
 	try {
-	    Enumeration theNodes = graphStub.keys();
+	    Enumeration theNodes = this.graphStub.keys();
 	    while(theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(node);
 		nodeServer.setNodeDrawingMessage(bool);
 	    }
 	} catch (Exception e) {
@@ -367,10 +358,10 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void setMessageType(MessageType msgType, boolean state) throws RemoteException {
 	try {
-	    Enumeration theNodes = graphStub.keys();
+	    Enumeration theNodes = this.graphStub.keys();
 	    while(theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(node);
 		nodeServer.setMessageType(msgType,state);
 	    }
 	} catch (Exception e) {
@@ -393,16 +384,16 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
     /** return tthe stubs of the LocalNodes
      */
     public Hashtable getGraphStub() throws RemoteException {
-	return nodeServerStub;
+	return this.nodeServerStub;
     }
     
 
     public VQueue evtVQueue() throws RemoteException{
-	return evtQ;
+	return this.evtQ;
     }
 
     public VQueue ackVQueue() throws RemoteException{
-	return ackQ;
+	return this.ackQ;
     }
     
 
@@ -415,10 +406,10 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	int totalLabel=0;
 
 	try {
-	    Enumeration theNodes = graphStub.keys();
+	    Enumeration theNodes = this.graphStub.keys();
 	    while(theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeServer = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeServer = (NodeInterfaceTry)this.graphStub.get(node);
 		Vector vect = nodeServer.getMessageNumber();
 		totalMessageNumber=totalMessageNumber+((Integer)vect.elementAt(0)).intValue();
 		totalSynchMessage=totalSynchMessage+((Integer)vect.elementAt(2)).intValue();
@@ -441,10 +432,10 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void pushNodePropertyChangeEvent(Integer nodeId, Object key, Object value) throws InterruptedException, RemoteException {
 	try {
-	    Long num = new Long(numGen.alloc());
-	    evtObjectTmp.put(num,nodeId);
+	    Long num = new Long(this.numGen.alloc());
+	    this.evtObjectTmp.put(num,nodeId);
 	    NodePropertyChangeEvent npce = new NodePropertyChangeEvent(num,nodeId,key,value);
-	    evtQ.put(npce);
+	    this.evtQ.put(npce);
 	} catch (Exception e) {
 	    System.out.println("erreur dasn PushProp-->SimulatorRmi "+e);
 	}
@@ -456,10 +447,10 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
      */
     public void pushEdgeStateChangeEvent(Integer nodeId1, Integer nodeId2, EdgeState es)throws InterruptedException, RemoteException {
 	try {
-	    Long key = new Long(numGen.alloc());
-	    evtObjectTmp.put(key,nodeId1);
+	    Long key = new Long(this.numGen.alloc());
+	    this.evtObjectTmp.put(key,nodeId1);
 	    EdgeStateChangeEvent esce = new EdgeStateChangeEvent(key,nodeId1, nodeId2,es);
-	    evtQ.put(esce);
+	    this.evtQ.put(esce);
 	} catch (Exception e) {
 	    System.out.println("Erreur pushEdge-->SimulatorRMi "+e);
 	}
@@ -471,17 +462,17 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
     public void pushMessageSendingEvent(Integer senderId, int door,Integer receiverId, Message msg)throws InterruptedException, RemoteException {
 	try {
 	    //construction du paquet pour l'affichage
-	    Vertex receiverVertex = graph.vertex(receiverId);
+	    Vertex receiverVertex = this.graph.vertex(receiverId);
 	    int receiveDoor = receiverVertex.indexOf(senderId);
 	    MessagePacket mesgPacket = new MessagePacket(senderId, door, receiverId, receiveDoor,msg);
 	   
 	    //Mise du paquet dans la file de message a afficher et
 	    //memorisation de l'identifiant du paquet
-	    Long key = new Long(numGen.alloc());
-	    evtObjectTmp.put(key,senderId);
+	    Long key = new Long(this.numGen.alloc());
+	    this.evtObjectTmp.put(key,senderId);
 	    
 	    MessageSendingEvent mse = new MessageSendingEvent(key, mesgPacket.message(),mesgPacket.sender(), mesgPacket.receiver());
-	    evtQ.put(mse);
+	    this.evtQ.put(mse);
 	} catch (Exception e) {
 	    System.out.println("Erreur pushMessag-->SimulatorRmi "+e);
 	}
@@ -505,16 +496,16 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	 * Acknowledge handlerr is instanciated with the acknowledge queue.
 	 */
 	AckFreeHandler(VQueue q, Hashtable table){
-	    ackPipe = q;
-	    locReso = table;
+	    this.ackPipe = q;
+	    this.locReso = table;
 	}
 	
 	public void run(){
 	    try{
 		SimulAck simAck = null;
-		while(! aborted){
+		while(! Simulator_Rmi.this.aborted){
 		    try{
-			simAck = (SimulAck) ackPipe.get();
+			simAck = (SimulAck) this.ackPipe.get();
 		    }
 		    catch(ClassCastException e){
 			e.printStackTrace();
@@ -524,15 +515,15 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 		    switch(simAck.type()){
 			
 		    case SimulConstants.NODE_PROPERTY_CHANGE : 
-			handleNodePropertyChangeAck(simAck);
+			this.handleNodePropertyChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.EDGE_STATE_CHANGE:
-			handleEdgeStateChangeAck(simAck);
+			this.handleEdgeStateChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.MESSAGE_SENT :
-			handleMessageSentAck((MessageSendingAck)simAck);
+			this.handleMessageSentAck((MessageSendingAck)simAck);
 			break;
 		    }
 		}
@@ -543,12 +534,12 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	
 	public void handleNodePropertyChangeAck(SimulAck sa)throws InterruptedException, RemoteException {
 	    try {
-		Integer nodeSource = (Integer)evtObjectTmp.remove(sa.number());
-		NodeInterfaceTry node = (NodeInterfaceTry)locReso.get(nodeSource.toString());
+		Integer nodeSource = (Integer)Simulator_Rmi.this.evtObjectTmp.remove(sa.number());
+		NodeInterfaceTry node = (NodeInterfaceTry)this.locReso.get(nodeSource.toString());
 		node.free();
-		numGen.free(sa.number().longValue());
+		Simulator_Rmi.this.numGen.free(sa.number().longValue());
 	    } catch (RemoteException re) {
-		ignore("Erreur : reseaux indisponible pour acquitement chgt etat noeud");
+		this.ignore("Erreur : reseaux indisponible pour acquitement chgt etat noeud");
 	    } catch (Exception e ){
 		System.out.println("ERREUR : handleNodePropertyChangeAck");
 		System.out.println(e);
@@ -557,12 +548,12 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	
 	public void handleEdgeStateChangeAck(SimulAck sa)throws InterruptedException, RemoteException {
 	    try{
-		Integer nodeSource = (Integer)evtObjectTmp.remove(sa.number());
-		NodeInterfaceTry node = (NodeInterfaceTry)locReso.get(nodeSource.toString());
+		Integer nodeSource = (Integer)Simulator_Rmi.this.evtObjectTmp.remove(sa.number());
+		NodeInterfaceTry node = (NodeInterfaceTry)this.locReso.get(nodeSource.toString());
 		node.free();
-		numGen.free(sa.number().longValue());
+		Simulator_Rmi.this.numGen.free(sa.number().longValue());
 	    } catch (RemoteException re) {
-		ignore("Erreur : reseaux indisponible pour acquitement de chgt etat arrete");
+		this.ignore("Erreur : reseaux indisponible pour acquitement de chgt etat arrete");
 	    } catch (Exception e) { 
 		System.out.println("ERREUR : handleEdgeStateChangeAck");
 		System.out.println(e);
@@ -571,12 +562,12 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	
 	public void handleMessageSentAck(MessageSendingAck msa)throws InterruptedException {
 	    try {
-		Integer nodeSource = (Integer)evtObjectTmp.remove(msa.number());
-		NodeInterfaceTry node = (NodeInterfaceTry)locReso.get(nodeSource.toString());
+		Integer nodeSource = (Integer)Simulator_Rmi.this.evtObjectTmp.remove(msa.number());
+		NodeInterfaceTry node = (NodeInterfaceTry)this.locReso.get(nodeSource.toString());
 		node.free();
-		numGen.free(msa.number().longValue());
+		Simulator_Rmi.this.numGen.free(msa.number().longValue());
 	    } catch (RemoteException re) {
-		ignore("Erreur : Impossible de contacter un noeud pour acquitement d'envoie de message");
+		this.ignore("Erreur : Impossible de contacter un noeud pour acquitement d'envoie de message");
 	    } catch (Exception e) {
 		System.out.println("ERREUR : handleMessageSentAck "+e);
 	    }

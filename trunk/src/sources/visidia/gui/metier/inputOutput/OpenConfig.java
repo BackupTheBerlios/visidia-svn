@@ -44,17 +44,17 @@ public class OpenConfig implements Serializable{
 	    BufferedReader br = new BufferedReader(fr);
 	    while(br.ready()){
 		String line = br.readLine();
-		if (visuHost == null){
-		    setVisu(line);
+		if (this.visuHost == null){
+		    this.setVisu(line);
 		}
 		else{
-		    handleLine(line);
+		    this.handleLine(line);
 		}
 	    }
 	    fr.close();
 	    
 	   
-	    fenetre.setNetworkParam(createNetworkParam(sizeOfTheGraph),visuHost,visuUrl);
+	    fenetre.setNetworkParam(this.createNetworkParam(sizeOfTheGraph),this.visuHost,this.visuUrl);
 	
 	} catch (Exception excpt) {
 	    System.out.println("Problem : " + excpt);
@@ -65,13 +65,13 @@ public class OpenConfig implements Serializable{
     private void setVisu(String ligne){
 	StringTokenizer st = new StringTokenizer(ligne);
 	while (st.hasMoreTokens()) {
-	    if (visuHost==null)
-		visuHost=st.nextToken();
-	    else if (visuUrl==null)
-		visuUrl=st.nextToken();
+	    if (this.visuHost==null)
+		this.visuHost=st.nextToken();
+	    else if (this.visuUrl==null)
+		this.visuUrl=st.nextToken();
 	}
-	if  (visuUrl==null)
-	    visuUrl=DEFAULT_URL_FOR_VISU;
+	if  (this.visuUrl==null)
+	    this.visuUrl=DEFAULT_URL_FOR_VISU;
 	
     }
 
@@ -91,24 +91,24 @@ public class OpenConfig implements Serializable{
 	    }
 	}
 	if(vect.isEmpty()){
-	    hostNummer+=1;
+	    this.hostNummer+=1;
 	    vect.addElement(host);
-	    parameters.put(host,vect);
+	    this.parameters.put(host,vect);
 	} else {
-	    hostNummer+=vect.size();
-	    parameters.put(host,vect);
+	    this.hostNummer+=vect.size();
+	    this.parameters.put(host,vect);
 	}
     }
     
 
     public LocalNodeTable createNetworkParam(int sizeOfTheGraph ){
 	LocalNodeTable lnt = new LocalNodeTable();
-	if(sizeOfTheGraph<=hostNummer){
+	if(sizeOfTheGraph<=this.hostNummer){
 	    int i = 0;
-	    Enumeration hosts = parameters.keys();
+	    Enumeration hosts = this.parameters.keys();
 	    while(hosts.hasMoreElements() && (i<sizeOfTheGraph)){
 		String aHost = (String)hosts.nextElement();
-		Vector localNodes = (Vector)parameters.get(aHost);
+		Vector localNodes = (Vector)this.parameters.get(aHost);
 		while(! localNodes.isEmpty() && (i<sizeOfTheGraph)){
 		    String localNode = (String)localNodes.remove(0);
 		    Vector v = new Vector();
@@ -118,14 +118,14 @@ public class OpenConfig implements Serializable{
 		}
 	    }
 	} else {
-	    int pas = sizeOfTheGraph/hostNummer;
-	    int reste = sizeOfTheGraph-hostNummer*pas;
-	    Enumeration hosts = parameters.keys();
+	    int pas = sizeOfTheGraph/this.hostNummer;
+	    int reste = sizeOfTheGraph-this.hostNummer*pas;
+	    Enumeration hosts = this.parameters.keys();
 	    int current = 0;
 
 	    while(hosts.hasMoreElements()){
 		String aHost = (String)hosts.nextElement();
-		Vector localNodes = (Vector)parameters.get(aHost);
+		Vector localNodes = (Vector)this.parameters.get(aHost);
 		while(! localNodes.isEmpty()){
 		    String localNode = (String)localNodes.remove(0);
 		    if (reste>0){

@@ -10,20 +10,19 @@ import visidia.algo.SynchroAlgo;
 import java.util.Vector;
 public class AlgoRule extends SynchroAlgo {
     public Vector rule; //SimpleRule
-    private String finalState;
     protected boolean[] marquage;
 
     public AlgoRule(Vector r){   //SimpleRule
-	rule = r;
+	this.rule = r;
 	
     }
     
     public void init(){
 
-	int arity=getArity();
-	marquage = new boolean[arity];
+	int arity=this.getArity();
+	this.marquage = new boolean[arity];
 	for(int i=0; i< arity;i++)
-	    marquage[i]=false;
+	    this.marquage[i]=false;
 	while(true){
 	    
 	    
@@ -33,61 +32,61 @@ public class AlgoRule extends SynchroAlgo {
 	    if(!this.isFinished()){		
 		//choix du chef
 		int mychoice = SynchronizedRandom.nextInt();
-		sendTo(neighbour,new IntegerMessage(new Integer(mychoice)));
-		IntegerMessage ccm=(IntegerMessage )receiveFrom(neighbour,new IntegerMessageCriterion());
+		this.sendTo(neighbour,new IntegerMessage(new Integer(mychoice)));
+		IntegerMessage ccm=(IntegerMessage )this.receiveFrom(neighbour,new IntegerMessageCriterion());
 		int compare= ccm.value();
 		System.out.println(ccm);
 		//si je suis le chef
 		if( mychoice > compare ) {
 		    //echange des etats
 		    String hisState;
-		    Message msg=receiveFrom(neighbour,new StringMessageCriterion());
+		    Message msg=this.receiveFrom(neighbour,new StringMessageCriterion());
 		    StringMessage smsg = (StringMessage) msg;
 		    hisState = smsg.data();
 		    
 		    //application de la regle
-		    Arrow a = new Arrow(getState(),hisState);
+		    Arrow a = new Arrow(this.getState(),hisState);
 		    Arrow after;
-		    int longueur = rule.size();
+		    int longueur = this.rule.size();
 		    System.out.println(longueur);
 		    int i;
 		    //parcourir toute la liste des rules
 		    for( i=0; i < longueur; i++){
 			System.out.println("Regle "+i);
-			SimpleRule r = (SimpleRule) rule.elementAt(i);
+			SimpleRule r = (SimpleRule) this.rule.elementAt(i);
 			    
 			if( r.isApplicable(a)){
 			    after =r.apply(a);
 				//marquage de l arete
-			    if(marquage[neighbour] == false)
-				marquage[neighbour] = after.isMarked;
+			    if(this.marquage[neighbour] == false)
+				this.marquage[neighbour] = after.isMarked;
 			    if(a.isMarked)
-				setDoorState(new MarkedState(true),neighbour);
+				this.setDoorState(new MarkedState(true),neighbour);
 			    
-			    setState(after.left);
-			    sendTo(neighbour,new ArrowMessage(after));
+			    this.setState(after.left);
+			    this.sendTo(neighbour,new ArrowMessage(after));
 			    System.out.println(hisState);
 			    break;
 			}
 		    }
 		    if(i ==longueur){
 			System.out.println("aucune regle applicable");
-			sendTo(neighbour,new ArrowMessage(a));
+			this.sendTo(neighbour,new ArrowMessage(a));
 		    }
 
 		}
 		else {
-		    sendTo(neighbour, new StringMessage(getState()));
-		    Message msg=receiveFrom(neighbour,new ArrowMessageCriterion()); 
+		    this.sendTo(neighbour, new StringMessage(this.getState()));
+		    Message msg=this.receiveFrom(neighbour,new ArrowMessageCriterion()); 
 		    ArrowMessage smsg =(ArrowMessage)msg;
 		    Arrow arete = smsg.data();
-		    setState(arete.right);
+		    this.setState(arete.right);
 		    //marquage de l arete;
 		    
-		    if(marquage[neighbour]==false)
-			marquage[neighbour]=arete.isMarked;
+		    if(this.marquage[neighbour]==false)
+			this.marquage[neighbour]=arete.isMarked;
 		    if(arete.isMarked)
-			setDoorState(new MarkedState(true),neighbour);
+			this.setDoorState(new MarkedState(true),neighbour);
 		}
 	    }
 	}
@@ -105,16 +104,16 @@ public class AlgoRule extends SynchroAlgo {
 	return false;
     }
     public Object clone(){
-	return new AlgoRule(rule);
+	return new AlgoRule(this.rule);
 
     }
 
     public String getState(){
-	return (String) getProperty("label");
+	return (String) this.getProperty("label");
     }
 
     public void setState(String newState){
-	putProperty("label", newState);
+	this.putProperty("label", newState);
     }
 
 

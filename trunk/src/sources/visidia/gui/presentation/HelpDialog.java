@@ -14,12 +14,12 @@ public class HelpDialog extends JDialog {
 
     public HelpDialog(JFrame parent, String title) {
 	super(parent, title);
-	owner = parent;
+	this.owner = parent;
 	//Create a text area.
-        textArea = new JTextArea();
-	textArea.setFont(new Font("Courier", Font.TRUETYPE_FONT, 13));
-        textArea.setWrapStyleWord(true);
-        JScrollPane areaScrollPane = new JScrollPane(textArea);
+        this.textArea = new JTextArea();
+	this.textArea.setFont(new Font("Courier", Font.TRUETYPE_FONT, 13));
+        this.textArea.setWrapStyleWord(true);
+        JScrollPane areaScrollPane = new JScrollPane(this.textArea);
         areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         areaScrollPane.setPreferredSize(new Dimension(400, 300));
         areaScrollPane.setBorder(
@@ -28,34 +28,34 @@ public class HelpDialog extends JDialog {
 		                BorderFactory.createTitledBorder(title),
                                 BorderFactory.createEmptyBorder(5,5,5,5)),
                 areaScrollPane.getBorder()));
-	textArea.setBorder (BorderFactory.createCompoundBorder 
+	this.textArea.setBorder (BorderFactory.createCompoundBorder 
 			       (BorderFactory.createRaisedBevelBorder(),
 				BorderFactory.createCompoundBorder(
 				   BorderFactory.createLoweredBevelBorder (), 
                                    BorderFactory.createEmptyBorder(5,5,5,5))));
 	
-	getContentPane().add(areaScrollPane);
-	pack();
-	setVisible(false);
+	this.getContentPane().add(areaScrollPane);
+	this.pack();
+	this.setVisible(false);
     }
 
     public void setVisible(boolean b) {
-	Dimension ownerDim = owner.getPreferredSize ();
-	setLocation ((int) (owner.getX () + 
-			    ownerDim.getWidth () / 2 - getWidth () / 2),
-		     (int) (owner.getY () + ownerDim.getHeight () / 5));
+	Dimension ownerDim = this.owner.getPreferredSize ();
+	this.setLocation ((int) (this.owner.getX () + 
+			    ownerDim.getWidth () / 2 - this.getWidth () / 2),
+		     (int) (this.owner.getY () + ownerDim.getHeight () / 5));
 	super.setVisible(b);
     }
 
     public void setText(String txt) {
-	textArea.setText(txt);
+	this.textArea.setText(txt);
     }
  
     public String getText() {
-	return textArea.getText();
+	return this.textArea.getText();
     }
 
     public void setEditable(boolean b) {
-	textArea.setEditable(b);
+	this.textArea.setEditable(b);
     }
 }

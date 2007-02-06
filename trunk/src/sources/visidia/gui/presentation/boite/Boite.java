@@ -46,13 +46,13 @@ public class Boite extends JOptionPane {
     this.parent = parent;
 
     if (type == OK_CANCEL_OPTION) {
-      setOptions(OK_CANCEL_BUTTONS);    
+      this.setOptions(OK_CANCEL_BUTTONS);    
     } else {
-      setOptions(DISMISS_BUTTON);
+      this.setOptions(DISMISS_BUTTON);
     }
 
-    setOptionType(type);
-    setMessageType(PLAIN_MESSAGE);
+    this.setOptionType(type);
+    this.setMessageType(PLAIN_MESSAGE);
 
   }
 
@@ -69,10 +69,10 @@ public class Boite extends JOptionPane {
     this.title = title;
     this.parent = parent;
     Object[] labels = {labelGauche, labelDroite};
-    setOptions(labels);
+    this.setOptions(labels);
 
-    setOptionType(OK_CANCEL_OPTION);
-    setMessageType(PLAIN_MESSAGE);
+    this.setOptionType(OK_CANCEL_OPTION);
+    this.setMessageType(PLAIN_MESSAGE);
     
   }
 
@@ -99,11 +99,11 @@ public class Boite extends JOptionPane {
      * <b>boutonCancelAppuye</b> est appelée.
      */
     public void showDialog() { 
-	setMessage(createContent());
+	this.setMessage(this.createContent());
 	
-	createDialog(parent, title).show();
+	this.createDialog(this.parent, this.title).show();
 	
-	String selectedButton = (String)getValue();
+	String selectedButton = (String)this.getValue();
 	
 	if (selectedButton != null) {
 	    if (selectedButton == "Ok") {
@@ -121,9 +121,9 @@ public class Boite extends JOptionPane {
      * @param closeable Si ce booleen vaut VRAI, la fermeture de la boite 
      */
     public String dialogValue() { 
-	setMessage(createContent());
-	createDialog(parent, title).show();
-	return (String)getValue();
+	this.setMessage(this.createContent());
+	this.createDialog(this.parent, this.title).show();
+	return (String)this.getValue();
     }
     
     

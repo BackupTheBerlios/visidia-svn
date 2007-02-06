@@ -45,8 +45,8 @@ public class FusionneSommet implements UndoObject {
 			  int original_Y) {
 	this.sommetDetruit = sommetDetruit;
 	this.sommetGarde = sommetGarde;
-	aretesEntrantes = new Vector();
-	aretesSortantes = new Vector();
+	this.aretesEntrantes = new Vector();
+	this.aretesSortantes = new Vector();
 	Enumeration e = sommetDetruit.getSommet().aretesEntrantes();
 	while (e.hasMoreElements()) {
 	    this.aretesEntrantes.addElement(((Arete)e.nextElement()).getAreteDessin());
@@ -60,30 +60,30 @@ public class FusionneSommet implements UndoObject {
     }
   
     public void undo() {
-	sommetDetruit.getVueGraphe().putObject(sommetDetruit);
+	this.sommetDetruit.getVueGraphe().putObject(this.sommetDetruit);
 	int i;
-	for (i=0; i<aretesSortantes.size(); i++) {
-	    ((AreteDessin)aretesSortantes.elementAt(i)).changerOrigine(sommetDetruit);
+	for (i=0; i<this.aretesSortantes.size(); i++) {
+	    ((AreteDessin)this.aretesSortantes.elementAt(i)).changerOrigine(this.sommetDetruit);
 	}
-	for (i=0; i<aretesEntrantes.size(); i++) {
-	    ((AreteDessin)aretesEntrantes.elementAt(i)).changerDestination(sommetDetruit);
+	for (i=0; i<this.aretesEntrantes.size(); i++) {
+	    ((AreteDessin)this.aretesEntrantes.elementAt(i)).changerDestination(this.sommetDetruit);
 	}
-	sommetDetruit.placer(original_X, original_Y);
+	this.sommetDetruit.placer(this.original_X, this.original_Y);
     }
 
 
     public void redo() {
 	int i;
-	for (i=0; i<aretesSortantes.size(); i++) {
-	    ((AreteDessin)aretesSortantes.elementAt(i)).changerOrigine(sommetGarde);
+	for (i=0; i<this.aretesSortantes.size(); i++) {
+	    ((AreteDessin)this.aretesSortantes.elementAt(i)).changerOrigine(this.sommetGarde);
 	}
-	for (i=0; i<aretesEntrantes.size(); i++) {
-	    ((AreteDessin)aretesEntrantes.elementAt(i)).changerDestination(sommetGarde);
+	for (i=0; i<this.aretesEntrantes.size(); i++) {
+	    ((AreteDessin)this.aretesEntrantes.elementAt(i)).changerDestination(this.sommetGarde);
 	}
-	sommetDetruit.getVueGraphe().delObject(sommetDetruit);
+	this.sommetDetruit.getVueGraphe().delObject(this.sommetDetruit);
     }
 
     public FormeDessin content() {
-	return sommetDetruit;
+	return this.sommetDetruit;
     }
 }

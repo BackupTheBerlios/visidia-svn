@@ -41,9 +41,9 @@ public class MultiEnsemble extends Ensemble {
      * son compteur est incrémenté. "un_objet" ne doit pas être "null".
      **/
     public void inserer(Object un_objet) {
-	Object c = table.get(un_objet);
+	Object c = this.table.get(un_objet);
 	if(c == null)
-	    table.put(un_objet, new MECompteur());
+	    this.table.put(un_objet, new MECompteur());
 	else
 	    ((MECompteur)c).i++;
     }
@@ -55,9 +55,9 @@ public class MultiEnsemble extends Ensemble {
      **/
     public void inserer(Object un_objet, int cardinalite) {
 	//    assert(cardinalite > 0)
-	Object c = table.get(un_objet);
+	Object c = this.table.get(un_objet);
 	if(c == null)
-	    table.put(un_objet, new MECompteur(cardinalite));
+	    this.table.put(un_objet, new MECompteur(cardinalite));
 	else
 	    ((MECompteur)c).i += cardinalite;
     }
@@ -68,11 +68,11 @@ public class MultiEnsemble extends Ensemble {
      * compteur est décrémenté.
      **/
     public void supprimer(Object un_objet) {
-	MECompteur c = (MECompteur)table.get(un_objet);
+	MECompteur c = (MECompteur)this.table.get(un_objet);
 	if((c != null) && (c.i != 1))
 	    c.i--;
 	else
-	    table.remove(un_objet);
+	    this.table.remove(un_objet);
     }
 
     /**
@@ -80,7 +80,7 @@ public class MultiEnsemble extends Ensemble {
      * nombre de fois qu'il est présent dans l'ensemble.
      **/
     public int cardinalite(Object un_objet) {
-	Object c = table.get(un_objet);
+	Object c = this.table.get(un_objet);
 	if(c == null)
 	    return 0;
 	else
@@ -92,10 +92,10 @@ public class MultiEnsemble extends Ensemble {
      * C'est un traitement assez couteux.
      **/
     public Object clone() {
-	MultiEnsemble nouveau = new MultiEnsemble((Hashtable)table.clone());
-	for(Enumeration e = table.keys(); e.hasMoreElements();) {
+	MultiEnsemble nouveau = new MultiEnsemble((Hashtable)this.table.clone());
+	for(Enumeration e = this.table.keys(); e.hasMoreElements();) {
 	    Object cle = e.nextElement();
-	    table.put(cle, ((MECompteur)table.get(cle)).clone());
+	    this.table.put(cle, ((MECompteur)this.table.get(cle)).clone());
 	}
 	return nouveau;
     }
@@ -104,7 +104,7 @@ public class MultiEnsemble extends Ensemble {
      * Cree un ensemble contenant les éléments du MultiEnsemble courant.
      **/
     public Ensemble ensemble() {
-	return new Ensemble((Hashtable)table.clone());
+	return new Ensemble((Hashtable)this.table.clone());
     }
 
     /**
@@ -115,7 +115,7 @@ public class MultiEnsemble extends Ensemble {
 
 	while(e.hasMoreElements()) {
 	    Object objet_courant = e.nextElement();
-	    inserer(objet_courant,
+	    this.inserer(objet_courant,
 		    ((MECompteur)un_multiensemble.table.get(objet_courant)).i);
 	}
     }
@@ -136,7 +136,7 @@ class MECompteur implements Cloneable ,Serializable{
     // Constructeurs.
 
     protected MECompteur() {
-	i = 1;
+	this.i = 1;
     }
 
     protected MECompteur(int i) {
@@ -149,7 +149,7 @@ class MECompteur implements Cloneable ,Serializable{
 	try {
 	    return super.clone();
 	} catch(CloneNotSupportedException e) {
-	    return new MECompteur(i);
+	    return new MECompteur(this.i);
 	}
     }
 }

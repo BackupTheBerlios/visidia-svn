@@ -13,15 +13,15 @@ public class Door {
 
 
     public Door(int num){
-	doorNum = num;
+	this.doorNum = num;
     }
 
 
     public int getNum(){
-	return doorNum;
+	return this.doorNum;
     }
 
     public void setNum(int num){
-	doorNum = num;
+	this.doorNum = num;
     }
 }	

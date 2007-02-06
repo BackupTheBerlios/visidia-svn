@@ -23,19 +23,19 @@ public class LinearAgentMover extends AgentMover {
      */
     public LinearAgentMover(Agent ag) {
         super(ag);
-        nextDoorToGo = new int [ag.getNetSize()];
+        this.nextDoorToGo = new int [ag.getNetSize()];
 
         /* Starts on the first door */
-        Arrays.fill(nextDoorToGo, 0);
+        Arrays.fill(this.nextDoorToGo, 0);
     }
 
     protected int findNextDoor() {
-        int vertex = agent().getVertexIdentity();
-        int doorToGo = nextDoorToGo[vertex];
-        int arity = agent().getArity();
+        int vertex = this.agent().getVertexIdentity();
+        int doorToGo = this.nextDoorToGo[vertex];
+        int arity = this.agent().getArity();
 
         /* The following door is the current one plus 1 */
-        nextDoorToGo[vertex] = (nextDoorToGo[vertex] + 1) % arity;
+        this.nextDoorToGo[vertex] = (this.nextDoorToGo[vertex] + 1) % arity;
 
         return doorToGo;
     }

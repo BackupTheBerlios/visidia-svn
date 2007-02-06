@@ -62,9 +62,9 @@ public class BoiteGraphe extends Boite implements ActionListener, ChangeListener
     //infoPane.add(new JLabel("Graph model :"));
     //infoPane.add(new JLabel(editeur.graph().type()));
     infoPane.add(new JLabel("Number of vertices :"));
-    infoPane.add(new JLabel(Integer.toString(editeur.graph().ordre())));
+    infoPane.add(new JLabel(Integer.toString(this.editeur.graph().ordre())));
     infoPane.add(new JLabel("Number of edges :"));
-    infoPane.add(new JLabel(Integer.toString(editeur.graph().taille())));
+    infoPane.add(new JLabel(Integer.toString(this.editeur.graph().taille())));
     
     mainPane.add(infoPane, BorderLayout.NORTH);
     
@@ -73,92 +73,92 @@ public class BoiteGraphe extends Boite implements ActionListener, ChangeListener
     gfxPropPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 							   "Other document properties"));
 
-    colorLabel = new JLabel("Background color : "
-			    + Integer.toString(editeur.couleur_de_fond().getRed())
-			    + ", " + Integer.toString(editeur.couleur_de_fond().getBlue())	
-			    + ", " + Integer.toString(editeur.couleur_de_fond().getGreen()));
-    newColor = editeur.couleur_de_fond();
-    colorChooserButton = new JButton("Change color");
-    colorChooserButton.addActionListener(this);
+    this.colorLabel = new JLabel("Background color : "
+			    + Integer.toString(this.editeur.couleur_de_fond().getRed())
+			    + ", " + Integer.toString(this.editeur.couleur_de_fond().getBlue())	
+			    + ", " + Integer.toString(this.editeur.couleur_de_fond().getGreen()));
+    this.newColor = this.editeur.couleur_de_fond();
+    this.colorChooserButton = new JButton("Change color");
+    this.colorChooserButton.addActionListener(this);
 
-    new_width = editeur.grapheVisuPanel().getPreferredSize().width;
-    widthLabel = new JLabel("Desk width : "
-			    + Integer.toString(new_width));
-    x_slider = new JSlider(0,2 * new_width, new_width);
-    x_slider.addChangeListener(this);
+    this.new_width = this.editeur.grapheVisuPanel().getPreferredSize().width;
+    this.widthLabel = new JLabel("Desk width : "
+			    + Integer.toString(this.new_width));
+    this.x_slider = new JSlider(0,2 * this.new_width, this.new_width);
+    this.x_slider.addChangeListener(this);
     
-    new_height = editeur.grapheVisuPanel().getPreferredSize().height;
-    heightLabel = new JLabel("Desk height : " 
-			     + Integer.toString(new_height));
-    y_slider = new JSlider(0,2 * new_height, new_height);
-    y_slider.addChangeListener(this);
+    this.new_height = this.editeur.grapheVisuPanel().getPreferredSize().height;
+    this.heightLabel = new JLabel("Desk height : " 
+			     + Integer.toString(this.new_height));
+    this.y_slider = new JSlider(0,2 * this.new_height, this.new_height);
+    this.y_slider.addChangeListener(this);
     
-    gfxPropPane.add(colorLabel);
-    gfxPropPane.add(colorChooserButton);
-    gfxPropPane.add(widthLabel);
-    gfxPropPane.add(x_slider);
-    gfxPropPane.add(heightLabel);
-    gfxPropPane.add(y_slider);
+    gfxPropPane.add(this.colorLabel);
+    gfxPropPane.add(this.colorChooserButton);
+    gfxPropPane.add(this.widthLabel);
+    gfxPropPane.add(this.x_slider);
+    gfxPropPane.add(this.heightLabel);
+    gfxPropPane.add(this.y_slider);
 
     mainPane.add(gfxPropPane, BorderLayout.CENTER);
 
-    applyButton = new JButton("Apply");
-    applyButton.addActionListener(this);
-    applyButton.setEnabled(modif);
+    this.applyButton = new JButton("Apply");
+    this.applyButton.addActionListener(this);
+    this.applyButton.setEnabled(this.modif);
     
-    mainPane.add(applyButton, BorderLayout.SOUTH);
+    mainPane.add(this.applyButton, BorderLayout.SOUTH);
     
     return mainPane;
   }
   
   /** Cette methode est appelee quand l'utilisateur clique sur le bouton <b>Choose color</b> ou sur le bouton <b>Apply</b> */
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == colorChooserButton) {
-      Color choosedColor = JColorChooser.showDialog(parent, 
+    if (e.getSource() == this.colorChooserButton) {
+      Color choosedColor = JColorChooser.showDialog(this.parent, 
 						    "Choose color", 
-						    editeur.couleur_de_fond());
-      if (newColor != null) {
-	modif = true;
-	applyButton.setEnabled(modif);
-	newColor = choosedColor;
+						    this.editeur.couleur_de_fond());
+      if (this.newColor != null) {
+	this.modif = true;
+	this.applyButton.setEnabled(this.modif);
+	this.newColor = choosedColor;
       }
-      colorLabel.setText("Background color : " 
-			 + Integer.toString(newColor.getRed())
-			 + ", " + Integer.toString(newColor.getBlue())	
-			 + ", " + Integer.toString(newColor.getGreen()));
-      colorChooserButton.setBackground(newColor);
+      this.colorLabel.setText("Background color : " 
+			 + Integer.toString(this.newColor.getRed())
+			 + ", " + Integer.toString(this.newColor.getBlue())	
+			 + ", " + Integer.toString(this.newColor.getGreen()));
+      this.colorChooserButton.setBackground(this.newColor);
     }
-    if (e.getSource() == applyButton) {
-      modif = false;
-      applyButton.setEnabled(modif);
-      boutonOkAppuye();
+    if (e.getSource() == this.applyButton) {
+      this.modif = false;
+      this.applyButton.setEnabled(this.modif);
+      this.boutonOkAppuye();
     }
   }
   
   /** Cette methode est appelee quand l'utilisateur actionne l'une des deux jauges permettant de regler la taille du plan de travail.*/
   public void stateChanged(ChangeEvent evt) {
-    if (evt.getSource() == x_slider) {
-      modif = true;
-      applyButton.setEnabled(modif);
-      new_width = x_slider.getValue();
-      widthLabel.setText("Desk width : "
-			 + Integer.toString(new_width));
+    if (evt.getSource() == this.x_slider) {
+      this.modif = true;
+      this.applyButton.setEnabled(this.modif);
+      this.new_width = this.x_slider.getValue();
+      this.widthLabel.setText("Desk width : "
+			 + Integer.toString(this.new_width));
     }
-    if (evt.getSource() == y_slider) {
-      modif = true;
-      applyButton.setEnabled(modif);
-      new_height = y_slider.getValue();
-      heightLabel.setText("Desk height : "
-			  + Integer.toString(new_height));
+    if (evt.getSource() == this.y_slider) {
+      this.modif = true;
+      this.applyButton.setEnabled(this.modif);
+      this.new_height = this.y_slider.getValue();
+      this.heightLabel.setText("Desk height : "
+			  + Integer.toString(this.new_height));
     }
   }
   
   public void boutonOkAppuye() {
-    editeur.change_couleur_de_fond(newColor);
-    editeur.grapheVisuPanel().setBackground(newColor);
-    editeur.grapheVisuPanel().setPreferredSize(new Dimension(new_width, new_height));
-    editeur.grapheVisuPanel().revalidate();
-    editeur.grapheVisuPanel().repaint();
+    this.editeur.change_couleur_de_fond(this.newColor);
+    this.editeur.grapheVisuPanel().setBackground(this.newColor);
+    this.editeur.grapheVisuPanel().setPreferredSize(new Dimension(this.new_width, this.new_height));
+    this.editeur.grapheVisuPanel().revalidate();
+    this.editeur.grapheVisuPanel().repaint();
   }
 }
 

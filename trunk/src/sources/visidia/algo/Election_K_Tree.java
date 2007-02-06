@@ -29,24 +29,24 @@ public class Election_K_Tree extends Algorithm {
         final String nodeF=new String("F");
         final String nodeE=new String("E");
         
-        final int neighbour=getArity();
+        final int neighbour=this.getArity();
         
         String neighbourState[];
         Vector synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         boolean finishedNode[];
         
-        putProperty("label",new String(nodeN));
+        this.putProperty("label",new String(nodeN));
         
         neighbourState=new String[neighbour];
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
         while(run){
-            synchro=starSynchro(finishedNode);
+            synchro=this.starSynchro(finishedNode);
 	    if (synchro != null ){
 		if (((Integer) synchro.elementAt(0)).intValue()==-1) {
 		    int n_Count=0;
@@ -54,7 +54,7 @@ public class Election_K_Tree extends Algorithm {
 		    
 		    for (int door=0;door<neighbour;door++)
 			if (!finishedNode[door]) {
-			    neighbourState[door]=((StringMessage) receiveFrom(door)).data();
+			    neighbourState[door]=((StringMessage) this.receiveFrom(door)).data();
 			    if (neighbourState[door].compareTo(nodeN) == 0)
 				n_Count++;
 			    else
@@ -63,39 +63,39 @@ public class Election_K_Tree extends Algorithm {
 			else
 			    f_Count++;
 		    
-		    if ((((String) getProperty("label")).compareTo(nodeN)==0) &&
-			(n_Count<=K) && (n_Count>0)) {
-			putProperty("label",new String(nodeF));
+		    if ((((String) this.getProperty("label")).compareTo(nodeN)==0) &&
+			(n_Count<=this.K) && (n_Count>0)) {
+			this.putProperty("label",new String(nodeF));
 			run=false;
 		    }
 		    else
-			if ((((String) getProperty("label")).compareTo(nodeN)==0) &&
+			if ((((String) this.getProperty("label")).compareTo(nodeN)==0) &&
 			    (n_Count==0)) {
-			    putProperty("label",new String(nodeE));
+			    this.putProperty("label",new String(nodeE));
 			    run=false;
 			}
 		    
 		    
 		    
-		    breakSynchro();
+		    this.breakSynchro();
 		    
 		}
 		else {
 		    for (int i=0;i<synchro.size();i++)
-			sendTo(((Integer) synchro.elementAt(i)).intValue(),new StringMessage((String) getProperty("label"),labels));
+			this.sendTo(((Integer) synchro.elementAt(i)).intValue(),new StringMessage((String) this.getProperty("label"),labels));
                 }
                 
             }
             
         }
         
-        sendAll(new IntegerMessage(new Integer(-1),synchronization));
+        this.sendAll(new IntegerMessage(new Integer(-1),synchronization));
         
     }
     
     public Vector starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         Vector neighbourCenter;
         
@@ -106,14 +106,14 @@ public class Election_K_Tree extends Algorithm {
         //sendAll(new IntegerMessage(new Integer(choosenNumber),synchronization));
          for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
 
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++)
 	    if (! finishedNode[i]) {
-		Message msg = receiveFrom(i);
+		Message msg = this.receiveFrom(i);
 		answer[i]= ((IntegerMessage)msg).value();
 		if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -128,20 +128,20 @@ public class Election_K_Tree extends Algorithm {
 	    }
         
         if (choosenNumber >= max) {
-            for( int door = 0; door < getArity(); door++)
+            for( int door = 0; door < this.getArity(); door++)
 		if (! finishedNode[door]) {
-		    setDoorState(new SyncState(true),door);
+		    this.setDoorState(new SyncState(true),door);
 		}
             
             for( int i = 0; i < arite; i++){
 		if (! finishedNode[i]) {
-		    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+		    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
 		}
 	    }
             
             for (int i=0;i<arite;i++)
 		if (! finishedNode[i]) {
-		    Message msg=receiveFrom(i);
+		    Message msg=this.receiveFrom(i);
 		}
 	    
             neighbourCenter=new Vector();
@@ -156,13 +156,13 @@ public class Election_K_Tree extends Algorithm {
             
             for( int i = 0; i < arite; i++){
 		if (! finishedNode[i]) {
-		    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+		    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
 		}
 	    }
 	    
             for (int i=0; i<arite;i++) 
 		if (! finishedNode[i]) {
-		    Message msg=receiveFrom(i);
+		    Message msg=this.receiveFrom(i);
 		    if  (((IntegerMessage)msg).value() == 1) {
 			neighbourCenter.add(new Integer(i));
 		    }
@@ -178,8 +178,8 @@ public class Election_K_Tree extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     

@@ -22,8 +22,8 @@ public class NodePropertyChangeEvent implements SimulEvent, Serializable{
      * Construct new node property change event object. 
      */
     public NodePropertyChangeEvent(Long eventNumber, Integer nodeId, Object key, Object value){
-	id = nodeId;
-	evtNum = eventNumber.longValue();
+	this.id = nodeId;
+	this.evtNum = eventNumber.longValue();
 	this.key = key;
 	this.value = value;
     }
@@ -32,7 +32,7 @@ public class NodePropertyChangeEvent implements SimulEvent, Serializable{
      * return the event number.
      */
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**
@@ -46,21 +46,21 @@ public class NodePropertyChangeEvent implements SimulEvent, Serializable{
      * return the node id whose the property change.
      */
     public Integer nodeId(){
-	return id;
+	return this.id;
     }
     
     /**
      * return the changing property key.
      */
     public Object getKey(){
-	return key;
+	return this.key;
     }
 
     /**
      * return the changing property value.
      */
     public Object getValue(){
-	return value;
+	return this.value;
     }
 }
     

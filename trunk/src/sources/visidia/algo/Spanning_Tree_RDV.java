@@ -29,15 +29,15 @@ public class Spanning_Tree_RDV extends Algorithm {
         
         while(run){
             
-            synchro=synchronization();
+            synchro=this.synchronization();
             
-            sendTo(synchro,new StringMessage((String) getProperty("label"),labels));
-            neighbourValue=((StringMessage) receiveFrom(synchro)).data();
+            this.sendTo(synchro,new StringMessage((String) this.getProperty("label"),labels));
+            neighbourValue=((StringMessage) this.receiveFrom(synchro)).data();
             
             if ((neighbourValue.compareTo("A")==0) &&
-            (((String) getProperty("label")).compareTo("N")==0)) {
-                putProperty("label",new String("A"));
-                setDoorState(new MarkedState(true),synchro);
+            (((String) this.getProperty("label")).compareTo("N")==0)) {
+                this.putProperty("label",new String("A"));
+                this.setDoorState(new MarkedState(true),synchro);
             }
             
         }
@@ -47,17 +47,17 @@ public class Spanning_Tree_RDV extends Algorithm {
     
     public int synchronization(){
         int i = -1;
-        int a =getArity();
+        int a =this.getArity();
         
         //interface graphique:je ne suis plus synchro
         for(int door=0;door < a;door++)
-            setDoorState(new SyncState(false),door);
+            this.setDoorState(new SyncState(false),door);
         
         while(i <0){
-            i = trySynchronize();
+            i = this.trySynchronize();
         }
         //interface graphique: je suis synchro sur la porte i
-        setDoorState(new SyncState(true),i);
+        this.setDoorState(new SyncState(true),i);
         return i;
     }
     
@@ -66,22 +66,22 @@ public class Spanning_Tree_RDV extends Algorithm {
      * Un round de la synchronisation.
      */
     private int trySynchronize(){
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*choice of the neighbour*/
         Random generator = new Random();
         int choosenNeighbour= Math.abs((generator.nextInt()))% arite ;
         
-        sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
+        this.sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
         for(int i=0; i < arite; i++){
             if( i != choosenNeighbour)
-                sendTo(i, new IntegerMessage(new Integer(0),synchronization));
+                this.sendTo(i, new IntegerMessage(new Integer(0),synchronization));
             
         }
         
         for( int i = 0; i < arite; i++){
-            Message msg = receiveFrom(i,new IntegerMessageCriterion());
+            Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
             IntegerMessage smsg = (IntegerMessage) msg;
             
             answer[i]= smsg.value();
@@ -97,8 +97,8 @@ public class Spanning_Tree_RDV extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

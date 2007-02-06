@@ -22,23 +22,23 @@ public class TestSynhro extends SyncAlgorithm {
 
 	//int degres = getArity();
 	
-	Integer id = getId();
+	Integer id = this.getId();
 	//boolean win = true;
 	
-	nextPulse();
+	this.nextPulse();
 	
 	boolean firstTime = true;
-	while(getPulse() != 20) {
+	while(this.getPulse() != 20) {
 	    if(id == 1) {
-		if(getPulse()==2)
-		    sendAll(new IntegerMessage(getPulse(),round1));
-		nextPulse();
+		if(this.getPulse()==2)
+		    this.sendAll(new IntegerMessage(this.getPulse(),round1));
+		this.nextPulse();
 	    } else {
-		if(anyMsg() && firstTime) {
-		    sendAll(new IntegerMessage(getPulse(),round1));
+		if(this.anyMsg() && firstTime) {
+		    this.sendAll(new IntegerMessage(this.getPulse(),round1));
 		    firstTime = false;
 		}
-		nextPulse();
+		this.nextPulse();
 	    }
 	}
     }

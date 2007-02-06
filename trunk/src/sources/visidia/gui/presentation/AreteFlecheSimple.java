@@ -36,24 +36,24 @@ public class AreteFlecheSimple extends AreteDessin{
     //  Dessiner une fleche avec sa pointe sur un Graphics passe en argument.
     public void dessiner(Component c , Graphics g) {
 	super.dessiner(c, g);
-	if(recalculer_branche)
-	    recalculer_branche();
+	if(this.recalculer_branche)
+	    this.recalculer_branche();
 	double theta =
-	    Math.atan2((destx - origx), (desty - origy));
+	    Math.atan2((this.destx - this.origx), (this.desty - this.origy));
 
 	double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
 	//	g.drawLine(destx, desty, branche1_x, branche1_y);
-	g.drawLine((origx+destx)/2, (origy+desty)/2, ((origx+destx)/2)- ((int)Math.round(longueur_branches * Math.sin(angle1)))/2, ((origy+desty)/2)- ((int)Math.round(longueur_branches * Math.cos(angle1)))/2 );
-	g.drawLine((origx+destx)/2, (origy+desty)/2, ((origx+destx)/2)- ((int)Math.round(longueur_branches * Math.sin(angle2)))/2, ((origy+desty)/2)-  ((int)Math.round(longueur_branches * Math.cos(angle2)))/2 );
+	g.drawLine((this.origx+this.destx)/2, (this.origy+this.desty)/2, ((this.origx+this.destx)/2)- ((int)Math.round(longueur_branches * Math.sin(angle1)))/2, ((this.origy+this.desty)/2)- ((int)Math.round(longueur_branches * Math.cos(angle1)))/2 );
+	g.drawLine((this.origx+this.destx)/2, (this.origy+this.desty)/2, ((this.origx+this.destx)/2)- ((int)Math.round(longueur_branches * Math.sin(angle2)))/2, ((this.origy+this.desty)/2)-  ((int)Math.round(longueur_branches * Math.cos(angle2)))/2 );
 	//g.drawLine(destx, desty, branche2_x, branche2_y);
     }
 
     public void deplacer(int dx, int dy) {
 	super.deplacer(dx, dy);
-	branche1_x += dx;
-	branche1_y += dy;
-	branche2_x += dx;
-	branche2_y += dy;
+	this.branche1_x += dx;
+	this.branche1_y += dy;
+	this.branche2_x += dx;
+	this.branche2_y += dy;
 	//mi_bran1_x += (dx/2);
 	//mi_bran1_y += (dy/2);
 	//mi_bran2_x += (dx/2);
@@ -67,27 +67,27 @@ public class AreteFlecheSimple extends AreteDessin{
 
     public void placerOrigine(int origine_x, int origine_y) {
 	super.placerOrigine(origine_x, origine_y);
-	recalculer_branche = true;
+	this.recalculer_branche = true;
     }
     
     public void placerDestination(int destination_x, int destination_y) {
 	super.placerDestination(destination_x, destination_y);
-	recalculer_branche = true;
+	this.recalculer_branche = true;
     }
     
     
     protected void recalculer_branche() {
 	double theta =
-	    Math.atan2((destx - origx), (desty - origy));
+	    Math.atan2((this.destx - this.origx), (this.desty - this.origy));
 	double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
 	
-	branche1_x = destx -
+	this.branche1_x = this.destx -
 	    (int)Math.round(longueur_branches * Math.sin(angle1));
-	branche1_y = desty -
+	this.branche1_y = this.desty -
 	    (int)Math.round(longueur_branches * Math.cos(angle1));
-	branche2_x = destx -
+	this.branche2_x = this.destx -
 	    (int)Math.round(longueur_branches * Math.sin(angle2));
-	branche2_y = desty -
+	this.branche2_y = this.desty -
 	    (int)Math.round(longueur_branches * Math.cos(angle2));
 	//mi_bran1_x = branche1_x-((branche1_x+origx)/2);
 	//mi_bran1_y = branche1_y-((branche1_y+origy)/2);
@@ -95,7 +95,7 @@ public class AreteFlecheSimple extends AreteDessin{
 	//mi_bran2_y = branche2_y-((branche2_y+origy)/2);
 
 
-	recalculer_branche = false;
+	this.recalculer_branche = false;
   }
     
     // Duplique l'arete courante a partir des sommets origine et destination 

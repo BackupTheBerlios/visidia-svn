@@ -13,28 +13,28 @@ public class GMLNode {
 	}
 	
 	public Integer getId(){
-		return id;
+		return this.id;
 	}
 	
 	public void setLabel(String label){
 		this.label = label;
 	}
 	public String getLabel(){
-		return label;
+		return this.label;
 	}
 	
 	public void setGraphics(GMLNodeGraphics graphics){
 		this.graphics = graphics;
 	}
 	public GMLNodeGraphics getGraphics(){
-		return graphics;
+		return this.graphics;
 	}
 	
 	public void setProperties(Properties properties){
 		this.properties = properties;
 	}
 	public Properties getProperties(){
-		return properties;
+		return this.properties;
 	}
 	
 }

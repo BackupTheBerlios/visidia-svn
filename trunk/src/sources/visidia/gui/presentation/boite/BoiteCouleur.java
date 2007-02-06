@@ -39,7 +39,7 @@ public class BoiteCouleur implements ActionListener {
 		  int R, int G, int B,
 		  boolean est_editable) {
 	
-	panel = new JPanel (new GridLayout(1,2));
+	this.panel = new JPanel (new GridLayout(1,2));
 	this.parent = parent;
 	this.label = label;
 	this.R = R;
@@ -49,12 +49,12 @@ public class BoiteCouleur implements ActionListener {
 	String tmp = new String(label + initialValue);
 	while (tmp.length() < 38)
 	    tmp = tmp + " ";
-	jlabel = new JLabel(tmp);
-	panel.add(jlabel);
-	button = new JButton("Change Color");
-	button.addActionListener(this);
-	button.setEnabled(est_editable);
-	panel.add(button);
+	this.jlabel = new JLabel(tmp);
+	this.panel.add(this.jlabel);
+	this.button = new JButton("Change Color");
+	this.button.addActionListener(this);
+	this.button.setEnabled(est_editable);
+	this.panel.add(this.button);
     }
 
     // Retourne R
@@ -74,31 +74,31 @@ public class BoiteCouleur implements ActionListener {
 
     // Active ou desactive le bouton suivant la valeur de "est_editable"
     public void setEditable (boolean est_editable) {
-	button.setEnabled(est_editable);
+	this.button.setEnabled(est_editable);
     }
     
     // Methode appelee quand l'utilisateur appuie sur le bouton
     public void actionPerformed(ActionEvent e) {
-	if (e.getSource() == button) {
-	    Color choosedColor = JColorChooser.showDialog(parent.dialog(),
+	if (e.getSource() == this.button) {
+	    Color choosedColor = JColorChooser.showDialog(this.parent.dialog(),
 							  "Choose a color",
-							  new Color(R, G, B));
+							  new Color(this.R, this.G, this.B));
 
 	    if(choosedColor != null) {
 		this.R = choosedColor.getRed();
 		this.G = choosedColor.getGreen();
 		this.B = choosedColor.getBlue();
-		parent.elementModified();
+		this.parent.elementModified();
 	    }
-	    String tmp = new String(label+Integer.toString(getRed())+","+Integer.toString(getGreen())+","+Integer.toString(getBlue()));
+	    String tmp = new String(this.label+Integer.toString(this.getRed())+","+Integer.toString(this.getGreen())+","+Integer.toString(this.getBlue()));
 	    while(tmp.length() < 38)
 		tmp =tmp + " ";
-		jlabel.setText(tmp);
+		this.jlabel.setText(tmp);
 	}
     }
 
     // Retourne le JPanel
     public JPanel panel(){
-	return panel;
+	return this.panel;
     }
 }

@@ -52,7 +52,7 @@ public class BoiteSelectionSimulationDist extends BoiteSelection {
 			   "Drawing messages properties"));
 	
 	boolean vertexSelected = false;
-	Enumeration tous_les_types = table_types.elements();
+	Enumeration tous_les_types = this.table_types.elements();
 	while(tous_les_types.hasMoreElements()) {
 	    String un_type = (String)tous_les_types.nextElement();
 	    if (un_type.equals ("vertex"))
@@ -68,7 +68,7 @@ public class BoiteSelectionSimulationDist extends BoiteSelection {
 	applyButton.addMouseListener (new MouseAdapter() {
 		public void mouseClicked(MouseEvent event) {
 		    boolean isSelected = drawMessageCheckBox.isSelected();
-		    Enumeration e = selection.elements();
+		    Enumeration e = BoiteSelectionSimulationDist.this.selection.elements();
 		    while (e.hasMoreElements()) {
 			FormeDessin element = ((FormeDessin) e.nextElement());
 			if (element.type().equals("vertex")) {
@@ -76,7 +76,7 @@ public class BoiteSelectionSimulationDist extends BoiteSelection {
 			    int id = new Integer (vertex.getEtiquette()).intValue ();
 			    Hashtable prop = vertex.getStateTable();
 			    prop.put ("draw messages", isSelected ? "yes" : "no");
-			    ((FenetreDeSimulationDist) parent).nodeStateChanged
+			    ((FenetreDeSimulationDist) BoiteSelectionSimulationDist.this.parent).nodeStateChanged
 				(id, (Hashtable) prop.clone()); 
 			    vertex.setDrawMessage(isSelected);
 			}

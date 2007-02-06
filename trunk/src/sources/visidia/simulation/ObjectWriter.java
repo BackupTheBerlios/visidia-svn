@@ -13,11 +13,11 @@ public class ObjectWriter {
 
     
     public synchronized void open(File file_) {
-	file = file_;
+	this.file = file_;
 	
 	try {
-	    fileOS = new FileOutputStream(file);
-	    objectOS = new ObjectOutputStream(fileOS);
+	    this.fileOS = new FileOutputStream(this.file);
+	    this.objectOS = new ObjectOutputStream(this.fileOS);
 	}
 	catch (FileNotFoundException e) {
 	    e.printStackTrace();
@@ -29,8 +29,8 @@ public class ObjectWriter {
 
     public synchronized void close() {
 	try {
-	    objectOS.close();
-	    fileOS.close();
+	    this.objectOS.close();
+	    this.fileOS.close();
 	}
 	catch (IOException e) {
 	}
@@ -38,8 +38,8 @@ public class ObjectWriter {
 
     public synchronized void writeObject (Object o) {
 	try {
-	    objectOS.writeObject(o);
-	    objectOS.flush();
+	    this.objectOS.writeObject(o);
+	    this.objectOS.flush();
 	}
 	catch (IOException e) {
 	    e.printStackTrace();

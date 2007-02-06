@@ -18,7 +18,7 @@ public class UndoInfo extends Vector {
     /** Instancie un nouvel objet UndoInfo vide.*/
     public UndoInfo() {
 	super();
-	curseur = -1;
+	this.curseur = -1;
     }
   
     /* ************************************************************* */
@@ -30,13 +30,13 @@ public class UndoInfo extends Vector {
 
     /** Accesseur au curseur. */
     private int curseur() {
-	return curseur;
+	return this.curseur;
     }
 
     /** Retourne le groupe d'opérations courant.*/
     private UndoInfoElement currentGroup() {
 	try { 
-	    return ((UndoInfoElement)elementAt(curseur));
+	    return ((UndoInfoElement)this.elementAt(this.curseur));
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    return null;
 	}
@@ -46,7 +46,7 @@ public class UndoInfo extends Vector {
     /** Retourne le groupe d'opérations à l'index "i" */
     private UndoInfoElement groupAt(int i) {
 	try{
-	    return ((UndoInfoElement)elementAt(i));
+	    return ((UndoInfoElement)this.elementAt(i));
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    return null;
 	}
@@ -60,32 +60,32 @@ public class UndoInfo extends Vector {
      * @param redo la description de la restauration l'opération
      */
     public void newGroup(String undo, String redo) {
-	if (redoMore()) {
-	    trimGroups();
+	if (this.redoMore()) {
+	    this.trimGroups();
 	}
-	addElement(new UndoInfoElement(undo, redo));
-	curseur++;
+	this.addElement(new UndoInfoElement(undo, redo));
+	this.curseur++;
     }
 
     /** Ajoute une opération dans la liste, et incrémente le nombre
      * d'opérations simples dans l'opération complexe courante. */
     public void addInfo(UndoObject objet) {
-	if(currentGroup() != null)
-	    currentGroup().add(objet);
+	if(this.currentGroup() != null)
+	    this.currentGroup().add(objet);
     }
 
     /** Detruit les informations concernant les groupes crées
      * posterieurement au groupe courant. */  
     private void trimGroups() {
-	removeRange(curseur() + 1, size());
+	this.removeRange(this.curseur() + 1, this.size());
     }    
   
     /** Cette méthode permet d'annuler l'opération complexe courante,
      * en annulant chacune des opérations simples qui la composent. */
     public void undo() {
-	if(currentGroup() != null) {
-	    currentGroup().undo();
-	    curseur--;
+	if(this.currentGroup() != null) {
+	    this.currentGroup().undo();
+	    this.curseur--;
 	}
     }
   
@@ -95,8 +95,8 @@ public class UndoInfo extends Vector {
     public void redo() {
 	//if(currentGroup() != null) {
 	try{
-	    curseur++;
-	    currentGroup().redo();
+	    this.curseur++;
+	    this.currentGroup().redo();
 	    //}
 	} catch (Exception e) {
 	}
@@ -105,13 +105,13 @@ public class UndoInfo extends Vector {
     /** Retourne VRAI si il reste au moins une opération complexe
      * susceptible d'être annulée. */
     public boolean undoMore() {
-	return (curseur >= 0);
+	return (this.curseur >= 0);
     }
 
     /** Retourne VRAI si il reste au moins une opération complexe
      * susceptible d'être restaurée. */
     public boolean redoMore() {
-	return (curseur < (size() - 1));
+	return (this.curseur < (this.size() - 1));
     }
 
     /* ************************************************************* */
@@ -121,18 +121,18 @@ public class UndoInfo extends Vector {
 
     /** Supprime le groupe d'opérations courant. */
     public void removeEmptyGroup() {
-	if(currentGroup() != null) {
-	    if (currentGroup().isEmpty()) {
-		remove(curseur);
-		curseur = curseur - 1;
+	if(this.currentGroup() != null) {
+	    if (this.currentGroup().isEmpty()) {
+		this.remove(this.curseur);
+		this.curseur = this.curseur - 1;
 	    }
 	}
     }
 
     /** Annule la dernière opération et supprime le groupe correspondant. */
     public void undoAndRemove() {
-	undo();
-	remove(curseur + 1);
+	this.undo();
+	this.remove(this.curseur + 1);
     }
 
     /**  Retire l'UndoObject qui contient la FormeDessin passée en
@@ -140,10 +140,10 @@ public class UndoInfo extends Vector {
     public void removeObject(FormeDessin objet) {
 	int i=0;
 	try {
-	    while (!objet.equals(currentGroup().getInfo(i).content())) {
+	    while (!objet.equals(this.currentGroup().getInfo(i).content())) {
 		i++;
 	    }
-	    currentGroup().remove(i);
+	    this.currentGroup().remove(i);
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    return;
 	}
@@ -160,9 +160,9 @@ public class UndoInfo extends Vector {
     public void undo(int i) {
 	int compteur = 0;
 	try{
-	    while (undoMore() && (compteur < i)) {
-		currentGroup().undo();
-		curseur--;
+	    while (this.undoMore() && (compteur < i)) {
+		this.currentGroup().undo();
+		this.curseur--;
 		compteur++;
 	    }
 	} catch (Exception e) {
@@ -175,9 +175,9 @@ public class UndoInfo extends Vector {
     public void redo(int i) {
 	int compteur = 0;
 	try{
-	    while (redoMore() && (compteur < i)) {
-		curseur++;
-		currentGroup().redo();
+	    while (this.redoMore() && (compteur < i)) {
+		this.curseur++;
+		this.currentGroup().redo();
 		compteur++;
 	    }
 	} catch(Exception e) {
@@ -187,8 +187,8 @@ public class UndoInfo extends Vector {
 
     /** Retourne la description de ce qui sera fait lors du prochain undo*/
     public String undoDescription() {
-	if (undoMore()) {
-	    return (currentGroup().undoDescription());
+	if (this.undoMore()) {
+	    return (this.currentGroup().undoDescription());
 	} else { 
 	    return "Undo";
 	}
@@ -196,8 +196,8 @@ public class UndoInfo extends Vector {
   
     /** Retourne la description de ce qui sera fait lors du prochain redo*/
     public String redoDescription() {
-	if (redoMore()) {
-	    return (groupAt(curseur() + 1).redoDescription());
+	if (this.redoMore()) {
+	    return (this.groupAt(this.curseur() + 1).redoDescription());
 	} else { 
 	    return "Redo";
 	}

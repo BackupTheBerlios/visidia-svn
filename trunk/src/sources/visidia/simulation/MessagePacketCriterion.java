@@ -21,7 +21,7 @@ class MessagePacketCriterion implements Criterion {
     }
     
     public boolean isMatchedBy(Object o){
-	if( mc == null ){
+	if( this.mc == null ){
 	    return false;
 	}
 
@@ -30,6 +30,6 @@ class MessagePacketCriterion implements Criterion {
 
 	MessagePacket mp = (MessagePacket) o;
 
-	return mc.isMatchedBy(mp.message());
+	return this.mc.isMatchedBy(mp.message());
     }
 }

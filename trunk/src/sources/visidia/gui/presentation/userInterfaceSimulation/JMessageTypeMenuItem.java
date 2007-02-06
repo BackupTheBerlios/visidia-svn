@@ -12,11 +12,11 @@ public class JMessageTypeMenuItem extends JCheckBoxMenuItem {
 
     public JMessageTypeMenuItem (MessageType messageType) {
 	super (messageType.getType());
-	setForeground(messageType.getColor());
+	this.setForeground(messageType.getColor());
 	this.messageType = messageType;
     
     }
     public MessageType getMessageType(){
-	return messageType;
+	return this.messageType;
     }
 }

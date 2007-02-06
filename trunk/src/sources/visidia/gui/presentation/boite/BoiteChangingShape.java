@@ -52,25 +52,25 @@ public abstract class BoiteChangingShape implements ActionListener {
     
 	this.est_editable = true;
     
-	caracteristicsPane = new JPanel();
-	BoxLayout caracteristicsLayout = new BoxLayout(caracteristicsPane, BoxLayout.Y_AXIS);
-	caracteristicsPane.setLayout(caracteristicsLayout);
+	this.caracteristicsPane = new JPanel();
+	BoxLayout caracteristicsLayout = new BoxLayout(this.caracteristicsPane, BoxLayout.Y_AXIS);
+	this.caracteristicsPane.setLayout(caracteristicsLayout);
 
-	caracteristicsPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+	this.caracteristicsPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 								      "Caracteristics"));
     
-	dialog.getContentPane().setLayout(new BorderLayout());
-	dialog.getContentPane().add(caracteristicsPane, BorderLayout.NORTH);
+	this.dialog.getContentPane().setLayout(new BorderLayout());
+	this.dialog.getContentPane().add(this.caracteristicsPane, BorderLayout.NORTH);
         
-	ajouterBoutons(est_editable);
+	this.ajouterBoutons(this.est_editable);
     
     }
   
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show() {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(this.parent);
     }
   
     /** Ajoute un label et une liste de choix a un panel
@@ -102,31 +102,31 @@ public abstract class BoiteChangingShape implements ActionListener {
     public void ajouterBoutons(boolean est_editable) {
 	JPanel buttonPane = new JPanel(new FlowLayout());
     
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
     
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 
 	if (est_editable) {
-	    buttonApply = new JButton("Apply");
-	    buttonApply.addActionListener(this);
+	    this.buttonApply = new JButton("Apply");
+	    this.buttonApply.addActionListener(this);
 	}
     
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
-	buttonPane.add(buttonApply);
-	buttonApply.setEnabled(modif);
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	buttonPane.add(this.buttonOk);
+	buttonPane.add(this.buttonCancel);    
+	buttonPane.add(this.buttonApply);
+	this.buttonApply.setEnabled(this.modif);
+	this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
   
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
+	if(e.getSource() == this.buttonOk) {
 	    try {
-		buttonOk();
-		dialog.setVisible(false);
-		dialog.dispose();
+		this.buttonOk();
+		this.dialog.setVisible(false);
+		this.dialog.dispose();
 	    } catch(NumberFormatException exception) {
 		StringTokenizer st =
 		    new StringTokenizer(exception.getMessage(), "\n");
@@ -134,18 +134,18 @@ public abstract class BoiteChangingShape implements ActionListener {
 		String message = new String();
 		for(int i = 0; i < nb_lignes; i++)
 		    message = message + "\n" + st.nextToken();
-		JOptionPane.showMessageDialog(parent,
+		JOptionPane.showMessageDialog(this.parent,
 					      message, 
 					      "Warning",
 					      JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-	if(e.getSource() == buttonApply) {
+	if(e.getSource() == this.buttonApply) {
 	    try {
-		buttonOk();
-		parent.repaint();
-		modif = false;
-		buttonApply.setEnabled(false);
+		this.buttonOk();
+		this.parent.repaint();
+		this.modif = false;
+		this.buttonApply.setEnabled(false);
 	    } catch(NumberFormatException exception) {
 		StringTokenizer st =
 		    new StringTokenizer(exception.getMessage(), "\n");
@@ -153,22 +153,22 @@ public abstract class BoiteChangingShape implements ActionListener {
 		String message = new String();
 		for(int i = 0; i < nb_lignes; i++)
 		    message = message + "\n" + st.nextToken();
-		JOptionPane.showMessageDialog(parent,
+		JOptionPane.showMessageDialog(this.parent,
 					      message, 
 					      "Warning",
 					      JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
   
     /** Retourne VRAI si une des caracteristiques modified */
     public void elementModified() {
-	modif = true;
-	buttonApply.setEnabled(modif);
+	this.modif = true;
+	this.buttonApply.setEnabled(this.modif);
     }
   
     /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
@@ -176,7 +176,7 @@ public abstract class BoiteChangingShape implements ActionListener {
 
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
   
     // returns true if the string is the name of a ".class" file

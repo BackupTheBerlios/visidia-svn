@@ -12,7 +12,7 @@ public class GMLList {
 	/**
 	 */
 	public Enumeration getValues(String key){
-		Vector vect = (Vector) hash.get(key);
+		Vector vect = (Vector) this.hash.get(key);
 		if(vect != null){
 			return vect.elements();
 		}
@@ -21,7 +21,7 @@ public class GMLList {
 	}
 	
 	public Object getValue(String key){
-		Vector vect = (Vector) hash.get(key);
+		Vector vect = (Vector) this.hash.get(key);
 		if(vect != null){
 			return vect.get(0);
 		}
@@ -32,13 +32,13 @@ public class GMLList {
 	/**
 	 */
 	public void add(String key, Object value){
-		if(hash.containsKey(key)){
-			((Vector) hash.get(key)).add(value);
+		if(this.hash.containsKey(key)){
+			((Vector) this.hash.get(key)).add(value);
 		}
 		else{
 			Vector vect = new Vector(1,5);
 			vect.add(value);
-			hash.put(key,vect);
+			this.hash.put(key,vect);
 		}
 	
 	}

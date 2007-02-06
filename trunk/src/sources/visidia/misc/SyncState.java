@@ -11,14 +11,14 @@ public class SyncState extends EdgeState {
 	boolean isSynchro;
 
     public SyncState(boolean b){
-	isSynchro = b;
+	this.isSynchro = b;
     }
 
     public boolean isSynchronized(){
-	return isSynchro;
+	return this.isSynchro;
     }
 
     public Object clone(){
-	return new SyncState(isSynchro);
+	return new SyncState(this.isSynchro);
     }
 }

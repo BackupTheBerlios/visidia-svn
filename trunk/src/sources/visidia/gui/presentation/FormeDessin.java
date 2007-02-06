@@ -42,56 +42,56 @@ public abstract class FormeDessin implements Serializable{
     // Modificators
 
     public void setVueGraph(VueGraphe graphe){
-	vueGraphe = graphe;
+	this.vueGraphe = graphe;
     }
     
     public void changerCouleurTrait(Color couleurTrait) {
-	couleur_trait = couleurTrait;
+	this.couleur_trait = couleurTrait;
     }
 
     public void changerCouleurFond(Color couleurFond) {
-	couleur_fond = couleurFond;
+	this.couleur_fond = couleurFond;
     }
     
     public void enluminer(boolean nouvelleValeur) {
-	enlumine = nouvelleValeur;
+	this.enlumine = nouvelleValeur;
     }
 
     public void enluminerBis(boolean nouvelleValeur) {
-	enlumineBis = nouvelleValeur;
+	this.enlumineBis = nouvelleValeur;
     }
 
     public void setObjetGraphe(ObjetGraphe o){
-	graphObject = o;}
+	this.graphObject = o;}
 
     public void delete(){
-	vueGraphe.supprimerListeAffichage(this);
-	graphObject.supprimer();
+	this.vueGraphe.supprimerListeAffichage(this);
+	this.graphObject.supprimer();
     }
     
     // Accessors
     
     public VueGraphe getVueGraphe(){
-	return vueGraphe;
+	return this.vueGraphe;
     }
 
     public ObjetGraphe getObjetGraphe(){
-	return graphObject;}
+	return this.graphObject;}
 
     public Color couleurTrait() {
-	return couleur_trait;
+	return this.couleur_trait;
     }
 
     public Color couleurFond() {
-	return couleur_fond;               
+	return this.couleur_fond;               
     }
     
     public boolean est_enlumine(){
-	return enlumine;
+	return this.enlumine;
     }
 
     public boolean est_enlumineBis(){
-	return enlumineBis;
+	return this.enlumineBis;
     }
     
     // method which copy all the variable from the FormeDessin given in parameters

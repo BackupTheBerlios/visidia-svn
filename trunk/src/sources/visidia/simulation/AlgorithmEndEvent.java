@@ -17,14 +17,14 @@ public class AlgorithmEndEvent implements SimulEvent, Serializable{
 	 * Construct new AlgorithmEndEvent numbered by num;
 	 */
 	 public AlgorithmEndEvent(long eventNumber){
-	 	 evtNum = eventNumber;
+	 	 this.evtNum = eventNumber;
 	 }
 
     /**
      * return the event number.
      */
     public Long eventNumber(){
-		return new Long(evtNum);
+		return new Long(this.evtNum);
     }
    
     /**

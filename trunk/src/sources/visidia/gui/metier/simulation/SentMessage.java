@@ -19,7 +19,7 @@ public class SentMessage extends MovableObject {
     }
     
     public MessageSendingEvent getEvent(){
-	return event;
+	return this.event;
     }
     
     
@@ -28,13 +28,13 @@ public class SentMessage extends MovableObject {
      */
     public void paint(Graphics g){
 	
-	MessageType messageType = event.message().getType();
+	MessageType messageType = this.event.message().getType();
 	if (messageType.getToPaint()){
 	   
-	    if ((event.message()).getVisualization()) {
-		Point p = currentLocation();
+	    if ((this.event.message()).getVisualization()) {
+		Point p = this.currentLocation();
 		g.setColor(messageType.getColor());
-		g.drawString(mesg, p.x, p.y);
+		g.drawString(this.mesg, p.x, p.y);
 	    }
 	}
     }

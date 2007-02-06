@@ -15,20 +15,20 @@ public class PulseCounter extends JLabel implements ActionListener, Serializable
     
     public PulseCounter() {
 	super();
-	initState();
+	this.initState();
     }
     
 
     public void initState() {
-	pulse = 0;
-	setPulse(pulse);
-	setEnabled(false);
+	this.pulse = 0;
+	this.setPulse(this.pulse);
+	this.setEnabled(false);
     }
     
     public void setPulse(int pulse) {
-	if(!isEnabled())
-	    setEnabled(true);
-	setText("Pulse Counter : " + String.valueOf(pulse));
+	if(!this.isEnabled())
+	    this.setEnabled(true);
+	this.setText("Pulse Counter : " + String.valueOf(pulse));
     }
 
     public void actionPerformed(ActionEvent e) {}

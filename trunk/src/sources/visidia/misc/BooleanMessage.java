@@ -16,16 +16,16 @@ public class BooleanMessage extends Message{
     
     public BooleanMessage(boolean data, MessageType type){
 	this.data = data;
-	setType (type);
+	this.setType (type);
     }
 
    
     public boolean value(){
-	return data;
+	return this.data;
     }
     
     public boolean data(){
-	return data;
+	return this.data;
     }
     
     /**
@@ -35,14 +35,14 @@ public class BooleanMessage extends Message{
      **/
 
     public Object getData(){
-	return new Boolean(data);
+	return new Boolean(this.data);
     }
     
     public Object clone(){
-	return new BooleanMessage(data, getType());
+	return new BooleanMessage(this.data, this.getType());
     }
     public String toString(){
-	return (new Boolean(data)).toString();
+	return (new Boolean(this.data)).toString();
     }
     
 }

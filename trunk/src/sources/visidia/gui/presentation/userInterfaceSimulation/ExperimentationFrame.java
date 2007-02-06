@@ -38,7 +38,6 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
     private VueGraphe graph;
     private AlgoChoice algoChoice;
     
-    private int sampleCount = -1;
     private int sampleNumber = 1;
     private ExperimentationThread expThread;
 
@@ -55,109 +54,109 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 	//  		openGraphMenuItem.setMnemonic('O');
 	//  		openGraphMenuItem.addActionListener(this);
 	
-	saveResultMenuItem = new JMenuItem("Save results ...");
-	saveResultMenuItem.setMnemonic('D');
-	saveResultMenuItem.addActionListener(this);
+	this.saveResultMenuItem = new JMenuItem("Save results ...");
+	this.saveResultMenuItem.setMnemonic('D');
+	this.saveResultMenuItem.addActionListener(this);
 	
-	closeMenuItem = new JMenuItem("Close ...");
-	closeMenuItem.setMnemonic('C');
-	closeMenuItem.addActionListener(this);
+	this.closeMenuItem = new JMenuItem("Close ...");
+	this.closeMenuItem.setMnemonic('C');
+	this.closeMenuItem.addActionListener(this);
 	
-	fileMenu = new JMenu("File");
-	fileMenu.setMnemonic('F');
-	fileMenu.addActionListener(this);
+	this.fileMenu = new JMenu("File");
+	this.fileMenu.setMnemonic('F');
+	this.fileMenu.addActionListener(this);
 	//  		fileMenu.add(openGraphMenuItem);
-	fileMenu.add(saveResultMenuItem);
-	fileMenu.add(closeMenuItem);
+	this.fileMenu.add(this.saveResultMenuItem);
+	this.fileMenu.add(this.closeMenuItem);
 	
-	menuBar = new JMenuBar();
-	menuBar.add(fileMenu);
-	setJMenuBar(menuBar);
+	this.menuBar = new JMenuBar();
+	this.menuBar.add(this.fileMenu);
+	this.setJMenuBar(this.menuBar);
 	
 	Insets insets = new Insets(0,0,0,0);
-	startButton = new JButton("start");
-	startButton.addActionListener(this);
-	startButton.setMargin(insets);
+	this.startButton = new JButton("start");
+	this.startButton.addActionListener(this);
+	this.startButton.setMargin(insets);
 	
 	//pauseButton = new JToggleButton("pause");
 	//pauseButton.addActionListener(this);
 	//pauseButton.setMargin(insets);
 	
-	abortButton = new JButton("abort");
-	abortButton.addActionListener(this);
-	abortButton.setMargin(insets);
+	this.abortButton = new JButton("abort");
+	this.abortButton.addActionListener(this);
+	this.abortButton.setMargin(insets);
 		
-	testNumberLabel = new JLabel("Sample number : ");
+	this.testNumberLabel = new JLabel("Sample number : ");
 	
-	testNumberTextField = new JTextField("5");
+	this.testNumberTextField = new JTextField("5");
 		
-	toolBar = new JToolBar();
-	toolBar.add(startButton);
+	this.toolBar = new JToolBar();
+	this.toolBar.add(this.startButton);
 	//toolBar.add(pauseButton);
-	toolBar.add(abortButton);
-	toolBar.addSeparator();
-	toolBar.add(testNumberLabel);
-	toolBar.add(testNumberTextField);
-	getContentPane().add(toolBar,BorderLayout.NORTH);
+	this.toolBar.add(this.abortButton);
+	this.toolBar.addSeparator();
+	this.toolBar.add(this.testNumberLabel);
+	this.toolBar.add(this.testNumberTextField);
+	this.getContentPane().add(this.toolBar,BorderLayout.NORTH);
 		
-	tableModel = new ExperimentationResultTableModel();
-	resultTable = new JTable(tableModel);
-	scrollPane = new JScrollPane(resultTable);		
-	getContentPane().add(scrollPane,BorderLayout.CENTER);
+	this.tableModel = new ExperimentationResultTableModel();
+	this.resultTable = new JTable(this.tableModel);
+	this.scrollPane = new JScrollPane(this.resultTable);		
+	this.getContentPane().add(this.scrollPane,BorderLayout.CENTER);
 
-	status = new JLabel();
-	getContentPane().add(status,BorderLayout.SOUTH);
+	this.status = new JLabel();
+	this.getContentPane().add(this.status,BorderLayout.SOUTH);
 		
-	fileChooser = new JFileChooser(".");
+	this.fileChooser = new JFileChooser(".");
 
-	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
 	this.graph = vueGraphe;
 	this.algoChoice = algoChoice;
 
-	controlEnabling();
+	this.controlEnabling();
 
-	addWindowListener(new java.awt.event.WindowAdapter() {
+	this.addWindowListener(new java.awt.event.WindowAdapter() {
 		public void windowClosing(java.awt.event.WindowEvent e) {
-		    onWindowClosed();
+		    ExperimentationFrame.this.onWindowClosed();
 		}
 	    });
     }
     
 
     public void onWindowClosed(){
-	if(isRunning()){
-	    abort();
+	if(this.isRunning()){
+	    this.abort();
 	}
     }
     
     public VueGraphe getGraph(){
-	return graph;
+	return this.graph;
     }
     
     public AlgoChoice getAlgoChoice(){
-	return algoChoice;
+	return this.algoChoice;
     }
     
     public void actionPerformed(ActionEvent evt){
-	if(evt.getSource() == startButton){
-	    start();
+	if(evt.getSource() == this.startButton){
+	    this.start();
 	}
-	if(evt.getSource() == abortButton){
-	    abort();
+	if(evt.getSource() == this.abortButton){
+	    this.abort();
 	}
-	if(evt.getSource() == saveResultMenuItem){
-	    saveResults();
+	if(evt.getSource() == this.saveResultMenuItem){
+	    this.saveResults();
 	}
-	if(evt.getSource() == closeMenuItem){
-	    setVisible(false);
+	if(evt.getSource() == this.closeMenuItem){
+	    this.setVisible(false);
 	}
     }
     
     public boolean isRunning(){
-	if(expThread != null){
-	    return expThread.isRunning();
+	if(this.expThread != null){
+	    return this.expThread.isRunning();
 	}
 	
 	return false;
@@ -165,19 +164,19 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 
 
     public void saveResults(){
-	if(isRunning()){
-	    promptMessage(" experimetation is still running");
+	if(this.isRunning()){
+	    this.promptMessage(" experimetation is still running");
 	    return;
 	}
 
-	if(tableModel.getRowCount() == 0){
-	    promptMessage("no results available !!!");
+	if(this.tableModel.getRowCount() == 0){
+	    this.promptMessage("no results available !!!");
 	    return;
 	}
 
 	
-	if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
-	    File file = fileChooser.getSelectedFile();
+	if(this.fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+	    File file = this.fileChooser.getSelectedFile();
 
 	    // the file 
 	    if(file.exists()){
@@ -197,14 +196,14 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 		writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)), true);
 
 
-		int rowCount = tableModel.getRowCount();
+		int rowCount = this.tableModel.getRowCount();
 		for(int i = 0; i < rowCount; i++){
-		    String numString = tableModel.getValueAt(i,0).toString();
+		    String numString = this.tableModel.getValueAt(i,0).toString();
 		    StringBuffer numStringBuff = new StringBuffer(numBlank);
 		    numStringBuff.replace(0,numString.length(),numString);
 		    writer.print(numStringBuff.toString());
 
-		    String mesgCountString = tableModel.getValueAt(i,1).toString();
+		    String mesgCountString = this.tableModel.getValueAt(i,1).toString();
 		    StringBuffer mesgCountStringBuff = new StringBuffer(mesgCountBlank);
 		    mesgCountStringBuff.replace(0,mesgCountString.length(),mesgCountString);
 		    writer.println(mesgCountStringBuff.toString());
@@ -218,7 +217,7 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 	    }
 	    catch(IOException exp){
 		//exp.printStackTrace();
-		promptMessage("cannot save results to file ("+file+")"); 
+		this.promptMessage("cannot save results to file ("+file+")"); 
 	    }
 	    finally{
 		writer.close();
@@ -232,54 +231,54 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
      *
      */
     private void controlEnabling(){
-	if((graph == null)||(algoChoice == null)){
-	    startButton.setEnabled(false);
+	if((this.graph == null)||(this.algoChoice == null)){
+	    this.startButton.setEnabled(false);
 	    //pauseButton.setEnabled(false);
-	    abortButton.setEnabled(false);
+	    this.abortButton.setEnabled(false);
 	    return;
 	}
 	
-	if(isRunning()){
-	    startButton.setEnabled(false);
+	if(this.isRunning()){
+	    this.startButton.setEnabled(false);
 	    //pauseButton.setEnabled(true);
-	    abortButton.setEnabled(true);
+	    this.abortButton.setEnabled(true);
 	}
 	else{
-	    startButton.setEnabled(true);
+	    this.startButton.setEnabled(true);
 	    //pauseButton.setEnabled(false);
-	    abortButton.setEnabled(false);
-	    status.setText(" ");
+	    this.abortButton.setEnabled(false);
+	    this.status.setText(" ");
 	}
 	
     }
     
     public void close(){
-	dispose();
-	onWindowClosed();
+	this.dispose();
+	this.onWindowClosed();
     }
 
     public void start(){
 	try{
-	    sampleNumber = new Integer(testNumberTextField.getText()).intValue();
+	    this.sampleNumber = new Integer(this.testNumberTextField.getText()).intValue();
 	}
 	catch(NumberFormatException e){ 
 	    //e.printStackTrace();
-	    promptMessage("bad sample number field");
+	    this.promptMessage("bad sample number field");
 	    return;
 	}
 
-	tableModel.reset();
+	this.tableModel.reset();
 
-	expThread = new ExperimentationThread(algoChoice, graph, sampleNumber);
-	expThread.start();
+	this.expThread = new ExperimentationThread(this.algoChoice, this.graph, this.sampleNumber);
+	this.expThread.start();
     }
 
     public void abort(){
-	if(expThread != null){
-	    expThread.abortExperimetation();
-	    expThread = null;
+	if(this.expThread != null){
+	    this.expThread.abortExperimetation();
+	    this.expThread = null;
 	}
-	controlEnabling();
+	this.controlEnabling();
     }
 
 
@@ -291,28 +290,22 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
     class ExperimentationThread extends Thread {
 	boolean aborted = false;
     	boolean terminated = true;
-	private AlgoChoice algoFactory;
-	private VueGraphe vueGraphe;
-	private int nbSample = 0;
 	private visidia.tools.VQueue eventVQueue;
 	private visidia.tools.VQueue ackVQueue;
 	private Simulator simulator;
 
 	public ExperimentationThread(AlgoChoice algoFactory,VueGraphe vueGraphe,int nbSample){
-	    this.algoFactory = algoFactory;
-	    this.vueGraphe = vueGraphe;
-	    this.nbSample = nbSample;
 	}
 	
 	boolean isRunning(){
-	    return isAlive() && !terminated;
+	    return this.isAlive() && !this.terminated;
 	}
 
        	void abortExperimetation(){
-	    aborted = true;
+	    this.aborted = true;
 	    
-	    while(isAlive()){
-		interrupt();
+	    while(this.isAlive()){
+		this.interrupt();
 		try{
 		    Thread.currentThread().sleep(10);
 		}
@@ -327,47 +320,47 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 
 
 	public void run(){
-	    for(int i = 0; i < sampleNumber; i++){
-		tableModel.addLine();
+	    for(int i = 0; i < ExperimentationFrame.this.sampleNumber; i++){
+		ExperimentationFrame.this.tableModel.addLine();
 		
-		eventVQueue = new visidia.tools.VQueue();
-		ackVQueue = new visidia.tools.VQueue();
+		this.eventVQueue = new visidia.tools.VQueue();
+		this.ackVQueue = new visidia.tools.VQueue();
 		
-		simulator = new Simulator(Convertisseur.convertir(graph.getGraphe()),
-					  eventVQueue,
-					  ackVQueue,
-					  algoChoice);
-		simulator.startSimulation();
-		terminated = false;
+		this.simulator = new Simulator(Convertisseur.convertir(ExperimentationFrame.this.graph.getGraphe()),
+					  this.eventVQueue,
+					  this.ackVQueue,
+					  ExperimentationFrame.this.algoChoice);
+		this.simulator.startSimulation();
+		this.terminated = false;
 
-		controlEnabling();
-		status.setText("simulation '"+i+"' is running...");
+		ExperimentationFrame.this.controlEnabling();
+		ExperimentationFrame.this.status.setText("simulation '"+i+"' is running...");
 
 		try{
-		    eventHandleLoop();
+		    this.eventHandleLoop();
 		}
 		catch(InterruptedException e){
 		    //this interruption should have been cause
 		    //by the simulation stop.
-		    if( aborted && (simulator != null)){
+		    if( this.aborted && (this.simulator != null)){
 			//abort current simulation
-			simulator.abortSimulation();
+			this.simulator.abortSimulation();
 		    }
 		}
-		if(aborted){
+		if(this.aborted){
 		    break;
 		}
 	    }
 
-	    controlEnabling();
+	    ExperimentationFrame.this.controlEnabling();
 	}
     
 	public void eventHandleLoop() throws InterruptedException{
 	    
 	    SimulEvent simEvt = null;
-	    while(!terminated){
+	    while(!this.terminated){
 		try{
-		    simEvt = (SimulEvent) eventVQueue.get();
+		    simEvt = (SimulEvent) this.eventVQueue.get();
 		    //		    Thread.currentThread().sleep(10);
 		}
 		catch(ClassCastException e){
@@ -378,19 +371,19 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 		switch(simEvt.type()){
 		    
 		case SimulConstants.EDGE_STATE_CHANGE:
-		    handleEdgeStateChangeEvt(simEvt);
+		    this.handleEdgeStateChangeEvt(simEvt);
 		    break;
 		    
 		case SimulConstants.MESSAGE_SENT :
-		    handleMessageSentEvt(simEvt);
+		    this.handleMessageSentEvt(simEvt);
 		    break;
 		    
 		case SimulConstants.NODE_PROPERTY_CHANGE :
-		    handleNodePropertyChangeEvt(simEvt);
+		    this.handleNodePropertyChangeEvt(simEvt);
 		    break; 
 
 		case SimulConstants.ALGORITHM_END :
-		    handleAlgorithmEndEvent(simEvt);
+		    this.handleAlgorithmEndEvent(simEvt);
 		    break;
 		}
 		
@@ -400,20 +393,20 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 
 	public void handleNodePropertyChangeEvt(SimulEvent se) throws InterruptedException{
 	    NodePropertyChangeAck npca = new NodePropertyChangeAck(se.eventNumber());
-	    ackVQueue.put(npca); 		
+	    this.ackVQueue.put(npca); 		
 	}
 	public void handleEdgeStateChangeEvt(SimulEvent se) throws InterruptedException{
 	    EdgeStateChangeAck esca = new EdgeStateChangeAck(se.eventNumber());
-	    ackVQueue.put(esca);
+	    this.ackVQueue.put(esca);
 	}
 	public void handleMessageSentEvt(SimulEvent se) throws InterruptedException{
-	    tableModel.increments();
+	    ExperimentationFrame.this.tableModel.increments();
 	    MessageSendingAck msa = new MessageSendingAck(se.eventNumber());
-	    ackVQueue.put(msa);
+	    this.ackVQueue.put(msa);
 	}
 	
 	void handleAlgorithmEndEvent(SimulEvent se) throws InterruptedException{
-	    terminated = true;
+	    this.terminated = true;
 	}
 	
     }
@@ -445,24 +438,24 @@ class ExperimentationResultTableModel extends AbstractTableModel {
 	private Vector lineVector = new Vector(10,10);
 	
     public void addLine(){
-	lineVector.add(new Integer(0));
-	fireTableDataChanged();
+	this.lineVector.add(new Integer(0));
+	this.fireTableDataChanged();
     }
 
     public void addLine(int value){
-	lineVector.add(new Integer(0));
-	lineVector.set(lineVector.size() - 1, new Integer(value));
-	fireTableDataChanged();
+	this.lineVector.add(new Integer(0));
+	this.lineVector.set(this.lineVector.size() - 1, new Integer(value));
+	this.fireTableDataChanged();
     }
 	
     public void increments(int row){
-	int val = ((Integer)lineVector.get(row)).intValue() + 1;
-	lineVector.set(row,new Integer(val));
-	fireTableCellUpdated(row,1);
+	int val = ((Integer)this.lineVector.get(row)).intValue() + 1;
+	this.lineVector.set(row,new Integer(val));
+	this.fireTableCellUpdated(row,1);
     }
 	
     public void increments(){
-	increments(lineVector.size() - 1);
+	this.increments(this.lineVector.size() - 1);
     }
 	
 	
@@ -479,13 +472,13 @@ class ExperimentationResultTableModel extends AbstractTableModel {
     }
 
     public int getRowCount(){
-	return lineVector.size();
+	return this.lineVector.size();
     }
 
     public Object getValueAt(int row, int col){
 	switch(col){
 	case 0: return String.valueOf(row);
-	case 1: return lineVector.get(row);
+	case 1: return this.lineVector.get(row);
 	}
 	throw new IllegalArgumentException();	
     }
@@ -506,8 +499,8 @@ class ExperimentationResultTableModel extends AbstractTableModel {
     }
 
     void reset(){
-	lineVector = new Vector(10,10);
-	fireTableDataChanged();
+	this.lineVector = new Vector(10,10);
+	this.fireTableDataChanged();
     }
 	
 

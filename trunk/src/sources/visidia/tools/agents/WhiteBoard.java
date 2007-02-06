@@ -54,10 +54,10 @@ public class WhiteBoard {
      * doesn't exist in the white board.
      */
     public Object getValue(Object key) {
-        if (values.containsKey(key))
-            return values.get(key);
-        else if (defaults.containsKey(key))
-            return defaults.get(key);
+        if (this.values.containsKey(key))
+            return this.values.get(key);
+        else if (this.defaults.containsKey(key))
+            return this.defaults.get(key);
         else
             throw new NoSuchElementException();
     }
@@ -66,16 +66,16 @@ public class WhiteBoard {
      * Inserts a value and the corresponding key.
      */
     public void setValue(Object key, Object value) {
-        values.put(key, value);
+        this.values.put(key, value);
     }
 
     public void removeValue(Object key) {
-        values.remove(key);
+        this.values.remove(key);
     }
     
     public Set keys() {
-        Hashtable common = (Hashtable)defaults.clone();
-        common.putAll(values);
+        Hashtable common = (Hashtable)this.defaults.clone();
+        common.putAll(this.values);
 
         return common.keySet();
     }

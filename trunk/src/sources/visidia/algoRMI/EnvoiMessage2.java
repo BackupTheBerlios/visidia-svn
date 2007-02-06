@@ -11,11 +11,11 @@ public class EnvoiMessage2 extends AlgorithmDist {
 	static MessageType labels = new MessageType("labels", true);
     
     public EnvoiMessage2 () {
-	addMessageType(labels);
+	this.addMessageType(labels);
     }
     public void init(){
 
-	sendTo(0, new StringMessage("Hello",labels));
+	this.sendTo(0, new StringMessage("Hello",labels));
     }
 
     public Object clone(){

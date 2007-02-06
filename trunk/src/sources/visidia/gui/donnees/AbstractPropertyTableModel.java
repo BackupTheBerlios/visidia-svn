@@ -38,7 +38,7 @@ public abstract class AbstractPropertyTableModel extends AbstractTableModel {
     }
     
     public int getRowCount(){
-        return keys.size();
+        return this.keys.size();
     }
     
     protected String getTypeName(Object obj) {
@@ -54,9 +54,9 @@ public abstract class AbstractPropertyTableModel extends AbstractTableModel {
      * Only value column cell are editable.
      */
     public boolean isCellEditable(int row, int col) {
-        Object obj = getValueAt(row,col);
+        Object obj = this.getValueAt(row,col);
 
-        return ((col == valueColumn) && (!keys.elementAt(row).equals("label"))
+        return ((col == this.valueColumn) && (!this.keys.elementAt(row).equals("label"))
                                && (( obj instanceof String)
                                    || ( obj instanceof Integer)
                                    || ( obj instanceof Double)

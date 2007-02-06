@@ -40,20 +40,20 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	throws RemoteException{
 	super();
 	serverName = name;
-	registryPort = regPort;
+	this.registryPort = regPort;
 	
     }
     public NodeServerImpl(String name, String regPort, String urlName) throws RemoteException {
 	super();
 	serverName = name;
-	registryPort = regPort;
+	this.registryPort = regPort;
 	this.urlName = urlName;
     }
 
     public NodeServerImpl(String name, String regPort, String urlName, PrintWriter out) throws RemoteException {
 	super();
 	serverName = name;
-	registryPort = regPort;
+	this.registryPort = regPort;
 	this.urlName = urlName;
 	this.out = out;
     }
@@ -62,55 +62,55 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
     //Remote Method to Initilise the nodes on the the <code>serverName</code> host 
     //public Hashtable initialiser(Hashtable liste, SimpleGraph graph, String nom, String visuUrl) throws RemoteException{
     public Hashtable initialize(Vector vect, String nom, String visuUrl) throws RemoteException{
-	if (out == null)
+	if (this.out == null)
 	    System.out.println("Noeud Local contacte");
 	else
 	    try {
-		out.println("Noeud Local contacte");
-		out.flush();
+		this.out.println("Noeud Local contacte");
+		this.out.flush();
 	    } catch (Exception e) {
 	    }
 	
 	for(int i=0;i<vect.size();i++) {
 	    try {
 		String node = ((Integer)vect.elementAt(i)).toString();
-		NodeInterfaceTry nodeSimul= new NodeTry(node,nom,visuUrl,registryPort);
-		graphStub.put(node,nodeSimul);
+		NodeInterfaceTry nodeSimul= new NodeTry(node,nom,visuUrl,this.registryPort);
+		this.graphStub.put(node,nodeSimul);
 	    } catch (Exception e) {
-		if (out == null)
+		if (this.out == null)
 		    System.out.println(e);
 		else 
 		    try {
-		    out.println(e.toString());
-		    out.flush();
+		    this.out.println(e.toString());
+		    this.out.flush();
 		    } catch (Exception expt) {
 		    }
 	    }
 	}
-	return graphStub;
+	return this.graphStub;
     }
 
     public void reInitialiser() throws RemoteException {
 	try {
-	    Enumeration theNodes  = graphStub.keys();
+	    Enumeration theNodes  = this.graphStub.keys();
 	    while( theNodes.hasMoreElements()){
 		String node = (String)theNodes.nextElement();
-		NodeInterfaceTry nodeSimul = (NodeInterfaceTry)graphStub.get(node);
+		NodeInterfaceTry nodeSimul = (NodeInterfaceTry)this.graphStub.get(node);
 		nodeSimul.abortServer();
 		//nodeSimul = null;
 	    }
 	}catch (Exception e) {
-	    if (out == null)
+	    if (this.out == null)
 		    System.out.println("Erreur dans la reinitialisation"+e);
 		else 
 		    try {
-			out.println("Erreur dans la reinitialisation"+e.toString());
-			out.flush();
+			this.out.println("Erreur dans la reinitialisation"+e.toString());
+			this.out.flush();
 		    } catch (Exception expt) {
 		    }
 	}
 
-	graphStub = new Hashtable();
+	this.graphStub = new Hashtable();
     }
     
     public void setUrlName(String name) throws RemoteException {
@@ -120,7 +120,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
     }
 
     public String getUrlName() throws RemoteException {
-	return urlName ;
+	return this.urlName ;
     }
 
     public String getHostName() throws RemoteException {
@@ -128,8 +128,8 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
     }
     public Vector getNodes() throws RemoteException {
 	Vector vect = new Vector();
-	vect.addElement(urlName);
-	Enumeration theNodes  = graphStub.keys();
+	vect.addElement(this.urlName);
+	Enumeration theNodes  = this.graphStub.keys();
 	while( theNodes.hasMoreElements()){
 	    try {
 		String node = (String)theNodes.nextElement();	    
@@ -142,15 +142,15 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 
     public void register(String visuHost, String url) throws RemoteException {
 	try {
-	    RegistrationThread rt = new RegistrationThread(visuHost,url,registryPort,this);
+	    RegistrationThread rt = new RegistrationThread(visuHost,url,this.registryPort,this);
 	    rt.start();
 	} catch (Exception e){
-	    if (out == null)
+	    if (this.out == null)
 		System.out.println(e);
 	    else 
 		try {
-		    out.println(e.toString());  
-		    out.flush();
+		    this.out.println(e.toString());  
+		    this.out.flush();
 		} catch (Exception expt) {
 		}
 	}

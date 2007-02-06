@@ -15,14 +15,14 @@ public class NextPulseAck implements  SimulAck, Serializable{
 	private long num;
     
     public NextPulseAck(Long evtNumber){
-	num = evtNumber.longValue();
+	this.num = evtNumber.longValue();
     }
 
     /**
      * return the acknowledgement number.
      */
     public Long number(){
-	return new Long(num);
+	return new Long(this.num);
     }
 
     /**

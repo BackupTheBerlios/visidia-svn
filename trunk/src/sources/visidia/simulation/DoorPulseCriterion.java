@@ -23,8 +23,8 @@ public class DoorPulseCriterion implements Criterion {
      **/
 
     public DoorPulseCriterion() {
-	pulse = null;
-	door = null;
+	this.pulse = null;
+	this.door = null;
     }
 
 
@@ -59,42 +59,42 @@ public class DoorPulseCriterion implements Criterion {
 	if ( !(o instanceof MessagePacket)) 
 	    return false;
 	
-	if((pulse == null) && (door == null)) {
+	if((this.pulse == null) && (this.door == null)) {
 	    return true;
-	} else if(pulse == null) {
+	} else if(this.pulse == null) {
 	    Message msg = ((MessagePacket)o).message();
 	    int d = ((MessagePacket)o).receiverDoor();
-	    if(door.getNum() == d)
+	    if(this.door.getNum() == d)
 		return true;
 	    else 
 		return false; 
-	} else if (door == null) {
+	} else if (this.door == null) {
 	    Message msg = ((MessagePacket)o).message();
 	    int p = msg.getMsgClock();
-	    if(pulse.intValue() == p)
+	    if(this.pulse.intValue() == p)
 		return true;
 	    return false; 
 	} else {
 	    Message msg = ((MessagePacket)o).message();
 	    int p = msg.getMsgClock();
 	    int d = ((MessagePacket)o).receiverDoor();
-	    if((door.getNum() == d) && (pulse.intValue() == p))
+	    if((this.door.getNum() == d) && (this.pulse.intValue() == p))
 		return true;
 	    return false; 
 	}
     }
     
     public int getPulse() {
-	if(pulse == null)
+	if(this.pulse == null)
 	    return -1;
 
-	return pulse.intValue();
+	return this.pulse.intValue();
     }
 
     public int getDoor() {
-	if(door == null) 
+	if(this.door == null) 
 	    return -1;
-	return door.getNum();
+	return this.door.getNum();
     }
 
 
@@ -120,11 +120,11 @@ public class DoorPulseCriterion implements Criterion {
     } 
     
     public boolean pulseIsNull() {
-	return pulse == null;
+	return this.pulse == null;
     }
     
     public boolean doorIsNull() {
-	return door == null;
+	return this.door == null;
     }
     
 }

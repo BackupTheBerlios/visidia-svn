@@ -13,7 +13,7 @@ public class PortTable implements Serializable {
 	private Hashtable hash;
     
     public PortTable() {
-	hash = new Hashtable();
+	this.hash = new Hashtable();
     }
 
     public PortTable(Hashtable hash) {
@@ -21,25 +21,25 @@ public class PortTable implements Serializable {
     }
 
     public int size() {
-	return hash.size();
+	return this.hash.size();
     }
 
     public void put(Integer door, Integer neighbor, NodeInterfaceTry neighborStub){
 	Vector v = new Vector();
 	v.addElement(neighbor);
 	v.addElement(neighborStub);
-	hash.put(door,v);
+	this.hash.put(door,v);
     }
 
     public Integer getNeighbor(Integer door) {
-	return (Integer)((Vector)hash.get(door)).elementAt(0);
+	return (Integer)((Vector)this.hash.get(door)).elementAt(0);
     }
 
     public int getDoor(Integer neighbor){
 	boolean bool = true;
 	int i=0;
-	for(;(i<hash.size()) && bool;i++) {
-	    if ((getNeighbor(new Integer(i))).equals(neighbor)){
+	for(;(i<this.hash.size()) && bool;i++) {
+	    if ((this.getNeighbor(new Integer(i))).equals(neighbor)){
 		bool=false;
 	    }
 	}
@@ -47,11 +47,11 @@ public class PortTable implements Serializable {
     }
 
     public NodeInterfaceTry getNeighborStub(Integer door) {
-	return (NodeInterfaceTry)((Vector)hash.get(door)).elementAt(1);
+	return (NodeInterfaceTry)((Vector)this.hash.get(door)).elementAt(1);
     }
 
     public Vector getElement(Integer door) {
-	return (Vector)hash.get(door);
+	return (Vector)this.hash.get(door);
     }
 
 }

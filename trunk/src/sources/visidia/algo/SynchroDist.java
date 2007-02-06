@@ -42,21 +42,21 @@ public class SynchroDist extends Algorithm {
 	int father=-1;
 	String ssy;
 
-	neighbours=new boolean[getArity()];
+	neighbours=new boolean[this.getArity()];
 	
-        for (int i=0;i<getArity();i++) {
+        for (int i=0;i<this.getArity();i++) {
             neighbours[i]=false;
         }
         
-	label=new String[getArity()];
+	label=new String[this.getArity()];
 		
-	if ((getId()).intValue()==0) {
+	if ((this.getId()).intValue()==0) {
 	    myL=nodeA;
 	    mySynchro=1;
 	    myState=new String("A,1");
 	}
 	
-        putProperty("label",myState);
+        this.putProperty("label",myState);
         
         while (run) {
 	    
@@ -70,15 +70,15 @@ public class SynchroDist extends Algorithm {
 	       
 		if ((myL.compareTo(nodeA)==0) && (!fir)) {
 		    if (father==-1)
-			sendAll(new StringMessage(myL,labels));
+			this.sendAll(new StringMessage(myL,labels));
 		    else
-			for (int j=0;j<getArity();j++)
+			for (int j=0;j<this.getArity();j++)
 			    if (j!=father)
-				sendTo(j,new StringMessage(myL,labels));
+				this.sendTo(j,new StringMessage(myL,labels));
 		    fir=true;
 		}
 		
-		String la=(((StringMessage) receive(door)).data());
+		String la=(((StringMessage) this.receive(door)).data());
 		i=door.getNum();
 		
 		label[i]=la;
@@ -93,14 +93,14 @@ public class SynchroDist extends Algorithm {
 			myL=nodeA;
 		    */
 		    neighbours[i]=false;
-		    setDoorState(new MarkedState(false),i);
+		    this.setDoorState(new MarkedState(false),i);
 			
 		    //mySynchro++;
 		    //}
 		    
 		    ssy=new String((new Integer(mySynchro)).toString());
 		    myState=myL+","+ssy;
-		    putProperty("label",myState);
+		    this.putProperty("label",myState);
 		}
 		
 		if (label[i].compareTo(nodeA)==0) {
@@ -120,25 +120,25 @@ public class SynchroDist extends Algorithm {
 
 		    ssy=new String((new Integer(mySynchro)).toString());
 		    myState=myL+","+ssy;
-		    putProperty("label",myState);
+		    this.putProperty("label",myState);
 		    
-		    sendTo(father,new StringMessage(nodeL,labels));
-		    setDoorState(new MarkedState(true),father);
+		    this.sendTo(father,new StringMessage(nodeL,labels));
+		    this.setDoorState(new MarkedState(true),father);
 		}
 		count++;
 	    }
-	    while (count<getArity());
+	    while (count<this.getArity());
 	    
 	   
 	    
-	    if (countA==getArity())
+	    if (countA==this.getArity())
 		myL=nodeN;
 	    
 	    fir=false;
 
 	    countL=0;
 	    
-	    for (int j=0;j<getArity();j++)
+	    for (int j=0;j<this.getArity();j++)
 		if (neighbours[j])
 		    countL++;
 	    
@@ -147,7 +147,7 @@ public class SynchroDist extends Algorithm {
 
 	    ssy=new String((new Integer(mySynchro)).toString());
 	    myState=myL+","+ssy;
-	    putProperty("label",myState);
+	    this.putProperty("label",myState);
 
 	    
 		
@@ -160,7 +160,7 @@ public class SynchroDist extends Algorithm {
 			sendTo(j,new StringMessage(nodeF,labels));
 		    */
 		    //if (father!=-1) {
-		    sendTo(father,new StringMessage(nodeF,labels));
+		    this.sendTo(father,new StringMessage(nodeF,labels));
 		    neighbours[father]=false;
 		    countL--;
 			//}
@@ -169,14 +169,14 @@ public class SynchroDist extends Algorithm {
 		}
 		
 		if (!fir) {
-		    String la=(((StringMessage) receive(door)).data());
+		    String la=(((StringMessage) this.receive(door)).data());
 		    i=door.getNum();
 		    
 		    if (neighbours[i]) {
 			neighbours[i]=false;
 			countL--;
 		    }
-		    setDoorState(new MarkedState(false),i);
+		    this.setDoorState(new MarkedState(false),i);
 		    
 		    if (countL==1)
 			myL=nodeN;
@@ -191,7 +191,7 @@ public class SynchroDist extends Algorithm {
 
 	    ssy=new String((new Integer(mySynchro)).toString());
 	    myState=myL+","+ssy;
-	    putProperty("label",myState); 
+	    this.putProperty("label",myState); 
 	}
     }
     public Object clone(){

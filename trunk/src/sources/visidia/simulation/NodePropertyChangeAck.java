@@ -13,14 +13,14 @@ public class NodePropertyChangeAck implements  SimulAck, Serializable{
 	private long num;
     
     public NodePropertyChangeAck(Long evtNumber){
-	num = evtNumber.longValue();
+	this.num = evtNumber.longValue();
     }
 
     /**
      * return the acknowledgement number.
      */
     public Long number(){
-	return new Long(num);
+	return new Long(this.num);
     }
 
     /**

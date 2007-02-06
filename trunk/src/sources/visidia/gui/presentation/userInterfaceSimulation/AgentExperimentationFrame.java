@@ -54,7 +54,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
     private SimulatorThreadGroup threadGroup;
 
     public AgentExperimentationFrame(Bag stats) {
-        initializeFrame(stats);
+        this.initializeFrame(stats);
     }
 
     public AgentExperimentationFrame(VueGraphe graph, Hashtable agentsTable, 
@@ -67,87 +67,83 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
         this.defaultProperties = defaultProperties;
 	this.expType = expType;
 	
-        initializeFrame(new Bag());
+        this.initializeFrame(new Bag());
 
-        but_start = new JButton("Start");
-        but_start.addActionListener(this);
+        this.but_start = new JButton("Start");
+        this.but_start.addActionListener(this);
       
-        but_abort = new JButton("Abort");
-        but_abort.addActionListener(this);
+        this.but_abort = new JButton("Abort");
+        this.but_abort.addActionListener(this);
         
-        toolBar = new JToolBar();
-        toolBar.add(but_start);
-        toolBar.add(but_abort);
-        getContentPane().add(toolBar,BorderLayout.NORTH);
+        this.toolBar = new JToolBar();
+        this.toolBar.add(this.but_start);
+        this.toolBar.add(this.but_abort);
+        this.getContentPane().add(this.toolBar,BorderLayout.NORTH);
 
-        controlEnabling(true);
+        this.controlEnabling(true);
     }
 
     private void initializeFrame(Bag stats) {
-	tableModel = new ReadOnlyHashTableModel(stats);
-	TableSorter sorter = new TableSorter(tableModel);
-	resultTable = new JTable(sorter);
-	sorter.setTableHeader(resultTable.getTableHeader());
-	scrollPane = new JScrollPane(resultTable);		
-	getContentPane().add(scrollPane,BorderLayout.CENTER);
+	this.tableModel = new ReadOnlyHashTableModel(stats);
+	TableSorter sorter = new TableSorter(this.tableModel);
+	this.resultTable = new JTable(sorter);
+	sorter.setTableHeader(this.resultTable.getTableHeader());
+	this.scrollPane = new JScrollPane(this.resultTable);		
+	this.getContentPane().add(this.scrollPane,BorderLayout.CENTER);
         
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);        
     }
     
-    private void initializeTable(Map stats) {
-
-    }
-
     public HashTableModel getTableModel() {
-        return tableModel;
+        return this.tableModel;
     } 
 
     public AbstractExperiment getExpType() {
-	return expType;
+	return this.expType;
     }
 
     public void actionPerformed(ActionEvent evt) {
-	if(evt.getSource() == but_start){
-	    start();
+	if(evt.getSource() == this.but_start){
+	    this.start();
 	}
-	if(evt.getSource() == but_abort){
-	    abort();
+	if(evt.getSource() == this.but_abort){
+	    this.abort();
 	}
     }
 
     private void controlEnabling(boolean enable){
-        but_start.setEnabled(  enable );
-        but_abort.setEnabled( !enable );
+        this.but_start.setEnabled(  enable );
+        this.but_abort.setEnabled( !enable );
     }
 
     public void algoTerminated() {
         JOptionPane.showMessageDialog(this,"Algorithms are terminated");
-        controlEnabling(true);
-	if (expThread != null) {
-	    expThread.abortExperimentation();
-	    expThread = null;
+        this.controlEnabling(true);
+	if (this.expThread != null) {
+	    this.expThread.abortExperimentation();
+	    this.expThread = null;
 	}
     }
 
     public void start() {
-        if (expThread != null)
-            abort();
-        getTableModel().setProperties(new Hashtable());
-        threadGroup = new SimulatorThreadGroup("simulator");
-	expThread = new ExperimentationThread(threadGroup, 
-                                              Convertisseur.convert(graph.getGraphe(),
-                                                             agentsTable,
-                                                             defaultProperties),
-                                              agentsRules, this);
-        controlEnabling(false);
-	expThread.start();
+        if (this.expThread != null)
+            this.abort();
+        this.getTableModel().setProperties(new Hashtable());
+        this.threadGroup = new SimulatorThreadGroup("simulator");
+	this.expThread = new ExperimentationThread(this.threadGroup, 
+                                              Convertisseur.convert(this.graph.getGraphe(),
+                                                             this.agentsTable,
+                                                             this.defaultProperties),
+                                              this.agentsRules, this);
+        this.controlEnabling(false);
+	this.expThread.start();
     }
     
     public void abort() {
-	if(expThread != null){
-	    expThread.abortExperimentation();
-	    expThread = null;
-            controlEnabling(true);
+	if(this.expThread != null){
+	    this.expThread.abortExperimentation();
+	    this.expThread = null;
+            this.controlEnabling(true);
 	}
     }
 }
@@ -175,8 +171,8 @@ class ReadOnlyHashTableModel extends HashTableModel {
     public Object getValueAt(int row, int col){
         switch(col){
 
-        case 0: return keys.get(row).toString();
-        case 1: return table.get(keys.get(row));
+        case 0: return this.keys.get(row).toString();
+        case 1: return this.table.get(this.keys.get(row));
         
         }
         throw new IllegalArgumentException();	
@@ -204,58 +200,58 @@ class ExperimentationThread extends Thread {
 	this.frame.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent evt) {
 		    // Exit the application
-		    abortExperimentation();
+		    ExperimentationThread.this.abortExperimentation();
 		}
 	    });
 
     }
     
     void abortExperimentation(){
-        aborted = true;
-	timer.stop();
-        while(isAlive()){
-            interrupt();
+        this.aborted = true;
+	this.timer.stop();
+        while(this.isAlive()){
+            this.interrupt();
             try{
                 Thread.currentThread().sleep(10);
             }
             catch(InterruptedException e){
-		if (simulator != null)
-		    simulator.abortSimulation();
+		if (this.simulator != null)
+		    this.simulator.abortSimulation();
                 throw new SimulationAbortError(e);
             }
         }
 
-	if (simulator != null)
-	    simulator.abortSimulation();
+	if (this.simulator != null)
+	    this.simulator.abortSimulation();
     }
     
     
     public void run(){
             
-        eventVQueue = new visidia.tools.VQueue();
-        ackVQueue = new visidia.tools.VQueue();
+        this.eventVQueue = new visidia.tools.VQueue();
+        this.ackVQueue = new visidia.tools.VQueue();
 		
-        simulator = new AgentSimulator(graph,
-                                       agentsRules,
-                                       eventVQueue,
-                                       ackVQueue);
+        this.simulator = new AgentSimulator(this.graph,
+                                       this.agentsRules,
+                                       this.eventVQueue,
+                                       this.ackVQueue);
 
-	simulator.startSimulation();
-	frame.getExpType().setStats(simulator.getStats());
-	timer = new UpdateTableStats(simulator, frame.getExpType(), frame.getTableModel());
-        new Thread(timer).start();
-        terminated = false;
+	this.simulator.startSimulation();
+	this.frame.getExpType().setStats(this.simulator.getStats());
+	this.timer = new UpdateTableStats(this.simulator, this.frame.getExpType(), this.frame.getTableModel());
+        new Thread(this.timer).start();
+        this.terminated = false;
 
         try{
-            eventHandleLoop();
+            this.eventHandleLoop();
         }
         catch(InterruptedException e){
             //this interruption should have been cause
             //by the simulation stop.
-            if( aborted && (simulator != null)){
+            if( this.aborted && (this.simulator != null)){
                 //abort current simulation
-                simulator.abortSimulation();
-		simulator = null;
+                this.simulator.abortSimulation();
+		this.simulator = null;
             }
         }
     }
@@ -263,22 +259,22 @@ class ExperimentationThread extends Thread {
     public void eventHandleLoop() throws InterruptedException{
 	    
         SimulEvent simEvt = null;
-        while(!terminated){
-            simEvt = (SimulEvent) eventVQueue.get();
+        while(!this.terminated){
+            simEvt = (SimulEvent) this.eventVQueue.get();
 		
             switch(simEvt.type()){
 		    
             case SimulConstants.EDGE_STATE_CHANGE:
-                handleEdgeStateChangeEvt(simEvt);
+                this.handleEdgeStateChangeEvt(simEvt);
                 break;
             case SimulConstants.MESSAGE_SENT :
-                handleMessageSentEvt(simEvt);
+                this.handleMessageSentEvt(simEvt);
                 break;
             case SimulConstants.ALGORITHM_END :
-                handleAlgorithmEndEvent(simEvt);
+                this.handleAlgorithmEndEvent(simEvt);
                 break;
             case SimulConstants.AGENT_MOVED :
-                handleAgentMovedEvt(simEvt);
+                this.handleAgentMovedEvt(simEvt);
                 break;
             case SimulConstants.LABEL_CHANGE :
                 break;
@@ -292,21 +288,21 @@ class ExperimentationThread extends Thread {
 
     public void handleEdgeStateChangeEvt(SimulEvent se) throws InterruptedException{
         EdgeStateChangeAck esca = new EdgeStateChangeAck(se.eventNumber());
-        ackVQueue.put(esca);
+        this.ackVQueue.put(esca);
     }
     public void handleMessageSentEvt(SimulEvent se) throws InterruptedException{
         MessageSendingAck msa = new MessageSendingAck(se.eventNumber());
-        ackVQueue.put(msa);
+        this.ackVQueue.put(msa);
     }
 	
     public void handleAlgorithmEndEvent(SimulEvent se) throws InterruptedException{
-        terminated = true;
-        frame.algoTerminated();
+        this.terminated = true;
+        this.frame.algoTerminated();
     }
 
     public void handleAgentMovedEvt(SimulEvent se) throws InterruptedException {
         AgentMovedAck ack = new AgentMovedAck(se.eventNumber());
-        ackVQueue.put(ack);
+        this.ackVQueue.put(ack);
     }
 }
     

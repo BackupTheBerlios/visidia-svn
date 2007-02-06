@@ -41,8 +41,6 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
 
     private JCheckBox multipleChoice;
     private boolean choiceState;
-    private JSpinner probMultiple;
-    
     private DefaultListModel listModel;
     private JList list;
     private JPanel centerPanel;
@@ -63,40 +61,40 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
     public AlgoProbParam (String algo, String prob, AgentChooser ac) {
 	super("Choose your parameters");
 	
-	agentChooser = ac;
+	this.agentChooser = ac;
 
-	setResizable(false);
+	this.setResizable(false);
 
 	/**
 	 * Initialization of the north panel
 	 **/
 	
-	probState = true; // Bernoulli Law
-	probB = new JButton("Bernouilli Parameter");
-	probB.addActionListener(this);
+	this.probState = true; // Bernoulli Law
+	this.probB = new JButton("Bernouilli Parameter");
+	this.probB.addActionListener(this);
 
 
 	SpinnerNumberModel spinnerModel = new SpinnerNumberModel(new Float(0.500),new Float(0),new Float(1),new Float(0.001));
-	probValue = new JSpinner(spinnerModel);
-	probValue.addChangeListener(this);
-	probValue.addKeyListener(this);
-	probValue.setEnabled(true);
+	this.probValue = new JSpinner(spinnerModel);
+	this.probValue.addChangeListener(this);
+	this.probValue.addKeyListener(this);
+	this.probValue.setEnabled(true);
 
 
-	algoName = new JTextField(algo);
-	algoName.setHorizontalAlignment(JTextField.CENTER);
-	algoName.addActionListener(this);
-	algoName.addKeyListener(this);
+	this.algoName = new JTextField(algo);
+	this.algoName.setHorizontalAlignment(JTextField.CENTER);
+	this.algoName.addActionListener(this);
+	this.algoName.addKeyListener(this);
 	
-	algoB = new JButton("Algorithm Name");
-	algoB.addActionListener(this);
+	this.algoB = new JButton("Algorithm Name");
+	this.algoB.addActionListener(this);
 	
-	northPanel = new JPanel(new GridLayout(2,2));
-	northPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Parameters"));
-	northPanel.add(probB);
-	northPanel.add(probValue);
-	northPanel.add(algoB);
-	northPanel.add(algoName);
+	this.northPanel = new JPanel(new GridLayout(2,2));
+	this.northPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Parameters"));
+	this.northPanel.add(this.probB);
+	this.northPanel.add(this.probValue);
+	this.northPanel.add(this.algoB);
+	this.northPanel.add(this.algoName);
 
 
 	
@@ -104,66 +102,66 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
 	 * Initialization of the center frame
 	 **/
 	
-	listModel = new DefaultListModel();
-	listModel.addElement("BasicAgent");
-	listModel.addElement("BasicSynchronizedAgent1");
-	listModel.addElement("BasicSynchronizedAgent2");
-	listModel.addElement("BasicSynchronizedAgent3");
-	listModel.addElement("Handshake");
-	listModel.addElement("Akka");
+	this.listModel = new DefaultListModel();
+	this.listModel.addElement("BasicAgent");
+	this.listModel.addElement("BasicSynchronizedAgent1");
+	this.listModel.addElement("BasicSynchronizedAgent2");
+	this.listModel.addElement("BasicSynchronizedAgent3");
+	this.listModel.addElement("Handshake");
+	this.listModel.addElement("Akka");
 	
-	list = new JList(listModel); 
-	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	list.setLayoutOrientation(JList.VERTICAL);
+	this.list = new JList(this.listModel); 
+	this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	this.list.setLayoutOrientation(JList.VERTICAL);
 	
 
-	list.addListSelectionListener(this);
+	this.list.addListSelectionListener(this);
 
-	JScrollPane listScroller = new JScrollPane(list);
+	JScrollPane listScroller = new JScrollPane(this.list);
 	listScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	listScroller.setPreferredSize(new Dimension(370,110));
 	listScroller.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),""));
 
 	
-	multipleChoice = new JCheckBox("Multiple selection");
-	multipleChoice.addActionListener(this);
-	choiceState = true; // Single selection 
+	this.multipleChoice = new JCheckBox("Multiple selection");
+	this.multipleChoice.addActionListener(this);
+	this.choiceState = true; // Single selection 
 
 
-	centerPanel = new JPanel(new BorderLayout());
-	centerPanel.add(listScroller,BorderLayout.CENTER);
-	centerPanel.add(multipleChoice,BorderLayout.NORTH);
+	this.centerPanel = new JPanel(new BorderLayout());
+	this.centerPanel.add(listScroller,BorderLayout.CENTER);
+	this.centerPanel.add(this.multipleChoice,BorderLayout.NORTH);
 	/**
 	 * Initialization of the south panel
 	 *
 	 **/
 	
 	JPanel okCancelPanel = new JPanel();
-	okB = new JButton("Ok");
-	cancelB = new JButton("Cancel");
+	this.okB = new JButton("Ok");
+	this.cancelB = new JButton("Cancel");
 	
 
-	okB.addActionListener(this);
-	cancelB.addActionListener(this);
+	this.okB.addActionListener(this);
+	this.cancelB.addActionListener(this);
 	
-	okCancelPanel.add(okB);
-	okCancelPanel.add(cancelB);
+	okCancelPanel.add(this.okB);
+	okCancelPanel.add(this.cancelB);
 
 	/**
 	 * Jus for fun
 	 **/
-	info = new JTextPane();
-	info.setPreferredSize(new Dimension(360,70));
-	doc = info.getStyledDocument();
-	keyWord = new SimpleAttributeSet();
-	doc.setParagraphAttributes(0, 0, keyWord, true);
-	info.setEditable(false);
-	info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Info"));
+	this.info = new JTextPane();
+	this.info.setPreferredSize(new Dimension(360,70));
+	this.doc = this.info.getStyledDocument();
+	this.keyWord = new SimpleAttributeSet();
+	this.doc.setParagraphAttributes(0, 0, this.keyWord, true);
+	this.info.setEditable(false);
+	this.info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Info"));
 
-	southPanel = new JPanel(new BorderLayout());
+	this.southPanel = new JPanel(new BorderLayout());
 	
-	southPanel.add(info,BorderLayout.CENTER);
-	southPanel.add(okCancelPanel,BorderLayout.SOUTH);
+	this.southPanel.add(this.info,BorderLayout.CENTER);
+	this.southPanel.add(okCancelPanel,BorderLayout.SOUTH);
 	
 
 	
@@ -173,20 +171,20 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
 	 **/
 	this.setLayout(new BorderLayout());
 
-	this.getContentPane().add(northPanel, BorderLayout.NORTH);
-	this.getContentPane().add(southPanel, BorderLayout.SOUTH);
-	this.getContentPane().add(centerPanel, BorderLayout.CENTER);
+	this.getContentPane().add(this.northPanel, BorderLayout.NORTH);
+	this.getContentPane().add(this.southPanel, BorderLayout.SOUTH);
+	this.getContentPane().add(this.centerPanel, BorderLayout.CENTER);
 	
 	this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    close();
+		    AlgoProbParam.this.close();
 		}
 	    });
     }
 
     public void close() {
-	setVisible(false);
-	dispose();
+	this.setVisible(false);
+	this.dispose();
 	Runtime.getRuntime().gc();
     }
     
@@ -197,42 +195,42 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
      **/
     private void write() {
 	try {
-	    doc.remove(0,doc.getLength());
+	    this.doc.remove(0,this.doc.getLength());
 	} catch (Exception e) {
 	}
 
-	if(choiceState) {
+	if(this.choiceState) {
 	    
-	    if(probState) {
-		write("On each Vertex, one agent ", colorGreen);
-		write("["+algoName.getText()+"]",Color.red);
-		write(" will be created according to a ", Color.blue);
-		write("Bernoulli law ", colorGreen);
-		write("with parameter: ", Color.blue);
-		write(((Float)((SpinnerNumberModel)probValue.getModel()).getValue()).toString(),Color.red);
+	    if(this.probState) {
+		this.write("On each Vertex, one agent ", this.colorGreen);
+		this.write("["+this.algoName.getText()+"]",Color.red);
+		this.write(" will be created according to a ", Color.blue);
+		this.write("Bernoulli law ", this.colorGreen);
+		this.write("with parameter: ", Color.blue);
+		this.write(((Float)((SpinnerNumberModel)this.probValue.getModel()).getValue()).toString(),Color.red);
 	    }  else {
-		write("On each Vertex, a random number of agents ", colorGreen);
-		write("["+algoName.getText()+"]",Color.red);
-		write(" will be created according to a ", Color.blue);
-		write("Poisson law ", colorGreen);
-		write("with parameter: ", Color.blue);
-		write(((Float)((SpinnerNumberModel)probValue.getModel()).getValue()).toString(),Color.red);
+		this.write("On each Vertex, a random number of agents ", this.colorGreen);
+		this.write("["+this.algoName.getText()+"]",Color.red);
+		this.write(" will be created according to a ", Color.blue);
+		this.write("Poisson law ", this.colorGreen);
+		this.write("with parameter: ", Color.blue);
+		this.write(((Float)((SpinnerNumberModel)this.probValue.getModel()).getValue()).toString(),Color.red);
 	    }
 	} else {
-	    if(probState) {
-		write("On each Vertex, one agent ", colorGreen);
-		write("[ choosen randomly from the selection ]",Color.blue);
-		write(" will be created according to a ", Color.blue);
-		write("Bernoulli law ", colorGreen);
-		write("with parameter: ", Color.blue);
-		write(((Float)((SpinnerNumberModel)probValue.getModel()).getValue()).toString(),Color.red);
+	    if(this.probState) {
+		this.write("On each Vertex, one agent ", this.colorGreen);
+		this.write("[ choosen randomly from the selection ]",Color.blue);
+		this.write(" will be created according to a ", Color.blue);
+		this.write("Bernoulli law ", this.colorGreen);
+		this.write("with parameter: ", Color.blue);
+		this.write(((Float)((SpinnerNumberModel)this.probValue.getModel()).getValue()).toString(),Color.red);
 	    }  else {
-		write("On each Vertex, a random number of agents ", colorGreen);
-		write("[ choosen randomly form the selection ]",Color.blue);
-		write(" will be created according to a ", Color.blue);
-		write("Poisson law ", colorGreen);
-		write("with parameter: ", Color.blue);
-		write(((Float)((SpinnerNumberModel)probValue.getModel()).getValue()).toString(),Color.red);
+		this.write("On each Vertex, a random number of agents ", this.colorGreen);
+		this.write("[ choosen randomly form the selection ]",Color.blue);
+		this.write(" will be created according to a ", Color.blue);
+		this.write("Poisson law ", this.colorGreen);
+		this.write("with parameter: ", Color.blue);
+		this.write(((Float)((SpinnerNumberModel)this.probValue.getModel()).getValue()).toString(),Color.red);
 	    }
 	}
 	
@@ -240,89 +238,89 @@ public class AlgoProbParam extends JFrame implements ActionListener, ListSelecti
 	
     private void write(String s,Color c) {
 	try {
-	    StyleConstants.setForeground(keyWord, c);
-	    doc.insertString(doc.getLength(), s, keyWord);
+	    StyleConstants.setForeground(this.keyWord, c);
+	    this.doc.insertString(this.doc.getLength(), s, this.keyWord);
 	}catch (Exception e) {}
     }
 
     
     public void actionPerformed(ActionEvent evt) {
 	if(evt.getSource() instanceof JButton) {
-	    if(evt.getSource() == okB) {
-		if(! list.isSelectionEmpty()) {
-		    Vector<String> selection = new Vector<String>(list.getSelectedValues().length);
-		    for (int i = 0; i < list.getSelectedValues().length ; i++) {
-			selection.add((String)((list.getSelectedValues())[i]));
+	    if(evt.getSource() == this.okB) {
+		if(! this.list.isSelectionEmpty()) {
+		    Vector<String> selection = new Vector<String>(this.list.getSelectedValues().length);
+		    for (int i = 0; i < this.list.getSelectedValues().length ; i++) {
+			selection.add((String)((this.list.getSelectedValues())[i]));
 		    }
 		    
-		    ((RandomAgentChooser)agentChooser).setParam(((Float)probValue.getValue()).floatValue(),selection);
+		    ((RandomAgentChooser)this.agentChooser).setParam(((Float)this.probValue.getValue()).floatValue(),selection);
 
 		} else 
-		    ((RandomAgentChooser)agentChooser).setParam(algoName.getText(),((Float)probValue.getValue()).floatValue());
-		close();
-	    } else if (evt.getSource() ==  cancelB){
-		close();
+		    ((RandomAgentChooser)this.agentChooser).setParam(this.algoName.getText(),((Float)this.probValue.getValue()).floatValue());
+		this.close();
+	    } else if (evt.getSource() ==  this.cancelB){
+		this.close();
 		/**
 		 * Just for fun
 		 **/
-	    } else if (evt.getSource() == algoB) {
-		list.clearSelection();
+	    } else if (evt.getSource() == this.algoB) {
+		this.list.clearSelection();
 		Random rand = new Random();
-		algoName.setText((String)listModel.elementAt(rand.nextInt(listModel.size())));
-		write();
-	    } else if (evt.getSource() == probB) {
-		if(probState) {
-		    probB.setText("Poisson Parameter (to do)");
+		this.algoName.setText((String)this.listModel.elementAt(rand.nextInt(this.listModel.size())));
+		this.write();
+	    } else if (evt.getSource() == this.probB) {
+		if(this.probState) {
+		    this.probB.setText("Poisson Parameter (to do)");
 		} else {
-		    probB.setText("Bernoulli parameter");
+		    this.probB.setText("Bernoulli parameter");
 		}
-		probState = !probState;
-		write();
+		this.probState = !this.probState;
+		this.write();
 	    }
 	} else if (evt.getSource() instanceof JCheckBox) {
-	    if(choiceState) {
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		algoName.setEnabled(false);
-		algoB.setEnabled(false);
+	    if(this.choiceState) {
+		this.list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.algoName.setEnabled(false);
+		this.algoB.setEnabled(false);
 	    } else {
-		list.clearSelection();
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		algoName.setEnabled(true);
-		algoB.setEnabled(true);
+		this.list.clearSelection();
+		this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.algoName.setEnabled(true);
+		this.algoB.setEnabled(true);
 	    }
-	    choiceState = !choiceState;
-	    write();
+	    this.choiceState = !this.choiceState;
+	    this.write();
 	} else {
-	    write();
+	    this.write();
 	}
     }
     
     public void stateChanged(ChangeEvent e) {
-	write();
+	this.write();
     }
 
     
     public void valueChanged(ListSelectionEvent e) {
-	int i = list.getSelectedIndex();
+	int i = this.list.getSelectedIndex();
 	if(i != -1){
-	    String s = (String)listModel.elementAt(i);
-	    algoName.setText(s);
-	    write();
+	    String s = (String)this.listModel.elementAt(i);
+	    this.algoName.setText(s);
+	    this.write();
 	}
     }
 
-    public void keyPressed(KeyEvent e) {write();}
-    public void keyReleased(KeyEvent e) {write();}
-    public void keyTyped(KeyEvent e) {write();}
+    public void keyPressed(KeyEvent e) {this.write();}
+    public void keyReleased(KeyEvent e) {this.write();}
+    public void keyTyped(KeyEvent e) {this.write();}
     
     public void start() {
-	setPreferredSize(new Dimension(420,300));
+	this.setPreferredSize(new Dimension(420,300));
 	
-	pack();
+	this.pack();
 
-	write();
+	this.write();
 	
-	setVisible(true);
+	this.setVisible(true);
 	
     }
     

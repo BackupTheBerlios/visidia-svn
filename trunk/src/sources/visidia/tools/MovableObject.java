@@ -27,19 +27,19 @@ public class MovableObject {
     public MovableObject(Point a, Point b, double step){
     	this.step = step;
     	
-    	ax = a.getX(); ay = a.getY();
-    	bx = b.getX(); by = b.getY();
+    	this.ax = a.getX(); this.ay = a.getY();
+    	this.bx = b.getX(); this.by = b.getY();
     	
-	x = ax; y = ay;
+	this.x = this.ax; this.y = this.ay;
 	
 	double distance = a.distance(b);
-	ux = (bx - ax) / distance;
-	uy = (by - ay) / distance;
+	this.ux = (this.bx - this.ax) / distance;
+	this.uy = (this.by - this.ay) / distance;
     }
     
     public Point currentLocation(){
     	Point p = new Point();
-    	p.setLocation(x,y);
+    	p.setLocation(this.x,this.y);
 	return p;
     }
 
@@ -47,16 +47,16 @@ public class MovableObject {
 	* move forward this mobil by <code>step</code>.
 	*/
     public void moveForward(){
-    	x += step * ux;
-    	y += step * uy;
+    	this.x += this.step * this.ux;
+    	this.y += this.step * this.uy;
     }
 
 	/**
 	* move backward this mobil by <code>step</code>.
 	*/
     public void moveBackward(){
-    	x -= step * ux;
-    	y -= step * uy;
+    	this.x -= this.step * this.ux;
+    	this.y -= this.step * this.uy;
     }
 
 	public void setStep(double step){
@@ -64,7 +64,7 @@ public class MovableObject {
 	}
 	
 	public double getStep(){
-		return step;
+		return this.step;
 	}
 	
 	
@@ -74,11 +74,11 @@ public class MovableObject {
 	* vector scalar product MA . MB is positif.
 	*/ 
     public boolean isIntoBounds(){
-	return ( (x - ax)*(x - bx) + (y - ay)*(y - by) ) <= 0;
+	return ( (this.x - this.ax)*(this.x - this.bx) + (this.y - this.ay)*(this.y - this.by) ) <= 0;
     }
     
     public void reset(){
-    	x = ax;
-    	y = ay;
+    	this.x = this.ax;
+    	this.y = this.ay;
     }
 }

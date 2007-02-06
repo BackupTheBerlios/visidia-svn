@@ -33,7 +33,7 @@ public class DuoStarVisuPanel extends MouseAdapter implements MouseMotionListene
 	this.distBetweenCenters = distBetweenCenters;
 	this.parent = parent;
 
-	launchStarVisuPanels(centerLeft, centerRight, isSimpleRule);
+	this.launchStarVisuPanels(centerLeft, centerRight, isSimpleRule);
     }
 
     /**
@@ -41,15 +41,15 @@ public class DuoStarVisuPanel extends MouseAdapter implements MouseMotionListene
      */
     public void launchStarVisuPanels(Point centerLeft, Point centerRight, 
 				     boolean isSimpleRule) {
-    	xPanelCenter = (centerLeft.x + centerRight.x) / 2;
-	svpLeft = new StarVisuPanel(vgLeft, ray, centerLeft, parent, isSimpleRule);
-	svpRight = new StarVisuPanel(vgRight, ray, centerRight, parent, isSimpleRule);
+    	this.xPanelCenter = (centerLeft.x + centerRight.x) / 2;
+	this.svpLeft = new StarVisuPanel(this.vgLeft, this.ray, centerLeft, this.parent, isSimpleRule);
+	this.svpRight = new StarVisuPanel(this.vgRight, this.ray, centerRight, this.parent, isSimpleRule);
     }
 
     
     public void reorganizeVertex() {
-	svpLeft.reorganizeVertex();
-	svpRight.reorganizeVertex();
+	this.svpLeft.reorganizeVertex();
+	this.svpRight.reorganizeVertex();
     }
 
     // Returns the same event with a x position available to the left or to the
@@ -57,15 +57,15 @@ public class DuoStarVisuPanel extends MouseAdapter implements MouseMotionListene
     private MouseEvent makeMouseEvent(MouseEvent evt, boolean left) {
 	int x = evt.getX();
 	int y = evt.getY();
-	if ((left && (x < xPanelCenter)) 
-	    || (!left && (x >= xPanelCenter))) {
+	if ((left && (x < this.xPanelCenter)) 
+	    || (!left && (x >= this.xPanelCenter))) {
 	    return evt;
 	} else {
 	    return new MouseEvent(evt.getComponent(), evt.getID(),
 				  evt.getWhen(), evt.getModifiers(), 
 				  (left 
-				   ? x - distBetweenCenters 
-				   : x + distBetweenCenters), y, 
+				   ? x - this.distBetweenCenters 
+				   : x + this.distBetweenCenters), y, 
 				  evt.getClickCount(), evt.isPopupTrigger());
 	}
     }
@@ -73,33 +73,33 @@ public class DuoStarVisuPanel extends MouseAdapter implements MouseMotionListene
     public void mousePressed(MouseEvent evt) {
 	int modifiers = evt.getModifiers();
 	//System.out.println ("WWW " + evt.getX() + " " + (evt.getX() - xPanelCenter));
-	if (evt.getX() < xPanelCenter) {
-	    svpLeft.mousePressed(evt);
+	if (evt.getX() < this.xPanelCenter) {
+	    this.svpLeft.mousePressed(evt);
 	    if (modifiers != InputEvent.BUTTON3_MASK) //Not right click
-		svpRight.mousePressed(makeMouseEvent(evt, false));
+		this.svpRight.mousePressed(this.makeMouseEvent(evt, false));
 	} else {
-	    svpRight.mousePressed(evt);
+	    this.svpRight.mousePressed(evt);
 	    if (modifiers != InputEvent.BUTTON3_MASK) //Not right click
-		svpLeft.mousePressed(makeMouseEvent(evt, true));
+		this.svpLeft.mousePressed(this.makeMouseEvent(evt, true));
 	}
     } 	
     
     public void mouseDragged(MouseEvent evt) {
-	svpLeft.mouseDragged(makeMouseEvent(evt, true));
-	svpRight.mouseDragged(makeMouseEvent(evt, false));
+	this.svpLeft.mouseDragged(this.makeMouseEvent(evt, true));
+	this.svpRight.mouseDragged(this.makeMouseEvent(evt, false));
     }
 
     public void mouseReleased(MouseEvent evt) {
 	int modifiers = evt.getModifiers();
 	
-	if (evt.getX() < xPanelCenter) {
-	    svpLeft.mouseReleased(evt);
+	if (evt.getX() < this.xPanelCenter) {
+	    this.svpLeft.mouseReleased(evt);
 	    if (modifiers != InputEvent.BUTTON3_MASK) //Not right click
-		svpRight.mouseReleased(makeMouseEvent(evt, false));
+		this.svpRight.mouseReleased(this.makeMouseEvent(evt, false));
 	} else {
-	    svpRight.mouseReleased(evt);
+	    this.svpRight.mouseReleased(evt);
 	    if (modifiers != InputEvent.BUTTON3_MASK) //Not right click
-		svpLeft.mouseReleased(makeMouseEvent(evt, true));
+		this.svpLeft.mouseReleased(this.makeMouseEvent(evt, true));
 	}
     }
 	

@@ -35,18 +35,18 @@ public class AgentBoxProperty
     {
         super(parent,titre,false);
         
-        tbModel = new AgentPropertyTableModel(wb);
+        this.tbModel = new AgentPropertyTableModel(wb);
         
-        table.setModel(tbModel);
+        this.table.setModel(this.tbModel);
 
-	dialog.addWindowListener(new WindowAdapter() {
+	this.dialog.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
-		closingWindow();
+		AgentBoxProperty.this.closingWindow();
 	    }
 	    });
 
-        timer = new UpdateTableAgent( (AgentPropertyTableModel) tbModel);
-        new Thread(timer).start();
+        this.timer = new UpdateTableAgent( (AgentPropertyTableModel) this.tbModel);
+        new Thread(this.timer).start();
 
     }
 
@@ -54,29 +54,29 @@ public class AgentBoxProperty
     
     public void updateBox() {
         System.out.println("AgentBoxProperty.updateBox()");
-        tbModel.fireTableDataChanged();
+        this.tbModel.fireTableDataChanged();
     }
 
     public void closingWindow(){
-	parent.removeWindow(this);
-	close();
+	this.parent.removeWindow(this);
+	this.close();
     }
     
     public void close() {
-	timer.stop();
+	this.timer.stop();
     }
     
     public void actionPerformed(ActionEvent e) {
         
-        if(e.getSource() == buttonDone) {
+        if(e.getSource() == this.buttonDone) {
 
-            timer.stop();
-            timer=null;
+            this.timer.stop();
+            this.timer=null;
 
-            dialog.setVisible(false);
-            dialog.dispose();
+            this.dialog.setVisible(false);
+            this.dialog.dispose();
         }
-        if(e.getSource() == buttonAdd) {
+        if(e.getSource() == this.buttonAdd) {
             
             
             Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
@@ -85,7 +85,7 @@ public class AgentBoxProperty
             
             Object objValue;
             
-            String s = (String) JOptionPane.showInputDialog(parent,
+            String s = (String) JOptionPane.showInputDialog(this.parent,
                                                             "Select the type:",
                                                             "Type",
                                                             JOptionPane.PLAIN_MESSAGE,
@@ -96,8 +96,8 @@ public class AgentBoxProperty
             //If a string was returned, say so.
             if ((s != null) && (s.length() > 0)) {
                 
-                String name = JOptionPane.showInputDialog(parent, "Enter the name :");
-                String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+                String name = JOptionPane.showInputDialog(this.parent, "Enter the name :");
+                String value = JOptionPane.showInputDialog(this.parent, "Enter the value :");
                 
                 if ( (name != null)  && (value != null) )
                     {
@@ -114,7 +114,7 @@ public class AgentBoxProperty
                             else if ( s.equals("Short|short") ) {objValue = new Short(value);}
                             else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
 
-                            tbModel.putProperty(name,objValue);
+                            this.tbModel.putProperty(name,objValue);
                         }
                         catch(Exception e2) {
                             JOptionPane.showMessageDialog(null,
@@ -126,16 +126,16 @@ public class AgentBoxProperty
             }
             
         }
-        if(e.getSource() == buttonRemove) {
+        if(e.getSource() == this.buttonRemove) {
             
-            if (table.getSelectedRow() == -1 ) {
-                JOptionPane.showMessageDialog(parent,
+            if (this.table.getSelectedRow() == -1 ) {
+                JOptionPane.showMessageDialog(this.parent,
                                               "No property selected !", 
                                               "Warning",
                                               JOptionPane.WARNING_MESSAGE);
             }
             else {
-                tbModel.removeProperty(table.getSelectedRow());
+                this.tbModel.removeProperty(this.table.getSelectedRow());
             }
             
         }

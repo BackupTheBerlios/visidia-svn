@@ -13,10 +13,10 @@ public class IntegerEnumeration{
 	}
 
 	public boolean hasMoreElements(){
-		return v_enum.hasMoreElements();
+		return this.v_enum.hasMoreElements();
 	}
 
 	public Integer nextElement(){
-		return (Integer) v_enum.nextElement();
+		return (Integer) this.v_enum.nextElement();
 	}
 }

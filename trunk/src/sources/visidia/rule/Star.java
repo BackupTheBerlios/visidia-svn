@@ -23,7 +23,7 @@ public class Star implements Serializable {
      */
     public Star(){
 	this.centerState = unknown;
-	neighbourhood = new MyVector();
+	this.neighbourhood = new MyVector();
 	
     }
 
@@ -37,9 +37,9 @@ public class Star implements Serializable {
 	int i;
 	int arity = s.arity();
 	this.centerState = new String(s.centerState);
-	neighbourhood = new MyVector(arity);
+	this.neighbourhood = new MyVector(arity);
 	for(i=0;i<arity;i++){
-	    neighbourhood.add((s.neighbour(i)).clone());
+	    this.neighbourhood.add((s.neighbour(i)).clone());
 	}
 	
     }
@@ -51,7 +51,7 @@ public class Star implements Serializable {
     */  
     public Star(String centerState){
 	this.centerState = centerState;
-	neighbourhood = new MyVector();
+	this.neighbourhood = new MyVector();
     }
 
 
@@ -63,11 +63,11 @@ public class Star implements Serializable {
     public Star(String centerState,int arity){
 	int i;
 	this.centerState = centerState;
-	neighbourhood = new MyVector(arity);
+	this.neighbourhood = new MyVector(arity);
 	for(i=0;i<arity;i++)
 	    {
 		
-		neighbourhood.add(new  Neighbour(i) );
+		this.neighbourhood.add(new  Neighbour(i) );
 	    }
     }
 
@@ -80,15 +80,15 @@ public class Star implements Serializable {
     public Star(int arity){
 	int i;
 	this.centerState = unknown;
-	neighbourhood = new MyVector(arity);
+	this.neighbourhood = new MyVector(arity);
 	for(i=0;i<arity;i++)
 	    {
 		
-		neighbourhood.add(new  Neighbour(i) );
+		this.neighbourhood.add(new  Neighbour(i) );
 	    }
     }
     public String toString(){
-	return "\n<Star>"+centerState+","+this.arity()+" Neighbours:"+ neighbourhood.toString()+"\n<End Star>";
+	return "\n<Star>"+this.centerState+","+this.arity()+" Neighbours:"+ this.neighbourhood.toString()+"\n<End Star>";
     }
     
 
@@ -117,7 +117,7 @@ public class Star implements Serializable {
     */   
     public Neighbour neighbour(int i)
     {
-	return (Neighbour)neighbourhood.get(i);
+	return (Neighbour)this.neighbourhood.get(i);
     }
 
 
@@ -127,7 +127,7 @@ public class Star implements Serializable {
     * @return the number of the door of the neighbour on the position i. 
     */   
     public int neighbourDoor(int i){
-   	return (((Neighbour) neighbourhood.get(i))).doorNum(); 
+   	return (((Neighbour) this.neighbourhood.get(i))).doorNum(); 
     }
 
 
@@ -137,7 +137,7 @@ public class Star implements Serializable {
     * @param v a new Neighbour
     */   
     public void addNeighbour(Neighbour v){
-	neighbourhood.add(v);
+	this.neighbourhood.add(v);
     }
 
 
@@ -146,7 +146,7 @@ public class Star implements Serializable {
     * @param i a position.
     */   
     public void removeNeighbour(int i){
-	neighbourhood.remove(i);
+	this.neighbourhood.remove(i);
     }
 
 
@@ -154,7 +154,7 @@ public class Star implements Serializable {
     *remove all elements from neighbourhood.
     */ 
     public void removeAll(){
-    	neighbourhood.clear();
+    	this.neighbourhood.clear();
     }
 
 
@@ -164,7 +164,7 @@ public class Star implements Serializable {
     * @param n a Neighbour.
     */  
     public void setState(int position, Neighbour n){
-	neighbourhood.setElementAt(n,position);
+	this.neighbourhood.setElementAt(n,position);
     }
    
 
@@ -205,7 +205,7 @@ public class Star implements Serializable {
     public void setDoors(Star b){
 	int i;
 	for(i = 0; i< b.arity(); i++){
-	    neighbour(i).setDoorNum(b.neighbour(i).doorNum());
+	    this.neighbour(i).setDoorNum(b.neighbour(i).doorNum());
 	}
     }
 
@@ -217,12 +217,12 @@ public class Star implements Serializable {
     */   
     public void setStates(Star b){
 	int i;
-	setCenterState(b.centerState());
+	this.setCenterState(b.centerState());
 	for(i= 0; i<b.arity(); i++){
 	    for(int k=0;k< this.arity();k++)
 		{
 		    if(b.neighbour(i).doorNum() == this.neighbour(k).doorNum())
-			setState(k, b.neighbour(i));	
+			this.setState(k, b.neighbour(i));	
 		}
 	}
     }
@@ -238,9 +238,9 @@ public class Star implements Serializable {
     * @return the index of the element if found. -1 otherwoise.
     */    
     public int contains(Neighbour nei){
-	int i = neighbourhood.indexOf(nei);
+	int i = this.neighbourhood.indexOf(nei);
 	if(i > -1){
-	    nei.setDoorNum( ((Neighbour) neighbourhood.get(i)).doorNum());
+	    nei.setDoorNum( ((Neighbour) this.neighbourhood.get(i)).doorNum());
 	}
 	
 	return i;
@@ -255,7 +255,7 @@ public class Star implements Serializable {
     * @return the index of the element if found. -1 otherwoise.
     */    
     public int containsLabel(Neighbour nei){
-	int i = neighbourhood.indexOfLabel(nei);
+	int i = this.neighbourhood.indexOfLabel(nei);
 	if(i > -1){
 	}
 	return i;

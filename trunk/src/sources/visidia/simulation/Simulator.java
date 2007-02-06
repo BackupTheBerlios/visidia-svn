@@ -57,14 +57,14 @@ public class Simulator {
      * de communiquer avec l'interface graphique
      */
     public Simulator( SimpleGraph netGraph, VQueue evtVQueue, VQueue ackVQueue, AlgoChoiceInterface choice){
-	graph = (SimpleGraph) netGraph.clone();
-	evtObjectTmp = new Hashtable();
-	evtQ = evtVQueue;
-	ackQ = ackVQueue;
-	threadGroup = new SimulatorThreadGroup("simulator");
-	procs = new ProcessData[graph.size()];
+	this.graph = (SimpleGraph) netGraph.clone();
+	this.evtObjectTmp = new Hashtable();
+	this.evtQ = evtVQueue;
+	this.ackQ = ackVQueue;
+	this.threadGroup = new SimulatorThreadGroup("simulator");
+	this.procs = new ProcessData[this.graph.size()];
 	
-	Enumeration vertices = graph.vertices();
+	Enumeration vertices = this.graph.vertices();
 	Enumeration netVertices = netGraph.vertices();
 	while(vertices.hasMoreElements() && netVertices.hasMoreElements()){
 	    Vertex vertex = (Vertex) vertices.nextElement();
@@ -78,20 +78,20 @@ public class Simulator {
 	    }
 	    vertex.setData(processData);
 	    processData.algo = choice.getAlgorithm(vertex.identity().intValue());
-	    procs[vertex.identity().intValue()] = processData;
+	    this.procs[vertex.identity().intValue()] = processData;
 	}
     }
 
 
     public Simulator(SimpleGraph netGraph, VQueue evtVQueue, VQueue ackVQueue){
-	graph = (SimpleGraph) netGraph.clone();
-	evtObjectTmp = new Hashtable();
-	evtQ = evtVQueue;
-	ackQ = ackVQueue;
-	threadGroup = new SimulatorThreadGroup("simulator");
-	procs = new ProcessData[graph.size()];
+	this.graph = (SimpleGraph) netGraph.clone();
+	this.evtObjectTmp = new Hashtable();
+	this.evtQ = evtVQueue;
+	this.ackQ = ackVQueue;
+	this.threadGroup = new SimulatorThreadGroup("simulator");
+	this.procs = new ProcessData[this.graph.size()];
 	
-	Enumeration vertices = graph.vertices();
+	Enumeration vertices = this.graph.vertices();
 	Enumeration netVertices = netGraph.vertices();
 	while(vertices.hasMoreElements() && netVertices.hasMoreElements()){
 	    Vertex vertex = (Vertex) vertices.nextElement();
@@ -104,21 +104,21 @@ public class Simulator {
 		processData.props = (Hashtable) data;
 	    }
 	    vertex.setData(processData);
-	    procs[vertex.identity().intValue()] = processData;
+	    this.procs[vertex.identity().intValue()] = processData;
 	}
     }
 
 
     public VQueue evtVQueue(){
-	return evtQ;
+	return this.evtQ;
     }
 
     public VQueue ackVQueue(){
-	return ackQ;
+	return this.ackQ;
     }
     
     public SimpleGraph getGraph() {
-	return graph;
+	return this.graph;
     }
 
      /**
@@ -147,9 +147,9 @@ public class Simulator {
       *
       */
      protected void nextAckPulse() {
-	 synchronized(lockSync) {
+	 synchronized(this.lockSync) {
 	     try{
-		 lockSync.notifyAll();
+		 this.lockSync.notifyAll();
 	     } catch (Exception e) {
 		 e.printStackTrace();
 	     }
@@ -158,18 +158,18 @@ public class Simulator {
 
      public void nextPulse() {
 	 try{
-	     synchronized(lockSync){
-		 countNextPulse=(countNextPulse+1)%(graph.size()-terminatedThreadCount);
-		 if(countNextPulse == 0) {
+	     synchronized(this.lockSync){
+		 this.countNextPulse=(this.countNextPulse+1)%(this.graph.size()-this.terminatedThreadCount);
+		 if(this.countNextPulse == 0) {
 		     try{
-			 pushNextPulseEvent();
+			 this.pushNextPulseEvent();
 		     } catch (Exception e) {
 			 // aucune exception n'est normalement levée ici
 			 System.out.println(" bug ref 0 Simulator Synchrone");
 		     }
-		     pulse ++;
+		     this.pulse ++;
 		 }
-		 lockSync.wait();
+		 this.lockSync.wait();
 	     }
 	} catch (Exception e) {
 	    System.out.println(" bug ref 0.1 : Simulator Synchrone");
@@ -179,7 +179,7 @@ public class Simulator {
 
     
     public int getPulse() {
-	return pulse ;
+	return this.pulse ;
     }
 
     
@@ -190,37 +190,37 @@ public class Simulator {
      */
     boolean sendTo(Integer senderId, int door, Message msg)throws InterruptedException{	
 
-	Integer receiverId = graph.vertex(senderId).neighbour(door).identity();
+	Integer receiverId = this.graph.vertex(senderId).neighbour(door).identity();
 	
-	Vertex receiverVertex = graph.vertex(receiverId);
+	Vertex receiverVertex = this.graph.vertex(receiverId);
 	int receiveDoor = receiverVertex.indexOf(senderId);
 	
 
 	MessagePacket msgPacket = new MessagePacket(senderId, door, 
 						    receiverId, receiveDoor, msg);
 	
-	msg.setVisualization((getDraw(senderId.intValue())
-			      ||getDraw(receiverId.intValue())));
-	pushMessageSendingEvent(msgPacket); 
+	msg.setVisualization((this.getDraw(senderId.intValue())
+			      ||this.getDraw(receiverId.intValue())));
+	this.pushMessageSendingEvent(msgPacket); 
 	return true;
 
     }
 
     boolean sendToNext(Integer senderId, Message msg) throws InterruptedException{
 	
-	Integer receiverId = graph.vertex(senderId).getNext();
+	Integer receiverId = this.graph.vertex(senderId).getNext();
 	if(receiverId != null) 
 	    {
-		Vertex senderVertex = graph.vertex(senderId);
+		Vertex senderVertex = this.graph.vertex(senderId);
 		int senderDoor = senderVertex.indexOf(receiverId);
-		return sendTo(senderId, senderDoor, msg);
+		return this.sendTo(senderId, senderDoor, msg);
 	    }
 	return false;
     }
 	
 	
     Message getNextMessage(Integer nodeId, Door door, Criterion c)throws InterruptedException{
-	ProcessData procData = procs[nodeId.intValue()];
+	ProcessData procData = this.procs[nodeId.intValue()];
 
 	MessagePacket msgPacket = null;
 	if(c != null){
@@ -246,7 +246,7 @@ public class Simulator {
      */
     Message getNextMessage(Integer nodeId, DoorPulseCriterion dpc)throws InterruptedException{
 
-	ProcessData procData = procs[nodeId.intValue()];
+	ProcessData procData = this.procs[nodeId.intValue()];
 
 	MessagePacket msgPacket = null;
 	msgPacket = (MessagePacket)procData.msgVQueue.getNoWait(dpc);
@@ -268,7 +268,7 @@ public class Simulator {
      */
     Vector getAllNextMessages(Integer nodeId, DoorPulseCriterion dpc)throws InterruptedException{
 
-	ProcessData procData = procs[nodeId.intValue()];
+	ProcessData procData = this.procs[nodeId.intValue()];
 
 	Vector msgPacketVect = null;
 	msgPacketVect = procData.msgVQueue.getAllNoWait(dpc);
@@ -288,13 +288,13 @@ public class Simulator {
 
     
     void purge(Integer nodeId) {
-	ProcessData procData = procs[nodeId.intValue()];
+	ProcessData procData = this.procs[nodeId.intValue()];
 	procData.msgVQueue = new VQueue();
     }
 
     
     boolean emptyVQueue(Integer nodeId, Criterion c) throws InterruptedException{
-	ProcessData procData = procs[nodeId.intValue()];
+	ProcessData procData = this.procs[nodeId.intValue()];
 	
 	boolean msg = false;
 	if(c != null){
@@ -310,33 +310,33 @@ public class Simulator {
 
 
     Message getNextMessageFromPrevious(Integer nodeId, Criterion c) throws InterruptedException{
-	Integer previous = graph.vertex(nodeId).getPrevious();
+	Integer previous = this.graph.vertex(nodeId).getPrevious();
 	if(previous != null) 
 	    {
 		Door previousDoor = new Door(previous.intValue());
-		return getNextMessage(nodeId, previousDoor, c);
+		return this.getNextMessage(nodeId, previousDoor, c);
 	    }
 	else return null;
     }
 
     private void pushNodePropertyChangeEvent(Integer nodeId, Object key, Object value)throws InterruptedException{
-	Long num = new Long(numGen.alloc());
+	Long num = new Long(this.numGen.alloc());
 	Object lock = new Object();
-	evtObjectTmp.put(num,lock);	
+	this.evtObjectTmp.put(num,lock);	
 	NodePropertyChangeEvent npce = new NodePropertyChangeEvent(num,nodeId,key,value);
 	synchronized(lock){
-	    evtQ.put(npce);
+	    this.evtQ.put(npce);
 	    lock.wait();
 	}
     }
 	
     private void pushEdgeStateChangeEvent(Integer nodeId1, Integer nodeId2, EdgeState es)throws InterruptedException{
-	Long key = new Long(numGen.alloc());
+	Long key = new Long(this.numGen.alloc());
 	Object lock = new Object();
-	evtObjectTmp.put(key,lock);	
+	this.evtObjectTmp.put(key,lock);	
 	EdgeStateChangeEvent esce = new EdgeStateChangeEvent(key,nodeId1, nodeId2,es);
 	synchronized(lock){
-	    evtQ.put(esce);
+	    this.evtQ.put(esce);
 	    lock.wait();
 	}
     }
@@ -349,30 +349,30 @@ public class Simulator {
      * @throws java.lang.InterruptedException
      */
     private void pushEdgeColorChangeEvent(Integer nodeId1, Integer nodeId2, EdgeColor ec) throws InterruptedException{
-	Long key = new Long(numGen.alloc());
+	Long key = new Long(this.numGen.alloc());
 	Object lock = new Object();
-	evtObjectTmp.put(key,lock);
+	this.evtObjectTmp.put(key,lock);
 	EdgeColorChangeEvent ecce = new EdgeColorChangeEvent(key,nodeId1,nodeId2,ec);
 	synchronized(lock){
-	    evtQ.put(ecce);
+	    this.evtQ.put(ecce);
 	    lock.wait();
 	}
     }
 
     private void pushMessageSendingEvent(MessagePacket mesgPacket) throws InterruptedException{
 
-	Long key = new Long(numGen.alloc());
-	evtObjectTmp.put(key,mesgPacket);
+	Long key = new Long(this.numGen.alloc());
+	this.evtObjectTmp.put(key,mesgPacket);
 	MessageSendingEvent mse = new MessageSendingEvent(key,mesgPacket.message(),mesgPacket.sender(), mesgPacket.receiver());
-	evtQ.put(mse);
+	this.evtQ.put(mse);
 	
     }
 
 
     private void pushNextPulseEvent() throws InterruptedException{
-	Long key = new Long(numGen.alloc());
-	NextPulseEvent npe = new NextPulseEvent(key,pulse);
-	evtQ.put(npe);
+	Long key = new Long(this.numGen.alloc());
+	NextPulseEvent npe = new NextPulseEvent(key,this.pulse);
+	this.evtQ.put(npe);
     }
   
     
@@ -381,15 +381,15 @@ public class Simulator {
      * retourne le degrès du noeud <i>id</id> .
      */
     public int getArity(Integer id){
-	Vertex vertex = graph.vertex(id);
+	Vertex vertex = this.graph.vertex(id);
 	return vertex.degree();
     }
 
     /**
      */
     public void changeEdgeState(Integer id, int door, EdgeState newEdgeState)throws InterruptedException{
-	Integer neighbId = graph.vertex(id).neighbour(door).identity();
-	pushEdgeStateChangeEvent(id,neighbId,newEdgeState);
+	Integer neighbId = this.graph.vertex(id).neighbour(door).identity();
+	this.pushEdgeStateChangeEvent(id,neighbId,newEdgeState);
     }
 
     /**
@@ -401,12 +401,12 @@ public class Simulator {
      * @throws java.lang.InterruptedException
      */
     public void changeEdgeColor(Integer id, int door, EdgeColor newEdgeColor) throws InterruptedException{
-	Integer neighbId = graph.vertex(id).neighbour(door).identity();
-	pushEdgeColorChangeEvent(id,neighbId,newEdgeColor);
+	Integer neighbId = this.graph.vertex(id).neighbour(door).identity();
+	this.pushEdgeColorChangeEvent(id,neighbId,newEdgeColor);
     }
 
     public int sizeOfTheGraph(){
-	return graph.size();
+	return this.graph.size();
     }
 
 
@@ -418,37 +418,37 @@ public class Simulator {
      * nécessaire.
      */
     public void startSimulation(){
-	if( started ){
+	if( this.started ){
 	    return;
 	    //	    stopSimulation();
 	}
 	
 	//initialise algorithm objects
-	int graphSize = graph.size();
+	int graphSize = this.graph.size();
 	for(int id = 0; id < graphSize; id++){
-	    Algorithm a = procs[id].algo;
+	    Algorithm a = this.procs[id].algo;
 	    a.setId(new Integer(id)); 
-	    Thread currThread = new Thread(threadGroup,a);
+	    Thread currThread = new Thread(this.threadGroup,a);
 	    currThread.setPriority(THREAD_PRIORITY);
-	    procs[id].processThread = currThread;
+	    this.procs[id].processThread = currThread;
 	    a.setSimulator(this);
 	}    
 	
 	// start acknowledge handler
-	ackHandler = new AckHandler(ackQ);
-	ackHandler.setPriority(9);
-	ackHandler.start();
+	this.ackHandler = new AckHandler(this.ackQ);
+	this.ackHandler.setPriority(9);
+	this.ackHandler.start();
 
 	// start node threads
 	for(int id = 0; id < graphSize; id++){
-	    procs[id].processThread.start();
+	    this.procs[id].processThread.start();
 	}    
 
 
 	// temps mis par le simulateur pour demarrer la visualisation
 	// pour tout les sommets.  a revoir ...
 	try{
-	    Thread.currentThread().sleep(1000);
+	    Thread.sleep(1000);
 	} catch (Exception e) {}
 	
 	/*
@@ -461,7 +461,7 @@ public class Simulator {
 	  }
 	  }
 	*/
-	started = true;
+	this.started = true;
 	System.out.println("thread count after start = "+Thread.activeCount());
     }
 
@@ -474,14 +474,14 @@ public class Simulator {
      */
     public void abortSimulation(){
 	 
-	aborted = true;
+	this.aborted = true;
 	 
 	/**
 	 * ne fonctionne pas vraiment bien l'arrêt des thread, à
 	 * revoir
 	 **/
 	
-	Enumeration listVertex = graph.vertices();
+	Enumeration listVertex = this.graph.vertices();
 	while(listVertex.hasMoreElements() ){
  	    Vertex currentVertex = (Vertex) listVertex.nextElement() ; 
  	    ((ProcessData)currentVertex.getData()).algo.abort();
@@ -490,9 +490,9 @@ public class Simulator {
 	System.out.print("   Threads notified");
 	try{
 	    
-	    synchronized(lockSync) {
+	    synchronized(this.lockSync) {
 		System.out.print(" .");
-		lockSync.notifyAll();
+		this.lockSync.notifyAll();
 	    }
 	    System.out.print(".. ");
 	    
@@ -501,17 +501,17 @@ public class Simulator {
 	}
 	
 	try{
-	    evtQ.notifyAllGet();
-	    ackQ.notifyAllGet();
+	    this.evtQ.notifyAllGet();
+	    this.ackQ.notifyAllGet();
 	} catch(Exception e) {
 	    // e.printStackTrace();
 	}
 	
 	System.out.print(" waiting for threads .");
- 	while(threadGroup.activeCount() > 0){
- 	    threadGroup.interrupt();
+ 	while(this.threadGroup.activeCount() > 0){
+ 	    this.threadGroup.interrupt();
  	    try{
- 	    	Thread.currentThread().sleep(50);
+ 	    	Thread.sleep(50);
  	    }
  	    catch(InterruptedException e){
 		//e.printStackTrace();
@@ -520,11 +520,11 @@ public class Simulator {
 
 	System.out.print(" .. terminated.  ");
 	System.out.println(" Stopping the handler ");
-	if(ackHandler != null){
-	    while(ackHandler.isAlive()){
-		ackHandler.interrupt();
+	if(this.ackHandler != null){
+	    while(this.ackHandler.isAlive()){
+		this.ackHandler.interrupt();
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		}
 		catch(InterruptedException e){
 		    //e.printStackTrace();
@@ -536,11 +536,11 @@ public class Simulator {
     
 
     public boolean containsAliveThreads(){
-	if(threadGroup.activeCount() > 0){
+	if(this.threadGroup.activeCount() > 0){
 	    return true;
 	}
-	if(ackHandler != null){
-	    return ackHandler.isAlive();
+	if(this.ackHandler != null){
+	    return this.ackHandler.isAlive();
 	}
 	return false;
     }
@@ -548,30 +548,30 @@ public class Simulator {
     /**
      */
     public void wedge(){
-	if(!paused){
-	    paused = true;
+	if(!this.paused){
+	    this.paused = true;
 	}
     }
     
     public void unWedge(){
-	if(paused){
-	    synchronized(pauseLock){
-		paused = false;
-		pauseLock.notifyAll();
+	if(this.paused){
+	    synchronized(this.pauseLock){
+		this.paused = false;
+		this.pauseLock.notifyAll();
 	    }
 	}
     }
     	
 
     void runningControl(){
-	if(aborted){
+	if(this.aborted){
 	    throw new SimulationAbortError();
 	}
 		
-	if(paused){
-	    synchronized(pauseLock){
+	if(this.paused){
+	    synchronized(this.pauseLock){
 		try{
-		    pauseLock.wait();
+		    this.pauseLock.wait();
 		}
 		catch(InterruptedException e){
 		    throw new SimulationAbortError();
@@ -595,22 +595,22 @@ public class Simulator {
       }
     */
     public Hashtable getAlgoProperties(int id){
-	Hashtable props = procs[id].props;
+	Hashtable props = this.procs[id].props;
 	synchronized(props){
 	    return (Hashtable) props.clone();
 	}
     }
 
     Object getNodeProperty(int id, Object key){
-	synchronized(procs[id].props){
-	    return procs[id].props.get(key);
+	synchronized(this.procs[id].props){
+	    return this.procs[id].props.get(key);
 	}
     }		
 
     void putNodeProperty(int id, Object key, Object value) throws InterruptedException{
-	synchronized(procs[id].props){
-	    procs[id].props.put(key, value);
-	    pushNodePropertyChangeEvent(new Integer(id), key, value);
+	synchronized(this.procs[id].props){
+	    this.procs[id].props.put(key, value);
+	    this.pushNodePropertyChangeEvent(new Integer(id), key, value);
 	}
     }
 
@@ -629,51 +629,51 @@ public class Simulator {
 	// méthode pushNextPulseEvent(). Un thread qui termine doit
 	// vérifier que les threads encore actifs ne sont pas een
 	// attente d'être débloqués ...
-	synchronized(lockSync){
+	synchronized(this.lockSync){
 	    //if (countNextPulse !=0) {
-	    int i = (countNextPulse+1)%(graph.size()-terminatedThreadCount);
+	    int i = (this.countNextPulse+1)%(this.graph.size()-this.terminatedThreadCount);
 	    
-	    if((i == 0) && (terminatedThreadCount != graph.size()-1)) {
+	    if((i == 0) && (this.terminatedThreadCount != this.graph.size()-1)) {
 		try{
-		    pushNextPulseEvent();
+		    this.pushNextPulseEvent();
 		} catch (Exception e) {
 		    // aucune exception n'est normalement levée ici
 		    System.out.println(" bug ref 0.3 Simulator Synchrone");
 		}
-		pulse ++;
+		this.pulse ++;
 	    }	   
 	    //}
-	    terminatedThreadCount++;
+	    this.terminatedThreadCount++;
 	}
 
 	
-	if(terminatedThreadCount == graph.size()){
+	if(this.terminatedThreadCount == this.graph.size()){
 	    // sends algorithms end notification.
-	    evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
+	    this.evtQ.put(new AlgorithmEndEvent(this.numGen.alloc()));
 	    System.out.println("Algorithm Terminated");
 	    
 	    
 	    //kill the acknowledge handler thread
-	    while(ackHandler.isAlive()){
+	    while(this.ackHandler.isAlive()){
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
 		
-		aborted = true;
-		ackHandler.interrupt();
+		this.aborted = true;
+		this.ackHandler.interrupt();
 		
 		try{
-		    evtQ.notifyAllGet();
-		    ackQ.notifyAllGet();
+		    this.evtQ.notifyAllGet();
+		    this.ackQ.notifyAllGet();
 		} catch(Exception e) {
 		    e.printStackTrace();
 		}
 		
 		
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		}
 		
 		catch(InterruptedException e){
@@ -691,15 +691,15 @@ public class Simulator {
 	 * Acknowledge handler is instanciated with the acknowledge queue.
 	 */
 	AckHandler(VQueue q){
-	    ackPipe = q;
+	    this.ackPipe = q;
 	}
 	
 	public void run(){
 	    try{
 		SimulAck simAck = null;
-		while(! aborted){
+		while(! Simulator.this.aborted){
 		    try{
-			simAck = (SimulAck) ackPipe.get();
+			simAck = (SimulAck) this.ackPipe.get();
 		    }
 		    catch(ClassCastException e){
 			e.printStackTrace();
@@ -709,28 +709,28 @@ public class Simulator {
 		    switch(simAck.type()){
 			
 		    case SimulConstants.NODE_PROPERTY_CHANGE : 
-			handleNodePropertyChangeAck(simAck);
+			this.handleNodePropertyChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.EDGE_STATE_CHANGE :
-			handleEdgeStateChangeAck(simAck);
+			this.handleEdgeStateChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.MESSAGE_SENT :
 			//System.out.println("Message");
-			handleMessageSentAck((MessageSendingAck)simAck);
+			this.handleMessageSentAck((MessageSendingAck)simAck);
 			break;
 
 		    case SimulConstants.EDGE_COLOR_CHANGE :
-			handleEdgeColorChangeAck(simAck);
+			this.handleEdgeColorChangeAck(simAck);
 			break;
 		    
 		    case SimulConstants.NEXT_PULSE :
-			handleNextPulse((NextPulseAck)simAck);
+			this.handleNextPulse((NextPulseAck)simAck);
 			break; 
 
 		    case SimulConstants.ALGORITHM_END :
-			handleAlgorithmEnd((AlgorithmEndAck)simAck);
+			this.handleAlgorithmEnd((AlgorithmEndAck)simAck);
 			break; 
 		    }
 		}
@@ -744,7 +744,7 @@ public class Simulator {
 	
 	
 	public void handleNodePropertyChangeAck(SimulAck sa)throws InterruptedException{
-	    Object lock = evtObjectTmp.remove(sa.number());
+	    Object lock = Simulator.this.evtObjectTmp.remove(sa.number());
 	    synchronized(lock){
 		/**
 		 * normalement il n' y a qu'un seul thread (le noeud
@@ -753,11 +753,11 @@ public class Simulator {
 		 **/
 		lock.notifyAll();
 	    }
-	    numGen.free(sa.number().longValue());
+	    Simulator.this.numGen.free(sa.number().longValue());
 	}
 	
 	public void handleEdgeStateChangeAck(SimulAck sa)throws InterruptedException{
-	    Object lock = evtObjectTmp.remove(sa.number());
+	    Object lock = Simulator.this.evtObjectTmp.remove(sa.number());
 	    synchronized(lock){
 		/**
 		 * normalement il n' y a qu'un seul thread qui serait
@@ -765,42 +765,42 @@ public class Simulator {
 		 **/
 		lock.notifyAll();
 	    }
-	    numGen.free(sa.number().longValue());
+	    Simulator.this.numGen.free(sa.number().longValue());
 	}
 
 	public void handleEdgeColorChangeAck(SimulAck sa)throws InterruptedException{
-	    Object lock =evtObjectTmp.remove(sa.number());
+	    Object lock =Simulator.this.evtObjectTmp.remove(sa.number());
 	    synchronized(lock){
 		lock.notifyAll();
 	    }
-	    numGen.free(sa.number().longValue());
+	    Simulator.this.numGen.free(sa.number().longValue());
 	}
 	
 	public void handleMessageSentAck_old(MessageSendingAck msa)throws InterruptedException{
-	    MessagePacket msgPacket = (MessagePacket) evtObjectTmp.remove(msa.number());
-	    Vertex receiverVertex = graph.vertex(msgPacket.receiver());
+	    MessagePacket msgPacket = (MessagePacket) Simulator.this.evtObjectTmp.remove(msa.number());
+	    Vertex receiverVertex = Simulator.this.graph.vertex(msgPacket.receiver());
 	    ((ProcessData)receiverVertex.getData()).msgVQueue.put(msgPacket);
-	    numGen.free(msa.number().longValue());
+	    Simulator.this.numGen.free(msa.number().longValue());
 	}
 	
 	public void handleMessageSentAck(MessageSendingAck msa)throws InterruptedException{
-	    MessagePacket msgPacket = (MessagePacket) evtObjectTmp.remove(msa.number());
-	    procs[msgPacket.receiver().intValue()].msgVQueue.put(msgPacket);
-	    numGen.free(msa.number().longValue());
+	    MessagePacket msgPacket = (MessagePacket) Simulator.this.evtObjectTmp.remove(msa.number());
+	    Simulator.this.procs[msgPacket.receiver().intValue()].msgVQueue.put(msgPacket);
+	    Simulator.this.numGen.free(msa.number().longValue());
 	}
 
 	public void handleNextPulse(NextPulseAck npa) {
-	    nextAckPulse();
-	    numGen.free(npa.number().longValue());
+	    Simulator.this.nextAckPulse();
+	    Simulator.this.numGen.free(npa.number().longValue());
 	    //System.out.println("Ack 1");
 	}
 
 	public void handleAlgorithmEnd(AlgorithmEndAck aea) {
-	    numGen.free(aea.number().longValue());
-	    aborted = true;
+	    Simulator.this.numGen.free(aea.number().longValue());
+	    Simulator.this.aborted = true;
 	    
 	    try{
-		ackPipe.notifyAllGet();
+		this.ackPipe.notifyAllGet();
 	    } catch(Exception e) {
 		e.printStackTrace();
 	    }
@@ -809,15 +809,15 @@ public class Simulator {
     }
     
     public void restartNode(int nodeId) {
-        if(started) {
+        if(this.started) {
             // restart failure detector
 	    // procs[nodeId].failureDetector.restartDetection();
             // restart algorithm
-            procs[nodeId].processThread.stop();
-            Thread currThread = new Thread(threadGroup, procs[nodeId].algo);
+            this.procs[nodeId].processThread.stop();
+            Thread currThread = new Thread(this.threadGroup, this.procs[nodeId].algo);
             currThread.setPriority(THREAD_PRIORITY);
-            procs[nodeId].processThread = currThread;
-            procs[nodeId].processThread.start();
+            this.procs[nodeId].processThread = currThread;
+            this.procs[nodeId].processThread.start();
         }
     }
     
@@ -825,12 +825,12 @@ public class Simulator {
      * update node properties
      */
     public void setNodeProperties(int nodeId, Hashtable properties) {
-	if (started) 
-	    procs[nodeId].props = properties;
+	if (this.started) 
+	    this.procs[nodeId].props = properties;
     }
     
     public boolean getDraw(int id) {
-        if(getNodeProperty(id, "draw messages").equals("yes"))
+        if(this.getNodeProperty(id, "draw messages").equals("yes"))
             return true;
         else
             return false;

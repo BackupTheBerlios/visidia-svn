@@ -29,32 +29,32 @@ public class AgentPropertyTableModel extends AbstractPropertyTableModel {
      */
     public AgentPropertyTableModel(WhiteBoard whiteboard){
         
-        wb = whiteboard;
+        this.wb = whiteboard;
         
-        keys = new Vector(wb.keys());
+        this.keys = new Vector(this.wb.keys());
     }
 
     public void putProperty(String key, Object value){
-	if (!keys.contains(key)) keys.add(key);
-	wb.setValue(key,value);
-	fireTableDataChanged();
+	if (!this.keys.contains(key)) this.keys.add(key);
+	this.wb.setValue(key,value);
+	this.fireTableDataChanged();
     }
 
     public void removeProperty(int row) {
-        Object key = keys.elementAt(row);
+        Object key = this.keys.elementAt(row);
 
-        keys.remove(row);
-        wb.removeValue(key);
+        this.keys.remove(row);
+        this.wb.removeValue(key);
 
-        fireTableDataChanged();
+        this.fireTableDataChanged();
     }
 
 
     public Object getValueAt(int row, int col){
         switch(col){
-        case 0: return keys.elementAt(row);
-        case 1: return getTypeName(wb.getValue(keys.elementAt(row)));
-        case 2: return wb.getValue(keys.elementAt(row));
+        case 0: return this.keys.elementAt(row);
+        case 1: return this.getTypeName(this.wb.getValue(this.keys.elementAt(row)));
+        case 2: return this.wb.getValue(this.keys.elementAt(row));
         }
         throw new IllegalArgumentException();	
     }
@@ -64,35 +64,35 @@ public class AgentPropertyTableModel extends AbstractPropertyTableModel {
      * Sets row value to <code>aValue</code>.
      */ 
     public void setValueAt(Object aValue, int row, int col){
-        if(!( row < keys.size() ) && ( col == valueColumn)){
+        if(!( row < this.keys.size() ) && ( col == this.valueColumn)){
             throw new IllegalArgumentException();
         }
 
         String value = (String) aValue;
 	
-        Object obj = getValueAt(row,col);
+        Object obj = this.getValueAt(row,col);
         
         try{
             
             if (obj instanceof String)
-                wb.setValue(keys.elementAt(row),value);
+                this.wb.setValue(this.keys.elementAt(row),value);
             else if(obj instanceof Integer) {
-                wb.setValue(keys.elementAt(row),Integer.decode(value));
+                this.wb.setValue(this.keys.elementAt(row),Integer.decode(value));
             }
             else if(obj instanceof  Byte)
-                wb.setValue(keys.elementAt(row),Byte.decode(value));
+                this.wb.setValue(this.keys.elementAt(row),Byte.decode(value));
             else if(obj instanceof  Character)
-                wb.setValue(keys.elementAt(row), value.charAt(0));
+                this.wb.setValue(this.keys.elementAt(row), value.charAt(0));
             else if(obj instanceof  Double)
-                wb.setValue(keys.elementAt(row), Double.parseDouble(value));
+                this.wb.setValue(this.keys.elementAt(row), Double.parseDouble(value));
             else if(obj instanceof  Float)
-                wb.setValue(keys.elementAt(row), Float.parseFloat(value));
+                this.wb.setValue(this.keys.elementAt(row), Float.parseFloat(value));
             else if(obj instanceof Long)
-                wb.setValue(keys.elementAt(row), Long.parseLong(value));
+                this.wb.setValue(this.keys.elementAt(row), Long.parseLong(value));
             else if(obj instanceof  Short)
-                wb.setValue(keys.elementAt(row), Short.parseShort(value));
+                this.wb.setValue(this.keys.elementAt(row), Short.parseShort(value));
             else if(obj instanceof Boolean)
-                wb.setValue(keys.elementAt(row), Boolean.parseBoolean(value));
+                this.wb.setValue(this.keys.elementAt(row), Boolean.parseBoolean(value));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,
@@ -101,7 +101,7 @@ public class AgentPropertyTableModel extends AbstractPropertyTableModel {
                                           JOptionPane.WARNING_MESSAGE); 
         }
         
-        fireTableCellUpdated(row,col);
+        this.fireTableCellUpdated(row,col);
         
     }
  

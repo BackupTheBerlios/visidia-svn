@@ -32,7 +32,7 @@ public class Arete extends ObjetGraphe implements Cloneable{
       this.graph = gr;
       this.origine = origine;
       this.destination = destination;
-      position = graph.edges.ajouterElement(this);
+      this.position = this.graph.edges.ajouterElement(this);
       origine.successeurs.inserer(destination);
       destination.predecesseurs.inserer(origine);
       origine.aretes_sortantes.inserer(this);
@@ -67,11 +67,11 @@ public class Arete extends ObjetGraphe implements Cloneable{
    * duplicate the 2 vertices of the edge and create a new edge
    **/
   public Object cloner() {
-    return cloner((Sommet)origine.cloner(), (Sommet)destination.cloner());
+    return this.cloner((Sommet)this.origine.cloner(), (Sommet)this.destination.cloner());
   }
 
   protected Object clone() {
-    return cloner();
+    return this.cloner();
   }
 
 
@@ -81,11 +81,11 @@ public class Arete extends ObjetGraphe implements Cloneable{
    * delete the edge
    **/
   public void supprimer() {
-      origine.aretes_sortantes.supprimer(this);
-    destination.aretes_entrantes.supprimer(this);
-    origine.successeurs.supprimer(destination);
-    destination.predecesseurs.supprimer(origine);
-    position.supprimerElement();
+      this.origine.aretes_sortantes.supprimer(this);
+    this.destination.aretes_entrantes.supprimer(this);
+    this.origine.successeurs.supprimer(this.destination);
+    this.destination.predecesseurs.supprimer(this.origine);
+    this.position.supprimerElement();
   }
 
 
@@ -93,25 +93,25 @@ public class Arete extends ObjetGraphe implements Cloneable{
    * add the edge in its graph
    **/
   public void ajouter() {
-    position = graph.edges.ajouterElement(this);
-    origine.successeurs.inserer(destination);
-    destination.predecesseurs.inserer(origine);
-    origine.aretes_sortantes.inserer(this);
-    destination.aretes_entrantes.inserer(this);
+    this.position = this.graph.edges.ajouterElement(this);
+    this.origine.successeurs.inserer(this.destination);
+    this.destination.predecesseurs.inserer(this.origine);
+    this.origine.aretes_sortantes.inserer(this);
+    this.destination.aretes_entrantes.inserer(this);
   }    
 
   /**
    * return the origin vertex
    **/
   public Sommet origine() {
-    return origine;
+    return this.origine;
   }
 
   /**
    * return the destination vertex
    **/
   public Sommet destination() {
-    return destination;
+    return this.destination;
   }
 
   /**
@@ -119,28 +119,28 @@ public class Arete extends ObjetGraphe implements Cloneable{
    **/
 
   public Sommet sommetOppose(Sommet un_sommet) {
-    return ((un_sommet == origine) ? destination : origine);
+    return ((un_sommet == this.origine) ? this.destination : this.origine);
   }
 
   /**
    * tests if "un_sommet" vertex if the origin of the edge
    **/
   public boolean aPourOrigine(Sommet un_sommet) {
-    return (origine == un_sommet);
+    return (this.origine == un_sommet);
   }
 
   /**
    * tests if "un_sommet" vertex if the destination of the edge
    **/
   public boolean aPourDestination(Sommet un_sommet) {
-    return (destination == un_sommet);
+    return (this.destination == un_sommet);
   }
 
   /**
    * tests if the edge is incident to the parameter vertex
    **/
   public boolean estIncidenteA(Sommet un_sommet) {
-    return ((origine == un_sommet) || (destination == un_sommet));
+    return ((this.origine == un_sommet) || (this.destination == un_sommet));
   }
 
   /**
@@ -149,13 +149,13 @@ public class Arete extends ObjetGraphe implements Cloneable{
    **/
 
   public void changerOrigine(Sommet nouvelleOrigine) {
-    origine.aretes_sortantes.supprimer(this);
-    origine.successeurs.supprimer(destination);
+    this.origine.aretes_sortantes.supprimer(this);
+    this.origine.successeurs.supprimer(this.destination);
     nouvelleOrigine.aretes_sortantes.inserer(this);
-    nouvelleOrigine.successeurs.inserer(destination);
-    destination.predecesseurs.supprimer(origine);
-    destination.predecesseurs.inserer(nouvelleOrigine);
-    origine = nouvelleOrigine;
+    nouvelleOrigine.successeurs.inserer(this.destination);
+    this.destination.predecesseurs.supprimer(this.origine);
+    this.destination.predecesseurs.inserer(nouvelleOrigine);
+    this.origine = nouvelleOrigine;
   }
 
   /**
@@ -164,22 +164,22 @@ public class Arete extends ObjetGraphe implements Cloneable{
    **/
 
   public void changerDestination(Sommet nouvelleDestination) {
-    destination.aretes_entrantes.supprimer(this);
-    destination.predecesseurs.supprimer(origine);
+    this.destination.aretes_entrantes.supprimer(this);
+    this.destination.predecesseurs.supprimer(this.origine);
     nouvelleDestination.aretes_entrantes.inserer(this);
-    nouvelleDestination.predecesseurs.inserer(origine);
-    origine.successeurs.supprimer(destination);
-    origine.successeurs.inserer(nouvelleDestination);
-    destination = nouvelleDestination;
+    nouvelleDestination.predecesseurs.inserer(this.origine);
+    this.origine.successeurs.supprimer(this.destination);
+    this.origine.successeurs.inserer(nouvelleDestination);
+    this.destination = nouvelleDestination;
   }
 
      // accessor and modificator of the associated view
     
     public void setAreteDessin(AreteDessin a){
-	formeDessin = a;}
+	this.formeDessin = a;}
 
     public AreteDessin getAreteDessin(){
-	return ((AreteDessin)formeDessin);
+	return ((AreteDessin)this.formeDessin);
     }
    
 }

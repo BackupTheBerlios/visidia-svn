@@ -24,61 +24,61 @@ public class LC2 extends AbSynAlgo implements IntSynchronization
 	/* Synchronisation Algorithme */
 	
 	//waitWhileDisconnected();
-	int arity = getArity();
-        answer = new int[arity];
-	synob.reset();
+	int arity = this.getArity();
+        this.answer = new int[arity];
+	this.synob.reset();
 	
 	/*random */
 	int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
 	/*Send to all neighbours */
 	for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i)) {
+	    if (! this.synob.hasFinished(i)) {
 		boolean b = 
-		    sendTo(i, new IntegerMessage (choosenNumber, MSG_TYPES.SYNC));
-		synob.setConnected(i, b);
+		    this.sendTo(i, new IntegerMessage (choosenNumber, MSG_TYPES.SYNC));
+		this.synob.setConnected(i, b);
 	    }
 	}
 	
 	/*receive all numbers from neighbours */
 	for (int i = 0; i < arity; i++){
-	    if (! synob.hasFinished(i) && synob.isConnected(i)){
-		IntegerMessage msg = (IntegerMessage) receiveFrom(i);
+	    if (! this.synob.hasFinished(i) && this.synob.isConnected(i)){
+		IntegerMessage msg = (IntegerMessage) this.receiveFrom(i);
 		if (msg != null) {
-		    answer[i]= msg.value();
+		    this.answer[i]= msg.value();
 		    if(msg.getType().equals(MSG_TYPES.TERM)){
-			if (answer[i]== SynCT.LOCAL_END)
-			    synob.setFinished(i,true);
-			if (answer[i] == SynCT.GLOBAL_END){
-			    synob.setGlobEnd(true);
-			    synob.setFinished(i,true);
+			if (this.answer[i]== SynCT.LOCAL_END)
+			    this.synob.setFinished(i,true);
+			if (this.answer[i] == SynCT.GLOBAL_END){
+			    this.synob.setGlobEnd(true);
+			    this.synob.setFinished(i,true);
 			}
 		    }
 		} else { // The message is null
-		    synob.setConnected(i, false);
+		    this.synob.setConnected(i, false);
 		}
 	    }
 	}
 	
 	// Derniere chance de recuperer la synchro	
 	for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i) && ! synob.isConnected(i)) {
+	    if (! this.synob.hasFinished(i) && ! this.synob.isConnected(i)) {
 		boolean b = 
-		    sendTo(i, new IntegerMessage (choosenNumber, MSG_TYPES.SYNC));
-		synob.setConnected(i, b);
+		    this.sendTo(i, new IntegerMessage (choosenNumber, MSG_TYPES.SYNC));
+		this.synob.setConnected(i, b);
 		if (b) {
-		    IntegerMessage msg = (IntegerMessage) receiveFrom(i);
+		    IntegerMessage msg = (IntegerMessage) this.receiveFrom(i);
 		    if (msg != null) {
-			answer[i]= msg.value();
+			this.answer[i]= msg.value();
 			if(msg.getType().equals(MSG_TYPES.TERM)){
-			    if (answer[i]== SynCT.LOCAL_END)
-				synob.setFinished(i,true);
-			    if (answer[i] == SynCT.GLOBAL_END){
-				synob.setGlobEnd(true);
-				synob.setFinished(i,true);
+			    if (this.answer[i]== SynCT.LOCAL_END)
+				this.synob.setFinished(i,true);
+			    if (this.answer[i] == SynCT.GLOBAL_END){
+				this.synob.setGlobEnd(true);
+				this.synob.setFinished(i,true);
 			    }
 			}
 		    } else {	// The message is null
-			synob.setConnected(i, false);
+			this.synob.setConnected(i, false);
 		    }
 		    
 		}
@@ -88,26 +88,26 @@ public class LC2 extends AbSynAlgo implements IntSynchronization
 	/*get the max */
         int max = choosenNumber;
         for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		if (answer[i] >= max)
-		    max = answer[i];
+	    if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		if (this.answer[i] >= max)
+		    max = this.answer[i];
 	    }
 	}
 
 	for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		boolean b = sendTo(i, new IntegerMessage(max, MSG_TYPES.SYNC));
-		synob.setConnected(i, b);
+	    if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		boolean b = this.sendTo(i, new IntegerMessage(max, MSG_TYPES.SYNC));
+		this.synob.setConnected(i, b);
 	    }
 	}
 	/*get alla answers from neighbours */
         for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		IntegerMessage msg = (IntegerMessage) receiveFrom(i);
+	    if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		IntegerMessage msg = (IntegerMessage) this.receiveFrom(i);
 		if (msg != null) {
-		    answer[i] = msg.value();
+		    this.answer[i] = msg.value();
 		} else {
-		    synob.setConnected(i, false);
+		    this.synob.setConnected(i, false);
 		}
 	    }
 	}
@@ -115,59 +115,59 @@ public class LC2 extends AbSynAlgo implements IntSynchronization
 	/*get the max */
         max = choosenNumber;
         for (int i = 0; i < arity; i++) {
-	    if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		if (answer[i] >= max)
-		    max = answer[i];
+	    if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		if (this.answer[i] >= max)
+		    max = this.answer[i];
 	    }
 	}
 
 	/* if elected */
         if (choosenNumber >= max) {
             for (int door = 0; door < arity; door++) {
-		if (! synob.hasFinished(door) && synob.isConnected(door)) {
-		    setDoorState(new SyncState(true), door);
-		    synob.addSynchronizedDoor(door);
+		if (! this.synob.hasFinished(door) && this.synob.isConnected(door)) {
+		    this.setDoorState(new SyncState(true), door);
+		    this.synob.addSynchronizedDoor(door);
 		}
 	    }
 	    for (int i = 0; i < arity; i++) {
-		if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		    boolean b = sendTo(i, new IntegerMessage(1, MSG_TYPES.SYNC));
-		    synob.setConnected(i, b);
+		if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		    boolean b = this.sendTo(i, new IntegerMessage(1, MSG_TYPES.SYNC));
+		    this.synob.setConnected(i, b);
 		}
 	    }
 
 	    for (int i = 0; i < arity; i++) {
-		if (! synob.hasFinished(i) && synob.isConnected(i)){
-		    IntegerMessage msg = (IntegerMessage) receiveFrom(i);
+		if (! this.synob.hasFinished(i) && this.synob.isConnected(i)){
+		    IntegerMessage msg = (IntegerMessage) this.receiveFrom(i);
 		    if (msg == null)
-			synob.setConnected(i, false);
+			this.synob.setConnected(i, false);
 		}
 	    }
 	    
-	    synob.setState(SynCT.IAM_THE_CENTER);
+	    this.synob.setState(SynCT.IAM_THE_CENTER);
 	    return;
         }
 	/* not elected */
         else {
-	    synob.setState(SynCT.NOT_IN_THE_STAR);
+	    this.synob.setState(SynCT.NOT_IN_THE_STAR);
 	    for (int i = 0; i < arity; i++){
-		if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		    boolean b = sendTo(i, new IntegerMessage(0, MSG_TYPES.SYNC));
-		    synob.setConnected(i, b);
+		if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		    boolean b = this.sendTo(i, new IntegerMessage(0, MSG_TYPES.SYNC));
+		    this.synob.setConnected(i, b);
 		}
 	    }
 
             for (int i = 0; i < arity; i++) {
-		if (! synob.hasFinished(i) && synob.isConnected(i)) {
-		    IntegerMessage msg= (IntegerMessage) receiveFrom(i);
+		if (! this.synob.hasFinished(i) && this.synob.isConnected(i)) {
+		    IntegerMessage msg= (IntegerMessage) this.receiveFrom(i);
 		    if (msg != null) {
 			int value = msg.value();
 			if (value == 1) {
-			    synob.center = i;
-			    synob.setState(SynCT.IN_THE_STAR);
+			    this.synob.center = i;
+			    this.synob.setState(SynCT.IN_THE_STAR);
 			}
 		    } else {
-			synob.setConnected(i, false);
+			this.synob.setConnected(i, false);
 		    }
 		}
 	    }
@@ -176,7 +176,7 @@ public class LC2 extends AbSynAlgo implements IntSynchronization
 
     public void reconnectionEvent(int door) {
 	Message m;
-	while ((m = receiveFrom(door)) != null) {
+	while ((m = this.receiveFrom(door)) != null) {
 	}
     }
 }

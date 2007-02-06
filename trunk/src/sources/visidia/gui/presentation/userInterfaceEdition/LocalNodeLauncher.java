@@ -45,35 +45,35 @@ class MyTableModel extends AbstractTableModel {
     Vector notEditable;
 
     public MyTableModel() {
-	notEditable = new Vector();
+	this.notEditable = new Vector();
 	Vector tmp = new Vector();
-	data = new Vector();
+	this.data = new Vector();
 	
 	tmp.addElement(new Boolean(true));
 	tmp.addElement("enter the local Node Url");
 	tmp.addElement("none");
-	data.addElement(tmp);
+	this.data.addElement(tmp);
     
-	columnNames = new Vector();
-	columnNames.addElement("Selected");
-	columnNames.addElement("Local Node URL");
-	columnNames.addElement("State");
+	this.columnNames = new Vector();
+	this.columnNames.addElement("Selected");
+	this.columnNames.addElement("Local Node URL");
+	this.columnNames.addElement("State");
     }
     
     public int getColumnCount() {
-	return columnNames.size();
+	return this.columnNames.size();
     }
     
     public int getRowCount() {
-	return data.size();
+	return this.data.size();
     }
     
     public String getColumnName(int col) {
-	return (String)columnNames.elementAt(col);
+	return (String)this.columnNames.elementAt(col);
     }
     
     public Object getValueAt(int row, int col) {
-	return ((Vector)data.elementAt(row)).elementAt(col);
+	return ((Vector)this.data.elementAt(row)).elementAt(col);
     }
     
     /*
@@ -83,16 +83,16 @@ class MyTableModel extends AbstractTableModel {
      * rather than a check box.
      */
     public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
+            return this.getValueAt(0, c).getClass();
     }
     
     
     public void setNotEditable(int row) {
-	notEditable.addElement(new Integer(row));
+	this.notEditable.addElement(new Integer(row));
     }
     
     public void setEditable(int row) {
-	notEditable.remove(new Integer(row));
+	this.notEditable.remove(new Integer(row));
     }
 	
     /*
@@ -106,7 +106,7 @@ class MyTableModel extends AbstractTableModel {
 	    return true;
 	if (col == 1) {
 	    //    if (notEditable != null)
-		if (notEditable.contains(new Integer(row)))
+		if (this.notEditable.contains(new Integer(row)))
 		    return false;
 		else 
 		    return true;
@@ -122,39 +122,39 @@ class MyTableModel extends AbstractTableModel {
       * data can change.
       */
     public void setValueAt(Object value, int row, int col) {
-	((Vector)data.elementAt(row)).set(col,value);
-	fireTableCellUpdated(row, col);
+	((Vector)this.data.elementAt(row)).set(col,value);
+	this.fireTableCellUpdated(row, col);
     }
 
     public void remove(int row) {
-	data.remove(row);
-	fireTableDataChanged();
+	this.data.remove(row);
+	this.fireTableDataChanged();
     }
 
     public void insert(){
-	int index = getRowCount();
+	int index = this.getRowCount();
 	Vector tmp = new Vector();
 	tmp.addElement(new Boolean(true));
 	tmp.addElement("");
 	tmp.addElement("none");
-	data.addElement(tmp);
-	fireTableRowsInserted(index,index);
+	this.data.addElement(tmp);
+	this.fireTableRowsInserted(index,index);
     }
     
     public int insert(String url) {
-	int index = getRowCount();
+	int index = this.getRowCount();
 	Vector tmp = new Vector();
 	tmp.addElement(new Boolean(true));
 	tmp.addElement(url);
 	tmp.addElement("none");
-	data.addElement(tmp);
-	fireTableRowsInserted(index,index);
+	this.data.addElement(tmp);
+	this.fireTableRowsInserted(index,index);
 	return index;
     }
     public Vector getSelectedRows() {
 	Vector v = new Vector();
-	for (int i=0; i<data.size(); i++){
-	    if (((Boolean)((Vector)data.elementAt(i)).elementAt(0)).equals(new Boolean(true))){
+	for (int i=0; i<this.data.size(); i++){
+	    if (((Boolean)((Vector)this.data.elementAt(i)).elementAt(0)).equals(new Boolean(true))){
 		v.addElement(new Integer(i));
 	    }
 	}
@@ -198,17 +198,17 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 
     public LocalNodeLauncher(String title) {
 	super(title);
-	nodeServers = new Hashtable();
+	this.nodeServers = new Hashtable();
 	
-	etchedBorder = BorderFactory.createEtchedBorder();
+	this.etchedBorder = BorderFactory.createEtchedBorder();
 	//Panel contenant la configuration pour les noeuds locaux
-	setUpContentPane();
+	this.setUpContentPane();
 	
 	//panel conteannt les bouttons exit etc ...
-	setUpControlPanel();
+	this.setUpControlPanel();
 
 	//panel root de la JFrame
-	setUpFrame();
+	this.setUpFrame();
     }
     
     /**
@@ -218,17 +218,17 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	/**********************************************************/
 	/*     The panel where the local nodes are configured      */
 	/**********************************************************/
-	setUpLocalNodeSettings();
+	this.setUpLocalNodeSettings();
 	/**********************************************************/
 	/*     The panel where the registration is configured      */
 	/**********************************************************/
-	setUpRegistration();
+	this.setUpRegistration();
 	/******************************************************/
 	/*                  Final settings                    */
 	/******************************************************/
-	contentPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,rmiScroller,localNodesPanel);
-	contentPane.setOneTouchExpandable(true);
-	contentPane.setDividerLocation(165);
+	this.contentPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,this.rmiScroller,this.localNodesPanel);
+	this.contentPane.setOneTouchExpandable(true);
+	this.contentPane.setDividerLocation(165);
     }
 
     /** ********************************/
@@ -238,54 +238,54 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	Object source = ae.getSource();
 	if ( source instanceof JRadioButton) {
 	    source = (JRadioButton)source;
-	    if(source == manyLocalNodes)
-		js.setEnabled(manyLocalNodes.isSelected());
-	    else if (source == runRegistry) {
-		startRegistry.setEnabled(runRegistry.isSelected());
+	    if(source == this.manyLocalNodes)
+		this.js.setEnabled(this.manyLocalNodes.isSelected());
+	    else if (source == this.runRegistry) {
+		this.startRegistry.setEnabled(this.runRegistry.isSelected());
 	    }
 	} else if (source instanceof JButton) {
 	    source = (JButton)source;
-	    if( source == start) {
-		write("\nStarting Selected Nodes",Color.blue);
-		start();
-		register.setEnabled(true);
-		kill.setEnabled(true);
-		registerAll.setEnabled(true);
-		killAll.setEnabled(true);
-	    } else if (source == register) {
-		write("\nregistering !",Color.blue);
-		register();
-	    } else if (source == kill) {
+	    if( source == this.start) {
+		this.write("\nStarting Selected Nodes",Color.blue);
+		this.start();
+		this.register.setEnabled(true);
+		this.kill.setEnabled(true);
+		this.registerAll.setEnabled(true);
+		this.killAll.setEnabled(true);
+	    } else if (source == this.register) {
+		this.write("\nregistering !",Color.blue);
+		this.register();
+	    } else if (source == this.kill) {
 		System.out.println("killing !");
-		kill();
-	    } else if (source == delete) {
-		delete();
-	    } else if (source == add) {
+		this.kill();
+	    } else if (source == this.delete) {
+		this.delete();
+	    } else if (source == this.add) {
 		System.out.println("adding !");
-		myModel.insert();
-	    } else if (source == startAll) {
+		this.myModel.insert();
+	    } else if (source == this.startAll) {
 		System.out.println("starting All !");
-		startAll();
-	    } else if (source == registerAll) {
+		this.startAll();
+	    } else if (source == this.registerAll) {
 		System.out.println("registering All !");
-		registerAll();
-	    } else if (source == killAll) {
+		this.registerAll();
+	    } else if (source == this.killAll) {
 		System.out.println("killing All !");
-		killAll();
-	    } else if (source == exit) {
+		this.killAll();
+	    } else if (source == this.exit) {
 		System.out.println("THE END !");
-		exit();
-	    } else if (source == startRegistry) {
-		startRegistry();
-	    } else if (source == killRegistry) {
-		killRegistry();
-	    } else if (source == clear) {
-		clear();
+		this.exit();
+	    } else if (source == this.startRegistry) {
+		this.startRegistry();
+	    } else if (source == this.killRegistry) {
+		this.killRegistry();
+	    } else if (source == this.clear) {
+		this.clear();
 	    }
 	} else if (source instanceof JMenuItem) {
 	    source = (JMenuItem)source;
-	    if( source == new_launcher) {
-		newLauncher();
+	    if( source == this.new_launcher) {
+		this.newLauncher();
 	    }
 	}
     }
@@ -295,15 +295,15 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
      * localNodes. The local node URLs are no longer editable
      */
     private void start() {
-	if(!manyLocalNodes.isSelected()){
-	    Vector selected = myModel.getSelectedRows();
-	    write(selected.toString(),Color.blue);
+	if(!this.manyLocalNodes.isSelected()){
+	    Vector selected = this.myModel.getSelectedRows();
+	    this.write(selected.toString(),Color.blue);
 	    for(int i=0; i<selected.size();i++) {
 		int row = ((Integer)selected.elementAt(i)).intValue();
-		if (!(((String)myModel.getValueAt(row,2)).equals("started") || ((String)myModel.getValueAt(row,2)).equals("registered"))) {
-		    String hostText = localHost.getText();
-		    String portText = portRegistry.getText();
-		    String url = (String)myModel.getValueAt(row,1);
+		if (!(((String)this.myModel.getValueAt(row,2)).equals("started") || ((String)this.myModel.getValueAt(row,2)).equals("registered"))) {
+		    String hostText = this.localHost.getText();
+		    String portText = this.portRegistry.getText();
+		    String url = (String)this.myModel.getValueAt(row,1);
 		    
 		    boolean bool = true;
 		    try {
@@ -316,58 +316,58 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 				UnicastRemoteObject.unexportObject(nodeServer,true);
 				bool=false;
 			    } catch (Exception e3) {}
-			    if(debug.isSelected()){
-				write(e2);
+			    if(this.debug.isSelected()){
+				this.write(e2);
 			    } 
 			}
 			if (bool) {
-			    nodeServers.put(new Integer(row),nodeServer);
-			    myModel.setValueAt("started",row,2);
-			    myModel.setNotEditable(row);
-			    write("\nLocal Node "+url+" is started",Color.blue);
+			    this.nodeServers.put(new Integer(row),nodeServer);
+			    this.myModel.setValueAt("started",row,2);
+			    this.myModel.setNotEditable(row);
+			    this.write("\nLocal Node "+url+" is started",Color.blue);
 			}
 		    } catch (Exception e1) {
-			write(e1);
+			this.write(e1);
 		    }
 		}
 	    }
-	} else if (manyLocalNodes.isSelected()) {
+	} else if (this.manyLocalNodes.isSelected()) {
 	    int n = 0;
 	    try{
-		n = spinnerModel.getNumber().intValue();
+		n = this.spinnerModel.getNumber().intValue();
 	    } catch (Exception e) {
 		e.printStackTrace();
-		write("\nLocal node Number not compatible",Color.red);
+		this.write("\nLocal node Number not compatible",Color.red);
 	    }
 	    
-	    write("\nStrating "+n+" localNodes with Urls : 0 ... "+(n-1),Color.blue);
-	    int min = count ;
-	    int max = count+n;
+	    this.write("\nStrating "+n+" localNodes with Urls : 0 ... "+(n-1),Color.blue);
+	    int min = this.count ;
+	    int max = this.count+n;
 	    for(int i=min; i<max;i++) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
+		String hostText = this.localHost.getText();
+		String portText = this.portRegistry.getText();
 		boolean bool = true;
 		try {
 		    NodeServer nodeServer = new NodeServerImpl(hostText,portText);
-		    nodeServer.setUrlName(DEFAULT_URL+count);
+		    nodeServer.setUrlName(this.DEFAULT_URL+this.count);
 		    try{
-			Naming.bind("rmi://"+hostText+":"+portText+"/NodeServer/"+DEFAULT_URL+count,nodeServer);
+			Naming.bind("rmi://"+hostText+":"+portText+"/NodeServer/"+this.DEFAULT_URL+this.count,nodeServer);
 		    } catch (Exception e2) {
 			try {
 			    UnicastRemoteObject.unexportObject(nodeServer,true);
 			    bool=false;
 			} catch (Exception e3) {}
-			if(debug.isSelected()){
-			    write(e2);
+			if(this.debug.isSelected()){
+			    this.write(e2);
 			} 
 		    }
 		    if (bool) {
-			int index = myModel.insert(DEFAULT_URL+count);
-			nodeServers.put(new Integer(index),nodeServer);
-			myModel.setValueAt("started",index,2);
-			myModel.setNotEditable(index);
-			write("\nLocal Node "+DEFAULT_URL+count+" is started",Color.blue);
-			count++;
+			int index = this.myModel.insert(this.DEFAULT_URL+this.count);
+			this.nodeServers.put(new Integer(index),nodeServer);
+			this.myModel.setValueAt("started",index,2);
+			this.myModel.setNotEditable(index);
+			this.write("\nLocal Node "+this.DEFAULT_URL+this.count+" is started",Color.blue);
+			this.count++;
 		    }
 		} catch (Exception e1) {
 		    e1.printStackTrace();
@@ -377,11 +377,11 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     }
 
     private void startAll() {
-	for(int i=0; i<myModel.getRowCount();i++) {
-	    if (!(((String)myModel.getValueAt(i,2)).equals("started") ||((String)myModel.getValueAt(i,2)).equals("registered"))) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(i,1);
+	for(int i=0; i<this.myModel.getRowCount();i++) {
+	    if (!(((String)this.myModel.getValueAt(i,2)).equals("started") ||((String)this.myModel.getValueAt(i,2)).equals("registered"))) {
+		String hostText = this.localHost.getText();
+		String portText = this.portRegistry.getText();
+		String url = (String)this.myModel.getValueAt(i,1);
 		boolean bool = true;
 		try {
 		    NodeServer nodeServer = new NodeServerImpl(hostText,portText);
@@ -393,15 +393,15 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 			    UnicastRemoteObject.unexportObject(nodeServer,true);
 			    bool=false;
 			} catch (Exception e3) {}
-			if(debug.isSelected()){
-			    write(e2);
+			if(this.debug.isSelected()){
+			    this.write(e2);
 			} 
 		    }
 		    if (bool) {
-			nodeServers.put(new Integer(i),nodeServer);
-			myModel.setValueAt("started",i,2);
-			myModel.setNotEditable(i);
-			write("\nLocal Node "+url+" is started",Color.blue);
+			this.nodeServers.put(new Integer(i),nodeServer);
+			this.myModel.setValueAt("started",i,2);
+			this.myModel.setNotEditable(i);
+			this.write("\nLocal Node "+url+" is started",Color.blue);
 		    }
 		} catch (Exception e1) {
 		    e1.printStackTrace();
@@ -414,20 +414,20 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
      * register all the selected and started local node using the Visidia Registry
      */
     private void register() {
-	Vector selected = myModel.getSelectedRows();
+	Vector selected = this.myModel.getSelectedRows();
 	for(int i=0; i<selected.size();i++) {
 	    int row = ((Integer)selected.elementAt(i)).intValue(); 
-	    if (((String)myModel.getValueAt(row,2)).equals("started")) {
+	    if (((String)this.myModel.getValueAt(row,2)).equals("started")) {
 		//String hostText = localHost.getText();
 		//String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(row,1);
+		String url = (String)this.myModel.getValueAt(row,1);
 		try {
-		    NodeServer nodeServer = (NodeServer)nodeServers.get(new Integer(row));
-		    nodeServer.register(visualizationHost.getText(),visualizationUrl.getText());
-		    myModel.setValueAt("registered",row,2);
+		    NodeServer nodeServer = (NodeServer)this.nodeServers.get(new Integer(row));
+		    nodeServer.register(this.visualizationHost.getText(),this.visualizationUrl.getText());
+		    this.myModel.setValueAt("registered",row,2);
 		} catch (Exception e) {
-		    if(debug.isSelected()){
-			write(e);
+		    if(this.debug.isSelected()){
+			this.write(e);
 		    }
 		}
 	    }
@@ -438,18 +438,18 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
      * register all the started localNodes
      */
     private void registerAll() {
-	for(int i=0; i<myModel.getRowCount();i++) {
-	    if (((String)myModel.getValueAt(i,2)).equals("started")) {
+	for(int i=0; i<this.myModel.getRowCount();i++) {
+	    if (((String)this.myModel.getValueAt(i,2)).equals("started")) {
 		//String hostText = localHost.getText();
 		//String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(i,1);
+		String url = (String)this.myModel.getValueAt(i,1);
 		try {
-		    NodeServer nodeServer = (NodeServer)nodeServers.get(new Integer(i));
-		    nodeServer.register(visualizationHost.getText(),visualizationUrl.getText());
-		    myModel.setValueAt("registered",i,2);
+		    NodeServer nodeServer = (NodeServer)this.nodeServers.get(new Integer(i));
+		    nodeServer.register(this.visualizationHost.getText(),this.visualizationUrl.getText());
+		    this.myModel.setValueAt("registered",i,2);
 		} catch (Exception e) {
-		    if(debug.isSelected()){
-			write(e);
+		    if(this.debug.isSelected()){
+			this.write(e);
 		    }
 		}
 	    }
@@ -457,67 +457,67 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     }
     
     private void kill() {
-	Vector selected = myModel.getSelectedRows();
-	write(selected.toString(),Color.blue);
+	Vector selected = this.myModel.getSelectedRows();
+	this.write(selected.toString(),Color.blue);
 	for(int i=0; i<selected.size();i++) {
 	    int row = ((Integer)selected.elementAt(i)).intValue();
-	    if (((String)myModel.getValueAt(row,2)).equals("started") || ((String)myModel.getValueAt(row,2)).equals("registered")) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(row,1);
+	    if (((String)this.myModel.getValueAt(row,2)).equals("started") || ((String)this.myModel.getValueAt(row,2)).equals("registered")) {
+		String hostText = this.localHost.getText();
+		String portText = this.portRegistry.getText();
+		String url = (String)this.myModel.getValueAt(row,1);
 		boolean bool = true;
 		try {
-		    NodeServer nodeServer = (NodeServer)nodeServers.remove(new Integer(row));
+		    NodeServer nodeServer = (NodeServer)this.nodeServers.remove(new Integer(row));
 		    try {
 			Naming.unbind("rmi://"+hostText+":"+portText+"/NodeServer/"+url);
 		    } catch (Exception expt) {
-			write("\nCouldn't unbind Local Node from registry",Color.red);
-			if(fullDebug.isSelected())
-			    write(expt);
+			this.write("\nCouldn't unbind Local Node from registry",Color.red);
+			if(this.fullDebug.isSelected())
+			    this.write(expt);
 		    }
 		    UnicastRemoteObject.unexportObject(nodeServer,true);
 		} catch (Exception e) {
 		    bool=false;
-		    if(debug.isSelected()){
-			write(e);
+		    if(this.debug.isSelected()){
+			this.write(e);
 		    }
 		}
 		if (bool) {
-		    myModel.setValueAt("killed",row,2);
-		    myModel.setEditable(row);
-		    write("\nLocal Node "+url+" is killed",Color.blue);
+		    this.myModel.setValueAt("killed",row,2);
+		    this.myModel.setEditable(row);
+		    this.write("\nLocal Node "+url+" is killed",Color.blue);
 		}
 	    }
 	}
     }
     
     private void killAll(){
-	for(int i=0; i<myModel.getRowCount();i++) {
-	    if (((String)myModel.getValueAt(i,2)).equals("started") || ((String)myModel.getValueAt(i,2)).equals("registered")) {
-		String hostText = localHost.getText();
-		String portText = portRegistry.getText();
-		String url = (String)myModel.getValueAt(i,1);
+	for(int i=0; i<this.myModel.getRowCount();i++) {
+	    if (((String)this.myModel.getValueAt(i,2)).equals("started") || ((String)this.myModel.getValueAt(i,2)).equals("registered")) {
+		String hostText = this.localHost.getText();
+		String portText = this.portRegistry.getText();
+		String url = (String)this.myModel.getValueAt(i,1);
 		boolean bool = true;
 		try {
-		    NodeServer nodeServer = (NodeServer)nodeServers.remove(new Integer(i));
+		    NodeServer nodeServer = (NodeServer)this.nodeServers.remove(new Integer(i));
 		    try {
 			Naming.unbind("rmi://"+hostText+":"+portText+"/NodeServer/"+url);
 		    } catch (Exception expt) {
-			write("\nCouldn't unbind Local Node from registry",Color.red);
-			if(fullDebug.isSelected())
-			    write(expt);
+			this.write("\nCouldn't unbind Local Node from registry",Color.red);
+			if(this.fullDebug.isSelected())
+			    this.write(expt);
 		    }
 		    UnicastRemoteObject.unexportObject(nodeServer,true);
 		} catch (Exception e) {
 		    bool=false;
-		    if(debug.isSelected()){
-			write(e);
+		    if(this.debug.isSelected()){
+			this.write(e);
 		    }
 		}
 		if (bool) {
-		    myModel.setValueAt("killed",i,2);
-		    myModel.setEditable(i);
-		    write("\nLocal Node "+url+" is killed",Color.blue);
+		    this.myModel.setValueAt("killed",i,2);
+		    this.myModel.setEditable(i);
+		    this.write("\nLocal Node "+url+" is killed",Color.blue);
 		}
 	    }
 	}
@@ -526,12 +526,12 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     private void delete() {
 	int retour = JOptionPane.showConfirmDialog(this,"selected Local Nodes will be killed\ncontinue any way ?","Confirm local node deletion", JOptionPane.YES_NO_OPTION);
 	if (retour == JOptionPane.YES_OPTION){
-	    kill();
-	    Vector selected = myModel.getSelectedRows();
+	    this.kill();
+	    Vector selected = this.myModel.getSelectedRows();
 	    while(!selected.isEmpty()) {
 		int row = ((Integer)selected.elementAt(0)).intValue();
-		myModel.remove(row);
-		selected = myModel.getSelectedRows();
+		this.myModel.remove(row);
+		selected = this.myModel.getSelectedRows();
 	    }
 	} else if (retour == JOptionPane.NO_OPTION){
 	}
@@ -540,7 +540,7 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     private void exit() {
 	int retour = JOptionPane.showConfirmDialog(this,"Exiting will kill the running Local Nodes\nexit any way ?","Confirm Exit", JOptionPane.YES_NO_OPTION);
 	if (retour == JOptionPane.YES_OPTION){
-	    killAll();
+	    this.killAll();
 	    this.dispose();
 	    this.setVisible(false);
 	    System.exit(0);
@@ -550,14 +550,14 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     
     private void startRegistry() {
 	try {
-	    write("\nCreating an RMI registry",Color.orange);
-	    registry = LocateRegistry.createRegistry((new Integer(portRegistry.getText())).intValue());
-	    write("\nRMI registry created",Color.orange);
-	    killRegistry.setEnabled(true);
+	    this.write("\nCreating an RMI registry",Color.orange);
+	    this.registry = LocateRegistry.createRegistry((new Integer(this.portRegistry.getText())).intValue());
+	    this.write("\nRMI registry created",Color.orange);
+	    this.killRegistry.setEnabled(true);
 	} catch (Exception e) {
-	    if(debug.isSelected()){
-		write(e);
-		write("\nRegistry creation failed",Color.orange);
+	    if(this.debug.isSelected()){
+		this.write(e);
+		this.write("\nRegistry creation failed",Color.orange);
 	    }
 	    
 	}
@@ -565,22 +565,22 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     
     private void killRegistry() {
 	try {
-	    write("\nDestroying RMI registry",Color.orange);
-	    UnicastRemoteObject.unexportObject(registry,true);
-	    registry =  null;
-	    killRegistry.setEnabled(false);
-	    write("\nfinished",Color.orange);
+	    this.write("\nDestroying RMI registry",Color.orange);
+	    UnicastRemoteObject.unexportObject(this.registry,true);
+	    this.registry =  null;
+	    this.killRegistry.setEnabled(false);
+	    this.write("\nfinished",Color.orange);
 	} catch (Exception e) {
-	    if(debug.isSelected()){
-		write(e);
-		write("\nError when killing RMI registry",Color.orange);
+	    if(this.debug.isSelected()){
+		this.write(e);
+		this.write("\nError when killing RMI registry",Color.orange);
 	    }
 	}
     }
     
     private void clear() {
 	try {
-	    doc.remove(0,doc.getLength());
+	    this.doc.remove(0,this.doc.getLength());
 	} catch (Exception e) {
 	}
     }
@@ -590,7 +590,7 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	    Runtime r =  Runtime.getRuntime();
 	    Process p = r.exec("java -Xmx1024M visidia.network.LocalNodeLauncher");
 	} catch (Exception e) {
-	    write(e);
+	    this.write(e);
 	}
     }
 
@@ -598,8 +598,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     
     public void write(String s,Color c) {
 	try {
-	    StyleConstants.setForeground(keyWord, c);
-	    doc.insertString(doc.getLength(), s, keyWord);
+	    StyleConstants.setForeground(this.keyWord, c);
+	    this.doc.insertString(this.doc.getLength(), s, this.keyWord);
 	}catch (Exception e) {}
     }
     
@@ -607,12 +607,12 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	try {
 	    StackTraceElement[] ste = e.getStackTrace();
 	    String textError="\n"+e.toString();
-	    write(textError,Color.red);
-	    if(fullDebug.isSelected()) {
+	    this.write(textError,Color.red);
+	    if(this.fullDebug.isSelected()) {
 		for (StackTraceElement element : ste) {
 		    textError+="\n"+element.toString();
 		}
-		write(textError,Color.black);
+		this.write(textError,Color.black);
 	    }
 	}catch (Exception expt) {}
     }
@@ -622,46 +622,46 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     /*              Method for setting up components                    */
     /********************************************************************/
     protected void setUpControlPanel() {
-	controlButton = new JPanel(new FlowLayout());
-	killAll = new JButton("Kill All");
-	killAll.setEnabled(false);
-	startAll = new JButton("Start All");
-	registerAll = new JButton ("Register All");
-	registerAll.setEnabled(false);
-	exit = new JButton("Exit");
+	this.controlButton = new JPanel(new FlowLayout());
+	this.killAll = new JButton("Kill All");
+	this.killAll.setEnabled(false);
+	this.startAll = new JButton("Start All");
+	this.registerAll = new JButton ("Register All");
+	this.registerAll.setEnabled(false);
+	this.exit = new JButton("Exit");
 	
-	killAll.addActionListener(this);
-	startAll.addActionListener(this);
-	registerAll.addActionListener(this);
-	exit.addActionListener(this);
+	this.killAll.addActionListener(this);
+	this.startAll.addActionListener(this);
+	this.registerAll.addActionListener(this);
+	this.exit.addActionListener(this);
 	
 
-	controlButton.add(startAll);
-	controlButton.add(registerAll);
-	controlButton.add(killAll);
-	controlButton.add(exit);
+	this.controlButton.add(this.startAll);
+	this.controlButton.add(this.registerAll);
+	this.controlButton.add(this.killAll);
+	this.controlButton.add(this.exit);
 
 	JPanel debugPanel = new JPanel(new FlowLayout());
-	debug = new JCheckBox("Enable Log",true);
-	fullDebug = new JCheckBox("Print Error Trace",false);
-	clear = new JButton("clear");
-	clear.setToolTipText("clear text");
-	clear.addActionListener(this);
-	debugPanel.add(debug);
-	debugPanel.add(fullDebug);
-	debugPanel.add(clear);
-	errorArea = new JTextPane();
-	doc = errorArea.getStyledDocument();
-	keyWord = new SimpleAttributeSet();
-	doc.setParagraphAttributes(0, 0, keyWord, true);
-	errorArea.setEditable(false);
-	JScrollPane areaScrollPane = new JScrollPane(errorArea);
+	this.debug = new JCheckBox("Enable Log",true);
+	this.fullDebug = new JCheckBox("Print Error Trace",false);
+	this.clear = new JButton("clear");
+	this.clear.setToolTipText("clear text");
+	this.clear.addActionListener(this);
+	debugPanel.add(this.debug);
+	debugPanel.add(this.fullDebug);
+	debugPanel.add(this.clear);
+	this.errorArea = new JTextPane();
+	this.doc = this.errorArea.getStyledDocument();
+	this.keyWord = new SimpleAttributeSet();
+	this.doc.setParagraphAttributes(0, 0, this.keyWord, true);
+	this.errorArea.setEditable(false);
+	JScrollPane areaScrollPane = new JScrollPane(this.errorArea);
         areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        areaScrollPane.setBorder(BorderFactory.createTitledBorder(etchedBorder,"Log Info"));	
-	controlPanel = new JPanel(new BorderLayout());
-	controlPanel.add(debugPanel,BorderLayout.NORTH);
-	controlPanel.add(areaScrollPane,BorderLayout.CENTER);
-	controlPanel.add(controlButton,BorderLayout.SOUTH);
+        areaScrollPane.setBorder(BorderFactory.createTitledBorder(this.etchedBorder,"Log Info"));	
+	this.controlPanel = new JPanel(new BorderLayout());
+	this.controlPanel.add(debugPanel,BorderLayout.NORTH);
+	this.controlPanel.add(areaScrollPane,BorderLayout.CENTER);
+	this.controlPanel.add(this.controlButton,BorderLayout.SOUTH);
     }
     
     public void setUpFrame(){
@@ -673,12 +673,12 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	menu.add(new_launcher);
 	menuBar.add(menu);
 	*/
-	mainPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,contentPane,controlPanel);
-	mainPane.setOneTouchExpandable(true);
-	mainPane.setDividerLocation(240);
-	mainPane.setPreferredSize(new Dimension(560,400));
+	this.mainPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,this.contentPane,this.controlPanel);
+	this.mainPane.setOneTouchExpandable(true);
+	this.mainPane.setDividerLocation(240);
+	this.mainPane.setPreferredSize(new Dimension(560,400));
 	
-	this.getContentPane().add(mainPane,BorderLayout.CENTER);
+	this.getContentPane().add(this.mainPane,BorderLayout.CENTER);
 	//this.getContentPane().add(menuBar,BorderLayout.NORTH);
 	this.pack();
 	this.setVisible(true);
@@ -690,31 +690,31 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
      * first method for SetUpContentPane
      */
     private void setUpLocalNodeSettings() {
-	localNodesPanel = new JPanel(new BorderLayout());
-	localNodesPanel.setBorder(BorderFactory.createTitledBorder(etchedBorder,"Local Node Settings"));
+	this.localNodesPanel = new JPanel(new BorderLayout());
+	this.localNodesPanel.setBorder(BorderFactory.createTitledBorder(this.etchedBorder,"Local Node Settings"));
 	
-	toolBar = new JToolBar();
-	start = new JButton("start");
-	register = new JButton("register");
-	register.setEnabled(false);
-	kill = new JButton("kill");
-	kill.setEnabled(false);
-	delete = new JButton("delete");
-	add = new JButton("add a local Node");
+	this.toolBar = new JToolBar();
+	this.start = new JButton("start");
+	this.register = new JButton("register");
+	this.register.setEnabled(false);
+	this.kill = new JButton("kill");
+	this.kill.setEnabled(false);
+	this.delete = new JButton("delete");
+	this.add = new JButton("add a local Node");
 
-	start.addActionListener(this);
-	register.addActionListener(this);
-	kill.addActionListener(this);
-	delete.addActionListener(this);
-	add.addActionListener(this);
+	this.start.addActionListener(this);
+	this.register.addActionListener(this);
+	this.kill.addActionListener(this);
+	this.delete.addActionListener(this);
+	this.add.addActionListener(this);
 
-	toolBar.add(start);
-	toolBar.add(register);
-	toolBar.addSeparator(new Dimension(25,0));
-	toolBar.add(kill);
-	toolBar.add(delete);
-	toolBar.addSeparator(new Dimension(25,0));
-	toolBar.add(add);
+	this.toolBar.add(this.start);
+	this.toolBar.add(this.register);
+	this.toolBar.addSeparator(new Dimension(25,0));
+	this.toolBar.add(this.kill);
+	this.toolBar.add(this.delete);
+	this.toolBar.addSeparator(new Dimension(25,0));
+	this.toolBar.add(this.add);
 
 	JPanel panelCenter = new JPanel();
 	GridBagLayout gbl = new GridBagLayout();
@@ -723,35 +723,35 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	gbc.fill = GridBagConstraints.HORIZONTAL;
 			
 
-	localNodesGroup =  new JPanel(new GridLayout(0,2));
-	localNodesGroup.setBorder(BorderFactory.createTitledBorder(etchedBorder));
+	this.localNodesGroup =  new JPanel(new GridLayout(0,2));
+	this.localNodesGroup.setBorder(BorderFactory.createTitledBorder(this.etchedBorder));
 	JLabel label1 = new JLabel(" Local Host ");
-	manyLocalNodes = new JRadioButton(" Number of Local Nodes ");
-	manyLocalNodes.addActionListener(this);
-	spinnerModel = new SpinnerNumberModel(new Integer(2),new Integer(1),new Integer(1000),new Integer(1));
-	js = new JSpinner(spinnerModel);
-	js.setEnabled(false);
+	this.manyLocalNodes = new JRadioButton(" Number of Local Nodes ");
+	this.manyLocalNodes.addActionListener(this);
+	this.spinnerModel = new SpinnerNumberModel(new Integer(2),new Integer(1),new Integer(1000),new Integer(1));
+	this.js = new JSpinner(this.spinnerModel);
+	this.js.setEnabled(false);
 	try {
-	    localHost = new JTextField(java.net.InetAddress.getLocalHost().getHostName());
+	    this.localHost = new JTextField(java.net.InetAddress.getLocalHost().getHostName());
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	localNodesGroup.add(label1);
-	localNodesGroup.add(localHost);
-	localNodesGroup.add(manyLocalNodes);
-	localNodesGroup.add(js);
+	this.localNodesGroup.add(label1);
+	this.localNodesGroup.add(this.localHost);
+	this.localNodesGroup.add(this.manyLocalNodes);
+	this.localNodesGroup.add(this.js);
 	gbc.anchor = GridBagConstraints.NORTH;
 	gbc.weightx = 1;
 	gbc.weighty = 1;
 	gbc.gridx = 0;
 	gbc.gridy = 0;
-	gbl.setConstraints(localNodesGroup,gbc);
-	panelCenter.add(localNodesGroup);
+	gbl.setConstraints(this.localNodesGroup,gbc);
+	panelCenter.add(this.localNodesGroup);
 
-	myModel = new MyTableModel();
-        table = new JTable(myModel);
-	table.setPreferredScrollableViewportSize(new Dimension(200,100));
-	JScrollPane scrollPane = new JScrollPane(table);
+	this.myModel = new MyTableModel();
+        this.table = new JTable(this.myModel);
+	this.table.setPreferredScrollableViewportSize(new Dimension(200,100));
+	JScrollPane scrollPane = new JScrollPane(this.table);
 	gbc.anchor = GridBagConstraints.NORTH;
 	gbc.ipady = 100;
 	gbc.weightx = 1;
@@ -761,53 +761,53 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	gbl.setConstraints( scrollPane,gbc);
 	panelCenter.add(scrollPane);
 
-	localNodesPanel.add(panelCenter,BorderLayout.CENTER);
-	localNodesPanel.add(toolBar,BorderLayout.NORTH);
+	this.localNodesPanel.add(panelCenter,BorderLayout.CENTER);
+	this.localNodesPanel.add(this.toolBar,BorderLayout.NORTH);
     }
     /**
      * second method for SetUpContentPane
      */
     private void setUpRegistration() {
-	registryPanel = new JPanel();
-	registryPanel.setLayout(new BorderLayout());
-	rmiScroller = new JScrollPane(registryPanel);	
+	this.registryPanel = new JPanel();
+	this.registryPanel.setLayout(new BorderLayout());
+	this.rmiScroller = new JScrollPane(this.registryPanel);	
 	JPanel registryPanelNorth = new JPanel();
 	
 
 	/*
 	 *first panel for rmiregistry configuration
 	 */
-	rmiRegistry = new JPanel(new GridLayout(0,1));
-	rmiRegistry.setBorder(BorderFactory.createTitledBorder(etchedBorder,"RMI registry"));
+	this.rmiRegistry = new JPanel(new GridLayout(0,1));
+	this.rmiRegistry.setBorder(BorderFactory.createTitledBorder(this.etchedBorder,"RMI registry"));
 	
-	runRegistry = new JRadioButton("run registry on port");
-	runRegistry.setSelected(false);
-	portRegistry = new JTextField("1099");
-	rmiRegistry.add(portRegistry);
-	startRegistry = new JButton("start registry");
-	startRegistry.setEnabled(false);
-	killRegistry = new JButton("kill registry");
-	killRegistry.setEnabled(false);
+	this.runRegistry = new JRadioButton("run registry on port");
+	this.runRegistry.setSelected(false);
+	this.portRegistry = new JTextField("1099");
+	this.rmiRegistry.add(this.portRegistry);
+	this.startRegistry = new JButton("start registry");
+	this.startRegistry.setEnabled(false);
+	this.killRegistry = new JButton("kill registry");
+	this.killRegistry.setEnabled(false);
 	
-	rmiRegistry.add(runRegistry);
-	rmiRegistry.add(portRegistry);
-	rmiRegistry.add(startRegistry);
-	rmiRegistry.add(killRegistry);
+	this.rmiRegistry.add(this.runRegistry);
+	this.rmiRegistry.add(this.portRegistry);
+	this.rmiRegistry.add(this.startRegistry);
+	this.rmiRegistry.add(this.killRegistry);
 	
-	runRegistry.addActionListener(this);
-	startRegistry.addActionListener(this);
-	killRegistry.addActionListener(this);
+	this.runRegistry.addActionListener(this);
+	this.startRegistry.addActionListener(this);
+	this.killRegistry.addActionListener(this);
 
 	
 	/*
 	 * second panel for Visidia registration
 	 */
-	remoteRegistry = new JPanel();
-	remoteRegistry.setBorder(BorderFactory.createTitledBorder(etchedBorder,"Remote registration"));
+	this.remoteRegistry = new JPanel();
+	this.remoteRegistry.setBorder(BorderFactory.createTitledBorder(this.etchedBorder,"Remote registration"));
 	
 	GridBagLayout gbl = new GridBagLayout();
 	GridBagConstraints gbc = new GridBagConstraints();
-	remoteRegistry.setLayout(gbl);
+	this.remoteRegistry.setLayout(gbl);
 	
 	JLabel jl1 = new JLabel(" Host  ");
 	gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -818,16 +818,16 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	gbc.gridx = 0;
 	gbc.gridy = 0;
 	gbl.setConstraints(jl1,gbc);
-	remoteRegistry.add(jl1);
+	this.remoteRegistry.add(jl1);
 
-	visualizationHost = new JTextField();
+	this.visualizationHost = new JTextField();
 	gbc.ipady = 7;	
 	gbc.weightx = 1;
 	gbc.weighty = 1;
 	gbc.gridx = 1;
 	gbc.gridy = 0;
-	gbl.setConstraints(visualizationHost,gbc);
-	remoteRegistry.add(visualizationHost);
+	gbl.setConstraints(this.visualizationHost,gbc);
+	this.remoteRegistry.add(this.visualizationHost);
 
 	JLabel jl2 = new JLabel(" URL ");
 	gbc.ipady = 7;
@@ -836,16 +836,16 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	gbc.gridx = 0;
 	gbc.gridy = 1;
 	gbl.setConstraints(jl2,gbc);
-	remoteRegistry.add(jl2);
+	this.remoteRegistry.add(jl2);
 	
-	visualizationUrl = new JTextField();
+	this.visualizationUrl = new JTextField();
 	gbc.ipady = 7;
 	gbc.weightx = 1;
 	gbc.weighty = 1;
 	gbc.gridx = 1;
 	gbc.gridy = 1;
-	gbl.setConstraints(visualizationUrl,gbc);
-	remoteRegistry.add(visualizationUrl);
+	gbl.setConstraints(this.visualizationUrl,gbc);
+	this.remoteRegistry.add(this.visualizationUrl);
 	
 	GridBagLayout gblNorth = new GridBagLayout();
 	GridBagConstraints gbcNorth = new GridBagConstraints();
@@ -857,17 +857,17 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	gbcNorth.weighty = 1;
 	gbcNorth.gridx = 0;
 	gbcNorth.gridy = 0;
-	gblNorth.setConstraints(rmiRegistry,gbcNorth);
-	registryPanelNorth.add(rmiRegistry);
+	gblNorth.setConstraints(this.rmiRegistry,gbcNorth);
+	registryPanelNorth.add(this.rmiRegistry);
 
 	gbcNorth.weightx = 1;
 	gbcNorth.weighty = 1;
 	gbcNorth.gridx = 0;
 	gbcNorth.gridy = 1;
-	gblNorth.setConstraints(remoteRegistry,gbcNorth);
-	registryPanelNorth.add(remoteRegistry);
+	gblNorth.setConstraints(this.remoteRegistry,gbcNorth);
+	registryPanelNorth.add(this.remoteRegistry);
 	
-	registryPanel.add(registryPanelNorth,BorderLayout.NORTH);
+	this.registryPanel.add(registryPanelNorth,BorderLayout.NORTH);
     }
 	
     public static final void main(String[] args) {

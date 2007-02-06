@@ -31,11 +31,7 @@ public static FileOutputStream fos ;
   /** the path of the current directory for saving */
   protected String path;
 
-    // shall we save ?
-    private boolean enregistrer = true;
-  
-
-  /** constructor to save the graph in the parent window and the path directory */  
+    /** constructor to save the graph in the parent window and the path directory */  
   public SaveFile(Fenetre parent, String path, Graphe graphe) {
     super(path);
     this.path = path;
@@ -45,8 +41,8 @@ public static FileOutputStream fos ;
     }
 
     nombre++;
-    validFile = new File(path, "noname_" + Integer.toString(nombre) + ".graph");
-    setSelectedFile(validFile);
+    this.validFile = new File(path, "noname_" + Integer.toString(nombre) + ".graph");
+    this.setSelectedFile(this.validFile);
     this.parent = parent;
    
   }
@@ -55,35 +51,35 @@ public static FileOutputStream fos ;
      * Here we deal with errors and warnings (existing files, extension errors ...) */
   public void approveSelection() {
     boolean save = true;
-    File f = getSelectedFile();
+    File f = this.getSelectedFile();
     String s = f.getName();
     int i = s.lastIndexOf('.');
     if ((i > 0) &&  (i < s.length() - 1)) {
       String extension = s.substring(i+1).toLowerCase();
       if (!extension.equals("graph")) {
 	JOptionPane.showMessageDialog(this, 
-				      getName(f) + " : this file has not a recognized\n"
+				      this.getName(f) + " : this file has not a recognized\n"
 				      + "extension. The required extension is '.graph ",
 				      "Warning", 
 				      JOptionPane.WARNING_MESSAGE);
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
 	save = false;
 	
       } 	  
     } else {
       if (i == -1) {
-	setSelectedFile(new File(path, s + ".graph"));
+	this.setSelectedFile(new File(this.path, s + ".graph"));
 	save = true;
       } else {
-	setSelectedFile(new File(path, s + "graph"));
+	this.setSelectedFile(new File(this.path, s + "graph"));
 	save = true;
       }
     }
     
     
-    if (getSelectedFile().exists()) {
+    if (this.getSelectedFile().exists()) {
       int overwrite = JOptionPane.showConfirmDialog(this, 
-						    getName(getSelectedFile()) + 
+						    this.getName(this.getSelectedFile()) + 
 						    " : this file aldready exists.\n"
 						    + "Do you want to overwrite it ?",
 						    "Warning", 
@@ -91,7 +87,7 @@ public static FileOutputStream fos ;
       if (overwrite == JOptionPane.YES_OPTION) {
 	super.approveSelection();
       } else {
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
       }
     } else {
       if (save) {
@@ -104,12 +100,12 @@ public static FileOutputStream fos ;
     * or validation of an empty file  */
   public void cancelSelection() {
     nombre--;
-    if (getSelectedFile() == null) {
+    if (this.getSelectedFile() == null) {
       JOptionPane.showMessageDialog(this, 
 				    "You must choose a file to save your graph in !",
 				    "Warning", 
 				    JOptionPane.WARNING_MESSAGE);
-      setSelectedFile(validFile);
+      this.setSelectedFile(this.validFile);
     } else {      
       super.cancelSelection();
     }

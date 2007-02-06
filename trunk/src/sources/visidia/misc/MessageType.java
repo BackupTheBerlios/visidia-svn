@@ -45,15 +45,15 @@ public class MessageType implements Serializable {
     }
 
     public String getType(){
-	return typeName;
+	return this.typeName;
     }
 
     public void setToPaint(boolean bool){
-	toPaint=bool;
+	this.toPaint=bool;
     }
 
     public boolean getToPaint(){
-	return toPaint;
+	return this.toPaint;
     }
 
     public void setColor(Color color){
@@ -61,7 +61,7 @@ public class MessageType implements Serializable {
     }
 
     public Color getColor(){
-	return color;
+	return this.color;
     }
 
     /* This type is used each time that the programmer of the algorithm does not

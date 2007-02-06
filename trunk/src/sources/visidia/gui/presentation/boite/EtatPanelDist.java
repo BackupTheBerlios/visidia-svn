@@ -14,7 +14,7 @@ public class EtatPanelDist extends JPanel implements ListSelectionListener {
 	private static final long serialVersionUID = 4461954503469396999L;
 	EtatArdoiseDist ardoise ;
     public EtatPanelDist(Hashtable uneHashtable , BoiteChangementEtatSommetDist parent,String defaultValue) {
-        ardoise = new EtatArdoiseDist(uneHashtable, parent);
+        this.ardoise = new EtatArdoiseDist(uneHashtable, parent);
         Vector listeItems = new Vector();
         JList liste = new JList();
         JScrollPane listeAvecAscenseur;
@@ -47,14 +47,14 @@ public class EtatPanelDist extends JPanel implements ListSelectionListener {
         
         liste = new JList(listeItems);
         liste.setSelectedValue(defaultValue,true);
-        ardoise.changerEtat((String)liste.getSelectedValue());
+        this.ardoise.changerEtat((String)liste.getSelectedValue());
         liste.addListSelectionListener(this);
-        setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
-        add(ardoise);
+        this.setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
+        this.add(this.ardoise);
         listeAvecAscenseur = new JScrollPane(liste);
         listeAvecAscenseur.setPreferredSize(new Dimension(200,80));
-        add(listeAvecAscenseur);
-        setVisible(true);
+        this.add(listeAvecAscenseur);
+        this.setVisible(true);
     }
     
     public EtatPanelDist(Hashtable uneHashtable , BoiteChangementEtatSommetDist parent) {
@@ -62,15 +62,15 @@ public class EtatPanelDist extends JPanel implements ListSelectionListener {
     }
     
     public void valueChanged(ListSelectionEvent evt) {
-        ardoise.changerEtat( (String)((JList)evt.getSource()).getSelectedValue());
-        ardoise.repaint();
-        ardoise.donnePere().elementModified();
+        this.ardoise.changerEtat( (String)((JList)evt.getSource()).getSelectedValue());
+        this.ardoise.repaint();
+        this.ardoise.donnePere().elementModified();
         
     }
     
     
     public EtatArdoiseDist ardoise(){
-        return ardoise;
+        return this.ardoise;
     }
     
 }
@@ -89,26 +89,26 @@ class EtatArdoiseDist extends JPanel {
     
     public EtatArdoiseDist(Hashtable dictionnaire,BoiteChangementEtatSommetDist parent){
         this.parent = parent ;
-        uneHashtable = dictionnaire;
-        setPreferredSize(new Dimension(200,60));
+        this.uneHashtable = dictionnaire;
+        this.setPreferredSize(new Dimension(200,60));
     }
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        if(uneHashtable.get(unEtat)!= null){
-            g.setColor((Color)uneHashtable.get(unEtat));
+        if(this.uneHashtable.get(this.unEtat)!= null){
+            g.setColor((Color)this.uneHashtable.get(this.unEtat));
             g.fillRect(100,20,40,40);
         }
         
     }
     
     public void changerEtat(String etat){
-        unEtat = etat ;
+        this.unEtat = etat ;
         
     }
     
     public String donneEtat(){
-        return unEtat;
+        return this.unEtat;
     }
     
     public BoiteChangementEtatSommetDist donnePere(){

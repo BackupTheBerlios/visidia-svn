@@ -42,14 +42,14 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
         boolean myToken=false;
         String myLabelD=new String("M"), myColorD=new String("b");
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
-        neighbours=new String[getArity()];
+        neighbours=new String[this.getArity()];
         
-        if (((String) getProperty("label")).compareTo("A")==0) {
+        if (((String) this.getProperty("label")).compareTo("A")==0) {
             state=active;
             myLabelD=new String("A");
             myStates=nodeA;
@@ -57,27 +57,27 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
             myState=myState+"HT";
             myToken=true;
         }
-        putProperty("label",new String(myState));
+        this.putProperty("label",new String(myState));
         
         while(run){
             
-            synchro=starSynchro(finishedNode);
+            synchro=this.starSynchro(finishedNode);
             if (synchro==-3)
                 run=false;
             else
-                if (synchro == starCenter){
+                if (synchro == this.starCenter){
                     int neighbourN=-1,neighbourA=-1;
                     String label[],labelD[],aP[], cD[], tD[];
                     
-                    label=new String[getArity()];
-                    labelD=new String[getArity()];
-                    aP=new String[getArity()];
-                    cD=new String[getArity()];
-                    tD=new String[getArity()];
+                    label=new String[this.getArity()];
+                    labelD=new String[this.getArity()];
+                    aP=new String[this.getArity()];
+                    cD=new String[this.getArity()];
+                    tD=new String[this.getArity()];
                     
-                    for (int door=0;door<getArity();door++)
+                    for (int door=0;door<this.getArity();door++)
                         if (!finishedNode[door]) {
-                            neighbours[door]=((StringMessage) receiveFrom(door)).data();
+                            neighbours[door]=((StringMessage) this.receiveFrom(door)).data();
                             
                             label[door]=new String(neighbours[door].substring(0,1));
                             labelD[door]=new String(neighbours[door].substring(2,3));
@@ -96,8 +96,8 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                     //System.out.println(getId()+" : "+neighbourN);
                     
                     if ((myStates.compareTo(nodeA)==0) && (neighbourN !=-1)) {
-                        setDoorState(new MarkedState(true),neighbourN);
-                        sendTo(neighbourN,activate);
+                        this.setDoorState(new MarkedState(true),neighbourN);
+                        this.sendTo(neighbourN,this.activate);
                     }
                     else
                         if ((myStates.compareTo(nodeA)==0) && (neighbourN==-1) && (state.compareTo(active)==0)) {
@@ -106,20 +106,20 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                         else
                             if ((myStates.compareTo(nodeN)==0) && (neighbourA !=-1)) {
                                 myStates=nodeA;
-                                setDoorState(new MarkedState(true),neighbourA);
+                                this.setDoorState(new MarkedState(true),neighbourA);
                             }
                     
                     if (myToken) {
-                        if (aP[nextDoor()].compareTo("Pa")==0) {
-                            sendTo(nextDoor(),new StringMessage(new String(myColorD),labels));
+                        if (aP[this.nextDoor()].compareTo("Pa")==0) {
+                            this.sendTo(this.nextDoor(),new StringMessage(new String(myColorD),labels));
                             myColorD=new String("w");
                             myToken=false;
                         }
                     }
                     
-                    for( int i = 0; i < getArity(); i++){
+                    for( int i = 0; i < this.getArity(); i++){
                         if (! finishedNode[i]) {
-                            sendTo(i,end);
+                            this.sendTo(i,this.end);
                         }
                     }
                     
@@ -130,22 +130,22 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                     else
                         myState=myState+"NT";
                     
-                    putProperty("label",myState);
+                    this.putProperty("label",myState);
                     
                     
-                    breakSynchro();
+                    this.breakSynchro();
                 }
             
                 else
-                    if (synchro!=notInTheStar) {
+                    if (synchro!=this.notInTheStar) {
                         String son;
                         
-                        sendTo(synchro,new StringMessage(myState,labels));
+                        this.sendTo(synchro,new StringMessage(myState,labels));
                         
-                        son=((StringMessage)receiveFrom(synchro)).data();
+                        son=((StringMessage)this.receiveFrom(synchro)).data();
                         
-                        while (son.compareTo(end.data())!=0) {
-                            if (son.compareTo(activate.data())!=0) {
+                        while (son.compareTo(this.end.data())!=0) {
+                            if (son.compareTo(this.activate.data())!=0) {
                                 if (myLabelD.compareTo("A")!=0)
                                     if (son.compareTo("b")==0)
                                         myColorD=new String("b");
@@ -160,7 +160,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                             else {
                                 myStates=nodeA;
                             }
-                            son=((StringMessage)receiveFrom(synchro)).data();
+                            son=((StringMessage)this.receiveFrom(synchro)).data();
                         }
                         
                         myState=myStates+","+myLabelD+","+state+","+myColorD+",";
@@ -170,12 +170,12 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                         else
                             myState=myState+"NT";
                         
-                        putProperty("label",myState);
+                        this.putProperty("label",myState);
                         
                     }
         }
         
-        sendAll(new IntegerMessage(new Integer(-3),termination));
+        this.sendAll(new IntegerMessage(new Integer(-3),termination));
         
     }
     
@@ -183,7 +183,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         boolean theEnd=false;
         
@@ -194,13 +194,13 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -224,13 +224,13 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-3) {
                     theEnd=true;
@@ -249,35 +249,35 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             
             if (! theEnd) {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                        this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
-                return starCenter;
+                return this.starCenter;
             }
             else {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(-3),termination));
+                        this.sendTo(i,new IntegerMessage(new Integer(-3),termination));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
@@ -285,17 +285,17 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
             }
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -306,13 +306,13 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                         }
                 }
             }
-            if (inTheStar!=notInTheStar)
+            if (inTheStar!=this.notInTheStar)
                 return inTheStar;
             else
                 if (theEnd)
                     return -3;
                 else
-                    return notInTheStar;
+                    return this.notInTheStar;
             
         }
     }
@@ -321,8 +321,8 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

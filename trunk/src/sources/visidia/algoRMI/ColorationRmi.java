@@ -21,36 +21,36 @@ public class ColorationRmi extends AlgorithmDist {
 	int synchro;
 	String neighbours[];
 	
-	neighbours=new String[getArity()];
+	neighbours=new String[this.getArity()];
 
-	putProperty("label",myColor);
+	this.putProperty("label",myColor);
 	
 	while (true) {
-	    synchro=starSynchro();
-	    if (synchro==starCenter ){  
-		for (int i=0;i<getArity();i++)
-		    neighbours[i]=((StringMessage) receiveFrom(i)).data();
+	    synchro=this.starSynchro();
+	    if (synchro==this.starCenter ){  
+		for (int i=0;i<this.getArity();i++)
+		    neighbours[i]=((StringMessage) this.receiveFrom(i)).data();
 
 		if ((neighbours[0].compareTo(myColor)==0) && 
 		    (neighbours[1].compareTo(myColor)==0)) {
 		    myC=(myC+1)%3;
-		    myColor=getNewColor(myC);
+		    myColor=this.getNewColor(myC);
 		}
 		else 
 		    while ((neighbours[0].compareTo(myColor)==0) || 
 			   (neighbours[1].compareTo(myColor)==0)) {
 			myC=(myC+1)%3;
-			myColor=getNewColor(myC);
+			myColor=this.getNewColor(myC);
 		    }
 		
-		putProperty("label",myColor);
+		this.putProperty("label",myColor);
 
-		breakSynchro();
+		this.breakSynchro();
 		    
 	    }
 	    else {
-		if (synchro != notInTheStar) {  
-		    sendTo(synchro,new StringMessage(myColor));
+		if (synchro != this.notInTheStar) {  
+		    this.sendTo(synchro,new StringMessage(myColor));
 		} 
 	    }
 	}
@@ -67,7 +67,7 @@ public class ColorationRmi extends AlgorithmDist {
     
     public int starSynchro(){
 	
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	int[] answer = new int[arite] ;
 
 	/*random */
@@ -75,11 +75,11 @@ public class ColorationRmi extends AlgorithmDist {
 	
 	/*Send to all neighbours */
 	for (int i=0;i<arite;i++)
-	    sendTo(i,new IntegerMessage(new Integer(choosenNumber)));
+	    this.sendTo(i,new IntegerMessage(new Integer(choosenNumber)));
 	
 	/*receive all numbers from neighbours */
 	for( int i = 0; i < arite; i++){
-	    Message msg = receiveFrom(i);
+	    Message msg = this.receiveFrom(i);
 	    answer[i]= ((IntegerMessage)msg).value();
 	    
 	}
@@ -92,11 +92,11 @@ public class ColorationRmi extends AlgorithmDist {
 	}
 	
 	for (int i=0;i<arite;i++)
-	    sendTo(i,new IntegerMessage(new Integer(max)));
+	    this.sendTo(i,new IntegerMessage(new Integer(max)));
 	
 	/*get alla answers from neighbours */
 	for( int i = 0; i < arite; i++){
-	    Message msg = receiveFrom(i);
+	    Message msg = this.receiveFrom(i);
 	    answer[i]= ((IntegerMessage)msg).value();
 	}
 	
@@ -108,27 +108,27 @@ public class ColorationRmi extends AlgorithmDist {
 	}
 	
 	if (choosenNumber >= max) {
-	    for( int door = 0; door < getArity(); door++){
-		setDoorState(new MarkedState(true),door);
+	    for( int door = 0; door < this.getArity(); door++){
+		this.setDoorState(new MarkedState(true),door);
 	    }
 	    
 	    for (int i=0;i<arite;i++)
-		sendTo(i,new IntegerMessage(1));
+		this.sendTo(i,new IntegerMessage(1));
 	     
 	    for (int i=0;i<arite;i++) {
-		Message msg=receiveFrom(i);
+		Message msg=this.receiveFrom(i);
 		
 	    }
-	    return starCenter;
+	    return this.starCenter;
 	}
 	else {
-	    int inTheStar=notInTheStar;
+	    int inTheStar=this.notInTheStar;
 
 	    for (int i=0;i<arite;i++)
-		sendTo(i,new IntegerMessage(0));
+		this.sendTo(i,new IntegerMessage(0));
 
 	    for (int i=0; i<arite;i++) {
-		Message msg=receiveFrom(i);
+		Message msg=this.receiveFrom(i);
 		if  (((IntegerMessage)msg).value() == 1) {
 		    inTheStar=i;
 		}
@@ -140,8 +140,8 @@ public class ColorationRmi extends AlgorithmDist {
 
     public void breakSynchro() {
 	
-	for( int door = 0; door < getArity(); door++){
-	    setDoorState(new MarkedState(false),door);
+	for( int door = 0; door < this.getArity(); door++){
+	    this.setDoorState(new MarkedState(false),door);
 	}
     }
 

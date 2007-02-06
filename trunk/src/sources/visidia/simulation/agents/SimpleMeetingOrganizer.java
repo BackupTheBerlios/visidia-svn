@@ -11,7 +11,7 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
     private  boolean enable = false;
     
     public SimpleMeetingOrganizer(){
-	enable = true;
+	this.enable = true;
     }
 
 
@@ -21,14 +21,14 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
      * @see whatToDoIfMeeted
      */
     public void howToMeetTogether(Collection netAgents){
-	if(enable == false) return;
+	if(this.enable == false) return;
 	Iterator it = netAgents.iterator();
 	
 	while(it.hasNext()) {
             Agent agent = (Agent) it.next();
             if ((agent instanceof SynchronizedAgent) && (((SynchronizedAgent)agent).meet == true)
                 && (netAgents.size() > 1))
-                whatToDoIfMeeted(netAgents, (SynchronizedAgent)agent);
+                this.whatToDoIfMeeted(netAgents, (SynchronizedAgent)agent);
 	}
     }
     
@@ -38,7 +38,7 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
      * @see visidia.simulation.agents.SynchronizedAgent.planningn
      */
     public void whatToDoIfMeeted(Collection meetedAgents, SynchronizedAgent agentManager){
-	if( enable == false ) return;
+	if( this.enable == false ) return;
 	Iterator it = meetedAgents.iterator();
 	
 	while(it.hasNext()) {

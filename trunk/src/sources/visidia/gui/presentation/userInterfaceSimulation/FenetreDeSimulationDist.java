@@ -104,31 +104,31 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 			       int dim_y, File fichier_edit) {
 	
 	super();
-	evtPipeIn = new visidia.tools.VQueue();
-	evtPipeOut = new visidia.tools.VQueue();
-	ackPipeIn = new visidia.tools.VQueue();
-	ackPipeOut = new visidia.tools.VQueue();
+	this.evtPipeIn = new visidia.tools.VQueue();
+	this.evtPipeOut = new visidia.tools.VQueue();
+	this.ackPipeIn = new visidia.tools.VQueue();
+	this.ackPipeOut = new visidia.tools.VQueue();
 	
-	tg = new ThreadGroup("recorder");
+	this.tg = new ThreadGroup("recorder");
 
 	// The edited graph and the selection object which contains selected objects
-	vueGraphe = grapheVisu_edite;
-	selection = new SelectionDessin();
+	this.vueGraphe = grapheVisu_edite;
+	this.selection = new SelectionDessin();
 
 	//algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
 
 	// The manager of components
-	content = new JPanel();
-	content.setLayout(new BorderLayout());
-	fichier_edite = fichier_edit;
-	mettreAJourTitreFenetre();
+	this.content = new JPanel();
+	this.content.setLayout(new BorderLayout());
+	this.fichier_edite = fichier_edit;
+	this.mettreAJourTitreFenetre();
 		
 	// The menu bar
 	this.addMenu();
 	// Current datas of the edition
        
 	// BackGround Color of the GrapheVisuPanel
-	couleur_de_fond = couleur_fond;
+	this.couleur_de_fond = couleur_fond;
 	
 	// The edited graph and the selection object which contains selected objects
 	//vueGraphe = grapheVisu_edite;
@@ -136,34 +136,34 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	//algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
 
 	// The panel where the graph is drawn
-	simulationPanel = new SimulationPanel(this);
+	this.simulationPanel = new SimulationPanel(this);
 	super.setSize(650,600);
 	// un setSize est a faire avant l'ajout de composants pour eviter
 	// les warnings
-	scroller = new JScrollPane(simulationPanel);
+	this.scroller = new JScrollPane(this.simulationPanel);
 	//scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	//scroller.setVerticalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-	scroller.setPreferredSize(new Dimension(650,600));
-	simulationPanel.revalidate();
+	this.scroller.setPreferredSize(new Dimension(650,600));
+	this.simulationPanel.revalidate();
 	
-	simulationPanel.scrollRectToVisible(new Rectangle((vueGraphe.donnerDimension()).width-10,(vueGraphe.donnerDimension()).height-10,30,30));
-	simulationPanel.repaint();
+	this.simulationPanel.scrollRectToVisible(new Rectangle((this.vueGraphe.donnerDimension()).width-10,(this.vueGraphe.donnerDimension()).height-10,30,30));
+	this.simulationPanel.repaint();
 	
-	scroller.setOpaque(true);
-	content.add(scroller, BorderLayout.CENTER);
+	this.scroller.setOpaque(true);
+	this.content.add(this.scroller, BorderLayout.CENTER);
 	
 						   
 
 	this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    if (simulationPanel != null)
-			simulationPanel.stop();
-		    if (seh != null)
-			seh.abort();
-		    commandeClose();
-		    raz();
-		    setVisible(false);
-		    dispose();
+		    if (FenetreDeSimulationDist.this.simulationPanel != null)
+			FenetreDeSimulationDist.this.simulationPanel.stop();
+		    if (FenetreDeSimulationDist.this.seh != null)
+			FenetreDeSimulationDist.this.seh.abort();
+		    FenetreDeSimulationDist.this.commandeClose();
+		    FenetreDeSimulationDist.this.raz();
+		    FenetreDeSimulationDist.this.setVisible(false);
+		    FenetreDeSimulationDist.this.dispose();
 		    // Running the garbage collector
 		    Runtime.getRuntime().gc();
 		    
@@ -175,16 +175,16 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	
 	// On disable les items non-valide pour une applet
 	if(!DistributedAlgoSimulator.estStandalone()) 
-	    disableButtonForApplet();
+	    this.disableButtonForApplet();
 	
 
-	this.setContentPane(content);
+	this.setContentPane(this.content);
 	boolean bool = true;
 	try {
-	    registry = LocateRegistry.createRegistry((new Integer(rmiRegistryPort)).intValue());
+	    this.registry = LocateRegistry.createRegistry((new Integer(this.rmiRegistryPort)).intValue());
 	} catch (RemoteException re) {
 	    try {
-		registry = LocateRegistry.getRegistry((new Integer(rmiRegistryPort)).intValue());
+		this.registry = LocateRegistry.getRegistry((new Integer(this.rmiRegistryPort)).intValue());
 	    } catch (Exception e) {
 		bool=false;
 		JOptionPane.showMessageDialog(this, "Cannot initialize RMI Registry : \n"+e.toString(), "Warning",JOptionPane.WARNING_MESSAGE);
@@ -193,8 +193,8 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	}
 	try {
 	    if(bool){
-		vr = new VisidiaRegistryImpl(this);
-		vr.init("Registry",registry);
+		this.vr = new VisidiaRegistryImpl(this);
+		this.vr.init("Registry",this.registry);
 	    } 		
 	} catch (Exception e) {
 	    JOptionPane.showMessageDialog(this, "The Visidia Registration is not running"+e,"Error",JOptionPane.WARNING_MESSAGE);
@@ -206,265 +206,265 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
    **/
     protected void addMenu() {
 
-	menuBar = new JMenuBar();
-	menuBar.setOpaque(true);
-	menuBar.setPreferredSize(new Dimension(650, 20));
+	this.menuBar = new JMenuBar();
+	this.menuBar.setOpaque(true);
+	this.menuBar.setPreferredSize(new Dimension(650, 20));
     
 	// Build the menu File
-	file = new JMenu("File");
-	file.getPopupMenu().setName("PopFile");
-	file.setMnemonic('F');
+	this.file = new JMenu("File");
+	this.file.getPopupMenu().setName("PopFile");
+	this.file.setMnemonic('F');
    
-	file_help = new JMenuItem("Help", KeyEvent.VK_H);
-	file_help.setAccelerator(KeyStroke.getKeyStroke(
+	this.file_help = new JMenuItem("Help", KeyEvent.VK_H);
+	this.file_help.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_H, ActionEvent.CTRL_MASK));
-	file_help.addActionListener(this);
-	file.add(file_help);
-	file.addSeparator();    
-	file_close = new JMenuItem("Close", KeyEvent.VK_C);
-	file_close.setAccelerator(KeyStroke.getKeyStroke(
+	this.file_help.addActionListener(this);
+	this.file.add(this.file_help);
+	this.file.addSeparator();    
+	this.file_close = new JMenuItem("Close", KeyEvent.VK_C);
+	this.file_close.setAccelerator(KeyStroke.getKeyStroke(
 							 KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-	file_close.addActionListener(this);
-	file.add(file_close);
-	file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
-	file_quit.setAccelerator(KeyStroke.getKeyStroke(
+	this.file_close.addActionListener(this);
+	this.file.add(this.file_close);
+	this.file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
+	this.file_quit.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-	file_quit.addActionListener(this);
-	file.add(file_quit);
-	file.addActionListener(this);
-	menuBar.add(file);
+	this.file_quit.addActionListener(this);
+	this.file.add(this.file_quit);
+	this.file.addActionListener(this);
+	this.menuBar.add(this.file);
 
 
-	graph = new JMenu("Graph");
-	graph.getPopupMenu().setName("PopGraph");
-	graph.setMnemonic('G');
+	this.graph = new JMenu("Graph");
+	this.graph.getPopupMenu().setName("PopGraph");
+	this.graph.setMnemonic('G');
     
-	graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
-	graph_open.setAccelerator(KeyStroke.getKeyStroke(
+	this.graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
+	this.graph_open.setAccelerator(KeyStroke.getKeyStroke(
 							 KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-	graph_open.addActionListener(this);
-	graph.add(graph_open);
+	this.graph_open.addActionListener(this);
+	this.graph.add(this.graph_open);
     
-	graph_save = new JMenuItem("Save Graph");
-	graph_save.addActionListener(this);
-	graph.add(graph_save);
+	this.graph_save = new JMenuItem("Save Graph");
+	this.graph_save.addActionListener(this);
+	this.graph.add(this.graph_save);
     
-	graph_save_as = new JMenuItem("Save graph as ...");
-	graph_save_as.addActionListener(this);
-	graph.add(graph_save_as);
-	graph.addActionListener(this);
-	menuBar.add(graph);
+	this.graph_save_as = new JMenuItem("Save graph as ...");
+	this.graph_save_as.addActionListener(this);
+	this.graph.add(this.graph_save_as);
+	this.graph.addActionListener(this);
+	this.menuBar.add(this.graph);
     
-	algo = new JMenu("Algorithm");
-	algo.getPopupMenu().setName("PopAlgo");
-	algo.setMnemonic('A');
+	this.algo = new JMenu("Algorithm");
+	this.algo.getPopupMenu().setName("PopAlgo");
+	this.algo.setMnemonic('A');
     
-	algo_open = new JMenuItem("Open algorithm");
-	algo_open.addActionListener(this);
-	algo.add(algo_open);
+	this.algo_open = new JMenuItem("Open algorithm");
+	this.algo_open.addActionListener(this);
+	this.algo.add(this.algo_open);
 	
-	algo.addSeparator();
+	this.algo.addSeparator();
 
-	algo_open_vertices = new JMenuItem("Put algorithm to vertices");
-	algo_open_vertices.addActionListener(this);
-	algo.add(algo_open_vertices);
-	algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+	this.algo_open_vertices = new JMenuItem("Put algorithm to vertices");
+	this.algo_open_vertices.addActionListener(this);
+	this.algo.add(this.algo_open_vertices);
+	this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
     
-	algo.addActionListener(this);
-	menuBar.add(algo);
+	this.algo.addActionListener(this);
+	this.menuBar.add(this.algo);
    
-	config = new JMenu("Config");
-	config.getPopupMenu().setName("PopConfig");
-	config.setMnemonic('C');
+	this.config = new JMenu("Config");
+	this.config.getPopupMenu().setName("PopConfig");
+	this.config.setMnemonic('C');
 	
-	item_visualization = new JCheckBoxMenuItem("Visualize Messages",true);
-	item_visualization.addItemListener(this);
-	config.add(item_visualization);
+	this.item_visualization = new JCheckBoxMenuItem("Visualize Messages",true);
+	this.item_visualization.addItemListener(this);
+	this.config.add(this.item_visualization);
 
-	config.addSeparator();	   
+	this.config.addSeparator();	   
 	
 
-	config_help = new JMenuItem("Help");
-	config_help.addActionListener(this);
-	config.add(config_help);
+	this.config_help = new JMenuItem("Help");
+	this.config_help.addActionListener(this);
+	this.config.add(this.config_help);
 	
-	config.addSeparator();
+	this.config.addSeparator();
 	
-	config_registry = new JMenuItem("configure the registry");
-	config_registry.addActionListener(this);
-	config.add(config_registry);
+	this.config_registry = new JMenuItem("configure the registry");
+	this.config_registry.addActionListener(this);
+	this.config.add(this.config_registry);
 	
-	config.addSeparator();
+	this.config.addSeparator();
 
-	config_reseaux = new JMenuItem("Set Hosts for the Nodes");
-	config_reseaux.addActionListener(this);
-	config.add(config_reseaux);
+	this.config_reseaux = new JMenuItem("Set Hosts for the Nodes");
+	this.config_reseaux.addActionListener(this);
+	this.config.add(this.config_reseaux);
 	
-	config_reseaux_file = new JMenuItem("Set Hosts from a file");
-	config_reseaux_file.addActionListener(this);
-	config.add(config_reseaux_file);
+	this.config_reseaux_file = new JMenuItem("Set Hosts from a file");
+	this.config_reseaux_file.addActionListener(this);
+	this.config.add(this.config_reseaux_file);
 
-	config_registration = new JMenuItem("Get Local Nodes");
-	config_registration.addActionListener(this);
-	config.add(config_registration);
-    	config.addActionListener(this);
-	menuBar.add(config);
+	this.config_registration = new JMenuItem("Get Local Nodes");
+	this.config_registration.addActionListener(this);
+	this.config.add(this.config_registration);
+    	this.config.addActionListener(this);
+	this.menuBar.add(this.config);
 	
 	
-	experiment = new JMenu("Expermient");
-	experiment.getPopupMenu().setName("PopExperiment");
-	experiment.setMnemonic('E');
-	experiment.setVisible(false);
+	this.experiment = new JMenu("Expermient");
+	this.experiment.getPopupMenu().setName("PopExperiment");
+	this.experiment.setMnemonic('E');
+	this.experiment.setVisible(false);
 
-	experiment_complet = new JMenuItem("Complete Graph", KeyEvent.VK_O);
-	experiment_complet.addActionListener(this);
-	experiment.add(experiment_complet);
-	config.addSeparator();
+	this.experiment_complet = new JMenuItem("Complete Graph", KeyEvent.VK_O);
+	this.experiment_complet.addActionListener(this);
+	this.experiment.add(this.experiment_complet);
+	this.config.addSeparator();
 	
-	experiment_begin  = new JMenuItem("Begin Experiment", KeyEvent.VK_O);
-	experiment_begin.addActionListener(this);
-	experiment.add(experiment_begin);
+	this.experiment_begin  = new JMenuItem("Begin Experiment", KeyEvent.VK_O);
+	this.experiment_begin.addActionListener(this);
+	this.experiment.add(this.experiment_begin);
 
 	
-	experiment.addActionListener(this);
-	menuBar.add(experiment);
+	this.experiment.addActionListener(this);
+	this.menuBar.add(this.experiment);
 
-	messageChoiceDist = new MessageChoiceDist(this);
-	messageChoiceDist.setMnemonic('M');
-        menuBar.add(messageChoiceDist);
+	this.messageChoiceDist = new MessageChoiceDist(this);
+	this.messageChoiceDist.setMnemonic('M');
+        this.menuBar.add(this.messageChoiceDist);
 	
-	this.setJMenuBar(menuBar);
+	this.setJMenuBar(this.menuBar);
     }
     /**
      * This method adds the tool bar and its buttons to the editor
      **/
     protected void addToolBar() {
 	
-	toolBar = new JToolBar();
-	toolBar.setBackground(new Color(120, 120, 120));
-	toolBar.setOpaque(true);
-	toolBar.setPreferredSize(new Dimension(650, 42));
+	this.toolBar = new JToolBar();
+	this.toolBar.setBackground(new Color(120, 120, 120));
+	this.toolBar.setOpaque(true);
+	this.toolBar.setPreferredSize(new Dimension(650, 42));
 	
 	this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    commandeClose();
+		    FenetreDeSimulationDist.this.commandeClose();
 		}
 	    });
 	
 	//Build buttons on the tool bar
-	but_start = new JButton("start");
-	but_start.setToolTipText("Start");
-	but_start.setAlignmentY(CENTER_ALIGNMENT);
-	but_start.setEnabled(false);
-	but_start.addActionListener(this);
-	toolBar.add(but_start);
+	this.but_start = new JButton("start");
+	this.but_start.setToolTipText("Start");
+	this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_start.setEnabled(false);
+	this.but_start.addActionListener(this);
+	this.toolBar.add(this.but_start);
 	
-	but_pause = new JButton("pause");
-	but_pause.setToolTipText("Pause");
-	but_pause.setAlignmentY(CENTER_ALIGNMENT);
-	but_pause.setEnabled(false);
-	but_pause.addActionListener(this);
-	toolBar.add(but_pause);
+	this.but_pause = new JButton("pause");
+	this.but_pause.setToolTipText("Pause");
+	this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_pause.setEnabled(false);
+	this.but_pause.addActionListener(this);
+	this.toolBar.add(this.but_pause);
 	    
-	but_stop = new JButton("stop");
-	but_stop.setToolTipText("Stop");
-	but_stop.setAlignmentY(CENTER_ALIGNMENT);
-	but_stop.addActionListener(this);
-	but_stop.setEnabled(false);
-	toolBar.add(but_stop);
-	toolBar.addSeparator();
+	this.but_stop = new JButton("stop");
+	this.but_stop.setToolTipText("Stop");
+	this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_stop.addActionListener(this);
+	this.but_stop.setEnabled(false);
+	this.toolBar.add(this.but_stop);
+	this.toolBar.addSeparator();
 	    
-	toolBar.addSeparator();
-	but_save = new JButton("save");
-	but_save.setToolTipText("Save");
-	but_save.setAlignmentY(CENTER_ALIGNMENT);
-	but_save.addActionListener(this);
-	toolBar.add(but_save);
+	this.toolBar.addSeparator();
+	this.but_save = new JButton("save");
+	this.but_save.setToolTipText("Save");
+	this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_save.addActionListener(this);
+	this.toolBar.add(this.but_save);
 	    
-	toolBar.addSeparator();
+	this.toolBar.addSeparator();
 	 
 	// slider for speed modification 
-	speed_slider = new JSlider(1, 20, 10);
-	speed_slider.addChangeListener(this);
-	speed_slider.setToolTipText("Speed");
-	speed_slider.setAlignmentY(TOP_ALIGNMENT);
-	speed_slider.setAlignmentX(LEFT_ALIGNMENT);
-	speed_slider.setPreferredSize(new Dimension(80,15));
-	speed_slider.setBackground(toolBar.getBackground().brighter());
+	this.speed_slider = new JSlider(1, 20, 10);
+	this.speed_slider.addChangeListener(this);
+	this.speed_slider.setToolTipText("Speed");
+	this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
+	this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+	this.speed_slider.setPreferredSize(new Dimension(80,15));
+	this.speed_slider.setBackground(this.toolBar.getBackground().brighter());
 	JPanel speed_panel = new JPanel();
 	    
 	speed_panel.setMaximumSize(new Dimension(90,40));
-	speed_panel.setBackground(toolBar.getBackground());
-	speed_label = new JLabel("Speed ("+simulationPanel.pas()+")");
-	speed_label.setFont(new Font("Dialog",Font.BOLD,10));
-	speed_label.setToolTipText("Speed");
-	speed_label.setAlignmentY(TOP_ALIGNMENT);
-	speed_label.setForeground(Color.black);
-	speed_panel.add(speed_slider);
-	speed_panel.add(speed_label);
+	speed_panel.setBackground(this.toolBar.getBackground());
+	this.speed_label = new JLabel("Speed ("+this.simulationPanel.pas()+")");
+	this.speed_label.setFont(new Font("Dialog",Font.BOLD,10));
+	this.speed_label.setToolTipText("Speed");
+	this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+	this.speed_label.setForeground(Color.black);
+	speed_panel.add(this.speed_slider);
+	speed_panel.add(this.speed_label);
 	    
-	toolBar.add(speed_panel);
+	this.toolBar.add(speed_panel);
 
-	but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"fr/enserb/das/gui/donnees/images/info.gif"));
-	but_info.setToolTipText("Info");
-	but_info.setAlignmentY(CENTER_ALIGNMENT);
-	but_info.addActionListener(this);
-	toolBar.add(but_info);
+	this.but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"fr/enserb/das/gui/donnees/images/info.gif"));
+	this.but_info.setToolTipText("Info");
+	this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_info.addActionListener(this);
+	this.toolBar.add(this.but_info);
 	    
-	toolBar.addSeparator();
+	this.toolBar.addSeparator();
 	    
-	but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
-	but_help.setToolTipText("Help");
-	but_help.setAlignmentY(CENTER_ALIGNMENT);
-	but_help.addActionListener(this);
-	toolBar.add(but_help);
+	this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
+	this.but_help.setToolTipText("Help");
+	this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_help.addActionListener(this);
+	this.toolBar.add(this.but_help);
 
-	toolBar.addSeparator();
+	this.toolBar.addSeparator();
 	
-	but_information_distribue = new JButton("Remote Node");
-	but_information_distribue.setToolTipText("Remote Node");
-	but_information_distribue.setAlignmentY(CENTER_ALIGNMENT);
-	but_information_distribue.addActionListener(this);
-	toolBar.add(but_information_distribue);
+	this.but_information_distribue = new JButton("Remote Node");
+	this.but_information_distribue.setToolTipText("Remote Node");
+	this.but_information_distribue.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_information_distribue.addActionListener(this);
+	this.toolBar.add(this.but_information_distribue);
 	
-	toolBar.addSeparator();
+	this.toolBar.addSeparator();
 	
-	but_experimentation = new JButton("Statistics");
-	but_experimentation.setToolTipText("Statistics");
-	but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
-	but_experimentation.addActionListener(this);
-	toolBar.add(but_experimentation);
+	this.but_experimentation = new JButton("Statistics");
+	this.but_experimentation.setToolTipText("Statistics");
+	this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_experimentation.addActionListener(this);
+	this.toolBar.add(this.but_experimentation);
 	
-	toolBar.addSeparator();
+	this.toolBar.addSeparator();
 	
-	but_threadCount = new JButton("threads");
-	but_threadCount.setToolTipText("amount of threads that are active in the VM");
-	but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
-	but_threadCount.addActionListener(this);
-	toolBar.add(but_threadCount);
-	toolBar.addSeparator();
+	this.but_threadCount = new JButton("threads");
+	this.but_threadCount.setToolTipText("amount of threads that are active in the VM");
+	this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_threadCount.addActionListener(this);
+	this.toolBar.add(this.but_threadCount);
+	this.toolBar.addSeparator();
 	if(threadCountFrame == null){
 	    threadCountFrame = new ThreadCountFrame(Thread.currentThread().getThreadGroup());
 	}
 	
-	but_reset = new JButton("RESET");
-	but_reset.setToolTipText("RESET");
-	but_reset.setAlignmentY(CENTER_ALIGNMENT);
-	but_reset.addActionListener(this);
-	but_reset.setEnabled((fichier_edite != null));
-	toolBar.add(but_reset); 
+	this.but_reset = new JButton("RESET");
+	this.but_reset.setToolTipText("RESET");
+	this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+	this.but_reset.addActionListener(this);
+	this.but_reset.setEnabled((this.fichier_edite != null));
+	this.toolBar.add(this.but_reset); 
 
-	content.add(toolBar, BorderLayout.NORTH);
+	this.content.add(this.toolBar, BorderLayout.NORTH);
     }
     
 
      // disable the button not used for the applet
     private void disableButtonForApplet(){
-	file_quit.setEnabled(false);
-	graph.setEnabled(false);
+	this.file_quit.setEnabled(false);
+	this.graph.setEnabled(false);
 	//config.setEnabled(false);
-	but_save.setEnabled(false);
-	but_experimentation.setEnabled(false);
+	this.but_save.setEnabled(false);
+	this.but_experimentation.setEnabled(false);
     }
 
 
@@ -473,7 +473,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /* saving is made and then change the title of the window */
     /**********************************************************/
     public void mettreAJourTitreFenetre(File fichier) {
-	if(fichier != null) but_reset.setEnabled(true);
+	if(fichier != null) this.but_reset.setEnabled(true);
 	super.mettreAJourTitreFenetre(fichier);
     }
 
@@ -484,7 +484,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /*   to the graph visualisation during the simulation     */
     /**********************************************************/
     public SimulationPanel simulationPanel() {
-	return simulationPanel;
+	return this.simulationPanel;
     }
     
     /*********************************************************/
@@ -494,9 +494,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     public void actionPerformed(ActionEvent evt) {
 	
 	if(evt.getSource() instanceof JButton)
-	    action_toolbar((JButton)evt.getSource());
+	    this.action_toolbar((JButton)evt.getSource());
 	else if(evt.getSource() instanceof JMenuItem)
-	    action_menu((JMenuItem)evt.getSource());  
+	    this.action_menu((JMenuItem)evt.getSource());  
     }
     
     /*********************************************************/
@@ -504,9 +504,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /* action on the speed slider                            */
     /*********************************************************/
     public void stateChanged(ChangeEvent evt) {
-	if (evt.getSource() == speed_slider) {
-	    speed_label.setText("Speed ("+speed_slider.getValue()+")");
-	    simulationPanel.updatePas(speed_slider.getValue());
+	if (evt.getSource() == this.speed_slider) {
+	    this.speed_label.setText("Speed ("+this.speed_slider.getValue()+")");
+	    this.simulationPanel.updatePas(this.speed_slider.getValue());
 	}
     }
 
@@ -518,15 +518,15 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	String le_menu = ((JPopupMenu)mi.getParent()).getName();
 	
 	if(le_menu == "PopFile") {
-	    menuFile(mi);}
+	    this.menuFile(mi);}
 	else if(le_menu == "PopGraph")
-	    menuGraph(mi);
+	    this.menuGraph(mi);
 	else if(le_menu == "PopAlgo")
-	    menuAlgo(mi);
+	    this.menuAlgo(mi);
 	else if(le_menu == "PopConfig")
-	    menuConfig(mi);
+	    this.menuConfig(mi);
 	else if (le_menu == "PopExperiment")
-	    menuExperiment(mi);
+	    this.menuExperiment(mi);
 	//	else if(le_menu == "PopTypeMessage")
 	//  menuTypeMessage(mi);
     }
@@ -536,17 +536,17 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /* to the button of the toolBar used                     */
     /*********************************************************/
     public void action_toolbar(JButton b) {
-	if (b == but_start) {
-	    simulationPanel.start();	 
-	    while(tg.activeCount() > 0){
-		tg.interrupt();
+	if (b == this.but_start) {
+	    this.simulationPanel.start();	 
+	    while(this.tg.activeCount() > 0){
+		this.tg.interrupt();
 		try{
 		    Thread.currentThread().sleep(50);
 		}
 		catch(InterruptedException e){
 		}
 	    }
-	    if (networkParam == null){
+	    if (this.networkParam == null){
 		System.out.println("you must configure the net for each node");
 		JOptionPane.showMessageDialog(this, "you must configure the net for each \n"+" Node before runnig the simulation \n"+"           (Config menu) ",
 						  "Error",
@@ -556,23 +556,23 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	    
 	    if (DistributedAlgoSimulator.estStandalone()) {
 		try{
-		    sim_Rmi = new Simulator_Rmi(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeOut,ackPipeOut,simulatorHost,simulatorUrl,rmiRegistryPort);
-		    Naming.bind("rmi://:"+rmiRegistryPort+"/"+simulatorUrl,sim_Rmi);
+		    this.sim_Rmi = new Simulator_Rmi(Convertisseur.convertir(this.vueGraphe.getGraphe()),this.evtPipeOut,this.ackPipeOut,this.simulatorHost,this.simulatorUrl,this.rmiRegistryPort);
+		    Naming.bind("rmi://:"+this.rmiRegistryPort+"/"+this.simulatorUrl,this.sim_Rmi);
 		} catch (Exception e) {
-		    System.out.println("An error has aquired when creating and binding the\n"+"Simulator to the localhost : <"+simulatorHost+","+rmiRegistryPort+","+simulatorUrl+">\n"+e);
-		    JOptionPane.showMessageDialog(this, "An error has aquired when creating and binding the\n"+"Simulator to the localhost : <"+simulatorHost+","+rmiRegistryPort+","+simulatorUrl+">\n"+e,
+		    System.out.println("An error has aquired when creating and binding the\n"+"Simulator to the localhost : <"+this.simulatorHost+","+this.rmiRegistryPort+","+this.simulatorUrl+">\n"+e);
+		    JOptionPane.showMessageDialog(this, "An error has aquired when creating and binding the\n"+"Simulator to the localhost : <"+this.simulatorHost+","+this.rmiRegistryPort+","+this.simulatorUrl+">\n"+e,
 						  "Error",
 						  JOptionPane.WARNING_MESSAGE);
 		    return;
 		}
 	    }
 	    
-	    seh =  new SimulEventHandler(this,evtPipeOut,ackPipeOut);
-	    seh.start();
+	    this.seh =  new SimulEventHandler(this,this.evtPipeOut,this.ackPipeOut);
+	    this.seh.start();
 	    
 	    try {
-		sim_Rmi.initializeNodes(networkParam);
-		sim_Rmi.startServer(algoRmi);
+		this.sim_Rmi.initializeNodes(this.networkParam);
+		this.sim_Rmi.startServer(this.algoRmi);
 	    } catch (Exception e) {
 		System.out.println("An Error has aquired when starting, initializing and runnig the nodes \n"+e);
 		JOptionPane.showMessageDialog(this, "An Error has aquired when starting, initializing and runnig the nodes \n"+e,
@@ -582,26 +582,26 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	    }
 	    
 	    
-	    but_stop.setEnabled(true);
-	    but_pause.setEnabled(true);
-	    but_start.setEnabled(false);
+	    this.but_stop.setEnabled(true);
+	    this.but_pause.setEnabled(true);
+	    this.but_start.setEnabled(false);
 	}
-	else if (b == but_pause) {
-	    if(simulationPanel.isRunning()){
-		simulationPanel.pause();   
+	else if (b == this.but_pause) {
+	    if(this.simulationPanel.isRunning()){
+		this.simulationPanel.pause();   
 		try {
-		    sim_Rmi.wedge();
+		    this.sim_Rmi.wedge();
 		}catch (Exception e) {}
 	    }
 	    else {
-		simulationPanel.start();
+		this.simulationPanel.start();
 		try {
-		    sim_Rmi.unWedge();
+		    this.sim_Rmi.unWedge();
 		} catch (Exception e) {}
 	    }
 	}
-	else if (b == but_stop) {
-	    simulationPanel.stop();   
+	else if (b == this.but_stop) {
+	    this.simulationPanel.stop();   
 
 	    /* a revoir 
 	    try {
@@ -612,70 +612,70 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	    }
 	    */
 
-	    seh.abort();
+	    this.seh.abort();
 
 	    this.raz();
 	    
-	    but_start.setEnabled(false);
-	    but_pause.setEnabled(false);
-	    but_stop.setEnabled(false);
+	    this.but_start.setEnabled(false);
+	    this.but_pause.setEnabled(false);
+	    this.but_stop.setEnabled(false);
 	}
-	else if (b == but_experimentation){
+	else if (b == this.but_experimentation){
 	    try{
-		System.out.println("the number of messages exchanged at this stage is "+sim_Rmi.getMessageNumber());
+		System.out.println("the number of messages exchanged at this stage is "+this.sim_Rmi.getMessageNumber());
 		//JOptionPane.showMessageDialog(this, "the number of messages exchanged at this stage is "+sim_Rmi.getMessageNumber());
 	    } catch (Exception e) {
 		System.err.println("Erreur dans count message"+e);
 	    }
 	}
-	else if (b == but_threadCount){
+	else if (b == this.but_threadCount){
 	    JOptionPane.showMessageDialog(this, "not implemented");
         }
 	
-	else if (b == but_save) {
-	    SaveFile.save(this, vueGraphe.getGraphe());
+	else if (b == this.but_save) {
+	    SaveFile.save(this, this.vueGraphe.getGraphe());
 	}
 	
-	else if (b == but_info){
-	    propertiesControl();
+	else if (b == this.but_info){
+	    this.propertiesControl();
 	}
-	else if (b == but_reset) {
-	    simulationPanel.stop();
+	else if (b == this.but_reset) {
+	    this.simulationPanel.stop();
 	    try{
-		sim_Rmi.abortSimulation();
-		Naming.unbind("rmi://:"+rmiRegistryPort+"/"+simulatorUrl);
-		Naming.unbind("rmi://:"+rmiRegistryPort+"/Registry");
-		vr = null;
-		registry = null;
+		this.sim_Rmi.abortSimulation();
+		Naming.unbind("rmi://:"+this.rmiRegistryPort+"/"+this.simulatorUrl);
+		Naming.unbind("rmi://:"+this.rmiRegistryPort+"/Registry");
+		this.vr = null;
+		this.registry = null;
 	    } catch (Exception e) { 
 		System.out.println("Erreur dans le unbind"+e);
 	    }
 	    
-	    seh.abort();
+	    this.seh.abort();
 	  	  
-	    if (fichier_edite != null)
-		OpenGraph.open(this,fichier_edite);
+	    if (this.fichier_edite != null)
+		OpenGraph.open(this,this.fichier_edite);
 		//OpenGraph.open(this);
-	    evtPipeIn = new visidia.tools.VQueue();
-	    evtPipeOut = new visidia.tools.VQueue();
-	    ackPipeIn = new visidia.tools.VQueue();
-	    ackPipeOut = new visidia.tools.VQueue();
-	    replaceSelection(new SelectionDessin());
+	    this.evtPipeIn = new visidia.tools.VQueue();
+	    this.evtPipeOut = new visidia.tools.VQueue();
+	    this.ackPipeIn = new visidia.tools.VQueue();
+	    this.ackPipeOut = new visidia.tools.VQueue();
+	    this.replaceSelection(new SelectionDessin());
 	    
-	    simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-	    simulationPanel.revalidate();
-	    simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-	    simulationPanel.repaint();
+	    this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+	    this.simulationPanel.revalidate();
+	    this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+	    this.simulationPanel.repaint();
 	    
-	    but_start.setEnabled(true);
-	    but_pause.setEnabled(false);
-	    but_stop.setEnabled(false);
+	    this.but_start.setEnabled(true);
+	    this.but_pause.setEnabled(false);
+	    this.but_stop.setEnabled(false);
 	    
-	    algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+	    this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
 	}
-	else if (b == but_information_distribue) {
+	else if (b == this.but_information_distribue) {
 	    try {
-		Hashtable table = sim_Rmi.getGraphStub();
+		Hashtable table = this.sim_Rmi.getGraphStub();
 		//RemoteObjectBoite rob = new RemoteObjectBoite(this,"Location of Nodes",table,configHosts);
 		RemoteObjectBoite rob = new RemoteObjectBoite(this,"Location of Nodes",table);
 		rob.show(this);
@@ -690,7 +690,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     public void menuFile(JMenuItem mi) {
 	
 	  
-        if(mi == file_help) {
+        if(mi == this.file_help) {
 	    JOptionPane.showMessageDialog(this,
 					  "DistributedAlgoSimulator, v2\n" +
 					  "in this window you can't modifie the graph \n"+
@@ -698,9 +698,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 					  "before starting simulation you must load an algorithm \n "+
 					  "or a list of simple rules \n");
 	}
-	else if(mi == file_close)
-	    commandeClose();
-	else if(mi == file_quit)
+	else if(mi == this.file_close)
+	    this.commandeClose();
+	else if(mi == this.file_quit)
 	    System.exit(0);
     }
     
@@ -708,27 +708,27 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /* Methods for "graph" menu.      */
     /*************************************************************/
     public void menuGraph(JMenuItem mi) {
-	if(mi == graph_open){
+	if(mi == this.graph_open){
 	    OpenGraph.open(this);
-	    algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+	    this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
 	    //algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-	    replaceSelection(new SelectionDessin());
-	    simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-	    simulationPanel.revalidate();
-	    simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-	    simulationPanel.repaint();
-	    but_start.setEnabled(false);
-	    but_pause.setEnabled(false);
-	    but_stop.setEnabled(false);
+	    this.replaceSelection(new SelectionDessin());
+	    this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+	    this.simulationPanel.revalidate();
+	    this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+	    this.simulationPanel.repaint();
+	    this.but_start.setEnabled(false);
+	    this.but_pause.setEnabled(false);
+	    this.but_stop.setEnabled(false);
 	}
 	
-	else if(mi == graph_save) {
+	else if(mi == this.graph_save) {
 	    
-	    SaveFile.save(this, vueGraphe.getGraphe());
+	    SaveFile.save(this, this.vueGraphe.getGraphe());
 	}
-	else if(mi == graph_save_as) {
-	    fichier_edite = null;
-	    SaveFile.saveAs(this, vueGraphe.getGraphe());
+	else if(mi == this.graph_save_as) {
+	    this.fichier_edite = null;
+	    SaveFile.saveAs(this, this.vueGraphe.getGraphe());
 	}
     }
     
@@ -736,13 +736,13 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /* Method for the fonctionnalities of the "Algo" menu.       */
     /*************************************************************/
     public void menuAlgo(JMenuItem mi) {
-        if(mi == algo_open){
+        if(mi == this.algo_open){
 	    if(DistributedAlgoSimulator.estStandalone())
 		OpenAlgoDistribue.open(this);
 	    else
 		OpenAlgoAppletDistribue.open(this);
-	    simulationAlgo = true ;
-	    but_start.setEnabled(true);
+	    this.simulationAlgo = true ;
+	    this.but_start.setEnabled(true);
 	}
     }
     /*************************************************************/
@@ -755,40 +755,40 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /*************************************************************/
     
     public void menuConfig(JMenuItem mi){
-	if (mi == config_help) {
+	if (mi == this.config_help) {
 	    OpenHelpDist openHelpDist = new OpenHelpDist("Help on the configuration");
 	    openHelpDist.show();
 	}
-	else if (mi == config_registry) {
+	else if (mi == this.config_registry) {
 	    if(DistributedAlgoSimulator.estStandalone()){
 		BoiteRegistry boiteRegistry = 
 		    new BoiteRegistry(this,"Registry configuration");
 		boiteRegistry.show(this);
 	    }
 	}
-	else if(mi == config_reseaux){
+	else if(mi == this.config_reseaux){
 	    BoiteDistribue boiteDistribue = 
 		new BoiteDistribue(this, this.vueGraphe.cloner(), "configuration du reseaux");
 	    boiteDistribue.show(this);
 	}
 
-	else if(mi == config_reseaux_file) {
+	else if(mi == this.config_reseaux_file) {
 	    if(DistributedAlgoSimulator.estStandalone()){
 		OpenConfig oc = new OpenConfig();
-		oc.open(this,vueGraphe.getGraphe().ordre());
+		oc.open(this,this.vueGraphe.getGraphe().ordre());
 	    }
 	}
-	else if (mi == config_registration) {
+	else if (mi == this.config_registration) {
 	    if(DistributedAlgoSimulator.estStandalone()){
 		try {
-		    if (!rmiRegistryPort.equals("1099")){
-			registry.unbind("rmi://:"+rmiRegistryPort+"/Registry");
-			registry = null;
-			registry = LocateRegistry.createRegistry((new Integer(rmiRegistryPort)).intValue());
-			vr.init("Registry",registry);
-			vr.showLocalNodes(vueGraphe.getGraphe().ordre());
+		    if (!this.rmiRegistryPort.equals("1099")){
+			this.registry.unbind("rmi://:"+this.rmiRegistryPort+"/Registry");
+			this.registry = null;
+			this.registry = LocateRegistry.createRegistry((new Integer(this.rmiRegistryPort)).intValue());
+			this.vr.init("Registry",this.registry);
+			this.vr.showLocalNodes(this.vueGraphe.getGraphe().ordre());
 		    } else {
-			vr.showLocalNodes(vueGraphe.getGraphe().ordre());
+			this.vr.showLocalNodes(this.vueGraphe.getGraphe().ordre());
 		    }
 		} catch (Exception e) {
 		    JOptionPane.showMessageDialog(this, "Cannot initialize RMI Registry : \n"+e.toString(), "Warning",JOptionPane.WARNING_MESSAGE);
@@ -799,22 +799,22 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     }
 	
     public void menuExperiment(JMenuItem mi){
-	if (mi == experiment_complet) {
+	if (mi == this.experiment_complet) {
 	    BoiteExperimentComplet bec = new BoiteExperimentComplet(this,"size");
 	    bec.show(this);
 	}
-	else if (mi == experiment_begin) {
+	else if (mi == this.experiment_begin) {
 	}
     }
     
     public void itemStateChanged(ItemEvent evt) {
-	if((JCheckBoxMenuItem)evt.getSource() == item_visualization){
-	    Enumeration enumerationSommets = vueGraphe.getGraphe().sommets();
+	if((JCheckBoxMenuItem)evt.getSource() == this.item_visualization){
+	    Enumeration enumerationSommets = this.vueGraphe.getGraphe().sommets();
 	    Sommet unSommet;
 	    boolean bool;
 	    String boolString;
 	    
-	    if (item_visualization.isSelected()){
+	    if (this.item_visualization.isSelected()){
 		bool = true;
 		boolString = "yes";
 	    } else { 
@@ -830,7 +830,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	    }
 	    if (this.sim_Rmi != null) {
 		try {
-		    sim_Rmi.setNodeDrawingMessage(bool);
+		    this.sim_Rmi.setNodeDrawingMessage(bool);
 		} catch (Exception e) {
 		    System.out.println("Erreur au niveau Fenetre de Simulation");
 		}
@@ -842,22 +842,22 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     /** Closing the current window **/
     /********************************/
     public void commandeClose() {
-	if(sim_Rmi != null ){
-	    simulationPanel.stop();
+	if(this.sim_Rmi != null ){
+	    this.simulationPanel.stop();
 	    try{
-		sim_Rmi.abortSimulation();
-		Naming.unbind("rmi://:"+rmiRegistryPort+"/"+simulatorUrl);
-		Naming.unbind("rmi://:"+rmiRegistryPort+"/Registry");
-		vr = null;
-		registry = null;
+		this.sim_Rmi.abortSimulation();
+		Naming.unbind("rmi://:"+this.rmiRegistryPort+"/"+this.simulatorUrl);
+		Naming.unbind("rmi://:"+this.rmiRegistryPort+"/Registry");
+		this.vr = null;
+		this.registry = null;
 	    } catch (Exception e) {
 		e.printStackTrace();
 	    }
 	    
-	    seh.abort();
+	    this.seh.abort();
 	}
-	setVisible(false);
-	dispose();
+	this.setVisible(false);
+	this.dispose();
 	// collecting the garbage 
 	Runtime.getRuntime().gc();
     }
@@ -867,11 +867,11 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
      */
     public void commandeToutSelectionner() { // Penser au repaint()
 	int i = 0;
-	Enumeration e = vueGraphe.listeAffichage();
+	Enumeration e = this.vueGraphe.listeAffichage();
 	if (e.hasMoreElements()) {
 	    while(e.hasMoreElements()) {
 		FormeDessin forme = (FormeDessin)e.nextElement();
-		selection.insererElement(forme);
+		this.selection.insererElement(forme);
 		forme.enluminer(true);
 		i++;
 	    }
@@ -891,7 +891,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     }
 
     public File fichier_rules_edite() {
-	return fichier_rules_edite;
+	return this.fichier_rules_edite;
     }
 
     // Implementation of the Listeners
@@ -906,15 +906,15 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     
     public void windowDeiconified(WindowEvent e) {}
     
-    public void windowActivated(WindowEvent e) {content.repaint();}
+    public void windowActivated(WindowEvent e) {this.content.repaint();}
     
     public void windowDeactivated(WindowEvent e) {}
 
     public void commandeSupprimer() { // Penser au repaint()
 	
 	// Deleting the elements of the selection
-	if(!selection.estVide()) {
-	    Enumeration e = selection.elements();
+	if(!this.selection.estVide()) {
+	    Enumeration e = this.selection.elements();
 	    while (e.hasMoreElements()) {
 		FormeDessin forme = (FormeDessin)e.nextElement();
 		forme.delete();
@@ -925,9 +925,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 
     private void replaceSelection(SelectionDessin new_selection) {
         // Deletes the initial selection and replaces it with the new one
-        emptyCurrentSelection(true);
-        selection = new_selection;
-        selection.select();
+        this.emptyCurrentSelection(true);
+        this.selection = new_selection;
+        this.selection.select();
     }
     
 
@@ -935,62 +935,62 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
      * Method to empty the current selection
      */
     public void emptyCurrentSelection(boolean deselect) { // Penser au repaint()
-	if (!selection.estVide()) 
+	if (!this.selection.estVide()) 
 	    if (deselect) {
-		selection.deSelect();
+		this.selection.deSelect();
 	    }
     }
 
     // action on the property button with a selection
 	
     private void propertiesControl() {
-	if (selection.estVide()) 
+	if (this.selection.estVide()) 
 	    System.out.println("empty");
 	else {
-	    Enumeration e = selection.elements();
+	    Enumeration e = this.selection.elements();
 	    FormeDessin firstElement = ((FormeDessin)e.nextElement());
-	    if (!Traitements.sommetDessin(selection.elements()).hasMoreElements()) {
+	    if (!Traitements.sommetDessin(this.selection.elements()).hasMoreElements()) {
 		// we have only edges
-		e = selection.elements();
+		e = this.selection.elements();
 		Ensemble listeElements = new Ensemble();
 		listeElements.inserer(e);
 		BoiteChangementEtatArete boiteArete =
 		    new BoiteChangementEtatArete(this, listeElements);
 		boiteArete.show(this);
 	    }
-	    else if ((selection.nbElements() == 1) && 
+	    else if ((this.selection.nbElements() == 1) && 
 		     (firstElement.type().equals("vertex"))){
 		BoiteChangementEtatSommetDist boiteSommet = 
 		    new BoiteChangementEtatSommetDist(this, (SommetDessin)firstElement);
 		boiteSommet.show(this);
 	    }
 	    else{
-		e = selection.elements();
+		e = this.selection.elements();
 		visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
 		while(e.hasMoreElements())
 		    table_des_types.inserer(((FormeDessin)e.nextElement()).type());
-		BoiteSelection.show(this, selection.nbElements(), table_des_types);
+		BoiteSelection.show(this, this.selection.nbElements(), table_des_types);
 	    }
 	}
     }
     
    public void changerVueGraphe(VueGraphe grapheVisu){
-	content.remove(scroller);
-	selection.deSelect();
+	this.content.remove(this.scroller);
+	this.selection.deSelect();
 	this.vueGraphe = grapheVisu;
 	this.simulationPanel = new SimulationPanel(this);
-	simulationPanel.updatePas(speed_slider.getValue());
-	scroller = new JScrollPane(this.simulationPanel);
-	scroller.setPreferredSize(new Dimension(650,600));
-        scroller.setOpaque(true);
-        content.add(scroller, BorderLayout.CENTER);
+	this.simulationPanel.updatePas(this.speed_slider.getValue());
+	this.scroller = new JScrollPane(this.simulationPanel);
+	this.scroller.setPreferredSize(new Dimension(650,600));
+        this.scroller.setOpaque(true);
+        this.content.add(this.scroller, BorderLayout.CENTER);
     }
     
     public visidia.tools.VQueue getEvtPipe(){
-	return evtPipeOut;
+	return this.evtPipeOut;
     }     
     public visidia.tools.VQueue getAckPipe(){
-	return ackPipeOut;
+	return this.ackPipeOut;
     }     
     public void addRule(SimpleRule uneRegle){
     }
@@ -1007,9 +1007,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     }
     public void nodeStateChanged(int nodeId, Hashtable properties) {
 	try{
-	    if (sim_Rmi != null){
+	    if (this.sim_Rmi != null){
 		System.out.println("Reaction dans Fenetre de Simulation");
-		sim_Rmi.setNodeProperties(nodeId, properties);
+		this.sim_Rmi.setNodeProperties(nodeId, properties);
 	    }
 	} catch (Exception e) {
 	    System.out.println ("Erreur lors de la modification des proprietes dans FenetreDeSimulation : "+e);
@@ -1018,31 +1018,31 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 
 
     public void setNetworkParam(LocalNodeTable table,String host, String url){
-	networkParam = table;
+	this.networkParam = table;
 	//table.print();
-	simulatorHost = host;
-	simulatorUrl = url;
+	this.simulatorHost = host;
+	this.simulatorUrl = url;
     }
 
     
     public void setExperimentSize(Integer i) {
-	experimentSize=i;
+	this.experimentSize=i;
     }
 
     public void setRegistryPort(String portNumber){
-	rmiRegistryPort=portNumber;
+	this.rmiRegistryPort=portNumber;
     }
     
     public void setAlgo(AlgorithmDist algo) {
 	try {
-	    algoRmi = algo;
+	    this.algoRmi = algo;
 	} catch (Exception e){
 	    System.out.println("Erreur dans getAlgo : "+e);
 	}
     }
     
     public void unSetAlgo() {
-	    but_start.setEnabled(true);
+	    this.but_start.setEnabled(true);
     }    
 
 
@@ -1052,17 +1052,17 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     
     
     public MessageChoiceDist getMenuChoice(){
-        return messageChoiceDist;
+        return this.messageChoiceDist;
     }
     
     public void setMenuChoice(JMenu menu) {
-        messageChoiceDist=(MessageChoiceDist) menu;
+        this.messageChoiceDist=(MessageChoiceDist) menu;
     }
     
     public void setMessageType(MessageType msgType, boolean msgTypeState) {
 	try {
-	    if (sim_Rmi == null){
-		algoRmi.setMessageType(msgType,msgTypeState);
+	    if (this.sim_Rmi == null){
+		this.algoRmi.setMessageType(msgType,msgTypeState);
 	    }
 	    else
 		this.sim_Rmi.setMessageType(msgType,msgTypeState);
@@ -1073,20 +1073,20 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
     }
 
     private void raz() {
-	networkParam=null;
-	simulatorHost=null;
-	simulatorUrl=null;
-	rmiRegistryPort = "1099";
-	sim_Rmi=null;
-	algoRmi=null;
-	menuBar.remove(messageChoiceDist);
-	messageChoiceDist=new MessageChoiceDist(this);
-	menuBar.add(messageChoiceDist);
-	evtPipeIn = new VQueue();
-	evtPipeOut = new VQueue() ;
-	ackPipeIn = new VQueue();
-	ackPipeOut = new VQueue();
-	simulationAlgo = false;
-	this.setJMenuBar(menuBar);
+	this.networkParam=null;
+	this.simulatorHost=null;
+	this.simulatorUrl=null;
+	this.rmiRegistryPort = "1099";
+	this.sim_Rmi=null;
+	this.algoRmi=null;
+	this.menuBar.remove(this.messageChoiceDist);
+	this.messageChoiceDist=new MessageChoiceDist(this);
+	this.menuBar.add(this.messageChoiceDist);
+	this.evtPipeIn = new VQueue();
+	this.evtPipeOut = new VQueue() ;
+	this.ackPipeIn = new VQueue();
+	this.ackPipeOut = new VQueue();
+	this.simulationAlgo = false;
+	this.setJMenuBar(this.menuBar);
     }
 }

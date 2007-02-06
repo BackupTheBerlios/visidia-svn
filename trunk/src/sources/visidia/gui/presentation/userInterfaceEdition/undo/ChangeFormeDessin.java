@@ -22,17 +22,17 @@ public class ChangeFormeDessin implements UndoObject {
   }
   
   public void undo() {
-      nouvelle_forme.getVueGraphe().insererListeAffichage(ancienne_forme);
-      ancienne_forme.setObjetGraphe(nouvelle_forme.getObjetGraphe());
-      miseAJourModel(ancienne_forme);
-      nouvelle_forme.getVueGraphe().supprimerListeAffichage(nouvelle_forme);
+      this.nouvelle_forme.getVueGraphe().insererListeAffichage(this.ancienne_forme);
+      this.ancienne_forme.setObjetGraphe(this.nouvelle_forme.getObjetGraphe());
+      this.miseAJourModel(this.ancienne_forme);
+      this.nouvelle_forme.getVueGraphe().supprimerListeAffichage(this.nouvelle_forme);
   }
     
   public void redo() {
-      ancienne_forme.getVueGraphe().insererListeAffichage(nouvelle_forme);
-      nouvelle_forme.setObjetGraphe(ancienne_forme.getObjetGraphe());
-      miseAJourModel(nouvelle_forme);
-      ancienne_forme.getVueGraphe().supprimerListeAffichage(ancienne_forme);
+      this.ancienne_forme.getVueGraphe().insererListeAffichage(this.nouvelle_forme);
+      this.nouvelle_forme.setObjetGraphe(this.ancienne_forme.getObjetGraphe());
+      this.miseAJourModel(this.nouvelle_forme);
+      this.ancienne_forme.getVueGraphe().supprimerListeAffichage(this.ancienne_forme);
   }
 
   private void miseAJourModel(FormeDessin f){
@@ -44,7 +44,7 @@ public class ChangeFormeDessin implements UndoObject {
       
 
   public FormeDessin content() {
-      return ancienne_forme;
+      return this.ancienne_forme;
   }
 }
   

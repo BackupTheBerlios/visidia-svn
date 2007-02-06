@@ -39,16 +39,16 @@ public class AgentSimulEventHandler extends Thread {
     }
 
     public void abort(){
-	stopped = true;
-	interrupt();
+	this.stopped = true;
+	this.interrupt();
     }
     
     public void run(){
 	try{
-	    while(!stopped){
+	    while(!this.stopped){
 		SimulEvent simEvt = null;
 		try{ 
-		    simEvt = (SimulEvent) evtPipe.get();
+		    simEvt = (SimulEvent) this.evtPipe.get();
 		}
 		catch(ClassCastException e){
 		    e.printStackTrace();
@@ -58,22 +58,22 @@ public class AgentSimulEventHandler extends Thread {
 		switch(simEvt.type()){
 		    
 		case SimulConstants.MESSAGE_SENT :
-		    handleMessageSentEvt(simEvt);
+		    this.handleMessageSentEvt(simEvt);
 		    break;
                 case SimulConstants.ALGORITHM_END :
-                    handleAlgorithmEndEvent(simEvt);
+                    this.handleAlgorithmEndEvent(simEvt);
 		    break;
                 case SimulConstants.EDGE_STATE_CHANGE :
-                    handleEdgeStateChangeEvt(simEvt);
+                    this.handleEdgeStateChangeEvt(simEvt);
 		    break;
 		case SimulConstants.AGENT_MOVED :
-		    handleAgentMovedEvt(simEvt);
+		    this.handleAgentMovedEvt(simEvt);
                     break;
 		case SimulConstants.LABEL_CHANGE :
-		    handleLabelChangeEvt(simEvt);
+		    this.handleLabelChangeEvt(simEvt);
                     break;
 		case SimulConstants.NEXT_PULSE :
-		    handleNextPulse(simEvt);
+		    this.handleNextPulse(simEvt);
 		    break;
 
 		}
@@ -90,16 +90,16 @@ public class AgentSimulEventHandler extends Thread {
 
         
 
-        agentsSimulationWindow.simulationPanel().animate(mse);
+        this.agentsSimulationWindow.simulationPanel().animate(mse);
     }
     
     public void handleAlgorithmEndEvent(SimulEvent se) 
         throws InterruptedException {
 
-        agentsSimulationWindow.but_pause();
-        JOptionPane.showMessageDialog(agentsSimulationWindow,
+        this.agentsSimulationWindow.but_pause();
+        JOptionPane.showMessageDialog(this.agentsSimulationWindow,
                                       "Algorithms are terminated");
-        agentsSimulationWindow.but_stop();
+        this.agentsSimulationWindow.but_stop();
         throw new InterruptedException();	
     }
 
@@ -110,22 +110,22 @@ public class AgentSimulEventHandler extends Thread {
 
         if(event.state() instanceof MarkedState) {
             MarkedState state = (MarkedState)event.state();
-            VueGraphe vue = agentsSimulationWindow.getVueGraphe();
+            VueGraphe vue = this.agentsSimulationWindow.getVueGraphe();
             AreteDessin arete;
             arete = vue.rechercherArete(event.nodeId1().toString(),
                                         event.nodeId2().toString());
             arete.setEtat(state.isMarked());
             // BILEL
-	    agentsSimulationWindow.simulationPanel().repaint();
+	    this.agentsSimulationWindow.simulationPanel().repaint();
         } else if (event.state() instanceof SyncState) {
             SyncState state = (SyncState)event.state();
-            VueGraphe vue = agentsSimulationWindow.getVueGraphe();
+            VueGraphe vue = this.agentsSimulationWindow.getVueGraphe();
 	    (vue.rechercherArete(event.nodeId1().toString(),event.nodeId2().toString())).enluminerBis(state.isSynchronized());
             //arete.eluminerBis(state.isSynchronized());
 	    vue.rechercherSommet(event.nodeId1().toString()).enluminerBis(state.isSynchronized());
 	    vue.rechercherSommet(event.nodeId2().toString()).enluminerBis(state.isSynchronized());
 	    // BILEL
-	    agentsSimulationWindow.simulationPanel().repaint(); 
+	    this.agentsSimulationWindow.simulationPanel().repaint(); 
 	} else {
 	    throw new RuntimeException("Other states are not implemented");
 	}
@@ -134,14 +134,14 @@ public class AgentSimulEventHandler extends Thread {
         EdgeStateChangeAck ack;
         ack = new EdgeStateChangeAck(event.eventNumber());
 
-        ackPipe.put(ack);
+        this.ackPipe.put(ack);
     }
 
     public void handleAgentMovedEvt(SimulEvent se)
 	throws InterruptedException {
 	AgentMovedEvent ame = (AgentMovedEvent) se;
 
-        SommetDessin vert = agentsSimulationWindow.getVueGraphe().
+        SommetDessin vert = this.agentsSimulationWindow.getVueGraphe().
             rechercherSommet(ame.vertexId().toString());
 	
 	int nbr = ame.nbrAg().intValue();
@@ -149,7 +149,7 @@ public class AgentSimulEventHandler extends Thread {
 	nbrStr = nbrStr.valueOf(nbr);
 
         // Updating the AgentBoxChangingVertexState
-        agentsSimulationWindow.updateVertexState(vert);
+        this.agentsSimulationWindow.updateVertexState(vert);
 
 	if(nbr == 0)
 	    vert.changerCouleurFond(Color.white);
@@ -160,12 +160,12 @@ public class AgentSimulEventHandler extends Thread {
 	//((SommetCarre)vert).setNbr(nbrStr);
 	
 	// Bilel : ne sert à priori à rien d'aqcuitter, si pas de waitForAnswer
-	agentsSimulationWindow.simulationPanel().repaint();
+	this.agentsSimulationWindow.simulationPanel().repaint();
 
 	AgentMovedAck ack;
         ack = new AgentMovedAck(ame.eventNumber());
 
-        ackPipe.put(ack);
+        this.ackPipe.put(ack);
 	
     }
 
@@ -174,7 +174,7 @@ public class AgentSimulEventHandler extends Thread {
 
 	LabelChangeEvent lce = (LabelChangeEvent) se;
 
-	Hashtable tableSommet = ((agentsSimulationWindow.getVueGraphe()).
+	Hashtable tableSommet = ((this.agentsSimulationWindow.getVueGraphe()).
 				 rechercherSommet(lce.vertexId().toString())).getStateTable();
 	tableSommet.put("label",lce.label());
 	    
@@ -183,7 +183,7 @@ public class AgentSimulEventHandler extends Thread {
     public void handleNextPulse(SimulEvent se) {
 
 	int pulse = ((NextPulseEvent)se).pulse();
-	agentsSimulationWindow.setPulse(pulse);
+	this.agentsSimulationWindow.setPulse(pulse);
     }
 }
 

@@ -55,7 +55,7 @@ public class Token {
    */
   public final String toString()
   {
-     return image;
+     return this.image;
   }
 
   /**

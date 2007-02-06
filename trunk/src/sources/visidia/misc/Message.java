@@ -44,7 +44,7 @@ public abstract class Message implements Cloneable,Serializable {
      * 
      */
      public void setMsgClock(int value){
-	 clock = value;
+	 this.clock = value;
      }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Message implements Cloneable,Serializable {
      * message has been sent. 
      */
     public int getMsgClock(){
-	return clock;
+	return this.clock;
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class Message implements Cloneable,Serializable {
      */
     
     public MessageType getType (){
-	return type;
+	return this.type;
     }
 
     /**
@@ -101,7 +101,7 @@ public abstract class Message implements Cloneable,Serializable {
      * true, if the message is to be visualized; false otherwise.x
      */
     public boolean getVisualization(){
-	return visualization;
+	return this.visualization;
     }
     
     
@@ -109,7 +109,7 @@ public abstract class Message implements Cloneable,Serializable {
      * let s be true if the message is to be visualized and false otherwise.
      */
     public void setVisualization(boolean s){
-	visualization=s;
+	this.visualization=s;
     }
 
     /**

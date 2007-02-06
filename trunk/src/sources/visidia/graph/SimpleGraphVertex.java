@@ -42,24 +42,24 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
     }
     
     public SimpleGraphVertex(Integer nodeId, Hashtable defaults, Hashtable properties ) {
-	id = nodeId;
-	neighbours = new Vector(10,0);
-	edg = new Vector(10,0);
-	visualization=true;
+	this.id = nodeId;
+	this.neighbours = new Vector(10,0);
+	this.edg = new Vector(10,0);
+	this.visualization=true;
 
 //         if (defaults != null)
 //             whiteBoard = new WhiteBoard(defaults);
 
-        whiteBoard = new WhiteBoard(defaults,properties);
+        this.whiteBoard = new WhiteBoard(defaults,properties);
     }
 
     void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge){
 	Integer neighborIdentity = sgv.identity();
-	if( !isNeighbour(neighborIdentity)){
-	    neighbours.add(sgv);
-	    connectingPorts.put(new Integer(size),neighborIdentity);
-	    size+=1;
-	    edg.add(sge);
+	if( !this.isNeighbour(neighborIdentity)){
+	    this.neighbours.add(sgv);
+	    this.connectingPorts.put(new Integer(this.size),neighborIdentity);
+	    this.size+=1;
+	    this.edg.add(sge);
 	}
     }
     
@@ -67,22 +67,22 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      *
      */	
     void removeNeighbour(SimpleGraphVertex sgv){
-	VisidiaAssertion.verify(isNeighbour(sgv.identity()),"id :"+sgv.identity()+" n'est pas voisin de "+identity()+" ",this);	
-	int index = indexOf(sgv.identity());
-	neighbours.remove(index);
-	edg.remove(index);
+	VisidiaAssertion.verify(this.isNeighbour(sgv.identity()),"id :"+sgv.identity()+" n'est pas voisin de "+this.identity()+" ",this);	
+	int index = this.indexOf(sgv.identity());
+	this.neighbours.remove(index);
+	this.edg.remove(index);
     }
     
     /**
      *
      */	
     boolean equals(SimpleGraphVertex sgv){
-	return sgv.identity().equals(id);
+	return sgv.identity().equals(this.id);
     }
     
     void print(){
-	Enumeration e = neighbours();
-	System.out.print(id + " ->");
+	Enumeration e = this.neighbours();
+	System.out.print(this.id + " ->");
 	while( e.hasMoreElements() ){
 	    Vertex v = ( Vertex ) e.nextElement();
 	    System.out.print(v.identity() + " ");
@@ -96,21 +96,21 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * retourne l'identité de ce sommet.
      */	
     public Integer identity(){
-	return id;
+	return this.id;
     }
     
     /**
      *retourne le nombre de sommet de ce voisin.
      */	
     public int degree(){
-	return neighbours.size();
+	return this.neighbours.size();
     }
     
     /**
      * Retourne une enumeration des sommets voisins de ce sommet.
      */	
     public Enumeration neighbours(){
-	return neighbours.elements();
+	return this.neighbours.elements();
     }
     
     /**
@@ -120,7 +120,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * @exception ArrayIndexOutOfBoundsException est levée si <code>index &gt; degree()</code>  
      */	
     public Vertex neighbour(int index){
-	return (Vertex) neighbours.get(index);
+	return (Vertex) this.neighbours.get(index);
     }
     
     /**
@@ -129,7 +129,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * n'est pas voisin de ce sommet.
      */	
     public Vertex neighbour(Integer id){
-	return (Vertex) neighbours.get(indexOf(id));
+	return (Vertex) this.neighbours.get(this.indexOf(id));
     }
     
 
@@ -139,7 +139,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * @exception ArrayIndexOutOfBoundsException est levée si <code>index &gt; degree()</code>  
      */	
     public Edge edge(int index){
-	return (Edge) edg.get(index);
+	return (Edge) this.edg.get(index);
     }
 
     /**
@@ -148,7 +148,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * n'est pas voisin de ce sommet.
      */	
     public Edge edge(Integer id){
-	return (Edge) edg.get(indexOf(id));
+	return (Edge) this.edg.get(this.indexOf(id));
     }
 
 
@@ -156,7 +156,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * retourne une enumeration d'arêtes dont ce sommet est un extrémite.
      */
     public Enumeration edges(){
-	return edg.elements();
+	return this.edg.elements();
     }
     
     /**
@@ -165,7 +165,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * n'est pas voisin de ce sommet.
      */
     public int indexOf(Integer id){
-	Enumeration e = neighbours();
+	Enumeration e = this.neighbours();
 	int i = 0;
 
 	while( e.hasMoreElements() ){
@@ -185,7 +185,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      */
     public boolean isNeighbour(Integer id){
 	try{
-	    indexOf(id);
+	    this.indexOf(id);
 	}
 	catch(NoSuchLinkException e){
 	    return false;
@@ -200,14 +200,14 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      *
      */	
     public void setData(Object dt){
-	data = dt;
+	this.data = dt;
     }
     
     /**
      *
      */	
     public Object getData(){
-	return data;
+	return this.data;
     }
 
     /**
@@ -222,23 +222,23 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * Get the agent's names on this vertex.
      */
     public Collection getAgentsNames() {
-        return agentsNames;
+        return this.agentsNames;
     }
 
     /**
      * Add an agent name to this vertex.
      */
     public void addAgentName(String agentName) {
-        if (getAgentsNames() == null)
-            setAgentsNames(new LinkedList());
+        if (this.getAgentsNames() == null)
+            this.setAgentsNames(new LinkedList());
 
-        getAgentsNames().add(agentName);
+        this.getAgentsNames().add(agentName);
     }
     /**
      * Remove all agents names.
      */
     public void clearAgentNames() {
-        setAgentsNames(null);
+        this.setAgentsNames(null);
     }
 
     /**
@@ -252,13 +252,13 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * @see #SimpleGraphVertex(Integer, Hashtable)
      */
     public Object getProperty(Object key) {
-        if (whiteBoard == null)
+        if (this.whiteBoard == null)
             throw new
                 ForbiddenCallException("This vertex hasn't got any white " +
                                        "board. You should have pass a " +
                                        "Hashtable to the constructor");
 
-        return whiteBoard.getValue(key);
+        return this.whiteBoard.getValue(key);
     }
 
     /**
@@ -272,46 +272,46 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * @see #SimpleGraphVertex(Integer, Hashtable)
      */
     public void setProperty(Object key, Object value) {
-        if (whiteBoard == null)
+        if (this.whiteBoard == null)
             throw new
                 ForbiddenCallException("This vertex hasn't got any white " +
                                        "board. You should have pass a " +
                                        "Hashtable to the constructor");
-        whiteBoard.setValue(key, value);
+        this.whiteBoard.setValue(key, value);
     }
 
     public Set getPropertyKeys() {
-        return whiteBoard.keys();
+        return this.whiteBoard.keys();
     }
 
     public void setNext(Integer i) {
-	nextDoor = i;
+	this.nextDoor = i;
     }
 
     public Integer getNext() {
-	return nextDoor;
+	return this.nextDoor;
     }
 
     public Integer getPrevious() {
-	return previousDoor;
+	return this.previousDoor;
     }
     public void setPrevious(Integer previous) {
-	previousDoor = previous;
+	this.previousDoor = previous;
     }
     public void setNodeState(String state) {
-	nodeState = state;
+	this.nodeState = state;
     }
     
     public String getNodeState() {
-	return nodeState;
+	return this.nodeState;
     }
 
     public void setVisualization(boolean s){
-	visualization=s;
+	this.visualization=s;
     }
 
     public boolean getVisualization(){
-	return visualization;
+	return this.visualization;
     }
 
     /**
@@ -320,7 +320,7 @@ public class SimpleGraphVertex  implements Vertex,Serializable {
      * that port
      */
     public Hashtable connectingPorts() {
-	return(connectingPorts);
+	return(this.connectingPorts);
     }
 
     /*public void setNodeState(StringNodeState nodeState) {

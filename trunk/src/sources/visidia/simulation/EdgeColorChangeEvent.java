@@ -25,10 +25,10 @@ public class EdgeColorChangeEvent implements SimulEvent, Serializable {
      * @param EdgeColor The new color
      */
     public EdgeColorChangeEvent(Long eventNumber, Integer nodeId1, Integer nodeId2, EdgeColor newColor){
-	ec = (EdgeColor) newColor.clone();
-	id1 = new Integer(nodeId1.intValue());
-	id2 = new Integer(nodeId2.intValue());
-	evtNum = eventNumber.longValue();
+	this.ec = (EdgeColor) newColor.clone();
+	this.id1 = new Integer(nodeId1.intValue());
+	this.id2 = new Integer(nodeId2.intValue());
+	this.evtNum = eventNumber.longValue();
     }
     
     /**
@@ -36,7 +36,7 @@ public class EdgeColorChangeEvent implements SimulEvent, Serializable {
      * @return <code>Long</code>
      */
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**
@@ -52,7 +52,7 @@ public class EdgeColorChangeEvent implements SimulEvent, Serializable {
      * @return <code>id1</code> 
      */
     public Integer nodeId1(){
-	return id1;
+	return this.id1;
     }
 
     /**
@@ -60,7 +60,7 @@ public class EdgeColorChangeEvent implements SimulEvent, Serializable {
      * @return <code>id2</code> 
      */
     public Integer nodeId2(){
-	return id2;
+	return this.id2;
     }
     
     /**
@@ -68,7 +68,7 @@ public class EdgeColorChangeEvent implements SimulEvent, Serializable {
      * @return <code>ec</code> The new EdgeColor
      */
     public EdgeColor color(){
-	return ec;
+	return this.ec;
     }
 }
     

@@ -35,7 +35,7 @@ public class Position implements Serializable {
 
   protected Position(Monde un_monde) {
     this.un_monde = un_monde;
-    precedent = suivant = this;
+    this.precedent = this.suivant = this;
   }
   
   // Methodes.
@@ -43,9 +43,9 @@ public class Position implements Serializable {
    * Ajoute une position avant l'objet "element" dans le monde.
    **/
   protected Position AjouterAvant(Object element) {
-    Position nouveau = new Position(un_monde, element, precedent, this);
-    precedent.suivant = nouveau;
-    precedent = nouveau;
+    Position nouveau = new Position(this.un_monde, element, this.precedent, this);
+    this.precedent.suivant = nouveau;
+    this.precedent = nouveau;
     return nouveau;
   }
   
@@ -53,20 +53,20 @@ public class Position implements Serializable {
    * Retourne l'élément du monde correspondant à cette position.
    **/
   public Object lireElement() {
-    return element;
+    return this.element;
   }
 
   /**
    * Supprime du monde l'élément correspondant à cette position
    **/
   public void supprimerElement() {
-    if(un_monde != null) {
-      precedent.suivant = suivant;
-      suivant.precedent = precedent;
-      precedent = suivant = null;
-      element = null;
-      un_monde.taille--;
-      un_monde = null;
+    if(this.un_monde != null) {
+      this.precedent.suivant = this.suivant;
+      this.suivant.precedent = this.precedent;
+      this.precedent = this.suivant = null;
+      this.element = null;
+      this.un_monde.taille--;
+      this.un_monde = null;
     }
   }
 }

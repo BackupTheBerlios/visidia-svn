@@ -18,6 +18,6 @@ public class RandomAgentMover extends AgentMover {
     }
 
     protected int findNextDoor() {
-        return rand.nextInt(agent().getArity());
+        return this.rand.nextInt(this.agent().getArity());
     }
 }

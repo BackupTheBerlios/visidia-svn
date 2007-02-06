@@ -45,8 +45,8 @@ public class GMLParser extends JFileChooser implements ActionListener{
     super(path);
     this.path = path;
     
-    validFile = new File(path, "default.gml");
-    setSelectedFile(validFile);
+    this.validFile = new File(path, "default.gml");
+    this.setSelectedFile(this.validFile);
     this.parent = parent;
    
   }
@@ -58,35 +58,35 @@ public class GMLParser extends JFileChooser implements ActionListener{
 
   public void approveSelection() {
     boolean save = true;
-    File f = getSelectedFile();
+    File f = this.getSelectedFile();
     String s = f.getName();
     int i = s.lastIndexOf('.');
     if ((i > 0) &&  (i < s.length() - 1)) {
       String extension = s.substring(i+1).toLowerCase();
       if (!extension.equals("gml")) {
 	JOptionPane.showMessageDialog(this, 
-				      getName(f) + " : this file has not a recognized\n"
+				      this.getName(f) + " : this file has not a recognized\n"
 				      + "extension. The required extension is '.gml ",
 				      "Warning", 
 				      JOptionPane.WARNING_MESSAGE);
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
 	save = false;
 	
       } 	  
     } else {
       if (i == -1) {
-	setSelectedFile(new File(path, s + ".gml"));
+	this.setSelectedFile(new File(this.path, s + ".gml"));
 	save = true;
       } else {
-	setSelectedFile(new File(path, s + "gml"));
+	this.setSelectedFile(new File(this.path, s + "gml"));
 	save = true;
       }
     }
     
     
-    if (getSelectedFile().exists()) {
+    if (this.getSelectedFile().exists()) {
       int overwrite = JOptionPane.showConfirmDialog(this, 
-						    getName(getSelectedFile()) + 
+						    this.getName(this.getSelectedFile()) + 
 						    " : this file aldready exists.\n"
 						    + "Do you want to overwrite it ?",
 						    "Warning", 
@@ -94,7 +94,7 @@ public class GMLParser extends JFileChooser implements ActionListener{
       if (overwrite == JOptionPane.YES_OPTION) {
 	super.approveSelection();
       } else {
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
       }
     } else {
       if (save) {
@@ -107,12 +107,12 @@ public class GMLParser extends JFileChooser implements ActionListener{
     * or empty name file. */
   
   public void cancelSelection() {
-    if (getSelectedFile() == null) {
+    if (this.getSelectedFile() == null) {
       JOptionPane.showMessageDialog(this, 
 				    "You must choose a file to export your graph in !",
 				    "Warning", 
 				    JOptionPane.WARNING_MESSAGE);
-      setSelectedFile(validFile);
+      this.setSelectedFile(this.validFile);
     } else {      
       super.cancelSelection();
     }
@@ -245,8 +245,8 @@ public class GMLParser extends JFileChooser implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-	if (e.getSource() == graphicsButton) 
-	    graphicsInfo = graphicsButton.isSelected();
+	if (e.getSource() == this.graphicsButton) 
+	    graphicsInfo = this.graphicsButton.isSelected();
     }
 
 
@@ -254,12 +254,12 @@ public class GMLParser extends JFileChooser implements ActionListener{
 	JPanel buttonPane = new JPanel(new FlowLayout());
 	JLabel labelGraphics = new JLabel("Print graphics coordinates ");
 	
-	graphicsButton = new JRadioButton();
-	graphicsButton.setSelected(graphicsInfo); // is the button selected ?
-	graphicsButton.addActionListener(this);
+	this.graphicsButton = new JRadioButton();
+	this.graphicsButton.setSelected(graphicsInfo); // is the button selected ?
+	this.graphicsButton.addActionListener(this);
 
 	buttonPane.add(labelGraphics);
-	buttonPane.add(graphicsButton);	    
+	buttonPane.add(this.graphicsButton);	    
 
 	dialog.add(buttonPane, BorderLayout.SOUTH);
     }

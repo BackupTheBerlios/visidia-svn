@@ -20,6 +20,6 @@ class DoorCriterion implements Criterion {
 	MessagePacket mesgPacket = (MessagePacket) o;
         int door = mesgPacket.receiverDoor();
 
-	return door == wantedDoor; 
+	return door == this.wantedDoor; 
     }
 }

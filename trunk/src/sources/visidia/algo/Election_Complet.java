@@ -33,41 +33,41 @@ public class Election_Complet extends Algorithm {
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         String neighbourLabel;
-        boolean finishedNode[]=new boolean[getArity()];
+        boolean finishedNode[]=new boolean[this.getArity()];
         //String lastName;
         int nb;
         //Vector name;
         
-        for (int i=0; i<getArity();i++)
+        for (int i=0; i<this.getArity();i++)
             finishedNode[i]=false;
         
         
         while(run){
             
-            synchro=synchronization(finishedNode);
+            synchro=this.synchronization(finishedNode);
             
-            nb=getArity();
-            for (int i=0;i<getArity();i++)
+            nb=this.getArity();
+            for (int i=0;i<this.getArity();i++)
                 if (finishedNode[i])
                     nb--;
             if (nb==0) {
-                putProperty("label",new String(eNode));
+                this.putProperty("label",new String(this.eNode));
                 break;
             }
             
-            sendTo(synchro,new StringMessage((String) getProperty("label"),labels));
-            neighbourLabel=((StringMessage) receiveFrom(synchro)).data();
+            this.sendTo(synchro,new StringMessage((String) this.getProperty("label"),labels));
+            neighbourLabel=((StringMessage) this.receiveFrom(synchro)).data();
             
-            if ((((String) getProperty("label")).compareTo(nNode)==0) &&
-            (neighbourLabel.compareTo(nNode)==0)) {
+            if ((((String) this.getProperty("label")).compareTo(this.nNode)==0) &&
+            (neighbourLabel.compareTo(this.nNode)==0)) {
                 
                 int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
-                sendTo(synchro,new IntegerMessage(new Integer(choosenNumber)));
-                Message msg = receiveFrom(synchro);
+                this.sendTo(synchro,new IntegerMessage(new Integer(choosenNumber)));
+                Message msg = this.receiveFrom(synchro);
                 int answer= ((IntegerMessage)msg).value();
                 
                 if (choosenNumber<answer) {
-                    putProperty("label",new String(fNode));
+                    this.putProperty("label",new String(this.fNode));
                     run=false;
                 }
                 /*else
@@ -83,9 +83,9 @@ public class Election_Complet extends Algorithm {
             
         }
         
-        for (int i=0;i<getArity();i++)
+        for (int i=0;i<this.getArity();i++)
             if (!finishedNode[i])
-                sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
     }
     
     /**
@@ -94,18 +94,18 @@ public class Election_Complet extends Algorithm {
      */
     public int synchronization(boolean finishedNode[]){
         int i = -2;
-        int a =getArity();
+        int a =this.getArity();
         
         //interface graphique:je ne suis plus synchro
         for(int door=0;door < a;door++)
-            setDoorState(new SyncState(false),door);
+            this.setDoorState(new SyncState(false),door);
         
         while (i <-1) {
-            i = trySynchronize(finishedNode);
+            i = this.trySynchronize(finishedNode);
         }
         //interface graphique: je suis synchro sur la porte i
         if (i>-1)
-            setDoorState(new SyncState(true),i);
+            this.setDoorState(new SyncState(true),i);
         return i;
     }
     
@@ -114,7 +114,7 @@ public class Election_Complet extends Algorithm {
      * Un round de la synchronisation.
      */
     private int trySynchronize(boolean finishedNode[]){
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         int nb;
         
@@ -135,17 +135,17 @@ public class Election_Complet extends Algorithm {
             choosenNeighbour= Math.abs((generator.nextInt()))% arite ;
         }
         
-        sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
+        this.sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
         for(int i=0; i < arite; i++){
             if( i != choosenNeighbour)
                 if (!finishedNode[i])
-                    sendTo(i, new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i, new IntegerMessage(new Integer(0),synchronization));
             
         }
         
         for( int i = 0; i < arite; i++){
             if (!finishedNode[i]) {
-                Message msg = receiveFrom(i,new IntegerMessageCriterion());
+                Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
                 IntegerMessage smsg = (IntegerMessage) msg;
                 
                 answer[i]= smsg.value();
@@ -164,8 +164,8 @@ public class Election_Complet extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new MarkedState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new MarkedState(false),door);
         }
     }
     

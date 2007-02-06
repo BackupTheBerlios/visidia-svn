@@ -13,7 +13,7 @@ public abstract class AbstractExperiment {
     }
 
     protected Bag getBag() {
-        return stats;
+        return this.stats;
     }
 
     public abstract Bag getStats();

@@ -16,34 +16,34 @@ public class AverageStats extends AbstractExperiment {
 
     private void countAgents() {
 	Set keys;
-	agentsByClass = new Hashtable<Class, Long>(10);
+	this.agentsByClass = new Hashtable<Class, Long>(10);
 
-	keys = getBag().keySet();
+	keys = this.getBag().keySet();
 
 	for(Object key: keys) {
 	    if (key instanceof AgentCreationStat)
-		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
-				  new Long(getBag().getOccurrencesOf(key)));
+		this.agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
+				  new Long(this.getBag().getOccurrencesOf(key)));
 	}
     }
 
     private void computeStats() {
 	Set keys;
 
-	stats = new Bag();
+	this.stats = new Bag();
 
-	countAgents();
+	this.countAgents();
 
-	keys = getBag().keySet();
+	keys = this.getBag().keySet();
 
 	for(Object key: keys) {
 
 	    if (key instanceof MoveStat) {
 		Class agClass = ((MoveStat)key).getAgentClass();
-		long agentsForClass = agentsByClass.get(agClass).longValue();
-		long movesForClass = getBag().getOccurrencesOf(key);
+		long agentsForClass = this.agentsByClass.get(agClass).longValue();
+		long movesForClass = this.getBag().getOccurrencesOf(key);
 
-		stats.add("Average moves by agent (" 
+		this.stats.add("Average moves by agent (" 
 			  + agClass.getSimpleName() + ")",
 			  new Long(movesForClass / agentsForClass));
 	    }
@@ -52,8 +52,8 @@ public class AverageStats extends AbstractExperiment {
 
 
     public Bag getStats() {
-        computeStats();
-        return stats;
+        this.computeStats();
+        return this.stats;
     }
 
 }

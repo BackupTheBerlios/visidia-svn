@@ -13,26 +13,26 @@ public abstract class AbstractAgentStat extends AbstractStat {
             return false;
 
 	AbstractAgentStat o2 = (AbstractAgentStat) o;
-	return agClass.equals(o2.agClass);
+	return this.agClass.equals(o2.agClass);
     }
 
     public String getAgentClassName() {
-	return agClass.getSimpleName();
+	return this.agClass.getSimpleName();
     }
 
     public Class getAgentClass() {
-	return agClass;
+	return this.agClass;
     }
 
     public int hashCode() {
 	int hash;
 
 	hash = super.hashCode();
-	hash = 31 * hash + agClass.hashCode();
+	hash = 31 * hash + this.agClass.hashCode();
 	return hash;
     }
 
     public String toString() {
-        return descriptionName() + " (" + getAgentClassName() + ")";
+        return this.descriptionName() + " (" + this.getAgentClassName() + ")";
     }
 }

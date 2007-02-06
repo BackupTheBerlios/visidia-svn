@@ -19,21 +19,21 @@ public class BroadcastTermination extends Algorithm {
     }
     
     public void init(){
-	int degres = getArity() ;
+	int degres = this.getArity() ;
 	int fatherDoor;
 	int[] childrenStates = new int[degres];
 	//Random generator = new Random();
 	boolean terminated = false;
 
-	String label = (String) getProperty("label");
+	String label = (String) this.getProperty("label");
 	if(label.compareTo("A") == 0) {
 	    for(int i=0; i < degres; i++){
-		sendTo(i, new StringMessage("Wave",wave));
+		this.sendTo(i, new StringMessage("Wave",wave));
 	    }
 	    
 	    while(!terminated){
 		Door door = new Door();
-		StringMessage msg = (StringMessage)receive(door);
+		StringMessage msg = (StringMessage)this.receive(door);
 		int doorNum= door.getNum();
 		String data = msg.data();
 		if(data.compareTo("Ack_Yes")==0) {
@@ -41,7 +41,7 @@ public class BroadcastTermination extends Algorithm {
 		} else if(data.compareTo("Ack_No")==0) {
 		    childrenStates[doorNum]=1;
 		} else if(data.compareTo("Wave")==0) {
-		    sendTo(doorNum, new StringMessage("Ack_No",ack));
+		    this.sendTo(doorNum, new StringMessage("Ack_No",ack));
 		} else if(data.compareTo("END")==0) {
 		    childrenStates[doorNum]=1;
 		}
@@ -52,23 +52,23 @@ public class BroadcastTermination extends Algorithm {
 			terminated = false;
 		}
 	    }
-	    putProperty("label",new String("L"));
+	    this.putProperty("label",new String("L"));
 	
 	} else {
 
 	    Door doorB = new Door();
-	    Message msgB = receive(doorB);
+	    Message msgB = this.receive(doorB);
 	    
 	    fatherDoor = doorB.getNum();
 
-	    sendTo(fatherDoor,new StringMessage("Ack_Yes",ack));
+	    this.sendTo(fatherDoor,new StringMessage("Ack_Yes",ack));
 
-	    putProperty("label",new String("I"));
-	    setDoorState(new MarkedState(true),fatherDoor);
+	    this.putProperty("label",new String("I"));
+	    this.setDoorState(new MarkedState(true),fatherDoor);
 
 	    for(int i=0; i < degres; i++){
 		if(i != fatherDoor) {
-		    sendTo(i, new StringMessage("Wave",wave));
+		    this.sendTo(i, new StringMessage("Wave",wave));
 		}
 	    }
 	    
@@ -77,7 +77,7 @@ public class BroadcastTermination extends Algorithm {
 	    if (degres != 1) {
 		while(!terminated){
 		    Door door = new Door();
-		    StringMessage msg = (StringMessage)receive(door);
+		    StringMessage msg = (StringMessage)this.receive(door);
 		    int doorNum= door.getNum();
 		    String data = msg.data();
 		    if(data.compareTo("Ack_Yes")==0) {
@@ -85,7 +85,7 @@ public class BroadcastTermination extends Algorithm {
 		    } else if(data.compareTo("Ack_No")==0) {
 			childrenStates[doorNum]=1;
 		    } else if(data.compareTo("Wave")==0) {
-			sendTo(doorNum, new StringMessage("Ack_No",ack));
+			this.sendTo(doorNum, new StringMessage("Ack_No",ack));
 			
 		    } else if(data.compareTo("END")==0) {
 			childrenStates[doorNum]=1;
@@ -98,8 +98,8 @@ public class BroadcastTermination extends Algorithm {
 		    }
 		}
 	    }
-	    sendTo(fatherDoor, new StringMessage("END",termination));
-	    putProperty("label",new String("F"));
+	    this.sendTo(fatherDoor, new StringMessage("END",termination));
+	    this.putProperty("label",new String("F"));
 	}
     }
 

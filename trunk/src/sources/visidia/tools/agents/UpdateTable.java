@@ -19,7 +19,7 @@ public abstract class UpdateTable implements Runnable {
     }
 
     public void stop() {
-        stop = true;
+        this.stop = true;
     }
 
     abstract public void run();

@@ -33,7 +33,7 @@ public class VQueue{
      */
     public VQueue(int maxSize){
 	this.maxSize = maxSize;
-	queue = new LinkedList();
+	this.queue = new LinkedList();
     }
 
     /**
@@ -41,11 +41,11 @@ public class VQueue{
      * until an element is available.
      */
     public synchronized Object get() throws InterruptedException{
-	while( queue.isEmpty() ){
-	    wait();
+	while( this.queue.isEmpty() ){
+	    this.wait();
 	}
-	notifyAll();
-	return queue.removeFirst();
+	this.notifyAll();
+	return this.queue.removeFirst();
     }
     
     /**
@@ -55,7 +55,7 @@ public class VQueue{
      */
     public synchronized Object get(Criterion c) throws InterruptedException{
 	while(true){
-	    ListIterator li = queue.listIterator();
+	    ListIterator li = this.queue.listIterator();
 	    while( li.hasNext() ){
 		Object o = li.next();
 		if( c.isMatchedBy(o) ){
@@ -63,7 +63,7 @@ public class VQueue{
 		    return o;
 		}
 	    }
-	    wait();
+	    this.wait();
 	}
     }
     
@@ -74,7 +74,7 @@ public class VQueue{
      * this method returns null. 
      */
     public synchronized Object getNoWait(Criterion c) throws InterruptedException{
-	ListIterator li = queue.listIterator();
+	ListIterator li = this.queue.listIterator();
 	while( li.hasNext() ){
 	    Object o = li.next();
 	    if( c.isMatchedBy(o) ){
@@ -93,7 +93,7 @@ public class VQueue{
      */
     public synchronized Vector getAllNoWait(Criterion c) throws InterruptedException{
 	Vector v = new Vector();
-	ListIterator li = queue.listIterator();
+	ListIterator li = this.queue.listIterator();
 	while( li.hasNext() ){
 	    Object o = li.next();
 	    if( c.isMatchedBy(o) ){
@@ -110,28 +110,28 @@ public class VQueue{
      * elements this method block until one element be consumed.
      */
     public synchronized void put(Object obj)throws InterruptedException{
-	while( queue.size() >= maxSize ){
+	while( this.queue.size() >= this.maxSize ){
 	    //System.out.println("Echec Pile pleine");
 	    //System.out.println("Nouvelle Tentative");
-	    wait();
+	    this.wait();
 	}
 	//System.out.println("message ajoute");
-	queue.addLast(obj);
-	notifyAll();
+	this.queue.addLast(obj);
+	this.notifyAll();
     }
     
     /**
      * Return true if the queue is empty.
      */
     public synchronized boolean isEmpty(){
-	return queue.isEmpty();
+	return this.queue.isEmpty();
     }
     
     /**
      * Returns true if the queue contains one element that match the criterion c.
      */
     public synchronized boolean contains(Criterion c){
-	ListIterator li = queue.listIterator();
+	ListIterator li = this.queue.listIterator();
 	while( li.hasNext() ){
 	    Object o = li.next();
 	    if( c.isMatchedBy(o) ){
@@ -145,14 +145,14 @@ public class VQueue{
      * remove all elements from the queue.
      */
     public synchronized void purge(){
-	queue = new LinkedList();
+	this.queue = new LinkedList();
     }
 	
     /**
      * return this queue maximum size.
      */
     public int getMaxSize(){
-	return maxSize;
+	return this.maxSize;
     }
     
     /**
@@ -161,7 +161,7 @@ public class VQueue{
      **/
     
     public synchronized void notifyAllGet() {
-	notifyAll();
+	this.notifyAll();
     }
     
 }

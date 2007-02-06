@@ -22,17 +22,17 @@ public class EdgeStateChangeEvent implements SimulEvent, Serializable {
      *<i>(nodeId1,nodeId2)</i>, lorsqu'il passe à l'état <i>newState</i>.
      */
     public EdgeStateChangeEvent(Long eventNumber, Integer nodeId1, Integer nodeId2, EdgeState newState){
-	es = (EdgeState) newState.clone();
-	id1 = new Integer(nodeId1.intValue());
-	id2 = new Integer(nodeId2.intValue());
-	evtNum = eventNumber.longValue();
+	this.es = (EdgeState) newState.clone();
+	this.id1 = new Integer(nodeId1.intValue());
+	this.id2 = new Integer(nodeId2.intValue());
+	this.evtNum = eventNumber.longValue();
     }
     
     /**
      * donne le numero de l'évènement.
      */
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**
@@ -46,7 +46,7 @@ public class EdgeStateChangeEvent implements SimulEvent, Serializable {
      * donne l'identité du premier extrémité de l'arête qui change d'état.
      */
     public Integer nodeId1(){
-	return id1;
+	return this.id1;
     }
     
     /**
@@ -54,14 +54,14 @@ public class EdgeStateChangeEvent implements SimulEvent, Serializable {
      * d'état.
      */
     public Integer nodeId2(){
-	return id2;
+	return this.id2;
     }
     
     /**
      * donne le nouvel état de l'arête.
      */
     public EdgeState state(){
-	return es;
+	return this.es;
     }
 }
     

@@ -11,6 +11,6 @@ public abstract class AbstractAgentsRules extends SynchronizedAgent {
     }
     
     protected RelabelingSystem getRelabelling() {
-        return rSys;
+        return this.rSys;
     }
 }

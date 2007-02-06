@@ -22,22 +22,22 @@ public class BoiteChangementNombreOperations extends BoiteSaisie {
     }
     
     protected void saisieInvalide() {
-	JOptionPane.showMessageDialog(parent,"Bad type of argument (an integer is waited).",
+	JOptionPane.showMessageDialog(this.parent,"Bad type of argument (an integer is waited).",
 				      "Error", 
 				      JOptionPane.ERROR_MESSAGE); 
 	return;
     }
     
     protected void boutonOkAppuye() {
-	Integer i = new Integer(valeurDeRetour());
-	((Editeur)parent).setNbOp(i.intValue());
+	Integer i = new Integer(this.valeurDeRetour());
+	((Editeur)this.parent).setNbOp(i.intValue());
     }
     
     /** La saisie est correcte si c'est un entier.*/
     protected boolean saisieCorrecte() {
 	Integer i;
 	try {
-	    i = new Integer(valeurDeRetour());
+	    i = new Integer(this.valeurDeRetour());
 	} catch(NumberFormatException exception) {
 	    return false;
 	}

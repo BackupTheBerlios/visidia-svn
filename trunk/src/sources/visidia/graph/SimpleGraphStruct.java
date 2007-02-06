@@ -14,7 +14,7 @@ public class SimpleGraphStruct implements Cloneable{
     private Hashtable hash;
     
     public SimpleGraphStruct(){
-	hash = new Hashtable();	
+	this.hash = new Hashtable();	
     }
     
     /**
@@ -24,11 +24,11 @@ public class SimpleGraphStruct implements Cloneable{
      * ajoutee deux fois
      */
     public void put(Integer id){
-	if( contains(id) ){
+	if( this.contains(id) ){
 	    throw new AddIdTwiceException(new String("Already contains the id : "+id));
 	}
 	
-	hash.put(new Integer(id.intValue()),new Vector(5,10));
+	this.hash.put(new Integer(id.intValue()),new Vector(5,10));
     }
     
     /**
@@ -36,7 +36,7 @@ public class SimpleGraphStruct implements Cloneable{
      * un sommet est identifie par <i>id</id> 
      */
     public boolean contains(Integer id){
-	return hash.containsKey(id);
+	return this.hash.containsKey(id);
     }
     
     /**
@@ -46,14 +46,14 @@ public class SimpleGraphStruct implements Cloneable{
      * contient aucun sommet identifie par <i>id</i>.
      */
     public int degree(Integer id){
-	return getNeighbourVector(id).size();
+	return this.getNeighbourVector(id).size();
     }
     
     /**
      * retourne les identites de tous les sommets du graphe.
      */
     public IntegerEnumeration allId(){
-	return new IntegerEnumeration(hash.keys());
+	return new IntegerEnumeration(this.hash.keys());
     }
     
     /**	
@@ -70,8 +70,8 @@ public class SimpleGraphStruct implements Cloneable{
 	    throw new CurlException(new String(" This graph do not supports curls")); 
 	}
 	
-	Vector v1 = getNeighbourVector(id1);
-	Vector v2 = getNeighbourVector(id2); 
+	Vector v1 = this.getNeighbourVector(id1);
+	Vector v2 = this.getNeighbourVector(id2); 
 	
 	if( v1.contains(id2) || v2.contains(id1))
 	    return;
@@ -90,8 +90,8 @@ public class SimpleGraphStruct implements Cloneable{
      * contient aucun sommet identifie par <i>id1</i> ou <i>id2</i>.
      */
     public boolean areLinked(Integer id1, Integer id2){ 
-	Vector v1 = getNeighbourVector(id1);
-	Vector v2 = getNeighbourVector(id2); 
+	Vector v1 = this.getNeighbourVector(id1);
+	Vector v2 = this.getNeighbourVector(id2); 
 	
 	//la premiere condition devrait suffir
 	return v1.contains(id2) && v2.contains(id1);		
@@ -105,7 +105,7 @@ public class SimpleGraphStruct implements Cloneable{
      * contient aucun sommet identifie par <i>id</i>.
      */
     public IntegerEnumeration neighbours(Integer id){
-	return new IntegerEnumeration(getNeighbourVector(id).elements());
+	return new IntegerEnumeration(this.getNeighbourVector(id).elements());
     }
     
     /**
@@ -116,11 +116,11 @@ public class SimpleGraphStruct implements Cloneable{
      * contient aucun sommet identifie par <i>id</i>.
      */
     public void remove(Integer id){
-	IntegerEnumeration neighb = neighbours(id);
+	IntegerEnumeration neighb = this.neighbours(id);
 	while(neighb.hasMoreElements()){
-	    unlink(id,neighb.nextElement());
+	    this.unlink(id,neighb.nextElement());
 	}
-	hash.remove(id);
+	this.hash.remove(id);
     }
 
 
@@ -132,19 +132,19 @@ public class SimpleGraphStruct implements Cloneable{
      * contient pas l'une des identitees i>id1</i> et <i>id2</i>.
      */
     public void unlink(Integer id1, Integer id2){
-	if( ! areLinked(id1,id2) )
+	if( ! this.areLinked(id1,id2) )
 	    return;
 	
-	getNeighbourVector(id1).remove(id2);
-	getNeighbourVector(id2).remove(id1);
+	this.getNeighbourVector(id1).remove(id2);
+	this.getNeighbourVector(id2).remove(id1);
     }
     
     
     private Vector getNeighbourVector(Integer id){
-	if( contains(id) ){
+	if( this.contains(id) ){
 	    throw new NoSuchIdException( new String(" this graph don't contain id "+id));
 	}
-	return (Vector) hash.get(id);
+	return (Vector) this.hash.get(id);
     }
     
     /**
@@ -159,13 +159,13 @@ public class SimpleGraphStruct implements Cloneable{
      * affiche le graphe sur la sortie standard pour deboggage.
      */
     public void print(){
-	IntegerEnumeration idEnum = allId();
+	IntegerEnumeration idEnum = this.allId();
 	
 	while( idEnum.hasMoreElements() ){
 	    Integer id = idEnum.nextElement();
 	    System.out.print(id+" --> " );
 	    
-	    IntegerEnumeration neighbEnum = neighbours(id);
+	    IntegerEnumeration neighbEnum = this.neighbours(id);
 	    while( neighbEnum.hasMoreElements() ){
 		System.out.print(neighbEnum.nextElement() + ", ");
 	    }

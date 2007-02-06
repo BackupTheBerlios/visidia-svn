@@ -35,25 +35,25 @@ public class DefaultBoxVertex
 
         super(parent,titre,false);
 
-        tbModel = new PropertyTableModel(h);
+        this.tbModel = new PropertyTableModel(h);
 
-        table.setModel(tbModel);
+        this.table.setModel(this.tbModel);
     }
 
     //Methodes  
 
     public void updateBox() {
-        tbModel.fireTableDataChanged();
+        this.tbModel.fireTableDataChanged();
     }
   
 
     public void actionPerformed(ActionEvent e) {
         
-        if(e.getSource() == buttonDone) {
-            dialog.setVisible(false);
-            dialog.dispose();
+        if(e.getSource() == this.buttonDone) {
+            this.dialog.setVisible(false);
+            this.dialog.dispose();
         }
-        if(e.getSource() == buttonAdd) {
+        if(e.getSource() == this.buttonAdd) {
             
             
             Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
@@ -62,7 +62,7 @@ public class DefaultBoxVertex
             
             Object objValue;
             
-            String s = (String) JOptionPane.showInputDialog(parent,
+            String s = (String) JOptionPane.showInputDialog(this.parent,
                                                             "Select the type:",
                                                             "Type",
                                                             JOptionPane.PLAIN_MESSAGE,
@@ -73,8 +73,8 @@ public class DefaultBoxVertex
             //If a string was returned, say so.
             if ((s != null) && (s.length() > 0)) {
                 
-                String name = JOptionPane.showInputDialog(parent, "Enter the name :");
-                String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+                String name = JOptionPane.showInputDialog(this.parent, "Enter the name :");
+                String value = JOptionPane.showInputDialog(this.parent, "Enter the value :");
                 
                 if ( (name != null)  && (value != null) )
                     {
@@ -91,7 +91,7 @@ public class DefaultBoxVertex
                             else if ( s.equals("Short|short") ) {objValue = new Short(value);}
                             else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
 
-                            tbModel.putProperty(name,objValue);
+                            this.tbModel.putProperty(name,objValue);
                         }
                         catch(Exception e2) {
                             JOptionPane.showMessageDialog(null,
@@ -103,16 +103,16 @@ public class DefaultBoxVertex
             }
             
         }
-        if(e.getSource() == buttonRemove) {
+        if(e.getSource() == this.buttonRemove) {
             
-            if (table.getSelectedRow() == -1 ) {
-                JOptionPane.showMessageDialog(parent,
+            if (this.table.getSelectedRow() == -1 ) {
+                JOptionPane.showMessageDialog(this.parent,
                                               "No property selected !", 
                                               "Warning",
                                               JOptionPane.WARNING_MESSAGE);
             }
             else {
-                tbModel.removeProperty(table.getSelectedRow());
+                this.tbModel.removeProperty(this.table.getSelectedRow());
             }
             
         }

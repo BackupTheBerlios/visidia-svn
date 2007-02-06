@@ -15,12 +15,12 @@ public class ArrowMessage extends Message{
     }
 
     public ArrowMessage(Arrow data, MessageType type){
-	setType (type);
+	this.setType (type);
 	this.data = data;
     }
 
     public Arrow data(){
-	return data;
+	return this.data;
     }
     
     /**
@@ -28,19 +28,19 @@ public class ArrowMessage extends Message{
      *
      **/    
     public Object getData(){
-	return data;
+	return this.data;
     }
 
     public Object clone(){
-	return new ArrowMessage(data, getType());
+	return new ArrowMessage(this.data, this.getType());
     }
 
     public String toString(){
-        if( data.isMarked ){
-            return data.left + " X " + data.right;
+        if( this.data.isMarked ){
+            return this.data.left + " X " + this.data.right;
         }
         else{
-            return data.left + " - " + data.right;
+            return this.data.left + " - " + this.data.right;
         }
     }
 

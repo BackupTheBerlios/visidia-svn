@@ -75,7 +75,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setSimulator(AgentSimulator)
      */
     public Agent() {
-	agentIdentity = createdAgentCount++;
+	this.agentIdentity = createdAgentCount++;
     }
 
     /**
@@ -111,7 +111,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setWhiteBoard(Hashtable)
      */
     public WhiteBoard getWhiteBoard() {
-        return whiteBoard;
+        return this.whiteBoard;
     }
 
     
@@ -136,7 +136,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             agClass = Class.forName(completName);
             constructor = agClass.getConstructor(Agent.class);
             mover = (AgentMover)constructor.newInstance(this);
-            setAgentMover(mover);
+            this.setAgentMover(mover);
         } catch (Exception e) {
             throw new 
                 IllegalArgumentException("Instance can't be created !", e);
@@ -153,7 +153,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 //     }
     
     public Collection agentsOnVertex(){
-	return simulator.getAgentsVertexCollection(this.getVertexIdentity());
+	return this.simulator.getAgentsVertexCollection(this.getVertexIdentity());
     }
     
     /**
@@ -162,21 +162,21 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setAgentMover(String)
      */
     public void setAgentMover(AgentMover am) {
-        agentMover = am;
+        this.agentMover = am;
     }
 
     /**
      * Returns the current AgentMover.
      */
     public AgentMover getAgentMover() {
-        return agentMover;
+        return this.agentMover;
     }
 
     /**
      * Returns the door from which the agent comes.
      */
     public int entryDoor() {
-        return simulator.entryDoor(this);
+        return this.simulator.entryDoor(this);
     }
 
     /**
@@ -189,7 +189,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public void moveToDoor(int door) {
         try {
-            simulator.moveAgentTo(this, door);
+            this.simulator.moveAgentTo(this, door);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -204,12 +204,12 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setAgentMover(AgentMover)
      */
     public void move() {
-        VisidiaAssertion.verify( agentMover != null ,
+        VisidiaAssertion.verify( this.agentMover != null ,
                                  "In move() : The AgentMover hasn't been " +
                                  "specified yet !",
                                  this);
         try {
-            agentMover.move();
+            this.agentMover.move();
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -226,12 +226,12 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setAgentMover(AgentMover)
      */
     public void move(int door) {
-        VisidiaAssertion.verify( agentMover != null ,
+        VisidiaAssertion.verify( this.agentMover != null ,
                                  "In move() : The AgentMover hasn't been " +
                                  "specified yet !",
                                  this);
         try {
-            agentMover.move(door);
+            this.agentMover.move(door);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -241,7 +241,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Moves the agent back to the vertex from where it comes.
      */
     public void moveBack() {
-	moveToDoor(entryDoor());
+	this.moveToDoor(this.entryDoor());
     }
 
     /**
@@ -249,7 +249,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * is on.
      */
     public int getArity() {
-        return simulator.getArity(this);
+        return this.simulator.getArity(this);
     }
 
     /**
@@ -260,7 +260,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     protected void sleep(long millis) {
         try {
-            simulator.sleep(this, millis);
+            this.simulator.sleep(this, millis);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -270,7 +270,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Returns the number of vertices in the graph.
      */
     public int getNetSize() {
-        return simulator.getNetSize();
+        return this.simulator.getNetSize();
     }
 
     /**
@@ -278,14 +278,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * visited vertex.
      */
     public int getVertexIdentity() {
-        return simulator.getVertexIdentity(this);
+        return this.simulator.getVertexIdentity(this);
     }
 
     /**
      * Returns the unique identifier that identifies the agent.
      */
     public int getIdentity() {
-        return agentIdentity;
+        return this.agentIdentity;
     }
 
     /**
@@ -296,7 +296,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #setWhiteBoard(Hashtable)
      */
     public Object getProperty(Object key) {
-        return whiteBoard.getValue(key);
+        return this.whiteBoard.getValue(key);
     }
 
     /**
@@ -308,14 +308,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param value Value that must be stored
      */
     public void setProperty(Object key, Object value) {
-        whiteBoard.setValue(key, value);
+        this.whiteBoard.setValue(key, value);
     }
         
     /**
      * Returns a collection of all the keys of the WitheBoard.
      */
     public Set getPropertyKeys() {
-        return whiteBoard.keys();
+        return this.whiteBoard.keys();
     }
 
     /**
@@ -327,7 +327,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #unlockVertexProperties()
      */
     public void lockVertexProperties() {
-	simulator.lockVertexProperties(this);
+	this.simulator.lockVertexProperties(this);
     }
 
     /**
@@ -338,7 +338,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public void unlockVertexProperties() {
-	simulator.unlockVertexProperties(this);
+	this.simulator.unlockVertexProperties(this);
     }
 
     /**
@@ -347,7 +347,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public boolean vertexPropertiesLocked() {
-	return simulator.vertexPropertiesLocked(this);
+	return this.simulator.vertexPropertiesLocked(this);
     }
 
     /**
@@ -357,10 +357,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         boolean lock;
         
         synchronized (askForLock) {
-            lock = vertexPropertiesLocked();
+            lock = this.vertexPropertiesLocked();
             if (lock)
                 return false;
-            lockVertexProperties();
+            this.lockVertexProperties();
             return true;
         }
     }
@@ -372,7 +372,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public Agent getVertexPropertiesOwner() {
-	return simulator.getVertexPropertiesOwner(this);
+	return this.simulator.getVertexPropertiesOwner(this);
     }
 
     /**
@@ -385,7 +385,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public Object getVertexProperty(Object key) {
-        return simulator.getVertexProperty(this, key);
+        return this.simulator.getVertexProperty(this, key);
     }
 
     /**
@@ -398,7 +398,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public void setVertexProperty(Object key, Object value) {
-        simulator.setVertexProperty(this, key, value);
+        this.simulator.setVertexProperty(this, key, value);
     }
 
     /**
@@ -410,7 +410,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #lockVertexProperties()
      */
     public Set getVertexPropertyKeys() {
-        return simulator.getVertexPropertyKeys(this);
+        return this.simulator.getVertexPropertyKeys(this);
     }
 
     /**
@@ -422,7 +422,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     private void changeDoorState(int door, EdgeState state) {
         try {
-            simulator.changeDoorState(this, door, state);
+            this.simulator.changeDoorState(this, door, state);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -437,7 +437,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #changeDoorState(int, EdgeState)
      */
     public void markDoor(int door) {
-        changeDoorState(door, new MarkedState(true));
+        this.changeDoorState(door, new MarkedState(true));
     }
 
     /**
@@ -449,7 +449,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #changeDoorState(int, EdgeState)
      */
     public void unmarkDoor(int door) {
-        changeDoorState(door, new MarkedState(false));
+        this.changeDoorState(door, new MarkedState(false));
     }
 
     /**
@@ -464,7 +464,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #changeDoorState(int, EdgeState)
      */
     public void syncDoor(int door) {
-        changeDoorState(door, new SyncState(true));
+        this.changeDoorState(door, new SyncState(true));
     }
 
     /**
@@ -477,7 +477,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #changeDoorState(int, EdgeState)
      */
     public void unsyncDoor(int door) {
-        changeDoorState(door, new SyncState(false));
+        this.changeDoorState(door, new SyncState(false));
     }
 
     /**
@@ -486,7 +486,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #createAgent(Class)
      */
     public void cloneAgent() {
-	createAgent(this.getClass());
+	this.createAgent(this.getClass());
     }
 
     /**
@@ -497,7 +497,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #createAgentAndSend(Class, int)
      */
     public void cloneAndSend(int door) {
-            createAgentAndSend(this.getClass(), door);
+            this.createAgentAndSend(this.getClass(), door);
     }
 
     /**
@@ -506,7 +506,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @param agClass Class from which to create the agent.
      */
     public void createAgent(Class agClass) {
-        simulator.clone(this, agClass);
+        this.simulator.clone(this, agClass);
     }
 
     /**
@@ -515,7 +515,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     public void createAgentAndSend(Class agClass, int door) {
         try {
-            simulator.cloneAndSend(this, agClass, door);
+            this.simulator.cloneAndSend(this, agClass, door);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -531,7 +531,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * number of the agent are returned by this method
      */
     public String toString() {
-	return className() + "_" + getIdentity();
+	return this.className() + "_" + this.getIdentity();
     }
     
 
@@ -551,8 +551,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #init()
      */
     public final void run() {
-        init();
-	death();
+        this.init();
+	this.death();
     };
 
     /**
@@ -567,7 +567,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */
     protected void death() {
         try {
-            simulator.agentDeath(this);
+            this.simulator.agentDeath(this);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -579,7 +579,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      */ 
     protected void newPulse(int pulse) {
 	try {
-	    simulator.newPulse(pulse);
+	    this.simulator.newPulse(pulse);
 	} catch(InterruptedException e) {
             throw new SimulationAbortError(e);
         }
@@ -593,7 +593,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #incrementStat(AbstractStat, long)
      */
     public void incrementStat(AbstractStat stat) {
-        incrementStat(stat, 1);
+        this.incrementStat(stat, 1);
     }
 
     /**
@@ -602,6 +602,6 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * at this end.
      */
     public void incrementStat(AbstractStat stat, long increment) {
-        simulator.incrementStat(stat, increment);
+        this.simulator.incrementStat(stat, increment);
     }
 }

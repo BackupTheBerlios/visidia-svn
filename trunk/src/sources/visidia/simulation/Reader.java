@@ -8,7 +8,6 @@ import visidia.simulation.SimulEvent;
 import visidia.tools.Element;
 
 public class Reader implements Runnable, Cloneable {
-    private String trace = null;
     private Vector messages = new Vector();
     private Vector stringMessages = new Vector();
     private VQueue ackOut = null;
@@ -16,9 +15,9 @@ public class Reader implements Runnable, Cloneable {
     private File file;
 
     public Reader (VQueue ao, VQueue eo, File f) {
-	evtOut = eo;
-	ackOut = ao;
-	file = f;
+	this.evtOut = eo;
+	this.ackOut = ao;
+	this.file = f;
     }
 
     private void initialize () {
@@ -26,16 +25,16 @@ public class Reader implements Runnable, Cloneable {
 	ObjectInputStream objectIS = null;
 
 	try {
-	    fileIS = new FileInputStream(file);
+	    fileIS = new FileInputStream(this.file);
 	    objectIS = new ObjectInputStream(fileIS);
 
 	    while(fileIS.available() > 0){
 		Object o = null;
 		o = objectIS.readObject();
 		if (o instanceof SimulAck)
-		    messages.add(new Element((SimulAck) o));
+		    this.messages.add(new Element((SimulAck) o));
 		else if (o instanceof SimulEvent)
-		    messages.add(new Element((SimulEvent) o));
+		    this.messages.add(new Element((SimulEvent) o));
 	    }
 	    objectIS.close();
  	}
@@ -69,23 +68,23 @@ public class Reader implements Runnable, Cloneable {
 	//int j=0;
 	Vector ackRcv = new Vector();
 
-	while (messages.size() != 0){ // while there are messages to send
-	    if (((Element) messages.firstElement()).isEvent()){
+	while (this.messages.size() != 0){ // while there are messages to send
+	    if (((Element) this.messages.firstElement()).isEvent()){
 		try {
-		    evtOut.put(((Element) messages.firstElement()).getSimulEvent());
+		    this.evtOut.put(((Element) this.messages.firstElement()).getSimulEvent());
 		}
 		catch (InterruptedException e) {
 		    // e.printStackTrace();
 		    break;
 		}
-		messages.remove(0);
+		this.messages.remove(0);
 	    }
 	    else{
 		int position = -1;
-		if ((position = contains(ackRcv, (Element) messages.elementAt(0))) == -1)
-		    while ((position = contains(ackRcv, (Element) messages.elementAt(0))) == -1) {
+		if ((position = this.contains(ackRcv, (Element) this.messages.elementAt(0))) == -1)
+		    while ((position = this.contains(ackRcv, (Element) this.messages.elementAt(0))) == -1) {
 			try {
-			    ackRcv.add(ackOut.get());
+			    ackRcv.add(this.ackOut.get());
 			}
 			catch (InterruptedException e) {
 			    //			    e.printStackTrace();
@@ -93,13 +92,13 @@ public class Reader implements Runnable, Cloneable {
 			}
 		    }
 		ackRcv.remove(position);
-		messages.remove(0);
+		this.messages.remove(0);
 	    }
 	}
     }
 
     public void read() {
-	initialize();
+	this.initialize();
     }
 }
 

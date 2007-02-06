@@ -28,17 +28,14 @@ public static final String nomDuProgramme = "DistributedAlgoSimulator";
   protected static JApplet japplet = new JApplet();
   protected JButton new_graph, help;
   
-  private boolean inAnApplet = true;
-  
   //Hack to avoid ugly message about system event access check.
   public DistributedAlgoSimulator() {
     this(true);
   }
   
   public DistributedAlgoSimulator(boolean inAnApplet) {
-    this.inAnApplet = inAnApplet;
     if (inAnApplet) {
-      getRootPane().putClientProperty("defeatSystemEventVQueueCheck",
+      this.getRootPane().putClientProperty("defeatSystemEventVQueueCheck",
 				      Boolean.TRUE);
     }
   }
@@ -69,25 +66,25 @@ public static final String nomDuProgramme = "DistributedAlgoSimulator";
         
     Font f1 = new Font("Helvetica", Font.BOLD, 18);
 
-    new_graph = new JButton("New Graph");
-    new_graph.setMnemonic('N');
-    new_graph.setActionCommand("New Graph");
-    new_graph.setFont(f1);
+    this.new_graph = new JButton("New Graph");
+    this.new_graph.setMnemonic('N');
+    this.new_graph.setActionCommand("New Graph");
+    this.new_graph.setFont(f1);
     
-    help = new JButton("Help");
-    help.setMnemonic('H');
-    help.setActionCommand("Help");
-    help.setFont(f1);
+    this.help = new JButton("Help");
+    this.help.setMnemonic('H');
+    this.help.setActionCommand("Help");
+    this.help.setFont(f1);
     
     //Listen for actions on buttons.
-    new_graph.addActionListener(this);
-    help.addActionListener(this);
+    this.new_graph.addActionListener(this);
+    this.help.addActionListener(this);
     
     //Add Components to a JPanel, using GridLayout. 
     Container pane = this.getContentPane();
     pane.setLayout(new GridLayout(2,1));
-    pane.add(new_graph);
-    pane.add(help);
+    pane.add(this.new_graph);
+    pane.add(this.help);
   }
 
   public void actionPerformed(ActionEvent e) {

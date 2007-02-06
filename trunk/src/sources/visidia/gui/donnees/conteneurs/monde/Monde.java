@@ -30,7 +30,7 @@ public class Monde implements Serializable {
    * Instancie un nouveau monde (vide).
    **/
   public Monde() {
-    premier = new Position(this);
+    this.premier = new Position(this);
   }
 
   // Methodes.
@@ -39,15 +39,15 @@ public class Monde implements Serializable {
    * Retourne le nombre d'éléments du monde.
    **/
   public int taille() {
-    return taille;
+    return this.taille;
   }
 
   /**
    * Ajoute l'élément un_objet dans le monde.
    **/
   public Position ajouterElement(Object un_objet) {
-    taille++;
-    return premier.AjouterAvant(un_objet);
+    this.taille++;
+    return this.premier.AjouterAvant(un_objet);
   }
 
     /**
@@ -66,20 +66,20 @@ public class Monde implements Serializable {
 
       // Inner class : variable d'instance.
       
-      public Position position_courante = premier;
+      public Position position_courante = Monde.this.premier;
       
       // Inner class : methodes.
       
       public boolean hasMoreElements() {
-	return (position_courante.suivant != premier);
+	return (this.position_courante.suivant != Monde.this.premier);
       }
       
       public Object nextElement() {
-	if(position_courante.suivant == premier) {
+	if(this.position_courante.suivant == Monde.this.premier) {
 	  throw new NoSuchElementException("You reached the end of the world");
 	}
-	position_courante = position_courante.suivant;
-	return position_courante.element;
+	this.position_courante = this.position_courante.suivant;
+	return this.position_courante.element;
       }
     };
   }

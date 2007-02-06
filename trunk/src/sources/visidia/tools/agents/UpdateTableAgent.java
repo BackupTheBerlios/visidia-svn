@@ -13,15 +13,15 @@ public class UpdateTableAgent extends UpdateTable {
     }
 
     public void run() {
-        while (! stop) {
+        while (! this.stop) {
             try {
                 synchronized (this) {
-                    wait(1000);
+                    this.wait(1000);
                 }
             } catch (InterruptedException e) {
-                stop();
+                this.stop();
             }
-            table.fireTableDataChanged();
+            this.table.fireTableDataChanged();
         }
     }
 

@@ -15,14 +15,14 @@ public class ColorState extends EdgeColor {
 	Color isColor;
     
     public ColorState(Color c){
-	isColor = c;
+	this.isColor = c;
     }
 
     public Color isColored(){
-	return isColor;
+	return this.isColor;
     }
 
     public Object clone(){
-	return new ColorState(isColor);
+	return new ColorState(this.isColor);
     }
 }

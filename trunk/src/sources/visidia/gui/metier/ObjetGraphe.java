@@ -30,11 +30,11 @@ public abstract class ObjetGraphe implements Serializable  {
 
     // accessor on the graph 
     public Graphe graphe(){
-	return graph;}
+	return this.graph;}
 
     // modificator of "graph" variable
     public void setGraph(Graphe newGraph){
-	graph = newGraph;
+	this.graph = newGraph;
     }
 
 }

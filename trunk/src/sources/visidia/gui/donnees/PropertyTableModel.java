@@ -29,41 +29,41 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
         if(props == null){
             props = new Hashtable();
         }
-        defProps = props;
-        keys = new Vector(props.keySet());
+        this.defProps = props;
+        this.keys = new Vector(props.keySet());
     }
 
     public void setProperties(Hashtable props){
-	defProps = props;
-	keys = new Vector(props.keySet());
-	fireTableDataChanged();
+	this.defProps = props;
+	this.keys = new Vector(props.keySet());
+	this.fireTableDataChanged();
     }
     
     public void putProperty(String key, Object value){
-	if (!keys.contains(key)) keys.add(key);
-	defProps.put(key,value);
-	fireTableDataChanged();
+	if (!this.keys.contains(key)) this.keys.add(key);
+	this.defProps.put(key,value);
+	this.fireTableDataChanged();
     }
 
     public void removeProperty(int row) {
-        Object key = getValueAt(row,0);
+        Object key = this.getValueAt(row,0);
 
-        defProps.remove(key);
-        keys.remove(row);
+        this.defProps.remove(key);
+        this.keys.remove(row);
 
-        fireTableDataChanged();
+        this.fireTableDataChanged();
     }
 
 
     public Hashtable getProperties(){
-        return (Hashtable) defProps.clone();
+        return (Hashtable) this.defProps.clone();
     }
     
     public Object getValueAt(int row, int col){
         switch(col){
-        case 0: return keys.elementAt(row);
-        case 1: return getTypeName(defProps.get(keys.elementAt(row)));
-        case 2: return defProps.get(keys.elementAt(row));
+        case 0: return this.keys.elementAt(row);
+        case 1: return this.getTypeName(this.defProps.get(this.keys.elementAt(row)));
+        case 2: return this.defProps.get(this.keys.elementAt(row));
         }
         throw new IllegalArgumentException();	
     }
@@ -73,9 +73,9 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
      */
     public boolean isCellEditable(int row, int col){
         
-        Object obj = getValueAt(row,col);
+        Object obj = this.getValueAt(row,col);
 
-        return ((col == 2) && (!keys.elementAt(row).equals("label"))
+        return ((col == 2) && (!this.keys.elementAt(row).equals("label"))
                                && (( obj instanceof String)
                                    || ( obj instanceof Integer)
                                    || ( obj instanceof Double)
@@ -91,35 +91,35 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
      * Sets row value to <code>aValue</code>.
      */ 
     public void setValueAt(Object aValue, int row, int col){
-        if(!( row < defProps.size() ) && ( col == 2)){
+        if(!( row < this.defProps.size() ) && ( col == 2)){
             throw new IllegalArgumentException();
         }
 
         String value = (String) aValue;
 	
-        Object obj = getValueAt(row,col);
+        Object obj = this.getValueAt(row,col);
         
         try{
             
             if (obj instanceof String)
-                defProps.put(keys.elementAt(row),value);
+                this.defProps.put(this.keys.elementAt(row),value);
             else if(obj instanceof Integer) {
-                defProps.put(keys.elementAt(row),Integer.decode(value));
+                this.defProps.put(this.keys.elementAt(row),Integer.decode(value));
             }
             else if(obj instanceof  Byte)
-                defProps.put(keys.elementAt(row),Byte.decode(value));
+                this.defProps.put(this.keys.elementAt(row),Byte.decode(value));
             else if(obj instanceof  Character)
-                defProps.put(keys.elementAt(row), value.charAt(0));
+                this.defProps.put(this.keys.elementAt(row), value.charAt(0));
             else if(obj instanceof  Double)
-                defProps.put(keys.elementAt(row), Double.parseDouble(value));
+                this.defProps.put(this.keys.elementAt(row), Double.parseDouble(value));
             else if(obj instanceof  Float)
-                defProps.put(keys.elementAt(row), Float.parseFloat(value));
+                this.defProps.put(this.keys.elementAt(row), Float.parseFloat(value));
             else if(obj instanceof Long)
-                defProps.put(keys.elementAt(row), Long.parseLong(value));
+                this.defProps.put(this.keys.elementAt(row), Long.parseLong(value));
             else if(obj instanceof  Short)
-                defProps.put(keys.elementAt(row), Short.parseShort(value));
+                this.defProps.put(this.keys.elementAt(row), Short.parseShort(value));
             else if(obj instanceof Boolean)
-                defProps.put(keys.elementAt(row), Boolean.parseBoolean(value));
+                this.defProps.put(this.keys.elementAt(row), Boolean.parseBoolean(value));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,
@@ -128,7 +128,7 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
                                           JOptionPane.WARNING_MESSAGE); 
         }
         
-        fireTableCellUpdated(row,col);
+        this.fireTableCellUpdated(row,col);
 
     }
 }

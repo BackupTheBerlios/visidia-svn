@@ -24,7 +24,7 @@ public abstract class AgentChooser {
     public final void placeAgents(AgentsSimulationWindow window) {
         this.window = window;
 	
-	place();
+	this.place();
         //placeAgents(window.getVueGraphe().getGraphe());
     }
     
@@ -41,7 +41,7 @@ public abstract class AgentChooser {
         Enumeration e = graph.sommets();
 
         while(e.hasMoreElements()) {
-            chooseForVertex((Sommet)e.nextElement());
+            this.chooseForVertex((Sommet)e.nextElement());
         }
     }
     
@@ -50,7 +50,7 @@ public abstract class AgentChooser {
      * initializing some parameters.
      */
     protected void placeAgents() {
-	placeAgents(window.getVueGraphe().getGraphe());
+	this.placeAgents(this.window.getVueGraphe().getGraphe());
     }
     /**
      * For a given vertex this method chooses to add an agent or not.
@@ -59,7 +59,7 @@ public abstract class AgentChooser {
      * choice is done.
      */
     private void chooseForVertex(Sommet vertex) {
-        chooseForVertex(Integer.decode(vertex.getSommetDessin()
+        this.chooseForVertex(Integer.decode(vertex.getSommetDessin()
                                        .getEtiquette()));
     }
 
@@ -73,7 +73,7 @@ public abstract class AgentChooser {
      * is the name of a class.
      */
     protected final void addAgent(Integer vertexId, String agentName) {
-        window.addAgents(vertexId, agentName);
+        this.window.addAgents(vertexId, agentName);
     }
 
     /**
@@ -95,6 +95,6 @@ public abstract class AgentChooser {
      * @see visidia.agents.agentchooser.RandomAgentChooser
      **/
     protected void place() {
-	placeAgents();
+	this.placeAgents();
     }
 }

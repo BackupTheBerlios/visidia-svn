@@ -43,7 +43,7 @@ public class LigneChoixCouleur implements ActionListener {
      * @param editable si ce booleen vaut VRAI, le bouton sera actif, sinon, il sera inactif.
      **/
     LigneChoixCouleur(BoiteFormeDessin parent,String label, int R, int G, int B, boolean editable) {
-	pane = new JPanel(new GridLayout(1, 2));
+	this.pane = new JPanel(new GridLayout(1, 2));
 
 	this.parent = parent;
     
@@ -60,13 +60,13 @@ public class LigneChoixCouleur implements ActionListener {
 	while (tmp.length() < 38) {
 	    tmp = tmp + " ";
 	}
-	jlabel = new JLabel(tmp);
+	this.jlabel = new JLabel(tmp);
     
-	pane.add(jlabel);
-	button = new JButton("Change color");
-	button.addActionListener(this);
-	button.setEnabled(editable);
-	pane.add(button);
+	this.pane.add(this.jlabel);
+	this.button = new JButton("Change color");
+	this.button.addActionListener(this);
+	this.button.setEnabled(editable);
+	this.pane.add(this.button);
     }
 
     /** Retourne R*/
@@ -85,36 +85,36 @@ public class LigneChoixCouleur implements ActionListener {
     /** Active ou désactive le bouton suivant la valeur du booleen
      * "editable" passe en argument.*/
     public void setEditable(boolean editable) {
-	button.setEnabled(editable);
+	this.button.setEnabled(editable);
     }
   
     /** Méthode appelee quand l'utilisateur appuie sur le bouton.*/
     public void actionPerformed(ActionEvent e) {
-	if (e.getSource() == button) {
-	    Color choosedColor = JColorChooser.showDialog(parent.dialog(), 
+	if (e.getSource() == this.button) {
+	    Color choosedColor = JColorChooser.showDialog(this.parent.dialog(), 
 							  "Choose color", 
-							  new Color(R, G, B));
+							  new Color(this.R, this.G, this.B));
 	    if (choosedColor != null) {
 		this.R = choosedColor.getRed();
 		this.G = choosedColor.getGreen();
 		this.B = choosedColor.getBlue();
-		parent.elementModified();
+		this.parent.elementModified();
 	
 	    }
-	    String tmp = new String(label
-				    + Integer.toString(getRed()) 
-				    + ", " + Integer.toString(getGreen()) 
-				    + ", " + Integer.toString(getBlue()));
+	    String tmp = new String(this.label
+				    + Integer.toString(this.getRed()) 
+				    + ", " + Integer.toString(this.getGreen()) 
+				    + ", " + Integer.toString(this.getBlue()));
 	    while (tmp.length() < 38) {
 		tmp = tmp + " ";
 	    }
-	    jlabel.setText(tmp);
+	    this.jlabel.setText(tmp);
 	}
     }
 
     /** Retourne le JPanel.*/
     public JPanel panel() {
-	return pane;
+	return this.pane;
     }
   
 }

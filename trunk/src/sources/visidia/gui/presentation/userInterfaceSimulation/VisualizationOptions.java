@@ -21,54 +21,54 @@ public final class VisualizationOptions extends JMenu implements ActionListener 
 	this.getPopupMenu().setName("PopOptions");
 	this.setMnemonic('V');
 	// Le menu pour visualiser les messages de l'algorithme 
-	algorithmOptions = new JMenu("Algorithm events ");
-	algorithmOptions.getPopupMenu().setName("popAlgorithm");
+	this.algorithmOptions = new JMenu("Algorithm events ");
+	this.algorithmOptions.getPopupMenu().setName("popAlgorithm");
 	// Le menu pour visualiser les messages de synchronisation
-	synchrOptions = new JMenu("Synchronization events");
-	synchrOptions.getPopupMenu().setName("popSynchr");
+	this.synchrOptions = new JMenu("Synchronization events");
+	this.synchrOptions.getPopupMenu().setName("popSynchr");
 	
 	// Les cases a cocher pour les options de visualisation
-	itemForAllAlgorithmMess =
+	this.itemForAllAlgorithmMess =
 	    new JCheckBoxMenuItem("All algorithm messages",true);
-	itemForAllSynchrMess =
+	this.itemForAllSynchrMess =
 	    new JCheckBoxMenuItem("All synchronization messages",true);
-	itemForAnyAlgorithmMess = 
+	this.itemForAnyAlgorithmMess = 
 	    new JCheckBoxMenuItem("No algorithm message");
-	itemForAnySynchrMess = 
+	this.itemForAnySynchrMess = 
 	    new JCheckBoxMenuItem("No synchronization message");
 	
 	// Ajout des cases a cocher 
-	algorithmOptions.add(itemForAllAlgorithmMess);
+	this.algorithmOptions.add(this.itemForAllAlgorithmMess);
 	
-	algorithmOptions.add(itemForAnyAlgorithmMess);
+	this.algorithmOptions.add(this.itemForAnyAlgorithmMess);
 	
-	synchrOptions.add(itemForAllSynchrMess);
+	this.synchrOptions.add(this.itemForAllSynchrMess);
 	
-	synchrOptions.add(itemForAnySynchrMess);
+	this.synchrOptions.add(this.itemForAnySynchrMess);
 	
 	
-	this.add(algorithmOptions);
-	this.add(synchrOptions);
+	this.add(this.algorithmOptions);
+	this.add(this.synchrOptions);
 	
-	addReactions();
-	reactionVisuOptions = new ReactionVisuOptions(this);
+	this.addReactions();
+	this.reactionVisuOptions = new ReactionVisuOptions(this);
     }
     
     // Ajout des listeners 
     private void addReactions(){
-	itemForAnySynchrMess.addActionListener(this);
-	itemForAllSynchrMess.addActionListener(this);
-	synchrOptions.addActionListener(this);
+	this.itemForAnySynchrMess.addActionListener(this);
+	this.itemForAllSynchrMess.addActionListener(this);
+	this.synchrOptions.addActionListener(this);
 	
 	
-	itemForAllAlgorithmMess.addActionListener(this);
-	itemForAnyAlgorithmMess.addActionListener(this);
-	algorithmOptions.addActionListener(this);
+	this.itemForAllAlgorithmMess.addActionListener(this);
+	this.itemForAnyAlgorithmMess.addActionListener(this);
+	this.algorithmOptions.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent evt) {
 	if(evt.getSource() instanceof JMenuItem)
-	    reactionVisuOptions.action((JMenuItem)evt.getSource());
+	    this.reactionVisuOptions.action((JMenuItem)evt.getSource());
     }
     
     
@@ -77,30 +77,30 @@ public final class VisualizationOptions extends JMenu implements ActionListener 
     
     // Les Accesseurs 
     public JMenu getAlgorithmOptions(){
-	return algorithmOptions;
+	return this.algorithmOptions;
     }
 
     public JMenu getSynchrOptions(){
-	return synchrOptions;
+	return this.synchrOptions;
     }
     public JCheckBoxMenuItem getItemForAllAlgorithmMess(){
-	return itemForAllAlgorithmMess;
+	return this.itemForAllAlgorithmMess;
     }
     public JCheckBoxMenuItem getItemForAnyAlgorithmMess(){
-	return itemForAnyAlgorithmMess;
+	return this.itemForAnyAlgorithmMess;
     }
 
     public JCheckBoxMenuItem getItemForAllSynchrMess(){
-	return itemForAllSynchrMess;
+	return this.itemForAllSynchrMess;
     }
 
     public JCheckBoxMenuItem getItemForAnySynchrMess(){
-	return itemForAnySynchrMess;
+	return this.itemForAnySynchrMess;
     }
 
 
     public FenetreDeSimulation getFenetreDeSimulation(){
-	return fenetreSim;
+	return this.fenetreSim;
     }
 
     //Les attributs servant au menu 

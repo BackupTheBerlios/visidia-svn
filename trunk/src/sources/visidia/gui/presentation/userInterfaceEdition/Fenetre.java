@@ -34,28 +34,28 @@ public abstract class Fenetre extends JFrame {
 
     /** Retourne le VueGraphe édite. **/
   public VueGraphe getVueGraphe() {
-    return vueGraphe;
+    return this.vueGraphe;
   }
   public SelectionDessin selection() {
-    return selection;
+    return this.selection;
   }
 
   /** Retourne la sélection courante.**/
   /** Retourne la couleur de fond. **/
   public Color couleur_de_fond() {
-    return couleur_de_fond;
+    return this.couleur_de_fond;
   }
 
 
   /** Retourne le fichier édite. **/
   public File fichier_edite() {
-    return fichier_edite;
+    return this.fichier_edite;
   }
 
     /** changing the edited file */
     public void setFichierEdite(File f){
-	fichier_edite = f;
-	mettreAJourTitreFenetre(); }
+	this.fichier_edite = f;
+	this.mettreAJourTitreFenetre(); }
  
 
  /**
@@ -64,15 +64,15 @@ public abstract class Fenetre extends JFrame {
    **/
   protected void mettreAJourTitreFenetre() {
     String nom_fichier;
-    if(fichier_edite == null)
+    if(this.fichier_edite == null)
       nom_fichier = "no title";
     else
-      nom_fichier = fichier_edite.getName();
-    setTitle(titre() + " [" + nom_fichier + "]");
+      nom_fichier = this.fichier_edite.getName();
+    this.setTitle(this.titre() + " [" + nom_fichier + "]");
   }
 
   protected void mettreAJourTitreFenetre(String nom_fichier) {
-    setTitle(titre() + " [" + nom_fichier + "]");
+    this.setTitle(this.titre() + " [" + nom_fichier + "]");
   }
 
   /**
@@ -85,9 +85,9 @@ public abstract class Fenetre extends JFrame {
       nom_fichier = "no title";
     else {
       nom_fichier = fichier.getName();
-      fichier_edite = fichier;
+      this.fichier_edite = fichier;
     }
-    setTitle(titre() + " [" + nom_fichier + "]");
+    this.setTitle(this.titre() + " [" + nom_fichier + "]");
   }
     public abstract void changerVueGraphe(VueGraphe graphe);
     protected abstract String titre();

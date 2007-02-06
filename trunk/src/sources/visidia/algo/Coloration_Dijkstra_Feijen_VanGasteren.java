@@ -34,14 +34,14 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
         boolean run=true, myToken=false;//, myCoD=true;
         String myLabelD=new String("M"), myAP=new String("Pa"), myColorD=new String("b");
         boolean finishedNode[];
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         
         finishedNode=new boolean[arite];
         for (int i=0;i<arite;i++) {
             finishedNode[i]=false;
         }
         
-        if (((String) getProperty("label")).compareTo("A")==0){
+        if (((String) this.getProperty("label")).compareTo("A")==0){
             myState=new String("X,A,Ac,w,HT");
             myLabelD=new String("A");
             myAP=new String("Ac");
@@ -50,24 +50,24 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
             //myCoD=false;
         }
         
-        neighbours=new String[getArity()];
+        neighbours=new String[this.getArity()];
         
-        putProperty("label",myState);
+        this.putProperty("label",myState);
         
         while (run) {
-            synchro=starSynchro(finishedNode);
-            if (synchro==starCenter ){
+            synchro=this.starSynchro(finishedNode);
+            if (synchro==this.starCenter ){
                 String label[],labelD[],aP[], cD[], tD[];
                 
-                label=new String[getArity()];
-                labelD=new String[getArity()];
-                aP=new String[getArity()];
-                cD=new String[getArity()];
-                tD=new String[getArity()];
+                label=new String[this.getArity()];
+                labelD=new String[this.getArity()];
+                aP=new String[this.getArity()];
+                cD=new String[this.getArity()];
+                tD=new String[this.getArity()];
                 
-                for (int i=0;i<getArity();i++)
+                for (int i=0;i<this.getArity();i++)
                     if (! finishedNode[i]) {
-                        neighbours[i]=((StringMessage) receiveFrom(i)).data();
+                        neighbours[i]=((StringMessage) this.receiveFrom(i)).data();
                         
                         label[i]=new String(neighbours[i].substring(0,1));
                         labelD[i]=new String(neighbours[i].substring(2,3));
@@ -83,16 +83,16 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
                     while ((label[0].compareTo(myColor)==0) ||
                     (label[1].compareTo(myColor)==0)) {
                         myC=(myC+1)%3;
-                        myColor=getNewColor(myC);
+                        myColor=this.getNewColor(myC);
                         myAP=new String("Ac");
                         myColorD=new String("b");
-                        sendAll(active);
+                        this.sendAll(this.active);
                     }
                 }
                 
                 if (myToken) {
-                    if (aP[nextDoor()].compareTo("Pa")==0) {
-                        sendTo(nextDoor(),new StringMessage(new String(myColorD),labels));
+                    if (aP[this.nextDoor()].compareTo("Pa")==0) {
+                        this.sendTo(this.nextDoor(),new StringMessage(new String(myColorD),labels));
                         myColorD=new String("w");
                         myToken=false;
                     }
@@ -104,7 +104,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
                 
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,end);
+                        this.sendTo(i,this.end);
                     }
                 }
                 
@@ -115,20 +115,20 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
                 else
                     myState=myState+"NT";
                 
-                putProperty("label",myState);
+                this.putProperty("label",myState);
                 
-                breakSynchro();
+                this.breakSynchro();
                 
             }
             else {
-                if (synchro != notInTheStar) {
+                if (synchro != this.notInTheStar) {
                     String son;
                     
-                    sendTo(synchro,new StringMessage(myState,labels));
-                    son=((StringMessage)receiveFrom(synchro)).data();
+                    this.sendTo(synchro,new StringMessage(myState,labels));
+                    son=((StringMessage)this.receiveFrom(synchro)).data();
                     
-                    while (son.compareTo(end.data())!=0) {
-                        if (son.compareTo(active.data())!=0) {
+                    while (son.compareTo(this.end.data())!=0) {
+                        if (son.compareTo(this.active.data())!=0) {
                             if (myLabelD.compareTo("A")!=0)
                                 if (son.compareTo("b")==0)
                                     myColorD=new String("b");
@@ -142,7 +142,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
                         }
                         else
                             myAP=new String("Ac");
-                        son=((StringMessage)receiveFrom(synchro)).data();
+                        son=((StringMessage)this.receiveFrom(synchro)).data();
                     }
                     
                     myState=myColor+","+myLabelD+","+myAP+","+myColorD+",";
@@ -152,12 +152,12 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
                     else
                         myState=myState+"NT";
                     
-                    putProperty("label",myState);
+                    this.putProperty("label",myState);
                 }
             }
         }
         
-        putProperty("label",myColor+","+"END");
+        this.putProperty("label",myColor+","+"END");
         /*
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
@@ -177,7 +177,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -186,13 +186,13 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -210,13 +210,13 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -231,35 +231,35 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -272,8 +272,8 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

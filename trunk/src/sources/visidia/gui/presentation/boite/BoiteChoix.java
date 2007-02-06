@@ -35,20 +35,20 @@ public class BoiteChoix implements ActionListener {
 	this.dialog = new JDialog(parent, titre);
 	this.parent = parent;
       	this.dico = TableCouleurs.getTableCouleurs() ;
-	plancheDeCouleurs = new ReglePanel( dico , this);
+	this.plancheDeCouleurs = new ReglePanel( this.dico , this);
 	
-	dialog.getContentPane().setLayout(new BorderLayout());
-	dialog.getContentPane().add(plancheDeCouleurs, BorderLayout.NORTH);
+	this.dialog.getContentPane().setLayout(new BorderLayout());
+	this.dialog.getContentPane().add(this.plancheDeCouleurs, BorderLayout.NORTH);
 	
-	ajouterBoutons(); 
+	this.ajouterBoutons(); 
 	
     }
     //Methodes
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     /** Ajoute un bouton nomme "label" au panel "pane" */
@@ -70,34 +70,34 @@ public class BoiteChoix implements ActionListener {
     public void ajouterBoutons() {
     JPanel buttonPane = new JPanel(new FlowLayout());
     
-    buttonOk = new JButton("Ok");
-    buttonOk.addActionListener(this);
+    this.buttonOk = new JButton("Ok");
+    this.buttonOk.addActionListener(this);
     
-    buttonCancel = new JButton("Cancel");
-    buttonCancel.addActionListener(this);
+    this.buttonCancel = new JButton("Cancel");
+    this.buttonCancel.addActionListener(this);
 
-    buttonPane.add(buttonOk);
-    buttonPane.add(buttonCancel);    
-    dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+    buttonPane.add(this.buttonOk);
+    buttonPane.add(this.buttonCancel);    
+    this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
   }
   
 
   public void actionPerformed(ActionEvent e) {
-    if(e.getSource() == buttonOk) {
-     	dialog.setVisible(false);
-        dialog.dispose();
+    if(e.getSource() == this.buttonOk) {
+     	this.dialog.setVisible(false);
+        this.dialog.dispose();
     }
    
-    if(e.getSource() == buttonCancel) {
-      dialog.setVisible(false);
-      dialog.dispose();
+    if(e.getSource() == this.buttonCancel) {
+      this.dialog.setVisible(false);
+      this.dialog.dispose();
     }
   }
     
  
   /** Retourne le JDialog. */
   public JDialog dialog() {
-    return dialog;
+    return this.dialog;
   }
 }
 

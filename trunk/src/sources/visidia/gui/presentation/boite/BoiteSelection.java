@@ -36,15 +36,15 @@ public class BoiteSelection extends Boite {
     BoxLayout mainLayout = new BoxLayout(mainPane, BoxLayout.Y_AXIS);
     mainPane.setLayout(mainLayout);
     mainPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-							taille + " selected objects, " +
-							table_types.taille() + " type(s)"));		
+							this.taille + " selected objects, " +
+							this.table_types.taille() + " type(s)"));		
     JPanel tmp = new JPanel();
-    Enumeration tous_les_types = table_types.elements();
+    Enumeration tous_les_types = this.table_types.elements();
     while(tous_les_types.hasMoreElements()) {
       String un_type = (String)tous_les_types.nextElement();
       tmp = new JPanel(new GridLayout(1, 3));
       tmp.add(new JLabel(un_type));
-      tmp.add(new JLabel(Integer.toString(table_types.cardinalite(un_type))));
+      tmp.add(new JLabel(Integer.toString(this.table_types.cardinalite(un_type))));
       mainPane.add(tmp);
     }
     

@@ -64,10 +64,10 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      **/
     
     protected final void nextPulse() {
-	sim.runningControl();
+	this.sim.runningControl();
 	
 	// le noeud declare passer au pulse suivant
-	sim.nextPulse();
+	this.sim.nextPulse();
 	
 	// le noeud declare avoir recu l'acquittemet pour le pulse
 	// courant
@@ -80,7 +80,7 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final int getPulse() {
-	return sim.getPulse();
+	return this.sim.getPulse();
     }
 
     
@@ -92,7 +92,7 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      */
     protected boolean sendTo(int door, Message msg)
     {
-	msg.setMsgClock(getPulse());
+	msg.setMsgClock(this.getPulse());
 	return super.sendTo(door,msg);
     }
 
@@ -103,9 +103,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      */
     protected void sendAll(Message msg)
     {
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	for( int i=0; i < arite ; i++)
-	    sendTo(i, msg);
+	    this.sendTo(i, msg);
     }
     
 
@@ -129,8 +129,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      **/
     protected final Message getNextMessage(DoorPulseCriterion dpc) {
 	try{
-	    sim.runningControl();
-	    return sim.getNextMessage(nodeId, dpc);
+	    this.sim.runningControl();
+	    return this.sim.getNextMessage(this.nodeId, dpc);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -147,8 +147,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      **/
     protected final boolean existMessage(DoorPulseCriterion dpc) {
 	try{
-	    sim.runningControl();
-	    return !sim.emptyVQueue(nodeId,dpc);
+	    this.sim.runningControl();
+	    return !this.sim.emptyVQueue(this.nodeId,dpc);
 	} catch (Exception e) {
 	    throw new SimulationAbortError();
 	}
@@ -172,8 +172,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final boolean anyMsg(){
-	DoorPulseCriterion dpc = new DoorPulseCriterion(getPulse()-1);
-	return existMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(this.getPulse()-1);
+	return this.existMessage(dpc);
     }
     
  
@@ -184,8 +184,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final boolean  anyMsgDoor(int door) {
-	DoorPulseCriterion dpc = new DoorPulseCriterion(door,getPulse()-1);
-	return existMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(door,this.getPulse()-1);
+	return this.existMessage(dpc);
     }
 
 
@@ -194,11 +194,11 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      * sent in the specified pulse
      **/
     protected final boolean anyMsgPulse(int pulse) {
-	if (pulse >= getPulse())
+	if (pulse >= this.getPulse())
 	    return false;
 	
 	DoorPulseCriterion dpc = new DoorPulseCriterion(pulse);
-	return existMessage(dpc);
+	return this.existMessage(dpc);
     }
 
     
@@ -210,11 +210,11 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final boolean  anyMsgDoorPulse(int door, int pulse) {
-	if(pulse >= getPulse()) 
+	if(pulse >= this.getPulse()) 
 	    return false;
 	
 	DoorPulseCriterion dpc = new DoorPulseCriterion(door,pulse);
-	return existMessage(dpc);
+	return this.existMessage(dpc);
     }
     
     
@@ -227,12 +227,12 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receiveWait(Door door) {
-	while(! anyMsg()) {
-	    nextPulse();
+	while(! this.anyMsg()) {
+	    this.nextPulse();
 	}
 
-	DoorPulseCriterion dpc = new DoorPulseCriterion(getPulse()-1);
-	Message msg = getNextMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(this.getPulse()-1);
+	Message msg = this.getNextMessage(dpc);
 	door.setNum(dpc.getDoor());
 	return msg;
     }
@@ -245,12 +245,12 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      **/
 
     protected final Message receiveWait() {
-	while(! anyMsg()) {
-	    nextPulse();
+	while(! this.anyMsg()) {
+	    this.nextPulse();
 	}
 
-	DoorPulseCriterion dpc = new DoorPulseCriterion(getPulse()-1);
-	Message msg = getNextMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(this.getPulse()-1);
+	Message msg = this.getNextMessage(dpc);
 	return msg;
     }
 
@@ -261,12 +261,12 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receiveWait(int door) {
-	while(! anyMsgDoor(door)) {
-	    nextPulse();
+	while(! this.anyMsgDoor(door)) {
+	    this.nextPulse();
 	}
 	
-	DoorPulseCriterion dpc = new DoorPulseCriterion(door,getPulse()-1);
-	Message msg = getNextMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(door,this.getPulse()-1);
+	Message msg = this.getNextMessage(dpc);
 	return msg;	
     }
       
@@ -279,8 +279,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receive(Door door) {
-	DoorPulseCriterion dpc = new DoorPulseCriterion(getPulse()-1);
-	Message msg = getNextMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(this.getPulse()-1);
+	Message msg = this.getNextMessage(dpc);
 	if(msg != null) {
 	    door.setNum(dpc.getDoor());
 	    return msg;
@@ -295,11 +295,11 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receive(Door door, int pulse) {
-	if(pulse >= getPulse())
+	if(pulse >= this.getPulse())
 	    return null;
 	
 	DoorPulseCriterion dpc = new DoorPulseCriterion(pulse);
-	Message msg = getNextMessage(dpc);
+	Message msg = this.getNextMessage(dpc);
 	if(msg != null) {
 	    door.setNum(dpc.getDoor());
 	    return msg;
@@ -313,8 +313,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receive(int door) {
-	DoorPulseCriterion dpc = new DoorPulseCriterion(door,getPulse()-1);
-	Message msg = getNextMessage(dpc);
+	DoorPulseCriterion dpc = new DoorPulseCriterion(door,this.getPulse()-1);
+	Message msg = this.getNextMessage(dpc);
 	
 	return msg;
     }
@@ -326,10 +326,10 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
      *
      **/
     protected final Message receive(int door, int pulse) {
-	if(pulse >= getPulse())
+	if(pulse >= this.getPulse())
 	    return null;
 	DoorPulseCriterion dpc = new DoorPulseCriterion(door,pulse);
-	Message msg = getNextMessage(dpc);
+	Message msg = this.getNextMessage(dpc);
 	
 	return msg;
     }
@@ -380,8 +380,8 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,Clonea
     
     protected final void purge() {
 	try{
-	    sim.runningControl();
-	    sim.purge(nodeId);
+	    this.sim.runningControl();
+	    this.sim.purge(this.nodeId);
 	}
 	catch(Exception e){
 	    throw new SimulationAbortError();

@@ -31,67 +31,67 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
     public EtatPanel(Hashtable uneHashtable, VueEtatPanel parent,
 		     String defaultValue, boolean minimumSize) {
 	this.minimumSize = minimumSize;
-	ardoise = new EtatArdoise(uneHashtable, parent, minimumSize);
-	listeItems = new Vector();
-	liste = new JList(); 
+	this.ardoise = new EtatArdoise(uneHashtable, parent, minimumSize);
+	this.listeItems = new Vector();
+	this.liste = new JList(); 
 	JScrollPane listeAvecAscenseur;
-	listeItems.addElement("A");
-	listeItems.addElement("B");
-	listeItems.addElement("C");
-	listeItems.addElement("D");
-	listeItems.addElement("E");
-	listeItems.addElement("F");
-	listeItems.addElement("G"); 
-	listeItems.addElement("H");
-	listeItems.addElement("I");
-	listeItems.addElement("J");
-	listeItems.addElement("K");
-	listeItems.addElement("L");
-	listeItems.addElement("M");
-	listeItems.addElement("N");
-	listeItems.addElement("O");
-	listeItems.addElement("P");
-	listeItems.addElement("Q");
-	listeItems.addElement("R");
-	listeItems.addElement("S");
-	listeItems.addElement("T");
-	listeItems.addElement("U");
-	listeItems.addElement("V");
-	listeItems.addElement("W");
-	listeItems.addElement("X");
-	listeItems.addElement("Y");
-	listeItems.addElement("Z");
+	this.listeItems.addElement("A");
+	this.listeItems.addElement("B");
+	this.listeItems.addElement("C");
+	this.listeItems.addElement("D");
+	this.listeItems.addElement("E");
+	this.listeItems.addElement("F");
+	this.listeItems.addElement("G"); 
+	this.listeItems.addElement("H");
+	this.listeItems.addElement("I");
+	this.listeItems.addElement("J");
+	this.listeItems.addElement("K");
+	this.listeItems.addElement("L");
+	this.listeItems.addElement("M");
+	this.listeItems.addElement("N");
+	this.listeItems.addElement("O");
+	this.listeItems.addElement("P");
+	this.listeItems.addElement("Q");
+	this.listeItems.addElement("R");
+	this.listeItems.addElement("S");
+	this.listeItems.addElement("T");
+	this.listeItems.addElement("U");
+	this.listeItems.addElement("V");
+	this.listeItems.addElement("W");
+	this.listeItems.addElement("X");
+	this.listeItems.addElement("Y");
+	this.listeItems.addElement("Z");
 	
-	liste = new JList(listeItems);
+	this.liste = new JList(this.listeItems);
 	
-	liste.setSelectedValue(defaultValue,true);
-	ardoise.changerEtat((String)liste.getSelectedValue());
-	liste.addListSelectionListener(this);
+	this.liste.setSelectedValue(defaultValue,true);
+	this.ardoise.changerEtat((String)this.liste.getSelectedValue());
+	this.liste.addListSelectionListener(this);
 	
-	setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
-	add(ardoise);
-	listeAvecAscenseur = new JScrollPane(liste);
+	this.setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
+	this.add(this.ardoise);
+	listeAvecAscenseur = new JScrollPane(this.liste);
 
 	
 	//PFA2003
 	listeAvecAscenseur.setPreferredSize(minimumSize 
 					    ? new Dimension(50, 80) 
 					    : new Dimension(200,80));
-	add(listeAvecAscenseur);
+	this.add(listeAvecAscenseur);
 
-	liste.addKeyListener(new KeyAdapter () {
+	this.liste.addKeyListener(new KeyAdapter () {
 		public void keyPressed(KeyEvent e) {
 		    char c = e.getKeyChar();
 		    if (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z'))) {
 			String strC = "" + c;
 			strC = strC.toUpperCase();
-			liste.setSelectedValue(strC, true);
-			liste.repaint();
+			EtatPanel.this.liste.setSelectedValue(strC, true);
+			EtatPanel.this.liste.repaint();
 		    }
 		}
 	    });
 
-	setVisible(true);
+	this.setVisible(true);
     }
     
 
@@ -100,7 +100,7 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
      * to give the focus to the list. 
      */
     public void requestFocus() {
-	liste.requestFocus();
+	this.liste.requestFocus();
     }
 
     public EtatPanel(Hashtable uneHashtable , VueEtatPanel parent)
@@ -110,13 +110,13 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
     
     public void valueChanged(ListSelectionEvent evt) {
 	String s = (String)((JList) evt.getSource()).getSelectedValue();
-	ardoise.changerEtat(s);
-	ardoise.repaint();
-	ardoise.donnePere().elementModified(s);
+	this.ardoise.changerEtat(s);
+	this.ardoise.repaint();
+	this.ardoise.donnePere().elementModified(s);
     }
     
     public EtatArdoise ardoise(){
-	return ardoise;
+	return this.ardoise;
     }
 }
 
@@ -135,28 +135,28 @@ class EtatArdoise extends JPanel {
 		       boolean minimumSize) {
 	this.parent = parent ;
 	this.minimumSize = minimumSize;
-	uneHashtable = dictionnaire;
-	setPreferredSize(minimumSize ? new Dimension(50, 50) : new Dimension(200,60));
+	this.uneHashtable = dictionnaire;
+	this.setPreferredSize(minimumSize ? new Dimension(50, 50) : new Dimension(200,60));
     }
     
     public void paintComponent(Graphics g){
 	super.paintComponent(g);
-	if (uneHashtable.get(unEtat)!= null){
-	    g.setColor((Color)uneHashtable.get(unEtat));
-	    if (minimumSize)
+	if (this.uneHashtable.get(this.unEtat)!= null){
+	    g.setColor((Color)this.uneHashtable.get(this.unEtat));
+	    if (this.minimumSize)
 		g.fillRect(5,5,40,40);
 	    else
 		g.fillRect(100,20,40,40);
 	}
     }
     public void changerEtat(String etat){
- 	unEtat = etat ;
+ 	this.unEtat = etat ;
  	
     }
     public String donneEtat(){
-	return unEtat;
+	return this.unEtat;
     }
     public VueEtatPanel donnePere(){
-	return parent;
+	return this.parent;
     }
 }

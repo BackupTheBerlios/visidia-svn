@@ -18,30 +18,30 @@ public class Broadcast extends Algorithm {
     }
     
     public void init(){
-	int degres = getArity() ;
+	int degres = this.getArity() ;
 	int fatherDoor;
 	//int[] childrenDoors = new int[degres];
 	
-	String label = (String) getProperty("label");
+	String label = (String) this.getProperty("label");
 
 	if(label.compareTo("A") == 0) {
 	    for(int i=0; i < degres; i++){
-		sendTo(i, new StringMessage("Wave",wave));
+		this.sendTo(i, new StringMessage("Wave",wave));
 	    }
 	} else {
 	    Door door = new Door();
-	    Message msg = receive(door);
+	    Message msg = this.receive(door);
 
 	    fatherDoor = door.getNum();
 
-	    sendTo(fatherDoor,new StringMessage("Ack",ack));
+	    this.sendTo(fatherDoor,new StringMessage("Ack",ack));
 
-	    putProperty("label",new String("A"));
-	    setDoorState(new MarkedState(true),fatherDoor);
+	    this.putProperty("label",new String("A"));
+	    this.setDoorState(new MarkedState(true),fatherDoor);
 
 	    for(int i=0; i < degres; i++){
 		if(i != fatherDoor) 
-		    sendTo(i, new StringMessage("Wave",wave));
+		    this.sendTo(i, new StringMessage("Wave",wave));
 	    }
 	}
     }

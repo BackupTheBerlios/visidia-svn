@@ -11,7 +11,7 @@ public class State implements Cloneable{
      */
     public State(int sn){
 	this.sn = sn;
-	num = new Integer(sn);
+	this.num = new Integer(sn);
     }
 
     /**
@@ -19,7 +19,7 @@ public class State implements Cloneable{
      *
      */
     public int getStateNumber(){
-	return sn;
+	return this.sn;
     }    
 
     /**
@@ -28,15 +28,15 @@ public class State implements Cloneable{
      */
     public void setStateNumber(int sn){
 	this.sn = sn;
-	num = new Integer(sn);
+	this.num = new Integer(sn);
     }
 
     public Integer number(){
-	return num;
+	return this.num;
     }
 
     public Object clone(){
-	return new State(getStateNumber());
+	return new State(this.getStateNumber());
     }
 
 }

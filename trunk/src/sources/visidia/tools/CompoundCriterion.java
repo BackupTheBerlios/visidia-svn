@@ -15,35 +15,35 @@ public class CompoundCriterion implements Criterion{
      * elle ne contient aucun critère.
      */
     public CompoundCriterion(){
-	criterionList = new LinkedList();
+	this.criterionList = new LinkedList();
     }
 
     /**
      * ajoute un critère a la liste de critères.
      */
     public void add(Criterion c){
-	criterionList.add(c);
+	this.criterionList.add(c);
     }
 
     /**
      * supprime un critère de la liste des critères.
      */
     public boolean remove(Criterion c){
-	return criterionList.remove(c);
+	return this.criterionList.remove(c);
     }
 
     /**
      * supprime tous les critères.
      */
     public void removeAllCriterion(){
-	criterionList =  new LinkedList();
+	this.criterionList =  new LinkedList();
     }
 
     public boolean isMatchedBy(Object o){
-	if( criterionList.isEmpty() )
+	if( this.criterionList.isEmpty() )
 	    return false;
 
-	Iterator iterator = criterionList.iterator();
+	Iterator iterator = this.criterionList.iterator();
 	while(iterator.hasNext()){
 	    Criterion c = (Criterion) iterator.next();
 	    if(!c.isMatchedBy(o))

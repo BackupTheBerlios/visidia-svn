@@ -130,62 +130,62 @@ public class AgentsSimulationWindow
 	//GuiProperty.drawNbr = true;
 
 
-        evtPipeIn = new visidia.tools.VQueue();
-        evtPipeOut = new visidia.tools.VQueue();
-        ackPipeIn = new visidia.tools.VQueue();
-        ackPipeOut = new visidia.tools.VQueue();
+        this.evtPipeIn = new visidia.tools.VQueue();
+        this.evtPipeOut = new visidia.tools.VQueue();
+        this.ackPipeIn = new visidia.tools.VQueue();
+        this.ackPipeOut = new visidia.tools.VQueue();
 
-        writer = new ObjectWriter();
+        this.writer = new ObjectWriter();
         
-        tg = new ThreadGroup("recorder");
+        this.tg = new ThreadGroup("recorder");
         
         // The edited graph and the selection object which contains selected objects
-        vueGraphe = grapheVisu_edite;
-        selection = new SelectionDessin();
+        this.vueGraphe = grapheVisu_edite;
+        this.selection = new SelectionDessin();
         
-	agentsTable = new Hashtable();
+	this.agentsTable = new Hashtable();
 
-        boxVertices = new Hashtable();
-        boxAgents = new Vector();
-        defaultProperties = new Hashtable();
+        this.boxVertices = new Hashtable();
+        this.boxAgents = new Vector();
+        this.defaultProperties = new Hashtable();
         
 	// The manager of components
-        content = new JPanel();
-        content.setLayout(new BorderLayout());
-        fichier_edite = fichier_edit;
-        mettreAJourTitreFenetre();
-        rulesList = new Vector();
+        this.content = new JPanel();
+        this.content.setLayout(new BorderLayout());
+        this.fichier_edite = fichier_edit;
+        this.mettreAJourTitreFenetre();
+        this.rulesList = new Vector();
         
         // The menu bar
         this.addMenu();
         // Current datas of the edition
         
         // BackGround Color of the GrapheVisuPanel
-        couleur_de_fond = couleur_fond;
+        this.couleur_de_fond = couleur_fond;
         
         // The edited graph and the selection object which contains selected objects
-        vueGraphe = grapheVisu_edite;
-        selection = new SelectionDessin();
+        this.vueGraphe = grapheVisu_edite;
+        this.selection = new SelectionDessin();
         
 	// The panel where the graph is drawn
-        simulationPanel = new AgentsSimulationPanel(this);
+        this.simulationPanel = new AgentsSimulationPanel(this);
         super.setSize(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT);
         // un setSize est a faire avant l'ajout de composants pour eviter
         // les warnings
-        scroller = new JScrollPane(simulationPanel);
-        scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT));
-        simulationPanel.revalidate();
+        this.scroller = new JScrollPane(this.simulationPanel);
+        this.scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,DIM_Y_PAR_DEFAUT));
+        this.simulationPanel.revalidate();
         
-        simulationPanel.scrollRectToVisible(new Rectangle((vueGraphe.donnerDimension()).width-10,(vueGraphe.donnerDimension()).height-10,30,30));
-        simulationPanel.repaint();
+        this.simulationPanel.scrollRectToVisible(new Rectangle((this.vueGraphe.donnerDimension()).width-10,(this.vueGraphe.donnerDimension()).height-10,30,30));
+        this.simulationPanel.repaint();
         
-        scroller.setOpaque(true);
-        content.add(scroller, BorderLayout.CENTER);
+        this.scroller.setOpaque(true);
+        this.content.add(this.scroller, BorderLayout.CENTER);
         
         this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    setVisible(false);
-		    dispose();
+		    AgentsSimulationWindow.this.setVisible(false);
+		    AgentsSimulationWindow.this.dispose();
 		    // Running the garbage collector
 		    Runtime.getRuntime().gc();
                 
@@ -197,10 +197,10 @@ public class AgentsSimulationWindow
         
         // On disable les items non-valide pour une applet
         if(!DistributedAlgoSimulator.estStandalone())
-            disableButtonForApplet();
+            this.disableButtonForApplet();
         
         
-        this.setContentPane(content);
+        this.setContentPane(this.content);
     }
 
     
@@ -210,17 +210,17 @@ public class AgentsSimulationWindow
     public void addAgents(Integer id, String agent) {
 
 	boolean ok;
-	SommetDessin vert = getVueGraphe().rechercherSommet(id.toString());
+	SommetDessin vert = this.getVueGraphe().rechercherSommet(id.toString());
 	int nbr;
 	
-	if(!agentsTable.containsKey(id)) {
-	    agentsTable.put(id, new ArrayList());
+	if(!this.agentsTable.containsKey(id)) {
+	    this.agentsTable.put(id, new ArrayList());
 	}
-	ok = ((ArrayList)agentsTable.get(id)).add(agent);
+	ok = ((ArrayList)this.agentsTable.get(id)).add(agent);
 	
 	vert.changerCouleurFond(Color.red);
 	
-	nbr = ((ArrayList)agentsTable.get(id)).size();
+	nbr = ((ArrayList)this.agentsTable.get(id)).size();
 	String nbrStr = new String().valueOf(nbr);
 	
 	// bug ici (bilel) : ne marche pas avec les sommet cercle
@@ -240,53 +240,53 @@ public class AgentsSimulationWindow
     
     protected void addMenu() {
         
-        menuBar = new JMenuBar();
-        menuBar.setOpaque(true);
-        menuBar.setPreferredSize(new Dimension(650, 20));
+        this.menuBar = new JMenuBar();
+        this.menuBar.setOpaque(true);
+        this.menuBar.setPreferredSize(new Dimension(650, 20));
         
         // Build the menu File
-        file = new JMenu("File");
-        file.getPopupMenu().setName("PopFile");
-        file.setMnemonic('F');
+        this.file = new JMenu("File");
+        this.file.getPopupMenu().setName("PopFile");
+        this.file.setMnemonic('F');
         
-        file_help = new JMenuItem("Help", KeyEvent.VK_H);
-        file_help.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_help = new JMenuItem("Help", KeyEvent.VK_H);
+        this.file_help.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_H, ActionEvent.CTRL_MASK));
-        file_help.addActionListener(this);
-        file.add(file_help);
-        file.addSeparator();
-        file_close = new JMenuItem("Close", KeyEvent.VK_C);
-        file_close.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_help.addActionListener(this);
+        this.file.add(this.file_help);
+        this.file.addSeparator();
+        this.file_close = new JMenuItem("Close", KeyEvent.VK_C);
+        this.file_close.setAccelerator(KeyStroke.getKeyStroke(
 							 KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-        file_close.addActionListener(this);
-        file.add(file_close);
-        file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
-        file_quit.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_close.addActionListener(this);
+        this.file.add(this.file_close);
+        this.file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
+        this.file_quit.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-        file_quit.addActionListener(this);
-        file.add(file_quit);
-        file.addActionListener(this);
-        menuBar.add(file);
-        graph = new JMenu("Graph");
-        graph.getPopupMenu().setName("PopGraph");
-        graph.setMnemonic('G');
+        this.file_quit.addActionListener(this);
+        this.file.add(this.file_quit);
+        this.file.addActionListener(this);
+        this.menuBar.add(this.file);
+        this.graph = new JMenu("Graph");
+        this.graph.getPopupMenu().setName("PopGraph");
+        this.graph.setMnemonic('G');
         
-        graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
-        graph_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        graph_open.addActionListener(this);
-        graph.add(graph_open);
+        this.graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
+        this.graph_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        this.graph_open.addActionListener(this);
+        this.graph.add(this.graph_open);
         
-        graph_save = new JMenuItem("Save Graph");
-        graph_save.addActionListener(this);
-        graph.add(graph_save);
+        this.graph_save = new JMenuItem("Save Graph");
+        this.graph_save.addActionListener(this);
+        this.graph.add(this.graph_save);
         
-        graph_save_as = new JMenuItem("Save graph as...");
-        graph_save_as.addActionListener(this);
-        graph.add(graph_save_as);
-        graph.addActionListener(this);
-	menuBar.add(graph);
+        this.graph_save_as = new JMenuItem("Save graph as...");
+        this.graph_save_as.addActionListener(this);
+        this.graph.add(this.graph_save_as);
+        this.graph.addActionListener(this);
+	this.menuBar.add(this.graph);
 	
-	graph.addSeparator();
+	this.graph.addSeparator();
 	
 	// graphe connection and disconnection
 	
@@ -299,45 +299,45 @@ public class AgentsSimulationWindow
 	  graph_reconnect.setToolTipText("Reconnect the selected elements");
 	  graph.add(graph_reconnect);*/
 	
-	graph_select_all = new JMenuItem("Select all");
-	graph_select_all.addActionListener(this);
-	graph_select_all.setToolTipText("Select all the elements of the graph");
-	graph.add(graph_select_all);
+	this.graph_select_all = new JMenuItem("Select all");
+	this.graph_select_all.addActionListener(this);
+	this.graph_select_all.setToolTipText("Select all the elements of the graph");
+	this.graph.add(this.graph_select_all);
 
-        graph.addActionListener(this);
-        menuBar.add(graph);
+        this.graph.addActionListener(this);
+        this.menuBar.add(this.graph);
 
  
-        algo = new JMenu("Agents"); //!!
-        algo.getPopupMenu().setName("PopAlgo");
-        algo.setMnemonic('A');
+        this.algo = new JMenu("Agents"); //!!
+        this.algo.getPopupMenu().setName("PopAlgo");
+        this.algo.setMnemonic('A');
         
-        algo_open = new JMenuItem("Add Agents...");
-        algo_open.addActionListener(this);
-        algo.add(algo_open);
+        this.algo_open = new JMenuItem("Add Agents...");
+        this.algo_open.addActionListener(this);
+        this.algo.add(this.algo_open);
 
-        algo_placeAgent = new JMenuItem("Place Agents...");
-        algo_placeAgent.addActionListener(this);
-        algo.add(algo_placeAgent);
+        this.algo_placeAgent = new JMenuItem("Place Agents...");
+        this.algo_placeAgent.addActionListener(this);
+        this.algo.add(this.algo_placeAgent);
 
-        algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+        this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
         
-	algo.addActionListener(this);
-	menuBar.add(algo);
+	this.algo.addActionListener(this);
+	this.menuBar.add(this.algo);
         
-	rules = new JMenu("Rules");
-	rules.getPopupMenu().setName("PopRules");
-	rules.setMnemonic('R');
+	this.rules = new JMenu("Rules");
+	this.rules.getPopupMenu().setName("PopRules");
+	this.rules.setMnemonic('R');
 	
-	rules_new = new JMenuItem("New relabeling system");
-	rules_new.addActionListener(this);
-	rules.add(rules_new);
+	this.rules_new = new JMenuItem("New relabeling system");
+	this.rules_new.addActionListener(this);
+	this.rules.add(this.rules_new);
 	
-	rules_open = new JMenuItem("Open rules...");
-	rules_open.addActionListener(this);
-	rules.add(rules_open);
+	this.rules_open = new JMenuItem("Open rules...");
+	this.rules_open.addActionListener(this);
+	this.rules.add(this.rules_open);
 	
-	menuBar.add(rules);
+	this.menuBar.add(this.rules);
         
         /*
 	  visualizationOptions  = new VisualizationOptions(this);
@@ -345,154 +345,154 @@ public class AgentsSimulationWindow
          
 	*/
         
-        this.setJMenuBar(menuBar);
+        this.setJMenuBar(this.menuBar);
     }
     /**
      * This method adds the tool bar and its buttons to the editor
      **/
     protected void addToolBar() {
         
-        toolBar = new JToolBar();
-        toolBar.setBackground(new Color(120, 120, 120));
-        toolBar.setOpaque(true);
-        toolBar.setPreferredSize(new Dimension(650, 42));
+        this.toolBar = new JToolBar();
+        this.toolBar.setBackground(new Color(120, 120, 120));
+        this.toolBar.setOpaque(true);
+        this.toolBar.setPreferredSize(new Dimension(650, 42));
         
         this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    commandeClose();
+		    AgentsSimulationWindow.this.commandeClose();
 		}
 	    });
         
         //Build buttons on the tool bar
-        but_start = new JButton("start");
-        but_start.setToolTipText("Start");
-        but_start.setAlignmentY(CENTER_ALIGNMENT);
-        but_start.setEnabled(false);
-        but_start.addActionListener(this);
-        toolBar.add(but_start);
+        this.but_start = new JButton("start");
+        this.but_start.setToolTipText("Start");
+        this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_start.setEnabled(false);
+        this.but_start.addActionListener(this);
+        this.toolBar.add(this.but_start);
         
-        but_pause = new JButton("pause");
-        but_pause.setToolTipText("Pause");
-        but_pause.setAlignmentY(CENTER_ALIGNMENT);
-        but_pause.setEnabled(false);
-        but_pause.addActionListener(this);
-        toolBar.add(but_pause);
+        this.but_pause = new JButton("pause");
+        this.but_pause.setToolTipText("Pause");
+        this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_pause.setEnabled(false);
+        this.but_pause.addActionListener(this);
+        this.toolBar.add(this.but_pause);
         
-        but_stop = new JButton("stop");
-        but_stop.setToolTipText("Stop");
-        but_stop.setAlignmentY(CENTER_ALIGNMENT);
-        but_stop.addActionListener(this);
-        but_stop.setEnabled(false);
-        toolBar.add(but_stop);
+        this.but_stop = new JButton("stop");
+        this.but_stop.setToolTipText("Stop");
+        this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_stop.addActionListener(this);
+        this.but_stop.setEnabled(false);
+        this.toolBar.add(this.but_stop);
         
-        toolBar.addSeparator();
-        but_save = new JButton("save");
-        but_save.setToolTipText("Save");
-        but_save.setAlignmentY(CENTER_ALIGNMENT);
-        but_save.addActionListener(this);
-        toolBar.add(but_save);
+        this.toolBar.addSeparator();
+        this.but_save = new JButton("save");
+        this.but_save.setToolTipText("Save");
+        this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_save.addActionListener(this);
+        this.toolBar.add(this.but_save);
         
 
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
         // slider for speed modification
-        speed_slider = new JSlider(1, 20, 10);
-        speed_slider.addChangeListener(this);
-        speed_slider.setToolTipText("Speed");
-        speed_slider.setAlignmentY(TOP_ALIGNMENT);
-        speed_slider.setAlignmentX(LEFT_ALIGNMENT);
-        speed_slider.setPreferredSize(new Dimension(80,15));
-        speed_slider.setBackground(toolBar.getBackground().brighter());
+        this.speed_slider = new JSlider(1, 20, 10);
+        this.speed_slider.addChangeListener(this);
+        this.speed_slider.setToolTipText("Speed");
+        this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
+        this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+        this.speed_slider.setPreferredSize(new Dimension(80,15));
+        this.speed_slider.setBackground(this.toolBar.getBackground().brighter());
         JPanel speed_panel = new JPanel();
         
         speed_panel.setMaximumSize(new Dimension(85,40));
-        speed_panel.setBackground(toolBar.getBackground());
-        speed_label = new JLabel("Speed ("+simulationPanel.pas()+")");
-        speed_label.setFont(new Font("Dialog",Font.BOLD,10));
-        speed_label.setToolTipText("Speed");
-        speed_label.setAlignmentY(TOP_ALIGNMENT);
-        speed_label.setForeground(Color.black);
-        speed_panel.add(speed_slider);
-        speed_panel.add(speed_label);
+        speed_panel.setBackground(this.toolBar.getBackground());
+        this.speed_label = new JLabel("Speed ("+this.simulationPanel.pas()+")");
+        this.speed_label.setFont(new Font("Dialog",Font.BOLD,10));
+        this.speed_label.setToolTipText("Speed");
+        this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+        this.speed_label.setForeground(Color.black);
+        speed_panel.add(this.speed_slider);
+        speed_panel.add(this.speed_label);
         
-        toolBar.add(speed_panel);
+        this.toolBar.add(speed_panel);
 
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
 
    
-        but_info = new JButton(new ImageIcon(TableImages.getImage("vertexwb")));
-        but_info.setToolTipText("Info");
-        but_info.setAlignmentY(CENTER_ALIGNMENT);
-        but_info.addActionListener(this);
-        toolBar.add(but_info);
+        this.but_info = new JButton(new ImageIcon(TableImages.getImage("vertexwb")));
+        this.but_info.setToolTipText("Info");
+        this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_info.addActionListener(this);
+        this.toolBar.add(this.but_info);
 
-        but_default = new JButton(new ImageIcon(TableImages.getImage("vertexdefwb")));
-        but_default.setToolTipText("Initialisation");
-        but_default.setAlignmentY(CENTER_ALIGNMENT);
-        but_default.addActionListener(this);
-        toolBar.add(but_default);
+        this.but_default = new JButton(new ImageIcon(TableImages.getImage("vertexdefwb")));
+        this.but_default.setToolTipText("Initialisation");
+        this.but_default.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_default.addActionListener(this);
+        this.toolBar.add(this.but_default);
         
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
-        but_agents = new JButton(new ImageIcon(TableImages.getImage("agentwb")));
-        but_agents.setToolTipText("Agent whiteboard");
-        but_agents.setAlignmentY(CENTER_ALIGNMENT);
-        but_agents.setEnabled(false);
-        but_agents.addActionListener(this);
-        toolBar.add(but_agents);
+        this.but_agents = new JButton(new ImageIcon(TableImages.getImage("agentwb")));
+        this.but_agents.setToolTipText("Agent whiteboard");
+        this.but_agents.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_agents.setEnabled(false);
+        this.but_agents.addActionListener(this);
+        this.toolBar.add(this.but_agents);
         
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
 
 
-        but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
-        but_help.setToolTipText("Help");
-        but_help.setAlignmentY(CENTER_ALIGNMENT);
-        but_help.addActionListener(this);
-        toolBar.add(but_help);
+        this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
+        this.but_help.setToolTipText("Help");
+        this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_help.addActionListener(this);
+        this.toolBar.add(this.but_help);
         
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
-        but_experimentation = new JButton("Statistics");
-        but_experimentation.setToolTipText("Statistics");
-        but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
-        but_experimentation.addActionListener(this);
-        but_experimentation.setEnabled(false);
-        toolBar.add(but_experimentation);
-        toolBar.addSeparator();
+        this.but_experimentation = new JButton("Statistics");
+        this.but_experimentation.setToolTipText("Statistics");
+        this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_experimentation.addActionListener(this);
+        this.but_experimentation.setEnabled(false);
+        this.toolBar.add(this.but_experimentation);
+        this.toolBar.addSeparator();
         
-        but_threadCount = new JButton("Threads");
-        but_threadCount.setToolTipText("Amount of threads that are active in the VM");
-        but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
-        but_threadCount.addActionListener(this);
-        toolBar.add(but_threadCount);
-        toolBar.addSeparator();
+        this.but_threadCount = new JButton("Threads");
+        this.but_threadCount.setToolTipText("Amount of threads that are active in the VM");
+        this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_threadCount.addActionListener(this);
+        this.toolBar.add(this.but_threadCount);
+        this.toolBar.addSeparator();
         if(threadCountFrame == null){
             threadCountFrame = new ThreadCountFrame(Thread.currentThread().getThreadGroup());
         }
         
-        but_reset = new JButton("RESET");
-        but_reset.setToolTipText("RESET");
-        but_reset.setAlignmentY(CENTER_ALIGNMENT);
-        but_reset.addActionListener(this);
-        but_reset.setEnabled((fichier_edite != null));
-        toolBar.add(but_reset);
+        this.but_reset = new JButton("RESET");
+        this.but_reset.setToolTipText("RESET");
+        this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_reset.addActionListener(this);
+        this.but_reset.setEnabled((this.fichier_edite != null));
+        this.toolBar.add(this.but_reset);
         
-	global_clock = new PulseCounter();
+	this.global_clock = new PulseCounter();
 
-        content.add(toolBar, BorderLayout.NORTH);
-	content.add(global_clock, BorderLayout.SOUTH);
+        this.content.add(this.toolBar, BorderLayout.NORTH);
+	this.content.add(this.global_clock, BorderLayout.SOUTH);
 
     }
     
     
     // disable the button not used for the applet
     private void disableButtonForApplet(){
-        file_quit.setEnabled(false);
-        rules.setEnabled(false);
-        graph.setEnabled(false);
-        rules_new.setEnabled(false);
-        but_save.setEnabled(false);
-        but_experimentation.setEnabled(false);
+        this.file_quit.setEnabled(false);
+        this.rules.setEnabled(false);
+        this.graph.setEnabled(false);
+        this.rules_new.setEnabled(false);
+        this.but_save.setEnabled(false);
+        this.but_experimentation.setEnabled(false);
     }
     
     
@@ -502,7 +502,7 @@ public class AgentsSimulationWindow
     /*   to the graph visualisation during the simulation     */
     /**********************************************************/
     public AgentsSimulationPanel simulationPanel() {
-        return simulationPanel;
+        return this.simulationPanel;
     }
     
     /*********************************************************/
@@ -512,9 +512,9 @@ public class AgentsSimulationWindow
     public void actionPerformed(ActionEvent evt) {
         
         if(evt.getSource() instanceof JButton)
-            action_toolbar((JButton)evt.getSource());
+            this.action_toolbar((JButton)evt.getSource());
         else if(evt.getSource() instanceof JMenuItem)
-            action_menu((JMenuItem)evt.getSource());
+            this.action_menu((JMenuItem)evt.getSource());
     }
     
     /*********************************************************/
@@ -522,9 +522,9 @@ public class AgentsSimulationWindow
     /* action on the speed slider                            */
     /*********************************************************/
     public void stateChanged(ChangeEvent evt) {
-        if (evt.getSource() == speed_slider) {
-            speed_label.setText("Speed ("+speed_slider.getValue()+")");
-            simulationPanel.updatePas(speed_slider.getValue());
+        if (evt.getSource() == this.speed_slider) {
+            this.speed_label.setText("Speed ("+this.speed_slider.getValue()+")");
+            this.simulationPanel.updatePas(this.speed_slider.getValue());
         }
     }
     
@@ -536,13 +536,13 @@ public class AgentsSimulationWindow
         String le_menu = ((JPopupMenu)mi.getParent()).getName();
         
         if(le_menu == "PopFile") {
-            menuFile(mi);}
+            this.menuFile(mi);}
         else if(le_menu == "PopGraph")
-            menuGraph(mi);
+            this.menuGraph(mi);
         else if(le_menu == "PopAlgo")
-            menuAlgo(mi);
+            this.menuAlgo(mi);
         else if(le_menu == "PopRules")
-            menuRules(mi);
+            this.menuRules(mi);
         /*else if(le_menu == "PopRules_new")
 	  menuNew(mi);*/
         
@@ -555,17 +555,17 @@ public class AgentsSimulationWindow
 
     public void but_start() {
 	// deselect all selected elements
-	selection.deSelect();
+	this.selection.deSelect();
 
 	// enable drawing on vertices the number of agents
 	GuiProperty.drawNbr = true;
 	
-	simulationPanel.start();
+	this.simulationPanel.start();
 	// modifications for the recorder
-	sim = null;
+	this.sim = null;
 	// destruction of ths old threads
-	while(tg.activeCount() > 0) {
-	    tg.interrupt();
+	while(this.tg.activeCount() > 0) {
+	    this.tg.interrupt();
 	    try{
 		Thread.currentThread().sleep(50);
 	    }
@@ -573,41 +573,41 @@ public class AgentsSimulationWindow
 	    }
 	}
         
-        sim = new AgentSimulator(Convertisseur
-                                 .convert(vueGraphe.getGraphe(),
-                                          agentsTable,
-                                          defaultProperties),
-                                 agentsRules,
-                                 evtPipeOut, ackPipeOut);
+        this.sim = new AgentSimulator(Convertisseur
+                                 .convert(this.vueGraphe.getGraphe(),
+                                          this.agentsTable,
+                                          this.defaultProperties),
+                                 this.agentsRules,
+                                 this.evtPipeOut, this.ackPipeOut);
 
-        seh =  new AgentSimulEventHandler(this,evtPipeOut,ackPipeOut);
- 	seh.start();
+        this.seh =  new AgentSimulEventHandler(this,this.evtPipeOut,this.ackPipeOut);
+ 	this.seh.start();
 
-	but_stop.setEnabled(true);
-	but_pause.setEnabled(true);
-	but_start.setEnabled(false);
+	this.but_stop.setEnabled(true);
+	this.but_pause.setEnabled(true);
+	this.but_start.setEnabled(false);
 
-        but_agents.setEnabled(true);
-        but_experimentation.setEnabled(true);
+        this.but_agents.setEnabled(true);
+        this.but_experimentation.setEnabled(true);
 
-	algo_open.setEnabled(false); 
-	algo_placeAgent.setEnabled(false);
-	rules_open.setEnabled(false);
-	rules_new.setEnabled(false);
+	this.algo_open.setEnabled(false); 
+	this.algo_placeAgent.setEnabled(false);
+	this.rules_open.setEnabled(false);
+	this.rules_new.setEnabled(false);
 
-        sim.startSimulation();
+        this.sim.startSimulation();
 
     }
     
     public void but_pause() {
-	if(simulationPanel.isRunning()){
-	    simulationPanel.pause();
+	if(this.simulationPanel.isRunning()){
+	    this.simulationPanel.pause();
 	    // bilel : ne sert à rien puisque l'interface graphique
             //doit acquitter pour que les threads continuent à tourner
             //dam sim.wedge();
 	}
 	else {
-	    simulationPanel.start();
+	    this.simulationPanel.start();
             //dam 	    sim.unWedge();
 	}
     }
@@ -615,20 +615,20 @@ public class AgentsSimulationWindow
     public void but_stop() {
 	this.stopAll();
 
-	evtPipeIn = new visidia.tools.VQueue();
-	evtPipeOut = new visidia.tools.VQueue();
-	ackPipeIn = new visidia.tools.VQueue();
-	ackPipeOut = new visidia.tools.VQueue();
+	this.evtPipeIn = new visidia.tools.VQueue();
+	this.evtPipeOut = new visidia.tools.VQueue();
+	this.ackPipeIn = new visidia.tools.VQueue();
+	this.ackPipeOut = new visidia.tools.VQueue();
 	
-	but_start.setEnabled(false);
-	but_pause.setEnabled(false);
-	but_stop.setEnabled(false);
-	but_reset.setEnabled(true);
+	this.but_start.setEnabled(false);
+	this.but_pause.setEnabled(false);
+	this.but_stop.setEnabled(false);
+	this.but_reset.setEnabled(true);
 
-        but_agents.setEnabled(false);
+        this.but_agents.setEnabled(false);
 
 
-	global_clock.initState();
+	this.global_clock.initState();
     }
 
     public void but_experimentation() {
@@ -639,19 +639,19 @@ public class AgentsSimulationWindow
 	if (classStats == null)
 	    return;
 
-	if (sim == null) {
-	    statsFrame = new AgentExperimentationFrame(vueGraphe, agentsTable, 
-						       defaultProperties, agentsRules,
+	if (this.sim == null) {
+	    statsFrame = new AgentExperimentationFrame(this.vueGraphe, this.agentsTable, 
+						       this.defaultProperties, this.agentsRules,
 						       classStats);
 	} else {
-	    classStats.setStats(sim.getStats());
+	    classStats.setStats(this.sim.getStats());
 	    expStats = classStats.getStats();
 	   	    
 	    statsFrame = new AgentExperimentationFrame(expStats);
-	    if (timer == null) {
-		timer = new UpdateTableStats(sim, classStats, 
+	    if (this.timer == null) {
+		this.timer = new UpdateTableStats(this.sim, classStats, 
 					     statsFrame.getTableModel());
-		new Thread(timer).start();
+		new Thread(this.timer).start();
 	    }
 	}
 
@@ -663,93 +663,93 @@ public class AgentsSimulationWindow
     
 
     public void but_reset() {
-	simulationPanel.stop();
-	if (sim != null) {
- 	    sim.abortSimulation();
-            sim = null;
+	this.simulationPanel.stop();
+	if (this.sim != null) {
+ 	    this.sim.abortSimulation();
+            this.sim = null;
         }
-        if (seh != null)
-            seh.abort();
+        if (this.seh != null)
+            this.seh.abort();
 	
 	/*
 	  if (fichier_edite != null)
 	  OpenGraph.open(this,fichier_edite);
 	*/
 	
-        agentsTable.clear();
+        this.agentsTable.clear();
 
-	vueGraphe = editeur.getGraphClone();
+	this.vueGraphe = this.editeur.getGraphClone();
 	
-	evtPipeIn = new visidia.tools.VQueue();
-	evtPipeOut = new visidia.tools.VQueue();
-	ackPipeIn = new visidia.tools.VQueue();
-	ackPipeOut = new visidia.tools.VQueue();
-	replaceSelection(new SelectionDessin());
-	simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-	simulationPanel.revalidate();
-	simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-	simulationPanel.repaint();
+	this.evtPipeIn = new visidia.tools.VQueue();
+	this.evtPipeOut = new visidia.tools.VQueue();
+	this.ackPipeIn = new visidia.tools.VQueue();
+	this.ackPipeOut = new visidia.tools.VQueue();
+	this.replaceSelection(new SelectionDessin());
+	this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+	this.simulationPanel.revalidate();
+	this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+	this.simulationPanel.repaint();
 	
 	//algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
 	
-	but_start.setEnabled(false);
-	but_pause.setEnabled(false);
-	but_stop.setEnabled(false);
-	but_reset.setEnabled(true);
-        but_experimentation.setEnabled(false);
+	this.but_start.setEnabled(false);
+	this.but_pause.setEnabled(false);
+	this.but_stop.setEnabled(false);
+	this.but_reset.setEnabled(true);
+        this.but_experimentation.setEnabled(false);
 
 	/* enable the button to add agents */
-	algo_open.setEnabled(true); 
-	algo_placeAgent.setEnabled(true);
-	rules_open.setEnabled(true);
-	rules_new.setEnabled(true);
+	this.algo_open.setEnabled(true); 
+	this.algo_placeAgent.setEnabled(true);
+	this.rules_open.setEnabled(true);
+	this.rules_new.setEnabled(true);
 
 	/* reinitialize the pulse counter */
-	global_clock.initState();
+	this.global_clock.initState();
 	
     }
 
     public void action_toolbar(JButton b) {
-        if (b == but_start){
-	    but_start();
+        if (b == this.but_start){
+	    this.but_start();
         }
-        else if (b == but_pause) {
-	    but_pause();
+        else if (b == this.but_pause) {
+	    this.but_pause();
         }
-	else if (b == but_stop) {
-	    but_stop();
+	else if (b == this.but_stop) {
+	    this.but_stop();
         }
-	else if (b == but_experimentation){
-	    but_experimentation();
+	else if (b == this.but_experimentation){
+	    this.but_experimentation();
         }
-	else if (b == but_threadCount){
+	else if (b == this.but_threadCount){
             threadCountFrame.pack();
             threadCountFrame.setVisible(true);
         }
-	else if (b == but_save) {
-            SaveFile.save(this, vueGraphe.getGraphe());
+	else if (b == this.but_save) {
+            SaveFile.save(this, this.vueGraphe.getGraphe());
         }
-        else if (b == but_info){
-            propertiesControl();
+        else if (b == this.but_info){
+            this.propertiesControl();
         }
-        else if (b == but_default){
-            but_initWhiteboard();
+        else if (b == this.but_default){
+            this.but_initWhiteboard();
         }
-        else if (b == but_agents){
-            but_agentsWhiteboard();
+        else if (b == this.but_agents){
+            this.but_agentsWhiteboard();
         }
 	//PFA2003
-	else if (b == but_help){
+	else if (b == this.but_help){
 	    System.out.println("BUTTON HELP : NOT IMPLMENTED YET");
 	}
-        else if (b == but_reset) {
-	    but_reset();
+        else if (b == this.but_reset) {
+	    this.but_reset();
 	}
     }
 
 
     public void setPulse(int pulse) {
-	global_clock.setPulse(pulse);
+	this.global_clock.setPulse(pulse);
     }
 
 
@@ -759,7 +759,7 @@ public class AgentsSimulationWindow
     public void menuFile(JMenuItem mi) {
         
         
-        if(mi == file_help) {
+        if(mi == this.file_help) {
             JOptionPane.showMessageDialog(this,
 					  "DistributedAlgoSimulator, v2\n" +
 					  "in this window you can't modifie the graph \n"+
@@ -767,9 +767,9 @@ public class AgentsSimulationWindow
 					  "before starting simulation you must load an algorithm \n "+
 					  "or a list of simple rules \n");
         }
-        else if(mi == file_close)
-            commandeClose();
-        else if(mi == file_quit)
+        else if(mi == this.file_close)
+            this.commandeClose();
+        else if(mi == this.file_quit)
             System.exit(0);
     }
     
@@ -777,41 +777,41 @@ public class AgentsSimulationWindow
     /* Method for the fonctionnalities of the "graph" menu.      */
     /*************************************************************/
     public void menuGraph(JMenuItem mi) {
-        if(mi == graph_open){
+        if(mi == this.graph_open){
             OpenGraph.open(this);
-            algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+            this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
             //             algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-            replaceSelection(new SelectionDessin());
-            simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-            simulationPanel.revalidate();
-            simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-            simulationPanel.repaint();
-            if (item_replay.isSelected()) {
-                but_start.setEnabled(true);
-                but_experimentation.setEnabled(true);
+            this.replaceSelection(new SelectionDessin());
+            this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+            this.simulationPanel.revalidate();
+            this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+            this.simulationPanel.repaint();
+            if (this.item_replay.isSelected()) {
+                this.but_start.setEnabled(true);
+                this.but_experimentation.setEnabled(true);
             }
             else
-                but_start.setEnabled(false);
-            but_pause.setEnabled(false);
-            but_stop.setEnabled(false);
+                this.but_start.setEnabled(false);
+            this.but_pause.setEnabled(false);
+            this.but_stop.setEnabled(false);
         }
         
-        else if(mi == graph_save) {
+        else if(mi == this.graph_save) {
             
-            SaveFile.save(this, vueGraphe.getGraphe());
+            SaveFile.save(this, this.vueGraphe.getGraphe());
         }
-        else if(mi == graph_save_as) {
-            fichier_edite = null;
-            SaveFile.saveAs(this, vueGraphe.getGraphe());
+        else if(mi == this.graph_save_as) {
+            this.fichier_edite = null;
+            SaveFile.saveAs(this, this.vueGraphe.getGraphe());
         }
-	else if (mi == graph_select_all) {
+	else if (mi == this.graph_select_all) {
 	    //PFA2003
-	    Enumeration e = vueGraphe.listeAffichage();
+	    Enumeration e = this.vueGraphe.listeAffichage();
 	    while(e.hasMoreElements()) {
 		FormeDessin objetVisu = (FormeDessin)e.nextElement();
-		selection.insererElement(objetVisu);
+		this.selection.insererElement(objetVisu);
 	    }
-	    repaint ();
+	    this.repaint ();
 	}
     }
     
@@ -819,10 +819,10 @@ public class AgentsSimulationWindow
     /* Method for the fonctionnalities of the "Algo" menu.       */
     /*************************************************************/
     public void menuAlgo(JMenuItem mi) {
-        if(mi == algo_open){
+        if(mi == this.algo_open){
             boolean ok = true;
             
-            if(selection.estVide()) {
+            if(this.selection.estVide()) {
                 JOptionPane
                     .showMessageDialog(this,
                                        "You must select at least one"
@@ -833,28 +833,28 @@ public class AgentsSimulationWindow
             }
             
             if(DistributedAlgoSimulator.estStandalone())
-                ok = OpenAgents.open(selection.elements(),this);
+                ok = OpenAgents.open(this.selection.elements(),this);
             else
 		// When using Visidia with an applet: not implemented
                 // yet 
 		// OpenAlgoApplet.open(this);
                 ;
             
-            if(! but_start.isEnabled()) {
-                but_start.setEnabled(ok);
-                but_experimentation.setEnabled(ok);
+            if(! this.but_start.isEnabled()) {
+                this.but_start.setEnabled(ok);
+                this.but_experimentation.setEnabled(ok);
             }
             
         }
         
-        if (mi == algo_placeAgent) {
+        if (mi == this.algo_placeAgent) {
             boolean ok = true;
 
             ok = OpenAgentChooser.open(this);
 
-            if(! but_start.isEnabled()) {
-                but_start.setEnabled(ok);
-                but_experimentation.setEnabled(ok);
+            if(! this.but_start.isEnabled()) {
+                this.but_start.setEnabled(ok);
+                this.but_experimentation.setEnabled(ok);
             }
         }
     }
@@ -863,7 +863,7 @@ public class AgentsSimulationWindow
     /* Method for the fonctionnalities of the "rules" menu.      */
     /*************************************************************/
     public void menuRules(JMenuItem mi) {
-        if(selection.estVide()) {
+        if(this.selection.estVide()) {
             JOptionPane
                 .showMessageDialog(this,
                                    "You must select at least one"
@@ -873,7 +873,7 @@ public class AgentsSimulationWindow
             return;
         }
         
-	if (mi == rules_open) {
+	if (mi == this.rules_open) {
             final javax.swing.filechooser.FileFilter filter = 
                 new javax.swing.filechooser.FileFilter () {
                     public boolean accept (File f) {
@@ -897,14 +897,14 @@ public class AgentsSimulationWindow
                     ObjectInputStream p = new ObjectInputStream(istream);
                     RelabelingSystem rSys = (RelabelingSystem) p.readObject();
                     istream.close();
-                    applyStarRulesSystem(rSys);
+                    this.applyStarRulesSystem(rSys);
                 } catch (IOException ioe) {
                     System.out.println (ioe);
                 } catch (ClassNotFoundException cnfe) {
                     System.out.println (cnfe);
                 }
             }
-        } else if (mi == rules_new) {
+        } else if (mi == this.rules_new) {
 	    StarRuleFrame starRuleFrame = new StarRuleFrame(this,
 							    this);
 	    starRuleFrame.setVisible(true);
@@ -913,50 +913,50 @@ public class AgentsSimulationWindow
     
 
     public void applyStarRulesSystem(RelabelingSystem rSys) {
-	rulesWarnings(rSys);
+	this.rulesWarnings(rSys);
 
-        if (agentsRules == null)
-            agentsRules = new Vector();
+        if (this.agentsRules == null)
+            this.agentsRules = new Vector();
 
-	int size = agentsRules.size();
+	int size = this.agentsRules.size();
 	
-	agentsRules.add(rSys);
+	this.agentsRules.add(rSys);
 
-	Enumeration e = selection.elements();
+	Enumeration e = this.selection.elements();
 	while (e.hasMoreElements()) {
 	    int id;
 	    id = Integer.decode(((SommetDessin)e.nextElement()).getEtiquette());
-	    addAgents(id,"Agents Rules_" + size);
+	    this.addAgents(id,"Agents Rules_" + size);
 	}
 
-	but_start.setEnabled(true);
-        but_experimentation.setEnabled(true);
+	this.but_start.setEnabled(true);
+        this.but_experimentation.setEnabled(true);
     }
     
     private void stopAll() {
 
-	if (sim != null) {   // we kill the threads
+	if (this.sim != null) {   // we kill the threads
 	    
 	    System.out.println("Stopping the timer");
-	    if (timer != null) {
-		timer.stop();
-		timer = null;
+	    if (this.timer != null) {
+		this.timer.stop();
+		this.timer = null;
 	    }
 	    
 	    System.out.println("Stopping the Simulation panel");
-	    simulationPanel.stop();
+	    this.simulationPanel.stop();
 	    System.out.println("  ==> Stopped");
 	    System.out.println("Stopping the Simulator");
-	    if (sim != null)
-		sim.abortSimulation();
+	    if (this.sim != null)
+		this.sim.abortSimulation();
 	    
 	    System.out.println("  ==> Stopped");
 	    
 	    System.out.println("Stopping the Simulator Event Handler");
-	    seh.abort();
+	    this.seh.abort();
 	    System.out.println(" ==> Stopped");
 	    
-            seh.abort();
+            this.seh.abort();
 	}
     }
     
@@ -965,7 +965,7 @@ public class AgentsSimulationWindow
     /********************************/
     public void commandeClose() {
 
-	Iterator it = boxAgents.iterator();
+	Iterator it = this.boxAgents.iterator();
 	while (it.hasNext()){
 	    AgentBoxProperty box = (AgentBoxProperty)it.next();	
 	    box.close();
@@ -974,8 +974,8 @@ public class AgentsSimulationWindow
 	
 	this.stopAll();
 	GuiProperty.drawNbr = false; 
-        setVisible(false);
-        dispose();
+        this.setVisible(false);
+        this.dispose();
         // collecting the garbage
         Runtime.getRuntime().gc();
     }
@@ -985,11 +985,11 @@ public class AgentsSimulationWindow
      */
     public void commandeToutSelectionner() { // Penser au repaint()
         int i = 0;
-        Enumeration e = vueGraphe.listeAffichage();
+        Enumeration e = this.vueGraphe.listeAffichage();
         if (e.hasMoreElements()) {
             while(e.hasMoreElements()) {
                 FormeDessin forme = (FormeDessin)e.nextElement();
-                selection.insererElement(forme);
+                this.selection.insererElement(forme);
                 forme.enluminer(true);
                 i++;
             }
@@ -1005,12 +1005,12 @@ public class AgentsSimulationWindow
     /* saving is made and then change the title of the window */
     /**********************************************************/
     public void mettreAJourTitreFenetre(File fichier) {
-        if(fichier != null) but_reset.setEnabled(true);
+        if(fichier != null) this.but_reset.setEnabled(true);
         super.mettreAJourTitreFenetre(fichier);
     }
 
     public void mettreAJourTitreFenetre(String nom_Algo) {
-	algoTitle = nom_Algo;
+	this.algoTitle = nom_Algo;
 	super.mettreAJourTitreFenetre(nom_Algo);
     }
 
@@ -1020,7 +1020,7 @@ public class AgentsSimulationWindow
     }
     
     public String getAlgoTitle() {
-	return algoTitle;
+	return this.algoTitle;
     }
 
     public String type(){
@@ -1028,7 +1028,7 @@ public class AgentsSimulationWindow
     }
     
     public File fichier_rules_edite() {
-        return fichier_rules_edite;
+        return this.fichier_rules_edite;
     }
     
     // Implementation of the Listeners
@@ -1043,15 +1043,15 @@ public class AgentsSimulationWindow
     
     public void windowDeiconified(WindowEvent e) {}
     
-    public void windowActivated(WindowEvent e) {content.repaint();}
+    public void windowActivated(WindowEvent e) {this.content.repaint();}
     
     public void windowDeactivated(WindowEvent e) {}
     
     public void commandeSupprimer() { // Penser au repaint()
         
         // Deleting the elements of the selection
-        if(!selection.estVide()) {
-            Enumeration e = selection.elements();
+        if(!this.selection.estVide()) {
+            Enumeration e = this.selection.elements();
             while (e.hasMoreElements()) {
                 FormeDessin forme = (FormeDessin)e.nextElement();
                 forme.delete();
@@ -1062,9 +1062,9 @@ public class AgentsSimulationWindow
     
     private void replaceSelection(SelectionDessin new_selection) {
         // Deletes the initial selection and replaces it with the new one
-        emptyCurrentSelection(true);
-        selection = new_selection;
-        selection.select();
+        this.emptyCurrentSelection(true);
+        this.selection = new_selection;
+        this.selection.select();
     }
     
     
@@ -1072,23 +1072,23 @@ public class AgentsSimulationWindow
      * Method to empty the current selection
      */
     public void emptyCurrentSelection(boolean deselect) { // Penser au repaint()
-        if (!selection.estVide())
+        if (!this.selection.estVide())
             if (deselect) {
-                selection.deSelect();
+                this.selection.deSelect();
             }
     }
     
     // action on the property button with a selection
     
     private void propertiesControl() {
-        if (selection.estVide())
+        if (this.selection.estVide())
             System.out.println("empty");
         else {
-            Enumeration e = selection.elements();
+            Enumeration e = this.selection.elements();
             FormeDessin firstElement = ((FormeDessin)e.nextElement());
-            if (!Traitements.sommetDessin(selection.elements()).hasMoreElements()) {
+            if (!Traitements.sommetDessin(this.selection.elements()).hasMoreElements()) {
                 // we have only edges
-                e = selection.elements();
+                e = this.selection.elements();
                 Ensemble listeElements = new Ensemble();
                 listeElements.inserer(e);
                 //                 BoiteChangementCouleurArete boiteArete =
@@ -1098,35 +1098,35 @@ public class AgentsSimulationWindow
 
                 boiteArete.show(this);
             }
-            else if ((selection.nbElements() == 1) &&
+            else if ((this.selection.nbElements() == 1) &&
 		     (firstElement.type().equals("vertex"))){
 
                 // if ( boxVertices.containsKey(firstElement) ) {
                 //                     boxVertices.remove(firstElement);
                 //                 }
                 
-                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, (SommetDessin)firstElement, defaultProperties);
-                boxVertices.put((SommetDessin)firstElement,agentBox);
+                AgentBoxChangingVertexState agentBox = new AgentBoxChangingVertexState(this, (SommetDessin)firstElement, this.defaultProperties);
+                this.boxVertices.put((SommetDessin)firstElement,agentBox);
                 agentBox.show(this);
             }
             else{
-                e = selection.elements();
+                e = this.selection.elements();
                 visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
                 while(e.hasMoreElements())
                     table_des_types.inserer(((FormeDessin)e.nextElement()).type());
-		AgentBoxSimulationSelection.show(this, selection, table_des_types);
+		AgentBoxSimulationSelection.show(this, this.selection, table_des_types);
             }
         }
     }
 
     private void but_initWhiteboard() {
-        DefaultBoxVertex defBox = new DefaultBoxVertex(this,defaultProperties);
+        DefaultBoxVertex defBox = new DefaultBoxVertex(this,this.defaultProperties);
         defBox.show(this);
     }
 
     private void but_agentsWhiteboard() {
 
-        Object[] agents = sim.getAllAgents().toArray();
+        Object[] agents = this.sim.getAllAgents().toArray();
         
         Agent ag = (Agent) JOptionPane.showInputDialog(this,
                                                        "Select the agent:",
@@ -1139,7 +1139,7 @@ public class AgentsSimulationWindow
         if (ag != null) {
             
             AgentBoxProperty agentBox = new AgentBoxProperty(this,ag.getWhiteBoard(),ag.toString());
-            boxAgents.addElement(agentBox);
+            this.boxAgents.addElement(agentBox);
 	    agentBox.show(this);
         }
 
@@ -1147,29 +1147,29 @@ public class AgentsSimulationWindow
 
 
     public void removeWindow(AbstractDefaultBox box) {
-        boxAgents.remove(box);
+        this.boxAgents.remove(box);
     }
     
     public void changerVueGraphe(VueGraphe grapheVisu){
-        content.remove(scroller);
-        selection.deSelect();
+        this.content.remove(this.scroller);
+        this.selection.deSelect();
         this.vueGraphe = grapheVisu;
         this.simulationPanel = new AgentsSimulationPanel(this);
-        simulationPanel.updatePas(speed_slider.getValue());
-        scroller = new JScrollPane(this.simulationPanel);
-        scroller.setPreferredSize(new Dimension(650,600));
-        scroller.setOpaque(true);
-        content.add(scroller, BorderLayout.CENTER);
+        this.simulationPanel.updatePas(this.speed_slider.getValue());
+        this.scroller = new JScrollPane(this.simulationPanel);
+        this.scroller.setPreferredSize(new Dimension(650,600));
+        this.scroller.setOpaque(true);
+        this.content.add(this.scroller, BorderLayout.CENTER);
     }
     
     public visidia.tools.VQueue getEvtPipe(){
-        return evtPipeOut;
+        return this.evtPipeOut;
     }
     public visidia.tools.VQueue getAckPipe(){
-        return ackPipeOut;
+        return this.ackPipeOut;
     }
     public void setEdgeState(int id1, int id2, boolean hasFailure) {
-        edgesStates[id1][id2] = hasFailure;
+        this.edgesStates[id1][id2] = hasFailure;
     }
     
     public static void setVisuAlgorithmMess(boolean b){
@@ -1183,7 +1183,7 @@ public class AgentsSimulationWindow
     
     public void nodeStateChanged(int nodeId, Hashtable properties) {
         //System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
-	if (sim != null)
+	if (this.sim != null)
             //dam 	    sim.setNodeProperties(nodeId, properties);
             ;
         //sim.restartNode(nodeId);
@@ -1218,7 +1218,7 @@ public class AgentsSimulationWindow
 
     public void updateVertexState(SommetDessin vert) {
         AgentBoxChangingVertexState box = 
-            boxVertices.get(vert);
+            this.boxVertices.get(vert);
 
         if (box!=null)          // An AgentBoxChangingVertexState is
             box.updateBox();    // open for this vertex
@@ -1226,7 +1226,7 @@ public class AgentsSimulationWindow
     }
 
     public Hashtable getDefaultProperties() {
-        return defaultProperties;
+        return this.defaultProperties;
     }
 
 }

@@ -16,15 +16,15 @@ public class SynObject_TERM extends SynObject  implements Serializable {
     
     public SynObject_TERM(){
 	super();
-	globalEnd = false;
-	localEnd = false;
+	this.globalEnd = false;
+	this.localEnd = false;
     }
  
     public void init(int ar){
 	super.init(ar);
-	finishedNode = new boolean[ar];
+	this.finishedNode = new boolean[ar];
 	for(int i=0;i<ar;i++){
-	    finishedNode[i]=false;
+	    this.finishedNode[i]=false;
 	}
     }
     
@@ -36,16 +36,16 @@ public class SynObject_TERM extends SynObject  implements Serializable {
     }
     
     public boolean hasFinished(int neighbour){
-	return finishedNode[neighbour];
+	return this.finishedNode[neighbour];
     }
     public boolean allFinished(){
-	return globalEnd;
+	return this.globalEnd;
     }
     public void setGlobEnd(boolean b){
-	globalEnd = b;
+	this.globalEnd = b;
     }
     public void setFinished(int neighbour, boolean b){
-	finishedNode[neighbour] = b;
+	this.finishedNode[neighbour] = b;
     }
 } 
     

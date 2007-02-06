@@ -26,9 +26,9 @@ public class Between2PulsesCriterion implements Criterion {
      * -inifinity
      */
     public Between2PulsesCriterion() {
-	pulseSup = -1;
-	pulseInf = -1;
-	door = null;
+	this.pulseSup = -1;
+	this.pulseInf = -1;
+	this.door = null;
     }
     
     /**
@@ -38,7 +38,7 @@ public class Between2PulsesCriterion implements Criterion {
      *
      **/
     public Between2PulsesCriterion(int pulseSup, int pulseInf) {
-	door = null;
+	this.door = null;
 	this.pulseSup = pulseSup;
 	this.pulseInf = pulseInf;
     }
@@ -98,17 +98,17 @@ public class Between2PulsesCriterion implements Criterion {
     }
     
     public int getPulseSup() {
-	return pulseSup;
+	return this.pulseSup;
     }
     
     public int getPulseInf() {
-	return pulseInf;
+	return this.pulseInf;
     }
 
     public int getDoor() {
-	if (door == null)
+	if (this.door == null)
 	    return -1;
-	return door.getNum();
+	return this.door.getNum();
     }
 
     public void setDoor(int door) {
@@ -127,7 +127,7 @@ public class Between2PulsesCriterion implements Criterion {
     } 
     
     public boolean doorIsNull() {
-	return door == null;
+	return this.door == null;
     }
     
 }

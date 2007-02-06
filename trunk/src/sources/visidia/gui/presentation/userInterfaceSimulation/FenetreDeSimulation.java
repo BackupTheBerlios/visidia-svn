@@ -100,10 +100,10 @@ public class FenetreDeSimulation
     public Editeur editeur;
 
     public ChoiceMessage2 getMenuChoice(){
-        return choiceMessage;
+        return this.choiceMessage;
     }
     public void setMenuChoice(JMenu menu) {
-        choiceMessage=(ChoiceMessage2) menu;
+        this.choiceMessage=(ChoiceMessage2) menu;
     }
     public FenetreDeSimulation(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
@@ -122,65 +122,65 @@ public class FenetreDeSimulation
 			       int dim_y, File fichier_edit) {
         
         super();
-        evtPipeIn = new visidia.tools.VQueue();
-        evtPipeOut = new visidia.tools.VQueue();
-        ackPipeIn = new visidia.tools.VQueue();
-        ackPipeOut = new visidia.tools.VQueue();
-        fileSaveTrace = new File("trace_1.trace");
-        writer = new ObjectWriter();
+        this.evtPipeIn = new visidia.tools.VQueue();
+        this.evtPipeOut = new visidia.tools.VQueue();
+        this.ackPipeIn = new visidia.tools.VQueue();
+        this.ackPipeOut = new visidia.tools.VQueue();
+        this.fileSaveTrace = new File("trace_1.trace");
+        this.writer = new ObjectWriter();
         
-        tg = new ThreadGroup("recorder");
+        this.tg = new ThreadGroup("recorder");
         
         // The edited graph and the selection object which contains selected objects
-        vueGraphe = grapheVisu_edite;
-        selection = new SelectionDessin();
+        this.vueGraphe = grapheVisu_edite;
+        this.selection = new SelectionDessin();
         
-        algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
+        this.algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
         
         // The manager of components
-        content = new JPanel();
-        content.setLayout(new BorderLayout());
-        fichier_edite = fichier_edit;
-        mettreAJourTitreFenetre();
-        rulesList = new Vector();
+        this.content = new JPanel();
+        this.content.setLayout(new BorderLayout());
+        this.fichier_edite = fichier_edit;
+        this.mettreAJourTitreFenetre();
+        this.rulesList = new Vector();
         
         // The menu bar
         this.addMenu();
         // Current datas of the edition
         
         // BackGround Color of the GrapheVisuPanel
-        couleur_de_fond = couleur_fond;
+        this.couleur_de_fond = couleur_fond;
         
         // The edited graph and the selection object which contains selected objects
-        vueGraphe = grapheVisu_edite;
-        selection = new SelectionDessin();
+        this.vueGraphe = grapheVisu_edite;
+        this.selection = new SelectionDessin();
         
-        algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
+        this.algoChoice = new AlgoChoice(grapheVisu_edite.getGraphe().ordre());
         
         // The panel where the graph is drawn
-        simulationPanel = new SimulationPanel(this);
+        this.simulationPanel = new SimulationPanel(this);
         super.setSize(800,600);
 	// simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
 	// simulationPanel.revalidate();
         // un setSize est a faire avant l'ajout de composants pour eviter
         // les warnings
-        scroller = new JScrollPane(simulationPanel);
-        scroller.setPreferredSize(new Dimension(800,600));
+        this.scroller = new JScrollPane(this.simulationPanel);
+        this.scroller.setPreferredSize(new Dimension(800,600));
 	//scroller.setPreferredSize(vueGraphe.donnerDimension());
-	simulationPanel.revalidate();
+	this.simulationPanel.revalidate();
         
-        simulationPanel.scrollRectToVisible(new Rectangle((vueGraphe.donnerDimension()).width-10,(vueGraphe.donnerDimension()).height-10,30,30));
-        simulationPanel.repaint();
+        this.simulationPanel.scrollRectToVisible(new Rectangle((this.vueGraphe.donnerDimension()).width-10,(this.vueGraphe.donnerDimension()).height-10,30,30));
+        this.simulationPanel.repaint();
         
-        scroller.setOpaque(true);
-        content.add(scroller, BorderLayout.CENTER);
+        this.scroller.setOpaque(true);
+        this.content.add(this.scroller, BorderLayout.CENTER);
         
         
         
         this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    setVisible(false);
-		    dispose();
+		    FenetreDeSimulation.this.setVisible(false);
+		    FenetreDeSimulation.this.dispose();
 		    // Running the garbage collector
 		    Runtime.getRuntime().gc();
                 
@@ -192,10 +192,10 @@ public class FenetreDeSimulation
         
         // On disable les items non-valide pour une applet
         if(!DistributedAlgoSimulator.estStandalone())
-            disableButtonForApplet();
+            this.disableButtonForApplet();
         
         
-        this.setContentPane(content);
+        this.setContentPane(this.content);
     }
     /**
      * This method adds the Menu bar, its menus and items to the editor
@@ -203,54 +203,54 @@ public class FenetreDeSimulation
     
     protected void addMenu() {
         
-        menuBar = new JMenuBar();
-        menuBar.setOpaque(true);
-        menuBar.setPreferredSize(new Dimension(650, 20));
+        this.menuBar = new JMenuBar();
+        this.menuBar.setOpaque(true);
+        this.menuBar.setPreferredSize(new Dimension(650, 20));
         
         // Build the menu File
-        file = new JMenu("File");
-        file.getPopupMenu().setName("PopFile");
-        file.setMnemonic('F');
+        this.file = new JMenu("File");
+        this.file.getPopupMenu().setName("PopFile");
+        this.file.setMnemonic('F');
         
-        file_help = new JMenuItem("Help", KeyEvent.VK_H);
-        file_help.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_help = new JMenuItem("Help", KeyEvent.VK_H);
+        this.file_help.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_H, ActionEvent.CTRL_MASK));
-        file_help.addActionListener(this);
-        file.add(file_help);
-        file.addSeparator();
-        file_close = new JMenuItem("Close", KeyEvent.VK_C);
-        file_close.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_help.addActionListener(this);
+        this.file.add(this.file_help);
+        this.file.addSeparator();
+        this.file_close = new JMenuItem("Close", KeyEvent.VK_C);
+        this.file_close.setAccelerator(KeyStroke.getKeyStroke(
 							 KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-        file_close.addActionListener(this);
-        file.add(file_close);
-        file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
-        file_quit.setAccelerator(KeyStroke.getKeyStroke(
+        this.file_close.addActionListener(this);
+        this.file.add(this.file_close);
+        this.file_quit = new JMenuItem("Quit", KeyEvent.VK_Q);
+        this.file_quit.setAccelerator(KeyStroke.getKeyStroke(
 							KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-        file_quit.addActionListener(this);
-        file.add(file_quit);
-        file.addActionListener(this);
-        menuBar.add(file);
-        graph = new JMenu("graph");
-        graph.getPopupMenu().setName("PopGraph");
-        graph.setMnemonic('G');
+        this.file_quit.addActionListener(this);
+        this.file.add(this.file_quit);
+        this.file.addActionListener(this);
+        this.menuBar.add(this.file);
+        this.graph = new JMenu("graph");
+        this.graph.getPopupMenu().setName("PopGraph");
+        this.graph.setMnemonic('G');
         
-        graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
-        graph_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        graph_open.addActionListener(this);
-        graph.add(graph_open);
+        this.graph_open = new JMenuItem("Open graph ", KeyEvent.VK_O);
+        this.graph_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        this.graph_open.addActionListener(this);
+        this.graph.add(this.graph_open);
         
-        graph_save = new JMenuItem("Save Graph");
-        graph_save.addActionListener(this);
-        graph.add(graph_save);
+        this.graph_save = new JMenuItem("Save Graph");
+        this.graph_save.addActionListener(this);
+        this.graph.add(this.graph_save);
         
-        graph_save_as = new JMenuItem("Save graph as...");
-        graph_save_as.addActionListener(this);
-        graph.add(graph_save_as);
-        graph.addActionListener(this);
-	menuBar.add(graph);
+        this.graph_save_as = new JMenuItem("Save graph as...");
+        this.graph_save_as.addActionListener(this);
+        this.graph.add(this.graph_save_as);
+        this.graph.addActionListener(this);
+	this.menuBar.add(this.graph);
 	
 	//PFA2003
-	graph.addSeparator();
+	this.graph.addSeparator();
 	
 	// graphe connection and disconnection
 	
@@ -263,82 +263,82 @@ public class FenetreDeSimulation
 	  graph_reconnect.setToolTipText("Reconnect the selected elements");
 	  graph.add(graph_reconnect);*/
 	
-	graph_select_all = new JMenuItem("Select all");
-	graph_select_all.addActionListener(this);
-	graph_select_all.setToolTipText("Select all the elements of the graph");
-	graph.add(graph_select_all);
+	this.graph_select_all = new JMenuItem("Select all");
+	this.graph_select_all.addActionListener(this);
+	this.graph_select_all.setToolTipText("Select all the elements of the graph");
+	this.graph.add(this.graph_select_all);
 
-        graph.addActionListener(this);
-        menuBar.add(graph);
+        this.graph.addActionListener(this);
+        this.menuBar.add(this.graph);
 
  
-        algo = new JMenu("Algorithm");
-        algo.getPopupMenu().setName("PopAlgo");
-        algo.setMnemonic('A');
+        this.algo = new JMenu("Algorithm");
+        this.algo.getPopupMenu().setName("PopAlgo");
+        this.algo.setMnemonic('A');
         
-        algo_open = new JMenuItem("Open algorithm ");
-        algo_open.addActionListener(this);
-        algo.add(algo_open);
-        algo.addSeparator();
-        algo_open_vertices = new JMenuItem("Put algorithm to vertices ");
-        algo_open_vertices.addActionListener(this);
-        algo.add(algo_open_vertices);
-        algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+        this.algo_open = new JMenuItem("Open algorithm ");
+        this.algo_open.addActionListener(this);
+        this.algo.add(this.algo_open);
+        this.algo.addSeparator();
+        this.algo_open_vertices = new JMenuItem("Put algorithm to vertices ");
+        this.algo_open_vertices.addActionListener(this);
+        this.algo.add(this.algo_open_vertices);
+        this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
         
-	algo.addActionListener(this);
-	menuBar.add(algo);
+	this.algo.addActionListener(this);
+	this.menuBar.add(this.algo);
         
-	rules = new JMenu("Rules");
-	rules.getPopupMenu().setName("PopRules");
-	rules.setMnemonic('R');
+	this.rules = new JMenu("Rules");
+	this.rules.getPopupMenu().setName("PopRules");
+	this.rules.setMnemonic('R');
 	
-	rules_new = new JMenuItem("New relabeling system");
-	rules_new.addActionListener(this);
-	rules.add(rules_new);
+	this.rules_new = new JMenuItem("New relabeling system");
+	this.rules_new.addActionListener(this);
+	this.rules.add(this.rules_new);
 	
-	rules_open = new JMenuItem("Open rules...");
-	rules_open.addActionListener(this);
-	rules.add(rules_open);
+	this.rules_open = new JMenuItem("Open rules...");
+	this.rules_open.addActionListener(this);
+	this.rules.add(this.rules_open);
 	
-	menuBar.add(rules);
+	this.menuBar.add(this.rules);
                 
-        trace = new JMenu("Trace");
-        trace.getPopupMenu().setName("PopTrace");
-        trace.setMnemonic('T');
+        this.trace = new JMenu("Trace");
+        this.trace.getPopupMenu().setName("PopTrace");
+        this.trace.setMnemonic('T');
         
-        item_nothing = new JRadioButtonMenuItem("Nothing");
-        item_nothing.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        item_nothing.addActionListener(this);
-        item_nothing.setSelected(true);
-        item_group = new ButtonGroup();
-        item_group.add(item_nothing);
-        trace.add(item_nothing);
+        this.item_nothing = new JRadioButtonMenuItem("Nothing");
+        this.item_nothing.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        this.item_nothing.addActionListener(this);
+        this.item_nothing.setSelected(true);
+        this.item_group = new ButtonGroup();
+        this.item_group.add(this.item_nothing);
+        this.trace.add(this.item_nothing);
         
-        item_saveTrace = new JRadioButtonMenuItem("Save trace");
-        item_saveTrace.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        item_saveTrace.addActionListener(this);
-        item_group.add(item_saveTrace);
-        trace.add(item_saveTrace);
+        this.item_saveTrace = new JRadioButtonMenuItem("Save trace");
+        this.item_saveTrace.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        this.item_saveTrace.addActionListener(this);
+        this.item_group.add(this.item_saveTrace);
+        this.trace.add(this.item_saveTrace);
         
-        item_replay = new JRadioButtonMenuItem("Replay");
-        item_replay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
-        item_replay.addActionListener(this);
-        item_group.add(item_replay);
-        trace.add(item_replay);
+        this.item_replay = new JRadioButtonMenuItem("Replay");
+        this.item_replay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+        this.item_replay.addActionListener(this);
+        this.item_group.add(this.item_replay);
+        this.trace.add(this.item_replay);
         
-        trace.addSeparator();
+        this.trace.addSeparator();
         
-        item_chose = new JMenuItem("Chose a file");
-        item_chose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        item_chose.addActionListener(this);
-        trace.add(item_chose);
+        this.item_chose = new JMenuItem("Chose a file");
+        this.item_chose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        this.item_chose.addActionListener(this);
+        this.trace.add(this.item_chose);
         
-        trace.addSeparator();
+        this.trace.addSeparator();
         
-        item_file = new JMenuItem(fileSaveTrace.getName());
-        trace.add(item_file);
+        this.item_file = new JMenuItem(this.fileSaveTrace.getName());
+        this.trace.add(this.item_file);
         
-        menuBar.add(trace);
+        this.menuBar.add(this.trace);
         
         
         /*
@@ -347,81 +347,81 @@ public class FenetreDeSimulation
          
 	*/
         
-        choiceMessage=new ChoiceMessage2(algoChoice);
-        menuBar.add(choiceMessage);
+        this.choiceMessage=new ChoiceMessage2(this.algoChoice);
+        this.menuBar.add(this.choiceMessage);
         
-        this.setJMenuBar(menuBar);
+        this.setJMenuBar(this.menuBar);
     }
     /**
      * This method adds the tool bar and its buttons to the editor
      **/
     protected void addToolBar() {
         
-        toolBar = new JToolBar();
-        toolBar.setBackground(new Color(120, 120, 120));
-        toolBar.setOpaque(true);
-        toolBar.setPreferredSize(new Dimension(650, 42));
+        this.toolBar = new JToolBar();
+        this.toolBar.setBackground(new Color(120, 120, 120));
+        this.toolBar.setOpaque(true);
+        this.toolBar.setPreferredSize(new Dimension(650, 42));
         
         this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    commandeClose();
+		    FenetreDeSimulation.this.commandeClose();
 		}
 	    });
         
         //Build buttons on the tool bar
-        but_start = new JButton("start");
-        but_start.setToolTipText("Start");
-        but_start.setAlignmentY(CENTER_ALIGNMENT);
-        but_start.setEnabled(false);
-        but_start.addActionListener(this);
-        toolBar.add(but_start);
+        this.but_start = new JButton("start");
+        this.but_start.setToolTipText("Start");
+        this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_start.setEnabled(false);
+        this.but_start.addActionListener(this);
+        this.toolBar.add(this.but_start);
         
-        but_pause = new JButton("pause");
-        but_pause.setToolTipText("Pause");
-        but_pause.setAlignmentY(CENTER_ALIGNMENT);
-        but_pause.setEnabled(false);
-        but_pause.addActionListener(this);
-        toolBar.add(but_pause);
+        this.but_pause = new JButton("pause");
+        this.but_pause.setToolTipText("Pause");
+        this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_pause.setEnabled(false);
+        this.but_pause.addActionListener(this);
+        this.toolBar.add(this.but_pause);
         
         
-        but_stop = new JButton("stop");
-        but_stop.setToolTipText("Stop");
-        but_stop.setAlignmentY(CENTER_ALIGNMENT);
-        but_stop.addActionListener(this);
-        but_stop.setEnabled(false);
-        toolBar.add(but_stop);
+        this.but_stop = new JButton("stop");
+        this.but_stop.setToolTipText("Stop");
+        this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_stop.addActionListener(this);
+        this.but_stop.setEnabled(false);
+        this.toolBar.add(this.but_stop);
         
-        toolBar.addSeparator();
-        but_save = new JButton("save");
-        but_save.setToolTipText("Save");
-        but_save.setAlignmentY(CENTER_ALIGNMENT);
-        but_save.addActionListener(this);
-        toolBar.add(but_save);
+        this.toolBar.addSeparator();
+        this.but_save = new JButton("save");
+        this.but_save.setToolTipText("Save");
+        this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_save.addActionListener(this);
+        this.toolBar.add(this.but_save);
         
 
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
         // slider for speed modification
-        speed_slider = new JSlider(1, 20, 10);
-        speed_slider.addChangeListener(this);
-        speed_slider.setToolTipText("Speed");
-        speed_slider.setAlignmentY(TOP_ALIGNMENT);
-        speed_slider.setAlignmentX(LEFT_ALIGNMENT);
-        speed_slider.setPreferredSize(new Dimension(80,15));
-        speed_slider.setBackground(toolBar.getBackground().brighter());
+        this.speed_slider = new JSlider(1, 20, 10);
+        this.speed_slider.addChangeListener(this);
+        this.speed_slider.setToolTipText("Speed");
+        this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
+        this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+        this.speed_slider.setPreferredSize(new Dimension(80,15));
+        this.speed_slider.setBackground(this.toolBar.getBackground().brighter());
         JPanel speed_panel = new JPanel();
         
         speed_panel.setMaximumSize(new Dimension(85,40));
-        speed_panel.setBackground(toolBar.getBackground());
-        speed_label = new JLabel("Speed ("+simulationPanel.pas()+")");
-        speed_label.setFont(new Font("Dialog",Font.BOLD,10));
-        speed_label.setToolTipText("Speed");
-        speed_label.setAlignmentY(TOP_ALIGNMENT);
-        speed_label.setForeground(Color.black);
-        speed_panel.add(speed_slider);
-        speed_panel.add(speed_label);
+        speed_panel.setBackground(this.toolBar.getBackground());
+        this.speed_label = new JLabel("Speed ("+this.simulationPanel.pas()+")");
+        this.speed_label.setFont(new Font("Dialog",Font.BOLD,10));
+        this.speed_label.setToolTipText("Speed");
+        this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+        this.speed_label.setForeground(Color.black);
+        speed_panel.add(this.speed_slider);
+        speed_panel.add(this.speed_label);
         
-        toolBar.add(speed_panel);
+        this.toolBar.add(speed_panel);
 
 	
         // global_clock = new PulseButton();
@@ -429,65 +429,65 @@ public class FenetreDeSimulation
 
 
 
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
 
 	
         
-        but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
-        but_info.setToolTipText("Info");
-        but_info.setAlignmentY(CENTER_ALIGNMENT);
-        but_info.addActionListener(this);
-        toolBar.add(but_info);
+        this.but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
+        this.but_info.setToolTipText("Info");
+        this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_info.addActionListener(this);
+        this.toolBar.add(this.but_info);
         
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
-        but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
-        but_help.setToolTipText("Help");
-        but_help.setAlignmentY(CENTER_ALIGNMENT);
-        but_help.addActionListener(this);
-        toolBar.add(but_help);
+        this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
+        this.but_help.setToolTipText("Help");
+        this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_help.addActionListener(this);
+        this.toolBar.add(this.but_help);
         
-        toolBar.addSeparator();
+        this.toolBar.addSeparator();
         
-        but_experimentation = new JButton("Statistics");
-        but_experimentation.setToolTipText("Statistics");
-        but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
-        but_experimentation.addActionListener(this);
-        toolBar.add(but_experimentation);
-        toolBar.addSeparator();
+        this.but_experimentation = new JButton("Statistics");
+        this.but_experimentation.setToolTipText("Statistics");
+        this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_experimentation.addActionListener(this);
+        this.toolBar.add(this.but_experimentation);
+        this.toolBar.addSeparator();
         
-        but_threadCount = new JButton("Threads");
-        but_threadCount.setToolTipText("Amount of threads that are active in the VM");
-        but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
-        but_threadCount.addActionListener(this);
-        toolBar.add(but_threadCount);
-        toolBar.addSeparator();
+        this.but_threadCount = new JButton("Threads");
+        this.but_threadCount.setToolTipText("Amount of threads that are active in the VM");
+        this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_threadCount.addActionListener(this);
+        this.toolBar.add(this.but_threadCount);
+        this.toolBar.addSeparator();
         if(threadCountFrame == null){
             threadCountFrame = new ThreadCountFrame(Thread.currentThread().getThreadGroup());
         }
         
-        but_reset = new JButton("RESET");
-        but_reset.setToolTipText("RESET");
-        but_reset.setAlignmentY(CENTER_ALIGNMENT);
-        but_reset.addActionListener(this);
-        but_reset.setEnabled((fichier_edite != null));
-        toolBar.add(but_reset);
+        this.but_reset = new JButton("RESET");
+        this.but_reset.setToolTipText("RESET");
+        this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_reset.addActionListener(this);
+        this.but_reset.setEnabled((this.fichier_edite != null));
+        this.toolBar.add(this.but_reset);
 	
-        global_clock = new PulseCounter();
-        content.add(toolBar, BorderLayout.NORTH);
-	content.add(global_clock, BorderLayout.SOUTH);
+        this.global_clock = new PulseCounter();
+        this.content.add(this.toolBar, BorderLayout.NORTH);
+	this.content.add(this.global_clock, BorderLayout.SOUTH);
     }
     
     
     // disable the button not used for the applet
     private void disableButtonForApplet(){
-        file_quit.setEnabled(false);
-        rules.setEnabled(false);
-        graph.setEnabled(false);
-        trace.setEnabled(false);
-        rules_new.setEnabled(false);
-        but_save.setEnabled(false);
-        but_experimentation.setEnabled(false);
+        this.file_quit.setEnabled(false);
+        this.rules.setEnabled(false);
+        this.graph.setEnabled(false);
+        this.trace.setEnabled(false);
+        this.rules_new.setEnabled(false);
+        this.but_save.setEnabled(false);
+        this.but_experimentation.setEnabled(false);
     }
     
     
@@ -497,7 +497,7 @@ public class FenetreDeSimulation
     /*   to the graph visualisation during the simulation     */
     /**********************************************************/
     public SimulationPanel simulationPanel() {
-        return simulationPanel;
+        return this.simulationPanel;
     }
     
     /*********************************************************/
@@ -507,9 +507,9 @@ public class FenetreDeSimulation
     public void actionPerformed(ActionEvent evt) {
         
         if(evt.getSource() instanceof JButton)
-            action_toolbar((JButton)evt.getSource());
+            this.action_toolbar((JButton)evt.getSource());
         else if(evt.getSource() instanceof JMenuItem)
-            action_menu((JMenuItem)evt.getSource());
+            this.action_menu((JMenuItem)evt.getSource());
     }
     
     /*********************************************************/
@@ -517,9 +517,9 @@ public class FenetreDeSimulation
     /* action on the speed slider                            */
     /*********************************************************/
     public void stateChanged(ChangeEvent evt) {
-        if (evt.getSource() == speed_slider) {
-            speed_label.setText("Speed ("+speed_slider.getValue()+")");
-            simulationPanel.updatePas(speed_slider.getValue());
+        if (evt.getSource() == this.speed_slider) {
+            this.speed_label.setText("Speed ("+this.speed_slider.getValue()+")");
+            this.simulationPanel.updatePas(this.speed_slider.getValue());
         }
     }
     
@@ -531,15 +531,15 @@ public class FenetreDeSimulation
         String le_menu = ((JPopupMenu)mi.getParent()).getName();
         
         if(le_menu == "PopFile") {
-            menuFile(mi);}
+            this.menuFile(mi);}
         else if(le_menu == "PopGraph")
-            menuGraph(mi);
+            this.menuGraph(mi);
         else if(le_menu == "PopAlgo")
-            menuAlgo(mi);
+            this.menuAlgo(mi);
         else if(le_menu == "PopRules")
-            menuRules(mi);
+            this.menuRules(mi);
         else if(le_menu == "PopTrace")
-            menuTrace(mi);
+            this.menuTrace(mi);
         /*else if(le_menu == "PopRules_new")
 	  menuNew(mi);*/
         
@@ -551,12 +551,12 @@ public class FenetreDeSimulation
     /*********************************************************/
 
     public void but_start() {
-	simulationPanel.start();
+	this.simulationPanel.start();
 	// modifications for the recorder
-	sim = null;
+	this.sim = null;
 	// destruction of ths old threads
-	while(tg.activeCount() > 0){
-	    tg.interrupt();
+	while(this.tg.activeCount() > 0){
+	    this.tg.interrupt();
 	    try{
 		Thread.currentThread().sleep(50);
 	    }
@@ -564,29 +564,29 @@ public class FenetreDeSimulation
 	    }
 	}
         
-	if (item_saveTrace.isSelected()){
-	    fileSaveTrace.delete();
+	if (this.item_saveTrace.isSelected()){
+	    this.fileSaveTrace.delete();
 	    try {
-		writer.close();
+		this.writer.close();
 	    }
 	    catch (Exception e) {
 	    }
-	    writer.open(fileSaveTrace);
-	    writer.writeObject(vueGraphe.getGraphe());
+	    this.writer.open(this.fileSaveTrace);
+	    this.writer.writeObject(this.vueGraphe.getGraphe());
             
-	    RecorderEvent recorderEvent = new RecorderEvent(evtPipeIn, evtPipeOut, writer);
-	    RecorderAck recorderAck = new RecorderAck(ackPipeIn, ackPipeOut, writer);
-	    new Thread(tg, recorderEvent).start();
-	    new Thread(tg, recorderAck).start();
-	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeIn,ackPipeOut,algoChoice);
+	    RecorderEvent recorderEvent = new RecorderEvent(this.evtPipeIn, this.evtPipeOut, this.writer);
+	    RecorderAck recorderAck = new RecorderAck(this.ackPipeIn, this.ackPipeOut, this.writer);
+	    new Thread(this.tg, recorderEvent).start();
+	    new Thread(this.tg, recorderAck).start();
+	    this.sim = new Simulator(Convertisseur.convertir(this.vueGraphe.getGraphe()),this.evtPipeIn,this.ackPipeOut,this.algoChoice);
 	}
-	else if (item_replay.isSelected()){
-	    visidia.simulation.Reader reader = new visidia.simulation.Reader(ackPipeOut, evtPipeOut, fileSaveTrace);
+	else if (this.item_replay.isSelected()){
+	    visidia.simulation.Reader reader = new visidia.simulation.Reader(this.ackPipeOut, this.evtPipeOut, this.fileSaveTrace);
 	    reader.read();
-	    new Thread(tg, reader).start();
+	    new Thread(this.tg, reader).start();
 	}
-	else if (item_nothing.isSelected())
-	    sim = new Simulator(Convertisseur.convertir(vueGraphe.getGraphe()),evtPipeOut,ackPipeOut,algoChoice);
+	else if (this.item_nothing.isSelected())
+	    this.sim = new Simulator(Convertisseur.convertir(this.vueGraphe.getGraphe()),this.evtPipeOut,this.ackPipeOut,this.algoChoice);
 	
         
 	/*if(simulationRegles)
@@ -601,11 +601,11 @@ public class FenetreDeSimulation
 	  }
 	*/
 	
-	if (simulationRules) {
+	if (this.simulationRules) {
 	    //System.out.println("rules");
-	    simulationRules = false;
-	} else if (!algoChoice.verticesHaveAlgorithm()) {
-	    if (!item_replay.isSelected()) {
+	    this.simulationRules = false;
+	} else if (!this.algoChoice.verticesHaveAlgorithm()) {
+	    if (!this.item_replay.isSelected()) {
 		JOptionPane.showMessageDialog
 		    (this, "you must enter an algorithm or rules ",
 		     "warning", JOptionPane.WARNING_MESSAGE);
@@ -613,64 +613,64 @@ public class FenetreDeSimulation
 	    }
 	}
 	
-	if (item_saveTrace.isSelected())
-	    seh = new SimulEventHandler(this,evtPipeOut,ackPipeIn);
+	if (this.item_saveTrace.isSelected())
+	    this.seh = new SimulEventHandler(this,this.evtPipeOut,this.ackPipeIn);
 	else
-	    seh =  new SimulEventHandler(this,evtPipeOut,ackPipeOut);
+	    this.seh =  new SimulEventHandler(this,this.evtPipeOut,this.ackPipeOut);
 
-	seh.start();
+	this.seh.start();
 
-	if (!item_replay.isSelected()) {
-	    sim.startSimulation();
+	if (!this.item_replay.isSelected()) {
+	    this.sim.startSimulation();
 	}
         
-	but_stop.setEnabled(true);
-	but_pause.setEnabled(true);
-	but_start.setEnabled(false);
+	this.but_stop.setEnabled(true);
+	this.but_pause.setEnabled(true);
+	this.but_start.setEnabled(false);
 	
     }
     
     public void but_pause() {
-	if(simulationPanel.isRunning()){
-	    simulationPanel.pause();
-	    sim.wedge();
+	if(this.simulationPanel.isRunning()){
+	    this.simulationPanel.pause();
+	    this.sim.wedge();
 	}
 	else {
-	    simulationPanel.start();
-	    sim.unWedge();
+	    this.simulationPanel.start();
+	    this.sim.unWedge();
 	}
     }
 
     public void but_stop() {
 	System.out.println("Stopping the Simulation panel");
-	simulationPanel.stop();
+	this.simulationPanel.stop();
 	System.out.println("  ==> Stopped");
 	System.out.println("Stopping the Simulator");
-	if (sim != null)
-	    sim.abortSimulation();
+	if (this.sim != null)
+	    this.sim.abortSimulation();
 	System.out.println("  ==> Stopped");
 	
 	System.out.println("Stopping the Simulator Event Handler");
-	seh.abort();
+	this.seh.abort();
 	System.out.println(" ==> Stopped");
 	
-	evtPipeIn = new visidia.tools.VQueue();
-	evtPipeOut = new visidia.tools.VQueue();
-	ackPipeIn = new visidia.tools.VQueue();
-	ackPipeOut = new visidia.tools.VQueue();
+	this.evtPipeIn = new visidia.tools.VQueue();
+	this.evtPipeOut = new visidia.tools.VQueue();
+	this.ackPipeIn = new visidia.tools.VQueue();
+	this.ackPipeOut = new visidia.tools.VQueue();
 	
-	but_start.setEnabled(false);
-	but_pause.setEnabled(false);
-	but_stop.setEnabled(false);
-	but_reset.setEnabled(true);
-	global_clock.initState();
+	this.but_start.setEnabled(false);
+	this.but_pause.setEnabled(false);
+	this.but_stop.setEnabled(false);
+	this.but_reset.setEnabled(true);
+	this.global_clock.initState();
     }
 
     public void but_experimentation() {
-	if ((vueGraphe.getGraphe().sommets().hasMoreElements()) &&
-	    (algoChoice.verticesHaveAlgorithm())) {
-	    JFrame frame = new ExperimentationFrame(vueGraphe, algoChoice);
-	    frame.setTitle("Algorithm Experiments ["+algoTitle+"]");
+	if ((this.vueGraphe.getGraphe().sommets().hasMoreElements()) &&
+	    (this.algoChoice.verticesHaveAlgorithm())) {
+	    JFrame frame = new ExperimentationFrame(this.vueGraphe, this.algoChoice);
+	    frame.setTitle("Algorithm Experiments ["+this.algoTitle+"]");
 	    frame.pack();
 	    frame.setVisible(true);
 	}
@@ -681,66 +681,66 @@ public class FenetreDeSimulation
     
 
     public void but_reset() {
-	simulationPanel.stop();
-	if (sim != null)
-	    sim.abortSimulation();
+	this.simulationPanel.stop();
+	if (this.sim != null)
+	    this.sim.abortSimulation();
 	
-	seh.abort();
+	this.seh.abort();
 	
 	/*
 	  if (fichier_edite != null)
 	  OpenGraph.open(this,fichier_edite);
 	*/
 	
-	vueGraphe = editeur.getGraphClone();
+	this.vueGraphe = this.editeur.getGraphClone();
 	
-	evtPipeIn = new visidia.tools.VQueue();
-	evtPipeOut = new visidia.tools.VQueue();
-	ackPipeIn = new visidia.tools.VQueue();
-	ackPipeOut = new visidia.tools.VQueue();
-	replaceSelection(new SelectionDessin());
-	simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-	simulationPanel.revalidate();
-	simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-	simulationPanel.repaint();
+	this.evtPipeIn = new visidia.tools.VQueue();
+	this.evtPipeOut = new visidia.tools.VQueue();
+	this.ackPipeIn = new visidia.tools.VQueue();
+	this.ackPipeOut = new visidia.tools.VQueue();
+	this.replaceSelection(new SelectionDessin());
+	this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+	this.simulationPanel.revalidate();
+	this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+	this.simulationPanel.repaint();
 	
 	//algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
 	
-	but_start.setEnabled(true);
-	but_pause.setEnabled(false);
-	but_stop.setEnabled(false);
-	but_reset.setEnabled(false);
-	global_clock.initState();
+	this.but_start.setEnabled(true);
+	this.but_pause.setEnabled(false);
+	this.but_stop.setEnabled(false);
+	this.but_reset.setEnabled(false);
+	this.global_clock.initState();
 	
     }
 
     public void action_toolbar(JButton b) {
-        if (b == but_start){
-	    but_start();
+        if (b == this.but_start){
+	    this.but_start();
         }
-        else if (b == but_pause) {
-	    but_pause();
+        else if (b == this.but_pause) {
+	    this.but_pause();
         }
-	else if (b == but_stop) {
-	    but_stop();
+	else if (b == this.but_stop) {
+	    this.but_stop();
         }
-	else if (b == but_experimentation){
-	    but_experimentation();
+	else if (b == this.but_experimentation){
+	    this.but_experimentation();
         }
-	else if (b == but_threadCount){
+	else if (b == this.but_threadCount){
             threadCountFrame.pack();
             threadCountFrame.setVisible(true);
         }
-	else if (b == but_save) {
-            SaveFile.save(this, vueGraphe.getGraphe());
+	else if (b == this.but_save) {
+            SaveFile.save(this, this.vueGraphe.getGraphe());
         }
-        else if (b == but_info){
-            propertiesControl();
+        else if (b == this.but_info){
+            this.propertiesControl();
         }
 	//PFA2003
-	else if (b == but_help){
-	    if (algoChoice.verticesHaveAlgorithm()) {
-		Algorithm a = algoChoice.getAlgorithm(0);
+	else if (b == this.but_help){
+	    if (this.algoChoice.verticesHaveAlgorithm()) {
+		Algorithm a = this.algoChoice.getAlgorithm(0);
 		HelpDialog hd = new HelpDialog(this, "Algorithm description");
 		hd.setText(a.getDescription());
 		hd.setVisible(true);
@@ -751,8 +751,8 @@ public class FenetreDeSimulation
 		     "warning", JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-        else if (b == but_reset) {
-	    but_reset();
+        else if (b == this.but_reset) {
+	    this.but_reset();
 	}
     }
 
@@ -761,7 +761,7 @@ public class FenetreDeSimulation
 	//PulseFrame pulseFrame = new PulseFrame();
 	//pulseFrame.setPulse(pulse);
 	//global_clock.setToolTipText("Click to view time units");
-	global_clock.setPulse(pulse);
+	this.global_clock.setPulse(pulse);
     }
 
 
@@ -771,7 +771,7 @@ public class FenetreDeSimulation
     public void menuFile(JMenuItem mi) {
         
         
-        if(mi == file_help) {
+        if(mi == this.file_help) {
             JOptionPane.showMessageDialog(this,
 					  "DistributedAlgoSimulator, v2\n" +
 					  "in this window you can't modifie the graph \n"+
@@ -779,9 +779,9 @@ public class FenetreDeSimulation
 					  "before starting simulation you must load an algorithm \n "+
 					  "or a list of simple rules \n");
         }
-        else if(mi == file_close)
-            commandeClose();
-        else if(mi == file_quit)
+        else if(mi == this.file_close)
+            this.commandeClose();
+        else if(mi == this.file_quit)
             System.exit(0);
     }
     
@@ -789,39 +789,39 @@ public class FenetreDeSimulation
     /* Method for the fonctionnalities of the "graph" menu.      */
     /*************************************************************/
     public void menuGraph(JMenuItem mi) {
-        if(mi == graph_open){
+        if(mi == this.graph_open){
             OpenGraph.open(this);
-            algo.setEnabled(vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
-            algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-            replaceSelection(new SelectionDessin());
-            simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-            simulationPanel.revalidate();
-            simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-            simulationPanel.repaint();
-            if (item_replay.isSelected())
-                but_start.setEnabled(true);
+            this.algo.setEnabled(this.vueGraphe.getGraphe().ordre()>0); // if we have an empty graph
+            this.algoChoice = new AlgoChoice(this.vueGraphe.getGraphe().ordre());
+            this.replaceSelection(new SelectionDessin());
+            this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+            this.simulationPanel.revalidate();
+            this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+            this.simulationPanel.repaint();
+            if (this.item_replay.isSelected())
+                this.but_start.setEnabled(true);
             else
-                but_start.setEnabled(false);
-            but_pause.setEnabled(false);
-            but_stop.setEnabled(false);
+                this.but_start.setEnabled(false);
+            this.but_pause.setEnabled(false);
+            this.but_stop.setEnabled(false);
         }
         
-        else if(mi == graph_save) {
+        else if(mi == this.graph_save) {
             
-            SaveFile.save(this, vueGraphe.getGraphe());
+            SaveFile.save(this, this.vueGraphe.getGraphe());
         }
-        else if(mi == graph_save_as) {
-            fichier_edite = null;
-            SaveFile.saveAs(this, vueGraphe.getGraphe());
+        else if(mi == this.graph_save_as) {
+            this.fichier_edite = null;
+            SaveFile.saveAs(this, this.vueGraphe.getGraphe());
         }
-	else if (mi == graph_select_all) {
+	else if (mi == this.graph_select_all) {
 	    //PFA2003
-	    Enumeration e = vueGraphe.listeAffichage();
+	    Enumeration e = this.vueGraphe.listeAffichage();
 	    while(e.hasMoreElements()) {
 		FormeDessin objetVisu = (FormeDessin)e.nextElement();
-		selection.insererElement(objetVisu);
+		this.selection.insererElement(objetVisu);
 	    }
-	    repaint ();
+	    this.repaint ();
 	}
     }
     
@@ -829,18 +829,18 @@ public class FenetreDeSimulation
     /* Method for the fonctionnalities of the "Algo" menu.       */
     /*************************************************************/
     public void menuAlgo(JMenuItem mi) {
-        if (mi == algo_open_vertices){
-            if (!selection.estVide()){
+        if (mi == this.algo_open_vertices){
+            if (!this.selection.estVide()){
                 if(DistributedAlgoSimulator.estStandalone()){
-                    OpenAlgo.openForVertex(selection.elements(),this);
+                    OpenAlgo.openForVertex(this.selection.elements(),this);
                     System.out.println("choix de l'algo reussi");}
                 else
-                    OpenAlgoApplet.openForVertices(selection.elements(),this);
-                but_start.setEnabled(algoChoice.verticesHaveAlgorithm());
+                    OpenAlgoApplet.openForVertices(this.selection.elements(),this);
+                this.but_start.setEnabled(this.algoChoice.verticesHaveAlgorithm());
             }
         }
-        if(mi == algo_open){
-            if(simulationRules){
+        if(mi == this.algo_open){
+            if(this.simulationRules){
                 JOptionPane.showMessageDialog(this, "you had already entered rules",
 					      "warning",
 					      JOptionPane.WARNING_MESSAGE);
@@ -853,9 +853,9 @@ public class FenetreDeSimulation
                     ok = OpenAlgo.open(this);
                 else
                     OpenAlgoApplet.open(this);
-                simulationAlgo = ok ;
-                if(! but_start.isEnabled())
-		    but_start.setEnabled(ok);
+                this.simulationAlgo = ok ;
+                if(! this.but_start.isEnabled())
+		    this.but_start.setEnabled(ok);
             }
         }
     }
@@ -864,8 +864,8 @@ public class FenetreDeSimulation
     /* Method for the fonctionnalities of the "rules" menu.      */
     /*************************************************************/
     public void menuRules(JMenuItem mi) {
-	if (mi == rules_open) {
-            if(simulationAlgo){
+	if (mi == this.rules_open) {
+            if(this.simulationAlgo){
                 JOptionPane.showMessageDialog(this, 
 					      "An algorithm has already been selected",
 					      "Warning",
@@ -894,7 +894,7 @@ public class FenetreDeSimulation
 			ObjectInputStream p = new ObjectInputStream(istream);
 			RelabelingSystem rSys = (RelabelingSystem) p.readObject();
 			istream.close();
-			applyStarRulesSystem(rSys);
+			this.applyStarRulesSystem(rSys);
 		    } catch (IOException ioe) {
 			System.out.println (ioe);
 		    } catch (ClassNotFoundException cnfe) {
@@ -902,8 +902,8 @@ public class FenetreDeSimulation
 		    }
 		}
 	    }
-        } else if (mi == rules_new) {
-	    if (simulationAlgo) {
+        } else if (mi == this.rules_new) {
+	    if (this.simulationAlgo) {
 		int res = JOptionPane.showConfirmDialog 
 		    (this, "The algorithm has already been selected ;\n if " 
 		     + "you continue, you will not be able to apply new rules.\n "
@@ -920,63 +920,63 @@ public class FenetreDeSimulation
     
     //PFA2003
     public void applyStarRulesSystem(RelabelingSystem rSys) {
-	if (simulationRules) {
+	if (this.simulationRules) {
 	    JOptionPane.showMessageDialog(this, 
 					  "An algorithm has already been selected",
 					  "Warning",
 					  JOptionPane.WARNING_MESSAGE);
 	    return;
 	}
-	simulationRules = true;
-	rsAlgo = buildAlgoRule(rSys);
-	getAlgorithms().putAlgorithmToAllVertices(rsAlgo);
-	getMenuChoice().setListTypes(rsAlgo.getListTypes());
-	but_start.setEnabled(true);
+	this.simulationRules = true;
+	this.rsAlgo = this.buildAlgoRule(rSys);
+	this.getAlgorithms().putAlgorithmToAllVertices(this.rsAlgo);
+	this.getMenuChoice().setListTypes(this.rsAlgo.getListTypes());
+	this.but_start.setEnabled(true);
     }
     
     /*************************************************************/
     /* Method for the fonctionnalities of the "trace" menu.      */
     /*************************************************************/
     public void menuTrace(JMenuItem mi) {
-        if (mi == item_replay){
-            but_start.setEnabled(true);
-            but_reset.setEnabled(true);
+        if (mi == this.item_replay){
+            this.but_start.setEnabled(true);
+            this.but_reset.setEnabled(true);
             
-            evtPipeIn = new visidia.tools.VQueue();
-            evtPipeOut = new visidia.tools.VQueue();
-            ackPipeIn = new visidia.tools.VQueue();
-            ackPipeOut = new visidia.tools.VQueue();
+            this.evtPipeIn = new visidia.tools.VQueue();
+            this.evtPipeOut = new visidia.tools.VQueue();
+            this.ackPipeIn = new visidia.tools.VQueue();
+            this.ackPipeOut = new visidia.tools.VQueue();
             
-            OpenGraph.open(this,fileSaveTrace);
-            algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-            replaceSelection(new SelectionDessin());
-            simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-            simulationPanel.revalidate();
-            simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-            simulationPanel.repaint();
+            OpenGraph.open(this,this.fileSaveTrace);
+            this.algoChoice = new AlgoChoice(this.vueGraphe.getGraphe().ordre());
+            this.replaceSelection(new SelectionDessin());
+            this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+            this.simulationPanel.revalidate();
+            this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+            this.simulationPanel.repaint();
             
         }
-        else if (mi == item_nothing) {
-            if (simulationAlgo == false)
-                but_start.setEnabled(false);
+        else if (mi == this.item_nothing) {
+            if (this.simulationAlgo == false)
+                this.but_start.setEnabled(false);
         }
-        else if (mi == item_saveTrace){
-            if (simulationAlgo == false)
-                but_start.setEnabled(false);
+        else if (mi == this.item_saveTrace){
+            if (this.simulationAlgo == false)
+                this.but_start.setEnabled(false);
         }
-        else if(mi == item_chose) {
+        else if(mi == this.item_chose) {
             File f = SaveTrace.save(this);
             if (f != null) {
-                fileSaveTrace = f;
-                item_file.setText(f.getName());
+                this.fileSaveTrace = f;
+                this.item_file.setText(f.getName());
                 
-                OpenGraph.open(this,fileSaveTrace);
-                algoChoice = new AlgoChoice(vueGraphe.getGraphe().ordre());
-                replaceSelection(new SelectionDessin());
-                simulationPanel.setPreferredSize(vueGraphe.donnerDimension());
-                simulationPanel.revalidate();
-                simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
-                simulationPanel.repaint();
+                OpenGraph.open(this,this.fileSaveTrace);
+                this.algoChoice = new AlgoChoice(this.vueGraphe.getGraphe().ordre());
+                this.replaceSelection(new SelectionDessin());
+                this.simulationPanel.setPreferredSize(this.vueGraphe.donnerDimension());
+                this.simulationPanel.revalidate();
+                this.simulationPanel.scrollRectToVisible(new Rectangle(650,600,0,0));
+                this.simulationPanel.repaint();
             }
         }
     }
@@ -987,13 +987,13 @@ public class FenetreDeSimulation
     /** Closing the current window **/
     /********************************/
     public void commandeClose() {
-        if (sim != null) {   // we kill the threads
-            simulationPanel.stop();
-            sim.abortSimulation();
-            seh.abort();
+        if (this.sim != null) {   // we kill the threads
+            this.simulationPanel.stop();
+            this.sim.abortSimulation();
+            this.seh.abort();
         }
-        setVisible(false);
-        dispose();
+        this.setVisible(false);
+        this.dispose();
         // collecting the garbage
         Runtime.getRuntime().gc();
     }
@@ -1003,11 +1003,11 @@ public class FenetreDeSimulation
      */
     public void commandeToutSelectionner() { // Penser au repaint()
         int i = 0;
-        Enumeration e = vueGraphe.listeAffichage();
+        Enumeration e = this.vueGraphe.listeAffichage();
         if (e.hasMoreElements()) {
             while(e.hasMoreElements()) {
                 FormeDessin forme = (FormeDessin)e.nextElement();
-                selection.insererElement(forme);
+                this.selection.insererElement(forme);
                 forme.enluminer(true);
                 i++;
             }
@@ -1023,12 +1023,12 @@ public class FenetreDeSimulation
     /* saving is made and then change the title of the window */
     /**********************************************************/
     public void mettreAJourTitreFenetre(File fichier) {
-        if(fichier != null) but_reset.setEnabled(true);
+        if(fichier != null) this.but_reset.setEnabled(true);
         super.mettreAJourTitreFenetre(fichier);
     }
 
     public void mettreAJourTitreFenetre(String nom_Algo) {
-	algoTitle = nom_Algo;
+	this.algoTitle = nom_Algo;
 	super.mettreAJourTitreFenetre(nom_Algo);
     }
 
@@ -1038,7 +1038,7 @@ public class FenetreDeSimulation
     }
     
     public String getAlgoTitle() {
-	return algoTitle;
+	return this.algoTitle;
     }
 
     public String type(){
@@ -1046,7 +1046,7 @@ public class FenetreDeSimulation
     }
     
     public File fichier_rules_edite() {
-        return fichier_rules_edite;
+        return this.fichier_rules_edite;
     }
     
     // Implementation of the Listeners
@@ -1061,15 +1061,15 @@ public class FenetreDeSimulation
     
     public void windowDeiconified(WindowEvent e) {}
     
-    public void windowActivated(WindowEvent e) {content.repaint();}
+    public void windowActivated(WindowEvent e) {this.content.repaint();}
     
     public void windowDeactivated(WindowEvent e) {}
     
     public void commandeSupprimer() { // Penser au repaint()
         
         // Deleting the elements of the selection
-        if(!selection.estVide()) {
-            Enumeration e = selection.elements();
+        if(!this.selection.estVide()) {
+            Enumeration e = this.selection.elements();
             while (e.hasMoreElements()) {
                 FormeDessin forme = (FormeDessin)e.nextElement();
                 forme.delete();
@@ -1080,9 +1080,9 @@ public class FenetreDeSimulation
     
     private void replaceSelection(SelectionDessin new_selection) {
         // Deletes the initial selection and replaces it with the new one
-        emptyCurrentSelection(true);
-        selection = new_selection;
-        selection.select();
+        this.emptyCurrentSelection(true);
+        this.selection = new_selection;
+        this.selection.select();
     }
     
     
@@ -1090,73 +1090,73 @@ public class FenetreDeSimulation
      * Method to empty the current selection
      */
     public void emptyCurrentSelection(boolean deselect) { // Penser au repaint()
-        if (!selection.estVide())
+        if (!this.selection.estVide())
             if (deselect) {
-                selection.deSelect();
+                this.selection.deSelect();
             }
     }
     
     // action on the property button with a selection
     
     private void propertiesControl() {
-        if (selection.estVide())
+        if (this.selection.estVide())
             System.out.println("empty");
         else {
-            Enumeration e = selection.elements();
+            Enumeration e = this.selection.elements();
             FormeDessin firstElement = ((FormeDessin)e.nextElement());
-            if (!Traitements.sommetDessin(selection.elements()).hasMoreElements()) {
+            if (!Traitements.sommetDessin(this.selection.elements()).hasMoreElements()) {
                 // we have only edges
-                e = selection.elements();
+                e = this.selection.elements();
                 Ensemble listeElements = new Ensemble();
                 listeElements.inserer(e);
                 BoiteChangementCouleurArete boiteArete =
 		    new BoiteChangementCouleurArete(this, listeElements);
                 boiteArete.show(this);
             }
-            else if ((selection.nbElements() == 1) &&
+            else if ((this.selection.nbElements() == 1) &&
 		     (firstElement.type().equals("vertex"))){
                 BoiteChangementEtatSommet boiteSommet =
 		    new BoiteChangementEtatSommet(this, (SommetDessin)firstElement);
                 boiteSommet.show(this);
             }
             else{
-                e = selection.elements();
+                e = this.selection.elements();
                 visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
                 while(e.hasMoreElements())
                     table_des_types.inserer(((FormeDessin)e.nextElement()).type());
-		BoiteSelectionSimulation.show(this, selection, table_des_types);
+		BoiteSelectionSimulation.show(this, this.selection, table_des_types);
             }
         }
     }
     
     public void changerVueGraphe(VueGraphe grapheVisu){
-        content.remove(scroller);
-        selection.deSelect();
+        this.content.remove(this.scroller);
+        this.selection.deSelect();
         this.vueGraphe = grapheVisu;
         this.simulationPanel = new SimulationPanel(this);
-        simulationPanel.updatePas(speed_slider.getValue());
-        scroller = new JScrollPane(this.simulationPanel);
-        scroller.setPreferredSize(new Dimension(650,600));
-        scroller.setOpaque(true);
-        content.add(scroller, BorderLayout.CENTER);
+        this.simulationPanel.updatePas(this.speed_slider.getValue());
+        this.scroller = new JScrollPane(this.simulationPanel);
+        this.scroller.setPreferredSize(new Dimension(650,600));
+        this.scroller.setOpaque(true);
+        this.content.add(this.scroller, BorderLayout.CENTER);
     }
     
     // load an algorithm
     public AlgoChoice getAlgorithms(){
-        return algoChoice;
+        return this.algoChoice;
     }
     
     public visidia.tools.VQueue getEvtPipe(){
-        return evtPipeOut;
+        return this.evtPipeOut;
     }
     public visidia.tools.VQueue getAckPipe(){
-        if (item_saveTrace.isSelected())
-            return ackPipeIn;
+        if (this.item_saveTrace.isSelected())
+            return this.ackPipeIn;
         else
-            return ackPipeOut;
+            return this.ackPipeOut;
     }
     public void setEdgeState(int id1, int id2, boolean hasFailure) {
-        edgesStates[id1][id2] = hasFailure;
+        this.edgesStates[id1][id2] = hasFailure;
     }
     
     public static void setVisuAlgorithmMess(boolean b){
@@ -1170,8 +1170,8 @@ public class FenetreDeSimulation
     
     public void nodeStateChanged(int nodeId, Hashtable properties) {
         //System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
-	if (sim != null)
-	    sim.setNodeProperties(nodeId, properties);
+	if (this.sim != null)
+	    this.sim.setNodeProperties(nodeId, properties);
         //sim.restartNode(nodeId);
     }
 

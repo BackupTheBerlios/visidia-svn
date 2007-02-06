@@ -62,86 +62,86 @@ public class BoiteChangementCouleurArete implements ActionListener{
 	
 	this.selectionAretes = uneSelection;
 	
-	etatPanel = new JPanel();
+	this.etatPanel = new JPanel();
 	
-	Enumeration e = selectionAretes.elements();
-	forme = (FormeDessin)e.nextElement();
-	couleur = new BoiteCouleur(this,
+	Enumeration e = this.selectionAretes.elements();
+	this.forme = (FormeDessin)e.nextElement();
+	this.couleur = new BoiteCouleur(this,
 				   "Line Color (R,G,B): ",
-				   forme.couleurTrait().getRed(),
-				   forme.couleurTrait().getGreen(),
-				   forme.couleurTrait().getBlue(),
+				   this.forme.couleurTrait().getRed(),
+				   this.forme.couleurTrait().getGreen(),
+				   this.forme.couleurTrait().getBlue(),
 				   true);
-	etatPanel.add(couleur.panel());
+	this.etatPanel.add(this.couleur.panel());
 	
-	dialog.getContentPane().setLayout(new BorderLayout());
-	dialog.getContentPane().add(etatPanel, BorderLayout.NORTH);
-	ajouterBoutons();
+	this.dialog.getContentPane().setLayout(new BorderLayout());
+	this.dialog.getContentPane().add(this.etatPanel, BorderLayout.NORTH);
+	this.ajouterBoutons();
     }
 
     //Methodes  
 
     /** Affiche la boite et la centré par rapport à "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     /** Ajoute les boutons en bas de la boite.*/
     public void ajouterBoutons() {
 	JPanel buttonPane = new JPanel(new FlowLayout());
 	
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
     
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 	
-	buttonApply = new JButton("Apply");
-	buttonApply.addActionListener(this);
+	this.buttonApply = new JButton("Apply");
+	this.buttonApply.addActionListener(this);
 	
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
-	buttonPane.add(buttonApply);
-	buttonApply.setEnabled(modif);
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	buttonPane.add(this.buttonOk);
+	buttonPane.add(this.buttonCancel);    
+	buttonPane.add(this.buttonApply);
+	this.buttonApply.setEnabled(this.modif);
+	this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
   
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
+	if(e.getSource() == this.buttonOk) {
 	    try{
-		buttonOk();
-		dialog.setVisible(false);
-		dialog.dispose();
+		this.buttonOk();
+		this.dialog.setVisible(false);
+		this.dialog.dispose();
 	    } catch(NumberFormatException exception){
 		StringTokenizer st = new StringTokenizer(exception.getMessage(), "\n");
 		int nb_lignes = st.countTokens();
 		String message = new String();
 		for(int i=0;i<nb_lignes;i++)
 		    message = message + "\n" + st.nextToken();
-		JOptionPane.showMessageDialog(parent, message, "Warning", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this.parent, message, "Warning", JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-	if(e.getSource() == buttonApply) {
+	if(e.getSource() == this.buttonApply) {
 	    try{
-		buttonOk();
-		parent.repaint();
-		modif = false;
-		buttonApply.setEnabled(false);
+		this.buttonOk();
+		this.parent.repaint();
+		this.modif = false;
+		this.buttonApply.setEnabled(false);
 	    } catch(NumberFormatException exception){
 		StringTokenizer st = new StringTokenizer(exception.getMessage(), "\n");
 		int nb_lignes = st.countTokens();
 		String message = new String();
 		for(int i=0;i<nb_lignes;i++)
 		    message = message + "\n" + st.nextToken();
-		JOptionPane.showMessageDialog(parent, message, "Warning", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this.parent, message, "Warning", JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
     
@@ -150,28 +150,28 @@ public class BoiteChangementCouleurArete implements ActionListener{
      * et FAUX sinon.                                                          
      */ 
     public void elementModified() {
-	modif = true;
-	buttonApply.setEnabled(modif);
+	this.modif = true;
+	this.buttonApply.setEnabled(this.modif);
     }
     
     /** Cette méthode est appelée si l'utilisateur appuie sur le bouton Ok.*/
     public void buttonOk() {
-	Enumeration e = selectionAretes.elements();
+	Enumeration e = this.selectionAretes.elements();
 	Color trait;
 	try{
-	    trait = new Color(couleur.R,couleur.G,couleur.B);
+	    trait = new Color(this.couleur.R,this.couleur.G,this.couleur.B);
 	} catch (NumberFormatException exception){
 	    throw new NumberFormatException("Bad argument type for background color:\nAn hexadecimal integer with 6 figures is expected.");
 	}
 	while(e.hasMoreElements()){
 	    ((FormeDessin)e.nextElement()).changerCouleurTrait(trait);
 	}
-	parent.simulationPanel().repaint();
+	this.parent.simulationPanel().repaint();
     }
     
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
 }
 

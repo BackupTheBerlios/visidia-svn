@@ -18,20 +18,20 @@ public class SyncMessage extends Message{
 
     public SyncMessage(Integer data){
 	this.data = new Integer(data.intValue());
-	setType (synchronizationType);
+	this.setType (synchronizationType);
     }
 
     public SyncMessage(int value){
 	this.data = new Integer(value);
-	setType (synchronizationType);
+	this.setType (synchronizationType);
     }
 
     public int value(){
-	return data.intValue();
+	return this.data.intValue();
     }
 
     public Integer data(){
-	return new Integer(data.intValue());
+	return new Integer(this.data.intValue());
     }
     
 
@@ -40,15 +40,15 @@ public class SyncMessage extends Message{
      *
      **/
     public Object getData(){
-	return new Integer(data.intValue());
+	return new Integer(this.data.intValue());
     }
 
     public Object clone(){
-	return new SyncMessage(data);
+	return new SyncMessage(this.data);
     }
 
     public String toString(){
-	return "sync "+ data.toString();
+	return "sync "+ this.data.toString();
     }
 }
     

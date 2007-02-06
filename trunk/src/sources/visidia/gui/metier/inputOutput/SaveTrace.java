@@ -30,10 +30,6 @@ public class SaveTrace extends JFileChooser {
     /** the path of the current directory for saving */
     protected String path;
     
-    // shall we save ?
-    private boolean enregistrer = true;
-  
-
     /** constructor to save the trace in the parent window and the path directory */  
     public SaveTrace(Fenetre parent, String path) {
 	super(path);
@@ -44,33 +40,33 @@ public class SaveTrace extends JFileChooser {
 	}
 	
 	nombre++;
-	validFile = new File(path, "trace_" + Integer.toString(nombre) + ".trace");
-	setSelectedFile(validFile);
+	this.validFile = new File(path, "trace_" + Integer.toString(nombre) + ".trace");
+	this.setSelectedFile(this.validFile);
 	this.parent = parent;
     }
    
     /** this method permit to gave the file name given by the user
      * Here we deal with errors and warnings (existing files, extension errors ...) */
     public void approveSelection() {
-	File f = getSelectedFile();
+	File f = this.getSelectedFile();
 	String s = f.getName();
 	int i = s.lastIndexOf('.');
 	if ((i > 0) &&  (i < s.length() - 1)) {
 	    String extension = s.substring(i+1).toLowerCase();
 	    if (!extension.equals("trace")) {
 		JOptionPane.showMessageDialog(this, 
-					      getName(f) + " : this file has not a recognized\n"
+					      this.getName(f) + " : this file has not a recognized\n"
 					      + "extension. The required extension is '.trace ",
 					      "Warning", 
 					      JOptionPane.WARNING_MESSAGE);
-		setSelectedFile(validFile);
+		this.setSelectedFile(this.validFile);
 		
 	    } 	  
 	} else {
 	    if (i == -1) {
-		setSelectedFile(new File(path, s + ".trace"));
+		this.setSelectedFile(new File(this.path, s + ".trace"));
 	    } else {
-		setSelectedFile(new File(path, s + "trace"));
+		this.setSelectedFile(new File(this.path, s + "trace"));
 	    }
 	}
 	
@@ -98,12 +94,12 @@ public class SaveTrace extends JFileChooser {
      * or validation of an empty file  */
     public void cancelSelection() {
 	nombre--;
-	if (getSelectedFile() == null) {
+	if (this.getSelectedFile() == null) {
 	    JOptionPane.showMessageDialog(this, 
 					  "You must choose a file to save your trace in !",
 					  "Warning", 
 					  JOptionPane.WARNING_MESSAGE);
-	    setSelectedFile(validFile);
+	    this.setSelectedFile(this.validFile);
 	} else {      
 	    super.cancelSelection();
 	}

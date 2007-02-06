@@ -28,12 +28,12 @@ public class IntegerMessage extends Message{
 
     public IntegerMessage(Integer data, MessageType type){
 	this.data = new Integer(data.intValue());
-	setType (type);
+	this.setType (type);
     }
 
     public IntegerMessage(int data, MessageType type){
 	this.data = new Integer(data);
-	setType(type);
+	this.setType(type);
     }
 
 
@@ -41,14 +41,14 @@ public class IntegerMessage extends Message{
      * return an int representation of data
      */
     public int value(){
-	return data.intValue();
+	return this.data.intValue();
     }
 
     /**
      * returns an Integer representation of data using : new Integer(data)
      */
     public Integer data(){
-	return new Integer(data.intValue());
+	return new Integer(this.data.intValue());
     }
 
 
@@ -65,15 +65,15 @@ public class IntegerMessage extends Message{
      * value.
      **/
     public Integer getData(){
-	return new Integer(data.intValue());
+	return new Integer(this.data.intValue());
     }
     
     public Object clone(){
-	return new IntegerMessage(data, getType());
+	return new IntegerMessage(this.data, this.getType());
     }
 
     public String toString(){
-	return data.toString();
+	return this.data.toString();
     }
 }
     

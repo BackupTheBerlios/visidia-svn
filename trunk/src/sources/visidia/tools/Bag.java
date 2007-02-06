@@ -8,11 +8,11 @@ public class Bag {
     private Hashtable<Object, Long> table;
 
     public Bag() {
-	table = new Hashtable<Object, Long>();
+	this.table = new Hashtable<Object, Long>();
     }
 
     public long getOccurrencesOf(Object o) {
-	Long occurrences = table.get(o);
+	Long occurrences = this.table.get(o);
 
 	if (occurrences == null)
 	    return 0;
@@ -21,21 +21,21 @@ public class Bag {
     }
 
     public void add (Object o, long occurrences) {
-	long newOccurrences = getOccurrencesOf(o) + occurrences;
+	long newOccurrences = this.getOccurrencesOf(o) + occurrences;
 
-	table.put(o, new Long(newOccurrences));
+	this.table.put(o, new Long(newOccurrences));
     }
 
     public void add (Object o) {
-	add(o, 1);
+	this.add(o, 1);
     }
 
     public Hashtable asHashTable () {
-	return table;
+	return this.table;
     }
 
     public Set<Object> keySet() {
-	return table.keySet();
+	return this.table.keySet();
     }
 
 }

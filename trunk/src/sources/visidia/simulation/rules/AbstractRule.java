@@ -37,7 +37,7 @@ public abstract class AbstractRule extends Algorithm {
     */
     public AbstractRule(RelabelingSystem r){
 	super();
-	setRelSys(r);
+	this.setRelSys(r);
     }
     public String toString(){
 	return "Abstract Rule"+super.toString();
@@ -54,9 +54,9 @@ public abstract class AbstractRule extends Algorithm {
         typesList.add(MSG_TYPES.SYNC);
 	typesList.add(MSG_TYPES.LABE);
        	typesList.add(MSG_TYPES.TERM);
-	if(synType == SynCT.LC1)
+	if(this.synType == SynCT.LC1)
 	    typesList.add(MSG_TYPES.MARK);
-	if(synType == SynCT.RDV)
+	if(this.synType == SynCT.RDV)
 	    typesList.add(MSG_TYPES.DUEL);
 	return typesList;
     }
@@ -71,7 +71,7 @@ public abstract class AbstractRule extends Algorithm {
     */ 
     public void copy(AbstractRule a){
 	super.copy(a);
-	setRelSys(a.getRelSys());	
+	this.setRelSys(a.getRelSys());	
     }
 
     
@@ -82,7 +82,7 @@ public abstract class AbstractRule extends Algorithm {
     * @return 
     */ 
     public String print(){
-	return (" RSAlgo: opt="+relSys.userPreferences.toString()+"\n RS="+relSys.toString());    
+	return (" RSAlgo: opt="+this.relSys.userPreferences.toString()+"\n RS="+this.relSys.toString());    
     }
     
     /** this methode receive from all synchronized neighbours their
@@ -95,19 +95,19 @@ public abstract class AbstractRule extends Algorithm {
 	int door;
 	int i;
 	/* i receive the update */
-	((SynObjectRules) synob).setCenterState((String) getProperty("label"));
+	((SynObjectRules) this.synob).setCenterState((String) this.getProperty("label"));
 
-	for(i=0; i< ((SynObjectRules) synob).neighbourhood.arity();i++){
-	    door = ((SynObjectRules) synob).neighbourhood.neighbourDoor(i);
-	    if (synob.isConnected(door)) {
-		Message m = receiveFrom(door);
+	for(i=0; i< ((SynObjectRules) this.synob).neighbourhood.arity();i++){
+	    door = ((SynObjectRules) this.synob).neighbourhood.neighbourDoor(i);
+	    if (this.synob.isConnected(door)) {
+		Message m = this.receiveFrom(door);
 		if (m != null) {
 		    StringMessage msg = (StringMessage) m;
 		    Neighbour n = new Neighbour(msg.data(), 
-						synob.getMark(door), door);
-		    ((SynObjectRules) synob).neighbourhood.setState(i, n);
+						this.synob.getMark(door), door);
+		    ((SynObjectRules) this.synob).neighbourhood.setState(i, n);
 		} else {
-		    synob.setConnected(i, false);
+		    this.synob.setConnected(i, false);
 		}
 	    }
 	}
@@ -120,22 +120,22 @@ public abstract class AbstractRule extends Algorithm {
     */
     public void sendUpdate(){
 	Neighbour n ;
-	String c = ((SynObjectRules)synob).neighbourhood.centerState() ;
+	String c = ((SynObjectRules)this.synob).neighbourhood.centerState() ;
 	int i;
-	setMyState(c);
+	this.setMyState(c);
        	//System.out.println("in sendup neigh="+synob.neighbourhood);
-	for(i = 0; i < ((SynObjectRules)synob).neighbourhood.arity(); i++) {
-	    n = ((SynObjectRules)synob).neighbourhood.neighbour(i);
-	    setDoorState(new MarkedState(n.mark()), n.doorNum());
-	    synob.setMark(n.doorNum(),n.mark());
-	    if (synob.isConnected(n.doorNum())) {
-		switch (synType){
+	for(i = 0; i < ((SynObjectRules)this.synob).neighbourhood.arity(); i++) {
+	    n = ((SynObjectRules)this.synob).neighbourhood.neighbour(i);
+	    this.setDoorState(new MarkedState(n.mark()), n.doorNum());
+	    this.synob.setMark(n.doorNum(),n.mark());
+	    if (this.synob.isConnected(n.doorNum())) {
+		switch (this.synType){
 		case SynCT.LC1 :
-		    sendTo(n.doorNum(), 
+		    this.sendTo(n.doorNum(), 
 			   new BooleanMessage(n.mark(), MSG_TYPES.MARK));
 		    break;
 		default:
-		    sendTo(n.doorNum(), new NeighbourMessage(n , MSG_TYPES.LABE));
+		    this.sendTo(n.doorNum(), new NeighbourMessage(n , MSG_TYPES.LABE));
 		    break;
 		}
 	    }
@@ -148,8 +148,8 @@ public abstract class AbstractRule extends Algorithm {
     * @param neighbour the neighbour door.
     */
     public void sendState(int neighbour){
-	if (synob.isConnected(neighbour))
-	    sendTo(neighbour, new StringMessage(getState()));  
+	if (this.synob.isConnected(neighbour))
+	    this.sendTo(neighbour, new StringMessage(this.getState()));  
     }
    
    /**
@@ -157,10 +157,10 @@ public abstract class AbstractRule extends Algorithm {
     * @param rs the new relabeling system.
     */     
     public void setRelSys(RelabelingSystem rs){
-	relSys = rs;
+	this.relSys = rs;
     }
     public RelabelingSystem getRelSys(){
-	return relSys;
+	return this.relSys;
     }
     
     // Works with RDV, LC1, and LC2 and supports various options
@@ -172,64 +172,64 @@ public abstract class AbstractRule extends Algorithm {
 	int round = 0;
 	int i=0;
 	//initialisation du synob et de synal
-	synob.init(getArity());
-	synal.set(this);
+	this.synob.init(this.getArity());
+	this.synal.set(this);
 		
-	while(synob.run){
+	while(this.synob.run){
 	    round++;
-	    synob.reset();
-	    if (synob.allFinished())
-		synob.run=false;
+	    this.synob.reset();
+	    if (this.synob.allFinished())
+		this.synob.run=false;
 	    else{
-		synal.trySynchronize();
+		this.synal.trySynchronize();
 	    }
-	    ((SynObjectRules) synob).refresh();
+	    ((SynObjectRules) this.synob).refresh();
 	    
-	    if(synob.isElected()) { 
+	    if(this.synob.isElected()) { 
 		/**** Elected node***/
 		/* exchaging states */
-		updateNeigborhoodInfo();
+		this.updateNeigborhoodInfo();
 		/* choosing a rule to apply */
-		ruleToApply = relSys.checkForRule((Star) ((SynObjectRules) synob).neighbourhood.clone());
+		ruleToApply = this.relSys.checkForRule((Star) ((SynObjectRules) this.synob).neighbourhood.clone());
 		/* applying the rule */
 		if( ruleToApply != -1 ){
-		    int kindOfRule = applyRule(ruleToApply);
-		    sendUpdate();
-		    synal.breakSynchro();  
-		    if(relSys.userPreferences.manageTerm)
-			endRuleAction(kindOfRule);
+		    int kindOfRule = this.applyRule(ruleToApply);
+		    this.sendUpdate();
+		    this.synal.breakSynchro();  
+		    if(this.relSys.userPreferences.manageTerm)
+			this.endRuleAction(kindOfRule);
 		}
 		else{
-		    sendUpdate();
-		    synal.breakSynchro();
+		    this.sendUpdate();
+		    this.synal.breakSynchro();
 		}
 		
 	    }
-	    else if(synob.isNotInStar())
+	    else if(this.synob.isNotInStar())
 		{
-		    if(synob.allFinished()){
-			for(i = 0; i < synob.arity; i++){
-			    if (! synob.hasFinished(i)) {
-				sendTo(i, new IntegerMessage(SynCT.GLOBAL_END, 
+		    if(this.synob.allFinished()){
+			for(i = 0; i < this.synob.arity; i++){
+			    if (! this.synob.hasFinished(i)) {
+				this.sendTo(i, new IntegerMessage(SynCT.GLOBAL_END, 
 							     MSG_TYPES.TERM));
 			    }
 			}
-			synob.run = false;
+			this.synob.run = false;
 		    }
 		}
-	    else if(synob.isInStar())
+	    else if(this.synob.isInStar())
 		{
-		    sendMyState();
+		    this.sendMyState();
 		    // i receive the update 
-		    receiveAndUpdateMyState();
-		    if (synob.allFinished()) {
-			for(i = 0; i < synob.arity; i++){
-			    if (! synob.hasFinished(i)) {
-				sendTo(i, new IntegerMessage(SynCT.GLOBAL_END,
+		    this.receiveAndUpdateMyState();
+		    if (this.synob.allFinished()) {
+			for(i = 0; i < this.synob.arity; i++){
+			    if (! this.synob.hasFinished(i)) {
+				this.sendTo(i, new IntegerMessage(SynCT.GLOBAL_END,
 							     MSG_TYPES.TERM));
 			    }
 			}
-			synob.run = false;
+			this.synob.run = false;
 		    }
 		}    
 	}
@@ -245,25 +245,25 @@ public abstract class AbstractRule extends Algorithm {
     	switch(kindOfRule){
 	    case (SynCT.GLOBAL_END) :{
 		//System.out.println("\n!->TERMINATION GLOBAL: Node"+getId()+"says: Global END !!! *****");
-		for(int i = 0; i < synob.arity; i++){
-		    if (! synob.hasFinished(i)) {
-			synob.setFinished(i,true);
-			sendTo(i,new IntegerMessage(SynCT.GLOBAL_END, 
+		for(int i = 0; i < this.synob.arity; i++){
+		    if (! this.synob.hasFinished(i)) {
+			this.synob.setFinished(i,true);
+			this.sendTo(i,new IntegerMessage(SynCT.GLOBAL_END, 
 						    MSG_TYPES.TERM));
 			// Message de term doit etre recu au debut de la synchron
 		    }
 		}
-		synob.run = false;
+		this.synob.run = false;
 		break;
 	    }
 	    case (SynCT.LOCAL_END):{
 		//System.out.println("\n!-> TERMINATION LOCAL: Node"+getId()+"says: I have finished by by *****");
-		for(int i = 0; i < synob.arity ; i++){
-		    if (! synob.hasFinished(i)) {
-			sendTo(i, new IntegerMessage(SynCT.LOCAL_END, MSG_TYPES.TERM));
+		for(int i = 0; i < this.synob.arity ; i++){
+		    if (! this.synob.hasFinished(i)) {
+			this.sendTo(i, new IntegerMessage(SynCT.LOCAL_END, MSG_TYPES.TERM));
 		    }
 		}
-		synob.run = false;
+		this.synob.run = false;
 		break;
 	    }
 	}
@@ -277,8 +277,8 @@ public abstract class AbstractRule extends Algorithm {
     */ 
     public void sendMyState(){
 	//System.out.println("LC2 ou rdv");
-	if (synob.isConnected(synob.center))
-	    sendTo(synob.center,new StringMessage(((String) getProperty("label")),MSG_TYPES.LABE));
+	if (this.synob.isConnected(this.synob.center))
+	    this.sendTo(this.synob.center,new StringMessage(((String) this.getProperty("label")),MSG_TYPES.LABE));
     }
     
 
@@ -288,16 +288,16 @@ public abstract class AbstractRule extends Algorithm {
      */     
    
     public void receiveAndUpdateMyState(){
-       if (synob.isConnected(synob.center)) {
-	   Message m = receiveFrom(synob.center); 
+       if (this.synob.isConnected(this.synob.center)) {
+	   Message m = this.receiveFrom(this.synob.center); 
 	   //System.out.println ("untel " + getId() + " a recu de " + synob.center + " " + 
 	   //	       synob.isConnected(0) + " " + synob.isConnected(1));
 	   if (m != null) {
 	       NeighbourMessage msg = (NeighbourMessage) m;
-	       setMyState(msg.label());
+	       this.setMyState(msg.label());
 	       //marking the Arrow;
-	       setDoorState(new MarkedState(msg.mark()), synob.center);
-	       synob.setMark(synob.center, msg.mark());
+	       this.setDoorState(new MarkedState(msg.mark()), this.synob.center);
+	       this.synob.setMark(this.synob.center, msg.mark());
 	   }
        }
    }
@@ -308,7 +308,7 @@ public abstract class AbstractRule extends Algorithm {
      * @return the RSOptions
      */      
     public RSOptions getRSOptions(){
-	return relSys.userPreferences;
+	return this.relSys.userPreferences;
     }
 
     
@@ -316,11 +316,11 @@ public abstract class AbstractRule extends Algorithm {
      * return the label of the node.
      */
     public String getState(){
-	return (String) getProperty("label");
+	return (String) this.getProperty("label");
     }
     
     public void setMyState(String newState){
-	putProperty("label", newState);
+	this.putProperty("label", newState);
     }
 
     
@@ -332,14 +332,14 @@ public abstract class AbstractRule extends Algorithm {
     public int applyRule(int i){
 	int retour;
 
-	Rule r =(Rule) relSys.getRule(i).clone();
+	Rule r =(Rule) this.relSys.getRule(i).clone();
 	retour = r.getType();
 	Star b = new Star(r.befor());
 	Star a =(Star) r.after().clone();
 	
-	if (((Star) ((SynObjectRules)synob).neighbourhood.clone()).contains(b)){
+	if (((Star) ((SynObjectRules)this.synob).neighbourhood.clone()).contains(b)){
 	    a.setDoors(b);
-	    ((SynObjectRules)synob).neighbourhood.setStates(a);
+	    ((SynObjectRules)this.synob).neighbourhood.setStates(a);
 	}
 	else{
 	    //lever exception
@@ -353,11 +353,11 @@ public abstract class AbstractRule extends Algorithm {
      * get help about the relabeling system
      */
     public String getDescription() {
-	return relSys.getDescription();
+	return this.relSys.getDescription();
     }
     
     //PFA2003
     public boolean isRunning() {
-	return synob.run;
+	return this.synob.run;
     }
 }

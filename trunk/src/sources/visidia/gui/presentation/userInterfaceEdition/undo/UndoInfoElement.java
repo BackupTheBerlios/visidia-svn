@@ -30,7 +30,7 @@ public class UndoInfoElement extends Vector{
   /** Retourne l'élément situé à l'index i. */
   public UndoObject getInfo(int index) {
     try {
-      return ((UndoObject)elementAt(index));
+      return ((UndoObject)this.elementAt(index));
     } catch (ArrayIndexOutOfBoundsException e) {
       return null;
     }
@@ -39,8 +39,8 @@ public class UndoInfoElement extends Vector{
     /** Appelle "undo" pour chacun des éléments, dans l'ordre inverse
      * de leur introduction dans le vecteur. */
     public void undo() {
-      for (int i = (size() - 1); i >= 0; i--) {
-	getInfo(i).undo();
+      for (int i = (this.size() - 1); i >= 0; i--) {
+	this.getInfo(i).undo();
 	
     }
   }
@@ -49,19 +49,19 @@ public class UndoInfoElement extends Vector{
   /** Appelle "redo" pour chacun des éléments, dans l'ordre de leur
    * introduction dans le vecteur. */
   public void redo() {
-    for (int i=0; i< size(); i++) {
-      getInfo(i).redo();
+    for (int i=0; i< this.size(); i++) {
+      this.getInfo(i).redo();
     }
   }
   
   /** Retourne la description de l'annulation de l'opération.*/
   public String undoDescription() {
-    return undoDescription;
+    return this.undoDescription;
   }
 
   /** Retourne la description de la restauration de l'opération.*/
   public String redoDescription() {
-    return redoDescription;
+    return this.redoDescription;
   }
 }
   

@@ -97,7 +97,7 @@ public class Neighbour implements Serializable{
     
     public String toString()
     {
-	return " Neigh("+state+"_"+door+"_"+mark+")";
+	return " Neigh("+this.state+"_"+this.door+"_"+this.mark+")";
     }
     
 
@@ -161,7 +161,7 @@ public class Neighbour implements Serializable{
     
 
     public Object clone(){
-	return new Neighbour(state, mark,door);   
+	return new Neighbour(this.state, this.mark,this.door);   
     }
     
 
@@ -178,7 +178,7 @@ public class Neighbour implements Serializable{
 	if((this.mark == n.mark) && this.state.equals(n.state)){
 	    if(n.door == -1)
 		return true;
-	    return (door == n.door);
+	    return (this.door == n.door);
 	}
 	return false;
     }

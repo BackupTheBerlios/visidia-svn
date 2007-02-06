@@ -33,55 +33,55 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
      */
     public OpenHelpDist(String title) {
         // set parameters
-        setTitle(title);
+        this.setTitle(title);
         // build gui
-	addWindowListener(this);
+	this.addWindowListener(this);
         JTabbedPane jTabbedPane = new JTabbedPane();
-        jTabbedPane.addTab("Local Node specification", buildLocalNode());
-        jTabbedPane.addTab("Distirbuting the Nodes", buildNodeLocation());
-	jTabbedPane.addTab("Configuring the registry",buildRegistry());
-	getContentPane().add(jTabbedPane);
+        jTabbedPane.addTab("Local Node specification", this.buildLocalNode());
+        jTabbedPane.addTab("Distirbuting the Nodes", this.buildNodeLocation());
+	jTabbedPane.addTab("Configuring the registry",this.buildRegistry());
+	this.getContentPane().add(jTabbedPane);
     }
 
     private Component buildRegistry() {
-	helpRegistry.setContentType("text/html");
-        helpRegistry.setEditable(false);
+	this.helpRegistry.setContentType("text/html");
+        this.helpRegistry.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    helpRegistry.setPage(file.toURL());
+	    this.helpRegistry.setPage(file.toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
-            helpRegistry.setText("Help not available");
+            this.helpRegistry.setText("Help not available");
         }
-        JScrollPane jScrollPane = new JScrollPane(helpRegistry);
+        JScrollPane jScrollPane = new JScrollPane(this.helpRegistry);
         return jScrollPane;
     }
 
     private Component buildNodeLocation() {
-	helpNodeLocation.setContentType("text/html");
-        helpNodeLocation.setEditable(false);
+	this.helpNodeLocation.setContentType("text/html");
+        this.helpNodeLocation.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    helpNodeLocation.setPage(file.toURL());
+	    this.helpNodeLocation.setPage(file.toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
-            helpNodeLocation.setText("Help not available");
+            this.helpNodeLocation.setText("Help not available");
         }
-        JScrollPane jScrollPane = new JScrollPane(helpNodeLocation);
+        JScrollPane jScrollPane = new JScrollPane(this.helpNodeLocation);
         return jScrollPane;
     }
 
     private Component buildLocalNode() {
-	helpLocalNode.setContentType("text/html");
-        helpLocalNode.setEditable(false);
+	this.helpLocalNode.setContentType("text/html");
+        this.helpLocalNode.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    helpLocalNode.setPage(file.toURL());
+	    this.helpLocalNode.setPage(file.toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
-            helpLocalNode.setText("Help not available");
+            this.helpLocalNode.setText("Help not available");
         }
-        JScrollPane jScrollPane = new JScrollPane(helpLocalNode);
+        JScrollPane jScrollPane = new JScrollPane(this.helpLocalNode);
         return jScrollPane;
     }
 
@@ -103,7 +103,7 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
      * Show dialog window.
      */
     public void show() {
-        setSize(600, 400);
+        this.setSize(600, 400);
 	super.show();
     }
 }

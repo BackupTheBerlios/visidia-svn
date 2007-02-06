@@ -26,31 +26,31 @@ public class Election_Tree extends Algorithm {
         final String nodeF=new String("F");
         final String nodeE=new String("E");
         
-        final int neighbour=getArity();
+        final int neighbour=this.getArity();
         
         String neighbourState[];
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         boolean finishedNode[];
         
-        putProperty("label",new String(nodeN));
+        this.putProperty("label",new String(nodeN));
         
         neighbourState=new String[neighbour];
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
         while(run){
-            synchro=starSynchro(finishedNode);
-            if( synchro==starCenter ){
+            synchro=this.starSynchro(finishedNode);
+            if( synchro==this.starCenter ){
                 int n_Count=0;
                 int f_Count=0;
                 
                 for (int door=0;door<neighbour;door++)
                     if (!finishedNode[door]) {
-                        neighbourState[door]=((StringMessage) receiveFrom(door)).data();
+                        neighbourState[door]=((StringMessage) this.receiveFrom(door)).data();
                         if (neighbourState[door].compareTo(nodeN) == 0)
                             n_Count++;
                         else
@@ -59,40 +59,40 @@ public class Election_Tree extends Algorithm {
                     else
                         f_Count++;
                 
-                if ((((String) getProperty("label")).compareTo(nodeN)==0) &&
+                if ((((String) this.getProperty("label")).compareTo(nodeN)==0) &&
                 (n_Count==1)) {
-                    putProperty("label",new String(nodeF));
+                    this.putProperty("label",new String(nodeF));
                     run=false;
                 }
                 else
-                    if ((((String) getProperty("label")).compareTo(nodeN)==0) &&
+                    if ((((String) this.getProperty("label")).compareTo(nodeN)==0) &&
                     (n_Count==0)) {
-                        putProperty("label",new String(nodeE));
+                        this.putProperty("label",new String(nodeE));
                         run=false;
                     }
                 
                 
                 
-                breakSynchro();
+                this.breakSynchro();
                 
             }
             else {
-                if ( synchro != notInTheStar) {
+                if ( synchro != this.notInTheStar) {
                     
-                    sendTo(synchro,new StringMessage((String) getProperty("label"),labels));
+                    this.sendTo(synchro,new StringMessage((String) this.getProperty("label"),labels));
                 }
                 
             }
             
         }
         
-        sendAll(new IntegerMessage(new Integer(-1),synchronization));
+        this.sendAll(new IntegerMessage(new Integer(-1),synchronization));
         
     }
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -101,13 +101,13 @@ public class Election_Tree extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -125,13 +125,13 @@ public class Election_Tree extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -146,35 +146,35 @@ public class Election_Tree extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -188,8 +188,8 @@ public class Election_Tree extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     

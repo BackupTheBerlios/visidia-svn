@@ -13,11 +13,11 @@ public class AgentMovedAck implements  SimulAck {
 	private long num;
     
     public AgentMovedAck(Long evtNumber){
-	num = evtNumber.longValue();
+	this.num = evtNumber.longValue();
     }
 
     public Long number(){
-	return new Long(num);
+	return new Long(this.num);
     }
 
     public int type(){

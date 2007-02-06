@@ -32,27 +32,27 @@ public class SynObject implements Serializable {
     * @param ar the arity.
     */  
     public void init(int ar){
-	arity = ar;
-	connected = new boolean[arity];
-	edgMark = new boolean[arity];
-	for(int i=0;i<arity;i++) {
-	    edgMark[i] = false;
-	    connected[i] = true;
+	this.arity = ar;
+	this.connected = new boolean[this.arity];
+	this.edgMark = new boolean[this.arity];
+	for(int i=0;i<this.arity;i++) {
+	    this.edgMark[i] = false;
+	    this.connected[i] = true;
 	}
     }
 /**
     * clears the structures.
     */
     public void reset(){
-	synDoors.clear();
-	synchroCenters.clear();
+	this.synDoors.clear();
+	this.synchroCenters.clear();
     }
     
     public Object clone(){
 	return new SynObject();
     }
     public String toString(){
-	return ("<state="+synState+"SynDoors"+synDoors+">"); 
+	return ("<state="+this.synState+"SynDoors"+this.synDoors+">"); 
     }
     /* Synchro State Accessors */
 /** 
@@ -60,31 +60,31 @@ public class SynObject implements Serializable {
     * @param synstate possible values are defined in class SynCT
     */
     public void setState(int synstate){
-	synState = synstate;
+	this.synState = synstate;
     }
 /**
     * Returns true if the node is in elected state, returns false otherwise.
     */
     public boolean isElected(){
-	return (synState == SynCT.IAM_THE_CENTER);
+	return (this.synState == SynCT.IAM_THE_CENTER);
     }
 /**
     * Returns true if the node is in the star, returns false otherwise.
     */
     public boolean isInStar(){
-	return (synState == SynCT.IN_THE_STAR);
+	return (this.synState == SynCT.IN_THE_STAR);
     }
 /**
     * Returns true if the node is in not the star, returns false otherwise.
     */
     public boolean isNotInStar(){
-	return (synState == SynCT.NOT_IN_THE_STAR);
+	return (this.synState == SynCT.NOT_IN_THE_STAR);
     }
 /**
     * Adds a new synchronized neighbour to synDoors (in synob).
     */
     public void addSynchronizedDoor(int i){
-	synDoors.add(new Integer(i));
+	this.synDoors.add(new Integer(i));
     }
 /**
     * Sets the mark of the neighbour to "mark" 
@@ -92,23 +92,23 @@ public class SynObject implements Serializable {
     * @param mark the new mark state.
     */
     public void setMark(int neighbour, boolean mark){
-	edgMark[neighbour] = mark;
+	this.edgMark[neighbour] = mark;
     }
     public boolean getMark(int neighbour){
-	return edgMark[neighbour];
+	return this.edgMark[neighbour];
     }
     /** 
     * Returns the number of the door of synchronized neighbour in position i.
     * @param i position in synDoors.
     */
     public int getDoor(int i){
-	return ((Integer) synDoors.get(i)).intValue();
+	return ((Integer) this.synDoors.get(i)).intValue();
     }
     public boolean isConnected(int i) {
-	return connected[i];
+	return this.connected[i];
     }
     public boolean setConnected(int i, boolean b) {
-	return connected[i] = b;
+	return this.connected[i] = b;
     }
        
     /* par defaut on ne gere pas la Terminaison, Alors pour ne pas
@@ -132,19 +132,19 @@ public class SynObject implements Serializable {
      * vide l'ensemble des centres des etoites de synchronisation.
      */
      public void resetCenters(){
-	synchroCenters.clear();
+	this.synchroCenters.clear();
     }
     /**
      * Add a new center of synchronization. 
      */
     public void addCenter(int i){
-	synchroCenters.add(new Integer(i));
+	this.synchroCenters.add(new Integer(i));
     }
  /**
      *  returns the centers of stars.
      */
     public Vector getCenters(){
-	return synchroCenters;
+	return this.synchroCenters;
     }
     
 }

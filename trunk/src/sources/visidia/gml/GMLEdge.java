@@ -5,16 +5,16 @@ public class GMLEdge {
 	private Integer targetId;
 	
 	public void setSourceId(Integer srcId){
-		sourceId = srcId;
+		this.sourceId = srcId;
 	}
 	public Integer getSourceId(){
-		return sourceId;
+		return this.sourceId;
 	}
 	
 	public void setTargetId(Integer targetId){
 		this.targetId = targetId;
 	}
 	public Integer getTargetId(){
-		return targetId;
+		return this.targetId;
 	}
 }

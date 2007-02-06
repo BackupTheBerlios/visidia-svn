@@ -17,7 +17,7 @@ BoutonArdoise ardoise ;
 public ReglePanel(Hashtable uneHashtable , BoiteChoix parent)
 {
 	
-    ardoise = new BoutonArdoise("A",uneHashtable, parent);
+    this.ardoise = new BoutonArdoise("A",uneHashtable, parent);
     Vector listeItems = new Vector();
     JList liste = new JList(); 
     JScrollPane listeAvecAscenseur;
@@ -50,28 +50,28 @@ public ReglePanel(Hashtable uneHashtable , BoiteChoix parent)
     
     liste = new JList(listeItems);
     liste.setSelectedIndex(0);
-    ardoise.unEtat =(String)liste.getSelectedValue();
+    this.ardoise.unEtat =(String)liste.getSelectedValue();
     liste.addListSelectionListener(this);
-    setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
-    add(ardoise);
+    this.setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
+    this.add(this.ardoise);
     listeAvecAscenseur = new JScrollPane(liste);
     listeAvecAscenseur.setPreferredSize(new Dimension(200,80));
-    add(listeAvecAscenseur);
-    setVisible(true);
+    this.add(listeAvecAscenseur);
+    this.setVisible(true);
 }
    
    
     public void valueChanged(ListSelectionEvent evt)
 {
-ardoise.unEtat = (String)((JList)evt.getSource()).getSelectedValue();
-ardoise.repaint();
+this.ardoise.unEtat = (String)((JList)evt.getSource()).getSelectedValue();
+this.ardoise.repaint();
 
 	
 }
 
  
 public BoutonArdoise ardoise(){
-	return ardoise;
+	return this.ardoise;
 	}
 
 	
@@ -92,34 +92,34 @@ BoiteChoix parent;
   Hashtable uneHashtable;	   
   public BoutonArdoise(String etat,Hashtable dictionnaire,BoiteChoix parent){
 	this.parent = parent ;
-	unEtat = etat;
-	uneHashtable = dictionnaire;
-	setPreferredSize(new Dimension(200,60));
+	this.unEtat = etat;
+	this.uneHashtable = dictionnaire;
+	this.setPreferredSize(new Dimension(200,60));
 
-	boutonChoix = new JButton("Change the Color");
+	this.boutonChoix = new JButton("Change the Color");
 	//boutonChoix.setBounds(50,12,40,20);
-	boutonChoix.addActionListener(this);
-        boutonChoix.setEnabled(true);
-        add(boutonChoix);
+	this.boutonChoix.addActionListener(this);
+        this.boutonChoix.setEnabled(true);
+        this.add(this.boutonChoix);
   }
   public void paintComponent(Graphics g){
 	super.paintComponent(g);
-	if(uneHashtable.get(unEtat)!= null){
-		g.setColor((Color)uneHashtable.get(unEtat));
+	if(this.uneHashtable.get(this.unEtat)!= null){
+		g.setColor((Color)this.uneHashtable.get(this.unEtat));
 		g.fillRect(85,30,30,30);
 	}
         
   }
   public void actionPerformed(ActionEvent evt){
-  	if(evt.getSource() == boutonChoix){
+  	if(evt.getSource() == this.boutonChoix){
 
-	      Color choosedColor = JColorChooser.showDialog(parent.dialog(), 
+	      Color choosedColor = JColorChooser.showDialog(this.parent.dialog(), 
 							    "Choose color", 
-							    (Color)uneHashtable.get(unEtat));
+							    (Color)this.uneHashtable.get(this.unEtat));
 	     
 	      if (choosedColor != null) {
-		uneHashtable.put(unEtat,choosedColor);	
-                repaint();
+		this.uneHashtable.put(this.unEtat,choosedColor);	
+                this.repaint();
 	      }
 	 }
 

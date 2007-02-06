@@ -22,26 +22,26 @@ public class WhiteBoardTest extends junit.framework.TestCase {
     protected void setUp() {
         Hashtable hash = new Hashtable();
 
-        empty = new WhiteBoard();
+        this.empty = new WhiteBoard();
 
-        key1 = "key1";
-        key2 = new Integer(2);
+        this.key1 = "key1";
+        this.key2 = new Integer(2);
 
-        value1 = new Integer(1);
-        value2 = "2";
+        this.value1 = new Integer(1);
+        this.value2 = "2";
 
-        hash.put(key1, value1);
-        hash.put(key2, value2);
+        hash.put(this.key1, this.value1);
+        hash.put(this.key2, this.value2);
 
-        wb1 = new WhiteBoard(hash);
+        this.wb1 = new WhiteBoard(hash);
     }
 
     /**
      * Nothing modified, WhiteBoards must returns default values.
      */
     public void testGetDefaults() {
-        assertEquals(new Integer(1), wb1.getValue("key1"));
-        assertEquals("2", wb1.getValue(new Integer(2)));
+        assertEquals(new Integer(1), this.wb1.getValue("key1"));
+        assertEquals("2", this.wb1.getValue(new Integer(2)));
     }
 
     /**
@@ -51,7 +51,7 @@ public class WhiteBoardTest extends junit.framework.TestCase {
         boolean ok = false;
 
         try {
-            empty.getValue("my key");
+            this.empty.getValue("my key");
         } catch (NoSuchElementException e) {
             ok = true;
         }
@@ -61,7 +61,7 @@ public class WhiteBoardTest extends junit.framework.TestCase {
         ok = false;
 
         try {
-            wb1.getValue("unknown key");
+            this.wb1.getValue("unknown key");
         } catch (NoSuchElementException e) {
             ok = true;
         }
@@ -74,9 +74,9 @@ public class WhiteBoardTest extends junit.framework.TestCase {
      * the new value.
      */
     public void testOverrideDefault() {
-        assertEquals(new Integer(1), wb1.getValue("key1"));
-        wb1.setValue("key1", new Integer(3));
-        assertEquals(new Integer(3), wb1.getValue("key1"));
+        assertEquals(new Integer(1), this.wb1.getValue("key1"));
+        this.wb1.setValue("key1", new Integer(3));
+        assertEquals(new Integer(3), this.wb1.getValue("key1"));
     }
 
     /**
@@ -84,10 +84,10 @@ public class WhiteBoardTest extends junit.framework.TestCase {
      * the last one.
      */
     public void testOverride() {
-        wb1.setValue("key1", new Integer(3));
-        assertEquals(new Integer(3), wb1.getValue("key1"));
-        wb1.setValue("key1", new Integer(6));
-        assertEquals(new Integer(6), wb1.getValue("key1"));
+        this.wb1.setValue("key1", new Integer(3));
+        assertEquals(new Integer(3), this.wb1.getValue("key1"));
+        this.wb1.setValue("key1", new Integer(6));
+        assertEquals(new Integer(6), this.wb1.getValue("key1"));
     }
 
     /**
@@ -97,8 +97,8 @@ public class WhiteBoardTest extends junit.framework.TestCase {
      */
     public void testDoNotCopyDefaults() {
         assertTrue("Should not copy values (must keep memory space)",
-                   wb1.getValue(key1) == value1);
+                   this.wb1.getValue(this.key1) == this.value1);
         assertTrue("Should not copy values (must keep memory space)",
-                   wb1.getValue(key2) == value2);
+                   this.wb1.getValue(this.key2) == this.value2);
     }
 }

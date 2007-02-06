@@ -24,8 +24,8 @@ public class RSOptions implements Serializable {
     }
     
     public RSOptions(int syn, boolean term) {
-	synAlgo=syn;
-	manageTerm = term;
+	this.synAlgo=syn;
+	this.manageTerm = term;
     }
     
     public int defaultSynchronisation() {
@@ -33,10 +33,10 @@ public class RSOptions implements Serializable {
     }
     
     public String toString() {
-	return "Syn="+synAlgo+"Term"+manageTerm;
+	return "Syn="+this.synAlgo+"Term"+this.manageTerm;
     }
     
     public Object clone() {
-	return new RSOptions(synAlgo, manageTerm);
+	return new RSOptions(this.synAlgo, this.manageTerm);
     }
 }

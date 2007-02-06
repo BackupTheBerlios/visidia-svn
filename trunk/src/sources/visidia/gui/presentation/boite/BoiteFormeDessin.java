@@ -54,37 +54,37 @@ public class BoiteFormeDessin implements ActionListener {
     this.forme = forme;
     this.est_editable = est_editable;
     
-    caracteristicsPane = new JPanel();
-    BoxLayout caracteristicsLayout = new BoxLayout(caracteristicsPane, BoxLayout.Y_AXIS);
-    caracteristicsPane.setLayout(caracteristicsLayout);
+    this.caracteristicsPane = new JPanel();
+    BoxLayout caracteristicsLayout = new BoxLayout(this.caracteristicsPane, BoxLayout.Y_AXIS);
+    this.caracteristicsPane.setLayout(caracteristicsLayout);
 
-    caracteristicsPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+    this.caracteristicsPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 								  "Caracteristics"));
     
-    ligne_non_editable(caracteristicsPane, "Object type :", forme.type());
+    this.ligne_non_editable(this.caracteristicsPane, "Object type :", forme.type());
 
-    couleur_trait = new LigneChoixCouleur(this,
+    this.couleur_trait = new LigneChoixCouleur(this,
 					  "Line color (R,G,B) : ", 
 					  (forme).couleurTrait().getRed(),
 					  (forme).couleurTrait().getGreen(),
 					  (forme).couleurTrait().getBlue(), 
 					  est_editable);
-    caracteristicsPane.add(couleur_trait.panel());
+    this.caracteristicsPane.add(this.couleur_trait.panel());
     
     
-    dialog.getContentPane().setLayout(new BorderLayout());
-    dialog.getContentPane().add(caracteristicsPane, BorderLayout.NORTH);
+    this.dialog.getContentPane().setLayout(new BorderLayout());
+    this.dialog.getContentPane().add(this.caracteristicsPane, BorderLayout.NORTH);
     
     
-    ajouterBoutons(est_editable);
+    this.ajouterBoutons(est_editable);
     
   }
   
   /** Affiche la boite et la centre par rapport a "parent".*/
   public void show(Frame parent) {
-    dialog.pack();
-    dialog.show();
-    dialog.setLocationRelativeTo(parent);
+    this.dialog.pack();
+    this.dialog.show();
+    this.dialog.setLocationRelativeTo(parent);
   }
   
   /** Ajoute un bouton nomme "label" au panel "pane" *
@@ -160,31 +160,31 @@ public class BoiteFormeDessin implements ActionListener {
   public void ajouterBoutons(boolean est_editable) {
     JPanel buttonPane = new JPanel(new FlowLayout());
     
-    buttonOk = new JButton("Ok");
-    buttonOk.addActionListener(this);
+    this.buttonOk = new JButton("Ok");
+    this.buttonOk.addActionListener(this);
     
-    buttonCancel = new JButton("Cancel");
-    buttonCancel.addActionListener(this);
+    this.buttonCancel = new JButton("Cancel");
+    this.buttonCancel.addActionListener(this);
 
     if (est_editable) {
-      buttonApply = new JButton("Apply");
-      buttonApply.addActionListener(this);
+      this.buttonApply = new JButton("Apply");
+      this.buttonApply.addActionListener(this);
     }
     
-    buttonPane.add(buttonOk);
-    buttonPane.add(buttonCancel);    
-    buttonPane.add(buttonApply);
-    buttonApply.setEnabled(modif);
-    dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+    buttonPane.add(this.buttonOk);
+    buttonPane.add(this.buttonCancel);    
+    buttonPane.add(this.buttonApply);
+    this.buttonApply.setEnabled(this.modif);
+    this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
   }
   
 
   public void actionPerformed(ActionEvent e) {
-    if(e.getSource() == buttonOk) {
+    if(e.getSource() == this.buttonOk) {
       try {
-        buttonOk();
-        dialog.setVisible(false);
-        dialog.dispose();
+        this.buttonOk();
+        this.dialog.setVisible(false);
+        this.dialog.dispose();
       } catch(NumberFormatException exception) {
         StringTokenizer st =
           new StringTokenizer(exception.getMessage(), "\n");
@@ -192,18 +192,18 @@ public class BoiteFormeDessin implements ActionListener {
   	String message = new String();
         for(int i = 0; i < nb_lignes; i++)
           message = message + "\n" + st.nextToken();
-	JOptionPane.showMessageDialog(parent,
+	JOptionPane.showMessageDialog(this.parent,
 				      message, 
 				      "Warning",
 				      JOptionPane.WARNING_MESSAGE);
       }
     }
-    if(e.getSource() == buttonApply) {
+    if(e.getSource() == this.buttonApply) {
       try {
-	buttonOk();
-	parent.repaint();
-	modif = false;
-	buttonApply.setEnabled(false);
+	this.buttonOk();
+	this.parent.repaint();
+	this.modif = false;
+	this.buttonApply.setEnabled(false);
       } catch(NumberFormatException exception) {
 	StringTokenizer st =
 	  new StringTokenizer(exception.getMessage(), "\n");
@@ -211,44 +211,44 @@ public class BoiteFormeDessin implements ActionListener {
 	String message = new String();
 	for(int i = 0; i < nb_lignes; i++)
 	  message = message + "\n" + st.nextToken();
-	JOptionPane.showMessageDialog(parent,
+	JOptionPane.showMessageDialog(this.parent,
 				      message, 
 				      "Warning",
 				      JOptionPane.WARNING_MESSAGE);
 	}
     }
-    if(e.getSource() == buttonCancel) {
-      dialog.setVisible(false);
-      dialog.dispose();
+    if(e.getSource() == this.buttonCancel) {
+      this.dialog.setVisible(false);
+      this.dialog.dispose();
     }
   }
   
   /** Retourne VRAI si une des caracteristiques de l'FormeDessin a ete modifiee, et FAUX sinon.*/ 
   public void elementModified() {
-    modif = true;
-    buttonApply.setEnabled(modif);
+    this.modif = true;
+    this.buttonApply.setEnabled(this.modif);
   }
   
   /** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok.*/
   public void buttonOk() {
     Color trait;
     try {
-	trait = new Color(couleur_trait.getRed(), couleur_trait.getGreen(), couleur_trait.getBlue());
+	trait = new Color(this.couleur_trait.getRed(), this.couleur_trait.getGreen(), this.couleur_trait.getBlue());
     } catch(NumberFormatException exception) {
 	throw new NumberFormatException("Bad argument type for background color:\nAn hexadecimal integer with 6 figures is expected.");
     }
     
-    (forme).changerCouleurTrait(trait);
+    (this.forme).changerCouleurTrait(trait);
   }
 
   /** Active ou desactive le bouton de choix de couleur, suivant la valeur du booleen passe en argument. */
   public void couleurTraitSetEditable(boolean t) {
-    couleur_trait.setEditable(t);
+    this.couleur_trait.setEditable(t);
   }
 
   /** Retourne le JDialog. */
   public JDialog dialog() {
-    return dialog;
+    return this.dialog;
   }
   
 }

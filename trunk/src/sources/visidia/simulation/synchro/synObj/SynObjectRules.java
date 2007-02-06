@@ -24,7 +24,7 @@ public class SynObjectRules extends SynObject_TERM implements Serializable {
     
     public void reset(){
 	super.reset();
-	neighbourhood.removeAll();
+	this.neighbourhood.removeAll();
     }
     
     public Object clone(){
@@ -33,16 +33,16 @@ public class SynObjectRules extends SynObject_TERM implements Serializable {
     
     /* Neighbourhood Accessors */
     public void setNeighbourhood(Star n){
-	neighbourhood = n;
+	this.neighbourhood = n;
     }
     public void setCenterState(String label){
-	neighbourhood.setCenterState(label);
+	this.neighbourhood.setCenterState(label);
     }
     
     public void refresh(){
-	for(int i=0; i < synDoors.size(); i++){
-	    int door = ((Integer) synDoors.get(i)).intValue();
-	    neighbourhood.addNeighbour(new Neighbour(getMark(door), door));
+	for(int i=0; i < this.synDoors.size(); i++){
+	    int door = ((Integer) this.synDoors.get(i)).intValue();
+	    this.neighbourhood.addNeighbour(new Neighbour(this.getMark(door), door));
 	}
 	
     }

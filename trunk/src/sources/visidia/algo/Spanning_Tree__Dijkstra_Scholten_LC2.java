@@ -43,34 +43,34 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
         boolean finishedNode[];
         
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
         // Si le neoud est p0 etiquete avec un noeud distingue A
-        if (((String) getProperty("label")).compareTo("A")==0) {
+        if (((String) this.getProperty("label")).compareTo("A")==0) {
             state=active;
             father=p0;
             myState=nodeA;
-            putProperty("label",new String("A : " + active+" : sc="+sc));
+            this.putProperty("label",new String("A : " + active+" : sc="+sc));
         }
         else
-            putProperty("label",new String("N : " + passive+" : sc="+sc));
+            this.putProperty("label",new String("N : " + passive+" : sc="+sc));
         
         while(run){
             
-            synchro=starSynchro(finishedNode);
+            synchro=this.starSynchro(finishedNode);
             if (synchro==-3)
                 run=false;
             else
-                if (synchro == starCenter){
+                if (synchro == this.starCenter){
                     int neighbourA=-1;
                     boolean neighbourN=false;
                     
-                    for (int door=0;door<getArity();door++)
+                    for (int door=0;door<this.getArity();door++)
                         if (!finishedNode[door]) {
-                            neighboursLabel=((StringMessage) receiveFrom(door)).data();
+                            neighboursLabel=((StringMessage) this.receiveFrom(door)).data();
                             
                             if (neighboursLabel.compareTo(nodeA)==0)
                                 neighbourA=door;
@@ -85,96 +85,96 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
                         myState=nodeA;
                         state=active;
                         father=new Integer(neighbourA);
-                        putProperty("label",new String("A : " + state+" : sc="+sc));
-                        setDoorState(new MarkedState(true),neighbourA);
+                        this.putProperty("label",new String("A : " + state+" : sc="+sc));
+                        this.setDoorState(new MarkedState(true),neighbourA);
                         
-                        for (int door=0;door<getArity();door++)
+                        for (int door=0;door<this.getArity();door++)
                             if (!finishedNode[door]) {
                                 if (door==father.intValue())
-                                    sendTo(door,mes);
+                                    this.sendTo(door,mes);
                                 else
-                                    sendTo(door,noMes);
+                                    this.sendTo(door,noMes);
                             }
                     }
                     else {
                         if ((myState.compareTo(nodeA)==0) && (!neighbourN) && (state.compareTo(active)==0)) {
                             state=passive;
-                            putProperty("label",new String("A : " + state+" : sc="+sc));
+                            this.putProperty("label",new String("A : " + state+" : sc="+sc));
                             
                             if (sc==0)
                                 if (father==p0){
-                                    sendAll(noMes);
+                                    this.sendAll(noMes);
                                     run=false;
                                 }
                                 else {
                                     if (father != null)
-                                        for (int i=0;i<getArity();i++){
+                                        for (int i=0;i<this.getArity();i++){
                                             if (!finishedNode[i])
                                                 if (i==father.intValue()) {
-                                                    sendTo(i,sig);
+                                                    this.sendTo(i,sig);
                                                     //                           setDoorState(new MarkedState(false),i);
                                                 }
                                                 else
-                                                    sendTo(i,noMes);
+                                                    this.sendTo(i,noMes);
                                         }
                                     else
-                                        sendAll(noMes);
+                                        this.sendAll(noMes);
                                     
                                     father=null;
                                 }
                             else
-                                sendAll(noMes);
+                                this.sendAll(noMes);
                         }
                         else
                             if ((myState.compareTo(nodeA)==0) && (state.compareTo(passive)==0) && (sc==0) && (father!=null)) {
                                 if (father==p0){
-                                    sendAll(noMes);
+                                    this.sendAll(noMes);
                                     run=false;
                                 }
                                 else {
-                                    for (int i=0;i<getArity();i++){
+                                    for (int i=0;i<this.getArity();i++){
                                         if (!finishedNode[i])
                                             if (i==father.intValue()){
-                                                sendTo(i,sig);
+                                                this.sendTo(i,sig);
                                                 //                         setDoorState(new MarkedState(false),i);
                                             }
                                             else
-                                                sendTo(i,noMes);
+                                                this.sendTo(i,noMes);
                                     }
                                     
                                     father=null;
                                 }
                             }
                             else
-                                sendAll(noMes);
+                                this.sendAll(noMes);
                     }
                     
-                    breakSynchro();
+                    this.breakSynchro();
                 }
             
                 else
-                    if (synchro!=notInTheStar) {
+                    if (synchro!=this.notInTheStar) {
                         String son;
                         
-                        sendTo(synchro,new StringMessage(myState,labels));
+                        this.sendTo(synchro,new StringMessage(myState,labels));
                         
-                        son=((StringMessage)receiveFrom(synchro)).data();
+                        son=((StringMessage)this.receiveFrom(synchro)).data();
                         
                         if (son.compareTo(mes.data())==0) {
                             sc++;
-                            putProperty("label",new String("A : " + state+" : sc="+sc));
+                            this.putProperty("label",new String("A : " + state+" : sc="+sc));
                         }
                         else
                             if (son.compareTo(sig.data())==0) {
                                 sc--;
-                                putProperty("label",new String("A : " + state+" : sc="+sc));
+                                this.putProperty("label",new String("A : " + state+" : sc="+sc));
                             }
                         
                     }
         }
         
         
-        sendAll(new IntegerMessage(new Integer(-3),termination));
+        this.sendAll(new IntegerMessage(new Integer(-3),termination));
         
     }
     
@@ -182,7 +182,7 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         boolean theEnd=false;
         
@@ -193,13 +193,13 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -223,13 +223,13 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-3) {
                     theEnd=true;
@@ -248,35 +248,35 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             
             if (! theEnd) {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                        this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
-                return starCenter;
+                return this.starCenter;
             }
             else {
                 for( int i = 0; i < arite; i++){
                     if (! finishedNode[i]) {
-                        sendTo(i,new IntegerMessage(new Integer(-3),termination));
+                        this.sendTo(i,new IntegerMessage(new Integer(-3),termination));
                     }
                 }
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=receiveFrom(i);
+                        Message msg=this.receiveFrom(i);
                     }
                 }
                 
@@ -284,17 +284,17 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
             }
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -305,13 +305,13 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
                         }
                 }
             }
-            if (inTheStar!=notInTheStar)
+            if (inTheStar!=this.notInTheStar)
                 return inTheStar;
             else
                 if (theEnd)
                     return -3;
                 else
-                    return notInTheStar;
+                    return this.notInTheStar;
             
         }
     }
@@ -320,8 +320,8 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

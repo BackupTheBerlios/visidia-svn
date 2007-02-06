@@ -50,61 +50,61 @@ public class PulseButton extends JButton implements ActionListener, Serializable
     
     public PulseButton() {
 	super();
-	addActionListener(this);
-	setAlignmentY(CENTER_ALIGNMENT);
-	initState();
+	this.addActionListener(this);
+	this.setAlignmentY(CENTER_ALIGNMENT);
+	this.initState();
     }
     
 
     public void initState() {
-	if (state != 0) {
-	    pulseFrame.setVisible(false);
-	    pulseFrame = null;
-	    pulseValue = 0;
+	if (this.state != 0) {
+	    this.pulseFrame.setVisible(false);
+	    this.pulseFrame = null;
+	    this.pulseValue = 0;
 	}
-	state=0;
-	pulseValue=0;
-	setEnabled(false);
-	setIcon(noGlobalClock);
-	setToolTipText("No Global clock Detected");
+	this.state=0;
+	this.pulseValue=0;
+	this.setEnabled(false);
+	this.setIcon(this.noGlobalClock);
+	this.setToolTipText("No Global clock Detected");
     }
 
     public void setPulse(int pulse) {
-	if(state == 0) {
-	    actionLeavingState0To1();
+	if(this.state == 0) {
+	    this.actionLeavingState0To1();
 	}
 	
-	pulseValue = pulse;
-	pulseFrame.setPulse();
+	this.pulseValue = pulse;
+	this.pulseFrame.setPulse();
     }
     
     public void actionPerformed(ActionEvent e) {
-	if(state == 1) {
-	    actionEnterStateTwo();
-	} else if(state == 2) {
-	    actionLeavingState2To1();
+	if(this.state == 1) {
+	    this.actionEnterStateTwo();
+	} else if(this.state == 2) {
+	    this.actionLeavingState2To1();
 	}
     }
 
     
     private void actionLeavingState0To1() {
-	pulseFrame = new PulseFrame();
-	setEnabled(true);
-	setIcon(globalClock);
-	setToolTipText("Click to view time units");
-	state = 1;
+	this.pulseFrame = new PulseFrame();
+	this.setEnabled(true);
+	this.setIcon(this.globalClock);
+	this.setToolTipText("Click to view time units");
+	this.state = 1;
     }
 
     private void actionEnterStateTwo() {
-	setToolTipText("Click to hide time units");
-	pulseFrame.setVisible(true);
-	state=2;
+	this.setToolTipText("Click to hide time units");
+	this.pulseFrame.setVisible(true);
+	this.state=2;
     }
     
     private void actionLeavingState2To1 () {
-	setToolTipText("Click to view time units");
-	pulseFrame.setVisible(false);
-	state=1;
+	this.setToolTipText("Click to view time units");
+	this.pulseFrame.setVisible(false);
+	this.state=1;
     }
     
     /**
@@ -124,27 +124,27 @@ public class PulseButton extends JButton implements ActionListener, Serializable
 	    super("Time");
 	    this.getContentPane().setLayout(new BorderLayout());
 	    
-	    pulseLabel = new JLabel();
+	    this.pulseLabel = new JLabel();
 	    
-	    pulseLabel.setForeground(Color.green);
-	    pulseLabel.setBackground(Color.black);
-	    pulseLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-	    pulseLabel.setOpaque(true);
+	    this.pulseLabel.setForeground(Color.green);
+	    this.pulseLabel.setBackground(Color.black);
+	    this.pulseLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+	    this.pulseLabel.setOpaque(true);
 	    
 	    JLabel text = new JLabel("*_*  Time Units  *_*");
 	    
 	    this.setPulse();
 	    
-	    getContentPane().add(text, BorderLayout.NORTH);
-	    getContentPane().add(pulseLabel, BorderLayout.CENTER);
+	    this.getContentPane().add(text, BorderLayout.NORTH);
+	    this.getContentPane().add(this.pulseLabel, BorderLayout.CENTER);
 	    //setSize(50,30);
-	    pack();
+	    this.pack();
 	}
 	
 	
 	public void setPulse() {
-	    pulseLabel.setText(String.valueOf(pulseValue));
-	    pulseLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+	    this.pulseLabel.setText(String.valueOf(PulseButton.this.pulseValue));
+	    this.pulseLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 	}
     }
 }

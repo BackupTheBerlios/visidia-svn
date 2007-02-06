@@ -38,8 +38,8 @@ public static FileOutputStream fos ;
     this.path = path;
     
     nombre++;
-    validFile = new File(path, "noname_" + Integer.toString(nombre) + ".rule");
-    setSelectedFile(validFile);
+    this.validFile = new File(path, "noname_" + Integer.toString(nombre) + ".rule");
+    this.setSelectedFile(this.validFile);
     this.parent = parent;
    
   }
@@ -51,35 +51,35 @@ public static FileOutputStream fos ;
 
   public void approveSelection() {
     boolean save = true;
-    File f = getSelectedFile();
+    File f = this.getSelectedFile();
     String s = f.getName();
     int i = s.lastIndexOf('.');
     if ((i > 0) &&  (i < s.length() - 1)) {
       String extension = s.substring(i+1).toLowerCase();
       if (!extension.equals("rule")) {
 	JOptionPane.showMessageDialog(this, 
-				      getName(f) + " : ths file has not a recognized\n"
+				      this.getName(f) + " : ths file has not a recognized\n"
 				      + "extension. The required extension is '.rule ",
 				      "Warning", 
 				      JOptionPane.WARNING_MESSAGE);
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
 	save = false;
 	
       } 	  
     } else {
       if (i == -1) {
-	setSelectedFile(new File(path, s + ".rule"));
+	this.setSelectedFile(new File(this.path, s + ".rule"));
 	save = true;
       } else {
-	setSelectedFile(new File(path, s + "rule"));
+	this.setSelectedFile(new File(this.path, s + "rule"));
 	save = true;
       }
     }
     
     
-    if (getSelectedFile().exists()) {
+    if (this.getSelectedFile().exists()) {
       int overwrite = JOptionPane.showConfirmDialog(this, 
-						    getName(getSelectedFile()) + 
+						    this.getName(this.getSelectedFile()) + 
 						    " : this file aldready exists.\n"
 						    + "Do you want to overwrite it ?",
 						    "Warning", 
@@ -87,7 +87,7 @@ public static FileOutputStream fos ;
       if (overwrite == JOptionPane.YES_OPTION) {
 	super.approveSelection();
       } else {
-	setSelectedFile(validFile);
+	this.setSelectedFile(this.validFile);
       }
     } else {
       if (save) {
@@ -101,12 +101,12 @@ public static FileOutputStream fos ;
   
   public void cancelSelection() {
     nombre--;
-    if (getSelectedFile() == null) {
+    if (this.getSelectedFile() == null) {
       JOptionPane.showMessageDialog(this, 
 				    "You must choose a file to save your rules in !",
 				    "Warning", 
 				    JOptionPane.WARNING_MESSAGE);
-      setSelectedFile(validFile);
+      this.setSelectedFile(this.validFile);
     } else {      
       super.cancelSelection();
     }

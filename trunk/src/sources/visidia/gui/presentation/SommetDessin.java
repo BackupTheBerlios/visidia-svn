@@ -24,14 +24,14 @@ public abstract class SommetDessin extends FormeDessin {
     // Constructor
     public SommetDessin(VueGraphe vg, int x, int y, String etiquette, Sommet s){
 	this.vueGraphe = vg;
-	monEtiquette = etiquette;
-	graphObject = s;
+	this.monEtiquette = etiquette;
+	this.graphObject = s;
 	s.setSommetDessin(this);
 	this.placer(x, y);
-	vueGraphe.insererListeAffichage(this);
-	stateTable.put("label","N"); // the state is saved in the table
-	stateTable.put("draw messages","yes");
-        wbTable.put("label","N"); 
+	this.vueGraphe.insererListeAffichage(this);
+	this.stateTable.put("label","N"); // the state is saved in the table
+	this.stateTable.put("draw messages","yes");
+        this.wbTable.put("label","N"); 
     }
 
     public SommetDessin(VueGraphe vg, int x, int y, String etiquette){
@@ -45,14 +45,14 @@ public abstract class SommetDessin extends FormeDessin {
    
     // permit to clone the vertex. 
     public Object cloner(){
-	return cloner(vueGraphe);
+	return this.cloner(this.vueGraphe);
     }
 
     public abstract Object cloner(VueGraphe vue);
 
     // Move a vertex of (dx, dy)
     public void deplacer(int dx, int dy){
-	this.placer(posx + dx, posy + dy);
+	this.placer(this.posx + dx, this.posy + dy);
     }
 
     
@@ -62,86 +62,86 @@ public abstract class SommetDessin extends FormeDessin {
     }
 
     public int centreX(){
-	return posx;
+	return this.posx;
     }
 
     public int centreY(){
-	return posy;
+	return this.posy;
     }
 
     public Point centre(){
-	return new Point(posx,posy);}
+	return new Point(this.posx,this.posy);}
 
     public String getEtiquette(){
-	return monEtiquette;
+	return this.monEtiquette;
     }
 
     public ImageIcon getImage(){
-	return uneImage;
+	return this.uneImage;
     }
     
     public String getEtat(){
-	return (String)stateTable.get("label");
+	return (String)this.stateTable.get("label");
     }
 
     public Hashtable getStateTable(){
-	return stateTable;}
+	return this.stateTable;}
 
     public Hashtable getWhiteBoardTable(){
-	return wbTable;}
+	return this.wbTable;}
 
       
     public Sommet getSommet(){
-	return ((Sommet)graphObject);
+	return ((Sommet)this.graphObject);
     }
 
    
     // Modificators
     public void setEtiquette(String etiquette){
-	monEtiquette = etiquette;
+	this.monEtiquette = etiquette;
     }
    
     public void placer(int x, int y){
-	posx = x;
-	posy = y;
-	getSommet().repositionnerAretes();
+	this.posx = x;
+	this.posy = y;
+	this.getSommet().repositionnerAretes();
     }
    
     public void setEtat(String state) {
-	stateTable.put("label",state);
+	this.stateTable.put("label",state);
     }
    
     public void changerImage(ImageIcon image){
-  	uneImage = image;
+  	this.uneImage = image;
     }
  
     public void setSommet(Sommet s){
-	graphObject = s;
+	this.graphObject = s;
     }
 
     // modify a value of the table
     public void setValue(String key, Object value){
-	stateTable.remove(key);
-	stateTable.put(key,value);
+	this.stateTable.remove(key);
+	this.stateTable.put(key,value);
     }
 
     public void setWhiteBoardValue(String key, Object value){
-        wbTable.remove(key);
-        wbTable.put(key,value);
+        this.wbTable.remove(key);
+        this.wbTable.put(key,value);
     }
 
     public String getValue(String key){
-	return (String)stateTable.get(key);}
+	return (String)this.stateTable.get(key);}
 
     public String getWhiteBoardValue(String key){
-	return (String)wbTable.get(key);}
+	return (String)this.wbTable.get(key);}
 
 
     // method which copy all the variable from the SommetDessin given in parameters
     public void copyAllVariable(SommetDessin s){
 	this.uneImage=s.getImage();
 	this.monEtiquette=s.getEtiquette();
-	stateTable.put("label",s.getEtat());
+	this.stateTable.put("label",s.getEtat());
 	super.copyAllVariable(s);
     }
     
@@ -152,27 +152,27 @@ public abstract class SommetDessin extends FormeDessin {
 
     public void fusionner(SommetDessin s){
 	this.getSommet().fusionner(s.getSommet());
-	getVueGraphe().supprimerListeAffichage(s);
+	this.getVueGraphe().supprimerListeAffichage(s);
     }
 
 
     public void setDrawMessage(boolean bool){
-        drawMessage = bool;
-	if(drawMessage)
-	    setValue("draw messages", "yes");
+        this.drawMessage = bool;
+	if(this.drawMessage)
+	    this.setValue("draw messages", "yes");
 	else
-	    setValue("draw messages", "no");
+	    this.setValue("draw messages", "no");
     }
 	
     public boolean getDrawMessage() {
-        return drawMessage;
+        return this.drawMessage;
     }
 
     public void setNbr(String nbr){
 	this.nbr = nbr;
     }
     public String getNbr(){
-	return nbr;
+	return this.nbr;
     }
     
 }

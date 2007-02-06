@@ -32,17 +32,17 @@ public class BoiteExperimentComplet implements ActionListener {
 	
 	this.dialog = new JDialog(parent, titre);
 	this.parent = parent;
-	dialog.getContentPane().setLayout(new GridLayout(2,0));
-	ajouterBoutons(); 
+	this.dialog.getContentPane().setLayout(new GridLayout(2,0));
+	this.ajouterBoutons(); 
 	
     }
     
     //Methodes
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     
@@ -52,53 +52,53 @@ public class BoiteExperimentComplet implements ActionListener {
      */
     public void ajouterBoutons() {
 	
-	buttonPane = new JPanel(new FlowLayout());
-	panel = new JPanel(new GridLayout(1,2));
+	this.buttonPane = new JPanel(new FlowLayout());
+	this.panel = new JPanel(new GridLayout(1,2));
 	
 	//ajout des bouttons ok et cancel
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
 	
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 	
 
 	//ajout des champs de saisie de l'emplacement du serveur 
 	//pour chaque noued du graphe
-	jl = new JLabel("graph size : ");
-	sizeField = new JTextField("");
+	this.jl = new JLabel("graph size : ");
+	this.sizeField = new JTextField("");
 
-	panel.add(jl);
-	panel.add(sizeField);
+	this.panel.add(this.jl);
+	this.panel.add(this.sizeField);
 
 	
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
+	this.buttonPane.add(this.buttonOk);
+	this.buttonPane.add(this.buttonCancel);    
 
-	dialog.getContentPane().add(panel, BorderLayout.CENTER);
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	this.dialog.getContentPane().add(this.panel, BorderLayout.CENTER);
+	this.dialog.getContentPane().add(this.buttonPane, BorderLayout.SOUTH);
     }
     
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
-	    String size = sizeField.getText();
-	    parent.setExperimentSize(new Integer(size));
+	if(e.getSource() == this.buttonOk) {
+	    String size = this.sizeField.getText();
+	    this.parent.setExperimentSize(new Integer(size));
 	
 	    System.out.println(size);
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
 	
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
 
     
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
 }

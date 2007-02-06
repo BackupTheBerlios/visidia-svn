@@ -33,21 +33,21 @@ public class NeighbourMessage extends Message implements Serializable{
     public NeighbourMessage(Neighbour n, MessageType t){
 	
 	this(n);
-	setType(t);
+	this.setType(t);
     
     }  
     
     public boolean mark(){
-	return mark;
+	return this.mark;
     }
     
     public String label(){
-	return label;
+	return this.label;
     }
     
     public Neighbour getNeighbour(){
 	
-	return	new Neighbour(label, mark);
+	return	new Neighbour(this.label, this.mark);
     }
 
     /**
@@ -57,19 +57,19 @@ public class NeighbourMessage extends Message implements Serializable{
 
     
     public Object getData() {
-	return new Neighbour(label, mark);
+	return new Neighbour(this.label, this.mark);
     }
     
     public Object clone(){
-	NeighbourMessage n= new NeighbourMessage(label(), mark());
+	NeighbourMessage n= new NeighbourMessage(this.label(), this.mark());
 	n.setType(this.getType());
 	return n;
     }
    
     public String toString(){
-        if(mark() )
-            return "-X-"+label();
-	return "---"+label();
+        if(this.mark() )
+            return "-X-"+this.label();
+	return "---"+this.label();
     }
 }
 

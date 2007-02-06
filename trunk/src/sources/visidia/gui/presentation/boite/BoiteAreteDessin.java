@@ -48,36 +48,36 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
     public BoiteAreteDessin(JFrame parent, AreteDessin une_arete, String titre,
 		      boolean est_editable) {
 	super(parent, une_arete, titre, est_editable);
-	SommetDessin s = ((AreteDessin)forme).getArete().origine().getSommetDessin();
-	initialStartX = s.centreX();
-	initialStartY = s.centreY();
-	s = ((AreteDessin)forme).getArete().destination().getSommetDessin();
-	initialEndX =  s.centreX();
-	initialEndY =  s.centreY();
+	SommetDessin s = ((AreteDessin)this.forme).getArete().origine().getSommetDessin();
+	this.initialStartX = s.centreX();
+	this.initialStartY = s.centreY();
+	s = ((AreteDessin)this.forme).getArete().destination().getSommetDessin();
+	this.initialEndX =  s.centreX();
+	this.initialEndY =  s.centreY();
 	
-	origineX = ligne_editable(caracteristicsPane,
+	this.origineX = this.ligne_editable(this.caracteristicsPane,
 				  "Origin X :",
-				  Integer.toString(initialStartX),
+				  Integer.toString(this.initialStartX),
 				  est_editable);
-	origineX.addActionListener(this);
+	this.origineX.addActionListener(this);
 
-	origineY = ligne_editable(caracteristicsPane, 
+	this.origineY = this.ligne_editable(this.caracteristicsPane, 
 				  "Origin Y :",
-				  Integer.toString(initialStartY),
+				  Integer.toString(this.initialStartY),
 				  est_editable);
-	origineY.addActionListener(this);
+	this.origineY.addActionListener(this);
 	
-	destinationX = ligne_editable(caracteristicsPane,
+	this.destinationX = this.ligne_editable(this.caracteristicsPane,
 				      "Destination X :",
-				      Integer.toString(initialEndX),
+				      Integer.toString(this.initialEndX),
 				      est_editable);
-	destinationX.addActionListener(this);
+	this.destinationX.addActionListener(this);
 	
-	destinationY = ligne_editable(caracteristicsPane,
+	this.destinationY = this.ligne_editable(this.caracteristicsPane,
 				      "Destination Y :",
-				      Integer.toString(initialEndY),
+				      Integer.toString(this.initialEndY),
 				      est_editable);
-	destinationY.addActionListener(this);
+	this.destinationY.addActionListener(this);
     }
     
     
@@ -89,57 +89,57 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
      **/
     public void actionPerformed(ActionEvent e) {
 	int x1, y1, x2, y2;
-	if (e.getSource() == origineX) {
+	if (e.getSource() == this.origineX) {
 	  try {
-	      x1 = Integer.parseInt(origineX.getText());
+	      x1 = Integer.parseInt(this.origineX.getText());
 	  } catch(NumberFormatException exception) {
-	      JOptionPane.showMessageDialog(dialog,
+	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for starting point X:\n"
 					    + "An integer is expected.",
 					    "Error",
 					    JOptionPane.ERROR_MESSAGE);
-	      origineX.setText(Integer.toString(initialStartX));
+	      this.origineX.setText(Integer.toString(this.initialStartX));
 	  }
-	  elementModified();
+	  this.elementModified();
       }
-	if (e.getSource() == origineY) {
+	if (e.getSource() == this.origineY) {
 	    try {
-	      y1 = Integer.parseInt(origineY.getText());
+	      y1 = Integer.parseInt(this.origineY.getText());
 	    } catch(NumberFormatException exception) {
-		JOptionPane.showMessageDialog(dialog,
+		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for starting point Y:\n"
 					    + "An integer is expected.",
 					      "Error",
 					      JOptionPane.ERROR_MESSAGE);
-	      origineY.setText(Integer.toString(initialStartY));
+	      this.origineY.setText(Integer.toString(this.initialStartY));
 	    }
-	    elementModified();
+	    this.elementModified();
       }
-	if (e.getSource() == destinationX) {
+	if (e.getSource() == this.destinationX) {
 	    try {
-		x2 = Integer.parseInt(destinationX.getText());
+		x2 = Integer.parseInt(this.destinationX.getText());
 	  } catch(NumberFormatException exception) {	
-	      JOptionPane.showMessageDialog(dialog,
+	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for ending point X:\n"
 					    + "An integer is expected.",
 					    "Error",
 					    JOptionPane.ERROR_MESSAGE);
-	      destinationX.setText(Integer.toString(initialEndX));
+	      this.destinationX.setText(Integer.toString(this.initialEndX));
 	  }
-		elementModified();
+		this.elementModified();
 	}
-	if (e.getSource() == destinationY) {
+	if (e.getSource() == this.destinationY) {
 	  try {
-	      y2 = Integer.parseInt(destinationY.getText());
+	      y2 = Integer.parseInt(this.destinationY.getText());
 	  } catch(NumberFormatException exception) {
-	      JOptionPane.showMessageDialog(dialog,
+	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for ending point Y:\n"
 					    + "An integer is expected.",
 					    "Error",
 					    JOptionPane.ERROR_MESSAGE);
-	      destinationY.setText(Integer.toString(initialEndY));
+	      this.destinationY.setText(Integer.toString(this.initialEndY));
 	  }
-	  elementModified();
+	  this.elementModified();
 	}
       super.actionPerformed(e);
     }
@@ -150,47 +150,47 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
     public void buttonOk() {
 	int x1, y1, x2, y2;
 	try {
-	    x1 = Integer.parseInt(origineX.getText());
+	    x1 = Integer.parseInt(this.origineX.getText());
 	} catch(NumberFormatException exception) {
 	    throw new NumberFormatException("Bad argument type for starting point X:\nAn integer is expected.");
 	}
 	try {
-	    y1 = Integer.parseInt(origineY.getText());
+	    y1 = Integer.parseInt(this.origineY.getText());
 	} catch(NumberFormatException exception) {
 	    throw new NumberFormatException("Bad argument type for end point Y:\nAn integer is expected.");
 	}
 	try {
-	    x2 = Integer.parseInt(destinationX.getText());
+	    x2 = Integer.parseInt(this.destinationX.getText());
 	} catch(NumberFormatException exception) {
 	    throw new NumberFormatException("Bad argument type for starting point X:\nAn integer is expected.");
 	}
 	try {
-	    y2 = Integer.parseInt(destinationY.getText());
+	    y2 = Integer.parseInt(this.destinationY.getText());
 	} catch(NumberFormatException exception) {
 	    throw new NumberFormatException("Bad argument type for end point Y:\nAn integer is expected.");
 	    }
 	
 	super.buttonOk();
 
-      ((AreteDessin)forme).getArete().origine().getSommetDessin().placer(x1,y1);
-      ((AreteDessin)forme).getArete().destination().getSommetDessin().placer(x2,y2);
+      ((AreteDessin)this.forme).getArete().origine().getSommetDessin().placer(x1,y1);
+      ((AreteDessin)this.forme).getArete().destination().getSommetDessin().placer(x2,y2);
 
     }
 
     public void origineXSetEditable(boolean t) {
-	origineX.setEditable(t);
+	this.origineX.setEditable(t);
     }
     
     public void origineYSetEditable(boolean t) {
-	origineY.setEditable(t);
+	this.origineY.setEditable(t);
     }
 
     public void destinationXSetEditable(boolean t) {
-	destinationX.setEditable(t);
+	this.destinationX.setEditable(t);
     }
     
     public void destinationYSetEditable(boolean t) {
-	destinationY.setEditable(t);
+	this.destinationY.setEditable(t);
     }
 
 

@@ -23,9 +23,9 @@ public class DetectStable extends Algorithm {
     
     public void init(){
         
-        final int arity=getArity();
+        final int arity=this.getArity();
         
-        int graphSize=getNetSize();
+        int graphSize=this.getNetSize();
         int neighboursA[];
         int myA=-1;
         int synchro;
@@ -35,7 +35,7 @@ public class DetectStable extends Algorithm {
         String myState=new String("F: "+myA);
         boolean finishedNode[];
         
-        putProperty("label",new String(myState));
+        this.putProperty("label",new String(myState));
         
         neighboursA=new int[arity];
         
@@ -50,16 +50,16 @@ public class DetectStable extends Algorithm {
             if ((choosenNumber>=myNumber) && (!myP)) {
                 myP=true;
                 myState="T: "+myA;
-                putProperty("label",new String(myState));
+                this.putProperty("label",new String(myState));
             }
             
-            synchro=starSynchro(finishedNode);
-            if( synchro==starCenter ){
+            synchro=this.starSynchro(finishedNode);
+            if( synchro==this.starCenter ){
                 int minA=2*graphSize;
                 
                 for (int door=0;door<arity;door++)
                     if (!finishedNode[door]) {
-                        neighboursA[door]=((IntegerMessage) receiveFrom(door)).value();
+                        neighboursA[door]=((IntegerMessage) this.receiveFrom(door)).value();
                         if (neighboursA[door]<minA)
                             minA=neighboursA[door];
                     }
@@ -68,25 +68,25 @@ public class DetectStable extends Algorithm {
                     myState="T: "+myA;
                 }
                 
-                putProperty("label",new String(myState));
+                this.putProperty("label",new String(myState));
                 
                 if (myA>graphSize)
                     run=false;
                 
-                breakSynchro();
+                this.breakSynchro();
                 
             }
             else {
-                if ( synchro != notInTheStar) {
+                if ( synchro != this.notInTheStar) {
                     
-                    sendTo(synchro,new IntegerMessage(new Integer(myA),labels));
+                    this.sendTo(synchro,new IntegerMessage(new Integer(myA),labels));
                 }
             }
         }
         
-        for( int i = 0; i < getArity(); i++){
+        for( int i = 0; i < this.getArity(); i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
             }
         }
         
@@ -94,7 +94,7 @@ public class DetectStable extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -103,13 +103,13 @@ public class DetectStable extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -127,13 +127,13 @@ public class DetectStable extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -148,35 +148,35 @@ public class DetectStable extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -190,8 +190,8 @@ public class DetectStable extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     

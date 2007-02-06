@@ -41,19 +41,19 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	this.ray = ray;
 	this.center = center;
 	this.parent = parent;
-	sommetC = (SommetDessin) vg.en_dessous(center.x, center.y);
-	vertexPopup = new JPopupMenu();
-	vertexPopup.setBorder(BorderFactory.createRaisedBevelBorder());
-	vertexNumber = vg.nbObjets();
-	if (vertexNumber > 1) {
+	this.sommetC = (SommetDessin) vg.en_dessous(center.x, center.y);
+	this.vertexPopup = new JPopupMenu();
+	this.vertexPopup.setBorder(BorderFactory.createRaisedBevelBorder());
+	this.vertexNumber = vg.nbObjets();
+	if (this.vertexNumber > 1) {
 	    // Edges must be deduted
-	    vertexNumber = vertexNumber - (vertexNumber / 2);
+	    this.vertexNumber = this.vertexNumber - (this.vertexNumber / 2);
 	}
     }
 
     // Returns SommetDessin s as s.getEtiquette().equals(id)
     private SommetDessin getVertex(String id) {
-	for (Enumeration e = vg.listeAffichage(); e.hasMoreElements(); ) {
+	for (Enumeration e = this.vg.listeAffichage(); e.hasMoreElements(); ) {
 	    FormeDessin f = (FormeDessin) e.nextElement();
 	    if (f instanceof SommetDessin) {
 		if (((SommetDessin) f).getEtiquette().equals(id))
@@ -67,23 +67,23 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
      * Places the vertexes (not the center one) in a regular way
      */
     public void reorganizeVertex() {
-	if (isSimpleRule) {
-	    SommetDessin s = getVertex("1");
-	    sommetC.placer(center.x, center.y);
+	if (this.isSimpleRule) {
+	    SommetDessin s = this.getVertex("1");
+	    this.sommetC.placer(this.center.x, this.center.y);
 	    if (s != null)
-		s.placer(center.x + ray, center.y);
+		s.placer(this.center.x + this.ray, this.center.y);
 	} else {
 	    double alpha = 0;
-	    double step = 2 * Math.PI / (vertexNumber - 1);
-	    for (int i = 1; i < vertexNumber; i++) {
-		SommetDessin s = getVertex("" + i);
-		int x = center.x + (int) (Math.sin(alpha) * ray);
-		int y = center.y - (int) (Math.cos(alpha) * ray);
+	    double step = 2 * Math.PI / (this.vertexNumber - 1);
+	    for (int i = 1; i < this.vertexNumber; i++) {
+		SommetDessin s = this.getVertex("" + i);
+		int x = this.center.x + (int) (Math.sin(alpha) * this.ray);
+		int y = this.center.y - (int) (Math.cos(alpha) * this.ray);
 		s.placer(x, y);
 		alpha += step;
 	    }
 	}
-	parent.repaint();
+	this.parent.repaint();
     }
     
     // Clockwise renumbering
@@ -91,12 +91,12 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	double alpha = 0;
 	SommetDessin s = null;
 	int number = 1;
-	sommetC.setEtiquette("0");
+	this.sommetC.setEtiquette("0");
 	for (alpha = 0.0; alpha < 2 * Math.PI - 0.2; alpha += 0.2) {
-	    int x = center.x + (int) (Math.sin(alpha) * ray);
-	    int y = center.y - (int) (Math.cos(alpha) * ray);
+	    int x = this.center.x + (int) (Math.sin(alpha) * this.ray);
+	    int y = this.center.y - (int) (Math.cos(alpha) * this.ray);
 	    try {
-		SommetDessin s2 = (SommetDessin) vg.en_dessous(x, y, s);
+		SommetDessin s2 = (SommetDessin) this.vg.en_dessous(x, y, s);
 		//System.out.println ("Sommet " + s2 
 		//   + " trouve a alpha " + alpha + " " + x + " " + y);
 		s2.setEtiquette(Integer.toString(number++));
@@ -110,20 +110,20 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
     // returns the nearest point on the circle
     // If isSimpleRule == true, returns the point of the second vertex or null
     private Point getRoundedPosition(int x, int y) {
-	if (isSimpleRule) {
-	    if ((x > center.x + ray - 25) && (x < center.x + ray + 25)
-		&& (y > center.y - 50) && (y < center.y + 50)) 
-		return new Point (center.x + ray, center.y);
+	if (this.isSimpleRule) {
+	    if ((x > this.center.x + this.ray - 25) && (x < this.center.x + this.ray + 25)
+		&& (y > this.center.y - 50) && (y < this.center.y + 50)) 
+		return new Point (this.center.x + this.ray, this.center.y);
 	    else
 		return null;
 	} else {
-	    double r2 = Math.sqrt (Math.pow(x - center.x, 2) 
-				   + Math.pow (y - center.y, 2));
-	    if (Math.abs(r2 - ray) > 10) 
+	    double r2 = Math.sqrt (Math.pow(x - this.center.x, 2) 
+				   + Math.pow (y - this.center.y, 2));
+	    if (Math.abs(r2 - this.ray) > 10) 
 		return null;
-	    return new Point ((int) (center.x + (ray * (x - center.x)) 
+	    return new Point ((int) (this.center.x + (this.ray * (x - this.center.x)) 
 				     / r2),
-			      (int) (center.y + (ray * (y - center.y)) 
+			      (int) (this.center.y + (this.ray * (y - this.center.y)) 
 				     / r2));
 	}
     }
@@ -142,42 +142,42 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	//Left click
 	if ((modifiers == InputEvent.BUTTON1_MASK) 
 	    && (evt.getClickCount() == 2)) {
-	    Point p = getRoundedPosition(x, y);
+	    Point p = this.getRoundedPosition(x, y);
 	    //System.out.println (p);
 			
 	    if (p != null) {
 		try { // Delete the vertex
-		    SommetDessin s = (SommetDessin) vg.en_dessous(x, y);
-		    AreteDessin a = vg.rechercherArete(s.getEtiquette(),
-						       sommetC.getEtiquette());
-		    vg.delObject(s);
-		    vg.delObject(a);
-		    vertexNumber--;
+		    SommetDessin s = (SommetDessin) this.vg.en_dessous(x, y);
+		    AreteDessin a = this.vg.rechercherArete(s.getEtiquette(),
+						       this.sommetC.getEtiquette());
+		    this.vg.delObject(s);
+		    this.vg.delObject(a);
+		    this.vertexNumber--;
 		} catch (NoSuchElementException e) { // Add a new vertex
-		    SommetDessin s = vg.creerSommet(p.x, p.y);
-		    vg.creerArete((SommetDessin) vg.en_dessous(center.x, center.y), s);
-		    vertexNumber++;
+		    SommetDessin s = this.vg.creerSommet(p.x, p.y);
+		    this.vg.creerArete((SommetDessin) this.vg.en_dessous(this.center.x, this.center.y), s);
+		    this.vertexNumber++;
 		}
-		renumeberVertex();
-		parent.repaint();
+		this.renumeberVertex();
+		this.parent.repaint();
 	    }
 	} else if ((modifiers == InputEvent.BUTTON2_MASK) ||
 		   ((modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK))
-		   && ! isSimpleRule)) {
+		   && ! this.isSimpleRule)) {
 	    //Center click or left + shift
 	    try {
-		if (getRoundedPosition(x, y) != null)
-		drag_n_drop_sommet = (SommetDessin) vg.en_dessous(x, y);
+		if (this.getRoundedPosition(x, y) != null)
+		this.drag_n_drop_sommet = (SommetDessin) this.vg.en_dessous(x, y);
 	    } catch (NoSuchElementException e) {
-		drag_n_drop_sommet = null;
-		ancien_pos = new Point(x, y);
+		this.drag_n_drop_sommet = null;
+		this.ancien_pos = new Point(x, y);
 	    }
 	} else if (modifiers == InputEvent.BUTTON3_MASK) {
 	    // Right click
 	    try {
-		FormeDessin f = vg.en_dessous(x, y);
+		FormeDessin f = this.vg.en_dessous(x, y);
 		if ((f instanceof AreteDessin) || (f instanceof SommetDessin))
-		    maybeShowPopup(evt, f);
+		    this.maybeShowPopup(evt, f);
 	    } catch (NoSuchElementException e) {
 		
 	    }
@@ -202,11 +202,11 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 			    ((SommetDessin) f).setEtat(str);
 			else
 			    ((AreteDessin) f).setEtat(str);
-			vertexPopup.setVisible(false);
-			parent.repaint();
+			StarVisuPanel.this.vertexPopup.setVisible(false);
+			StarVisuPanel.this.parent.repaint();
 		    }
 		};
-	    vertexPopup.removeAll();
+	    this.vertexPopup.removeAll();
 	    String etat = (estSommet 
 			   ? ((SommetDessin) f).getEtat() 
 			   : ((AreteDessin) f).getEtatStr());
@@ -218,30 +218,30 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 		edgePopUpItem.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 			    ((AreteDessin) f).setEtat(! isMarked);
-			    vertexPopup.setVisible(false);
-			    parent.repaint();
+			    StarVisuPanel.this.vertexPopup.setVisible(false);
+			    StarVisuPanel.this.parent.repaint();
 			}
 		    });
-		vertexPopup.add(edgePopUpItem);
+		this.vertexPopup.add(edgePopUpItem);
 		if (etat != null) {
 		    edgePopUpItem = new JMenuItem("No label");
 		    edgePopUpItem.addActionListener(new ActionListener () {
 			    public void actionPerformed(ActionEvent e) {
 				((AreteDessin) f).setEtat(null);
-				vertexPopup.setVisible(false);
-				parent.repaint();
+				StarVisuPanel.this.vertexPopup.setVisible(false);
+				StarVisuPanel.this.parent.repaint();
 			    }
 			});
-		    vertexPopup.add(edgePopUpItem);
+		    this.vertexPopup.add(edgePopUpItem);
 		}
-		vertexPopup.addSeparator();
+		this.vertexPopup.addSeparator();
 	    }
 	    if (etat == null) 
 		etat = "N";
 	    EtatPanel etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(), 
 						vueEtatPanel, etat, true);
-	    vertexPopup.add(etatPanel);
-	    vertexPopup.show(e.getComponent(), e.getX(), e.getY());
+	    this.vertexPopup.add(etatPanel);
+	    this.vertexPopup.show(e.getComponent(), e.getX(), e.getY());
 	    etatPanel.requestFocus();
 	}
     }
@@ -256,23 +256,23 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	
 	if (modifiers == InputEvent.BUTTON3_MASK) {
 	    try {
-		FormeDessin f = vg.en_dessous(x, y);
-		maybeShowPopup(evt, f);
+		FormeDessin f = this.vg.en_dessous(x, y);
+		this.maybeShowPopup(evt, f);
 	    } catch (NoSuchElementException e) {
 	    }
-	} else if (drag_n_drop_sommet != null) {
+	} else if (this.drag_n_drop_sommet != null) {
 	    //On verifie s'il ne faut pas fusionner deux sommets
 	    try {
-		SommetDessin s = vg.sommet_en_dessous(x, y, drag_n_drop_sommet);
-		AreteDessin a = vg.rechercherArete(s.getEtiquette(),
-						   sommetC.getEtiquette());
-		vg.delObject(a);
-		vg.delObject(s);
-		renumeberVertex();
-		vertexNumber--;
-		parent.repaint();
+		SommetDessin s = this.vg.sommet_en_dessous(x, y, this.drag_n_drop_sommet);
+		AreteDessin a = this.vg.rechercherArete(s.getEtiquette(),
+						   this.sommetC.getEtiquette());
+		this.vg.delObject(a);
+		this.vg.delObject(s);
+		this.renumeberVertex();
+		this.vertexNumber--;
+		this.parent.repaint();
 	    } catch (NoSuchElementException e) {
-		drag_n_drop_sommet = null;
+		this.drag_n_drop_sommet = null;
 	    }
 	}
     }
@@ -287,21 +287,21 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	
 	if ((modifiers == InputEvent.BUTTON2_MASK) ||
 	    (modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK))) {
-	    if (drag_n_drop_sommet != null) {
-		Point p = getRoundedPosition(x, y);
+	    if (this.drag_n_drop_sommet != null) {
+		Point p = this.getRoundedPosition(x, y);
 		if (p != null) {
 		    try {
 			//S'il y a un sommet dessous, il est aspire
-			SommetDessin s = vg.sommet_en_dessous(x, y, drag_n_drop_sommet);
-			ancien_pos = new Point(s.centreX(), s.centreY());
-			drag_n_drop_sommet.placer(ancien_pos.x, ancien_pos.y);
+			SommetDessin s = this.vg.sommet_en_dessous(x, y, this.drag_n_drop_sommet);
+			this.ancien_pos = new Point(s.centreX(), s.centreY());
+			this.drag_n_drop_sommet.placer(this.ancien_pos.x, this.ancien_pos.y);
 		    } catch (NoSuchElementException e) {
 			//Sinon il est simplement deplace
-			drag_n_drop_sommet.placer(p.x, p.y);
-			ancien_pos = new Point(x, y);
+			this.drag_n_drop_sommet.placer(p.x, p.y);
+			this.ancien_pos = new Point(x, y);
 		    }
-		    renumeberVertex();
-		    parent.repaint();
+		    this.renumeberVertex();
+		    this.parent.repaint();
 		}
 	    }
 	}

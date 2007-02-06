@@ -47,18 +47,18 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
 	// fill the vectors for changing the factories
     	try{
     
-	    File factoryDirectory = new File(factoryPath);
+	    File factoryDirectory = new File(this.factoryPath);
 	    String[] listOfFiles = factoryDirectory.list();
-	    Class fabriqueSommet = Class.forName(factoryPointPath+interfaceFactoryName);
+	    Class fabriqueSommet = Class.forName(this.factoryPointPath+this.interfaceFactoryName);
 	    for (String element : listOfFiles)
-			if (accept(element)){ // we keep only .class files
-			    if (element.equals(interfaceFactoryName+".class")) continue; // don't keep interface
-			    Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(element));
+			if (this.accept(element)){ // we keep only .class files
+			    if (element.equals(this.interfaceFactoryName+".class")) continue; // don't keep interface
+			    Class factFile = Class.forName(this.factoryPointPath+this.nameWithoutExtension(element));
 			    if (fabriqueSommet.isAssignableFrom(factFile)) 
 				{
 				    FabriqueSommet ourFactory = (FabriqueSommet)factFile.newInstance();	
-				    vertexNames.add(index,ourFactory.description());
-				    vertexFactories.add(index,ourFactory);
+				    this.vertexNames.add(index,ourFactory.description());
+				    this.vertexFactories.add(index,ourFactory);
 				    index ++;
 				}
 			}
@@ -71,17 +71,17 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
 	// on regarde la fabrique utilisée pour donner la bonne valeur
 	// par défaut
 	index = 0;
-	for (int j=0;j<vertexNames.size();j++)
-	    if (((String)vertexNames.elementAt(j)).equals(vueGraphe.getFabriqueSommet().description())) 
+	for (int j=0;j<this.vertexNames.size();j++)
+	    if (((String)this.vertexNames.elementAt(j)).equals(this.vueGraphe.getFabriqueSommet().description())) 
 		index = j;
 	
 
-	choix_type = ligne_choix(caracteristicsPane,
+	this.choix_type = this.ligne_choix(this.caracteristicsPane,
 				 "Vertex shape :",
-				 vertexNames,
-				 est_editable,
-				 vertexNames.elementAt(index));
-	choix_type.addItemListener(this);
+				 this.vertexNames,
+				 this.est_editable,
+				 this.vertexNames.elementAt(index));
+	this.choix_type.addItemListener(this);
 	
     }
     
@@ -91,9 +91,9 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
     /** Cette méthode est appelée si l'utilisateur choisit une
      * nouvelle forme grace a la liste de choix.*/
     public void itemStateChanged(ItemEvent evt) {
-	if(evt.getSource() == choix_type) {
-	    chgtForme = choix_type.getSelectedIndex();
-	    elementModified();
+	if(evt.getSource() == this.choix_type) {
+	    this.chgtForme = this.choix_type.getSelectedIndex();
+	    this.elementModified();
 	}
     }
 
@@ -106,10 +106,10 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
     /** Cette méthode est appelée quand l'utilisateur appuie sur le
      * bouton Ok */ 
     public void buttonOk() {
-	if (chgtForme != -1){
+	if (this.chgtForme != -1){
 	    try {
-		vueGraphe.changerFormeSommet((FabriqueSommet)vertexFactories.elementAt(chgtForme),((Editeur)parent).getUndoInfo());
-		((Editeur)parent).setUndo();
+		this.vueGraphe.changerFormeSommet((FabriqueSommet)this.vertexFactories.elementAt(this.chgtForme),((Editeur)this.parent).getUndoInfo());
+		((Editeur)this.parent).setUndo();
 	    } catch(Exception expt) {
 		System.out.println("Problem : " + expt);
 	    }

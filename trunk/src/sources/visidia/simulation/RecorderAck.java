@@ -9,9 +9,9 @@ public class RecorderAck implements Runnable, Cloneable {
     private ObjectWriter writer;
 
     public RecorderAck (VQueue ackIn_, VQueue ackOut_, ObjectWriter writer_){
-	ackIn = ackIn_;
-	ackOut = ackOut_;
-	writer = writer_;
+	this.ackIn = ackIn_;
+	this.ackOut = ackOut_;
+	this.writer = writer_;
     }
     
     public void run () {
@@ -19,7 +19,7 @@ public class RecorderAck implements Runnable, Cloneable {
 	    SimulAck simAck = null;
 
 	    try {
-		simAck = (SimulAck) ackIn.get();
+		simAck = (SimulAck) this.ackIn.get();
 	    }
 	    catch (ClassCastException e) {
 		e.printStackTrace();
@@ -29,10 +29,10 @@ public class RecorderAck implements Runnable, Cloneable {
 		break;		
 	    }
 
-	    writer.writeObject(simAck);
+	    this.writer.writeObject(simAck);
 
 	    try {
-		ackOut.put(simAck);
+		this.ackOut.put(simAck);
 	    }
 	    catch (InterruptedException e) {
 		e.printStackTrace();

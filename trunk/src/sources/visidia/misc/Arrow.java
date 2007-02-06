@@ -27,23 +27,23 @@ public class Arrow implements Serializable {
     
     
     public Arrow( String leftState, String rightState){
-	left =  leftState;
-	right =  rightState;
-	isMarked = false;
+	this.left =  leftState;
+	this.right =  rightState;
+	this.isMarked = false;
     }
 
     public  Arrow( String leftState, String rightState,boolean marquage){
-	left =  leftState;
-	right =  rightState;
-	isMarked = marquage;
+	this.left =  leftState;
+	this.right =  rightState;
+	this.isMarked = marquage;
     }
     
     // ajout fahsi
     public Arrow(Neighbour n,  String center){ 
 	
-	right = n.state();
-	left = new String(center);
-	isMarked = n.mark();
+	this.right = n.state();
+	this.left = new String(center);
+	this.isMarked = n.mark();
     }
 
   

@@ -14,17 +14,17 @@ class SimpleGraphEdge implements Edge, Serializable{
     Object data;
 
     SimpleGraphEdge(SimpleGraph graph, SimpleGraphVertex v1, SimpleGraphVertex v2){
-	vtx1 = v1;
-	vtx2 = v2;
+	this.vtx1 = v1;
+	this.vtx2 = v2;
 	this.graph = graph;
     }
 
     public Vertex vertex1(){
-	return vtx1;
+	return this.vtx1;
     }
     
     public Vertex vertex2(){
-	return vtx2;
+	return this.vtx2;
     }
     
     
@@ -32,11 +32,11 @@ class SimpleGraphEdge implements Edge, Serializable{
      *
      */
     public Object getData(){
-	return data;
+	return this.data;
     }
     
     protected void updateData(Object dt){
-	data = dt;
+	this.data = dt;
     }
 
 
@@ -44,14 +44,14 @@ class SimpleGraphEdge implements Edge, Serializable{
      *
      */
     public void setData(Object dt){
-	SimpleGraphEdge edg = (SimpleGraphEdge) graph.edge(vtx2.identity(), vtx1.identity());
+	SimpleGraphEdge edg = (SimpleGraphEdge) this.graph.edge(this.vtx2.identity(), this.vtx1.identity());
 	
       	if( edg == this ){
-	  edg = (SimpleGraphEdge) graph.edge(vtx2.identity(), vtx1.identity());
+	  edg = (SimpleGraphEdge) this.graph.edge(this.vtx2.identity(), this.vtx1.identity());
 	}
 
 	edg.updateData(dt);
-	data = dt;
+	this.data = dt;
     }
     
 }

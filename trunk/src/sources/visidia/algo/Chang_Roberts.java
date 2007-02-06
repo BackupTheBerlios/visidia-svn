@@ -5,30 +5,30 @@ import visidia.misc.*;
 public class Chang_Roberts extends Algorithm {
     
     public void init(){
-        int myNb=getId().intValue();
+        int myNb=this.getId().intValue();
         String label=new String();
         int answer;
         boolean run=true;
         
-        label="("+getId()+","+myNb+")";
-        putProperty("label",label);
+        label="("+this.getId()+","+myNb+")";
+        this.putProperty("label",label);
         /*if (getId().intValue()==0)
             sendTo(0,new IntegerMessage(new Integer(myNb)));*/
         
         do {
-            sendTo(nextDoor(),new IntegerMessage(new Integer(myNb)));
-            Message msg = receiveFrom(previousDoor());
+            this.sendTo(this.nextDoor(),new IntegerMessage(new Integer(myNb)));
+            Message msg = this.receiveFrom(this.previousDoor());
             answer= ((IntegerMessage)msg).value();
             
-            if (answer==getId().intValue()) {
-                putProperty("label",new String("E"));
+            if (answer==this.getId().intValue()) {
+                this.putProperty("label",new String("E"));
                 run=false;
             }
             
             if (answer>myNb) {
                 myNb=answer;
-                label="("+getId()+","+myNb+")";
-                putProperty("label",label);
+                label="("+this.getId()+","+myNb+")";
+                this.putProperty("label",label);
             }
         }
         while (run);

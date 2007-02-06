@@ -28,29 +28,29 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        int graphS=this.getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         boolean finishedNode[];
         int lastName;
         Knowledge node=new Knowledge();
         
-        putProperty("label",new String("0"));
+        this.putProperty("label",new String("0"));
         node.initial(graphS);
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
         while(run){
             
-            synchro=starSynchro(finishedNode);
-            if( synchro==starCenter ){
+            synchro=this.starSynchro(finishedNode);
+            if( synchro==this.starCenter ){
                 
-                for (int door=0;door<getArity();door++) {
+                for (int door=0;door<this.getArity();door++) {
                     if (!finishedNode[door])
-                        receiveKnowledge(node,door);
+                        this.receiveKnowledge(node,door);
                 }
                 lastName=node.myName();
                 
@@ -63,34 +63,34 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
                 nameVector.add(new Integer(lastName));
                 
                 
-                sendAll(new VectorMessage(nameVector,labels));
-                messagesNumber+=getArity();
-                putProperty("label",new String((new Integer(node.myName())).toString()));
+                this.sendAll(new VectorMessage(nameVector,labels));
+                messagesNumber+=this.getArity();
+                this.putProperty("label",new String((new Integer(node.myName())).toString()));
                 
-                Vector vec=addVector(node.myName(),node.neighbour());
+                Vector vec=this.addVector(node.myName(),node.neighbour());
                 
                 node.changeKnowledge(vec);
                 
                 
-                broadcastKnowledge(node);
+                this.broadcastKnowledge(node);
                 
-                changeTable(node);
+                this.changeTable(node);
                 if ( node.endKnowledge(graphS) ) {
                     run=false;
                 }
-                breakSynchro();
+                this.breakSynchro();
                 
             }
             else {
-                if ( synchro != notInTheStar) {
+                if ( synchro != this.notInTheStar) {
                     
-                    sendKnowledge(node,synchro);
+                    this.sendKnowledge(node,synchro);
                     
-                    Message newName = receiveFrom(synchro);
+                    Message newName = this.receiveFrom(synchro);
                     node.changeNeighbours(((VectorMessage)newName).data());
-                    putProperty("My Neighbours", node.neighbour());
-                    receiveKnowledge(node,synchro);
-                    changeTable(node);
+                    this.putProperty("My Neighbours", node.neighbour());
+                    this.receiveKnowledge(node,synchro);
+                    this.changeTable(node);
                 }
                 
             }
@@ -98,14 +98,14 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
             
         }
         
-        sendAll(new IntegerMessage(new Integer(-1),synchronization));
+        this.sendAll(new IntegerMessage(new Integer(-1),synchronization));
         System.out.println("Nombre de starSynchro = "+synchroNumber+"   Nombre de messages = "+messagesNumber);
         
     }
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -114,13 +114,13 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -138,13 +138,13 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -159,35 +159,35 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             synchroNumber++;
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -201,19 +201,19 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     
     private void receiveKnowledge(Knowledge node,int door) {
         int prop;
-        VectorMessage vm=(VectorMessage) receiveFrom(door);
+        VectorMessage vm=(VectorMessage) this.receiveFrom(door);
         Vector data =vm.data();
         while (((Integer)data.elementAt(0)).intValue() !=-1) {
             node.changeKnowledge(data);
             prop=((Integer)data.elementAt(0)).intValue();
-            vm=(VectorMessage) receiveFrom(door);
+            vm=(VectorMessage) this.receiveFrom(door);
             data =vm.data();
         }
     }
@@ -223,24 +223,24 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         Vector vec = new Vector();
         for (int i=1;i<=node.max();i++) {
             if ((node.neighbourNode(i))!=null) {
-                vec=addVector(i,node.neighbourNode(i));
-                sendAll(new VectorMessage((Vector)vec.clone(),labels));
+                vec=this.addVector(i,node.neighbourNode(i));
+                this.sendAll(new VectorMessage((Vector)vec.clone(),labels));
                 vec.clear();
-                messagesNumber+=getArity();
+                messagesNumber+=this.getArity();
             }
         }
         
         vec.add(new Integer(-1));
         vec.add(new Integer(-1));
-        sendAll(new VectorMessage((Vector)vec.clone(),labels));
+        this.sendAll(new VectorMessage((Vector)vec.clone(),labels));
     }
     
     private void sendKnowledge(Knowledge node,int synchro) {
         Vector vec = new Vector();
         for (int i=1;i<=node.max();i++) {
             if ((node.neighbourNode(i))!=null) {
-                vec=addVector(i,node.neighbourNode(i));
-                sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
+                vec=this.addVector(i,node.neighbourNode(i));
+                this.sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
                 vec.clear();
                 messagesNumber++;
             }
@@ -248,7 +248,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         
         vec.add(new Integer(-1));
         vec.add(new Integer(-1));
-        sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
+        this.sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
         
     }
     
@@ -256,7 +256,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         for (int i=1;i<=node.max();i++) {
             if ((node.neighbourNode(i))!=null) {
                 Integer nodeI=new Integer(i);
-                putProperty(nodeI.toString(), node.neighbourNode(i));
+                this.putProperty(nodeI.toString(), node.neighbourNode(i));
             }
         }
     }

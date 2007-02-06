@@ -16,15 +16,15 @@ public class AgentMovedEvent implements SimulEvent {
     }
     
     public Integer vertexId(){
-	return vertexId;
+	return this.vertexId;
     }
  
     public Integer nbrAg(){
-	return nbrAg;
+	return this.nbrAg;
     }
 
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**

@@ -21,25 +21,25 @@ public class VectorMessage extends Message {
     private Vector data;
 
     public VectorMessage(Vector v){
-	data = v;
+	this.data = v;
     }
 
     public VectorMessage(Vector v, MessageType type){
-	setType (type);
-	data = v;
+	this.setType (type);
+	this.data = v;
     }
 
     public Vector data(){
-	return (Vector)data.clone();
+	return (Vector)this.data.clone();
     }
 
     public Object getData() {
-	return data.clone();
+	return this.data.clone();
     }
 
 
     public Object clone(){
-	return new VectorMessage((Vector)data.clone(), getType());
+	return new VectorMessage((Vector)this.data.clone(), this.getType());
     }
 
 
@@ -60,13 +60,13 @@ public class VectorMessage extends Message {
 	*/
 
 	String result = "<";
-	int size = data.size();
+	int size = this.data.size();
 	if(size ==1) {
-	    result+=data.elementAt(0)+">";
+	    result+=this.data.elementAt(0)+">";
 	} else {
-	    result+=data.elementAt(0);
-	    for(int i = 1; i<data.size(); i++) {
-		result+=";"+(data.elementAt(i)).toString();
+	    result+=this.data.elementAt(0);
+	    for(int i = 1; i<this.data.size(); i++) {
+		result+=";"+(this.data.elementAt(i)).toString();
 	    }
 	    result += ">";
 	}

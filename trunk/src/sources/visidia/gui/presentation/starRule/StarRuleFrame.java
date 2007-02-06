@@ -34,29 +34,29 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
     HelpDialog helpDialog;
 
     public StarRuleFrame(JFrame parent, final ApplyStarRulesSystem applyRules) {
-	finalThis = this;
-	rule = new JTabbedPane();
-	rule.setBackground(StarData.ruleColor);
+	this.finalThis = this;
+	this.rule = new JTabbedPane();
+	this.rule.setBackground(StarData.ruleColor);
 	Point p = parent.getLocation();
-	helpDialog = new HelpDialog(finalThis, "Insert the rules description");
-	helpDialog.setEditable(true);
-	setLocation(p.x + 100, p.y + 100);
-	setTitle();
+	this.helpDialog = new HelpDialog(this.finalThis, "Insert the rules description");
+	this.helpDialog.setEditable(true);
+	this.setLocation(p.x + 100, p.y + 100);
+	this.setTitle();
 	
-	Container c = getContentPane();
+	Container c = this.getContentPane();
 	c.setBackground(new Color(175, 235, 235));
-	c.add (rule);
+	c.add (this.rule);
 	
-	addWindowListener (new WindowAdapter() {
+	this.addWindowListener (new WindowAdapter() {
 		public void windowClosing (WindowEvent e) {
-		    finalThis.setVisible(false);
-		    fileName = null;
+		    StarRuleFrame.this.finalThis.setVisible(false);
+		    StarRuleFrame.this.fileName = null;
 		}
 		});
-	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			   
 	JMenuBar menuBar = new JMenuBar();
-	setJMenuBar(menuBar);
+	this.setJMenuBar(menuBar);
 	JMenu menuFile = new JMenu("File");
 	menuFile.setMnemonic('F');
 	JMenu menuSyn = new JMenu("Synchronisation");
@@ -71,26 +71,26 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 	menuBar.add(menuOption);
 	menuBar.add(Box.createHorizontalStrut (10));
 
-	buildFileMenu(menuFile);
+	this.buildFileMenu(menuFile);
 
 	ButtonGroup synGroup = new ButtonGroup();
-	synRdv = new JCheckBoxMenuItem("Rendez-vous");
-	synLC1 = new JCheckBoxMenuItem("LC1");
-	synLC2 = new JCheckBoxMenuItem("LC2");
-	synNotSpecified = new JCheckBoxMenuItem("Not specified");
-	synNotSpecified.setSelected(true);
-	synGroup.add(synRdv);
-	synGroup.add(synLC1);
-	synGroup.add(synLC2);
-	synGroup.add(synNotSpecified);
-	menuSyn.add(synNotSpecified);
+	this.synRdv = new JCheckBoxMenuItem("Rendez-vous");
+	this.synLC1 = new JCheckBoxMenuItem("LC1");
+	this.synLC2 = new JCheckBoxMenuItem("LC2");
+	this.synNotSpecified = new JCheckBoxMenuItem("Not specified");
+	this.synNotSpecified.setSelected(true);
+	synGroup.add(this.synRdv);
+	synGroup.add(this.synLC1);
+	synGroup.add(this.synLC2);
+	synGroup.add(this.synNotSpecified);
+	menuSyn.add(this.synNotSpecified);
 	menuSyn.addSeparator();
-	menuSyn.add(synRdv);
-	menuSyn.add(synLC1);
-	menuSyn.add(synLC2);
+	menuSyn.add(this.synRdv);
+	menuSyn.add(this.synLC1);
+	menuSyn.add(this.synLC2);
 	
-	optionTermination = new JCheckBoxMenuItem("Manage termination");
-	menuOption.add(optionTermination);
+	this.optionTermination = new JCheckBoxMenuItem("Manage termination");
+	menuOption.add(this.optionTermination);
 	
 	JButton butApply = new JButton("Apply");
 	menuBar.add(butApply);
@@ -98,10 +98,10 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 		public void actionPerformed(ActionEvent e) {
 		    int res =
 			JOptionPane.showConfirmDialog
-			(finalThis, "Apply the rules to the simulation frame ?",
+			(StarRuleFrame.this.finalThis, "Apply the rules to the simulation frame ?",
 			 "Apply the rules", JOptionPane.YES_NO_OPTION);
 		    if (res == JOptionPane.YES_OPTION) {
-			applyRules.applyStarRulesSystem(getRelabelingSystem());
+			applyRules.applyStarRulesSystem(StarRuleFrame.this.getRelabelingSystem());
 		    }
 		}
 	    });
@@ -120,28 +120,28 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 	menuBar.add(butHelp);
 	butHelp.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    helpDialog.setVisible(true);
-		    pack();
+		    StarRuleFrame.this.helpDialog.setVisible(true);
+		    StarRuleFrame.this.pack();
 		}
 	    });
 	
-	newRelabelingSystem(null);
-	pack();
+	this.newRelabelingSystem(null);
+	this.pack();
     }
     
     public void setTitle() {
 	String title = "Star rules system builder";
-	if (fileName == null) {
+	if (this.fileName == null) {
 	    super.setTitle(title + " " + "(untilted)");
 	} else {
-	    super.setTitle(title + " " + "(" + fileName + ")");
+	    super.setTitle(title + " " + "(" + this.fileName + ")");
 	}
     }
     
     public void setVisible(boolean v) {
-	newRelabelingSystem(null);
-	fileName = null;
-	pack();
+	this.newRelabelingSystem(null);
+	this.fileName = null;
+	this.pack();
 	super.setVisible(v);
     }
 
@@ -149,27 +149,27 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
     //If rSys is null, a new system is proposed
     private void newRelabelingSystem(RelabelingSystem rSys) {
 	if (rSys == null) {
-	    rule.removeAll();
-	    rule.addTab ("Rule n 1", new RulePane(this, null));
-	    optionTermination.setSelected(true);
-	    synNotSpecified.setSelected(true);
-	    helpDialog.setText("");
+	    this.rule.removeAll();
+	    this.rule.addTab ("Rule n 1", new RulePane(this, null));
+	    this.optionTermination.setSelected(true);
+	    this.synNotSpecified.setSelected(true);
+	    this.helpDialog.setText("");
 	} else {
-	    rule.removeAll();
+	    this.rule.removeAll();
 	    for (Iterator it = rSys.getRules(); it.hasNext(); ) {
 		Rule r = (Rule) it.next();
-		rule.addTab ("", new RulePane(this, r));
+		this.rule.addTab ("", new RulePane(this, r));
 	    }
 	    RSOptions rsOpt = rSys.getOptions();
-	    optionTermination.setSelected(rsOpt.manageTerm);
+	    this.optionTermination.setSelected(rsOpt.manageTerm);
 	    int synType = rsOpt.defaultSynchronisation();
-	    synNotSpecified.setSelected(true);
-	    synRdv.setSelected(synType == SynCT.RDV);
-	    synLC1.setSelected(synType == SynCT.LC1);
-	    synLC2.setSelected(synType == SynCT.LC2);
-	    helpDialog.setText(rSys.getDescription());
+	    this.synNotSpecified.setSelected(true);
+	    this.synRdv.setSelected(synType == SynCT.RDV);
+	    this.synLC1.setSelected(synType == SynCT.LC1);
+	    this.synLC2.setSelected(synType == SynCT.LC2);
+	    this.helpDialog.setText(rSys.getDescription());
 	}
-	renameRule();
+	this.renameRule();
     }
     
     private void buildFileMenu(JMenu menuFile) {
@@ -200,12 +200,12 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 
 	fileSave.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    if (fileName == null) 
+		    if (StarRuleFrame.this.fileName == null) 
 			return;
 		    try {
-			FileOutputStream ostream = new FileOutputStream(fileName);
+			FileOutputStream ostream = new FileOutputStream(StarRuleFrame.this.fileName);
 			ObjectOutputStream p = new ObjectOutputStream(ostream);
-			p.writeObject(getRelabelingSystem());
+			p.writeObject(StarRuleFrame.this.getRelabelingSystem());
 			p.flush();
 			ostream.close();
 		    } catch (Exception exc) {
@@ -217,14 +217,14 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 	fileNew.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    int res =
-			JOptionPane.showConfirmDialog (finalThis, 
+			JOptionPane.showConfirmDialog (StarRuleFrame.this.finalThis, 
 						       "Begin new system ?",
 						       "Begin new system",
 						       JOptionPane.YES_NO_OPTION);
 		    if (res == JOptionPane.YES_OPTION) {
-			newRelabelingSystem(null);
-			fileName = null;
-			setTitle();
+			StarRuleFrame.this.newRelabelingSystem(null);
+			StarRuleFrame.this.fileName = null;
+			StarRuleFrame.this.setTitle();
 			fileSave.setEnabled(false);
 		    }
 		}
@@ -233,13 +233,13 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 	fileClose.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    int res =
-			JOptionPane.showConfirmDialog (finalThis, 
+			JOptionPane.showConfirmDialog (StarRuleFrame.this.finalThis, 
 						       "Close the frame ?",
 						       "Close the frame",
 						       JOptionPane.YES_NO_OPTION);
 		    if (res == JOptionPane.YES_OPTION) {
-			finalThis.setVisible(false);
-			fileName = null;
+			StarRuleFrame.this.finalThis.setVisible(false);
+			StarRuleFrame.this.fileName = null;
 			fileSave.setEnabled(false);
 		    }
 		}
@@ -251,7 +251,7 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 		    chooser.setDialogType (JFileChooser.SAVE_DIALOG);
 		    chooser.setFileFilter (filter);
 		    chooser.setCurrentDirectory (new File ("./"));
-		    int returnVal = chooser.showSaveDialog (finalThis);
+		    int returnVal = chooser.showSaveDialog (StarRuleFrame.this.finalThis);
 		    if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 			    String fName = chooser.getSelectedFile ().getPath ();
@@ -259,12 +259,12 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 				fName += ".srs";
 			    FileOutputStream ostream = new FileOutputStream(fName);
 			    ObjectOutputStream p = new ObjectOutputStream(ostream);
-			    p.writeObject(getRelabelingSystem());
+			    p.writeObject(StarRuleFrame.this.getRelabelingSystem());
 			    p.flush();
 			    ostream.close();
-			    fileName = fName;
+			    StarRuleFrame.this.fileName = fName;
 			    fileSave.setEnabled(true);
-			    setTitle();
+			    StarRuleFrame.this.setTitle();
 			} catch (IOException ioe) {
 			    System.out.println (ioe);
 			}
@@ -275,7 +275,7 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 	fileOpen.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    int res =
-			JOptionPane.showConfirmDialog (finalThis, 
+			JOptionPane.showConfirmDialog (StarRuleFrame.this.finalThis, 
 						       "Load file ?",
 						       "Load file",
 						       JOptionPane.YES_NO_OPTION);
@@ -286,18 +286,18 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 		    chooser.setDialogType (JFileChooser.OPEN_DIALOG);
 		    chooser.setFileFilter (filter);
 		    chooser.setCurrentDirectory (new File ("./"));
-		    int returnVal = chooser.showSaveDialog (finalThis);
+		    int returnVal = chooser.showSaveDialog (StarRuleFrame.this.finalThis);
 		    if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 			    String fName = chooser.getSelectedFile().getPath();
 			    FileInputStream istream = new FileInputStream(fName);
 			    ObjectInputStream p = new ObjectInputStream(istream);
 			    RelabelingSystem rSys = (RelabelingSystem) p.readObject();
-			    newRelabelingSystem(rSys);
+			    StarRuleFrame.this.newRelabelingSystem(rSys);
 			    istream.close();
-			    fileName = fName;
+			    StarRuleFrame.this.fileName = fName;
 			    fileSave.setEnabled(true);
-			    setTitle();
+			    StarRuleFrame.this.setTitle();
 			} catch (IOException ioe) {
 			    System.out.println (ioe);
 			} catch (ClassNotFoundException cnfe) {
@@ -310,86 +310,86 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
     
     //Give a name to the tab according to its index
     private void renameRule() {
-	int count = rule.getTabCount();
+	int count = this.rule.getTabCount();
 	for (int i = 0; i < count; i++) {
-	    rule.setTitleAt(i, "Rule " + (i + 1));
-	    rule.setBackgroundAt(i, StarData.ruleColor);
+	    this.rule.setTitleAt(i, "Rule " + (i + 1));
+	    this.rule.setBackgroundAt(i, StarData.ruleColor);
 	}
     }
     
     public void addNewRule() {
-	rule.addTab("", new RulePane(this, null));
-	renameRule();	
-	rule.setSelectedIndex(rule.getTabCount() - 1);
+	this.rule.addTab("", new RulePane(this, null));
+	this.renameRule();	
+	this.rule.setSelectedIndex(this.rule.getTabCount() - 1);
     
     }
     public void deleteRule() {
-	int p = rule.getSelectedIndex();
-	int count = rule.getTabCount();
+	int p = this.rule.getSelectedIndex();
+	int count = this.rule.getTabCount();
 	if (count > 1) {
-	    rule.remove(p);
-	    renameRule();
+	    this.rule.remove(p);
+	    this.renameRule();
 	}
     }
     
     public void insertRule() {
-	rule.insertTab("", null, 
-		       new RulePane(this, null), null, rule.getSelectedIndex());
-	renameRule();
+	this.rule.insertTab("", null, 
+		       new RulePane(this, null), null, this.rule.getSelectedIndex());
+	this.renameRule();
     }
 
     public void switchLeft() {
-	int pos = rule.getSelectedIndex();
+	int pos = this.rule.getSelectedIndex();
 	if (pos >= 1) {
-	    RulePane r1 = (RulePane) rule.getSelectedComponent();
-	    rule.remove(pos);
-	    rule.insertTab("", null, r1, null, pos - 1);
-	    rule.setSelectedIndex(pos);
+	    RulePane r1 = (RulePane) this.rule.getSelectedComponent();
+	    this.rule.remove(pos);
+	    this.rule.insertTab("", null, r1, null, pos - 1);
+	    this.rule.setSelectedIndex(pos);
 	}
-	renameRule();
-	repaint();
+	this.renameRule();
+	this.repaint();
     }
 
     public void switchRight() {
-	int pos = rule.getSelectedIndex();
-	if (pos < rule.getTabCount() - 1) {
-	    RulePane r1 = (RulePane) rule.getSelectedComponent();
-	    rule.remove(pos);
-	    rule.insertTab("", null, r1, null, pos + 1);
-	    rule.setSelectedIndex(pos);
+	int pos = this.rule.getSelectedIndex();
+	if (pos < this.rule.getTabCount() - 1) {
+	    RulePane r1 = (RulePane) this.rule.getSelectedComponent();
+	    this.rule.remove(pos);
+	    this.rule.insertTab("", null, r1, null, pos + 1);
+	    this.rule.setSelectedIndex(pos);
 	}
-	renameRule();
+	this.renameRule();
     }
 
     /**
      * Returns true if the selected pane can switch with the right pane
      */ 
     public boolean canSwitchRight() {
-	return (rule.getSelectedIndex() < (rule.getTabCount() - 1));
+	return (this.rule.getSelectedIndex() < (this.rule.getTabCount() - 1));
     }
 
     /**
      * Returns true if the selected pane can switch with the left pane
      */ 
     public boolean canSwitchLeft() {
-	return (rule.getSelectedIndex() >= 1);
+	return (this.rule.getSelectedIndex() >= 1);
     }
 
     public RelabelingSystem getRelabelingSystem() {
 	Vector v = new Vector();
-	int count = rule.getTabCount();
+	int count = this.rule.getTabCount();
 	for (int i = 0; i < count; i++) {
-	    v.add(((RulePane) rule.getComponent(i)).getRule());
+	    v.add(((RulePane) this.rule.getComponent(i)).getRule());
 	}
 	RelabelingSystem rSys = new RelabelingSystem(v);
 	//FIXME : quel est le choix pour type non specifie ?? (Mohammed)
-	int synType = (synRdv.isSelected() ? SynCT.RDV 
-		       : (synLC1.isSelected() ? SynCT.LC1 
-			  : (synLC2.isSelected() ? SynCT.LC2 
+	int synType = (this.synRdv.isSelected() ? SynCT.RDV 
+		       : (this.synLC1.isSelected() ? SynCT.LC1 
+			  : (this.synLC2.isSelected() ? SynCT.LC2 
 			     : -1)));
-	RSOptions opt = new RSOptions(synType, optionTermination.isSelected());
+	RSOptions opt = new RSOptions(synType, this.optionTermination.isSelected());
 	rSys.setOptions(opt);
-	rSys.setDescription(helpDialog.getText());
+	rSys.setDescription(this.helpDialog.getText());
 	return rSys;
     }
 }
@@ -437,7 +437,7 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
     int terminationType;
 
     public RulePane(RuleTabbedPaneControl tabbedPaneControl, Rule rule) {
-	setBackground(StarData.ruleColor);
+	this.setBackground(StarData.ruleColor);
 	Border b = (BorderFactory.createCompoundBorder 
 		    (BorderFactory.createEmptyBorder (5, 5, 5, 5),
 		     BorderFactory.createCompoundBorder
@@ -445,35 +445,35 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 		      BorderFactory.createEmptyBorder (5, 10, 5, 10))));
 	
 	//That TabbedPane will store each context associated to the rule
-	context = new JTabbedPane();
-	context.setBorder(b);
+	this.context = new JTabbedPane();
+	this.context.setBorder(b);
 	
 	if (rule == null) { // There is no rule
-	    context.addTab("Context 1", 
+	    this.context.addTab("Context 1", 
 			   new BuildContextPane(this, true, null));
-	    buildRulePane = new BuildRulePane(tabbedPaneControl, null, null, false);
-	    terminationType = NOT_TERMINIATION_RULE;
+	    this.buildRulePane = new BuildRulePane(tabbedPaneControl, null, null, false);
+	    this.terminationType = NOT_TERMINIATION_RULE;
 	} else {
-	    buildRulePane = 
+	    this.buildRulePane = 
 		new BuildRulePane(tabbedPaneControl, 
 				  rule.befor(), rule.after(), rule.isSimpleRule());
 	    if (rule.forbContexts().size() == 0) {
 		//System.out.println ("Zero forboedde");
-		context.addTab("Context 1", new BuildContextPane(this, true, null));
+		this.context.addTab("Context 1", new BuildContextPane(this, true, null));
 	    } else {
 		for (Iterator it = rule.forbContexts().iterator(); it.hasNext(); ) {
 		    Star s = (Star) it.next();
-		    context.addTab("", new BuildContextPane(this, false, s));
+		    this.context.addTab("", new BuildContextPane(this, false, s));
 		}
 	    }
 	    int t = rule.getType();
 	    if (t == SynCT.GENERIC) 
-		terminationType = NOT_TERMINIATION_RULE;
+		this.terminationType = NOT_TERMINIATION_RULE;
 	    else if (t == SynCT.LOCAL_END)
-		terminationType = LOCAL_TERMINIATION_RULE;
+		this.terminationType = LOCAL_TERMINIATION_RULE;
 	    else if (t == SynCT.GLOBAL_END)
-		terminationType = GLOBAL_TERMINIATION_RULE;
-	    renameContext();
+		this.terminationType = GLOBAL_TERMINIATION_RULE;
+	    this.renameContext();
 	}
 	
 	//The combo box permits to choose the type of termination
@@ -485,61 +485,61 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 	comboTermination.setBackground(new Color(185, 225, 215));
 	comboTermination.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    terminationType = comboTermination.getSelectedIndex();
+		    RulePane.this.terminationType = comboTermination.getSelectedIndex();
 		}
 	    });
 	comboPanel.add(comboTermination);
-	comboTermination.setSelectedIndex(terminationType);
+	comboTermination.setSelectedIndex(this.terminationType);
 	
 	rulePaneWithCombo.setLayout(new BorderLayout(0, 0));
-	rulePaneWithCombo.add(buildRulePane, BorderLayout.CENTER);
+	rulePaneWithCombo.add(this.buildRulePane, BorderLayout.CENTER);
 	rulePaneWithCombo.add(comboPanel, BorderLayout.SOUTH);
 	
 	rulePaneWithCombo.setBorder(b);
 	
 	GridBagLayout g = new GridBagLayout();
 	GridBagConstraints c = new GridBagConstraints();
-	setLayout(g);
+	this.setLayout(g);
 	c.gridx = 0; c.gridy = 0;
 	c.gridwidth = 3; c.gridheight = 1;
 	c.weightx = 70; c.weighty = 0;
 	c.fill = GridBagConstraints.BOTH;
-	add(rulePaneWithCombo, c);
+	this.add(rulePaneWithCombo, c);
 	c.gridx = 3; c.gridy = 0;
 	c.gridwidth = 1; c.gridheight = 1;
 	c.weightx = 30; c.weighty = 0;
-	add(context, c);
+	this.add(this.context, c);
     }
     
     public Rule getRule() {
 	MyVector v = new MyVector();
-	int count = context.getTabCount();
+	int count = this.context.getTabCount();
 	for (int i = 0; i < count; i++) {
-	    Star s = ((BuildContextPane) context.getComponent(i)).getStar();
+	    Star s = ((BuildContextPane) this.context.getComponent(i)).getStar();
 	    if (s != null) {
 		v.add(s);
 	    }
 	}
-	Rule r = new Rule(buildRulePane.getLeftStar(), 
-			  buildRulePane.getRightStar(), v);
+	Rule r = new Rule(this.buildRulePane.getLeftStar(), 
+			  this.buildRulePane.getRightStar(), v);
 	//Sets the type of the rule
-	if (terminationType == NOT_TERMINIATION_RULE)
+	if (this.terminationType == NOT_TERMINIATION_RULE)
 	    r.setType(SynCT.GENERIC);
-	else if (terminationType == LOCAL_TERMINIATION_RULE) 
+	else if (this.terminationType == LOCAL_TERMINIATION_RULE) 
 	    r.setType(SynCT.LOCAL_END);
-	else if (terminationType == GLOBAL_TERMINIATION_RULE) 
+	else if (this.terminationType == GLOBAL_TERMINIATION_RULE) 
 	    r.setType(SynCT.GLOBAL_END);
-	r.setSimpleRule(buildRulePane.getIsSimpleRule());
+	r.setSimpleRule(this.buildRulePane.getIsSimpleRule());
 	
 	return r;
     }
 
     //Give a name to the tab according to its index
     private void renameContext() {
-	int count = context.getTabCount();
+	int count = this.context.getTabCount();
 	for (int i = 0; i < count; i++) {
-	    context.setTitleAt(i, "Context " + (i + 1));
-	    context.setBackgroundAt(i, StarData.contextColor);
+	    this.context.setTitleAt(i, "Context " + (i + 1));
+	    this.context.setBackgroundAt(i, StarData.contextColor);
 	}
     }
 
@@ -548,42 +548,42 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
      * A new one is added.
      */
     public void addNewContext() {
-	if (((BuildContextPane) context.getSelectedComponent()).isEmpty()) {
-	    context.remove(0);
+	if (((BuildContextPane) this.context.getSelectedComponent()).isEmpty()) {
+	    this.context.remove(0);
 	}
-	String s1 = buildRulePane.getLeftStar().centerState();
+	String s1 = this.buildRulePane.getLeftStar().centerState();
 	Star centerContext = null;
 	centerContext = new Star(s1);
-	context.addTab("", new BuildContextPane(this, false, centerContext));
-	renameContext();
-	context.setSelectedIndex(context.getTabCount() - 1);
+	this.context.addTab("", new BuildContextPane(this, false, centerContext));
+	this.renameContext();
+	this.context.setSelectedIndex(this.context.getTabCount() - 1);
     }
     
     /**
      * If there is just one pane, it is replaced by an empty-one
      */
     public void deleteContext() {
-	int p = context.getSelectedIndex();
-	context.remove(p);
-	int count = context.getTabCount();
+	int p = this.context.getSelectedIndex();
+	this.context.remove(p);
+	int count = this.context.getTabCount();
 	if (count == 0) {
-	    context.addTab("", new BuildContextPane(this, true, null));
+	    this.context.addTab("", new BuildContextPane(this, true, null));
 	}
-	renameContext();
+	this.renameContext();
     }
     
     public void insertContext() {
 	int pos;
-	if (((BuildContextPane) context.getSelectedComponent()).isEmpty()) {
-	    context.remove(0);
+	if (((BuildContextPane) this.context.getSelectedComponent()).isEmpty()) {
+	    this.context.remove(0);
 	    pos = 0;
 	} else {
-	    pos = context.getSelectedIndex();
+	    pos = this.context.getSelectedIndex();
 	}
-	context.insertTab("", null, 
+	this.context.insertTab("", null, 
 			  new BuildContextPane(this, false, null),
 			  null, pos);
-	renameContext();
+	this.renameContext();
     }
 }
 
@@ -660,7 +660,7 @@ class BuildRulePane extends JPanel {
     //Circle stroke
     float[] dash = {6.0f, 4.0f, 2.0f, 4.0f, 2.0f, 4.0f};
     BasicStroke dashS = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, 
-					BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+					BasicStroke.JOIN_MITER, 10.0f, this.dash, 0.0f);
     
     // Used to visualize the two VueGraph
     DuoStarVisuPanel dsvp;
@@ -673,148 +673,148 @@ class BuildRulePane extends JPanel {
 			 Star sLeft, Star sRight, boolean simpleRule) {
 
 	this.tabbedPaneControl = tabbedPaneControl;
-	isSimpleRule = simpleRule;
+	this.isSimpleRule = simpleRule;
 	
-	setBackground(StarData.ruleColor);
-	gLeft = new Graphe();
-	gRight = new Graphe();
-	vgLeft = new VueGraphe(gLeft);
-	vgRight = new VueGraphe(gRight);
+	this.setBackground(StarData.ruleColor);
+	this.gLeft = new Graphe();
+	this.gRight = new Graphe();
+	this.vgLeft = new VueGraphe(this.gLeft);
+	this.vgRight = new VueGraphe(this.gRight);
 	
 
-	setCenterPosition();
+	this.setCenterPosition();
 	
-	sommetCLeft = vgLeft.creerSommet(centerLeft.x, centerLeft.y);
-	sommetCRight = vgRight.creerSommet(centerRight.x, centerRight.y);
+	this.sommetCLeft = this.vgLeft.creerSommet(this.centerLeft.x, this.centerLeft.y);
+	this.sommetCRight = this.vgRight.creerSommet(this.centerRight.x, this.centerRight.y);
 	
 	if ((sLeft != null) && (sRight != null)) {
-	    ConvertStarVueGraph.star2StarVueGraphe(sLeft, vgLeft, sommetCLeft);
-	    ConvertStarVueGraph.star2StarVueGraphe(sRight, vgRight, sommetCRight);
+	    ConvertStarVueGraph.star2StarVueGraphe(sLeft, this.vgLeft, this.sommetCLeft);
+	    ConvertStarVueGraph.star2StarVueGraphe(sRight, this.vgRight, this.sommetCRight);
 	}
 	
-	dsvp = new DuoStarVisuPanel(this, vgLeft, vgRight,
-				    centerLeft, centerRight, 
+	this.dsvp = new DuoStarVisuPanel(this, this.vgLeft, this.vgRight,
+				    this.centerLeft, this.centerRight, 
 				    StarData.ray * 2 + StarData.rule_center,
-				    StarData.ray, isSimpleRule);
-	dsvp.reorganizeVertex();
-	deleteRuleMenuItem = new JMenuItem("Delete rule");
-	addRuleMenuItem = new JMenuItem("Add rule");
-	insertRuleMenuItem = new JMenuItem("Insert rule");
-	switchLeftMenuItem = new JMenuItem("Switch with left");
-	switchRightMenuItem = new JMenuItem("Switch with right");
-	reorganizeVertexMenuItem = new JMenuItem("Reoranize vertex");
-	simpleRuleMenuItem = new JCheckBoxMenuItem("Simple rule");
-	simpleRuleMenuItem.setSelected(isSimpleRule);
+				    StarData.ray, this.isSimpleRule);
+	this.dsvp.reorganizeVertex();
+	this.deleteRuleMenuItem = new JMenuItem("Delete rule");
+	this.addRuleMenuItem = new JMenuItem("Add rule");
+	this.insertRuleMenuItem = new JMenuItem("Insert rule");
+	this.switchLeftMenuItem = new JMenuItem("Switch with left");
+	this.switchRightMenuItem = new JMenuItem("Switch with right");
+	this.reorganizeVertexMenuItem = new JMenuItem("Reoranize vertex");
+	this.simpleRuleMenuItem = new JCheckBoxMenuItem("Simple rule");
+	this.simpleRuleMenuItem.setSelected(this.isSimpleRule);
 	
-	deleteRuleMenuItem.addActionListener(new ActionListener() {
+	this.deleteRuleMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    for (Enumeration v_enum = vgLeft.listeAffichage();
+		    for (Enumeration v_enum = BuildRulePane.this.vgLeft.listeAffichage();
 			 v_enum.hasMoreElements(); ) {
 			FormeDessin f = (FormeDessin) v_enum.nextElement();
-			if (f != sommetCLeft)
-			    vgLeft.delObject(f);
+			if (f != BuildRulePane.this.sommetCLeft)
+			    BuildRulePane.this.vgLeft.delObject(f);
 		    }
-		    for (Enumeration v_enum = vgRight.listeAffichage();
+		    for (Enumeration v_enum = BuildRulePane.this.vgRight.listeAffichage();
 			 v_enum.hasMoreElements(); ) {
 			FormeDessin f = (FormeDessin) v_enum.nextElement();
-			if (f != sommetCRight)
-			    vgRight.delObject(f);
+			if (f != BuildRulePane.this.sommetCRight)
+			    BuildRulePane.this.vgRight.delObject(f);
 		    }
-		    repaint();
+		    BuildRulePane.this.repaint();
 		    tabbedPaneControl.deleteRule();
 		}
 	    });
-	addRuleMenuItem.addActionListener(new ActionListener() {
+	this.addRuleMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    tabbedPaneControl.addNewRule();
 		}
 	    });
-	insertRuleMenuItem.addActionListener(new ActionListener() {
+	this.insertRuleMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    tabbedPaneControl.insertRule();
 		}
 	    });
-	switchLeftMenuItem.addActionListener(new ActionListener() {
+	this.switchLeftMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    tabbedPaneControl.switchLeft();
 		}		    
 	    });
-	switchRightMenuItem.addActionListener(new ActionListener() {
+	this.switchRightMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    tabbedPaneControl.switchRight();
 		}		    
 	    });
-	reorganizeVertexMenuItem.addActionListener(new ActionListener() {
+	this.reorganizeVertexMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    dsvp.reorganizeVertex();
+		    BuildRulePane.this.dsvp.reorganizeVertex();
 		}		    
 	    });
-	simpleRuleMenuItem.addActionListener(new ActionListener() {
+	this.simpleRuleMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    if ((vgLeft.nbObjets() > 3) || (vgRight.nbObjets() > 3)) {
-			simpleRuleMenuItem.setSelected(isSimpleRule);
+		    if ((BuildRulePane.this.vgLeft.nbObjets() > 3) || (BuildRulePane.this.vgRight.nbObjets() > 3)) {
+			BuildRulePane.this.simpleRuleMenuItem.setSelected(BuildRulePane.this.isSimpleRule);
 			return;
 		    }
-		    isSimpleRule = simpleRuleMenuItem.isSelected();
-		    setCenterPosition();
-		    sommetCLeft.placer(centerLeft.x, centerLeft.y);
-		    sommetCRight.placer(centerRight.x, centerRight.y);
-		    dsvp.launchStarVisuPanels(centerLeft, centerRight, isSimpleRule);
-		    dsvp.reorganizeVertex();
-		    repaint();
+		    BuildRulePane.this.isSimpleRule = BuildRulePane.this.simpleRuleMenuItem.isSelected();
+		    BuildRulePane.this.setCenterPosition();
+		    BuildRulePane.this.sommetCLeft.placer(BuildRulePane.this.centerLeft.x, BuildRulePane.this.centerLeft.y);
+		    BuildRulePane.this.sommetCRight.placer(BuildRulePane.this.centerRight.x, BuildRulePane.this.centerRight.y);
+		    BuildRulePane.this.dsvp.launchStarVisuPanels(BuildRulePane.this.centerLeft, BuildRulePane.this.centerRight, BuildRulePane.this.isSimpleRule);
+		    BuildRulePane.this.dsvp.reorganizeVertex();
+		    BuildRulePane.this.repaint();
 		}		    
 	    });
 	
-	popup = new JPopupMenu();
-	popup.add(deleteRuleMenuItem);
-	popup.add(addRuleMenuItem);
-	popup.add(insertRuleMenuItem);
-	popup.add(switchLeftMenuItem);
-	popup.add(switchRightMenuItem);
-	popup.addSeparator();
-	popup.add(reorganizeVertexMenuItem);
-	popup.add(simpleRuleMenuItem);
-	popup.setBorder(BorderFactory.createRaisedBevelBorder());
+	this.popup = new JPopupMenu();
+	this.popup.add(this.deleteRuleMenuItem);
+	this.popup.add(this.addRuleMenuItem);
+	this.popup.add(this.insertRuleMenuItem);
+	this.popup.add(this.switchLeftMenuItem);
+	this.popup.add(this.switchRightMenuItem);
+	this.popup.addSeparator();
+	this.popup.add(this.reorganizeVertexMenuItem);
+	this.popup.add(this.simpleRuleMenuItem);
+	this.popup.setBorder(BorderFactory.createRaisedBevelBorder());
 
-	addMouseListener(new MouseAdapter() {
+	this.addMouseListener(new MouseAdapter() {
 		private void callPopup(MouseEvent evt) {
 		    int x = evt.getX();
 		    int y = evt.getY(); 
 		    int modifiers = evt.getModifiers();
 		    if (modifiers == InputEvent.BUTTON3_MASK) {
 			try {
-			    FormeDessin f1 = vgLeft.en_dessous(x, y);
+			    FormeDessin f1 = BuildRulePane.this.vgLeft.en_dessous(x, y);
 			} catch (NoSuchElementException e1) {
 			    try {
-				FormeDessin f2 = vgRight.en_dessous(x, y);
+				FormeDessin f2 = BuildRulePane.this.vgRight.en_dessous(x, y);
 			    } catch (NoSuchElementException e2) {
-				maybeShowPopup(evt);
+				BuildRulePane.this.maybeShowPopup(evt);
 			    }
 			}
 		    }
 		}
 		public void mousePressed(MouseEvent evt) {
-		    callPopup(evt);
+		    this.callPopup(evt);
 		}
 		public void mouseReleased(MouseEvent evt) {
-		    callPopup(evt);
+		    this.callPopup(evt);
 		}
 	    });
-	addMouseListener(dsvp);
-	addMouseMotionListener(dsvp);
+	this.addMouseListener(this.dsvp);
+	this.addMouseMotionListener(this.dsvp);
     }
 	
     private void setCenterPosition() {
-	if (isSimpleRule) {
-	    centerLeft = new Point(StarData.ray / 2 + StarData.rule_left,
+	if (this.isSimpleRule) {
+	    this.centerLeft = new Point(StarData.ray / 2 + StarData.rule_left,
 				   StarData.ray + StarData.rule_top);
-	    centerRight = new Point(centerLeft.x + StarData.ray * 2
+	    this.centerRight = new Point(this.centerLeft.x + StarData.ray * 2
 				    + StarData.rule_center,
 				    StarData.ray + StarData.rule_top);
 	} else {
-	    centerLeft = new Point(StarData.ray + StarData.rule_left,
+	    this.centerLeft = new Point(StarData.ray + StarData.rule_left,
 				   StarData.ray + StarData.rule_top);
-	    centerRight = new Point(centerLeft.x + StarData.ray * 2 
+	    this.centerRight = new Point(this.centerLeft.x + StarData.ray * 2 
 				    + StarData.rule_center,
 				    StarData.ray + StarData.rule_top);
 	}
@@ -822,9 +822,9 @@ class BuildRulePane extends JPanel {
 
     private void maybeShowPopup(MouseEvent e) {
 	if (e.isPopupTrigger()) {
-	    switchRightMenuItem.setEnabled(tabbedPaneControl.canSwitchRight());
-	    switchLeftMenuItem.setEnabled(tabbedPaneControl.canSwitchLeft());
-	    popup.show(e.getComponent(), e.getX(), e.getY());
+	    this.switchRightMenuItem.setEnabled(this.tabbedPaneControl.canSwitchRight());
+	    this.switchLeftMenuItem.setEnabled(this.tabbedPaneControl.canSwitchLeft());
+	    this.popup.show(e.getComponent(), e.getX(), e.getY());
 	}
     }
 	
@@ -837,67 +837,67 @@ class BuildRulePane extends JPanel {
     }
 
     public Star getLeftStar() {
-	return ConvertStarVueGraph.starVueGraphe2Star(vgLeft, sommetCLeft);
+	return ConvertStarVueGraph.starVueGraphe2Star(this.vgLeft, this.sommetCLeft);
     }
 
     public Star getRightStar() {
-	return ConvertStarVueGraph.starVueGraphe2Star(vgRight, sommetCRight);
+	return ConvertStarVueGraph.starVueGraphe2Star(this.vgRight, this.sommetCRight);
     }
     public boolean getIsSimpleRule() {
-	return isSimpleRule;
+	return this.isSimpleRule;
     }
 
     public Dimension getMinimumSize() {
-	return getPreferredSize();	
+	return this.getPreferredSize();	
     }
 	
     public Dimension getMaxmimumSize() {
-	return getPreferredSize();	
+	return this.getPreferredSize();	
     }
 	
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	g.setColor(Color.black);
 	Stroke tmp = ((Graphics2D) g).getStroke ();
-	if (! isSimpleRule) {
+	if (! this.isSimpleRule) {
 	    // Indicates on the circle the degree 0
-	    g.drawLine(centerLeft.x, centerLeft.y - StarData.ray - 2,
-		       centerLeft.x, centerLeft.y - StarData.ray + 2);
-	    g.drawLine(centerRight.x, centerRight.y - StarData.ray - 2,
-		       centerRight.x, centerRight.y - StarData.ray + 2);
+	    g.drawLine(this.centerLeft.x, this.centerLeft.y - StarData.ray - 2,
+		       this.centerLeft.x, this.centerLeft.y - StarData.ray + 2);
+	    g.drawLine(this.centerRight.x, this.centerRight.y - StarData.ray - 2,
+		       this.centerRight.x, this.centerRight.y - StarData.ray + 2);
 	}
 	// Center arrow
 	((Graphics2D) g).setStroke (new BasicStroke (3.0f));
-	g.drawLine(StarData.arrow_x1, centerLeft.y,
-		   StarData.arrow_x2, centerLeft.y);
+	g.drawLine(StarData.arrow_x1, this.centerLeft.y,
+		   StarData.arrow_x2, this.centerLeft.y);
 		       
-	g.drawLine(StarData.arrow_x2, centerLeft.y,
-		   StarData.arrow_x2 - 5, centerLeft.y - 5);
+	g.drawLine(StarData.arrow_x2, this.centerLeft.y,
+		   StarData.arrow_x2 - 5, this.centerLeft.y - 5);
 	    
-	g.drawLine(StarData.arrow_x2, centerLeft.y,
-		   StarData.arrow_x2 - 5, centerLeft.y + 5);
-	if (! isSimpleRule) {
+	g.drawLine(StarData.arrow_x2, this.centerLeft.y,
+		   StarData.arrow_x2 - 5, this.centerLeft.y + 5);
+	if (! this.isSimpleRule) {
 	    // Circles
-	    ((Graphics2D) g).setStroke(dashS);
-	    g.drawArc(centerLeft.x - StarData.ray, centerLeft.y - StarData.ray, 
+	    ((Graphics2D) g).setStroke(this.dashS);
+	    g.drawArc(this.centerLeft.x - StarData.ray, this.centerLeft.y - StarData.ray, 
 		      StarData.ray * 2, StarData.ray * 2, 0, 360);
-	    g.drawArc(centerRight.x - StarData.ray, centerRight.y - StarData.ray, 
+	    g.drawArc(this.centerRight.x - StarData.ray, this.centerRight.y - StarData.ray, 
 		      StarData.ray * 2, StarData.ray * 2, 0, 360);
 	} else {
 	    g.setColor(Color.gray);
-	    g.drawLine(centerLeft.x + StarData.ray, centerLeft.y - 5, 
-		       centerLeft.x + StarData.ray, centerLeft.y + 5);
-	    g.drawLine(centerLeft.x + StarData.ray - 5, centerLeft.y, 
-		       centerLeft.x + StarData.ray + 5, centerLeft.y);
-	    g.drawLine(centerRight.x + StarData.ray, centerRight.y - 5, 
-		       centerRight.x + StarData.ray, centerRight.y + 5);
-	    g.drawLine(centerRight.x + StarData.ray - 5, centerRight.y, 
-		       centerRight.x + StarData.ray + 5, centerRight.y);
+	    g.drawLine(this.centerLeft.x + StarData.ray, this.centerLeft.y - 5, 
+		       this.centerLeft.x + StarData.ray, this.centerLeft.y + 5);
+	    g.drawLine(this.centerLeft.x + StarData.ray - 5, this.centerLeft.y, 
+		       this.centerLeft.x + StarData.ray + 5, this.centerLeft.y);
+	    g.drawLine(this.centerRight.x + StarData.ray, this.centerRight.y - 5, 
+		       this.centerRight.x + StarData.ray, this.centerRight.y + 5);
+	    g.drawLine(this.centerRight.x + StarData.ray - 5, this.centerRight.y, 
+		       this.centerRight.x + StarData.ray + 5, this.centerRight.y);
 	}
 	((Graphics2D) g).setStroke (tmp);
 	
-	vgLeft.dessiner(this, g);
-	vgRight.dessiner(this, g);
+	this.vgLeft.dessiner(this, g);
+	this.vgRight.dessiner(this, g);
     }
 }
 
@@ -939,7 +939,7 @@ class BuildContextPane extends JPanel {
     //Circle stroke
     float[] dash = {6.0f, 4.0f, 2.0f, 4.0f, 2.0f, 4.0f};
     BasicStroke dashS = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, 
-					BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+					BasicStroke.JOIN_MITER, 10.0f, this.dash, 0.0f);
     
     /**
      * If empty is true, a message "NoContext" is displayed and no context
@@ -950,22 +950,22 @@ class BuildContextPane extends JPanel {
     public BuildContextPane(final ContexTabbedPaneControl tabbedPaneControl, 
 			    boolean empty, Star star) {
 	this.empty = empty;
-	setBackground(StarData.contextColor);
-	center = new Point(StarData.ctxt_left + StarData.ray,
+	this.setBackground(StarData.contextColor);
+	this.center = new Point(StarData.ctxt_left + StarData.ray,
 			   StarData.ctxt_top + StarData.ray);
 	
-	g = new Graphe();
-	vg = new VueGraphe(g);	
-	sommetC = vg.creerSommet(center.x, center.y);
+	this.g = new Graphe();
+	this.vg = new VueGraphe(this.g);	
+	this.sommetC = this.vg.creerSommet(this.center.x, this.center.y);
 	
 	if (star != null) {
-	    ConvertStarVueGraph.star2StarVueGraphe(star, vg, sommetC);
+	    ConvertStarVueGraph.star2StarVueGraphe(star, this.vg, this.sommetC);
 	}
 
 	if (! empty) {
-	    svp = new StarVisuPanel(vg, StarData.ray, center, this, false);
+	    this.svp = new StarVisuPanel(this.vg, StarData.ray, this.center, this, false);
 	    if (star != null) {
-		svp.reorganizeVertex();
+		this.svp.reorganizeVertex();
 	    }
 	}
 	
@@ -981,13 +981,13 @@ class BuildContextPane extends JPanel {
 		
 	deleteContextMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    for (Enumeration v_enum = vg.listeAffichage();
+		    for (Enumeration v_enum = BuildContextPane.this.vg.listeAffichage();
 			 v_enum.hasMoreElements(); ) {
 			FormeDessin f = (FormeDessin) v_enum.nextElement();
-			if (f != sommetC)
-			    vg.delObject(f);
+			if (f != BuildContextPane.this.sommetC)
+			    BuildContextPane.this.vg.delObject(f);
 		    }
-		    repaint();
+		    BuildContextPane.this.repaint();
 		    tabbedPaneControl.deleteContext();
 		}
 	    });
@@ -1003,44 +1003,44 @@ class BuildContextPane extends JPanel {
 	    });
 	reorganizeVertexMenuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		    svp.reorganizeVertex();
+		    BuildContextPane.this.svp.reorganizeVertex();
 		}
 	    });
-	popup = new JPopupMenu();
-	popup.add(deleteContextMenuItem);
-	popup.add(addContextMenuItem);
-	popup.add(insertContextMenuItem);	
-	popup.addSeparator();
-	popup.add(reorganizeVertexMenuItem);
-	popup.setBorder(BorderFactory.createRaisedBevelBorder());
+	this.popup = new JPopupMenu();
+	this.popup.add(deleteContextMenuItem);
+	this.popup.add(addContextMenuItem);
+	this.popup.add(insertContextMenuItem);	
+	this.popup.addSeparator();
+	this.popup.add(reorganizeVertexMenuItem);
+	this.popup.setBorder(BorderFactory.createRaisedBevelBorder());
 
-	addMouseListener(svp);
-	addMouseMotionListener(svp);
-	addMouseListener(new MouseAdapter() {
+	this.addMouseListener(this.svp);
+	this.addMouseMotionListener(this.svp);
+	this.addMouseListener(new MouseAdapter() {
 		private void callPopup(MouseEvent evt) {
 		    int x = evt.getX();
 		    int y = evt.getY(); 
 		    int modifiers = evt.getModifiers();
 		    if (modifiers == InputEvent.BUTTON3_MASK) {
 			try {
-			    FormeDessin f = vg.en_dessous(x, y);
+			    FormeDessin f = BuildContextPane.this.vg.en_dessous(x, y);
 			} catch (NoSuchElementException e) {
-			    maybeShowPopup(evt);
+			    BuildContextPane.this.maybeShowPopup(evt);
 			}
 		    }	    
 		}
 		public void mousePressed(MouseEvent evt) {
-		    callPopup(evt);
+		    this.callPopup(evt);
 		}
 		public void mouseReleased(MouseEvent evt) {
-		    callPopup(evt);
+		    this.callPopup(evt);
 		}
 	    });
     }
     
     private void maybeShowPopup(MouseEvent e) {
 	if (e.isPopupTrigger()) {
-	    popup.show(e.getComponent(), e.getX(), e.getY());
+	    this.popup.show(e.getComponent(), e.getX(), e.getY());
         }
     }
 	    
@@ -1052,42 +1052,42 @@ class BuildContextPane extends JPanel {
     }
     
     public Dimension getMinimumSize() {
-	return getPreferredSize();
+	return this.getPreferredSize();
     }
     
     public Dimension getMaxmimumSize() {
-	return getPreferredSize();
+	return this.getPreferredSize();
     }
 
     public boolean isEmpty() {
-	return empty;
+	return this.empty;
     }
 
     public Star getStar() {
-	if (isEmpty()) {
+	if (this.isEmpty()) {
 	    return null;
 	} else {
-	    return ConvertStarVueGraph.starVueGraphe2Star(vg, sommetC);
+	    return ConvertStarVueGraph.starVueGraphe2Star(this.vg, this.sommetC);
 	}
     }
 
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	g.setColor(Color.black);
-	if (empty) {
-	    g.drawString("No context", center.x - StarData.ray / 2, center.y);
+	if (this.empty) {
+	    g.drawString("No context", this.center.x - StarData.ray / 2, this.center.y);
 	} else {
 	    // Degree 0 of the circle
-	    g.drawLine(center.x, center.y - StarData.ray - 2,
-		       center.x, center.y - StarData.ray + 2);
+	    g.drawLine(this.center.x, this.center.y - StarData.ray - 2,
+		       this.center.x, this.center.y - StarData.ray + 2);
 	    
 	    // Circle
 	    Stroke tmp = ((Graphics2D) g).getStroke ();
-	    ((Graphics2D) g).setStroke(dashS);
-	    g.drawArc(center.x - StarData.ray, center.y - StarData.ray, 
+	    ((Graphics2D) g).setStroke(this.dashS);
+	    g.drawArc(this.center.x - StarData.ray, this.center.y - StarData.ray, 
 		      StarData.ray * 2, StarData.ray * 2, 0, 360);
 	    ((Graphics2D) g).setStroke(tmp);
-	    vg.dessiner(this, g);
+	    this.vg.dessiner(this, g);
 	}
     }
 

@@ -23,18 +23,18 @@ public class UpdateTableStats extends UpdateTable {
     }
 
     public void run() {
-        while (! stop) {
+        while (! this.stop) {
             try {
                 synchronized (this) {
-                    wait(1000);
+                    this.wait(1000);
                 }
             } catch (InterruptedException e) {
-                stop();
+                this.stop();
             }
-	    expType.setStats(sim.getStats());
-	    Bag stats = expType.getStats();
+	    this.expType.setStats(this.sim.getStats());
+	    Bag stats = this.expType.getStats();
 	    if (stats != null)
-		((HashTableModel)table).setProperties(stats.asHashTable());
+		((HashTableModel)this.table).setProperties(stats.asHashTable());
         }
     }
 

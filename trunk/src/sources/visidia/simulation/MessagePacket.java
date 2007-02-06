@@ -25,37 +25,37 @@ public class MessagePacket implements Serializable {
      * identifié par <i>senderId</i> au noeud identifié par <i>receiverId</i>.
      */
     public MessagePacket(Integer senderId, int srcDoor, Integer receiverId, int destDoor, Message msg){
-	srcId = new Integer(senderId.intValue());
-	destId = new Integer( receiverId.intValue());
-	mesg = msg;
+	this.srcId = new Integer(senderId.intValue());
+	this.destId = new Integer( receiverId.intValue());
+	this.mesg = msg;
 	this.srcDoor = srcDoor;
 	this.destDoor = destDoor;
     }
      public MessagePacket(Integer senderId, int srcDoor, Integer receiverId, Message msg){
-	srcId = new Integer(senderId.intValue());
-	destId = new Integer( receiverId.intValue());
-	mesg = msg;
+	this.srcId = new Integer(senderId.intValue());
+	this.destId = new Integer( receiverId.intValue());
+	this.mesg = msg;
 	this.srcDoor = srcDoor;
     }
     
     public Integer sender(){
-	return srcId;
+	return this.srcId;
     }
 
     public int senderDoor(){
-	return srcDoor;
+	return this.srcDoor;
     }
 
     public Integer receiver(){
-	return destId;
+	return this.destId;
     }
 
     public int receiverDoor(){
-	return destDoor;
+	return this.destDoor;
     }
 
     public Message message(){
-	return mesg;
+	return this.mesg;
     }
     
     public void setReceiverDoor(int receiverDoor) {

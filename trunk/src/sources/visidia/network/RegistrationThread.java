@@ -19,23 +19,23 @@ public class RegistrationThread extends Thread {
     }
 
     public void run() {
-	tryRegistration();
+	this.tryRegistration();
     }
 
     private void tryRegistration() {
 	try {
-	    if (url.equals("")){
+	    if (this.url.equals("")){
 		System.out.println("1");
-		VisidiaRegistry vr = (VisidiaRegistry)Naming.lookup("rmi://"+visuHost+":"+registryPort+"/Registry");
+		VisidiaRegistry vr = (VisidiaRegistry)Naming.lookup("rmi://"+this.visuHost+":"+this.registryPort+"/Registry");
 		System.out.println("2");
-		vr.register(master,master.getHostName(),master.getUrlName());
+		vr.register(this.master,this.master.getHostName(),this.master.getUrlName());
 		System.out.println("Registration Complete");
 	    } else {
 		System.out.println("3");
-		System.out.println(url);
-		VisidiaRegistry vr = (VisidiaRegistry)Naming.lookup("rmi://"+visuHost+":"+registryPort+"/"+url);
+		System.out.println(this.url);
+		VisidiaRegistry vr = (VisidiaRegistry)Naming.lookup("rmi://"+this.visuHost+":"+this.registryPort+"/"+this.url);
 		System.out.println("4");
-		vr.register(master,master.getHostName(),master.getUrlName());
+		vr.register(this.master,this.master.getHostName(),this.master.getUrlName());
 		System.out.println("Registration Complete");
 	    }
 	}  catch (java.net.MalformedURLException mue) {

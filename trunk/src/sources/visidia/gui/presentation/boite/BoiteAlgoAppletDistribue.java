@@ -30,55 +30,55 @@ public class BoiteAlgoAppletDistribue implements ActionListener  {
     }
 
     public BoiteAlgoAppletDistribue(FenetreDeSimulationDist fenetre, Vector tableAlgo, String titre){
-	parent = fenetre;
-	dialog = new JDialog(parent, titre);
+	this.parent = fenetre;
+	this.dialog = new JDialog(this.parent, titre);
 
-	liste = new JList(tableAlgo);
-	liste.setSize(600,400);
+	this.liste = new JList(tableAlgo);
+	this.liste.setSize(600,400);
 	
-	JScrollPane listScrollPane = new JScrollPane(liste);
+	JScrollPane listScrollPane = new JScrollPane(this.liste);
 	
 	//dialog.setLayout(new FlowLayout(FlowLayout.RIGHT,5,5));
-	dialog.getContentPane().setLayout(new BorderLayout());
-	dialog.getContentPane().add(listScrollPane, BorderLayout.CENTER);
-	dialog.setSize(600,400);
+	this.dialog.getContentPane().setLayout(new BorderLayout());
+	this.dialog.getContentPane().add(listScrollPane, BorderLayout.CENTER);
+	this.dialog.setSize(600,400);
 	
-	ajouterBoutons();
-	dialog.setVisible(true);
+	this.ajouterBoutons();
+	this.dialog.setVisible(true);
     }
 
 
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show() {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(null);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(null);
     }
 
 
     public void ajouterBoutons() {
 	JPanel buttonPane = new JPanel(new FlowLayout());
 	
-	buttonOpen = new JButton("Open");
-	buttonOpen.addActionListener(this);
+	this.buttonOpen = new JButton("Open");
+	this.buttonOpen.addActionListener(this);
 	
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 	
 	
-	buttonPane.add(buttonOpen);
-	buttonPane.add(buttonCancel);    
+	buttonPane.add(this.buttonOpen);
+	buttonPane.add(this.buttonCancel);    
 	
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	this.dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
     
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOpen) {
+	if(e.getSource() == this.buttonOpen) {
 	    try {
-		OpenAlgoAppletDistribue.setAlgorithm((String)(liste.getSelectedValue()));
-		dialog.setVisible(false);
-		dialog.dispose();
+		OpenAlgoAppletDistribue.setAlgorithm((String)(this.liste.getSelectedValue()));
+		this.dialog.setVisible(false);
+		this.dialog.dispose();
 	    } catch(NumberFormatException exception) {
 		StringTokenizer st =
 		    new StringTokenizer(exception.getMessage(), "\n");
@@ -86,16 +86,16 @@ public class BoiteAlgoAppletDistribue implements ActionListener  {
 		String message = new String();
 		for(int i = 0; i < nb_lignes; i++)
 		    message = message + "\n" + st.nextToken();
-		JOptionPane.showMessageDialog(parent,
+		JOptionPane.showMessageDialog(this.parent,
 					      message, 
 					      "Warning",
 					      JOptionPane.WARNING_MESSAGE);
 	    }
 	}
 	
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
     

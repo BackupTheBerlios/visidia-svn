@@ -16,41 +16,41 @@ public class AgentRules extends AbstractAgentsRules {
 
     public void init(){
 
-        step = 1;
+        this.step = 1;
 
 	while (true) {
 
-            if (lockVertexIfPossible()) {
-                v = getVertexIdentity();
-                labelV = (String)getVertexProperty("label");
-                step = 1;
+            if (this.lockVertexIfPossible()) {
+                this.v = this.getVertexIdentity();
+                this.labelV = (String)this.getVertexProperty("label");
+                this.step = 1;
 
-                randomMove();
+                this.randomMove();
 
-		u = getVertexIdentity();
+		this.u = this.getVertexIdentity();
 
-                if (lockVertexIfPossible()) {
-                    labelU = (String)getVertexProperty("label");
-                    door = entryDoor();
+                if (this.lockVertexIfPossible()) {
+                    this.labelU = (String)this.getVertexProperty("label");
+                    this.door = this.entryDoor();
                 
                     System.out.print("Handshake success");
-                    applyRule();
-                    unlockVertexProperties();
+                    this.applyRule();
+                    this.unlockVertexProperties();
                 }
 
-                moveBack();
-                unlockVertexProperties();
+                this.moveBack();
+                this.unlockVertexProperties();
 	    }
 	    else {
-                waitForWB();
+                this.waitForWB();
             }
-            nextPulse();
-            randomWalk();
+            this.nextPulse();
+            this.randomWalk();
         }
     }
 
     public String toString() {
-        switch (step) {
+        switch (this.step) {
         case 1: return "Construct star";
         case 2: return "No rule";
         case 3: return "Apply rule";
@@ -61,42 +61,42 @@ public class AgentRules extends AbstractAgentsRules {
     }
 
     private void applyRule() {
-        Star contextStar = contextStar();
-        RelabelingSystem rSys = getRelabelling();
+        Star contextStar = this.contextStar();
+        RelabelingSystem rSys = this.getRelabelling();
         int i = rSys.checkForRule(contextStar);
 
         if (i == -1) {
-            step = 2;
+            this.step = 2;
         }
         else {
-            step = 3;
+            this.step = 3;
             Rule rule = rSys.getRule(i);
             Star afterStar = rule.after();
             Neighbour neighbourV = afterStar.neighbour(0);
-            setVertexProperty("label",neighbourV.state());
-            moveBack();
-            setVertexProperty("label",afterStar.centerState());
-            moveBack();        
+            this.setVertexProperty("label",neighbourV.state());
+            this.moveBack();
+            this.setVertexProperty("label",afterStar.centerState());
+            this.moveBack();        
             
             if (neighbourV.mark())
-                markDoor(door);
+                this.markDoor(this.door);
             
-            step = 4;
+            this.step = 4;
         }
     }
 
     private Star contextStar() {
-        Star star = new Star(labelV);
-        Neighbour nebV = new Neighbour(labelU);
+        Star star = new Star(this.labelV);
+        Neighbour nebV = new Neighbour(this.labelU);
         star.addNeighbour(nebV);
         return star;
     }
 
     private void waitForWB() {
-        while (vertexPropertiesLocked()) {
+        while (this.vertexPropertiesLocked()) {
             try {
                 synchronized (this) {
-                    wait(1000);
+                    this.wait(1000);
                 } 
             } catch (InterruptedException e) {
                 throw new SimulationAbortError(e);
@@ -105,14 +105,14 @@ public class AgentRules extends AbstractAgentsRules {
     }
 
     private void randomMove() {
-	setAgentMover("RandomAgentMover");
-	move();
+	this.setAgentMover("RandomAgentMover");
+	this.move();
     }
 
     private void randomWalk() {
-        step = 5;
-	setAgentMover("RandomWalk");
-	move();
+        this.step = 5;
+	this.setAgentMover("RandomWalk");
+	this.move();
     }
 }
 

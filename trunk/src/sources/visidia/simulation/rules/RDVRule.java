@@ -9,13 +9,13 @@ public class RDVRule extends AbstractRule{
     
     public RDVRule() {
 	super();
-	synType = SynCT.RDV;
-	synal = new RDV();
+	this.synType = SynCT.RDV;
+	this.synal = new RDV();
     }
     public RDVRule(RelabelingSystem r){ 
 	super(r);
-	synType = SynCT.RDV;
-	synal = new RDV();
+	this.synType = SynCT.RDV;
+	this.synal = new RDV();
     }
     
     public Object clone(){

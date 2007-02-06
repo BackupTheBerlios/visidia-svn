@@ -20,38 +20,38 @@ public class SimpleRule  implements Serializable{
 
 
     public SimpleRule(Arrow gauche,Arrow droite){
-	leftMember = gauche;
-	rightMember = droite;
+	this.leftMember = gauche;
+	this.rightMember = droite;
     }
 
     public Arrow getLeft(){
-	return leftMember;
+	return this.leftMember;
     }
     public Arrow getRight(){
-	return rightMember;
+	return this.rightMember;
     }
     public boolean isApplicable(Arrow a){
-	if( a.left.equals(leftMember.left)){
-	    if( a.right.equals(leftMember.right))
-		return a.isMarked == leftMember.isMarked;
+	if( a.left.equals(this.leftMember.left)){
+	    if( a.right.equals(this.leftMember.right))
+		return a.isMarked == this.leftMember.isMarked;
 		
 	    else return false;
 	}
 
-	if( a.left.equals(leftMember.right)){
-	    if( a.right.equals(leftMember.left))
-		return a.isMarked == leftMember.isMarked;
+	if( a.left.equals(this.leftMember.right)){
+	    if( a.right.equals(this.leftMember.left))
+		return a.isMarked == this.leftMember.isMarked;
 	    else return false;
 	} 
 	return false ;
     }
     public Arrow apply(Arrow a){
-	VisidiaAssertion.verify( isApplicable(a),"regle non applicable",this);
+	VisidiaAssertion.verify( this.isApplicable(a),"regle non applicable",this);
 
-	if( a.left.equals(leftMember.left))
-	    return new Arrow( rightMember.left,rightMember.right,rightMember.isMarked);
+	if( a.left.equals(this.leftMember.left))
+	    return new Arrow( this.rightMember.left,this.rightMember.right,this.rightMember.isMarked);
 	else
-	    return new Arrow( rightMember.right,rightMember.left,rightMember.isMarked);
+	    return new Arrow( this.rightMember.right,this.rightMember.left,this.rightMember.isMarked);
 	
 
     }

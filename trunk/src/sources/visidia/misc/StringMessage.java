@@ -20,12 +20,12 @@ public class StringMessage extends Message{
     }
 
     public StringMessage(String data, MessageType type){
-	setType (type);
+	this.setType (type);
 	this.data = new String(data);
     }
 
     public String data() {
-	return new String(data);
+	return new String(this.data);
     }
 
     /**
@@ -33,15 +33,15 @@ public class StringMessage extends Message{
      *
      **/
     public String getData() {
-	return new String(data);
+	return new String(this.data);
     }
     
     public Object clone(){
-	return new StringMessage(data, getType());
+	return new StringMessage(this.data, this.getType());
     }
 
     public String toString(){
-	return data;
+	return this.data;
     }
 }
     

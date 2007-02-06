@@ -55,7 +55,7 @@ public class SommetCircle extends SommetDessin{
     // Modifie le cote du sommet carre
     public void setCote(int cote){
 	monCote = cote;
-	vueGraphe.setFontSize(((float)cote/3)+1);
+	this.vueGraphe.setFontSize(((float)cote/3)+1);
     }
     
     public void dessiner(Component c, Graphics g, String tag) {
@@ -63,56 +63,56 @@ public class SommetCircle extends SommetDessin{
 	g.setColor(Color.black);
 	if(tag.equals("agents")) {
 	    // draw on vertices the number of agents
-	    String mesg = getNbr();
+	    String mesg = this.getNbr();
 	    int stringSize = (int)(g.getFontMetrics().
 				   getStringBounds(mesg,g).
 				   getWidth());
-	    g.drawString(mesg,centreX()-stringSize/2 , centreY() );
+	    g.drawString(mesg,this.centreX()-stringSize/2 , this.centreY() );
 	}	    
     }
     
 
     // Dessine le sommet sur le Graphics passe en argument
     public void dessiner(Component c, Graphics g) {
-	int x = centreX();
-	int y = centreY();
-	int cote = getCote();
+	int x = this.centreX();
+	int y = this.centreY();
+	int cote = this.getCote();
 	int cote_sur_2 = cote / 2;
 
 	// Dessin de la forme cercke du sommet
-	if(est_enlumine())
-	    g.setColor(couleur_fond);
+	if(this.est_enlumine())
+	    g.setColor(this.couleur_fond);
 	else
-	    g.setColor(couleur_trait);
+	    g.setColor(this.couleur_trait);
     
 	// La bordure est rouge si enluminerBis
-	if (est_enlumineBis())
+	if (this.est_enlumineBis())
 	    g.setColor(Color.red);
 
     
 	//dessin du conteur
-	g.drawOval(posx - cote_sur_2-1, posy - cote_sur_2-1, 2 * cote_sur_2+2,
+	g.drawOval(this.posx - cote_sur_2-1, this.posy - cote_sur_2-1, 2 * cote_sur_2+2,
 		   2 * cote_sur_2+2);
-	g.drawOval(posx - cote_sur_2-2, posy - cote_sur_2-2, 2 * cote_sur_2+4,
+	g.drawOval(this.posx - cote_sur_2-2, this.posy - cote_sur_2-2, 2 * cote_sur_2+4,
 		   2 * cote_sur_2+4);
-	g.drawOval(posx - cote_sur_2, posy - cote_sur_2, 2 * cote_sur_2,
+	g.drawOval(this.posx - cote_sur_2, this.posy - cote_sur_2, 2 * cote_sur_2,
 		   2 * cote_sur_2);
 
 
 	// affichage de l'etiquette
-	if((getVueGraphe()).afficherEtiquettes()){
+	if((this.getVueGraphe()).afficherEtiquettes()){
 	    g.setColor(Color.blue);
-	    if(est_enlumine())
-		g.setFont((getVueGraphe()).fontGras());
+	    if(this.est_enlumine())
+		g.setFont((this.getVueGraphe()).fontGras());
 	    else
-		g.setFont((getVueGraphe()).fontNormal());
-	    g.drawString((getEtiquette())+" , "+getEtat(),x - cote /2 , y + cote + 8);
+		g.setFont((this.getVueGraphe()).fontNormal());
+	    g.drawString((this.getEtiquette())+" , "+this.getEtat(),x - cote /2 , y + cote + 8);
 	}
 	
 	//dessin de l'interieur
-	g.setColor((Color)((TableCouleurs.getTableCouleurs()).get(getEtat().substring(0,1))));
+	g.setColor((Color)((TableCouleurs.getTableCouleurs()).get(this.getEtat().substring(0,1))));
 
-	g.fillOval(posx - cote_sur_2,posy - cote_sur_2,2 * cote_sur_2,
+	g.fillOval(this.posx - cote_sur_2,this.posy - cote_sur_2,2 * cote_sur_2,
 		   2 * cote_sur_2);
 
 	
@@ -120,15 +120,15 @@ public class SommetCircle extends SommetDessin{
    
     // Teste si le point donne en parametre appartient au sommet
     public boolean appartient(int x, int y) {
-	return ((Math.abs(posx - x) <= (monCote / 2)) &&
-		(Math.abs(posy - y) <= (monCote / 2)));
+	return ((Math.abs(this.posx - x) <= (monCote / 2)) &&
+		(Math.abs(this.posy - y) <= (monCote / 2)));
     }
 
     // Teste si le sommet est contenu en entier dans une zone rectangulaire.
     // (x1, y1) coordonnees en haut a gauche et (x2, y2) coordonnees en bas a droite.
     public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-	return ((x1 <= (posx - (monCote / 2))) && (y1 <= (posy - (monCote / 2))) &&
-		(x2 >= (posx + (monCote / 2))) && (y2 >= (posy + (monCote / 2))));
+	return ((x1 <= (this.posx - (monCote / 2))) && (y1 <= (this.posy - (monCote / 2))) &&
+		(x2 >= (this.posx + (monCote / 2))) && (y2 >= (this.posy + (monCote / 2))));
     }
 
 	
@@ -149,12 +149,12 @@ public class SommetCircle extends SommetDessin{
      * couleur d'enlumination.
      **/
     public String graphicProperties() {
-	return new String("(" + Integer.toString(centreX()) + ","
-			  + Integer.toString(centreY()) + ")\t" 
-			  + forme() + "\t"
-			  + Integer.toString(getCote()) + "\t" 
-			  + couleurTrait().getRed() + "," + couleurTrait().getGreen() + "," + couleurTrait().getBlue() + "\t" +
-			  + couleurFond().getRed() + "," + couleurFond().getGreen() + "," + couleurFond().getBlue());
+	return new String("(" + Integer.toString(this.centreX()) + ","
+			  + Integer.toString(this.centreY()) + ")\t" 
+			  + this.forme() + "\t"
+			  + Integer.toString(this.getCote()) + "\t" 
+			  + this.couleurTrait().getRed() + "," + this.couleurTrait().getGreen() + "," + this.couleurTrait().getBlue() + "\t" +
+			  + this.couleurFond().getRed() + "," + this.couleurFond().getGreen() + "," + this.couleurFond().getBlue());
     }
 
     /* methode qui cree et renvoie une copie du sommet 
@@ -162,8 +162,8 @@ public class SommetCircle extends SommetDessin{
      */
     
     public Object cloner(VueGraphe vueGraphe){
-	Sommet le_clone = (Sommet)getSommet().cloner(vueGraphe.getGraphe());
-	SommetCircle sommetRetour = new SommetCircle(vueGraphe,posx,posy,new String(monEtiquette),le_clone);
+	Sommet le_clone = (Sommet)this.getSommet().cloner(vueGraphe.getGraphe());
+	SommetCircle sommetRetour = new SommetCircle(vueGraphe,this.posx,this.posy,new String(this.monEtiquette),le_clone);
 	sommetRetour.copyAllVariable(this);
 	return sommetRetour;
     }

@@ -40,43 +40,43 @@ public class BoiteSommetCircle extends BoiteSommetDessin implements ActionListen
 		       boolean est_editable) {
 	
 	super(parent, un_sommet, titre, est_editable);
-	cote = ((SommetCircle)forme).getCote();
+	this.cote = ((SommetCircle)this.forme).getCote();
 	JPanel taillePanel = new JPanel(new GridLayout(1, 2));
-	tailleLabel = new JLabel("Size");
-	taillePanel.add(tailleLabel);
-	tailleTextField = new JTextField(Integer.toString(cote), 6);
-	tailleTextField.addActionListener(this);
-	taillePanel.add(tailleTextField);
-	caracteristicsPane.add(taillePanel);
+	this.tailleLabel = new JLabel("Size");
+	taillePanel.add(this.tailleLabel);
+	this.tailleTextField = new JTextField(Integer.toString(this.cote), 6);
+	this.tailleTextField.addActionListener(this);
+	taillePanel.add(this.tailleTextField);
+	this.caracteristicsPane.add(taillePanel);
     
-	propertiesPane = new JPanel();
-	BoxLayout propertiesLayout = new BoxLayout(propertiesPane, BoxLayout.Y_AXIS);
-	propertiesPane.setLayout(propertiesLayout);
-	propertiesPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+	this.propertiesPane = new JPanel();
+	BoxLayout propertiesLayout = new BoxLayout(this.propertiesPane, BoxLayout.Y_AXIS);
+	this.propertiesPane.setLayout(propertiesLayout);
+	this.propertiesPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 								  "Properties"));
 	
-	dialog.getContentPane().add(propertiesPane, BorderLayout.CENTER);
+	this.dialog.getContentPane().add(this.propertiesPane, BorderLayout.CENTER);
 
-	ligne_non_editable(propertiesPane,
+	this.ligne_non_editable(this.propertiesPane,
 			   "Degree :", 
 			   Integer.toString(un_sommet.getSommet().degre()));
     }
     
     
     public void actionPerformed(ActionEvent evt) {
-	if (evt.getSource() == tailleTextField) {
+	if (evt.getSource() == this.tailleTextField) {
 	    try {
-		cote =Integer.parseInt(tailleTextField.getText());
+		this.cote =Integer.parseInt(this.tailleTextField.getText());
 	    } catch (NumberFormatException e) {
-		JOptionPane.showMessageDialog(dialog,
+		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for the\n"
-					      + ((SommetCircle)forme).getEtiquette().toLowerCase()
+					      + ((SommetCircle)this.forme).getEtiquette().toLowerCase()
 					      + "\nAn integer is waited.",
 					      "Error",
 					      JOptionPane.ERROR_MESSAGE);
-		tailleTextField.setText(Integer.toString(cote));
+		this.tailleTextField.setText(Integer.toString(this.cote));
 	    }
-	    elementModified();
+	    this.elementModified();
 	}
 	super.actionPerformed(evt);
     }
@@ -86,6 +86,6 @@ public class BoiteSommetCircle extends BoiteSommetDessin implements ActionListen
 
     public void buttonOk() {
 	super.buttonOk();
-	((SommetCircle)forme).setCote(cote);
+	((SommetCircle)this.forme).setCote(this.cote);
     }
 }

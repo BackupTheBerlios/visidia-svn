@@ -129,7 +129,7 @@ public class TokenMgrError extends Error
 
    public TokenMgrError(String message, int reason) {
       super(message);
-      errorCode = reason;
+      this.errorCode = reason;
    }
 
    public TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar, int reason) {

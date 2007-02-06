@@ -31,17 +31,17 @@ public class BoiteRegistry implements ActionListener {
 	
 	this.dialog = new JDialog(parent, titre);
 	this.parent = parent;
-	dialog.getContentPane().setLayout(new GridLayout(2,0));
-	ajouterBoutons(); 
+	this.dialog.getContentPane().setLayout(new GridLayout(2,0));
+	this.ajouterBoutons(); 
 	
     }
     
     //Methodes
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     
@@ -51,53 +51,53 @@ public class BoiteRegistry implements ActionListener {
      */
     public void ajouterBoutons() {
 	
-	buttonPane = new JPanel(new FlowLayout());
-	registryPanel = new JPanel(new GridLayout(1,2));
+	this.buttonPane = new JPanel(new FlowLayout());
+	this.registryPanel = new JPanel(new GridLayout(1,2));
 	
 	//ajout des bouttons ok et cancel
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
 	
-	buttonCancel = new JButton("Cancel");
-	buttonCancel.addActionListener(this);
+	this.buttonCancel = new JButton("Cancel");
+	this.buttonCancel.addActionListener(this);
 	
 
 	//ajout des champs de saisie de l'emplacement du serveur 
 	//pour chaque noued du graphe
-	reg = new JLabel("Registry port : ");
-	registryPort = new JTextField("");
+	this.reg = new JLabel("Registry port : ");
+	this.registryPort = new JTextField("");
 
-	registryPanel.add(reg);
-	registryPanel.add(registryPort);
+	this.registryPanel.add(this.reg);
+	this.registryPanel.add(this.registryPort);
 
 	
-	buttonPane.add(buttonOk);
-	buttonPane.add(buttonCancel);    
+	this.buttonPane.add(this.buttonOk);
+	this.buttonPane.add(this.buttonCancel);    
 
-	dialog.getContentPane().add(registryPanel, BorderLayout.CENTER);
-	dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	this.dialog.getContentPane().add(this.registryPanel, BorderLayout.CENTER);
+	this.dialog.getContentPane().add(this.buttonPane, BorderLayout.SOUTH);
     }
     
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
-	    String portNumber = registryPort.getText();
+	if(e.getSource() == this.buttonOk) {
+	    String portNumber = this.registryPort.getText();
 	    if (!(portNumber.equals("") | (portNumber == null)))
-		parent.setRegistryPort(portNumber);
+		this.parent.setRegistryPort(portNumber);
 	  
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
 	
-	if(e.getSource() == buttonCancel) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonCancel) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
 
     
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
 }

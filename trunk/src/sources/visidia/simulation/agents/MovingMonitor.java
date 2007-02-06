@@ -42,20 +42,20 @@ public class MovingMonitor implements Runnable {
      */
     public final void run() {
 
-        fromQueue = null;
+        this.fromQueue = null;
 
-        while (!aborted) {
-            synchronized ( synchronisation ) {
+        while (!this.aborted) {
+            synchronized ( this.synchronisation ) {
 
                 try {
                     // Wait  until  somebody   get  the  element  just
                     // grabbed from the queue.
-                    while (fromQueue != null)
-                        synchronisation.wait();
+                    while (this.fromQueue != null)
+                        this.synchronisation.wait();
 
                     // Someone took the object, grab another one.
-                    fromQueue = (SimulAck) ackQ.get();
-                    synchronisation.notifyAll();
+                    this.fromQueue = (SimulAck) this.ackQ.get();
+                    this.synchronisation.notifyAll();
 
                 } catch (InterruptedException e) {
 		    // e.printStackTrace();
@@ -67,9 +67,9 @@ public class MovingMonitor implements Runnable {
     }
 
     public void abortAck() {
-	aborted = true;
+	this.aborted = true;
 	try {
-	    ackQ.notifyAllGet();
+	    this.ackQ.notifyAllGet();
 	} catch (Exception e) {
 	}
 	
@@ -82,18 +82,18 @@ public class MovingMonitor implements Runnable {
      */
     // public SimulAck waitForAnswer(Long key) throws InterruptedException {
     public void waitForAnswer(Long key) throws InterruptedException {
-        synchronized( synchronisation ) {
+        synchronized( this.synchronisation ) {
 
             // Wait until the answer is for me.
-            while((fromQueue == null) || ! fromQueue.number().equals(key))
-                synchronisation.wait();
+            while((this.fromQueue == null) || ! this.fromQueue.number().equals(key))
+                this.synchronisation.wait();
             
             // The   object   grab    from   the   queue   is   my
             // acknowledgment. I need to return now.
             // SimulAck forMe = fromQueue;
             
-            fromQueue = null;
-            synchronisation.notifyAll();
+            this.fromQueue = null;
+            this.synchronisation.notifyAll();
 
             // return forMe;
 	    

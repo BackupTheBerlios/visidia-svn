@@ -8,9 +8,9 @@ public class RecorderEvent implements Runnable, Cloneable {
     private ObjectWriter writer;
 
     public RecorderEvent (VQueue evtIn_, VQueue evtOut_, ObjectWriter writer_){
-	evtIn = evtIn_;
-	evtOut = evtOut_;
-	writer = writer_;
+	this.evtIn = evtIn_;
+	this.evtOut = evtOut_;
+	this.writer = writer_;
     }
 
     public void run () {
@@ -18,7 +18,7 @@ public class RecorderEvent implements Runnable, Cloneable {
 	    SimulEvent simEvt = null;
 
 	    try{
-		simEvt = (SimulEvent) evtIn.get();
+		simEvt = (SimulEvent) this.evtIn.get();
 	    }
 	    catch(ClassCastException e){
 		e.printStackTrace();
@@ -27,10 +27,10 @@ public class RecorderEvent implements Runnable, Cloneable {
 		break;		
 	    }
 
-	    writer.writeObject(simEvt);
+	    this.writer.writeObject(simEvt);
 
 	    try {
-		evtOut.put(simEvt);
+		this.evtOut.put(simEvt);
 	    }
 	    catch (InterruptedException e) {
 		e.printStackTrace();

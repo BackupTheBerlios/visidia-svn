@@ -10,13 +10,13 @@ public class LC1Rule extends AbstractRule{
 
     public LC1Rule() {
 	super();
-	synType = SynCT.LC1;
-	synal = new LC1();
+	this.synType = SynCT.LC1;
+	this.synal = new LC1();
     }
     public LC1Rule(RelabelingSystem r){ 
 	super(r);
-	synType = SynCT.LC1;
-	synal = new LC1();
+	this.synType = SynCT.LC1;
+	this.synal = new LC1();
     }
     
     public Object clone(){
@@ -25,26 +25,26 @@ public class LC1Rule extends AbstractRule{
 	return algo;
     }
     public String toString(){
-	return ("RSAlgo: synal="+this.synType+" opt="+relSys.userPreferences.toString()+"\n RS="+relSys.toString());    
+	return ("RSAlgo: synal="+this.synType+" opt="+this.relSys.userPreferences.toString()+"\n RS="+this.relSys.toString());    
     }
     /* for LC1 */
     public void sendMyState(){
-	for(int i=0; i<  synob.getCenters().size(); i++) {
-	    int door = ((Integer)  synob.getCenters().elementAt(i)).intValue();
-	    if (synob.isConnected(door)) {
-		sendTo(door,new StringMessage(((String) getProperty("label")),MSG_TYPES.LABE));
+	for(int i=0; i<  this.synob.getCenters().size(); i++) {
+	    int door = ((Integer)  this.synob.getCenters().elementAt(i)).intValue();
+	    if (this.synob.isConnected(door)) {
+		this.sendTo(door,new StringMessage(((String) this.getProperty("label")),MSG_TYPES.LABE));
 	    }
 	}
     }
     /* for LC1 */
     public void receiveAndUpdateMyState(){
-	for(int i=0;i<  synob.getCenters().size();i++){
-	    int neighbour = ((Integer) synob.getCenters().elementAt(i)).intValue();
-	    if(synob.isConnected(neighbour)){
-		Message msg = receiveFrom(neighbour);
+	for(int i=0;i<  this.synob.getCenters().size();i++){
+	    int neighbour = ((Integer) this.synob.getCenters().elementAt(i)).intValue();
+	    if(this.synob.isConnected(neighbour)){
+		Message msg = this.receiveFrom(neighbour);
 		if(msg != null){
-		    setDoorState(new MarkedState(((BooleanMessage)msg).data()), neighbour);
-		    synob.setMark(neighbour,((BooleanMessage)msg).data());
+		    this.setDoorState(new MarkedState(((BooleanMessage)msg).data()), neighbour);
+		    this.synob.setMark(neighbour,((BooleanMessage)msg).data());
 		}
 	    }
 	}

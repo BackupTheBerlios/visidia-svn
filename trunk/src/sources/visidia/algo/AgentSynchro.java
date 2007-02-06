@@ -32,7 +32,7 @@ public class AgentSynchro extends Algorithm {
 	int numberOfPresentAgent = 0 ;
 	boolean agentPresent = false;
 
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 
 	/*
 	if (((String) getProperty("label")).compareTo("A")==0){
@@ -41,9 +41,9 @@ public class AgentSynchro extends Algorithm {
 	}
 	*/
 	
-	if( getId().intValue() == 0){
+	if( this.getId().intValue() == 0){
 	    //System.out.println("OK");
-	    int n = getNetSize();
+	    int n = this.getNetSize();
 	    System.out.println("la taille du graphe est :"+n);
 	    initialLocation = new int[n];
 	    double _k = Math.log(2)*n;
@@ -72,7 +72,7 @@ public class AgentSynchro extends Algorithm {
 		}
 	    } catch (Exception e) {}
 	    
-	    numberOfPresentAgent= initialLocation[getId().intValue()];
+	    numberOfPresentAgent= initialLocation[this.getId().intValue()];
 	    if(numberOfPresentAgent > 0) {
 		agentPresent = true;
 	    }
@@ -83,7 +83,7 @@ public class AgentSynchro extends Algorithm {
 	    Random generator = new Random();
 			
 	    if(agentPresent) {
-		putProperty("label",new String("A"));
+		this.putProperty("label",new String("A"));
 		boolean tentative = false;
 		
 		/*
@@ -92,17 +92,17 @@ public class AgentSynchro extends Algorithm {
 		/*choice of the neighbour*/
 		int choosenNeighbour= Math.abs((generator.nextInt()))% arite ;
 		
-		sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),labels));
+		this.sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),labels));
 		for(int i=0; i < arite; i++){
 		    if( i != choosenNeighbour)
-			sendTo(i, new IntegerMessage(new Integer(2),round1));
+			this.sendTo(i, new IntegerMessage(new Integer(2),round1));
 		}
 		
 		/*
 		  Symetriquement, je recois les message envoye par les autres
 		*/
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		}
 		
 		
@@ -110,7 +110,7 @@ public class AgentSynchro extends Algorithm {
 		  j'envoi a tout le monde 0 pour dire (a ceux qui m'ont choisi) Non
 		*/
 		for( int i = 0; i < arite; i++){
-		    sendTo(i, new IntegerMessage(new Integer(0),round2));
+		    this.sendTo(i, new IntegerMessage(new Integer(0),round2));
 		}
 		
 		/*
@@ -118,13 +118,13 @@ public class AgentSynchro extends Algorithm {
 		*/
 		
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		    IntegerMessage smsg = (IntegerMessage) msg;
 		    if((i == choosenNeighbour) && (smsg.value() == 1)) 
 			tentative = true;
 		}
 		if (tentative) {
-		    setDoorState(new MarkedState(true),choosenNeighbour);
+		    this.setDoorState(new MarkedState(true),choosenNeighbour);
 		    numberRdv += 1;
 		}
 		
@@ -147,14 +147,14 @@ public class AgentSynchro extends Algorithm {
 		numberOfPresentAgent= numberOfPresentAgent - go;
 		
 		for(int i=0; i < arite; i++){
-			sendTo(i,new IntegerMessage(new Integer(goDirection[i]),labels));
+			this.sendTo(i,new IntegerMessage(new Integer(goDirection[i]),labels));
 		}
 		
 		/*
 		  Symetriquement je regarde s'il y'a de nouveau jeton
 		*/
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		    IntegerMessage smsg = (IntegerMessage) msg;
 		    numberOfPresentAgent+=smsg.value();
 		}
@@ -164,21 +164,21 @@ public class AgentSynchro extends Algorithm {
 		else 
 		    agentPresent = false;
 		
-		setDoorState(new MarkedState(false),choosenNeighbour);
+		this.setDoorState(new MarkedState(false),choosenNeighbour);
 		
 		
 	    } else {
-		putProperty("label",new String("N"));
+		this.putProperty("label",new String("N"));
 		Vector ilMontChoisit = new Vector();
 		
 		// j'envoi 0 a tout le monde
 		for(int i=0; i < arite; i++){
-		    sendTo(i, new IntegerMessage(new Integer(0),round1));
+		    this.sendTo(i, new IntegerMessage(new Integer(0),round1));
 		}
 		
 		// je recois les requetes des voisins
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		    IntegerMessage smsg = (IntegerMessage) msg;
 		    // un jeton est arrive
 		    if(smsg.value() == 1) {
@@ -191,31 +191,31 @@ public class AgentSynchro extends Algorithm {
 		    //Random generator = new Random();
 		    int choosenNeighbour= Math.abs((generator.nextInt()))% ilMontChoisit.size() ;
 		    
-		    sendTo(((Integer) (ilMontChoisit.elementAt(choosenNeighbour))).intValue(),new IntegerMessage(new Integer(1),labels));
+		    this.sendTo(((Integer) (ilMontChoisit.elementAt(choosenNeighbour))).intValue(),new IntegerMessage(new Integer(1),labels));
 		    
 		    for(int i=0; i < arite; i++){
 			if( i != ((Integer) (ilMontChoisit.elementAt(choosenNeighbour))).intValue())
-			    sendTo(i, new IntegerMessage(new Integer(0),round2));
+			    this.sendTo(i, new IntegerMessage(new Integer(0),round2));
 		    }	
 		} else {
 		    for( int i = 0; i < arite; i++){
-			sendTo(i, new IntegerMessage(new Integer(0),round2));
+			this.sendTo(i, new IntegerMessage(new Integer(0),round2));
 		    }
 		}
 		
 		// symetriquement je recoit les reponse
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		}
 		
 		// j'envoi 0
 		for( int i = 0; i < arite; i++){
-		    sendTo(i, new IntegerMessage(new Integer(0),round3));
+		    this.sendTo(i, new IntegerMessage(new Integer(0),round3));
 		}
 		
 		// je recois les nouveau jeton
 		for( int i = 0; i < arite; i++){
-		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
+		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
 		    IntegerMessage smsg = (IntegerMessage) msg;
 		    numberOfPresentAgent+=smsg.value();
 		}
@@ -228,7 +228,7 @@ public class AgentSynchro extends Algorithm {
 	    }
 	    
 	}
-	if(getId().intValue() == 0) {
+	if(this.getId().intValue() == 0) {
 	    System.out.println("nombre de RDV : "+numberRdv);
 	    //System.out.println("##############################################");
 	    notReadyBool = true;

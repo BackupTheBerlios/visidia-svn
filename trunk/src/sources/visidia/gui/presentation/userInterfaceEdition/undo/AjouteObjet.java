@@ -17,19 +17,19 @@ protected FormeDessin maForme;
   
     /** L'forme cree dans le graphe est passe en argument a ce constructeur.*/
   public AjouteObjet(FormeDessin forme) {
-    maForme = forme;
+    this.maForme = forme;
   }
   
   public void undo() {
-    maForme.getVueGraphe().delObject(maForme);
+    this.maForme.getVueGraphe().delObject(this.maForme);
   }
     
   public void redo() {
-    maForme.getVueGraphe().putObject(maForme);
+    this.maForme.getVueGraphe().putObject(this.maForme);
   }
   
   public FormeDessin content() {
-      return maForme;
+      return this.maForme;
   }
 }
 

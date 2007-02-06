@@ -33,8 +33,8 @@ public class RandomAgentChooser extends AgentChooser {
      * @see #probability()
      */
     protected final void chooseForVertex(Integer vertexIdentity) {
-        if (choose()) {
-            addAgent(vertexIdentity, agentName());
+        if (this.choose()) {
+            this.addAgent(vertexIdentity, this.agentName());
         }
     }
 
@@ -46,14 +46,14 @@ public class RandomAgentChooser extends AgentChooser {
      * you want. This one returns "Handshake".
      */
     protected String agentName() {
-	if(algoNames == null)
-	    return algoName;
+	if(this.algoNames == null)
+	    return this.algoName;
 	else {
-	    if(algoNames.size() == 1)
-		return algoNames.elementAt(0);
+	    if(this.algoNames.size() == 1)
+		return this.algoNames.elementAt(0);
 	    else {
-		int index = Math.abs(genNames.nextInt(algoNames.size()));
-		return algoNames.elementAt(index);
+		int index = Math.abs(this.genNames.nextInt(this.algoNames.size()));
+		return this.algoNames.elementAt(index);
 	    }
 	}
     }
@@ -66,7 +66,7 @@ public class RandomAgentChooser extends AgentChooser {
      * you want (between 0 and 1). This one returns 0.5.
      */
     protected float probability() {
-        return prob;
+        return this.prob;
     }
 
     /**
@@ -78,13 +78,13 @@ public class RandomAgentChooser extends AgentChooser {
      */
     private final boolean choose() {
 
-        float probability = probability();
-        float rand = Math.abs(generator.nextFloat());
+        float probability = this.probability();
+        float rand = Math.abs(this.generator.nextFloat());
 
         if ((probability < 0.0) || (probability > 1.0))
             throw new IllegalArgumentException("Probability must be "
                                                + "between 0 and 1.");
-        return (rand < probability());
+        return (rand < this.probability());
     }
 
     /**
@@ -93,20 +93,20 @@ public class RandomAgentChooser extends AgentChooser {
      *
      **/
     protected void place() {
-	AlgoProbParam app = new AlgoProbParam(algoName,Float.toString(prob),this);
+	AlgoProbParam app = new AlgoProbParam(this.algoName,Float.toString(this.prob),this);
 	app.start();
     }
     
     public void setParam(String algoName, float prob) {
 	this.algoName = algoName;
 	this.prob = prob;
-	placeAgents();
+	this.placeAgents();
     }
 
     
     public void setParam(float prob, Vector<String> algoNames) {
 	this.algoNames = algoNames;
 	this.prob = prob;
-	placeAgents();
+	this.placeAgents();
     }
 }

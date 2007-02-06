@@ -14,11 +14,11 @@ public class NextPulseEvent implements SimulEvent {
  
     public NextPulseEvent(Long key, int pulse) {
 	this.pulse = pulse;
-	evtNum = key;
+	this.evtNum = key;
     }
     
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**
@@ -29,7 +29,7 @@ public class NextPulseEvent implements SimulEvent {
     }
     
     public int pulse() {
-	return pulse;
+	return this.pulse;
     }
     
 }

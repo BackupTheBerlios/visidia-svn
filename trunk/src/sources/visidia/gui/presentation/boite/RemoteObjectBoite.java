@@ -22,18 +22,18 @@ public class RemoteObjectBoite implements ActionListener {
 
     public RemoteObjectBoite(FenetreDeSimulationDist parent, String titre, Hashtable table) {
 	this.dialog = new JDialog(parent, titre);
-	mainPane = new JPanel();
-	mainPane.setLayout(new BorderLayout());
-	mainPane.setPreferredSize(new Dimension(400,150));
-	ajouterBoutons(table);
+	this.mainPane = new JPanel();
+	this.mainPane.setLayout(new BorderLayout());
+	this.mainPane.setPreferredSize(new Dimension(400,150));
+	this.ajouterBoutons(table);
     }
 
 
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show(Frame parent) {
-	dialog.pack();
-	dialog.show();
-	dialog.setLocationRelativeTo(parent);
+	this.dialog.pack();
+	this.dialog.show();
+	this.dialog.setLocationRelativeTo(parent);
     }
     
     /**
@@ -44,58 +44,58 @@ public class RemoteObjectBoite implements ActionListener {
 	Enumeration theServers = nodeServerStub.keys();
 	int size = nodeServerStub.size();
 	
-	buttonPane = new JPanel(new FlowLayout());
-	labelPanel = new JPanel(new GridLayout(size+1,0));
+	this.buttonPane = new JPanel(new FlowLayout());
+	this.labelPanel = new JPanel(new GridLayout(size+1,0));
 	
-	buttonOk = new JButton("Ok");
-	buttonOk.addActionListener(this);
+	this.buttonOk = new JButton("Ok");
+	this.buttonOk.addActionListener(this);
 	
-	label1 = new JLabel("Host");
-	label2 = new JLabel("Server Name");
-	label3 = new JLabel("List Of Nodes");
+	this.label1 = new JLabel("Host");
+	this.label2 = new JLabel("Server Name");
+	this.label3 = new JLabel("List Of Nodes");
 	
-	labelPanel.add(label1);
-	labelPanel.add(label2);
-	labelPanel.add(label3);
+	this.labelPanel.add(this.label1);
+	this.labelPanel.add(this.label2);
+	this.labelPanel.add(this.label3);
 	
 	try {	
 	    while(theServers.hasMoreElements()){
 		Vector server = (Vector)theServers.nextElement();
 		JLabel serverName = new JLabel((String)server.elementAt(0));
-		labelPanel.add(serverName);
+		this.labelPanel.add(serverName);
 		NodeServer nodeServer = (NodeServer)nodeServerStub.get(server);
 		Vector nodeByHost = nodeServer.getNodes();
 		String nameOfServerUrl = (String)nodeByHost.remove(0);
 		JLabel serverUrl = new JLabel(nameOfServerUrl);
-		labelPanel.add(serverUrl);
+		this.labelPanel.add(serverUrl);
 		JComboBox jcb = new JComboBox(nodeByHost);
-		labelPanel.add(jcb);
+		this.labelPanel.add(jcb);
 	    }
 	} catch (Exception e) {
 	}
     
 
-	buttonPane.add(buttonOk);
+	this.buttonPane.add(this.buttonOk);
 	
-	scroller = new JScrollPane(labelPanel);
-	scroller.setOpaque(true);
+	this.scroller = new JScrollPane(this.labelPanel);
+	this.scroller.setOpaque(true);
 	
-	mainPane.add(scroller,BorderLayout.CENTER);
-	mainPane.add(buttonPane,BorderLayout.SOUTH);
+	this.mainPane.add(this.scroller,BorderLayout.CENTER);
+	this.mainPane.add(this.buttonPane,BorderLayout.SOUTH);
 	
-	dialog.getContentPane().add(mainPane,BorderLayout.CENTER);
+	this.dialog.getContentPane().add(this.mainPane,BorderLayout.CENTER);
     }
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == buttonOk) {
-	    dialog.setVisible(false);
-	    dialog.dispose();
+	if(e.getSource() == this.buttonOk) {
+	    this.dialog.setVisible(false);
+	    this.dialog.dispose();
 	}
     }
     
     
     /** Retourne le JDialog. */
     public JDialog dialog() {
-	return dialog;
+	return this.dialog;
     }
 }

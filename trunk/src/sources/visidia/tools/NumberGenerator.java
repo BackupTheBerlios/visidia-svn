@@ -8,7 +8,7 @@ package visidia.tools;
 public class NumberGenerator {
     private long n = 0;
     public synchronized long alloc(){
-	return n++;
+	return this.n++;
     }
 
     public synchronized void free(long num){

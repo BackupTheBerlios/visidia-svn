@@ -22,17 +22,17 @@ SelectionDessin selection;
   }
   
   public void undo() {
-    forme.enluminer(false);
-    selection.supprimerElement(forme);
+    this.forme.enluminer(false);
+    this.selection.supprimerElement(this.forme);
   }
     
   public void redo() {
-    forme.enluminer(true);
-    selection.insererElement(forme);
+    this.forme.enluminer(true);
+    this.selection.insererElement(this.forme);
   }
 
   public FormeDessin content() {
-      return forme;
+      return this.forme;
   }
 
 }

@@ -73,8 +73,6 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      */
     protected Thread thread;
 
-    //simulation execution controle variables
-    private boolean started = false;
     private boolean aborted = false;
     private boolean paused = false;
     private Object pauseLock = new Object();
@@ -114,7 +112,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	this.registryPort = regPort;
 	this.identity = nom;
 	try {
-	    this.sim_Rmi = (Simulator_Rmi_Int)Naming.lookup("rmi://"+nomVisu+":"+registryPort+"/"+visuUrl);
+	    this.sim_Rmi = (Simulator_Rmi_Int)Naming.lookup("rmi://"+nomVisu+":"+this.registryPort+"/"+visuUrl);
 	} catch (Exception e) {}
 	this.msgVQueue = new VQueue();
 	this.threadGroup = new SimulatorThreadGroup(nom);
@@ -128,7 +126,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	this.identity = nom;
 	
 	try {
-	    this.sim_Rmi = (Simulator_Rmi_Int)Naming.lookup("rmi://"+nomVisu+":"+registryPort+"/"+visuUrl);
+	    this.sim_Rmi = (Simulator_Rmi_Int)Naming.lookup("rmi://"+nomVisu+":"+this.registryPort+"/"+visuUrl);
 	} catch (Exception e) {}
 	
 	this.msgVQueue = new VQueue();
@@ -144,7 +142,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     /**return the number of neighbors : in other word the node degree
      */
     public int getArity(){
-	return portTable.size();
+	return this.portTable.size();
     }
     
     //**************************************************************
@@ -155,7 +153,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * to be corrected.
      */
     public int sizeOfTheGraph(){
-	return sizeOfTheGraph;
+	return this.sizeOfTheGraph;
     }
     
 
@@ -172,28 +170,28 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     public void startServer(AlgorithmDist algo,PortTable pt, Object obj,int size) throws RemoteException {
 	
 	try{
-	    sizeOfTheGraph=size;
-	    portTable = pt;
+	    this.sizeOfTheGraph=size;
+	    this.portTable = pt;
 	    Object data = obj;
 	    if (data instanceof Hashtable) {
-		props = (Hashtable) data;
-		if (((String)props.get("draw messages")).equals("yes")){
-		    drawMessage=true;
+		this.props = (Hashtable) data;
+		if (((String)this.props.get("draw messages")).equals("yes")){
+		    this.drawMessage=true;
 		} else {
-		    drawMessage=false;
+		    this.drawMessage=false;
 		}
 	    } else {
-		props = new Hashtable();
-		drawMessage=true;
+		this.props = new Hashtable();
+		this.drawMessage=true;
 	    }
 	    
 	    
-	    algorithm = algo;
-	    algorithm.setId(new Integer(identity));
-	    algorithm.setServer(this);
-	    thread = new Thread(threadGroup,algorithm);
-	    thread = new Thread(algorithm);
-	    thread.setPriority(THREAD_PRIORITY);
+	    this.algorithm = algo;
+	    this.algorithm.setId(new Integer(this.identity));
+	    this.algorithm.setServer(this);
+	    this.thread = new Thread(this.threadGroup,this.algorithm);
+	    this.thread = new Thread(this.algorithm);
+	    this.thread.setPriority(THREAD_PRIORITY);
 	} catch (Exception e) {
 	    System.out.println("Erreur lors de la creation du thread : startServer");
 	    e.printStackTrace();
@@ -202,24 +200,23 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 
     public void startRunning() throws RemoteException {
 	try {
-	    thread.start();
-	    started = true;
+	    this.thread.start();
 	} catch (Exception e) {
 		System.out.println("Erreur dans l'init nodeStub "+e);
-		System.out.println("Le demarrage du noeud : "+identity+" a echoue");
+		System.out.println("Le demarrage du noeud : "+this.identity+" a echoue");
 	}
     }
 
     /** nothing else to say
      */
     public void abortServer() throws RemoteException {
-	aborted = true ;
+	this.aborted = true ;
 
-	algorithm.abort();
+	this.algorithm.abort();
 	
-	if(thread != null){
-	    while(threadGroup.activeCount() > 0){
-		threadGroup.interrupt();
+	if(this.thread != null){
+	    while(this.threadGroup.activeCount() > 0){
+		this.threadGroup.interrupt();
 		try{
 		    Thread.currentThread().sleep(50);
 		}
@@ -233,16 +230,16 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     }
     
     public void wedge() throws RemoteException {
-	if(!paused){
-	    paused = true;
+	if(!this.paused){
+	    this.paused = true;
 	}
     } 
     
     public void unWedge() throws RemoteException {
-	if(paused){
-	    synchronized(pauseLock){
-		paused = false;
-		pauseLock.notifyAll();
+	if(this.paused){
+	    synchronized(this.pauseLock){
+		this.paused = false;
+		this.pauseLock.notifyAll();
 	    }
 	}
     }
@@ -251,14 +248,14 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * If not (the simulation is paused) it waits.
      */ 
     public void runningControl(){
-	if(aborted){
+	if(this.aborted){
 	    throw new SimulationAbortError();
 	}
 	
-	if(paused){
-	    synchronized(pauseLock){
+	if(this.paused){
+	    synchronized(this.pauseLock){
 		try{
-		    pauseLock.wait();
+		    this.pauseLock.wait();
 		}
 		catch(InterruptedException e){
 		    throw new SimulationAbortError();
@@ -272,7 +269,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      */
     public void terminatedAlgorithm(){
 	try {
-	    sim_Rmi.terminatedAlgorithm();
+	    this.sim_Rmi.terminatedAlgorithm();
 	} catch (Exception e) {
 	}
     }
@@ -281,7 +278,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     /** do nothing 
      */
     public boolean containsAliveThreads() throws RemoteException {
-	if(threadGroup.activeCount() > 0){
+	if(this.threadGroup.activeCount() > 0){
 	    return true;
 	}
 	return false;
@@ -291,22 +288,22 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     /** This change the drawMesage field to bool
      */
     public void setNodeDrawingMessage(boolean bool) throws RemoteException {
-	synchronized(propsObject) {
-	    if (bool != drawMessage){
+	synchronized(this.propsObject) {
+	    if (bool != this.drawMessage){
 		if(bool)
-		    props.put("draw messages","yes");
+		    this.props.put("draw messages","yes");
 		else 
-		    props.put("draw messages","no");
+		    this.props.put("draw messages","no");
 	    }	   
-	    drawMessage= bool;
+	    this.drawMessage= bool;
 	}
     }
 
     /** changes the node properties
      */
     public void setNodeProperties(Hashtable properties) throws RemoteException {
-	synchronized(propsObject) {
-	    props = properties;
+	synchronized(this.propsObject) {
+	    this.props = properties;
 	}
 	boolean drawMessageNewValue;
 	if (((String)properties.get("draw messages")).equals("yes"))
@@ -314,8 +311,8 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	else 
 	    drawMessageNewValue=false;
 	
-	if (drawMessageNewValue != drawMessage){
-	    drawMessage=drawMessageNewValue;
+	if (drawMessageNewValue != this.drawMessage){
+	    this.drawMessage=drawMessageNewValue;
 	}    
     }
     
@@ -327,7 +324,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * must be drawn or not.
      */
     public void setMessageType(MessageType msgType, boolean state) throws RemoteException {
-	algorithm.setMessageType(msgType,state);
+	this.algorithm.setMessageType(msgType,state);
     }
     
 
@@ -350,15 +347,15 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     */
     public void sendTo(Integer senderId, int door, Message msg){
 	try {
-	    messageNumber++;
-	    Vector v =  portTable.getElement(new Integer(door));
+	    this.messageNumber++;
+	    Vector v =  this.portTable.getElement(new Integer(door));
 	    Integer receiverId = (Integer)v.get(0);
 	    NodeInterfaceTry server = (NodeInterfaceTry)v.get(1);
-	    if (msg.getType().getToPaint() && drawMessage){
-		synchronized(lock){
+	    if (msg.getType().getToPaint() && this.drawMessage){
+		synchronized(this.lock){
 		    //Le message est envoye au simulateur pour visualisation
-		    sim_Rmi.pushMessageSendingEvent(senderId,door,receiverId,(Message)msg.clone());
-		    lock.wait();
+		    this.sim_Rmi.pushMessageSendingEvent(senderId,door,receiverId,(Message)msg.clone());
+		    this.lock.wait();
 		    MessagePacket msgPacket = new MessagePacket(senderId, door, receiverId,(Message)msg.clone());
 		    server.receiveFromNode(msgPacket);
 		}
@@ -367,7 +364,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 		server.receiveFromNode(msgPacket);
 	    }
 	}catch (RemoteException re) {
-	    ignore("erreur dans send to : noeud introuvable "+re);
+	    this.ignore("erreur dans send to : noeud introuvable "+re);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    throw new SimulationAbortError();
@@ -389,10 +386,10 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	MessagePacket msgPacket = null;
 	try {
 	    if(c != null){
-		msgPacket = (MessagePacket)msgVQueue.get(c);
+		msgPacket = (MessagePacket)this.msgVQueue.get(c);
 	    }
 	    else{
-		msgPacket = (MessagePacket)msgVQueue.get();
+		msgPacket = (MessagePacket)this.msgVQueue.get();
 	    }
 	} catch (Exception e) {
 	    throw new SimulationAbortError();
@@ -403,7 +400,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     /**
      */
     public Message getNextMessage(Integer nodeId, Door door)throws Exception{
-	return getNextMessage(nodeId, door, null);
+	return this.getNextMessage(nodeId, door, null);
     }
     
     
@@ -419,8 +416,8 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     public void receiveFromNode(MessagePacket mesgPacket) throws RemoteException {
 	try {
 	    Integer sender = mesgPacket.sender();
-	    mesgPacket.setReceiverDoor(portTable.getDoor(sender));
-	    msgVQueue.put(mesgPacket);
+	    mesgPacket.setReceiverDoor(this.portTable.getDoor(sender));
+	    this.msgVQueue.put(mesgPacket);
 	} catch (Exception e) {
 	    //a revoir
 	    throw new SimulationAbortError();
@@ -435,17 +432,17 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * @param newEdgeState the new edge state
     */
     public void changeEdgeState(Integer nodeId, int door, EdgeState newEdgeState) throws RemoteException {
-	if( drawMessage){
-	    Integer neighbId = portTable.getNeighbor(new Integer(door));
-	    pushEdgeStateChangeEvent(nodeId,neighbId,newEdgeState);
+	if( this.drawMessage){
+	    Integer neighbId = this.portTable.getNeighbor(new Integer(door));
+	    this.pushEdgeStateChangeEvent(nodeId,neighbId,newEdgeState);
 	}
     }
     
     private void pushEdgeStateChangeEvent(Integer nodeId1, Integer nodeId2, EdgeState es)throws RemoteException {
 	try {
-	    synchronized(lock){
-		sim_Rmi.pushEdgeStateChangeEvent(nodeId1, nodeId2, es);
-		lock.wait();
+	    synchronized(this.lock){
+		this.sim_Rmi.pushEdgeStateChangeEvent(nodeId1, nodeId2, es);
+		this.lock.wait();
 	    }
 	} catch (Exception e) {
 	    throw new SimulationAbortError();
@@ -459,19 +456,19 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * @param value the new value of the property that has changed 
      */     
     public void putNodeProperty(Integer nodeId, Object key, Object value) throws RemoteException {
-	synchronized(propsObject){
-	    props.put(key, value);
-	    if (drawMessage)
-		pushNodePropertyChangeEvent(nodeId , key, value);
+	synchronized(this.propsObject){
+	    this.props.put(key, value);
+	    if (this.drawMessage)
+		this.pushNodePropertyChangeEvent(nodeId , key, value);
 	    
 	}
     }
     
     private void pushNodePropertyChangeEvent(Integer nodeId, Object key, Object value)throws RemoteException {
 	try {
-	    synchronized(lock){
-		sim_Rmi.pushNodePropertyChangeEvent(nodeId,key,value);
-		lock.wait();
+	    synchronized(this.lock){
+		this.sim_Rmi.pushNodePropertyChangeEvent(nodeId,key,value);
+		this.lock.wait();
 	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur dans pushNodeProper... de NodeTry "+e);
@@ -484,29 +481,29 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
      * @param id must be ommitted. This is the current identity of the node 
      */
     public Object getNodeProperty(int id, Object key) throws RemoteException {
-	synchronized(propsObject){
-	    return props.get(key);
+	synchronized(this.propsObject){
+	    return this.props.get(key);
 	}
     }
     
     public Vector getMessageNumber() throws RemoteException {
 	Vector vect = new Vector();
-	vect.addElement(new Integer(messageNumber));
-	vect.addElement(new Integer(labelMessages));
-	vect.addElement(new Integer(synchMessages));
-	vect.addElement(new Integer(synch));
+	vect.addElement(new Integer(this.messageNumber));
+	vect.addElement(new Integer(this.labelMessages));
+	vect.addElement(new Integer(this.synchMessages));
+	vect.addElement(new Integer(this.synch));
 	return vect;
     }
     
     public void incrementLabelMessages() {
-	labelMessages++;
+	this.labelMessages++;
     }
     public void incrementSynchMessages() {
-	synchMessages++;
+	this.synchMessages++;
     }
  
     public void incrementSynch() {
-	synch++;
+	this.synch++;
     }
 
     /** this is applied by the console to tell the node that the message 
@@ -516,8 +513,8 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
     //public void free(LockIdentifier numLock) throws RemoteException {
     public void free() throws RemoteException {
 	try {
-	    synchronized(lock){
-		lock.notifyAll();
+	    synchronized(this.lock){
+		this.lock.notifyAll();
 	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur dans Free "+e);

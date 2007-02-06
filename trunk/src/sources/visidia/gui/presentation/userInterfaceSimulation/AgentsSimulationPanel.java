@@ -54,55 +54,55 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
      **/
   
     public AgentsSimulationPanel(AgentsSimulationWindow simulation) {
-	agentsSimulationWindow = simulation;
-	objet_sous_souris = null;
-	lePas = PAS_PAR_DEFAUT;
+	this.agentsSimulationWindow = simulation;
+	this.objet_sous_souris = null;
+	this.lePas = this.PAS_PAR_DEFAUT;
 	
 	if(simulation.getVueGraphe().getGraphe().ordre()!= 0)
 	    {  
-		size = simulation.getVueGraphe().donnerDimension();
-		this.setPreferredSize(size);
+		this.size = simulation.getVueGraphe().donnerDimension();
+		this.setPreferredSize(this.size);
 		this.revalidate();		
 	    } else {
-	    size = new Dimension(0,0);
+	    this.size = new Dimension(0,0);
 	}
 
-	selectionUnit = new SelectionUnit
+	this.selectionUnit = new SelectionUnit
 	    (new SelectionGetData () {
 		    public SelectionDessin getSelectionDessin () {
-			return agentsSimulationWindow.selection;
+			return AgentsSimulationPanel.this.agentsSimulationWindow.selection;
 		    }
 		    public UndoInfo getUndoInfo () throws NoSuchMethodException {
 			throw new NoSuchMethodException ("undo processing not used");
 		    }
 		    public RecoverableObject getRecoverableObject () {
-			return agentsSimulationWindow.getVueGraphe ();
+			return AgentsSimulationPanel.this.agentsSimulationWindow.getVueGraphe ();
 		    }
 		},
 	     this);
 
-	addMouseListener(selectionUnit);
-	addMouseListener(this);
-	addMouseMotionListener(selectionUnit);
-	addMouseMotionListener(this);
-	addKeyListener(this);
+	this.addMouseListener(this.selectionUnit);
+	this.addMouseListener(this);
+	this.addMouseMotionListener(this.selectionUnit);
+	this.addMouseMotionListener(this);
+	this.addKeyListener(this);
 
-	timer = new javax.swing.Timer(30,this);
-	setBackground(new Color(0xe6e6fa));
+	this.timer = new javax.swing.Timer(30,this);
+	this.setBackground(new Color(0xe6e6fa));
     }
 
     public int pas(){
-	return lePas;
+	return this.lePas;
     }
     
     public void updatePas(int p)
     {
 	this.lePas = p;
-	synchronized(concurrentObject){
+	synchronized(this.concurrentObject){
 	    //SentAgent sentAgent;
-	    int size = sentAgentVector.size();
+	    int size = this.sentAgentVector.size();
 	    for(int i = 0; i < size; i++){
-		((SentAgent) sentAgentVector.elementAt(i)).setStep(p);
+		((SentAgent) this.sentAgentVector.elementAt(i)).setStep(p);
 	    }
 	}
     }
@@ -115,30 +115,30 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 
-	agentsSimulationWindow.getVueGraphe().dessiner(this,g,"agents");
+	this.agentsSimulationWindow.getVueGraphe().dessiner(this,g,"agents");
 
 	g.setColor(Color.red);
 	
-	synchronized(concurrentObject) {
+	synchronized(this.concurrentObject) {
 	    SentAgent sentAgent;
-	    int size = sentAgentVector.size();
+	    int size = this.sentAgentVector.size();
 	    for(int i = 0; i < size; i++){
-		sentAgent = (SentAgent) sentAgentVector.elementAt(i);
+		sentAgent = (SentAgent) this.sentAgentVector.elementAt(i);
 		sentAgent.paint(g);
 	    }
 	}
 
-	selectionUnit.drawSelection (g);
+	this.selectionUnit.drawSelection (g);
     }
 
     public void actionPerformed(ActionEvent e){
 
-	synchronized(concurrentObject){
+	synchronized(this.concurrentObject){
 	    SentAgent sentAgent;
-	    int size = sentAgentVector.size();
+	    int size = this.sentAgentVector.size();
 	    Vector tmpVect = new Vector(size);
 	    for(int i = 0; i < size; i++){
-		sentAgent = (SentAgent) sentAgentVector.elementAt(i);
+		sentAgent = (SentAgent) this.sentAgentVector.elementAt(i);
 		if(sentAgent.isIntoBounds()){
 		    sentAgent.moveForward();
 		    tmpVect.add(sentAgent);
@@ -148,7 +148,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
 
 		    //envoyer un message d'acquitement de fin d'animation
 		    try{
-			agentsSimulationWindow.getAckPipe().put(msa);
+			this.agentsSimulationWindow.getAckPipe().put(msa);
 		    }
 		    catch(InterruptedException exp){
 			exp.printStackTrace();
@@ -156,30 +156,30 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
 		    }
 		}
 	    }
-	    sentAgentVector = tmpVect;
+	    this.sentAgentVector = tmpVect;
 	}
-	repaint();
+	this.repaint();
     }
 
     public boolean isRunning(){
-	if(timer.isRunning())
+	if(this.timer.isRunning())
 	    return true;
 	else 
 	    return false; 
     } 
 
     public void start(){
-	timer.start();
+	this.timer.start();
     }
 
     public void pause(){
-	timer.stop();
+	this.timer.stop();
     }
 
     public void stop(){
-	timer.stop();
-	synchronized(concurrentObject){
-	    sentAgentVector = new Vector(10,10);
+	this.timer.stop();
+	synchronized(this.concurrentObject){
+	    this.sentAgentVector = new Vector(10,10);
 	}
     }
 
@@ -210,16 +210,16 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
 
     public void animate(MessageSendingEvent mse){
 
-	synchronized(concurrentObject){
+	synchronized(this.concurrentObject){
 	    SentAgent sentAgent;
 
 	    sentAgent = new
 		SentAgent(mse,
-			  agentsSimulationWindow.getVueGraphe()
+			  this.agentsSimulationWindow.getVueGraphe()
 			  .rechercherSommet(mse.sender().toString()).centre(),
-			  agentsSimulationWindow.getVueGraphe().
-			  rechercherSommet(mse.receiver().toString()).centre(), lePas);
-	    sentAgentVector.add(sentAgent);
+			  this.agentsSimulationWindow.getVueGraphe().
+			  rechercherSommet(mse.receiver().toString()).centre(), this.lePas);
+	    this.sentAgentVector.add(sentAgent);
 
 	}
     }

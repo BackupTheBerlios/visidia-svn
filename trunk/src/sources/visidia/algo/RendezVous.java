@@ -7,23 +7,23 @@ public class RendezVous extends Algorithm{
 
     public void init(){
 
-	int neighbourCount = getArity();
+	int neighbourCount = this.getArity();
 	if(neighbourCount == 0){
 	    //nothing to do
 	    return;
 	}
 
         while(true){
-	    int rendezVousNeighbour = chooseNeigbour();
+	    int rendezVousNeighbour = this.chooseNeigbour();
 
 	    //send 1 to rendezVousNeighbour
-	    sendTo(rendezVousNeighbour, new IntegerMessage(1));
+	    this.sendTo(rendezVousNeighbour, new IntegerMessage(1));
 
 	    //and send 0 to others
 	    for(int i = 0; i < neighbourCount; i++){
 		if(i == rendezVousNeighbour) continue;
 
-		sendTo(i, new IntegerMessage(0));
+		this.sendTo(i, new IntegerMessage(0));
 	    }
 
 
@@ -33,7 +33,7 @@ public class RendezVous extends Algorithm{
 	    //and check whether the selected neigbour accept
 	    //the rendez-vous.
 	    for(int i = 0; i < neighbourCount; i++){
-		IntegerMessage mesg = (IntegerMessage) receiveFrom(i);
+		IntegerMessage mesg = (IntegerMessage) this.receiveFrom(i);
 		if((i == rendezVousNeighbour) && (mesg.value() == 1)){
 		    rendezVousIsAccepted = true;
 		}
@@ -42,19 +42,19 @@ public class RendezVous extends Algorithm{
 	    //send "HELLO" to the selectedNeigbour if the rendez-vous is
 	    // accepted.
 	    if(rendezVousIsAccepted){
-                setDoorState(new MarkedState(true),rendezVousNeighbour);
+                this.setDoorState(new MarkedState(true),rendezVousNeighbour);
 
-		sendTo(rendezVousNeighbour, new StringMessage("Hello !!!"));
-		receiveFrom(rendezVousNeighbour);
+		this.sendTo(rendezVousNeighbour, new StringMessage("Hello !!!"));
+		this.receiveFrom(rendezVousNeighbour);
 
-                setDoorState(new MarkedState(false),rendezVousNeighbour);
+                this.setDoorState(new MarkedState(false),rendezVousNeighbour);
 	    }
 	}
     }
 
 
     private int chooseNeigbour(){
-	return Math.abs((SynchronizedRandom.nextInt())) % getArity() ;
+	return Math.abs((SynchronizedRandom.nextInt())) % this.getArity() ;
     }
 
     public Object clone(){

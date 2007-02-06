@@ -32,12 +32,12 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
      */
     protected final boolean sendTo(int door, Message msg)
     {
-	sim.runningControl();
+	this.sim.runningControl();
 	boolean b;
-	lamportClock++;
-	msg.setMsgClock(lamportClock);
+	this.lamportClock++;
+	msg.setMsgClock(this.lamportClock);
 	try{
-	    b= sim.sendTo(nodeId, door, msg) ;	
+	    b= this.sim.sendTo(this.nodeId, door, msg) ;	
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -47,12 +47,12 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
 
     
     protected final boolean sendToNext(Message msg) {
-	sim.runningControl();
-	lamportClock++;
+	this.sim.runningControl();
+	this.lamportClock++;
 	boolean b;
-	msg.setMsgClock(lamportClock);
+	msg.setMsgClock(this.lamportClock);
     	try{
-	    b=sim.sendToNext(nodeId, msg) ;	
+	    b=this.sim.sendToNext(this.nodeId, msg) ;	
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
@@ -66,9 +66,9 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
      */
     protected final void sendAll(Message msg)
     {
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	for( int i=0; i < arite ; i++)
-	    sendTo(i, msg );
+	    this.sendTo(i, msg );
     }
     
     /**
@@ -77,41 +77,41 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
      */
     protected final Message receiveFrom(int door)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 
 	Message msg = null;
     	try{
-	    msg =  sim.getNextMessage( nodeId ,null, new DoorCriterion(door));
+	    msg =  this.sim.getNextMessage( this.nodeId ,null, new DoorCriterion(door));
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
 	}
 	
 	int stamp = msg.getMsgClock();
-	lamportClock = Math.max(stamp,lamportClock) + 1;
+	this.lamportClock = Math.max(stamp,this.lamportClock) + 1;
 	return msg;
     }
 
     
     protected final Message receiveFromPrevious() {
-	sim.runningControl();
+	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessageFromPrevious(nodeId , null);
+	    msg = this.sim.getNextMessageFromPrevious(this.nodeId , null);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
 	}
 
 	int stamp = msg.getMsgClock();
-	lamportClock = Math.max(stamp,lamportClock) + 1;
+	this.lamportClock = Math.max(stamp,this.lamportClock) + 1;
 	return msg;
     }
 
 
     protected final Message receiveFrom(int door,MessageCriterion mc)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 
 	DoorCriterion dc = new DoorCriterion(door);
 	MessagePacketCriterion mpc = new MessagePacketCriterion(mc);
@@ -121,46 +121,46 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
 
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId , null, c);
+	    msg = this.sim.getNextMessage(this.nodeId , null, c);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
 	}
 
 	int stamp = msg.getMsgClock();
-	lamportClock = Math.max(stamp,lamportClock) + 1;
+	this.lamportClock = Math.max(stamp,this.lamportClock) + 1;
 	return msg;
     }  
 
     protected final Message receive(Door door)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId, door, null);
+	    msg = this.sim.getNextMessage(this.nodeId, door, null);
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
 	}
 
 	int stamp = msg.getMsgClock();
-	lamportClock = Math.max(stamp,lamportClock) + 1;
+	this.lamportClock = Math.max(stamp,this.lamportClock) + 1;
 	return msg;
     }
 
     protected final Message receive(Door door, MessageCriterion mc)
     {
-    	sim.runningControl();
+    	this.sim.runningControl();
 	Message msg = null;
     	try{
-	    msg = sim.getNextMessage(nodeId, door, new MessagePacketCriterion(mc));
+	    msg = this.sim.getNextMessage(this.nodeId, door, new MessagePacketCriterion(mc));
 	}
 	catch(InterruptedException e){
 	    throw new SimulationAbortError();
 	}
 
 	int stamp = msg.getMsgClock();
-	lamportClock = Math.max(stamp,lamportClock) + 1;
+	this.lamportClock = Math.max(stamp,this.lamportClock) + 1;
 	return msg;
     }
 
@@ -169,7 +169,7 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
      */
     protected void putProperty(String key, Object value){
 	super.putProperty(key,value);
-	lamportClock++;
+	this.lamportClock++;
     }
 
     
@@ -189,6 +189,6 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,Clo
      * return the value of the lamport clock
      */
     protected int getLamportClock(){
-	return lamportClock;
+	return this.lamportClock;
     }
 }

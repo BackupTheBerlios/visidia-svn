@@ -32,41 +32,41 @@ public class Coloration_SSP extends Algorithm {
         String m_V=new String("F");
         int m_sc=-1;
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
-        neighbours=new String[getArity()];
+        neighbours=new String[this.getArity()];
         
-        putProperty("label",myState);
+        this.putProperty("label",myState);
         
         while (run) {
-            synchro=starSynchro(finishedNode);
-            if (synchro==starCenter ){
+            synchro=this.starSynchro(finishedNode);
+            if (synchro==this.starCenter ){
                 String label[],v[];
                 int sc[];
                 
-                label=new String[getArity()];
-                v=new String[getArity()];
-                sc=new int[getArity()];
+                label=new String[this.getArity()];
+                v=new String[this.getArity()];
+                sc=new int[this.getArity()];
                 
-                for (int i=0;i<getArity();i++)
+                for (int i=0;i<this.getArity();i++)
                     if (! finishedNode[i]) {
-                        label[i]=((StringMessage) receiveFrom(i)).data();
+                        label[i]=((StringMessage) this.receiveFrom(i)).data();
                         
                         neighbours[i]=new String(label[i].substring(0,1));
                         v[i]=new String(label[i].substring(2,3));
                         sc[i]=(new Integer(label[i].substring(4))).intValue();
                     }
                     else
-                        sc[i]=getNetSize();
+                        sc[i]=this.getNetSize();
                 
                 if (m_V.compareTo("F")==0) {
                     while ((neighbours[0].compareTo(myColor)==0) ||
                     (neighbours[1].compareTo(myColor)==0)) {
                         myC=(myC+1)%3;
-                        myColor=getNewColor(myC);
+                        myColor=this.getNewColor(myC);
                     }
                     
                     m_V=new String("T");
@@ -81,27 +81,27 @@ public class Coloration_SSP extends Algorithm {
                     else
                         m_sc=sc[1]+1;
                 
-                if (m_sc>=getNetSize())
+                if (m_sc>=this.getNetSize())
                     run=false;
                 
                 String ssc=new String((new Integer(m_sc)).toString());
                 myState=myColor+","+m_V+","+ssc;
-                putProperty("label",myState);
+                this.putProperty("label",myState);
                 
                 
-                breakSynchro();
+                this.breakSynchro();
                 
             }
             else {
-                if (synchro != notInTheStar) {
-                    sendTo(synchro,new StringMessage(myState,labels));
+                if (synchro != this.notInTheStar) {
+                    this.sendTo(synchro,new StringMessage(myState,labels));
                 }
             }
         }
         
-        for( int i = 0; i < getArity(); i++){
+        for( int i = 0; i < this.getArity(); i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(-1),synchronization));
             }
         }
     }
@@ -118,7 +118,7 @@ public class Coloration_SSP extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -127,13 +127,13 @@ public class Coloration_SSP extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -151,13 +151,13 @@ public class Coloration_SSP extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -172,35 +172,35 @@ public class Coloration_SSP extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -214,8 +214,8 @@ public class Coloration_SSP extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     

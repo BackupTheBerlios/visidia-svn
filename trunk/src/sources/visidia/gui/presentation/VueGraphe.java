@@ -46,13 +46,13 @@ public class VueGraphe implements Serializable, RecoverableObject{
    **/
 
   public VueGraphe(Graphe gr) {
-      graphe = gr ;
+      this.graphe = gr ;
 
-      setFontSize(9);
-      numero_sommet = 0;
+      this.setFontSize(9);
+      this.numero_sommet = 0;
    
-      afficherEtiquettes = true;
-      size = new Dimension(0,0);
+      this.afficherEtiquettes = true;
+      this.size = new Dimension(0,0);
     
       // on remplit la table des couleurs
       TableCouleurs.setTableCouleurs();
@@ -64,7 +64,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     public VueGraphe cloner(){
 	Graphe graphe = new Graphe();
 	VueGraphe vue = graphe.getVueGraphe();
-	Enumeration e = liste_affichage.elements();
+	Enumeration e = this.liste_affichage.elements();
 	Hashtable sommets_clones = new Hashtable();
 	while (e.hasMoreElements()){
 	    FormeDessin forme = (FormeDessin) e.nextElement();
@@ -111,7 +111,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Positionne tous les objets du grapheVMA dans les couleurs standards.
    **/
   public void couleursStandards() {
-    Enumeration e = listeAffichage();
+    Enumeration e = this.listeAffichage();
     while(e.hasMoreElements()){
 	FormeDessin f = (FormeDessin)e.nextElement();
 	if (f.type().equals("vertex"))
@@ -126,28 +126,28 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Retourne une enumeration qui contient les sommets dessines du graphe.
    **/
     public Enumeration listeAffichage() {
-	return liste_affichage.elements();
+	return this.liste_affichage.elements();
     }
 
     public void insererListeAffichage(FormeDessin f){
-	liste_affichage.inserer(f);}
+	this.liste_affichage.inserer(f);}
 
     public void supprimerListeAffichage(FormeDessin f){
-	liste_affichage.supprimer(f);}
+	this.liste_affichage.supprimer(f);}
     
  
  /**
    * Accesseur a afficherEtiquettes.
    **/
   public boolean afficherEtiquettes() {
-    return afficherEtiquettes;
+    return this.afficherEtiquettes;
   }
 
   /**
    * Positionne si oui ou non on affiche les etiquettes.
    **/
   public void afficherEtiquettes(boolean booleen) {
-    afficherEtiquettes = booleen;
+    this.afficherEtiquettes = booleen;
   }
 
 
@@ -158,7 +158,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Creer un nouveau sommet dans le graphe avec une position donnee.
    **/
     public SommetDessin creerSommet(int posx, int posy) {
-	return fabriqueSommet.creerSommet(this,posx, posy,Integer.toString(numero_sommet++));
+	return fabriqueSommet.creerSommet(this,posx, posy,Integer.toString(this.numero_sommet++));
     }
   
    /**
@@ -177,7 +177,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     // pour les aretes : pour les differents types d'affichage.
     public void changerFormeArete(FabriqueArete fabrique, UndoInfo undoInfo){
 	fabriqueArete = fabrique;
-	Enumeration e = listeAffichage();
+	Enumeration e = this.listeAffichage();
 	FormeDessin f;
 	AreteDessin nouvelle_arete;
 	Stack objets_a_etudier = new Stack();
@@ -189,7 +189,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	    f =((FormeDessin)objets_a_etudier.pop());
 	    
 	    if (f.type().equals("edge")){
-		liste_affichage.supprimer(f);
+		this.liste_affichage.supprimer(f);
 		nouvelle_arete = fabriqueArete.creerArete(((AreteDessin)f).getArete().origine().getSommetDessin(),((AreteDessin)f).getArete().destination().getSommetDessin(),((AreteDessin)f).getArete());
 		nouvelle_arete.copyAllVariable((AreteDessin)f);
 		undoInfo.addInfo(new ChangeFormeDessin(f,nouvelle_arete));
@@ -203,7 +203,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     
     public void changerFormeSommet(FabriqueSommet fabrique, UndoInfo undoInfo){
 	fabriqueSommet = fabrique;
-	Enumeration e = listeAffichage();
+	Enumeration e = this.listeAffichage();
 	FormeDessin f;
 	SommetDessin nouveau_sommet;
 	
@@ -216,7 +216,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	    f =((FormeDessin)objets_a_etudier.pop());
     
 	    if (f.type().equals("vertex")){
-		liste_affichage.supprimer(f);
+		this.liste_affichage.supprimer(f);
 		nouveau_sommet = fabriqueSommet.creerSommet(this,((SommetDessin)f).centreX(),((SommetDessin)f).centreY(),((SommetDessin)f).getEtiquette(),((SommetDessin)f).getSommet());
 		nouveau_sommet.copyAllVariable((SommetDessin)f);
 		undoInfo.addInfo(new ChangeFormeDessin(f,nouveau_sommet));
@@ -229,7 +229,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Modificateur de l'attribut numero_sommet.
    **/
   public void numero_sommet(int valeur) {
-    numero_sommet = valeur;
+    this.numero_sommet = valeur;
   }
 
   /**
@@ -237,12 +237,12 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * numero_sommet au prochain numero.
    **/
   public void renumeroterSommets() {
-    Enumeration e = listeAffichage();
-    numero_sommet = 0;
+    Enumeration e = this.listeAffichage();
+    this.numero_sommet = 0;
     while(e.hasMoreElements()){
 	FormeDessin f = (FormeDessin)e.nextElement();
 	if (f.type().equals("vertex"))
-	    ((SommetDessin)f).setEtiquette(Integer.toString(numero_sommet++));
+	    ((SommetDessin)f).setEtiquette(Integer.toString(this.numero_sommet++));
     }
   }
 
@@ -252,27 +252,27 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Accesseur fontNormal.
    **/
   public Font fontNormal() {
-    return fontNormal;
+    return this.fontNormal;
   }
 
   /**
    * Accesseur fontNormalEtiquette.
    **/
   public Font fontNormalEtiquette() {
-    return fontNormalEtiquette;
+    return this.fontNormalEtiquette;
   }
   /**
    * Accesseur fontGras.
    **/
   public Font fontGras() {
-    return fontGras;
+    return this.fontGras;
   }
 
   /**
    * Accesseur fontGrasEtiquette.
    **/
   public Font fontGrasEtiquette() {
-    return fontGrasEtiquette;
+    return this.fontGrasEtiquette;
   }
   
     /**
@@ -281,10 +281,10 @@ public class VueGraphe implements Serializable, RecoverableObject{
 
     public void setFontSize(float newsize){
 	int size = (int)newsize+1;
-	fontNormal = new Font("default", Font.PLAIN, size);
-	fontNormalEtiquette = new Font("default", Font.PLAIN, size+2);
-	fontGras = new Font("default", Font.BOLD, size);
-	fontGrasEtiquette = new Font("default", Font.BOLD, size+2);
+	this.fontNormal = new Font("default", Font.PLAIN, size);
+	this.fontNormalEtiquette = new Font("default", Font.PLAIN, size+2);
+	this.fontGras = new Font("default", Font.BOLD, size);
+	this.fontGrasEtiquette = new Font("default", Font.BOLD, size+2);
     }
 
 
@@ -302,7 +302,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Remarque : this method doesn't delete incident edges of vertex
    **/
   public void delObject(FormeDessin element) {
-      liste_affichage.supprimer(element);
+      this.liste_affichage.supprimer(element);
       element.getObjetGraphe().supprimer();
   }
 
@@ -312,7 +312,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * edges and vertices of the du graph.
    **/
   public void putObject(FormeDessin element) {
-      liste_affichage.inserer(element);
+      this.liste_affichage.inserer(element);
       element.getObjetGraphe().ajouter();
   }
 
@@ -325,13 +325,13 @@ public class VueGraphe implements Serializable, RecoverableObject{
      **/
     public void dessiner(Component c ,Graphics g) {
 	// Les aretes sont dessinees avant sommets
-	Enumeration e = listeAffichage();
+	Enumeration e = this.listeAffichage();
 	while (e.hasMoreElements()) {
 	    FormeDessin f = (FormeDessin) e.nextElement();
 	    if (f.type().equals("edge"))
 		f.dessiner(c,g);
 	}
-	e = listeAffichage();
+	e = this.listeAffichage();
 	while (e.hasMoreElements()) {
 	    FormeDessin f = (FormeDessin) e.nextElement();
 	    if (f.type().equals("vertex"))
@@ -347,13 +347,13 @@ public class VueGraphe implements Serializable, RecoverableObject{
     public void dessiner(Component c ,Graphics g, String tag) {
 	if(tag.equals("agents")) {
 	    // Les aretes sont dessinees avant sommets
-	    Enumeration e = listeAffichage();
+	    Enumeration e = this.listeAffichage();
 	    while (e.hasMoreElements()) {
 		FormeDessin f = (FormeDessin) e.nextElement();
 		if (f.type().equals("edge"))
 		    f.dessiner(c,g);
 	    }
-	    e = listeAffichage();
+	    e = this.listeAffichage();
 	    while (e.hasMoreElements()) {
 		FormeDessin f = (FormeDessin) e.nextElement();
 		if (f.type().equals("vertex"))
@@ -366,7 +366,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Retourne un objet du graphe se trouvant a la position donnee.
    **/
   public FormeDessin en_dessous(int x, int y) {
-      return en_dessous(x,y,null);
+      return this.en_dessous(x,y,null);
   }
 
   /**
@@ -374,7 +374,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * celle passee en argument.
    **/
   public FormeDessin en_dessous(int x, int y, FormeDessin sauf_celui_ci) {
-      Enumeration ensemble = listeAffichage();
+      Enumeration ensemble = this.listeAffichage();
 
       // si l'enumeration n'a plus d'element -> NoSuchElementException
       // ok car c'est aussi l'exception "pas d'objet dessous"
@@ -390,7 +390,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Renvoie le nombre d'objets contenus dans le graphe.
    **/
   public int nbObjets() {
-    return liste_affichage.taille();
+    return this.liste_affichage.taille();
   }
 
   /**
@@ -407,7 +407,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    **/
   public Enumeration objetsDansRegion(int x1, int y1, int x2, int y2) {
     Vector trouves = new Vector();
-    Enumeration e = listeAffichage();
+    Enumeration e = this.listeAffichage();
 
     while(e.hasMoreElements()) {
       FormeDessin elt = (FormeDessin)e.nextElement();
@@ -449,7 +449,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Une exception NoSuchElementException est levee si aucun sommet n'est trouve.
    **/
   public SommetDessin sommet_en_dessous(int x, int y) {
-    return (SommetDessin)objet_visu_en_dessous(x, y, null,new String("vertex"));
+    return (SommetDessin)this.objet_visu_en_dessous(x, y, null,new String("vertex"));
   }
 
   /**
@@ -459,7 +459,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    **/
   public SommetDessin sommet_en_dessous(int x, int y,
                                       FormeDessin pas_celui_ci) {
-    return (SommetDessin)objet_visu_en_dessous(x, y, pas_celui_ci,new String("vertex"));
+    return (SommetDessin)this.objet_visu_en_dessous(x, y, pas_celui_ci,new String("vertex"));
   }
 
   /**
@@ -467,7 +467,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Une exception NoSuchElementException est levee si aucune arete n'est trouvee.
    **/
   public AreteDessin arete_en_dessous(int x, int y) {
-    return (AreteDessin)objet_visu_en_dessous(x, y, null, new String("edge"));
+    return (AreteDessin)this.objet_visu_en_dessous(x, y, null, new String("edge"));
   }
 
   /**
@@ -476,7 +476,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
    * Une exception NoSuchElementException est levee si aucune arete n'est trouvee.
    **/
   public AreteDessin arete_en_dessous(int x, int y, FormeDessin pas_celui_ci) {
-    return (AreteDessin)objet_visu_en_dessous(x, y, pas_celui_ci,new String("edge"));
+    return (AreteDessin)this.objet_visu_en_dessous(x, y, pas_celui_ci,new String("edge"));
   }
 
   // Methodes privees.
@@ -491,7 +491,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     // si l'enumeration n'a plus d'element -> NoSuchElementException
     // ok car c'est aussi l'exception "pas d'objet dessous" (malin ...)
 
-    Enumeration enum_objets_visu = listeAffichage();  
+    Enumeration enum_objets_visu = this.listeAffichage();  
 
     FormeDessin objet_visu_courant =
       (FormeDessin)enum_objets_visu.nextElement();
@@ -507,7 +507,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     // dimensions graphiques du graphe
 
   public Dimension donnerDimension(){
-  	return size;	
+  	return this.size;	
   }
 
   public void changerDimension(Dimension unSize){
@@ -517,7 +517,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     // rechercher un sommet avec l'identifiant specifie
 
   public SommetDessin  rechercherSommet(String id){
-      Enumeration e = listeAffichage();
+      Enumeration e = this.listeAffichage();
       FormeDessin f;
       while(e.hasMoreElements())
 	  {
@@ -531,7 +531,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 
     //PFA2003 simplification du code
     public AreteDessin rechercherArete(String id1,String id2){
-	Enumeration e = listeAffichage();
+	Enumeration e = this.listeAffichage();
 	while (e.hasMoreElements()) {
 	    FormeDessin f = (FormeDessin) e.nextElement();
 	    if (f.type().equals("edge")) {
@@ -553,7 +553,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
      */
     //PFA2003
     public Iterator rechercherAretesIncidentes(String id1){
-	Enumeration e = listeAffichage();
+	Enumeration e = this.listeAffichage();
 	Vector v = new Vector();
 	while (e.hasMoreElements()) {
 	    FormeDessin f = (FormeDessin)e.nextElement();
@@ -568,7 +568,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
     }
 
     public Graphe getGraphe(){
-	return graphe;}
+	return this.graphe;}
 
 
     /**

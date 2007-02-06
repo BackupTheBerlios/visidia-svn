@@ -72,42 +72,42 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      * Instancie un GrapheVisuPanel associé à l'editeur passé en argument.
      **/
     public GrapheVisuPanel(Editeur un_editeur) {
-	tracker = new MediaTracker(this);
-	vecteurImages = new Vector();
-	vecteurImages.add(TableImages.getImage("image1"));
-	vecteurImages.add(TableImages.getImage("image2"));
-	vecteurImages.add(TableImages.getImage("image3"));
-	vecteurImages.add(TableImages.getImage("image4"));
-	vecteurImages.add(TableImages.getImage("image5"));
-	vecteurImages.add(TableImages.getImage("image6"));		    
+	this.tracker = new MediaTracker(this);
+	this.vecteurImages = new Vector();
+	this.vecteurImages.add(TableImages.getImage("image1"));
+	this.vecteurImages.add(TableImages.getImage("image2"));
+	this.vecteurImages.add(TableImages.getImage("image3"));
+	this.vecteurImages.add(TableImages.getImage("image4"));
+	this.vecteurImages.add(TableImages.getImage("image5"));
+	this.vecteurImages.add(TableImages.getImage("image6"));		    
 	
 	
 	for(int i=0;i<6;i++)
-	    tracker.addImage((Image)vecteurImages.elementAt(i),0);
+	    this.tracker.addImage((Image)this.vecteurImages.elementAt(i),0);
 	try
 	    {
-		tracker.waitForID(0);    
+		this.tracker.waitForID(0);    
 	    } 
 	catch (InterruptedException e) {System.out.println("probleme");}
-	editeur = un_editeur;
-	if(editeur.graph().ordre()!= 0)
+	this.editeur = un_editeur;
+	if(this.editeur.graph().ordre()!= 0)
 	    {
 		
-		size = editeur.getVueGraphe().donnerDimension();
+		this.size = this.editeur.getVueGraphe().donnerDimension();
 	    }
-	else size =new Dimension(0,0);
-	objet_sous_souris = null;
-	drag_n_drop_sommet = false;
-	drag_n_drop_sommet_existant = false;
-	drag_n_drop_selection = false;
-	drag_n_drop_graph = false;
-	carre_selection = false;
-	formeDessin_a_deplacer = null;
+	else this.size =new Dimension(0,0);
+	this.objet_sous_souris = null;
+	this.drag_n_drop_sommet = false;
+	this.drag_n_drop_sommet_existant = false;
+	this.drag_n_drop_selection = false;
+	this.drag_n_drop_graph = false;
+	this.carre_selection = false;
+	this.formeDessin_a_deplacer = null;
 	this.addMouseListener(this);
 	this.addMouseMotionListener(this);
 	this.addKeyListener(this);
 	
-	setBackground(new Color(0xe6e6fa));
+	this.setBackground(new Color(0xe6e6fa));
     }
     
     
@@ -117,17 +117,17 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	
-	editeur.getVueGraphe().dessiner(this,g);
+	this.editeur.getVueGraphe().dessiner(this,g);
     
-	if (tracker.statusAll(false) != MediaTracker.COMPLETE)
+	if (this.tracker.statusAll(false) != MediaTracker.COMPLETE)
 	    {
 		g.drawString("probleme de chargement d'image", 50, 100);
 		return;
 	    }
 	
 	
-	if(carre_selection)
-	    dessinerCarre(g, selection_x1, selection_y1, selection_x2, selection_y2);
+	if(this.carre_selection)
+	    this.dessinerCarre(g, this.selection_x1, this.selection_y1, this.selection_x2, this.selection_y2);
     }
     
     /**
@@ -139,28 +139,28 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	int x = evt.getX();
 	int y = evt.getY(); 
 	
-	size = this.getPreferredSize();
+	this.size = this.getPreferredSize();
 	
 	switch(evt.getModifiers()) {
 	    // Bouton du milieu
 	case InputEvent.BUTTON2_MASK:
 	case (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK):  // Pour les souris sans boutton du milieu
-	    appuiBoutonMilieu(x, y);
+	    this.appuiBoutonMilieu(x, y);
 	    break;
 	    
 	    // Bouton droit
 	case InputEvent.BUTTON3_MASK:
-	    appuiBoutonDroit(x, y);
+	    this.appuiBoutonDroit(x, y);
 	    break;
 	    
 	    // shift + bouton droit
 	case (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK):
-	    appuiShiftBoutonDroit(x, y);
+	    this.appuiShiftBoutonDroit(x, y);
 	    break;
 	    
 	    // Bouton gauche
 	case InputEvent.BUTTON1_MASK:
-	    appuiBoutonGauche(x, y);
+	    this.appuiBoutonGauche(x, y);
 	    break;
 	    
 	default:
@@ -176,115 +176,115 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	int y = evt.getY();
 	boolean changed = false;
 	
-	if(drag_n_drop_sommet) {
+	if(this.drag_n_drop_sommet) {
 	    try {
 		/* Si on fusionne deux sommets, il faut retirer le
 		 * sommet cree de la liste */ 
 		/* des informations de undo, sinon, il sera recree
 		 * lors d'un redo eventuel!*/
 		SommetDessin sommet_en_dessous =
-		    editeur.getVueGraphe().sommet_en_dessous(x, y,objet_sous_souris);
+		    this.editeur.getVueGraphe().sommet_en_dessous(x, y,this.objet_sous_souris);
 		
 		//ww : On efface l'ancienne arete si OUI, puisque une
 		//autre arete a ete cree, mais si l'utilisateur boucle
 		//sur le meme sommet, ceci n'efface pas la
 		//pseudo-arete.
-		if (editeur.getVueGraphe().rechercherArete((ancien_sommet_sous_souris).getEtiquette(), (sommet_en_dessous).getEtiquette()) != null)
+		if (this.editeur.getVueGraphe().rechercherArete((this.ancien_sommet_sous_souris).getEtiquette(), (sommet_en_dessous).getEtiquette()) != null)
 		    {
-			editeur.getVueGraphe().delObject(((editeur.getVueGraphe()).rechercherArete((ancien_sommet_sous_souris).getEtiquette(),(sommet_en_dessous).getEtiquette())));
+			this.editeur.getVueGraphe().delObject(((this.editeur.getVueGraphe()).rechercherArete((this.ancien_sommet_sous_souris).getEtiquette(),(sommet_en_dessous).getEtiquette())));
 		    }
 		
 		//ww: ceci efface l'arete en cas de bouclage sur un meme sommet
-		if ((editeur.getVueGraphe().rechercherArete((ancien_sommet_sous_souris).getEtiquette(), (((SommetDessin)objet_sous_souris).getEtiquette())) != null)
-		    &&( (ancien_sommet_sous_souris).getEtiquette() == ((sommet_en_dessous).getEtiquette())))
+		if ((this.editeur.getVueGraphe().rechercherArete((this.ancien_sommet_sous_souris).getEtiquette(), (((SommetDessin)this.objet_sous_souris).getEtiquette())) != null)
+		    &&( (this.ancien_sommet_sous_souris).getEtiquette() == ((sommet_en_dessous).getEtiquette())))
 		    {
-			editeur.getVueGraphe().delObject(((editeur.getVueGraphe()).rechercherArete((ancien_sommet_sous_souris).getEtiquette(),
-														((SommetDessin)objet_sous_souris).getEtiquette())));
+			this.editeur.getVueGraphe().delObject(((this.editeur.getVueGraphe()).rechercherArete((this.ancien_sommet_sous_souris).getEtiquette(),
+														((SommetDessin)this.objet_sous_souris).getEtiquette())));
 		    }
 		//ww: end
 		
 		
-		sommet_en_dessous.fusionner((SommetDessin)objet_sous_souris);
-		editeur.undoInfo.removeObject(drag_n_dropVertex);
+		sommet_en_dessous.fusionner((SommetDessin)this.objet_sous_souris);
+		this.editeur.undoInfo.removeObject(this.drag_n_dropVertex);
 		
 		
 		
 	    }
 	    catch(NoSuchElementException e) {
 	    }
-	    drag_n_drop_sommet = false;
-	} else if (drag_n_drop_sommet_existant) {
+	    this.drag_n_drop_sommet = false;
+	} else if (this.drag_n_drop_sommet_existant) {
 	    try {
 		/* On fusionne deux sommets existants par deplacement
 		 * de l'un d'eux. */
 		SommetDessin sommet_en_dessous =
-		    editeur.getVueGraphe().sommet_en_dessous(x, y,objet_sous_souris);
-		editeur.undoInfo.newGroup("Separate merged vertices", "Merge vertices");
+		    this.editeur.getVueGraphe().sommet_en_dessous(x, y,this.objet_sous_souris);
+		this.editeur.undoInfo.newGroup("Separate merged vertices", "Merge vertices");
 		
-		editeur.undoInfo.addInfo(new FusionneSommet((SommetDessin)objet_sous_souris,sommet_en_dessous,drag_n_dropVertex_X,
-							    drag_n_dropVertex_Y));								
+		this.editeur.undoInfo.addInfo(new FusionneSommet((SommetDessin)this.objet_sous_souris,sommet_en_dessous,this.drag_n_dropVertex_X,
+							    this.drag_n_dropVertex_Y));								
 		
-		sommet_en_dessous.fusionner((SommetDessin)objet_sous_souris);
+		sommet_en_dessous.fusionner((SommetDessin)this.objet_sous_souris);
 	    }
 	    catch(NoSuchElementException e) {
-		editeur.undoInfo.newGroup("Move vertex to old position", "Move vertex to new position");
-		editeur.undoInfo.addInfo(new DeplaceObjets((SommetDessin)objet_sous_souris,
-							   x - drag_n_dropVertex_X,
-							   y - drag_n_dropVertex_Y));
+		this.editeur.undoInfo.newGroup("Move vertex to old position", "Move vertex to new position");
+		this.editeur.undoInfo.addInfo(new DeplaceObjets((SommetDessin)this.objet_sous_souris,
+							   x - this.drag_n_dropVertex_X,
+							   y - this.drag_n_dropVertex_Y));
 	    }
-	    drag_n_drop_sommet_existant = false;
-	} else if (drag_n_drop_selection) { 
-	    editeur.undoInfo.newGroup("Move selection to old position", "Move selection to new position");
-	    editeur.undoInfo.addInfo(new DeplaceObjets(formeDessin_a_deplacer,
-						       x - x_origine,
-						       y - y_origine));
-	    drag_n_drop_selection = false;
-	} else if (drag_n_drop_graph) {
-	    editeur.undoInfo.newGroup("Move graph to old position", "Move graph to new position");
-	    editeur.undoInfo.addInfo(new DeplaceObjets(formeDessin_a_deplacer,
-						       x - x_origine,
-						       y - y_origine));
-	    drag_n_drop_graph = false;
-	} else if (carre_selection) {
+	    this.drag_n_drop_sommet_existant = false;
+	} else if (this.drag_n_drop_selection) { 
+	    this.editeur.undoInfo.newGroup("Move selection to old position", "Move selection to new position");
+	    this.editeur.undoInfo.addInfo(new DeplaceObjets(this.formeDessin_a_deplacer,
+						       x - this.x_origine,
+						       y - this.y_origine));
+	    this.drag_n_drop_selection = false;
+	} else if (this.drag_n_drop_graph) {
+	    this.editeur.undoInfo.newGroup("Move graph to old position", "Move graph to new position");
+	    this.editeur.undoInfo.addInfo(new DeplaceObjets(this.formeDessin_a_deplacer,
+						       x - this.x_origine,
+						       y - this.y_origine));
+	    this.drag_n_drop_graph = false;
+	} else if (this.carre_selection) {
 	    //selection des objets dans la zone rectangulaire : c'est
 	    //un nouveau undoGroup.
-	    Enumeration e = editeur.getVueGraphe().objetsDansRegion(selection_x1,
-								    selection_y1, selection_x2, selection_y2);
+	    Enumeration e = this.editeur.getVueGraphe().objetsDansRegion(this.selection_x1,
+								    this.selection_y1, this.selection_x2, this.selection_y2);
 	    
 	    if (e.hasMoreElements()) {
-		editeur.undoInfo.newGroup("Unselect elements in rectangular area", "Select elements in rectangular area");
+		this.editeur.undoInfo.newGroup("Unselect elements in rectangular area", "Select elements in rectangular area");
 		
 		while(e.hasMoreElements()) {
 		    FormeDessin formeDessin = (FormeDessin)e.nextElement();
-		    editeur.selection.insererElement(formeDessin);
-		    editeur.undoInfo.addInfo(new SelectFormeDessin(editeur.selection, formeDessin));
+		    this.editeur.selection.insererElement(formeDessin);
+		    this.editeur.undoInfo.addInfo(new SelectFormeDessin(this.editeur.selection, formeDessin));
 		    //formeDessin.enluminer(true);
 		}
 	    }
-	    carre_selection = false;
+	    this.carre_selection = false;
 	}
 	
 	// On reinitialise les variables utilisees
-	formeDessin_a_deplacer = null;
-	objet_sous_souris = null;
+	this.formeDessin_a_deplacer = null;
+	this.objet_sous_souris = null;
 	
-	if(x+20 > size.width)
+	if(x+20 > this.size.width)
 	    {
-		size.width = x+20; changed=true;
+		this.size.width = x+20; changed=true;
 		
 	    }
-	if(y+20 > size.height)
+	if(y+20 > this.size.height)
 	    {
-		size.height = y+20; changed=true;      	
+		this.size.height = y+20; changed=true;      	
 	    }
 	if(changed) {
-	    editeur.changerDimensionGraphe(size);
-	    setPreferredSize(size);
-	    revalidate();
+	    this.editeur.changerDimensionGraphe(this.size);
+	    this.setPreferredSize(this.size);
+	    this.revalidate();
 	}
 	this.scrollRectToVisible(new Rectangle(x-10,y-10,30,30));
-	editeur.setUndo();    
-	repaint();
+	this.editeur.setUndo();    
+	this.repaint();
     }
     
     public void mouseClicked(MouseEvent evt) {}
@@ -298,41 +298,41 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      * la sélection ou la zone visible du plan de travail.
      **/
     public void appuiBoutonMilieu(int x, int y) {
-	x_ancien = x;
-	y_ancien = y;
+	this.x_ancien = x;
+	this.y_ancien = y;
 	
 	try {
-	    objet_sous_souris = editeur.getVueGraphe().en_dessous(x, y);
+	    this.objet_sous_souris = this.editeur.getVueGraphe().en_dessous(x, y);
       
-	    if (editeur.selection.contient(objet_sous_souris)) {
+	    if (this.editeur.selection.contient(this.objet_sous_souris)) {
 		// Deplacement de la selection
 
 		// on ne deplace pas les aretes, mais leurs sommets incidents.
-		formeDessin_a_deplacer =
-		    Traitements.sommetsTotaux(editeur.selection.elements());
+		this.formeDessin_a_deplacer =
+		    Traitements.sommetsTotaux(this.editeur.selection.elements());
 	
 		//formeDessin_a_deplacer.inserer(editeur.selection.autresObjetsVisu());
-		drag_n_drop_selection = true;
+		this.drag_n_drop_selection = true;
 	  
-		x_origine = x;
-		y_origine = y;
-	    } else if (objet_sous_souris.type().equals("vertex")) {
+		this.x_origine = x;
+		this.y_origine = y;
+	    } else if (this.objet_sous_souris.type().equals("vertex")) {
 		  
-		drag_n_drop_sommet_existant = true;
+		this.drag_n_drop_sommet_existant = true;
 		// Quand on drag un sommet, on veut un positionnement precis par
 		// rapport au curseur, on sauvegarde donc la position relative
 		// du sommet par rapport au curseur.
-		drag_n_dropVertex_X = ((SommetDessin)objet_sous_souris).centreX();
-		drag_n_dropVertex_Y = ((SommetDessin)objet_sous_souris).centreY();
+		this.drag_n_dropVertex_X = ((SommetDessin)this.objet_sous_souris).centreX();
+		this.drag_n_dropVertex_Y = ((SommetDessin)this.objet_sous_souris).centreY();
 	  
 	  
-		dx = ((SommetDessin)objet_sous_souris).centreX() - x;
-		dy = ((SommetDessin)objet_sous_souris).centreY() - y;
+		this.dx = ((SommetDessin)this.objet_sous_souris).centreX() - x;
+		this.dy = ((SommetDessin)this.objet_sous_souris).centreY() - y;
 	    }
 	} catch(NoSuchElementException e) {
-	    drag_n_drop_graph = true;
-	    x_origine = x;
-	    y_origine = y;
+	    this.drag_n_drop_graph = true;
+	    this.x_origine = x;
+	    this.y_origine = y;
 	}
     }
     
@@ -342,36 +342,36 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      **/
     public void appuiBoutonDroit(int x, int y) {
 	// Remise a zero de la selection
-	x_ancien = x;
-	y_ancien = y;
+	this.x_ancien = x;
+	this.y_ancien = y;
 	try {
-	    objet_sous_souris = editeur.getVueGraphe().en_dessous(x, y);
+	    this.objet_sous_souris = this.editeur.getVueGraphe().en_dessous(x, y);
 	    
 	    //On vide la selection : c'est un nouvel undoGroup. Il est cree dans la commande de vidage de la selection.
-	    if (!editeur.selection.estVide()) {
-		editeur.setDescription("Reselect object(s)", "Deselect object(s)");
-		editeur.commandeViderSelection(true);
+	    if (!this.editeur.selection.estVide()) {
+		this.editeur.setDescription("Reselect object(s)", "Deselect object(s)");
+		this.editeur.commandeViderSelection(true);
 	    }
 	    
 	    //objet_sous_souris.enluminer(true);
 	    //...et on selectionne l'objet : c'est un nouvel undoGroup.
-	    editeur.undoInfo.newGroup("Unselect object", "Select object");
-	    editeur.selection.insererElement(objet_sous_souris);
-	    editeur.undoInfo.addInfo(new SelectFormeDessin(editeur.selection, objet_sous_souris));
-	    repaint();
+	    this.editeur.undoInfo.newGroup("Unselect object", "Select object");
+	    this.editeur.selection.insererElement(this.objet_sous_souris);
+	    this.editeur.undoInfo.addInfo(new SelectFormeDessin(this.editeur.selection, this.objet_sous_souris));
+	    this.repaint();
 	} catch(NoSuchElementException e) {
 	    // On vide la selection, si elle ne l'est pas deja : nouvel undoGroup.  Il est cree dans la commande de vidage de la selection.
-	    if(!editeur.selection.estVide()) {
-		editeur.setDescription("Reselect object(s)", "Deselect object(s)");
-		editeur.commandeViderSelection(true);
-		repaint(0);
+	    if(!this.editeur.selection.estVide()) {
+		this.editeur.setDescription("Reselect object(s)", "Deselect object(s)");
+		this.editeur.commandeViderSelection(true);
+		this.repaint(0);
 	    }
 	    // Carre de selection
-	    carre_selection = true;
-	    selection_x = selection_x1 = selection_x2 = x;
-	    selection_y = selection_y1 = selection_y2 = y;
+	    this.carre_selection = true;
+	    this.selection_x = this.selection_x1 = this.selection_x2 = x;
+	    this.selection_y = this.selection_y1 = this.selection_y2 = y;
 	}
-	editeur.setUndo();
+	this.editeur.setUndo();
     }
     
     
@@ -379,31 +379,31 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      * L'appui de Shift + bouton droit permet la sélection additive.
      **/
     public void appuiShiftBoutonDroit(int x, int y) {
-	x_ancien = x;
-	y_ancien = y;
+	this.x_ancien = x;
+	this.y_ancien = y;
 	try {
-	    objet_sous_souris = editeur.getVueGraphe().en_dessous(x, y);
-	    if (editeur.selection.contient(objet_sous_souris)) {
+	    this.objet_sous_souris = this.editeur.getVueGraphe().en_dessous(x, y);
+	    if (this.editeur.selection.contient(this.objet_sous_souris)) {
 		//Suppression d'un element de la selection : nouvel undoGroup.
-		editeur.undoInfo.newGroup("Select all", "Deselect object");      
-		editeur.selection.supprimerElement(objet_sous_souris);
-		editeur.undoInfo.addInfo(new DeselectFormeDessin(editeur.selection, objet_sous_souris));
+		this.editeur.undoInfo.newGroup("Select all", "Deselect object");      
+		this.editeur.selection.supprimerElement(this.objet_sous_souris);
+		this.editeur.undoInfo.addInfo(new DeselectFormeDessin(this.editeur.selection, this.objet_sous_souris));
 		//objet_sous_souris.enluminer(false);
 	    } else {
 		//Ajout d'un element a la selection : nouvel undoGroup.
-		editeur.undoInfo.newGroup("Remove object from selection", "Add object to selection");      
-		editeur.selection.insererElement(objet_sous_souris);
-		editeur.undoInfo.addInfo(new SelectFormeDessin(editeur.selection, objet_sous_souris));
+		this.editeur.undoInfo.newGroup("Remove object from selection", "Add object to selection");      
+		this.editeur.selection.insererElement(this.objet_sous_souris);
+		this.editeur.undoInfo.addInfo(new SelectFormeDessin(this.editeur.selection, this.objet_sous_souris));
 		//objet_sous_souris.enluminer(true);
 	    }
-	    repaint();
+	    this.repaint();
 	} catch (NoSuchElementException e) {
 	    // Carre de selection
-	    carre_selection = true;
-	    selection_x = selection_x1 = selection_x2 = x;
-	    selection_y = selection_y1 = selection_y2 = y;
+	    this.carre_selection = true;
+	    this.selection_x = this.selection_x1 = this.selection_x2 = x;
+	    this.selection_y = this.selection_y1 = this.selection_y2 = y;
 	}
-	editeur.setUndo();
+	this.editeur.setUndo();
     }
 
     /**
@@ -411,20 +411,20 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      * sommet (avec arete si on clique sur un sommet déjà existant).
      **/
     public void appuiBoutonGauche(int x, int y) {
-	x_ancien = x;
-	y_ancien = y;
+	this.x_ancien = x;
+	this.y_ancien = y;
  
 	try {
-	    objet_sous_souris = editeur.getVueGraphe().sommet_en_dessous(x, y);
+	    this.objet_sous_souris = this.editeur.getVueGraphe().sommet_en_dessous(x, y);
 	} catch(NoSuchElementException e) {
 	    //Creation d'un sommet : nouvel undoGroup.
-	    editeur.undoInfo.newGroup("Delete newly created vertex", "Create new vertex");
-	    objet_sous_souris = editeur.getVueGraphe().creerSommet(x, y);
-	    editeur.undoInfo.addInfo(new AjouteObjet(objet_sous_souris));
+	    this.editeur.undoInfo.newGroup("Delete newly created vertex", "Create new vertex");
+	    this.objet_sous_souris = this.editeur.getVueGraphe().creerSommet(x, y);
+	    this.editeur.undoInfo.addInfo(new AjouteObjet(this.objet_sous_souris));
 	    //((SommetDessin)objet_sous_souris).changerImage(new ImageIcon((Image)vecteurImages.firstElement()));
-	    repaint();
+	    this.repaint();
 	}
-	editeur.setUndo();
+	this.editeur.setUndo();
     }
 
     /**
@@ -438,19 +438,19 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	    // Bouton du milieu
 	case InputEvent.BUTTON2_MASK:
 	case (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK):  // Pour les souris sans boutton du milieu
-	    glisseBoutonMilieu(x, y);
+	    this.glisseBoutonMilieu(x, y);
 	    break;
 	
 	    // Bouton droit ou (shift + bouton droit)
 	case InputEvent.BUTTON3_MASK:
 	case (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK):
-	    glisseBoutonDroit(x, y);
+	    this.glisseBoutonDroit(x, y);
 	    break;
 
 	    // Bouton gauche
 	case InputEvent.BUTTON1_MASK:
 	case 0:
-	    glisseBoutonGauche(x, y);
+	    this.glisseBoutonGauche(x, y);
 	    break;
 
 	default:
@@ -467,23 +467,23 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      **/
     public void glisseBoutonMilieu(int x, int y) {
 	// deplacer objet sous la souris
-	if (objet_sous_souris != null) {
-	    if (formeDessin_a_deplacer != null) {
+	if (this.objet_sous_souris != null) {
+	    if (this.formeDessin_a_deplacer != null) {
 		// on deplace la selection
 
-		VueGraphe.deplacerFormeDessin(formeDessin_a_deplacer.elements(),
-					      x - x_ancien,
-					      y - y_ancien);
-		x_ancien = x;
-		y_ancien = y;
-	    } else if (drag_n_drop_sommet || drag_n_drop_sommet_existant) {
+		VueGraphe.deplacerFormeDessin(this.formeDessin_a_deplacer.elements(),
+					      x - this.x_ancien,
+					      y - this.y_ancien);
+		this.x_ancien = x;
+		this.y_ancien = y;
+	    } else if (this.drag_n_drop_sommet || this.drag_n_drop_sommet_existant) {
 		// on deplace un sommet
-		glisseSommet(x, y);
+		this.glisseSommet(x, y);
 	    } else {
 		// on deplace un formeDessin quelconque
-		objet_sous_souris.deplacer(x - x_ancien, y - y_ancien);
-		x_ancien = x;
-		y_ancien = y;
+		this.objet_sous_souris.deplacer(x - this.x_ancien, y - this.y_ancien);
+		this.x_ancien = x;
+		this.y_ancien = y;
 	    }
 	} else {
 	    boolean changed = false;
@@ -491,38 +491,38 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	    // Rien sous la souris
 	    // On va donc translater tout le graphe
 
-	    formeDessin_a_deplacer =
-		Traitements.sommetsTotaux(editeur.getVueGraphe().listeAffichage());
-	    if(formeDessin_a_deplacer != null) {
+	    this.formeDessin_a_deplacer =
+		Traitements.sommetsTotaux(this.editeur.getVueGraphe().listeAffichage());
+	    if(this.formeDessin_a_deplacer != null) {
 		VueGraphe.deplacerFormeDessin(
-					      formeDessin_a_deplacer.elements(),
-					      x - x_ancien,
-					      y - y_ancien);
-		x_ancien = x;
-		y_ancien = y;
+					      this.formeDessin_a_deplacer.elements(),
+					      x - this.x_ancien,
+					      y - this.y_ancien);
+		this.x_ancien = x;
+		this.y_ancien = y;
 	    }
-	    Enumeration objets_deplaces = formeDessin_a_deplacer.elements();
+	    Enumeration objets_deplaces = this.formeDessin_a_deplacer.elements();
 	    while (objets_deplaces.hasMoreElements()) {
 		SommetDessin objet = (SommetDessin)objets_deplaces.nextElement();
-		if (objet.centreX() + 20 > size.width) {
-		    size.width = objet.centreX()+20; 
+		if (objet.centreX() + 20 > this.size.width) {
+		    this.size.width = objet.centreX()+20; 
 		    changed=true;
 		}
-		if (objet.centreY() + 20 > size.height) {
-		    size.height = objet.centreY()+20; 
+		if (objet.centreY() + 20 > this.size.height) {
+		    this.size.height = objet.centreY()+20; 
 		    changed=true;
 		}
 	    }
 	    if(changed) {
-		editeur.changerDimensionGraphe(size);
-		setPreferredSize(size);
-		revalidate();
+		this.editeur.changerDimensionGraphe(this.size);
+		this.setPreferredSize(this.size);
+		this.revalidate();
 	    }
-	    this.scrollRectToVisible(new Rectangle(Math.min(x,size.width-20)-10,
-						   Math.min(y,size.height-20)-10,
+	    this.scrollRectToVisible(new Rectangle(Math.min(x,this.size.width-20)-10,
+						   Math.min(y,this.size.height-20)-10,
 						   30,30));
 	}
-	repaint();
+	this.repaint();
     }
 
     /**
@@ -530,23 +530,23 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
      * le bouton droit de la souris appuye.
      **/
     public void glisseBoutonDroit(int x, int y) {
-	if(carre_selection) {
-	    if(x > selection_x) {
-		selection_x1 = selection_x;
-		selection_x2 = x;
+	if(this.carre_selection) {
+	    if(x > this.selection_x) {
+		this.selection_x1 = this.selection_x;
+		this.selection_x2 = x;
 	    } else {
-		selection_x1 = x;
-		selection_x2 = selection_x;
+		this.selection_x1 = x;
+		this.selection_x2 = this.selection_x;
 	    }
-	    if(y > selection_y) {
-		selection_y1 = selection_y;
-		selection_y2 = y;
+	    if(y > this.selection_y) {
+		this.selection_y1 = this.selection_y;
+		this.selection_y2 = y;
 	    } else {
-		selection_y1 = y;
-		selection_y2 = selection_y;
+		this.selection_y1 = y;
+		this.selection_y2 = this.selection_y;
 	    }
-	    this.scrollRectToVisible(new Rectangle(Math.min(x,size.width-20)-10,
-						   Math.min(y,size.height-20)-10,
+	    this.scrollRectToVisible(new Rectangle(Math.min(x,this.size.width-20)-10,
+						   Math.min(y,this.size.height-20)-10,
 						   30,30));
 	    this.repaint();
 	}
@@ -562,52 +562,52 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	boolean changed = false;
 	//AreteDessin areteCree = null;
 
-	if(objet_sous_souris != null) {
-	    if(drag_n_drop_sommet)
-		glisseSommet(x, y);
+	if(this.objet_sous_souris != null) {
+	    if(this.drag_n_drop_sommet)
+		this.glisseSommet(x, y);
 	    else {
-		if(objet_sous_souris.appartient(x, y))
+		if(this.objet_sous_souris.appartient(x, y))
 		    return;
 		else {
 		    // creer un nouveau sommet et l'arete qui va avec : c'est un nouvel undoGroup.
 		    this.ancien_sommet_sous_souris =
-			(SommetDessin)objet_sous_souris;
-		    editeur.undoInfo.newGroup("Delete newly created vertex and edge", "Create new vertex and edge");
+			(SommetDessin)this.objet_sous_souris;
+		    this.editeur.undoInfo.newGroup("Delete newly created vertex and edge", "Create new vertex and edge");
 	  
-		    objet_sous_souris = editeur.getVueGraphe().creerSommet(x, y);
-		    editeur.undoInfo.addInfo(new AjouteObjet(objet_sous_souris));
+		    this.objet_sous_souris = this.editeur.getVueGraphe().creerSommet(x, y);
+		    this.editeur.undoInfo.addInfo(new AjouteObjet(this.objet_sous_souris));
 	
 		    // On sauvegarde l'objet UndoObject contenant ce
 		    // sommet : on peut en effet avoir a le supprimer
 		    // en cas de fusion avec un sommet existant.
-		    drag_n_dropVertex = objet_sous_souris;
+		    this.drag_n_dropVertex = this.objet_sous_souris;
 
-		    AreteDessin a = editeur.getVueGraphe().creerArete(ancien_sommet_sous_souris,
-								      (SommetDessin)objet_sous_souris);
-		    editeur.undoInfo.addInfo(new AjouteObjet(a));
+		    AreteDessin a = this.editeur.getVueGraphe().creerArete(this.ancien_sommet_sous_souris,
+								      (SommetDessin)this.objet_sous_souris);
+		    this.editeur.undoInfo.addInfo(new AjouteObjet(a));
 
-		    drag_n_drop_sommet = true;
+		    this.drag_n_drop_sommet = true;
 		    // Quand on drag un sommet, on veut un
 		    // positionnement precis par rapport au curseur,
 		    // on sauvegarde donc la position relative du
 		    // sommet par rapport au curseur, ici elle est
 		    // nulle.
-		    dx = dy = 0;
+		    this.dx = this.dy = 0;
 		}
 	    }
 	    this.scrollRectToVisible(new Rectangle(x-10,y-10,30,30));
-	    if(x+20 > size.width)
-		{size.width = x+20; changed=true;}
-	    if(y+20 > size.height)
-		{size.height = y+20; changed=true;}
+	    if(x+20 > this.size.width)
+		{this.size.width = x+20; changed=true;}
+	    if(y+20 > this.size.height)
+		{this.size.height = y+20; changed=true;}
 	    if(changed) {
-		editeur.changerDimensionGraphe(size);
-		setPreferredSize(size);
-		revalidate();
+		this.editeur.changerDimensionGraphe(this.size);
+		this.setPreferredSize(this.size);
+		this.revalidate();
 	    }
-	    repaint();
+	    this.repaint();
 	}
-	editeur.setUndo();
+	this.editeur.setUndo();
     }
 
     /**
@@ -618,8 +618,8 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	    // Delete
 	case KeyEvent.VK_DELETE:
 	case KeyEvent.VK_BACK_SPACE:
-	    editeur.commandeSupprimer();
-	    repaint();
+	    this.editeur.commandeSupprimer();
+	    this.repaint();
 	    break;
 
 	default:
@@ -648,22 +648,22 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	try {
  
 	    SommetDessin sommet_en_dessous =
-		editeur.getVueGraphe().sommet_en_dessous(x, y,
-								       objet_sous_souris);
+		this.editeur.getVueGraphe().sommet_en_dessous(x, y,
+								       this.objet_sous_souris);
     
 
 	    // Oui: le sommet deplace est aspire
-	    x_ancien = sommet_en_dessous.centreX();
-	    y_ancien = sommet_en_dessous.centreY();
-	    ((SommetDessin)objet_sous_souris).placer(x_ancien, y_ancien);
+	    this.x_ancien = sommet_en_dessous.centreX();
+	    this.y_ancien = sommet_en_dessous.centreY();
+	    ((SommetDessin)this.objet_sous_souris).placer(this.x_ancien, this.y_ancien);
     
 
 	} catch(NoSuchElementException e) {
 	    // Non: on se contente de deplacer le sommet
-	    ((SommetDessin)objet_sous_souris).placer(x + dx, y + dy);
+	    ((SommetDessin)this.objet_sous_souris).placer(x + this.dx, y + this.dy);
      
-	    x_ancien = x;
-	    y_ancien = y;
+	    this.x_ancien = x;
+	    this.y_ancien = y;
 	}
 
 	// remarque: dans le cas d'un drag-n-drop, on n'utilise pas

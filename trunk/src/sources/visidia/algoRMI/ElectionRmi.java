@@ -26,7 +26,7 @@ public class ElectionRmi extends AlgorithmDist {
      *recoit un message de fin .
      **/
     private boolean isFinished(int ig){
-	String mystate = getState();
+	String mystate = this.getState();
 	if(mystate.equals("G"))
 	    return true;
 	
@@ -47,34 +47,34 @@ public class ElectionRmi extends AlgorithmDist {
      */
     public void init(){
 	//Amelioration rajouter un tableau pour tous les noeuds si N est connu 
-	int arity = getArity();
+	int arity = this.getArity();
 	
 	//je suis candidat
-	setState("C");
+	this.setState("C");
 	
 	//choix d'un nombre au hasard
-	int mynumber = (new Random()).nextInt()* getId().intValue();
+	int mynumber = (new Random()).nextInt()* this.getId().intValue();
 	//j envoie mon tirage a tout mes voisins
 	for(int i=0; i< arity; i++){
 	    Vector vec = new Vector(2);
-	    vec.add(getId());
+	    vec.add(this.getId());
 	    vec.add(new Integer(mynumber));
-	    sendTo(i,new VectorMessage((Vector)vec.clone()));
+	    this.sendTo(i,new VectorMessage((Vector)vec.clone()));
 	}
     
 	//debut de la procedure : 
-	while( !isFinished(mynumber) ){
+	while( !this.isFinished(mynumber) ){
 	    Door porte=new Door();
-	    VectorMessage vmsg =(VectorMessage) receive(porte);
+	    VectorMessage vmsg =(VectorMessage) this.receive(porte);
 	    Vector data = vmsg.data();
 	    int sender = porte.getNum();
 	    
 	    //message de fin ?
 	    if(data.elementAt(0) instanceof Boolean){
-		setState("F");
+		this.setState("F");
 		for(int i=0;i<arity;i++){
 		    if(i != sender)
-			sendTo(i,new VectorMessage((Vector)data.clone()));
+			this.sendTo(i,new VectorMessage((Vector)data.clone()));
 		}
 		break;
 	    }
@@ -82,49 +82,49 @@ public class ElectionRmi extends AlgorithmDist {
 	    int senderId = ((Integer)data.elementAt(0)).intValue();
 	    int hisnumber =  ((Integer)data.elementAt(1)).intValue();
 
-	    if(getState().equals("C")){
+	    if(this.getState().equals("C")){
 	    //mon message ? --> j'ai gagne
-	    if(senderId == getId().intValue()){
-		setState("G");
+	    if(senderId == this.getId().intValue()){
+		this.setState("G");
 		// printStatistics();
 		Vector v = new Vector(1);
 		v.add(new Boolean(true));
 		for(int i=0; i< arity; i++){
-		    sendTo(i,new VectorMessage((Vector)v.clone()));
+		    this.sendTo(i,new VectorMessage((Vector)v.clone()));
 		}
 	    }
 	    // le nombre tire est plus grand que le mien -->j'ai perdu
 	    else if(hisnumber > mynumber){
-		setState("P");
+		this.setState("P");
 		for(int i=0; i< arity; i++){
 		    if(i != sender){
 			Vector vec = new Vector(2);
 			vec.add(new Integer(senderId));
 			vec.add(new Integer(hisnumber));
-			sendTo(i,new VectorMessage((Vector)vec.clone()));
+			this.sendTo(i,new VectorMessage((Vector)vec.clone()));
 		    }
 		}
 	    }
 	    
 	    //si le nombre est le meme -->selection sur le nodeId
 	    else if(hisnumber == mynumber){
-		if(getId().intValue()  > senderId){
-		    setState("G");
+		if(this.getId().intValue()  > senderId){
+		    this.setState("G");
 		    // printStatistics();
 		    Vector v = new Vector(1);
 		    v.add(new Boolean(true));
 		    for(int i=0; i< arity; i++){
-			sendTo(i,new VectorMessage((Vector)v.clone()));
+			this.sendTo(i,new VectorMessage((Vector)v.clone()));
 		    }
 		}
 		else {
-		    setState("P");
+		    this.setState("P");
 		    for(int i=0; i< arity; i++){
 			if(i != sender){
 			    Vector vec = new Vector(2);
 			    vec.add(new Integer(senderId));
 			    vec.add(new Integer(hisnumber));
-			    sendTo(i,new VectorMessage((Vector)vec.clone()));
+			    this.sendTo(i,new VectorMessage((Vector)vec.clone()));
 			}
 		    }
 		}
@@ -136,7 +136,7 @@ public class ElectionRmi extends AlgorithmDist {
 			Vector vec = new Vector(2);
 			vec.add(new Integer(senderId));
 			vec.add(new Integer(hisnumber));
-			sendTo(i,new VectorMessage((Vector)vec.clone()));
+			this.sendTo(i,new VectorMessage((Vector)vec.clone()));
 		    }
 		}
 	    }
@@ -145,11 +145,11 @@ public class ElectionRmi extends AlgorithmDist {
 
 
     public String getState(){
-	return (String) getProperty("label");
+	return (String) this.getProperty("label");
     }
 
     public void setState(String newState){
-	putProperty("label", newState);
+	this.putProperty("label", newState);
     }
 
     public Object clone(){

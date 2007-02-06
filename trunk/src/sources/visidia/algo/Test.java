@@ -20,19 +20,19 @@ public class Test extends Algorithm {
     
     public void init() {
 
-	int degres = getArity();
+	int degres = this.getArity();
 	
-	Integer id = getId();
+	Integer id = this.getId();
 	boolean win = true;
 	
-	putProperty("toto",new Toto());
+	this.putProperty("toto",new Toto());
 	
 	for (int i =0; i< degres ; i++) {
-	    sendTo(i, new IntegerMessage(id,round1));
+	    this.sendTo(i, new IntegerMessage(id,round1));
 	}
 	
 	for (int i =0; i< degres ; i++) {
-	    IntegerMessage msg = (IntegerMessage)receiveFrom(i);
+	    IntegerMessage msg = (IntegerMessage)this.receiveFrom(i);
 	    Integer data = msg.data();
 	    if (data.intValue() > id.intValue()) {
 		win  = false;
@@ -40,26 +40,26 @@ public class Test extends Algorithm {
 	}
 	
 	if(win) {
-	    putProperty("label","I");
+	    this.putProperty("label","I");
 	    for (int i =0; i< degres ; i++) {
-		sendTo(i, new StringMessage("MIS",round2Mis));
+		this.sendTo(i, new StringMessage("MIS",round2Mis));
 	    }
 	    Vector vect = new Vector();
 	    vect.add("toto");
 	    vect.add("titi");
-	    sendAll(new VectorMessage(vect));
+	    this.sendAll(new VectorMessage(vect));
 	} else {
-	    sendAll(new StringMessage("NOT MIS",round2NotMis));
+	    this.sendAll(new StringMessage("NOT MIS",round2NotMis));
 	    boolean bool = true;
 	    while(bool) {
 		Door door = new Door();
-		StringMessage msg = (StringMessage)receive(door);
+		StringMessage msg = (StringMessage)this.receive(door);
 		if((msg.data()).compareTo("MIS")==0) {
-		    setDoorState(new MarkedState(true),door.getNum());
+		    this.setDoorState(new MarkedState(true),door.getNum());
 		    bool=false;
 		}
 	    }
-	    putProperty("label","F");
+	    this.putProperty("label","F");
 	    
 	}
     }
@@ -72,7 +72,7 @@ public class Test extends Algorithm {
 	}
 	
 	public String toString() {
-	    return i+";"+j;
+	    return this.i+";"+this.j;
 	}
     }
     

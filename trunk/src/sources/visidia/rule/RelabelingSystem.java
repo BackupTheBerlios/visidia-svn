@@ -26,7 +26,7 @@ public class RelabelingSystem  implements Serializable {
     public RelabelingSystem()
     {
 	this.rules = new MyVector();
-	userPreferences = new RSOptions();
+	this.userPreferences = new RSOptions();
     }
     
     /**
@@ -37,7 +37,7 @@ public class RelabelingSystem  implements Serializable {
     public RelabelingSystem(Collection rulesCollection)
     {
 	this.rules = new MyVector(rulesCollection);
-	userPreferences = new RSOptions();
+	this.userPreferences = new RSOptions();
     }
 
     
@@ -47,7 +47,7 @@ public class RelabelingSystem  implements Serializable {
      */
     public void setOptions(RSOptions opt)
     {
-	userPreferences = opt;
+	this.userPreferences = opt;
     }
     
 
@@ -62,7 +62,7 @@ public class RelabelingSystem  implements Serializable {
      */
     public void resetOptions()
     {
-	userPreferences = new RSOptions();
+	this.userPreferences = new RSOptions();
     }
     
 
@@ -80,15 +80,15 @@ public class RelabelingSystem  implements Serializable {
 	int k;
 	int i = 0;
 	Vector dup = new Vector();
-	int numRules = rules.count();
+	int numRules = this.rules.count();
 	if (synType != SynCT.LC1){
 	    while (i < numRules){
-		Rule r1 =(Rule) rules.get(i); 
+		Rule r1 =(Rule) this.rules.get(i); 
 		k = r1.defaultSynchDegree();
 		if ((r1.isSimpleRule() && (k == SynCT.RDV)) || (k==SynCT.RDV_LC1)) {
 		    r = r1.inverseSimpleRule();
-		    if (rules.contains(r) == -1) {
-			rules.add(r);
+		    if (this.rules.contains(r) == -1) {
+			this.rules.add(r);
 			dup.add(new Integer(i));
 		    }
 		}
@@ -113,9 +113,9 @@ public class RelabelingSystem  implements Serializable {
 	boolean rdvposs = true;
 	boolean lc1poss = true;
 	int i=0;
-	while(i < rules.count()){
+	while(i < this.rules.count()){
 	    
-	    int k = ((Rule) rules.get(i)).defaultSynchDegree();
+	    int k = ((Rule) this.rules.get(i)).defaultSynchDegree();
 	    //System.out.println("rule num "+i+" required syn --->"+k);
 	    switch(k)
 		{
@@ -151,13 +151,13 @@ public class RelabelingSystem  implements Serializable {
      */
     public RSOptions getOptions()
     {
-	return (RSOptions)userPreferences.clone();
+	return (RSOptions)this.userPreferences.clone();
     }
     
 
     public String toString()
     {
-	return "{\n< RELABELING SYSTEM >\n"+rules.toString()+"\n"+"< End of RELABELING SYSTEM >}";
+	return "{\n< RELABELING SYSTEM >\n"+this.rules.toString()+"\n"+"< End of RELABELING SYSTEM >}";
     }
     
 
@@ -187,7 +187,7 @@ public class RelabelingSystem  implements Serializable {
      * return an iterator of rules.
      */
     public Iterator getRules(){
-	return rules.iterator();
+	return this.rules.iterator();
     }
     
 
@@ -198,7 +198,7 @@ public class RelabelingSystem  implements Serializable {
      * @return the rule.
      */
     public Rule getRule(int i){
-	return (Rule)((Rule) rules.get(i)).clone();
+	return (Rule)((Rule) this.rules.get(i)).clone();
     }
     
 
@@ -208,9 +208,9 @@ public class RelabelingSystem  implements Serializable {
      * @return 
      */
     public Object clone(){
-	RelabelingSystem rs = new RelabelingSystem(rules.cloneRules());
+	RelabelingSystem rs = new RelabelingSystem(this.rules.cloneRules());
 	rs.setOptions(this.userPreferences);
-	rs.setDescription(getDescription());
+	rs.setDescription(this.getDescription());
 	return rs;
     }
     
@@ -221,7 +221,7 @@ public class RelabelingSystem  implements Serializable {
      * @param txt 
      */
     public void setDescription(String txt) {
-	description = txt;
+	this.description = txt;
     }
     
 
@@ -230,7 +230,7 @@ public class RelabelingSystem  implements Serializable {
      * @return the help text.
      */
     public String getDescription() {
-	return description;
+	return this.description;
     }
 
     
@@ -243,7 +243,7 @@ public class RelabelingSystem  implements Serializable {
      */
     public  int checkForRule(Star n)
     {
-	int i = rules.count();
+	int i = this.rules.count();
 	int j = 0;
 	//int k=0;
 	int l=0;
@@ -252,7 +252,7 @@ public class RelabelingSystem  implements Serializable {
 	
 	while(j < i ){
 	    Star  neighbourhood = (Star)n.clone();
-	    Rule r = (Rule)((Rule)rules.get(j)).clone();
+	    Rule r = (Rule)((Rule)this.rules.get(j)).clone();
 	    Star s = (Star)(r.befor()).clone();
 	    //System.out.println("\n check for "+neighbourhood);
 	    //   System.out.println("rule"+j+"with?="+r.withForbContexts()+"\n");

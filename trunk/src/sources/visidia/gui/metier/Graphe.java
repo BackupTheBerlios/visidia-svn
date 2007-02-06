@@ -39,21 +39,21 @@ public class Graphe implements Serializable {
 
     /** creates a new empty graph */
   public Graphe() {
-    simulationType = null;
-    explication = null;
-    vertex = new Monde();
-    edges = new Monde();
-    setVueGraphe(new VueGraphe(this));
+    this.simulationType = null;
+    this.explication = null;
+    this.vertex = new Monde();
+    this.edges = new Monde();
+    this.setVueGraphe(new VueGraphe(this));
   }
   
 
   // modificator and accessor to the VueGraphe
     public void setVueGraphe(VueGraphe v){
-	vueGraphe = v;
+	this.vueGraphe = v;
     }
 
     public VueGraphe getVueGraphe(){
-    	return vueGraphe;
+    	return this.vueGraphe;
     }
   
 
@@ -64,28 +64,28 @@ public class Graphe implements Serializable {
    * returns the number of vertices
    **/
   public int ordre() {
-    return vertex.taille();
+    return this.vertex.taille();
   }
 
   /**
    * returns the number of edges
    **/
   public int taille() {
-    return edges.taille();
+    return this.edges.taille();
   }
 
   /**
    * returns an enumeration of the vertices
    **/
   public Enumeration sommets() {
-    return vertex.elements();
+    return this.vertex.elements();
   }
 
   /**
    * returns an enumeration of the edges
    **/
   public Enumeration aretes() {
-    return edges.elements();
+    return this.edges.elements();
   }
 
   /**

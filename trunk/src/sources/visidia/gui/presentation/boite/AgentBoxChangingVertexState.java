@@ -32,32 +32,32 @@ public class AgentBoxChangingVertexState
     public AgentBoxChangingVertexState(AgentsSimulationWindow parent, SommetDessin s, Hashtable def, String titre) 
     {
         super(parent,titre,true);
-        etatPanel.ardoise().changerEtat(s.getEtat());
-        vert = s;
+        this.etatPanel.ardoise().changerEtat(s.getEtat());
+        this.vert = s;
 
-        tbModel = new VertexPropertyTableModel(s.getWhiteBoardTable(),def);
+        this.tbModel = new VertexPropertyTableModel(s.getWhiteBoardTable(),def);
         
-        table.setModel(tbModel);
+        this.table.setModel(this.tbModel);
     }
 
     //Methodes  
     
     public void updateBox() {
-        ((VertexPropertyTableModel) tbModel).updateKeys();
-        tbModel.fireTableDataChanged();
+        ((VertexPropertyTableModel) this.tbModel).updateKeys();
+        this.tbModel.fireTableDataChanged();
     }
   
     public void actionPerformed(ActionEvent e) {
         
-        if(e.getSource() == buttonDone) {
-            dialog.setVisible(false);
+        if(e.getSource() == this.buttonDone) {
+            this.dialog.setVisible(false);
 
-            String etat = etatPanel.ardoise().donneEtat();
-            vert.setEtat(etat);
+            String etat = this.etatPanel.ardoise().donneEtat();
+            this.vert.setEtat(etat);
 
-            dialog.dispose();
+            this.dialog.dispose();
         }
-        if(e.getSource() == buttonAdd) {
+        if(e.getSource() == this.buttonAdd) {
             
             
             Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
@@ -66,7 +66,7 @@ public class AgentBoxChangingVertexState
             
             Object objValue;
             
-            String s = (String) JOptionPane.showInputDialog(parent,
+            String s = (String) JOptionPane.showInputDialog(this.parent,
                                                             "Select the type:",
                                                             "Type",
                                                             JOptionPane.PLAIN_MESSAGE,
@@ -77,8 +77,8 @@ public class AgentBoxChangingVertexState
             //If a string was returned, say so.
             if ((s != null) && (s.length() > 0)) {
                 
-                String name = JOptionPane.showInputDialog(parent, "Enter the name :");
-                String value = JOptionPane.showInputDialog(parent, "Enter the value :");
+                String name = JOptionPane.showInputDialog(this.parent, "Enter the name :");
+                String value = JOptionPane.showInputDialog(this.parent, "Enter the value :");
                 
                 if ( (name != null)  && (value != null) )
                     {
@@ -95,7 +95,7 @@ public class AgentBoxChangingVertexState
                             else if ( s.equals("Short|short") ) {objValue = new Short(value);}
                             else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
 
-                            tbModel.putProperty(name,objValue);
+                            this.tbModel.putProperty(name,objValue);
                         }
                         catch(Exception e2) {
                             JOptionPane.showMessageDialog(null,
@@ -107,16 +107,16 @@ public class AgentBoxChangingVertexState
             }
             
         }
-        if(e.getSource() == buttonRemove) {
+        if(e.getSource() == this.buttonRemove) {
             
-            if (table.getSelectedRow() == -1 ) {
-                JOptionPane.showMessageDialog(parent,
+            if (this.table.getSelectedRow() == -1 ) {
+                JOptionPane.showMessageDialog(this.parent,
                                               "No property selected !", 
                                               "Warning",
                                               JOptionPane.WARNING_MESSAGE);
             }
             else {
-                tbModel.removeProperty(table.getSelectedRow());
+                this.tbModel.removeProperty(this.table.getSelectedRow());
             }
             
         }

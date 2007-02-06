@@ -31,7 +31,7 @@ public abstract class AbSynAlgo extends Algorithm implements IntSynchronization
 	    
     public void setNeighbourhood(Star neighbourhood)
     {
-	((SynObjectRules)synob).setNeighbourhood(neighbourhood);
+	((SynObjectRules)this.synob).setNeighbourhood(neighbourhood);
     }
     abstract  public Object clone();
     
@@ -46,8 +46,8 @@ public abstract class AbSynAlgo extends Algorithm implements IntSynchronization
  * in fact it informs the gui.
  */
     public void breakSynchro() {
-	for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+	for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

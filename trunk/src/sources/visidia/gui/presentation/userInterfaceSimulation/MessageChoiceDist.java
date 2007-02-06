@@ -14,13 +14,6 @@ public class MessageChoiceDist  extends JMenu implements ActionListener {
 	 */
 	private static final long serialVersionUID = 2350765310064088725L;
 	protected FenetreDeSimulationDist fenetre;
-    //private AlgoChoice algoChoice;
-    // the menu depend on the choice of algorithm which determine 
-    // exactly the different types of messages exchanged 
-    private Collection menusNames;
-    //private LinkedList checkBoxes;
-    
-    
     public MessageChoiceDist(FenetreDeSimulationDist parent){
         super("Message Types");
 	this.fenetre=parent;
@@ -30,15 +23,14 @@ public class MessageChoiceDist  extends JMenu implements ActionListener {
     }
     
     public void setListTypes(Hashtable ht) {
-	removeAll();
+	this.removeAll();
 	
 	Collection lt = ht.values();
-	menusNames=lt;
-        Iterator it=lt.iterator();
+	Iterator it=lt.iterator();
 	while(it.hasNext()){
             MessageType messageType = (MessageType)it.next();
             JCheckBoxMenuItem checkBox=new JMessageTypeMenuItem(messageType);
-            add(checkBox);
+            this.add(checkBox);
             checkBox.addActionListener(this);
             checkBox.setState(messageType.getToPaint());
         }	

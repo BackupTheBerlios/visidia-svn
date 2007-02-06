@@ -9,13 +9,13 @@ public class LC2Rule extends AbstractRule {
     
     public LC2Rule() {
 	super();
-	synType = SynCT.LC2;
-	synal = new LC2();
+	this.synType = SynCT.LC2;
+	this.synal = new LC2();
     }
     public LC2Rule(RelabelingSystem r){ 
 	super(r);
-	synType = SynCT.LC2;
-	synal = new LC2();
+	this.synType = SynCT.LC2;
+	this.synal = new LC2();
     }
     
     public Object clone(){

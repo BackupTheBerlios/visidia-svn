@@ -29,35 +29,35 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
         //int graphS=getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
-        int neighboursLink[]=new int[getArity()];
+        int neighboursLink[]=new int[this.getArity()];
         int name;
         int neighbourValue;
         
-        for (int i=0; i<getArity();i++)
+        for (int i=0; i<this.getArity();i++)
             neighboursLink[i]=0;
         
-        name=getId().intValue();
+        name=this.getId().intValue();
         
         Integer disp=new Integer(name);
-        putProperty("label",disp.toString());
+        this.putProperty("label",disp.toString());
         
         while(run){
             
-            synchro=synchronization();
+            synchro=this.synchronization();
             
-            sendTo(synchro,new IntegerMessage(new Integer(name),labels));
-            neighbourValue=(((IntegerMessage) receiveFrom(synchro)).data()).intValue();
+            this.sendTo(synchro,new IntegerMessage(new Integer(name),labels));
+            neighbourValue=(((IntegerMessage) this.receiveFrom(synchro)).data()).intValue();
             
             if (neighbourValue > name) {
                 name=neighbourValue;
                 neighboursLink[synchro]=name;
                 disp=new Integer(name);
-                putProperty("label",disp.toString());
-                for (int i=0;i<getArity();i++)
+                this.putProperty("label",disp.toString());
+                for (int i=0;i<this.getArity();i++)
                     if (neighboursLink[i]<name)
-                        setDoorState(new MarkedState(false),i);
+                        this.setDoorState(new MarkedState(false),i);
                 
-                setDoorState(new MarkedState(true),synchro);
+                this.setDoorState(new MarkedState(true),synchro);
             }
             else
                 if (neighbourValue<name)
@@ -69,17 +69,17 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
     
     public int synchronization(){
         int i = -1;
-        int a =getArity();
+        int a =this.getArity();
         
         //interface graphique:je ne suis plus synchro
         for(int door=0;door < a;door++)
-            setDoorState(new SyncState(false),door);
+            this.setDoorState(new SyncState(false),door);
         
         while(i <0){
-            i = trySynchronize();
+            i = this.trySynchronize();
         }
         //interface graphique: je suis synchro sur la porte i
-        setDoorState(new SyncState(true),i);
+        this.setDoorState(new SyncState(true),i);
         return i;
     }
     
@@ -88,22 +88,22 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
      * Un round de la synchronisation.
      */
     private int trySynchronize(){
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*choice of the neighbour*/
         Random generator = new Random();
         int choosenNeighbour= Math.abs((generator.nextInt()))% arite ;
         
-        sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
+        this.sendTo(choosenNeighbour,new IntegerMessage(new Integer(1),synchronization));
         for(int i=0; i < arite; i++){
             if( i != choosenNeighbour)
-                sendTo(i, new IntegerMessage(new Integer(0),synchronization));
+                this.sendTo(i, new IntegerMessage(new Integer(0),synchronization));
             
         }
         
         for( int i = 0; i < arite; i++){
-            Message msg = receiveFrom(i,new IntegerMessageCriterion());
+            Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
             IntegerMessage smsg = (IntegerMessage) msg;
             
             answer[i]= smsg.value();
@@ -119,8 +119,8 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new SyncState(false),door);
         }
     }
     

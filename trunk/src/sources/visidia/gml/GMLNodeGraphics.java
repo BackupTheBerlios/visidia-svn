@@ -16,27 +16,27 @@ public class GMLNodeGraphics {
 		this.area = area;
 	}
 	public Area getArea(){
-		return area;
+		return this.area;
 	}
 	
 	public void setType(String type){
 		this.type = type;
 	}
 	public String getType(){
-		return type;
+		return this.type;
 	}
 	
 	public void setFill(Color fill){
 		this.fill = fill;
 	}
 	public Color getFill(){
-		return fill;
+		return this.fill;
 	}
 
 	public void setIcon(String iconFile){
 		this.iconFile = iconFile;
 	}
 	public String getIcon(){
-		return iconFile;
+		return this.iconFile;
 	}
 }

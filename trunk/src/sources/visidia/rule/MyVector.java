@@ -45,7 +45,7 @@ public class MyVector extends Vector implements Serializable
     * @return returns the number of elements in the vector.
     */     
     public int count(){
-	return size();
+	return this.size();
     }
     
     /* Neighbours's Methodes */
@@ -120,7 +120,7 @@ public class MyVector extends Vector implements Serializable
 	while(it.hasNext()){
 	    n = (Rule)it.next();
 	    if(n.equals(r))
-		return indexOf(n);
+		return this.indexOf(n);
 	}
 	return -1;
     }
@@ -132,15 +132,15 @@ public class MyVector extends Vector implements Serializable
     */   
     public Iterator randIterator() {
 	return new Iterator() {
-		Vector v = new Vector(finalThis);
+		Vector v = new Vector(MyVector.this.finalThis);
 		Random r = new Random();
 		public boolean hasNext() {
-		    return v.size() > 0;
+		    return this.v.size() > 0;
 		}
 		public Object next() {
-		    int pos = r.nextInt(v.size());
-		    Object o = v.get(pos);
-		    v.remove(pos);
+		    int pos = this.r.nextInt(this.v.size());
+		    Object o = this.v.get(pos);
+		    this.v.remove(pos);
 		    return o;
 		}
 		public void remove() {

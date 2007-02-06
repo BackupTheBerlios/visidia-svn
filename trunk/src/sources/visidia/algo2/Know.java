@@ -10,45 +10,45 @@ public class Know {
 	
 	public void Initial(int graphS) {
 	    /*	    System.out.println("graph size=" +graphS );*/
-	    setKnowledge=new int[graphS+1];
-	    setKnowledge[0]=0;
+	    this.setKnowledge=new int[graphS+1];
+	    this.setKnowledge[0]=0;
 	    for (int i=1;i<=graphS;i++) {
-		setKnowledge[i]=-1;
+		this.setKnowledge[i]=-1;
 		/*		System.out.println(i+"="+setKnowledge[i] );*/
 	    }
 	}
 
 	public void ChangeKnowledge(int numNoeud,int newNumber) {  
-	    if (setKnowledge[numNoeud] < newNumber) {
-	    setKnowledge[numNoeud]=newNumber;
+	    if (this.setKnowledge[numNoeud] < newNumber) {
+	    this.setKnowledge[numNoeud]=newNumber;
 	    }
-	    if (numNoeud > maxNumber) {
-		maxNumber=numNoeud;
+	    if (numNoeud > this.maxNumber) {
+		this.maxNumber=numNoeud;
 	    }
-	    if (newNumber > maxNumber) {
-		maxNumber=newNumber;
+	    if (newNumber > this.maxNumber) {
+		this.maxNumber=newNumber;
 	    }
 	}
 
 	public int NeighbourNode(int neighbourName) {
-	    return setKnowledge[neighbourName];
+	    return this.setKnowledge[neighbourName];
 	}
 	public int Neighbour() { /* Fonction qui nous donne les voisins */
-	    return setKnowledge[0];
+	    return this.setKnowledge[0];
 	}
 	
 	public int Max() { /* renvois le numero maximal */
-	    return maxNumber;
+	    return this.maxNumber;
 	}
 
 	public void ChangeName(int newName) {
-	    myName=newName;
-	    if (myName > maxNumber)
-		maxNumber=myName;
+	    this.myName=newName;
+	    if (this.myName > this.maxNumber)
+		this.maxNumber=this.myName;
 	}
 	
 	public int MyName() {
-	    return myName;
+	    return this.myName;
 	}
 	
     }

@@ -21,7 +21,7 @@ public class NoBackMover extends LinearAgentMover {
         // Here, the door  to go is checked not to be  the one we have
         // just come from.
         try {
-            if (doorToGo == agent().entryDoor())
+            if (doorToGo == this.agent().entryDoor())
                 doorToGo = super.findNextDoor(); //ask the next door another time
         } catch (IllegalStateException e) {
             // It's normal to get here  for the first vertex (there is

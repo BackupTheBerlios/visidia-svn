@@ -19,14 +19,14 @@ protected FormeDessin forme;
   }
   
   public void undo() {
-    forme.getVueGraphe().putObject(forme);
+    this.forme.getVueGraphe().putObject(this.forme);
   }
   
   public void redo() {
-    forme.getVueGraphe().delObject(forme);
+    this.forme.getVueGraphe().delObject(this.forme);
   }
   
   public FormeDessin content() {
-      return forme;
+      return this.forme;
   }
 }

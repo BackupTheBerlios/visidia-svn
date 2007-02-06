@@ -10,7 +10,7 @@ public class LinialMis extends Algorithm {
     public void init(){
 	
 	/* the degree of the node */
-	int nodeDegree = getArity();
+	int nodeDegree = this.getArity();
 	
 	/* vector of door leading to active neighbors */
 	Vector<Integer> finishedNeighbors = new Vector<Integer>();
@@ -35,7 +35,7 @@ public class LinialMis extends Algorithm {
 		for(Integer i = 0; i < nodeDegree; i++) {
 		    if(! finishedNeighbors.contains(i))
 			/* send x to the neighbor connected on door i */
-			sendTo(i,new IntegerMessage(x));
+			this.sendTo(i,new IntegerMessage(x));
 		}
 		
 		/* receive the integers sent by active neighbors */
@@ -43,7 +43,7 @@ public class LinialMis extends Algorithm {
 		for(Integer i =0; i < nodeDegree; i++) {
 		    if(! finishedNeighbors.contains(i)){
 			/* receive a message from the neighbor connected on door i */
-			IntegerMessage msg = (IntegerMessage)receiveFrom(i);
+			IntegerMessage msg = (IntegerMessage)this.receiveFrom(i);
 			if (msg.getData() >=  x)
 			    biggest = false;
 		    }
@@ -55,26 +55,26 @@ public class LinialMis extends Algorithm {
 		    covered = true;
 		    for(Integer i =0; i < nodeDegree; i++) {
 			if(! finishedNeighbors.contains(i))
-			    sendTo(i,new StringMessage("MIS"));
+			    this.sendTo(i,new StringMessage("MIS"));
 		    }
 		    
 		    /* set the label of the node to M in the local
 		     * data structure of the node: the node is labeled
 		     * M in the GUI */
-		    putProperty("label","M");
+		    this.putProperty("label","M");
 
 		} else {
 		    
 		    /* the node is not in the MIS */
 		    for(Integer i =0; i < nodeDegree; i++) {
 			if(! finishedNeighbors.contains(i))
-			    sendTo(i,new StringMessage("NOT MIS"));
+			    this.sendTo(i,new StringMessage("NOT MIS"));
 		    }
 
 		    /* receive messages from neighbors */
 		    for(Integer i =0; i < nodeDegree; i++) {
 			if(! finishedNeighbors.contains(i)) {
-			    StringMessage msg = (StringMessage)receiveFrom(i);
+			    StringMessage msg = (StringMessage)this.receiveFrom(i);
 			    if (msg.getData().equals("MIS")) {
 				/* a neighbor is in the MIS */
 				covered = true;
@@ -87,25 +87,25 @@ public class LinialMis extends Algorithm {
 			/* inform active neighbors that the node is covered by the MIS */
 			for(Integer i =0; i < nodeDegree; i++) {
 			    if(! finishedNeighbors.contains(i))
-				sendTo(i,new StringMessage("COVERED"));
+				this.sendTo(i,new StringMessage("COVERED"));
 			}
 			
 			/* set the label of the node to C in the local data
 			 * structure of the node: the node is labeled C in the
 			 * GUI */
-			putProperty("label","C");
+			this.putProperty("label","C");
 			
 		    } else {
 			
 			/* inform active neighbors that the node is not covered by the MIS */
 			for(Integer i =0; i < nodeDegree; i++) {
 			    if(! finishedNeighbors.contains(i))
-				sendTo(i,new StringMessage("NOT COVERED"));
+				this.sendTo(i,new StringMessage("NOT COVERED"));
 			}
 			/* check if any neighor was covered */
 			for(Integer i =0; i < nodeDegree; i++) {
 			    if(! finishedNeighbors.contains(i)) {
-				StringMessage msg = (StringMessage)receiveFrom(i);
+				StringMessage msg = (StringMessage)this.receiveFrom(i);
 				if (msg.getData().equals("COVERED")) {
 				    finishedNeighbors.add(i);
 				}
@@ -116,7 +116,7 @@ public class LinialMis extends Algorithm {
 	    } else {
 		/* the node is isolated and joins the MIS */
 		covered = true;
-		putProperty("label","M"); 
+		this.putProperty("label","M"); 
 	    } 
 	} 
     }

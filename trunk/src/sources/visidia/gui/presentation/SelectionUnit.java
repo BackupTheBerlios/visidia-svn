@@ -36,11 +36,11 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 	switch(evt.getModifiers()) {
 	    // Bouton droit
 	case InputEvent.BUTTON3_MASK:
-	    appuiBoutonDroit(x, y);
+	    this.appuiBoutonDroit(x, y);
 	    break;
 	    // shift + bouton droit
 	case (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK):
-	    appuiShiftBoutonDroit(x, y);
+	    this.appuiShiftBoutonDroit(x, y);
 	    break;
 	}
     }
@@ -50,30 +50,30 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 	//int y = evt.getY();
 	//boolean changed = false;
      
-	if (carre_selection) {
-	    updateData();
+	if (this.carre_selection) {
+	    this.updateData();
 	    
 	    /* Selection des objets dans la zone rectangulaire : 
 	     *  c'est un nouveau undoGroup. */
 	    Enumeration e = 
-		recoverableObject.objetsDansRegion(selection_x1, selection_y1, 
-						   selection_x2, selection_y2);
+		this.recoverableObject.objetsDansRegion(this.selection_x1, this.selection_y1, 
+						   this.selection_x2, this.selection_y2);
 	
 	    if (e.hasMoreElements()) {
-		if (undoInfo != null)
-		    undoInfo.newGroup("Unselect elements in rectangular area", 
+		if (this.undoInfo != null)
+		    this.undoInfo.newGroup("Unselect elements in rectangular area", 
 				      "Select elements in rectangular area");
 		
 		while (e.hasMoreElements()) {
 		    FormeDessin formeDessin = (FormeDessin) e.nextElement();
-		    selection.insererElement(formeDessin);
-		    if (undoInfo != null)
-			undoInfo.addInfo(new SelectFormeDessin(selection, 
+		    this.selection.insererElement(formeDessin);
+		    if (this.undoInfo != null)
+			this.undoInfo.addInfo(new SelectFormeDessin(this.selection, 
 							       formeDessin));
 		}
 	    }
-	    carre_selection = false;
-	    parentPanel.repaint();
+	    this.carre_selection = false;
+	    this.parentPanel.repaint();
 	}
     }
 
@@ -85,7 +85,7 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 	    // Bouton droit ou (shift + bouton droit)
 	case InputEvent.BUTTON3_MASK:
 	case (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK):
-	    glisseBoutonDroit(x, y);
+	    this.glisseBoutonDroit(x, y);
 	    break;
 	}
     }
@@ -106,36 +106,36 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 
 	try {
 	    
-	    updateData();
-	    objet_sous_souris = recoverableObject.en_dessous(x, y);
+	    this.updateData();
+	    objet_sous_souris = this.recoverableObject.en_dessous(x, y);
 	    
 	    /* On vide la selection : c'est un nouvel undoGroup. 
 	     * Il est cree dans la commande de vidage de la selection. */
-	    if (! selection.estVide()) {
-		deSelect();
-		parentPanel.repaint ();
+	    if (! this.selection.estVide()) {
+		this.deSelect();
+		this.parentPanel.repaint ();
 	    }
 	    
 	    /*...et on selectionne l'objet : c'est un nouvel undoGroup. */
-	    if (undoInfo != null) {
-		undoInfo.newGroup("Unselect object", "Select object");
-		undoInfo.addInfo(new SelectFormeDessin(selection, objet_sous_souris));
+	    if (this.undoInfo != null) {
+		this.undoInfo.newGroup("Unselect object", "Select object");
+		this.undoInfo.addInfo(new SelectFormeDessin(this.selection, objet_sous_souris));
 	    }
-	    selection.insererElement(objet_sous_souris);
-	    parentPanel.repaint();
+	    this.selection.insererElement(objet_sous_souris);
+	    this.parentPanel.repaint();
 	    
 	} catch(NoSuchElementException e) {
 	    /* On vide la selection, si elle ne l'est pas deja : nouvel undoGroup.
 	     * Il est cree dans la commande de vidage de la selection.  */
-	    if (! selection.estVide()) {
-		deSelect();
-		parentPanel.repaint(0);
+	    if (! this.selection.estVide()) {
+		this.deSelect();
+		this.parentPanel.repaint(0);
 	    }
 	    
 	    // Carre de selection
-	    carre_selection = true;
-	    selection_x = selection_x1 = selection_x2 = x;
-	    selection_y = selection_y1 = selection_y2 = y;
+	    this.carre_selection = true;
+	    this.selection_x = this.selection_x1 = this.selection_x2 = x;
+	    this.selection_y = this.selection_y1 = this.selection_y2 = y;
 	}
     }
 
@@ -144,89 +144,89 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
     private void appuiShiftBoutonDroit(int x, int y) {
 	try {
 	    
-	    updateData();
-	    FormeDessin objet_sous_souris = recoverableObject.en_dessous(x, y);
+	    this.updateData();
+	    FormeDessin objet_sous_souris = this.recoverableObject.en_dessous(x, y);
 	    
-	    if (selection.contient(objet_sous_souris)) {
+	    if (this.selection.contient(objet_sous_souris)) {
 		//Suppression d'un element de la selection : nouvel undoGroup.
-		if (undoInfo != null) {
-		    undoInfo.newGroup("Select all", "Deselect object");      
-		    undoInfo.addInfo(new DeselectFormeDessin(selection, 
+		if (this.undoInfo != null) {
+		    this.undoInfo.newGroup("Select all", "Deselect object");      
+		    this.undoInfo.addInfo(new DeselectFormeDessin(this.selection, 
 							     objet_sous_souris));
 		}
-		selection.supprimerElement(objet_sous_souris);
+		this.selection.supprimerElement(objet_sous_souris);
 
 	    } else {
 		//Ajout d'un element a la selection : nouvel undoGroup.
-		if (undoInfo != null) {
-		    undoInfo.newGroup("Remove object from selection", 
+		if (this.undoInfo != null) {
+		    this.undoInfo.newGroup("Remove object from selection", 
 				      "Add object to selection");
-		    undoInfo.addInfo(new SelectFormeDessin(selection, 
+		    this.undoInfo.addInfo(new SelectFormeDessin(this.selection, 
 							   objet_sous_souris));
 		}
-		selection.insererElement(objet_sous_souris);
+		this.selection.insererElement(objet_sous_souris);
 		
 	    }
-	    parentPanel.repaint();
+	    this.parentPanel.repaint();
 
 	} catch (NoSuchElementException e) {
 	    // Carre de selection
-	    carre_selection = true;
-	    selection_x = selection_x1 = selection_x2 = x;
-	    selection_y = selection_y1 = selection_y2 = y;
+	    this.carre_selection = true;
+	    this.selection_x = this.selection_x1 = this.selection_x2 = x;
+	    this.selection_y = this.selection_y1 = this.selection_y2 = y;
 	}
     }
 
     /* Permet de creer un rectangle de selection au cas ou on maintient
      * le bouton droit de la souris appuye. */
     private void glisseBoutonDroit(int x, int y) {
-	if (carre_selection) {
-	    if (x > selection_x) {
-		selection_x1 = selection_x;
-		selection_x2 = x;
+	if (this.carre_selection) {
+	    if (x > this.selection_x) {
+		this.selection_x1 = this.selection_x;
+		this.selection_x2 = x;
 	    } else {
-		selection_x1 = x;
-		selection_x2 = selection_x;
+		this.selection_x1 = x;
+		this.selection_x2 = this.selection_x;
 	    }
-	    if (y > selection_y) {
-		selection_y1 = selection_y;
-		selection_y2 = y;
+	    if (y > this.selection_y) {
+		this.selection_y1 = this.selection_y;
+		this.selection_y2 = y;
 	    } else {
-		selection_y1 = y;
-		selection_y2 = selection_y;
+		this.selection_y1 = y;
+		this.selection_y2 = this.selection_y;
 	    }
-	    Dimension size = parentPanel.getPreferredSize ();
+	    Dimension size = this.parentPanel.getPreferredSize ();
 	    if ((x > 0) && (y > 0) && (x < size.width) && (y < size.height)) {
-		parentPanel.setAutoscrolls (false);
+		this.parentPanel.setAutoscrolls (false);
 		System.out.println (x + " " + y + " -- " + 
 				    size.width + " " + size.height);
-		parentPanel.scrollRectToVisible (new Rectangle(x, y, 1, 1));
+		this.parentPanel.scrollRectToVisible (new Rectangle(x, y, 1, 1));
 	    }
-	    parentPanel.repaint();
+	    this.parentPanel.repaint();
 	}
     }
 
     
     private void deSelect () {
-	updateData();
+	this.updateData();
 	
-	if (undoInfo != null) {
-	    Enumeration e_undo = selection.elements();
-	    undoInfo.newGroup("Reselect Objects", "Deselect Objects");
+	if (this.undoInfo != null) {
+	    Enumeration e_undo = this.selection.elements();
+	    this.undoInfo.newGroup("Reselect Objects", "Deselect Objects");
 	    FormeDessin elt;
 	    while (e_undo.hasMoreElements()) {
 		elt = (FormeDessin)e_undo.nextElement();
-		undoInfo.addInfo(new DeselectFormeDessin(selection, elt));
+		this.undoInfo.addInfo(new DeselectFormeDessin(this.selection, elt));
 	    }
 	}
-	selection.deSelect();
+	this.selection.deSelect();
     }
     
     public void drawSelection (Graphics g) {
-	if (carre_selection) {
+	if (this.carre_selection) {
 	    g.setColor(RECT_SELECTION_COLOR);
-	    g.drawRect(selection_x1, selection_y1, 
-		       selection_x2 - selection_x1, selection_y2 - selection_y1);
+	    g.drawRect(this.selection_x1, this.selection_y1, 
+		       this.selection_x2 - this.selection_x1, this.selection_y2 - this.selection_y1);
 	}
     }
 
@@ -235,11 +235,11 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
      */
     protected void updateData () {
 	try {
-	    undoInfo = selectionGetData.getUndoInfo ();
+	    this.undoInfo = this.selectionGetData.getUndoInfo ();
 	} catch (NoSuchMethodException e) {
-	    undoInfo = null;
+	    this.undoInfo = null;
 	}
-	selection = selectionGetData.getSelectionDessin ();
-	recoverableObject = selectionGetData.getRecoverableObject ();
+	this.selection = this.selectionGetData.getSelectionDessin ();
+	this.recoverableObject = this.selectionGetData.getRecoverableObject ();
     }
 }

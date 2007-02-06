@@ -36,28 +36,28 @@ public class BoiteSommetDessin extends BoiteFormeDessin{
                             String titre, boolean est_editable) {
     super(parent, sommet, titre, est_editable);
 
-    initialXvalue = sommet.centreX();
-    initialYvalue = sommet.centreY();
+    this.initialXvalue = sommet.centreX();
+    this.initialYvalue = sommet.centreY();
     
-    couleur_fond = new LigneChoixCouleur(this,
+    this.couleur_fond = new LigneChoixCouleur(this,
 					 "Fill color (R,G,B) : ",
 					 sommet.couleurFond().getRed(),
 					 sommet.couleurFond().getGreen(),
 					 sommet.couleurFond().getBlue(), 
 					 est_editable);
-    caracteristicsPane.add(couleur_fond.panel());
+    this.caracteristicsPane.add(this.couleur_fond.panel());
 
-    centreX = ligne_editable(caracteristicsPane, 
+    this.centreX = this.ligne_editable(this.caracteristicsPane, 
 			     "X :",
-			     Integer.toString(initialXvalue),
+			     Integer.toString(this.initialXvalue),
 			     est_editable);
-    centreX.addActionListener(this);
+    this.centreX.addActionListener(this);
 
-    centreY = ligne_editable(caracteristicsPane, 
+    this.centreY = this.ligne_editable(this.caracteristicsPane, 
 			     "Y :",
-			     Integer.toString(initialYvalue),
+			     Integer.toString(this.initialYvalue),
 			     est_editable);
-    centreY.addActionListener(this);
+    this.centreY.addActionListener(this);
   }
   
   public void buttonOk() {
@@ -65,70 +65,70 @@ public class BoiteSommetDessin extends BoiteFormeDessin{
     int x, y;
     
     try {
-	fond = new Color(couleur_fond.getRed(), couleur_fond.getGreen(), couleur_fond.getBlue());
+	fond = new Color(this.couleur_fond.getRed(), this.couleur_fond.getGreen(), this.couleur_fond.getBlue());
     } catch(NumberFormatException exception) {
 	throw new NumberFormatException("Bad argument type for background color:\nAn hexadecimal integer with 6 figures is expected.");
     }
     super.buttonOk();
-    ((SommetDessin)forme).changerCouleurFond(fond);
+    ((SommetDessin)this.forme).changerCouleurFond(fond);
     
     try {
-	x = Integer.parseInt(centreX.getText());
+	x = Integer.parseInt(this.centreX.getText());
     } catch(NumberFormatException exception) {
 	throw new NumberFormatException("Bad argument type for X:\nAn integer is expected.");
     }
     try {
-	y = Integer.parseInt(centreY.getText());
+	y = Integer.parseInt(this.centreY.getText());
     } catch(NumberFormatException exception) {
 	throw new NumberFormatException("Bad argument type for Y:\nAn integer is expected.");
     }
     super.buttonOk();
-    ((SommetDessin)forme).placer(x, y);
+    ((SommetDessin)this.forme).placer(x, y);
   }
 
     /** Cette methode permet d'activer ou de desactiver le bouton de selection 
     de la couleur de fond du SommetDessin, en fonction de la valeur du booleen 
     passe en argument..*/
     public void couleurFondSetEditable(boolean t) {
-	couleur_fond.setEditable(t);
+	this.couleur_fond.setEditable(t);
     }
     
     public void centreXSetEditable(boolean t) {
-	centreX.setEditable(t);
+	this.centreX.setEditable(t);
     }
     
     public void centreYSetEditable(boolean t) {
-	centreY.setEditable(t);
+	this.centreY.setEditable(t);
     }
     
     public void actionPerformed(ActionEvent evt) {
-	if (evt.getSource() == centreX) {
+	if (evt.getSource() == this.centreX) {
 	    int x;
 	    try {
-		x = Integer.parseInt(centreX.getText());
+		x = Integer.parseInt(this.centreX.getText());
 	    } catch(NumberFormatException exception) {
-		JOptionPane.showMessageDialog(dialog,
+		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for X:\n"
 					      + "An integer is expected.",
 					      "Error",
 					      JOptionPane.ERROR_MESSAGE);
-		centreX.setText(Integer.toString(initialXvalue));
+		this.centreX.setText(Integer.toString(this.initialXvalue));
 	    }
-	    elementModified();
+	    this.elementModified();
 	}
-	if (evt.getSource() == centreY) {
+	if (evt.getSource() == this.centreY) {
 	    int y;
 	    try {
-		y = Integer.parseInt(centreY.getText());
+		y = Integer.parseInt(this.centreY.getText());
 	    } catch(NumberFormatException exception) {
-	  JOptionPane.showMessageDialog(dialog,
+	  JOptionPane.showMessageDialog(this.dialog,
 					"Bad argument type for Y:\n"
 					+ "An integer is expected.",
 					"Error",
 					JOptionPane.ERROR_MESSAGE);
-	  centreY.setText(Integer.toString(initialYvalue));
+	  this.centreY.setText(Integer.toString(this.initialYvalue));
       }
-	    elementModified();
+	    this.elementModified();
 	}
 	super.actionPerformed(evt);
   }

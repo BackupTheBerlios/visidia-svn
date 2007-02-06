@@ -117,31 +117,20 @@ public class AgentSimulator {
 			  Vector agentsRules,
                           VQueue evtVQ, VQueue ackVQ) {
 
-	graph = netGraph;
-        stats = new Bag();
+	this.graph = netGraph;
+        this.stats = new Bag();
 
-	threadGroup = new SimulatorThreadGroup("simulator");
-	fillAgentsTable(graph, defaultAgentValues, agentsRules);
+	this.threadGroup = new SimulatorThreadGroup("simulator");
+	this.fillAgentsTable(this.graph, defaultAgentValues, agentsRules);
         this.evtQ = evtVQ;
         this.ackQ = ackVQ;
 
 
-        movingMonitor = new MovingMonitor(ackQ);
-        movingMonitorThread = new Thread(movingMonitor);
-        movingMonitorThread.start();
+        this.movingMonitor = new MovingMonitor(this.ackQ);
+        this.movingMonitorThread = new Thread(this.movingMonitor);
+        this.movingMonitorThread.start();
     }
 
-    /**
-     * Returns the number of agents on the specified vertex.
-     * 
-     * @param vertex The vertex on which information is given.
-     */
-    private int getAgentsVertexNumber(Vertex vertex){
-        if (vertexAgentsNumber.get(vertex) == null)
-            return 0;
-        else
-            return vertexAgentsNumber.get(vertex).size();
-    }
     /** 
      * Return the  collection af agents  which are on the  vertex that
      * have the vertexId as the id.
@@ -149,14 +138,14 @@ public class AgentSimulator {
      * @param vertexId The vertex id.
      */
     public Collection getAgentsVertexCollection(int vertexId) {
- 	return vertexAgentsNumber.get(graph.vertex(new Integer(vertexId)));
+ 	return this.vertexAgentsNumber.get(this.graph.vertex(new Integer(vertexId)));
     }
     
     /**
      * Returns a Set of all the agents.
      */
     public Set<Agent> getAllAgents() {
-        return agents.keySet();
+        return this.agents.keySet();
     }
 
     /**
@@ -166,15 +155,15 @@ public class AgentSimulator {
      * @see #removeAgentFromAgent(Vertex, Agent)
      */
     private int addAgentToVertex(Vertex vertex, Agent ag){
-        synchronized (vertexAgentsNumber) {
-            if( vertexAgentsNumber.get(vertex) != null)
-                vertexAgentsNumber.get(vertex).add(ag);
+        synchronized (this.vertexAgentsNumber) {
+            if( this.vertexAgentsNumber.get(vertex) != null)
+                this.vertexAgentsNumber.get(vertex).add(ag);
             else{
                 Collection<Agent> colOfAgents  = new HashSet();
                 colOfAgents.add(ag);
-                vertexAgentsNumber.put(vertex,colOfAgents);
+                this.vertexAgentsNumber.put(vertex,colOfAgents);
             }
-            return vertexAgentsNumber.get(vertex).size();
+            return this.vertexAgentsNumber.get(vertex).size();
         }
     }
     
@@ -185,14 +174,14 @@ public class AgentSimulator {
      * @see #addAgentToVertex(Vertex, Agent)
      */
     private int removeAgentFromVertex(Vertex vertex, Agent ag){
-        synchronized (vertexAgentsNumber) {
-            vertexAgentsNumber.get(vertex).remove(ag);
-            if( vertexAgentsNumber.get(vertex).isEmpty() ) {
-                vertexAgentsNumber.remove(vertex);
+        synchronized (this.vertexAgentsNumber) {
+            this.vertexAgentsNumber.get(vertex).remove(ag);
+            if( this.vertexAgentsNumber.get(vertex).isEmpty() ) {
+                this.vertexAgentsNumber.remove(vertex);
                 return 0;
             }
             else
-                return vertexAgentsNumber.get(vertex).size();
+                return this.vertexAgentsNumber.get(vertex).size();
         }
     }
 
@@ -209,8 +198,8 @@ public class AgentSimulator {
 				 Vector agentsRules) {
         Enumeration vertices;
 
-        agents = new Hashtable();
-	vertexAgentsNumber = new Hashtable();
+        this.agents = new Hashtable();
+	this.vertexAgentsNumber = new Hashtable();
 	
         vertices = graph.vertices();
 
@@ -228,7 +217,7 @@ public class AgentSimulator {
 		String agentName = (String)it.next();
 		
 		if (agentName != null) {
-		    createAgent(agentName, vertex, defaultAgentValues, agentsRules);
+		    this.createAgent(agentName, vertex, defaultAgentValues, agentsRules);
 		}
 	    }
 
@@ -256,7 +245,7 @@ public class AgentSimulator {
 	    completName = new String("visidia.agents." + agentName);
 
         try {
-	    agent = createAgent(Class.forName(completName), vertex,
+	    agent = this.createAgent(Class.forName(completName), vertex,
                                defaultAgentValues);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -289,15 +278,15 @@ public class AgentSimulator {
             ag.setWhiteBoard(defaultAgentValues);
 	    data.vertex = vertex;
             data.agent = ag;
-            agents.put(ag, data);
+            this.agents.put(ag, data);
 
-	    addAgentToVertex(vertex, ag);
+	    this.addAgentToVertex(vertex, ag);
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
 
-        stats.add(new AgentCreationStat(ag.getClass()));
+        this.stats.add(new AgentCreationStat(ag.getClass()));
 
         return ag;
     }
@@ -309,24 +298,24 @@ public class AgentSimulator {
      */
     public void agentDeath(Agent ag) throws InterruptedException {
 	
-	ProcessData data = (ProcessData) agents.get(ag);
+	ProcessData data = (ProcessData) this.agents.get(ag);
 	Vertex vertex = data.vertex;
-	Long key = new Long(numGen.alloc());
+	Long key = new Long(this.numGen.alloc());
 
-	int nbr = removeAgentFromVertex(vertex,ag);
+	int nbr = this.removeAgentFromVertex(vertex,ag);
 	
-	agents.remove(ag);
+	this.agents.remove(ag);
 
-	evtQ.put(new AgentMovedEvent(key,
+	this.evtQ.put(new AgentMovedEvent(key,
 				     vertex.identity(),
 				     new Integer(nbr)));
-	movingMonitor.waitForAnswer(key);
+	this.movingMonitor.waitForAnswer(key);
 
-        stats.add(new TerminatedStat(ag.getClass()));
+        this.stats.add(new TerminatedStat(ag.getClass()));
 
 	/* Detecting the end of the algorithm */
-	if(agents.isEmpty()) {
-            evtQ.put(new AlgorithmEndEvent(numGen.alloc()));
+	if(this.agents.isEmpty()) {
+            this.evtQ.put(new AlgorithmEndEvent(this.numGen.alloc()));
         }
     }
     
@@ -337,13 +326,13 @@ public class AgentSimulator {
      * @param door the door to which you want to move the Agent
      */
     public void moveAgentTo(Agent ag, int door) throws InterruptedException {
-        ProcessData data = (ProcessData) agents.get(ag);
+        ProcessData data = (ProcessData) this.agents.get(ag);
         Vertex vertexFrom, vertexTo;
         Message msg;
         MessagePacket msgPacket;
         
         
-        if( (door < 0) || (door >= getArity(ag)))
+        if( (door < 0) || (door >= this.getArity(ag)))
             throw new IllegalArgumentException("This door doesn't exist !");
 
         vertexFrom = data.vertex;
@@ -353,13 +342,13 @@ public class AgentSimulator {
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
 	
-	pushMessageSendingEvent(msgPacket,ag);
+	this.pushMessageSendingEvent(msgPacket,ag);
 	
 
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
-        stats.add(new MoveStat(ag.getClass()));
+        this.stats.add(new MoveStat(ag.getClass()));
     }
 
     /**
@@ -374,19 +363,19 @@ public class AgentSimulator {
         throws InterruptedException {
 
         Vertex vertexFrom, vertexTo;
-        Long key = new Long(numGen.alloc());
+        Long key = new Long(this.numGen.alloc());
         EdgeStateChangeEvent event;
 
-        vertexFrom = getVertexFor(ag);
+        vertexFrom = this.getVertexFor(ag);
         vertexTo = vertexFrom.neighbour(door);
 
         event = new EdgeStateChangeEvent(key, 
                                          vertexFrom.identity(),
                                          vertexTo.identity(),
                                          state);
-        evtQ.put(event);
-        movingMonitor.waitForAnswer(key);
-        stats.add(new EdgeStateStat(ag.getClass()));
+        this.evtQ.put(event);
+        this.movingMonitor.waitForAnswer(key);
+        this.stats.add(new EdgeStateStat(ag.getClass()));
     }
 
     /**
@@ -395,9 +384,9 @@ public class AgentSimulator {
      * @param ag the agent you want information about.
      */
     public int entryDoor(Agent ag) {
-	if (getLastVertexSeen(ag) == null)
+	if (this.getLastVertexSeen(ag) == null)
             throw new IllegalStateException();
-        return getVertexFor(ag).indexOf(getLastVertexSeen(ag).identity());
+        return this.getVertexFor(ag).indexOf(this.getLastVertexSeen(ag).identity());
     }
 
     /**
@@ -408,11 +397,11 @@ public class AgentSimulator {
     public void newPulse(int pulse) 
 	throws InterruptedException {
 	
-	Long key = new Long(numGen.alloc());
+	Long key = new Long(this.numGen.alloc());
 	NextPulseEvent event = new NextPulseEvent(key,pulse);
 
-	evtQ.put(event);
- 	stats.add(new PulseStat());
+	this.evtQ.put(event);
+ 	this.stats.add(new PulseStat());
     }
 
     /**
@@ -423,7 +412,7 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public Agent getVertexPropertiesOwner(Vertex v) {
-	return lockedVertices.get(v);
+	return this.lockedVertices.get(v);
     }
 
     /**
@@ -435,7 +424,7 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public Agent getVertexPropertiesOwner(Agent ag) {
-	return getVertexPropertiesOwner(getVertexFor(ag));
+	return this.getVertexPropertiesOwner(this.getVertexFor(ag));
     }
 
 
@@ -446,7 +435,7 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public boolean vertexPropertiesLocked(Vertex v) {
-	if(getVertexPropertiesOwner(v) == null)
+	if(this.getVertexPropertiesOwner(v) == null)
 	    return false;
 	return true;
     }
@@ -460,7 +449,7 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public boolean vertexPropertiesLocked(Agent ag) {
-	return vertexPropertiesLocked(getVertexFor(ag));
+	return this.vertexPropertiesLocked(this.getVertexFor(ag));
     }
     
     
@@ -474,15 +463,15 @@ public class AgentSimulator {
      * @see #unlockVertexProperties(Agent)
      */
     public void lockVertexProperties(Agent ag) {
-	Vertex actualVertex = getVertexFor(ag);
+	Vertex actualVertex = this.getVertexFor(ag);
 
-	if(getVertexPropertiesOwner(actualVertex) == ag)
+	if(this.getVertexPropertiesOwner(actualVertex) == ag)
 	    throw new  IllegalStateException("Try to lock a WhiteBoard"
 					     + "already locked by me"); 
 
 	else {
 	    synchronized(actualVertex) {
-		while(vertexPropertiesLocked(actualVertex)) {
+		while(this.vertexPropertiesLocked(actualVertex)) {
 		    
 		    try {
 			actualVertex.wait();
@@ -490,7 +479,7 @@ public class AgentSimulator {
 			throw new SimulationAbortError(e);
 		    }
 		}
-		lockedVertices.put(actualVertex, ag);
+		this.lockedVertices.put(actualVertex, ag);
 	    }
 	}
     }
@@ -505,12 +494,12 @@ public class AgentSimulator {
      */
     public void unlockVertexProperties(Agent ag) 
 	throws IllegalStateException {
-	Vertex actualVertex = getVertexFor(ag);
+	Vertex actualVertex = this.getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    if(vertexPropertiesLocked(actualVertex)
-	       && (getVertexPropertiesOwner(actualVertex) == ag)) {
-		lockedVertices.remove(actualVertex);
+	    if(this.vertexPropertiesLocked(actualVertex)
+	       && (this.getVertexPropertiesOwner(actualVertex) == ag)) {
+		this.lockedVertices.remove(actualVertex);
 		actualVertex.notifyAll();
 	    }
 	    else
@@ -530,18 +519,18 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public Object getVertexProperty(Agent ag, Object key) {
-	Vertex vertex = getVertexFor(ag);
+	Vertex vertex = this.getVertexFor(ag);
 
 	synchronized(vertex) {
-	    while(vertexPropertiesLocked(vertex) 
-		  && (getVertexPropertiesOwner(vertex) != ag)) {
+	    while(this.vertexPropertiesLocked(vertex) 
+		  && (this.getVertexPropertiesOwner(vertex) != ag)) {
 		try {
 		    vertex.wait();
 		} catch(InterruptedException e) {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-            stats.add(new VertexWBAccessStat(ag.getClass()));
+            this.stats.add(new VertexWBAccessStat(ag.getClass()));
 
 
 	    return vertex.getProperty(key);
@@ -560,29 +549,29 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public void setVertexProperty(Agent ag, Object key, Object value) {
-	Vertex vertex = getVertexFor(ag);
+	Vertex vertex = this.getVertexFor(ag);
 
 	synchronized(vertex) {
-	    while(vertexPropertiesLocked(vertex) 
-		  && (getVertexPropertiesOwner(vertex) != ag)) {
+	    while(this.vertexPropertiesLocked(vertex) 
+		  && (this.getVertexPropertiesOwner(vertex) != ag)) {
 		try {
 		    vertex.wait();
 		} catch(InterruptedException e) {
 		    throw new SimulationAbortError(e);
 		}
 	    }	
-            stats.add(new VertexWBChangeStat(ag.getClass()));
+            this.stats.add(new VertexWBChangeStat(ag.getClass()));
 
 
 	    vertex.setProperty(key, value);
 
 	    if(key.equals("label")) {
-                Long num = new Long(numGen.alloc());
+                Long num = new Long(this.numGen.alloc());
                 LabelChangeEvent lce;
                 lce = new LabelChangeEvent(num,vertex.identity(),
                                            (String)value);
                 try{
-                    evtQ.put(lce);		    
+                    this.evtQ.put(lce);		    
                 }catch(InterruptedException e){
                     throw new SimulationAbortError(e);
                 }
@@ -601,11 +590,11 @@ public class AgentSimulator {
      * @see #lockVertexProperties(Agent)
      */
     public Set getVertexPropertyKeys(Agent ag) {
-	Vertex actualVertex = getVertexFor(ag);
+	Vertex actualVertex = this.getVertexFor(ag);
 
 	synchronized(actualVertex) {
-	    while(vertexPropertiesLocked(actualVertex) 
-		  && (getVertexPropertiesOwner(actualVertex) != ag)) {
+	    while(this.vertexPropertiesLocked(actualVertex) 
+		  && (this.getVertexPropertiesOwner(actualVertex) != ag)) {
 		try {
 		    actualVertex.wait();
 		} catch(InterruptedException e) {
@@ -622,11 +611,11 @@ public class AgentSimulator {
      * the agents' threads.
      */
     public void startSimulation(){
-        Enumeration enumAgents = agents.elements();
+        Enumeration enumAgents = this.agents.elements();
 
         while (enumAgents.hasMoreElements()) {
             ProcessData data = (ProcessData) enumAgents.nextElement();
-            createThreadFor(data.agent).start();
+            this.createThreadFor(data.agent).start();
         }
     }
 
@@ -637,10 +626,10 @@ public class AgentSimulator {
     public void abortSimulation() {
 
 	// Stop the moving monitor
-	movingMonitor.abortAck();
+	this.movingMonitor.abortAck();
 	    
-	while(movingMonitorThread.isAlive()) {
-	    movingMonitorThread.interrupt();
+	while(this.movingMonitorThread.isAlive()) {
+	    this.movingMonitorThread.interrupt();
 	    try {
 		Thread.currentThread().sleep(50);
 	    } catch (InterruptedException e) {
@@ -649,8 +638,8 @@ public class AgentSimulator {
 	}
 	
 
-        while(threadGroup.activeCount() > 0) {
-            threadGroup.interrupt();
+        while(this.threadGroup.activeCount() > 0) {
+            this.threadGroup.interrupt();
             try {
                 Thread.currentThread().sleep(50);
             } catch (InterruptedException e) {
@@ -658,9 +647,9 @@ public class AgentSimulator {
             }
         }
 
-        agents.clear();
+        this.agents.clear();
         SynchronizedAgent.clear();
-	vertexAgentsNumber.clear();
+	this.vertexAgentsNumber.clear();
     }
 
     /**
@@ -670,7 +659,7 @@ public class AgentSimulator {
      * @param ag agent you want information for. 
      */
     public int getArity(Agent ag) {
-        return getVertexFor(ag).degree();
+        return this.getVertexFor(ag).degree();
     }
 
     /**
@@ -681,8 +670,8 @@ public class AgentSimulator {
      * @param millis Milliseconds to sleep
      */
     public void sleep(Agent ag, long millis) throws InterruptedException {
-        getThreadFor(ag).sleep(millis);
-        stats.add(new SleepStat(ag.getClass()), millis);
+        this.getThreadFor(ag).sleep(millis);
+        this.stats.add(new SleepStat(ag.getClass()), millis);
 
     }
     /**
@@ -690,7 +679,7 @@ public class AgentSimulator {
      * simulation is done.
      */
     public int getNetSize() {
-        return graph.size();
+        return this.graph.size();
     }
     /**
      * For a given agent returns the identity of the vertex it is on.
@@ -698,7 +687,7 @@ public class AgentSimulator {
      * @param ag The agent you want infromation on.
      */
     public int getVertexIdentity(Agent ag) {
-        return getVertexFor(ag).identity().intValue();
+        return this.getVertexFor(ag).identity().intValue();
     }
     /**
      * Sets the agentMover  of the simulation. This method  is used to
@@ -707,27 +696,27 @@ public class AgentSimulator {
      * @see AgentMover
      */
     public void setDefaultAgentMover(AgentMover am) {
-        defaultAgentMover = am;
+        this.defaultAgentMover = am;
     }
 
     public boolean hasDefaultAgentMover() { 
-        return defaultAgentMover!=null;
+        return this.defaultAgentMover!=null;
     }
 
     public void incrementStat(AbstractStat stat, long increment) {
-         stats.add(stat, increment);
+         this.stats.add(stat, increment);
     }
 
     public Bag getStats(){
-	return stats;
+	return this.stats;
     }
 
 
     public void clone(Agent ag, Class agClass) {
         Agent ag2;
 
-        ag2 = createAgent(agClass, getVertexFor(ag), new Hashtable());
-        createThreadFor(ag2).start();
+        ag2 = this.createAgent(agClass, this.getVertexFor(ag), new Hashtable());
+        this.createThreadFor(ag2).start();
     }
 
     public void cloneAndSend(Agent ag, Class agClass, int door) 
@@ -738,33 +727,33 @@ public class AgentSimulator {
         Message msg;
         MessagePacket msgPacket;
 
-        vertexFrom = getVertexFor(ag);
+        vertexFrom = this.getVertexFor(ag);
         vertexTo = vertexFrom.neighbour(door);
         msg = new StringMessage("Sent clone of "+ag.toString());
         msgPacket = new MessagePacket(vertexFrom.identity(), door, 
                                       vertexTo.identity(), msg);
 
-        ag2 = createAgent(agClass, 
+        ag2 = this.createAgent(agClass, 
                           vertexFrom,
                           new Hashtable());
 
-	moveAgentTo(ag2, door);
+	this.moveAgentTo(ag2, door);
 	
-        createThreadFor(ag2).start();        
+        this.createThreadFor(ag2).start();        
     }
 
     private void pushMessageSendingEvent(MessagePacket mesgPacket, Agent ag) 
         throws InterruptedException {
 
-	Long key = new Long(numGen.alloc());
-	Long keyDep = new Long(numGen.alloc());
-	Long keyArr = new Long(numGen.alloc());
+	Long key = new Long(this.numGen.alloc());
+	Long keyDep = new Long(this.numGen.alloc());
+	Long keyArr = new Long(this.numGen.alloc());
         MessageSendingEvent mse;
 	AgentMovedEvent dep, arr;
 	Vertex vertexTo, vertexFrom;
 
-	vertexFrom = graph.vertex(mesgPacket.sender());
-	vertexTo = graph.vertex(mesgPacket.receiver());
+	vertexFrom = this.graph.vertex(mesgPacket.sender());
+	vertexTo = this.graph.vertex(mesgPacket.receiver());
 
         mse = new MessageSendingEvent(key,
                                       mesgPacket.message(),
@@ -772,53 +761,53 @@ public class AgentSimulator {
                                       mesgPacket.receiver());
 
 
-	int nbr = removeAgentFromVertex(vertexFrom, ag);
+	int nbr = this.removeAgentFromVertex(vertexFrom, ag);
 	
 	dep = new AgentMovedEvent(keyDep,
 				  mesgPacket.sender(),
 				  new Integer(nbr));
 
 
-	evtQ.put(dep);
-	movingMonitor.waitForAnswer(keyDep);
+	this.evtQ.put(dep);
+	this.movingMonitor.waitForAnswer(keyDep);
 
-	evtQ.put(mse);
-	movingMonitor.waitForAnswer(key);
+	this.evtQ.put(mse);
+	this.movingMonitor.waitForAnswer(key);
 
 
-	nbr = addAgentToVertex(vertexTo, ag);
+	nbr = this.addAgentToVertex(vertexTo, ag);
 
 	arr = new AgentMovedEvent(keyArr,
 				  mesgPacket.receiver(),
 				  new Integer(nbr));
 	
-	evtQ.put(arr);
-	movingMonitor.waitForAnswer(keyArr);
+	this.evtQ.put(arr);
+	this.movingMonitor.waitForAnswer(keyArr);
     }
 
     private Thread createThreadFor(Agent ag) {
-        ProcessData data = getDataFor(ag);
+        ProcessData data = this.getDataFor(ag);
 
-        data.thread = new Thread(threadGroup, ag);
+        data.thread = new Thread(this.threadGroup, ag);
         data.thread.setPriority(THREAD_PRIORITY);
 
         return data.thread;
     }
 
     private Thread getThreadFor(Agent ag) {
-        return getDataFor(ag).thread;
+        return this.getDataFor(ag).thread;
     }
 
     private Vertex getVertexFor(Agent ag) {
-        return getDataFor(ag).vertex;
+        return this.getDataFor(ag).vertex;
     }
 
     private Vertex getLastVertexSeen(Agent ag) {
-        return getDataFor(ag).lastVertexSeen;
+        return this.getDataFor(ag).lastVertexSeen;
     }
 
     private ProcessData getDataFor(Agent ag) {
-        return (ProcessData)agents.get(ag);
+        return (ProcessData)this.agents.get(ag);
     }
 
     private class ProcessData {

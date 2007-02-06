@@ -28,68 +28,68 @@ public class Mazurkiewicz_Election extends Algorithm {
     
     public void init(){
         
-        int graphS=getNetSize(); /* la taille du graphe */
+        int graphS=this.getNetSize(); /* la taille du graphe */
         int synchro;
         boolean run=true; /* booleen de fin  de l'algorithme */
         boolean finishedNode[];
-        int arity=getArity();
+        int arity=this.getArity();
         
         Know node=new Know();
         
-        finishedNode=new boolean[getArity()];
-        for (int i=0;i<getArity();i++) {
+        finishedNode=new boolean[this.getArity()];
+        for (int i=0;i<this.getArity();i++) {
             finishedNode[i]=false;
         }
         
-        putProperty("label",new String("0"));
+        this.putProperty("label",new String("0"));
         node.Initial(graphS);
         
         while(run){
             
-            synchro=starSynchro(finishedNode);
+            synchro=this.starSynchro(finishedNode);
             
-            if( synchro==starCenter ){
+            if( synchro==this.starCenter ){
                 for (int door=0;door<arity;door++) {
                     if (!finishedNode[door])
-                        receiveKnowledge(node,door);
+                        this.receiveKnowledge(node,door);
                 }
                 
                 if ((node.MyName() == 0) || ( node.Neighbour() < node.NeighbourNode(node.MyName()))){
                     node.ChangeName(node.Max()+1);
                 }
                 
-                sendAll(new IntegerMessage(node.MyName(),labels));
-                putProperty("label",new String((new Integer(node.MyName())).toString()));
+                this.sendAll(new IntegerMessage(node.MyName(),labels));
+                this.putProperty("label",new String((new Integer(node.MyName())).toString()));
                 
                 node.ChangeKnowledge(node.MyName(),node.Neighbour());
                 
                 messagesNumber=messagesNumber+arity;
                 
-                sendToAllKnowledge(node);
+                this.sendToAllKnowledge(node);
                 
                 if ( node.Max() == graphS ) {
                     run=false;
                 }
-                changeTable(node);
-                breakSynchro();
+                this.changeTable(node);
+                this.breakSynchro();
                 
             }
             else {
-                if ( synchro != notInTheStar) {
-                    sendKnowledge(node,synchro);
+                if ( synchro != this.notInTheStar) {
+                    this.sendKnowledge(node,synchro);
                     
-                    Message newName = receiveFrom(synchro);
+                    Message newName = this.receiveFrom(synchro);
                     node.ChangeKnowledge(0,((IntegerMessage)newName).value());
-                    putProperty("My Neighbour", new String((new Integer(node.Neighbour())).toString()));
-                    receiveKnowledge(node,synchro);
-                    changeTable(node);
+                    this.putProperty("My Neighbour", new String((new Integer(node.Neighbour())).toString()));
+                    this.receiveKnowledge(node,synchro);
+                    this.changeTable(node);
                 }
                 
             }
             
             
         }
-        sendAll(new IntegerMessage(new Integer(-1),synchronization));
+        this.sendAll(new IntegerMessage(new Integer(-1),synchronization));
         
         System.out.println("Nombre de starSynchro = "+synchroNumber+"   Nombre de messages = "+messagesNumber);
         
@@ -97,7 +97,7 @@ public class Mazurkiewicz_Election extends Algorithm {
     
     public int starSynchro(boolean finishedNode[]){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         
         /*random */
@@ -106,13 +106,13 @@ public class Mazurkiewicz_Election extends Algorithm {
         /*Send to all neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(choosenNumber),synchronization));
             }
         }
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
                 if (answer[i]==-1)
                     finishedNode[i]=true;
@@ -130,13 +130,13 @@ public class Mazurkiewicz_Election extends Algorithm {
         
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                sendTo(i,new IntegerMessage(new Integer(max),synchronization));
+                this.sendTo(i,new IntegerMessage(new Integer(max),synchronization));
             }
         }
         /*get alla answers from neighbours */
         for( int i = 0; i < arite; i++){
             if (! finishedNode[i]) {
-                Message msg = receiveFrom(i);
+                Message msg = this.receiveFrom(i);
                 answer[i]= ((IntegerMessage)msg).value();
             }
         }
@@ -151,35 +151,35 @@ public class Mazurkiewicz_Election extends Algorithm {
         if (choosenNumber >= max) {
             for( int door = 0; door < arite; door++){
                 if (! finishedNode[door])
-                    setDoorState(new SyncState(true),door);
+                    this.setDoorState(new SyncState(true),door);
             }
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(1),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(1),synchronization));
                 }
             }
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                 }
             }
             synchroNumber++;
-            return starCenter;
+            return this.starCenter;
         }
         else {
-            int inTheStar=notInTheStar;
+            int inTheStar=this.notInTheStar;
             
             for( int i = 0; i < arite; i++){
                 if (! finishedNode[i]) {
-                    sendTo(i,new IntegerMessage(new Integer(0),synchronization));
+                    this.sendTo(i,new IntegerMessage(new Integer(0),synchronization));
                 }
             }
             
             for (int i=0; i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=receiveFrom(i);
+                    Message msg=this.receiveFrom(i);
                     if  (((IntegerMessage)msg).value() == 1) {
                         inTheStar=i;
                     }
@@ -193,19 +193,19 @@ public class Mazurkiewicz_Election extends Algorithm {
     
     public void breakSynchro() {
         
-        for( int door = 0; door < getArity(); door++){
-            setDoorState(new  SyncState(false),door);
+        for( int door = 0; door < this.getArity(); door++){
+            this.setDoorState(new  SyncState(false),door);
         }
     }
     
     private void receiveKnowledge(Know node,int door) {
         
-        VectorMessage vm=(VectorMessage) receiveFrom(door);
+        VectorMessage vm=(VectorMessage) this.receiveFrom(door);
         Vector data =vm.data();
         /*System.out.println("1-centre recoit de "+door+":" + ((Integer)data.elementAt(0)).intValue());*/
         while (((Integer)data.elementAt(0)).intValue() !=-1) {
             node.ChangeKnowledge(((Integer)data.elementAt(0)).intValue(), ((Integer)data.elementAt(1)).intValue());
-            vm=(VectorMessage) receiveFrom(door);
+            vm=(VectorMessage) this.receiveFrom(door);
             data =vm.data();
             /*	    System.out.println("1-centre recoit de "+door+":" + ((Integer)data.elementAt(0)).intValue());*/
             
@@ -214,13 +214,13 @@ public class Mazurkiewicz_Election extends Algorithm {
     
     private void sendToAllKnowledge(Know node) {
         
-        int arity=getArity();
+        int arity=this.getArity();
         Vector vec = new Vector(2);
         for (int i=1;i<=node.Max();i++) {
             if ((node.NeighbourNode(i))!=-1) {
                 vec.add(new Integer(i));
                 vec.add(new Integer(node.NeighbourNode(i)));
-                sendAll(new VectorMessage((Vector)vec.clone(),labels));
+                this.sendAll(new VectorMessage((Vector)vec.clone(),labels));
                 vec.clear();
                 messagesNumber=messagesNumber+arity;
                 /*	System.out.println("3-centre envois :"+ i +"=" + node.NeighbourNode(i));*/
@@ -231,7 +231,7 @@ public class Mazurkiewicz_Election extends Algorithm {
         
         vec.add(new Integer(-1));
         vec.add(new Integer(-1));
-        sendAll(new VectorMessage((Vector)vec.clone(),labels));
+        this.sendAll(new VectorMessage((Vector)vec.clone(),labels));
         /* System.out.println( "4-centre envoit  -1"); */
     }
     
@@ -242,21 +242,21 @@ public class Mazurkiewicz_Election extends Algorithm {
             if ((node.NeighbourNode(i))!=-1) {
                 vec.add(new Integer(i));
                 vec.add(new Integer(node.NeighbourNode(i)));
-                sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
+                this.sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
                 vec.clear();
                 messagesNumber++;
             }
         }
         vec.add(new Integer(-1));
         vec.add(new Integer(-1));
-        sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
+        this.sendTo(synchro,new VectorMessage((Vector)vec.clone(),labels));
     }
     
     private void changeTable (Know node) {
 	for (int i=1;i<=node.Max();i++) {
 	    if ((node.NeighbourNode(i))!=-1) {
 		Integer nodeI=new Integer(i);
-		putProperty(nodeI.toString(), new String((new Integer(node.NeighbourNode(i))).toString()));
+		this.putProperty(nodeI.toString(), new String((new Integer(node.NeighbourNode(i))).toString()));
 	    } 
 	}
     }

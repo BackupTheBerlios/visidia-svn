@@ -12,31 +12,31 @@ public class Element {
     
     
     public Element(SimulAck sa_){
-	sa = sa_;
-	event=false;
+	this.sa = sa_;
+	this.event=false;
     }
 
     public Element(SimulEvent se_){
-	se = se_;
-	event=true;
+	this.se = se_;
+	this.event=true;
     }
     
     public SimulEvent getSimulEvent() {
-	if (isEvent())
-	    return se;
+	if (this.isEvent())
+	    return this.se;
 	else
 	    return null;
     }
 
     public SimulAck getSimulAck() {
-	if (!isEvent())
-	    return sa;
+	if (!this.isEvent())
+	    return this.sa;
 	else
 	    return null;
     }
 
     public boolean isEvent() {
-	return event;
+	return this.event;
     }
 }
 

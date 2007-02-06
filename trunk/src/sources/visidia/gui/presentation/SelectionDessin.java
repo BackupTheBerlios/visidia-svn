@@ -19,7 +19,7 @@ public class SelectionDessin{
   // Instanciation of a selection
  
     public SelectionDessin() {
-	formes = new Ensemble();
+	this.formes = new Ensemble();
     }
   
   // Methods
@@ -27,7 +27,7 @@ public class SelectionDessin{
   // desenluminate the elements of the selection
   public void desenluminer() {
     FormeDessin elt;
-    Enumeration e = formes.elements();
+    Enumeration e = this.formes.elements();
    
     while (e.hasMoreElements()) {
       elt = (FormeDessin)e.nextElement();
@@ -40,19 +40,19 @@ public class SelectionDessin{
   public void deSelect() {
 
     FormeDessin elt;
-    Enumeration e = formes.elements();
+    Enumeration e = this.formes.elements();
    
     while (e.hasMoreElements()) {
       elt = (FormeDessin)e.nextElement();
       elt.enluminer(false);
     }
-    formes.vider();
+    this.formes.vider();
   }
 
   // Select the elements of the selection 
   public void select() {
     FormeDessin elt;
-    Enumeration e = formes.elements();
+    Enumeration e = this.formes.elements();
     while (e.hasMoreElements()) {
       elt = (FormeDessin)e.nextElement();
       elt.enluminer(true);
@@ -62,7 +62,7 @@ public class SelectionDessin{
 
   // Tester wether an element is in the selection
   public boolean contient(FormeDessin forme) {
-    return formes.contient(forme);
+    return this.formes.contient(forme);
   }
     
   
@@ -72,29 +72,29 @@ public class SelectionDessin{
   // Insert an element to the selection
   // (if this element is already in the selection, nothing happens)
   public void insererElement(FormeDessin forme) {
-	formes.inserer(forme);
+	this.formes.inserer(forme);
 	forme.enluminer(true);
   }
  
   // delete an element from the selection
     public void supprimerElement(FormeDessin forme) {
-	formes.supprimer(forme);
+	this.formes.supprimer(forme);
 	forme.enluminer(false);
   }
 
   // Accessors
   public boolean estVide() {
-      return (formes.estVide());
+      return (this.formes.estVide());
   } 
 
     public Enumeration elements(){
-      return formes.elements();
+      return this.formes.elements();
   } 
 
  
 	
   public int nbElements(){
-      return formes.taille();
+      return this.formes.taille();
   }
       
 }

@@ -36,7 +36,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
     }
    
     public void init(){
-	final int arity=getArity();
+	final int arity=this.getArity();
 	
 	Vector synchro;
 	boolean run=true;
@@ -45,7 +45,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 	String myThinkingNode = new String("T,0");
 	String myEatingNode = new String("E,0");
 	int myNumber = Math.abs(SynchronizedRandom.nextInt());
-	putProperty("label",myThinkingNode);
+	this.putProperty("label",myThinkingNode);
 
 	while(run){
 	    int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
@@ -53,40 +53,40 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 	    String theThinkingNode = new String("T,"+count);
 	    String theEatingNode = new String("E,"+count);
 	    if (choosenNumber>=myNumber) {
-		if(getProperty("label").toString().substring(0,1).compareTo("H")==0){
-		    putProperty("label",theHungryNode);
+		if(this.getProperty("label").toString().substring(0,1).compareTo("H")==0){
+		    this.putProperty("label",theHungryNode);
 		}
-		if(getProperty("label").toString().substring(0,1).compareTo("T")==0){
+		if(this.getProperty("label").toString().substring(0,1).compareTo("T")==0){
 		    count=0;
-		    putProperty("label",theHungryNode);
+		    this.putProperty("label",theHungryNode);
 		}
-		if(getProperty("label").toString().substring(0,1).compareTo("E")==0){
+		if(this.getProperty("label").toString().substring(0,1).compareTo("E")==0){
 		    eatingcount++;
-		    putProperty("label",theEatingNode);
+		    this.putProperty("label",theEatingNode);
 		}
 	    }
 	    if(choosenNumber<=myNumber) {
 		if(eatingcount >= 2){
-		    if(getProperty("label").toString().substring(0,1).compareTo("E")==0){
+		    if(this.getProperty("label").toString().substring(0,1).compareTo("E")==0){
 			count = 0;
 			eatingcount=0;
 			for(int i=0; i<arity;i++)
-			    setEdgeColor(i, new ColorState(Color.black));
-			putProperty("label",theThinkingNode);  
+			    this.setEdgeColor(i, new ColorState(Color.black));
+			this.putProperty("label",theThinkingNode);  
 		    }
 		}
-		if(getProperty("label").toString().substring(0,1).compareTo("T")==0){
-		    putProperty("label",theThinkingNode);
+		if(this.getProperty("label").toString().substring(0,1).compareTo("T")==0){
+		    this.putProperty("label",theThinkingNode);
 		}
-		if(getProperty("label").toString().substring(0,1).compareTo("H")==0){
-		    putProperty("label",theHungryNode);
+		if(this.getProperty("label").toString().substring(0,1).compareTo("H")==0){
+		    this.putProperty("label",theHungryNode);
 		}
 	    }
 	    
-	    synchro=starSynchro();
+	    synchro=this.starSynchro();
 	    if(synchro!=null){
 		if (((Integer) synchro.elementAt(0)).intValue()==-1) {
-		    StringMessage nodeLabel = new StringMessage(new String(getProperty("label").toString()));
+		    StringMessage nodeLabel = new StringMessage(new String(this.getProperty("label").toString()));
 		    String myLabelString = nodeLabel.data().substring(0,1);
 		    int myLabelInt = (new Integer(nodeLabel.data().substring(2))).intValue();
 		    
@@ -94,7 +94,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 		    boolean hungryResult1=false;
 		    
 		    for(int i=0;i<arity;i++){
-			String msg = ((StringMessage)receiveFrom(i)).data();
+			String msg = ((StringMessage)this.receiveFrom(i)).data();
 			String neighLabelString = msg.substring(0,1);
 			int neighLabelInt = (new Integer(msg.substring(2))).intValue();
 			if(myLabelString.compareTo("H")==0){
@@ -116,19 +116,19 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 		    }
 		    if((hungryResult == true) && (hungryResult1==false)){
 			for(int i=0;i<arity;i++)
-			    setEdgeColor(i, new ColorState(Color.red));
-			putProperty("label",myEatingNode);
+			    this.setEdgeColor(i, new ColorState(Color.red));
+			this.putProperty("label",myEatingNode);
 		    }
 		    if(hungryResult1 == true){
 			count++;
-			putProperty("label",theHungryNode);
+			this.putProperty("label",theHungryNode);
 		    }
-		    breakSynchro();
+		    this.breakSynchro();
 		}
 		else {
-		    StringMessage nodeLabel = new StringMessage(new String(getProperty("label").toString()),labels);
+		    StringMessage nodeLabel = new StringMessage(new String(this.getProperty("label").toString()),labels);
 		    for (int i=0;i<synchro.size();i++)
-                        sendTo(((Integer) synchro.elementAt(i)).intValue(),nodeLabel);
+                        this.sendTo(((Integer) synchro.elementAt(i)).intValue(),nodeLabel);
 		}
 	    }
 	}
@@ -139,7 +139,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
      */
     public Vector starSynchro(){
         
-        int arite = getArity() ;
+        int arite = this.getArity() ;
         int[] answer = new int[arite] ;
         Vector neighbourCenter;
         
@@ -147,11 +147,11 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
         int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
         
         /*Send to all neighbours */
-        sendAll(new IntegerMessage(new Integer(choosenNumber),synchronization));
+        this.sendAll(new IntegerMessage(new Integer(choosenNumber),synchronization));
         
         /*receive all numbers from neighbours */
         for( int i = 0; i < arite; i++){
-            Message msg = receiveFrom(i);
+            Message msg = this.receiveFrom(i);
             answer[i]= ((IntegerMessage)msg).value();
         }
         
@@ -163,14 +163,14 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
         }
         
         if (choosenNumber >= max) {
-            for( int door = 0; door < getArity(); door++){
-                setDoorState(new SyncState(true),door);
+            for( int door = 0; door < this.getArity(); door++){
+                this.setDoorState(new SyncState(true),door);
             }
             
-            sendAll(new IntegerMessage(new Integer(1),synchronization));
+            this.sendAll(new IntegerMessage(new Integer(1),synchronization));
             
             for (int i=0;i<arite;i++) {
-                Message msg=receiveFrom(i);
+                Message msg=this.receiveFrom(i);
             }
             neighbourCenter=new Vector();
             neighbourCenter.add(new Integer(-1));
@@ -181,10 +181,10 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
             
             neighbourCenter=new Vector();
             
-            sendAll(new IntegerMessage(new Integer(0),synchronization));
+            this.sendAll(new IntegerMessage(new Integer(0),synchronization));
             
             for (int i=0; i<arite;i++) {
-                Message msg=receiveFrom(i);
+                Message msg=this.receiveFrom(i);
                 if  (((IntegerMessage)msg).value() == 1) {
                     neighbourCenter.add(new Integer(i));
                 }
@@ -199,8 +199,8 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 
     public void breakSynchro() {
 	
-	for( int door = 0; door < getArity(); door++){
-	    setDoorState(new SyncState(false),door);
+	for( int door = 0; door < this.getArity(); door++){
+	    this.setDoorState(new SyncState(false),door);
 	}
     }
     

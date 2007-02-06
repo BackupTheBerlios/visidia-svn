@@ -33,13 +33,13 @@ public abstract class AreteDessin extends FormeDessin{
     
     // Create a new edge knowing its origin and destination verticies
     public AreteDessin(SommetDessin origine, SommetDessin destination, Arete arete){
-	id1=Integer.valueOf(origine.getEtiquette()).intValue();
-	id2=Integer.valueOf(destination.getEtiquette()).intValue();
-	vueGraphe = origine.getVueGraphe();
-	repositionner(origine, destination);
-	graphObject = arete;
+	this.id1=Integer.valueOf(origine.getEtiquette()).intValue();
+	this.id2=Integer.valueOf(destination.getEtiquette()).intValue();
+	this.vueGraphe = origine.getVueGraphe();
+	this.repositionner(origine, destination);
+	this.graphObject = arete;
 	arete.setAreteDessin(this);
-	vueGraphe.insererListeAffichage(this);
+	this.vueGraphe.insererListeAffichage(this);
     }
 
     // if the edge is not specified, we create a new one
@@ -71,27 +71,27 @@ public abstract class AreteDessin extends FormeDessin{
     // Draws an edge on the Graphics parameter
     //PFA2003
     public void dessiner(Component c , Graphics g) {
-	if (etatArete) {
-	    if (enlumineBis) {
+	if (this.etatArete) {
+	    if (this.enlumineBis) {
 		g.setColor (COULEUR_ENLUMINER_BIS);
-		dessinerLigne (g, 7.0f, origx, origy, destx, desty);		
+		this.dessinerLigne (g, 7.0f, this.origx, this.origy, this.destx, this.desty);		
 	    }
-	    g.setColor (enlumine ? couleur_fond : couleur_trait);
-	    dessinerLigne (g, 5.0f, origx, origy, destx, desty);
+	    g.setColor (this.enlumine ? this.couleur_fond : this.couleur_trait);
+	    this.dessinerLigne (g, 5.0f, this.origx, this.origy, this.destx, this.desty);
 	} else {
-	    if (enlumineBis) {
+	    if (this.enlumineBis) {
 		g.setColor (COULEUR_ENLUMINER_BIS);
-		dessinerLigne (g, 3.0f, origx, origy, destx, desty);
+		this.dessinerLigne (g, 3.0f, this.origx, this.origy, this.destx, this.desty);
 	    }
-	    g.setColor (enlumine ? couleur_fond : couleur_trait);
-	    dessinerLigne (g, 1.0f, origx, origy, destx, desty);
+	    g.setColor (this.enlumine ? this.couleur_fond : this.couleur_trait);
+	    this.dessinerLigne (g, 1.0f, this.origx, this.origy, this.destx, this.desty);
 	}
 	
 	// if(isOriented){ à revoir
 	if(false){
 	    Shape arrowHead = 
-		ArrowHeadFactory.createSegmentArrowHead(new Point(origx, origy), 
-							new Point(destx, desty),
+		ArrowHeadFactory.createSegmentArrowHead(new Point(this.origx, this.origy), 
+							new Point(this.destx, this.desty),
 							6, 10);
 	    if(g instanceof Graphics2D){
 		((Graphics2D)g).fill(arrowHead);
@@ -99,14 +99,14 @@ public abstract class AreteDessin extends FormeDessin{
 	}
 
 	
-	if (etiquetteEtatArete != null) {
+	if (this.etiquetteEtatArete != null) {
 	    g.setColor(Color.blue);
-	    if(est_enlumine())
-		g.setFont((getVueGraphe()).fontGras());
+	    if(this.est_enlumine())
+		g.setFont((this.getVueGraphe()).fontGras());
 	    else
-		g.setFont((getVueGraphe()).fontNormal());
-	    g.drawString(etiquetteEtatArete, 
-			 (origx + destx) / 2 + 5, (origy + desty) / 2);
+		g.setFont((this.getVueGraphe()).fontNormal());
+	    g.drawString(this.etiquetteEtatArete, 
+			 (this.origx + this.destx) / 2 + 5, (this.origy + this.desty) / 2);
 	}
     }
    
@@ -130,9 +130,9 @@ public abstract class AreteDessin extends FormeDessin{
 	    if((r1 + r2) < dist) {
 		float cos_theta = dx / dist, sin_theta = dy / dist;
 		
-		placerOrigine(x1 + (int)(r1 * cos_theta),
+		this.placerOrigine(x1 + (int)(r1 * cos_theta),
 			      y1 + (int)(r1 * sin_theta));
-		placerDestination(x2 - (int)(r2 * cos_theta),
+		this.placerDestination(x2 - (int)(r2 * cos_theta),
 				  y2 - (int)(r2 * sin_theta));
 		return;
 	    }
@@ -140,16 +140,16 @@ public abstract class AreteDessin extends FormeDessin{
 	
 	// Big tip not that pretty letting the edge not to be displayed
 	// (waiting for a better solution...)
-	placerOrigine(Integer.MAX_VALUE, Integer.MAX_VALUE);
-	placerDestination(Integer.MAX_VALUE, Integer.MAX_VALUE);
+	this.placerOrigine(Integer.MAX_VALUE, Integer.MAX_VALUE);
+	this.placerDestination(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
     
 
     private void repositionnerOrigine(SommetDessin origine) {
 	int x1 = origine.centreX();
 	int y1 = origine.centreY();
-	int x2 = destx;
-	int y2 = desty;
+	int x2 = this.destx;
+	int y2 = this.desty;
 	
 	int dx = x2 - x1, dy = y2 - y1;
 	float dist = (float)Math.sqrt((dx * dx + dy * dy));
@@ -161,20 +161,20 @@ public abstract class AreteDessin extends FormeDessin{
 	    if(r1  < dist) {
 		float cos_theta = dx / dist, sin_theta = dy / dist;
 		
-		placerOrigine(x1 + (int)(r1 * cos_theta),
+		this.placerOrigine(x1 + (int)(r1 * cos_theta),
 			      y1 + (int)(r1 * sin_theta));
 		return;
 	    }
 	}
 	// Big tip not that pretty letting the edge not to be displayed
 	// (waiting for a better solution...)
-	placerOrigine(Integer.MAX_VALUE, Integer.MAX_VALUE);
+	this.placerOrigine(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
     
     private void repositionnerDestination(SommetDessin destination) {
-	int x1 = origx;
+	int x1 = this.origx;
 	int x2 = destination.centreX();
-	int y1 = origy;
+	int y1 = this.origy;
 	int y2 = destination.centreY();
 	int dx = x2 - x1, dy = y2 - y1;
 	float dist = (float)Math.sqrt((dx * dx + dy * dy));
@@ -186,7 +186,7 @@ public abstract class AreteDessin extends FormeDessin{
 	    if(r2 < dist) {
 		float cos_theta = dx / dist, sin_theta = dy / dist;
 		
-		placerDestination(x2 - (int)(r2 * cos_theta),
+		this.placerDestination(x2 - (int)(r2 * cos_theta),
 				  y2 - (int)(r2 * sin_theta));
 		return;
 	    }
@@ -194,27 +194,27 @@ public abstract class AreteDessin extends FormeDessin{
 
 	// Big tip not that pretty letting the edge not to be displayed
 	// (waiting for a better solution...)
-	placerDestination(Integer.MAX_VALUE, Integer.MAX_VALUE);
+	this.placerDestination(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
      
  
     // Moves the edge of (dx, dy)
     public void deplacer(int dx, int dy) {
-	((Arete)graphObject).origine().getSommetDessin().deplacer(dx,dy);
-	if (((Arete)graphObject).origine() != ((Arete)graphObject).destination())
-	    ((Arete)graphObject).destination().getSommetDessin().deplacer(dx,dy);
+	((Arete)this.graphObject).origine().getSommetDessin().deplacer(dx,dy);
+	if (((Arete)this.graphObject).origine() != ((Arete)this.graphObject).destination())
+	    ((Arete)this.graphObject).destination().getSommetDessin().deplacer(dx,dy);
     }
    
     // Tests whether the point parameter belongs to the edge 
     public boolean appartient(int x, int y){
 	double scalaire =
-	    (x - origx) * (destx - origx) + (y - origy) * (desty - origy);
+	    (x - this.origx) * (this.destx - this.origx) + (y - this.origy) * (this.desty - this.origy);
 	double long_carre =
-	    Math.pow(destx - origx, 2) + Math.pow(desty - origy, 2);
+	    Math.pow(this.destx - this.origx, 2) + Math.pow(this.desty - this.origy, 2);
 
 	if(scalaire > 0) {
 	    double distance_carre =
-		((Math.pow(x - origx , 2) + Math.pow(y - origy, 2)) *
+		((Math.pow(x - this.origx , 2) + Math.pow(y - this.origy, 2)) *
 		 long_carre - Math.pow(scalaire, 2)) / long_carre;
 	    return ((Math.pow(scalaire, 2) < Math.pow(long_carre, 2)) &&
 		    (distance_carre < Math.pow(precision, 2)));
@@ -225,9 +225,9 @@ public abstract class AreteDessin extends FormeDessin{
     // Tests whether the edge is entirely inside a rectangular zone
     // (x1, y1) are the top left side coordinates and (x2, y2) are the bottom right side coordinates
     public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-	return ((x1 <= origx) && (y1 <= origy) && (x2 >= destx) &&
-		(y2 >= desty) && (x1 <= destx) && (y1 <= desty) &&
-		(x2 >= origx) && (y2 >= origy));
+	return ((x1 <= this.origx) && (y1 <= this.origy) && (x2 >= this.destx) &&
+		(y2 >= this.desty) && (x1 <= this.destx) && (y1 <= this.desty) &&
+		(x2 >= this.origx) && (y2 >= this.origy));
     }
 
     
@@ -242,70 +242,70 @@ public abstract class AreteDessin extends FormeDessin{
     }
    
     public boolean getEtat(){
-	return etatArete;
+	return this.etatArete;
     }
 
     public Arete getArete(){
-	return ((Arete)graphObject);
+	return ((Arete)this.graphObject);
     }
 
     public String getEtatStr() {
-	return etiquetteEtatArete;
+	return this.etiquetteEtatArete;
     }
 
     public int origineX(){
-	return origx;
+	return this.origx;
     }
 
     public int origineY(){
-	return origy;
+	return this.origy;
     }
     
     public int destinationX(){
-	return destx;
+	return this.destx;
     }
 
     public int destinationY(){
-	return desty;
+	return this.desty;
     }
 
     // stop
 
     public void setEtat(boolean etat){
-	etatArete = etat;
+	this.etatArete = etat;
     }
 
     public void setEtat(String strEtat){
-	etiquetteEtatArete = strEtat;
+	this.etiquetteEtatArete = strEtat;
     }
 
     public void setOriented(boolean b){
-	isOriented = b;
+	this.isOriented = b;
     }
 
     public boolean getOriented(){
-	return isOriented;
+	return this.isOriented;
     }
 
     public void changerOrigine(SommetDessin nouvelleOrigine) {
-	((Arete)graphObject).changerOrigine(nouvelleOrigine.getSommet());
-	repositionnerOrigine(nouvelleOrigine);
+	((Arete)this.graphObject).changerOrigine(nouvelleOrigine.getSommet());
+	this.repositionnerOrigine(nouvelleOrigine);
     }
     
     public void changerDestination(SommetDessin nouvelleDestination) {
-	((Arete)graphObject).changerDestination(nouvelleDestination.getSommet());
-	repositionnerDestination(nouvelleDestination);
+	((Arete)this.graphObject).changerDestination(nouvelleDestination.getSommet());
+	this.repositionnerDestination(nouvelleDestination);
     }
     
     // these methods permit to move origin or destination
     public void placerOrigine(int x, int y){
-	origx = x;
-	origy = y;
+	this.origx = x;
+	this.origy = y;
     }
    
     public void placerDestination(int x, int y){
-	destx = x;
-	desty = y;
+	this.destx = x;
+	this.desty = y;
     }
 
      
@@ -324,13 +324,13 @@ public abstract class AreteDessin extends FormeDessin{
      * enluminated color
      **/
     public String graphicProperties() {
-	return new String(forme() + "\t" 
-			  + couleurTrait().getRed() + "," 
-			  + couleurTrait().getGreen() + "," 
-			  + couleurTrait().getBlue() + "\t"
-			  + couleurFond().getRed() + "," 
-			  + couleurFond().getGreen() + "," 
-			  + couleurFond().getBlue());
+	return new String(this.forme() + "\t" 
+			  + this.couleurTrait().getRed() + "," 
+			  + this.couleurTrait().getGreen() + "," 
+			  + this.couleurTrait().getBlue() + "\t"
+			  + this.couleurFond().getRed() + "," 
+			  + this.couleurFond().getGreen() + "," 
+			  + this.couleurFond().getBlue());
     }
 
     /**
@@ -354,11 +354,11 @@ public abstract class AreteDessin extends FormeDessin{
     }
 
     public int getId1() {
-	return id1;
+	return this.id1;
     }
     
     public int getId2() {
-	return id2;
+	return this.id2;
     }
 }
 

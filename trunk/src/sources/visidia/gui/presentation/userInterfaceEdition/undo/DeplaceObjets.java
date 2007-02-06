@@ -30,16 +30,16 @@ public class DeplaceObjets implements UndoObject {
      * dy), du sommet sommet.*/
     public DeplaceObjets(SommetDessin sommet, int dx, int dy) {
 	this.objets = new Ensemble();
-	objets.inserer(sommet);
+	this.objets.inserer(sommet);
 	this.dx = dx;
 	this.dy = dy;
     }
     
     public void undo() {
 	try {
-	    VueGraphe.deplacerFormeDessin(objets.elements(),
-					  -dx,
-					  -dy);
+	    VueGraphe.deplacerFormeDessin(this.objets.elements(),
+					  -this.dx,
+					  -this.dy);
 	} catch (Exception e) {
 	    return;
 	}
@@ -47,9 +47,9 @@ public class DeplaceObjets implements UndoObject {
     
     public void redo() {
 	try{
-	    VueGraphe.deplacerFormeDessin(objets.elements(),
-					  dx,
-					  dy);
+	    VueGraphe.deplacerFormeDessin(this.objets.elements(),
+					  this.dx,
+					  this.dy);
 	} catch (Exception e) {
 	    return;
 	}

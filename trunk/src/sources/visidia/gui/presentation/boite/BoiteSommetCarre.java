@@ -41,46 +41,46 @@ public class BoiteSommetCarre extends BoiteSommetDessin implements ActionListene
 		       boolean est_editable) {
 	
 	super(parent, un_sommet, titre, est_editable);
-	cote = ((SommetCarre)forme).getCote();
+	this.cote = ((SommetCarre)this.forme).getCote();
 	JPanel taillePanel = new JPanel(new GridLayout(1, 2));
-	tailleLabel = new JLabel("Size");
-	taillePanel.add(tailleLabel);
-	tailleTextField = new JTextField(Integer.toString(cote), 6);
-	tailleTextField.addActionListener(this);
-	taillePanel.add(tailleTextField);
-	caracteristicsPane.add(taillePanel);
+	this.tailleLabel = new JLabel("Size");
+	taillePanel.add(this.tailleLabel);
+	this.tailleTextField = new JTextField(Integer.toString(this.cote), 6);
+	this.tailleTextField.addActionListener(this);
+	taillePanel.add(this.tailleTextField);
+	this.caracteristicsPane.add(taillePanel);
     
-	propertiesPane = new JPanel();
-	BoxLayout propertiesLayout = new BoxLayout(propertiesPane, BoxLayout.Y_AXIS);
-	propertiesPane.setLayout(propertiesLayout);
-	propertiesPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+	this.propertiesPane = new JPanel();
+	BoxLayout propertiesLayout = new BoxLayout(this.propertiesPane, BoxLayout.Y_AXIS);
+	this.propertiesPane.setLayout(propertiesLayout);
+	this.propertiesPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 								  "Properties"));
 	
-	dialog.getContentPane().add(propertiesPane, BorderLayout.CENTER);
+	this.dialog.getContentPane().add(this.propertiesPane, BorderLayout.CENTER);
 
-	iconPane = new ListeChoixImage(un_sommet);
-	caracteristicsPane.add(iconPane);
+	this.iconPane = new ListeChoixImage(un_sommet);
+	this.caracteristicsPane.add(this.iconPane);
 	
-	ligne_non_editable(propertiesPane,
+	this.ligne_non_editable(this.propertiesPane,
 			   "Degree :", 
 			   Integer.toString(un_sommet.getSommet().degre()));
     }
     
     
     public void actionPerformed(ActionEvent evt) {
-	if (evt.getSource() == tailleTextField) {
+	if (evt.getSource() == this.tailleTextField) {
 	    try {
-		cote =Integer.parseInt(tailleTextField.getText());
+		this.cote =Integer.parseInt(this.tailleTextField.getText());
 	    } catch (NumberFormatException e) {
-		JOptionPane.showMessageDialog(dialog,
+		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for the\n"
-					      + ((SommetCarre)forme).getEtiquette().toLowerCase()
+					      + ((SommetCarre)this.forme).getEtiquette().toLowerCase()
 					      + "\nAn integer is waited.",
 					      "Error",
 					      JOptionPane.ERROR_MESSAGE);
-		tailleTextField.setText(Integer.toString(cote));
+		this.tailleTextField.setText(Integer.toString(this.cote));
 	    }
-	    elementModified();
+	    this.elementModified();
 	}
 	super.actionPerformed(evt);
     }
@@ -90,9 +90,9 @@ public class BoiteSommetCarre extends BoiteSommetDessin implements ActionListene
 
     public void buttonOk() {
 	super.buttonOk();
-	((SommetCarre)forme).setCote(cote);
-	if(iconPane.estChangee())
-	    ((SommetCarre)forme).changerImage(iconPane.ardoise().image());
+	((SommetCarre)this.forme).setCote(this.cote);
+	if(this.iconPane.estChangee())
+	    ((SommetCarre)this.forme).changerImage(this.iconPane.ardoise().image());
     }
 }
 

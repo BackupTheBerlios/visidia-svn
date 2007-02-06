@@ -47,16 +47,16 @@ public class SimulEventHandler extends Thread {
     }
     
     public void abort(){
-	stopped = true;
-	interrupt();
+	this.stopped = true;
+	this.interrupt();
     }
     
     public void run(){
 	try{
-	    while(!stopped){
+	    while(!this.stopped){
 		SimulEvent simEvt = null;
 		try{
-		    simEvt = (SimulEvent) evtPipe.get();
+		    simEvt = (SimulEvent) this.evtPipe.get();
 		}
 		catch(ClassCastException e){
 		    e.printStackTrace();
@@ -66,22 +66,22 @@ public class SimulEventHandler extends Thread {
 		switch(simEvt.type()){
 		    
 		case SimulConstants.EDGE_STATE_CHANGE:
-		    handleEdgeStateChangeEvt(simEvt);
+		    this.handleEdgeStateChangeEvt(simEvt);
 		    break;
 		    
 		case SimulConstants.MESSAGE_SENT :
-		    handleMessageSentEvt(simEvt);
+		    this.handleMessageSentEvt(simEvt);
 		    break;
 
 		case SimulConstants.NODE_PROPERTY_CHANGE :
-		    handleNodePropertyChangeEvt(simEvt);
+		    this.handleNodePropertyChangeEvt(simEvt);
 		    break; 
 
 		case SimulConstants.ALGORITHM_END :
-		    handleAlgorithmEndEvent(simEvt);
+		    this.handleAlgorithmEndEvent(simEvt);
 		    break;
 		case SimulConstants.NEXT_PULSE :
-		    handleNextPulseEvent(simEvt);
+		    this.handleNextPulseEvent(simEvt);
 		    break;
 		}
 	    }
@@ -94,101 +94,101 @@ public class SimulEventHandler extends Thread {
     
     public void handleEdgeStateChangeEvt(SimulEvent se) throws InterruptedException{
 	EdgeStateChangeEvent esce = (EdgeStateChangeEvent) se;
-	if ( fenetreSimulDist == null ) {
+	if ( this.fenetreSimulDist == null ) {
 	    if(esce.state() instanceof MarkedState){
 		MarkedState state = (MarkedState)esce.state();
-		((fenetreSimul.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).setEtat(state.isMarked());
+		((this.fenetreSimul.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).setEtat(state.isMarked());
 		
 	    }
 	    else if(esce.state() instanceof SyncState){
 		SyncState state = (SyncState)esce.state();
-		((fenetreSimul.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
-		((fenetreSimul.getVueGraphe()).rechercherSommet(esce.nodeId1().toString())).enluminerBis(state.isSynchronized());
-		((fenetreSimul.getVueGraphe()).rechercherSommet(esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimul.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimul.getVueGraphe()).rechercherSommet(esce.nodeId1().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimul.getVueGraphe()).rechercherSommet(esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
 		
 	    }
 	    EdgeStateChangeAck esca = new EdgeStateChangeAck(esce.eventNumber());
-	    ackPipe.put(esca); 
+	    this.ackPipe.put(esca); 
 	    
 	}
 	else {
 	    if(esce.state() instanceof MarkedState){
 		MarkedState state = (MarkedState)esce.state();
-		((fenetreSimulDist.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).setEtat(state.isMarked());
+		((this.fenetreSimulDist.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).setEtat(state.isMarked());
 		
 	    }
 	    else if(esce.state() instanceof SyncState){
 		SyncState state = (SyncState)esce.state();
-		((fenetreSimulDist.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
-		((fenetreSimulDist.getVueGraphe()).rechercherSommet(esce.nodeId1().toString())).enluminerBis(state.isSynchronized());
-		((fenetreSimulDist.getVueGraphe()).rechercherSommet(esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimulDist.getVueGraphe()).rechercherArete(esce.nodeId1().toString(),esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimulDist.getVueGraphe()).rechercherSommet(esce.nodeId1().toString())).enluminerBis(state.isSynchronized());
+		((this.fenetreSimulDist.getVueGraphe()).rechercherSommet(esce.nodeId2().toString())).enluminerBis(state.isSynchronized());
 		
 	    }
 	    EdgeStateChangeAck esca = new EdgeStateChangeAck(esce.eventNumber());
-	    ackPipe.put(esca); 
+	    this.ackPipe.put(esca); 
 	}   
     }
     
     public void handleNodePropertyChangeEvt(SimulEvent se) throws InterruptedException{
 	NodePropertyChangeEvent npce = (NodePropertyChangeEvent) se;
-	if ( fenetreSimulDist == null ) {
-	    Hashtable tableSommet = ((fenetreSimul.getVueGraphe()).rechercherSommet(npce.nodeId().toString())).getStateTable();
+	if ( this.fenetreSimulDist == null ) {
+	    Hashtable tableSommet = ((this.fenetreSimul.getVueGraphe()).rechercherSommet(npce.nodeId().toString())).getStateTable();
 	    tableSommet.put(npce.getKey(),npce.getValue());
 	    
 	    NodePropertyChangeAck npca = new NodePropertyChangeAck(npce.eventNumber());
-	    ackPipe.put(npca); 		
+	    this.ackPipe.put(npca); 		
 	}
 	else {
-	    Hashtable tableSommet = ((fenetreSimulDist.getVueGraphe()).rechercherSommet(npce.nodeId().toString())).getStateTable();
+	    Hashtable tableSommet = ((this.fenetreSimulDist.getVueGraphe()).rechercherSommet(npce.nodeId().toString())).getStateTable();
 	    tableSommet.put(npce.getKey(),npce.getValue());
 	    
 	    NodePropertyChangeAck npca = new NodePropertyChangeAck(npce.eventNumber());
-	    ackPipe.put(npca); 
+	    this.ackPipe.put(npca); 
 	}
     }
     
       
     public void handleMessageSentEvt(SimulEvent se){
 	MessageSendingEvent mse = (MessageSendingEvent) se;
-	if ( fenetreSimulDist == null )
-	    fenetreSimul.simulationPanel().animate(mse);
+	if ( this.fenetreSimulDist == null )
+	    this.fenetreSimul.simulationPanel().animate(mse);
 	else 
-	    fenetreSimulDist.simulationPanel().animate(mse);
+	    this.fenetreSimulDist.simulationPanel().animate(mse);
     }
     
     public void handleAlgorithmEndEvent(SimulEvent se) throws InterruptedException{
 	AlgorithmEndEvent aee = (AlgorithmEndEvent)se;
-	if ( fenetreSimulDist == null ) {
+	if ( this.fenetreSimulDist == null ) {
 	    // fenetreSimul.simulationPanel().pause();
 	    //fenetreSimul.but_pause();
-	    fenetreSimul.simulationPanel().terminatedAlgorithm();
-	    JOptionPane.showMessageDialog(fenetreSimul,"Algorithms are terminated");
+	    this.fenetreSimul.simulationPanel().terminatedAlgorithm();
+	    JOptionPane.showMessageDialog(this.fenetreSimul,"Algorithms are terminated");
 	    // fenetreSimul.simulationPanel().pause();
 	    //fenetreSimul.but_pause();
 	    
 	    AlgorithmEndAck aea = new AlgorithmEndAck(aee.eventNumber());
 	    // System.out.println("Threads have terminated: waiting for GUI termination.");
-	    ackPipe.put(aea);
+	    this.ackPipe.put(aea);
 	    
 	    throw new InterruptedException();	
 	}
 	else {
-	    fenetreSimulDist.simulationPanel().pause();
-	    JOptionPane.showMessageDialog(fenetreSimulDist,"Algorithms are terminated");
+	    this.fenetreSimulDist.simulationPanel().pause();
+	    JOptionPane.showMessageDialog(this.fenetreSimulDist,"Algorithms are terminated");
 	    throw new InterruptedException();	
 	}   
     }
 
     private void handleNextPulseEvent(SimulEvent se) throws InterruptedException{
 	NextPulseEvent npe = (NextPulseEvent)se;
-	if ( fenetreSimulDist == null ) {
-	    fenetreSimul.setUpTimeUnits(npe.pulse());
+	if ( this.fenetreSimulDist == null ) {
+	    this.fenetreSimul.setUpTimeUnits(npe.pulse());
 	    // se bloque jusqu'a la fin de la visualisation et donc de l'acheminement des messages
-	    fenetreSimul.simulationPanel().nextPulseReady();
+	    this.fenetreSimul.simulationPanel().nextPulseReady();
 	    //System.out.println("SimulEventHandler debloquee");
 	    // sert à débloquer le AckHandler
 	    NextPulseAck npa = new NextPulseAck(npe.eventNumber());
-	    ackPipe.put(npa);
+	    this.ackPipe.put(npa);
 	}	
     }
     

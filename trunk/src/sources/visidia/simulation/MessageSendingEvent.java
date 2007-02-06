@@ -12,7 +12,6 @@ public class MessageSendingEvent implements SimulEvent {
 	 */
 	private static final long serialVersionUID = 3338643625856936387L;
 	private long evtNum;
-    private String msg;
     protected Integer srcId = null;
     protected Integer destId = null;
     protected Message message;
@@ -22,26 +21,26 @@ public class MessageSendingEvent implements SimulEvent {
      * packet <i>mesgPacket</i> sur le réseau de simulation.
      */
     public MessageSendingEvent(Long eventNumber, Message message, Integer senderId, Integer receiverId){
-	srcId = new Integer(senderId.intValue());
-	destId = new Integer( receiverId.intValue());
-	evtNum = eventNumber.longValue();
+	this.srcId = new Integer(senderId.intValue());
+	this.destId = new Integer( receiverId.intValue());
+	this.evtNum = eventNumber.longValue();
 	//this.msg = message.toString();
 	this.message = message;
     }
     
     public Integer sender(){
-	return srcId;
+	return this.srcId;
     }
  
     public Integer receiver(){
-	return destId;
+	return this.destId;
     }
 
     /**
      * donne le numero de l'évènement.
      */
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**
@@ -56,7 +55,7 @@ public class MessageSendingEvent implements SimulEvent {
      * retourme le message envoyé
      */
     public Message message(){
-	return message;
+	return this.message;
     }
 }
 

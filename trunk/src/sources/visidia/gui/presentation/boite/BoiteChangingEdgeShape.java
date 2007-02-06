@@ -49,18 +49,18 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
 	// fill the vectors for changing the factories
     	try{
     
-    	File factoryDirectory = new File(factoryPath);
+    	File factoryDirectory = new File(this.factoryPath);
     	String[] listOfFiles = factoryDirectory.list();
-    	Class fabriqueArete = Class.forName(factoryPointPath+interfaceFactoryName);
+    	Class fabriqueArete = Class.forName(this.factoryPointPath+this.interfaceFactoryName);
     	for (String element : listOfFiles)
-			if (accept(element)){ // we keep only .class files
-				if (element.equals(interfaceFactoryName+".class")) continue; // don't keep interface
-				Class factFile = Class.forName(factoryPointPath+nameWithoutExtension(element));
+			if (this.accept(element)){ // we keep only .class files
+				if (element.equals(this.interfaceFactoryName+".class")) continue; // don't keep interface
+				Class factFile = Class.forName(this.factoryPointPath+this.nameWithoutExtension(element));
 				if (fabriqueArete.isAssignableFrom(factFile)) 
 				{
 				   FabriqueArete ourFactory = (FabriqueArete)factFile.newInstance();	
-				   edgesNames.add(index,ourFactory.description());
-				   edgesFactories.add(index,ourFactory);
+				   this.edgesNames.add(index,ourFactory.description());
+				   this.edgesFactories.add(index,ourFactory);
 				   index ++;
 				}
     }
@@ -73,17 +73,17 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
 	// on regarde la fabrique utilisée pour donner la bonne valeur
 	// par défaut
 	index = 0;
-	for (int j=0;j<edgesNames.size();j++)
-		if (((String)edgesNames.elementAt(j)).equals(vueGraphe.getFabriqueArete().description())) 
+	for (int j=0;j<this.edgesNames.size();j++)
+		if (((String)this.edgesNames.elementAt(j)).equals(this.vueGraphe.getFabriqueArete().description())) 
 		    index = j;
 	
 
-	choix_type = ligne_choix(caracteristicsPane,
+	this.choix_type = this.ligne_choix(this.caracteristicsPane,
 				 "Edge shape :",
-				 edgesNames,
-				 est_editable,
-				 edgesNames.elementAt(index));
-	choix_type.addItemListener(this);
+				 this.edgesNames,
+				 this.est_editable,
+				 this.edgesNames.elementAt(index));
+	this.choix_type.addItemListener(this);
 	
     }
     
@@ -93,9 +93,9 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
     /** Cette méthode est appelée si l'utilisateur choisit une
      * nouvelle forme grace à la liste de choix.*/
     public void itemStateChanged(ItemEvent evt) {
-	if(evt.getSource() == choix_type) {
-	    chgtForme = choix_type.getSelectedIndex();
-	    elementModified();
+	if(evt.getSource() == this.choix_type) {
+	    this.chgtForme = this.choix_type.getSelectedIndex();
+	    this.elementModified();
 	}
     }
 
@@ -108,10 +108,10 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
    /** Cette methode est appelée quand l'utilisateur appuie sur le
     * bouton Ok */ 
     public void buttonOk() {
-	if (chgtForme != -1){
+	if (this.chgtForme != -1){
 	    try {
-		vueGraphe.changerFormeArete((FabriqueArete)edgesFactories.elementAt(chgtForme),((Editeur)parent).getUndoInfo());
-		((Editeur)parent).setUndo();
+		this.vueGraphe.changerFormeArete((FabriqueArete)this.edgesFactories.elementAt(this.chgtForme),((Editeur)this.parent).getUndoInfo());
+		((Editeur)this.parent).setUndo();
 	    } catch(Exception expt) {
 		System.out.println("Problem : " + expt);
 	    }

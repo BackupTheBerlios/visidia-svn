@@ -20,14 +20,14 @@ public class SynchroLC1 extends Algorithm {
 	    setState("perdu"); 
 	*/
 	while(true){
-	    setState("P"); 
-	    if( synchroEtoile() ){
-		setState("C");
+	    this.setState("P"); 
+	    if( this.synchroEtoile() ){
+		this.setState("C");
 		
-		int n = getArity();
+		int n = this.getArity();
 		
 		for( int door = 0; door < n; door++){
-		    setDoorState(new MarkedState(true),door);
+		    this.setDoorState(new MarkedState(true),door);
 		}
 		
 		try{
@@ -37,7 +37,7 @@ public class SynchroLC1 extends Algorithm {
 		}
 		
 		for( int door = 0; door < n; door++){
-		    setDoorState(new MarkedState(false),door);
+		    this.setDoorState(new MarkedState(false),door);
 		}
 	    }
 	    
@@ -49,20 +49,20 @@ public class SynchroLC1 extends Algorithm {
      * renvoie <code>true</code> si le noeud est centre d'une etoile
      */
     public boolean synchroEtoile(){
-	int arite = getArity() ;
+	int arite = this.getArity() ;
 	int[] answer = new int[arite] ;
 	
 	/*random */
 	int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
 	
 	/*Send to all neighbours */
-	for(int i=0; i< getArity(); i++){
-	sendTo(i,new IntegerMessage(new Integer(choosenNumber)));
+	for(int i=0; i< this.getArity(); i++){
+	this.sendTo(i,new IntegerMessage(new Integer(choosenNumber)));
 	}
 	//System.out.println( getId() + "nombre: "+choosenNumber);
 	/*receive all numbers from neighbours */
 	for( int i = 0; i < arite; i++){
-	    Message msg = receiveFrom(i);
+	    Message msg = this.receiveFrom(i);
 	    answer[i]= ((IntegerMessage)msg).value();
 	}
 	
@@ -78,11 +78,11 @@ public class SynchroLC1 extends Algorithm {
     }
 
     public String getState(){
-	return (String) getProperty("label");
+	return (String) this.getProperty("label");
     }
 
     public void setState(String newState){
-	putProperty("label", newState);
+	this.putProperty("label", newState);
     }
 
     public Object clone(){

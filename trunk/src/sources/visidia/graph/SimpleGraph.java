@@ -30,7 +30,7 @@ public class SimpleGraph implements Cloneable, Serializable{
     }
     
     public SimpleGraph(Hashtable defaultVertexValues) {
-	hash = new Hashtable();
+	this.hash = new Hashtable();
         this.defaultVertexValues = defaultVertexValues;
     }
 
@@ -42,26 +42,26 @@ public class SimpleGraph implements Cloneable, Serializable{
      */	
     public void put(Integer id){
 	//System.out.println(id);
-	if( contains(id) ){
+	if( this.contains(id) ){
 	    System.out.println(id);
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues, null ));
+        this.hash.put(id , new SimpleGraphVertex(id, this.defaultVertexValues, null ));
     }
 
     //xav
     public void put(Integer id, Hashtable properties){
-	if( contains(id) ){
+	if( this.contains(id) ){
 	    System.out.println(id);
 	    throw new AddIdTwiceException();
 	}
 	
-        hash.put(id , new SimpleGraphVertex(id, defaultVertexValues,properties));
+        this.hash.put(id , new SimpleGraphVertex(id, this.defaultVertexValues,properties));
     }
 
     public void setDefaultVertexProperties(Hashtable def) {
-        defaultVertexValues = def;
+        this.defaultVertexValues = def;
     }
 
     /**
@@ -70,7 +70,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      * <code>Vertex</code>.
      */	
     public Enumeration vertices(){
-	return hash.elements();
+	return this.hash.elements();
     }
     
     
@@ -79,7 +79,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      *Retourne le sommet correspondant à l'identité id.
      */	
     public Vertex vertex(Integer id){
-	Vertex v = getSimpleGraphVertex(id);
+	Vertex v = this.getSimpleGraphVertex(id);
 	
 	if( v == null ){
 	    throw new NoSuchIdException();
@@ -89,7 +89,7 @@ public class SimpleGraph implements Cloneable, Serializable{
     }
     
     public Vertex nextVertex(Integer id) {
-	Vertex v = vertex(vertex(id).getNext());
+	Vertex v = this.vertex(this.vertex(id).getNext());
 	return v;
     }
     
@@ -97,7 +97,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      * retourne le nombre de sommets du graphe.
      */	
     public int size(){
-	return hash.size();
+	return this.hash.size();
     }
     
     /**
@@ -110,8 +110,8 @@ public class SimpleGraph implements Cloneable, Serializable{
      * identifient le même sommet. 
      */	
     public void link(Integer id1, Integer id2){
-	SimpleGraphVertex sgv1 = getSimpleGraphVertex(id1);
-	SimpleGraphVertex sgv2 = getSimpleGraphVertex(id2);
+	SimpleGraphVertex sgv1 = this.getSimpleGraphVertex(id1);
+	SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
 	
 	SimpleGraphEdge edg_12 = new SimpleGraphEdge(this,sgv1, sgv2); // arete de sgv1 vers sgv2
 	SimpleGraphEdge edg_21 = new SimpleGraphEdge(this,sgv2, sgv1); // arete de sgv2 vers sgv1
@@ -122,22 +122,22 @@ public class SimpleGraph implements Cloneable, Serializable{
     /* nouvelle méthode pour positionner le suivant si l'arête est orienté*/
 
     public void orientedLink(Integer id1, Integer id2) {
-	link(id1, id2);
-	setNextVertex(id1,id2);
-	setPreviousVertex(id1, id2);
+	this.link(id1, id2);
+	this.setNextVertex(id1,id2);
+	this.setPreviousVertex(id1, id2);
     }
     /**
      *   positionne le suivant du sommet id1 à id2 
      */
 
     public void setNextVertex(Integer id1, Integer id2) {
-	Vertex sgv1 = vertex(id1);
+	Vertex sgv1 = this.vertex(id1);
 
 	sgv1.setNext(id2);
     }
     
     public void setPreviousVertex(Integer id1, Integer id2) {
-	Vertex sgv2 = vertex(id2);
+	Vertex sgv2 = this.vertex(id2);
 	sgv2.setPrevious(id1);
     }
     /**
@@ -150,7 +150,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      * <i>id1</i> et <i>id2</i>.
      */
     public Edge edge(Integer id1, Integer id2){
-	return vertex(id1).edge(id2);
+	return this.vertex(id1).edge(id2);
     }
     
     /**
@@ -164,12 +164,12 @@ public class SimpleGraph implements Cloneable, Serializable{
      *
      */	
     public void unlink(Integer id1, Integer id2){
-	if( ! areLinked(id1,id2) ){
+	if( ! this.areLinked(id1,id2) ){
 	    return; // si l'arête n'existe pas, ne rien faire.
 	}
 
-	SimpleGraphVertex sgv1 = getSimpleGraphVertex(id1);
-	SimpleGraphVertex sgv2 = getSimpleGraphVertex(id2);
+	SimpleGraphVertex sgv1 = this.getSimpleGraphVertex(id1);
+	SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
 	sgv1.removeNeighbour(sgv2);
 	sgv2.removeNeighbour(sgv1);
     }
@@ -184,8 +184,8 @@ public class SimpleGraph implements Cloneable, Serializable{
      * identifient le même sommet. 
      */
     public boolean areLinked(Integer id1, Integer id2){
-	Vertex v1 = vertex(id1);
-	Vertex v2 = vertex(id2);
+	Vertex v1 = this.vertex(id1);
+	Vertex v2 = this.vertex(id2);
 
 	if( id1.equals(id2) ){
 	    throw new CurlException();
@@ -202,7 +202,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      * contient pas un sommet identifiée par id.
      */	
     public void remove(Integer id){
-	SimpleGraphVertex sgv = getSimpleGraphVertex(id);
+	SimpleGraphVertex sgv = this.getSimpleGraphVertex(id);
 	Enumeration e = sgv.neighbours();
 	
 	/* supprime tous les arêtes sortants du sommet */
@@ -218,7 +218,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 
 	while( ! neighbStack.isEmpty() ){
 	    SimpleGraphVertex sgv1 = (SimpleGraphVertex) neighbStack.pop();
-	    unlink(sgv.identity(),sgv1.identity());
+	    this.unlink(sgv.identity(),sgv1.identity());
 	}
 	
 	/*
@@ -228,7 +228,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	  System.out.println("*********");
 	  }
 	*/	
-	hash.remove(sgv.identity());
+	this.hash.remove(sgv.identity());
     }
     
     
@@ -239,7 +239,7 @@ public class SimpleGraph implements Cloneable, Serializable{
      */	
     public boolean contains(Integer id){
 	try{
-	   getSimpleGraphVertex(id);
+	   this.getSimpleGraphVertex(id);
 	}
 	catch(NoSuchIdException e){
 	    return false;
@@ -255,7 +255,7 @@ public class SimpleGraph implements Cloneable, Serializable{
     private SimpleGraphVertex getSimpleGraphVertex(Integer id){
 
 
-	SimpleGraphVertex sgv = (SimpleGraphVertex) hash.get(id);
+	SimpleGraphVertex sgv = (SimpleGraphVertex) this.hash.get(id);
 	if(sgv == null){
 	    throw new NoSuchIdException();
 	}
@@ -272,7 +272,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	SimpleGraph sg = new SimpleGraph();
 	
 	/* clonage des somments */ 
-	Enumeration vEnum = vertices();
+	Enumeration vEnum = this.vertices();
 	while( vEnum.hasMoreElements() ){
 	    Vertex vtx = (Vertex) vEnum.nextElement();
 	    sg.put(vtx.identity());
@@ -282,7 +282,7 @@ public class SimpleGraph implements Cloneable, Serializable{
 	}
 	
 	/* clonage des arêtes entre les sommets */
-	vEnum = vertices();
+	vEnum = this.vertices();
 	while( vEnum.hasMoreElements() ){
 	    Vertex vtx = (Vertex) vEnum.nextElement();
 	    SimpleGraphVertex cloneVtx = (SimpleGraphVertex) sg.vertex(vtx.identity());
@@ -304,7 +304,7 @@ public class SimpleGraph implements Cloneable, Serializable{
     }
 
     public void print(){
-	Enumeration e = hash.elements();
+	Enumeration e = this.hash.elements();
 	while( e.hasMoreElements() ){
 	    SimpleGraphVertex sgv = (SimpleGraphVertex) e.nextElement();
 	    sgv.print();

@@ -41,13 +41,13 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * construct a new vertex in un_graphe
    **/
   public Sommet(Graphe un_graphe) {
-      graph = un_graphe;
+      this.graph = un_graphe;
     
-    position = graph.vertex.ajouterElement(this);
-    predecesseurs = new MultiEnsemble();
-    successeurs = new MultiEnsemble();
-    aretes_sortantes = new Ensemble();
-    aretes_entrantes = new Ensemble();
+    this.position = this.graph.vertex.ajouterElement(this);
+    this.predecesseurs = new MultiEnsemble();
+    this.successeurs = new MultiEnsemble();
+    this.aretes_sortantes = new Ensemble();
+    this.aretes_entrantes = new Ensemble();
   }
 
       
@@ -58,7 +58,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * THe new vertex hasn't got any incident edge
    **/
   public Object cloner() {
-      return cloner(graph);
+      return this.cloner(this.graph);
   }
   
 
@@ -78,7 +78,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
     }
     
   protected Object clone() {
-    return cloner();
+    return this.cloner();
   }
   
   // GraphObject method
@@ -87,7 +87,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * delete the vertex and its incidents edges
    **/
   public void supprimer() {
-      position.supprimerElement();
+      this.position.supprimerElement();
   }
   
   /**
@@ -95,7 +95,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * 
    **/
   public void ajouter() {
-     position = graph.vertex.ajouterElement(this);
+     this.position = this.graph.vertex.ajouterElement(this);
   }
   
 
@@ -103,57 +103,57 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * return the outcoming degree
    **/
   public int degreSortant() {
-    return aretes_sortantes.taille();
+    return this.aretes_sortantes.taille();
   }
 
   /**
    * return the incoming degree
    **/
   public int degreEntrant() {
-    return aretes_entrantes.taille();
+    return this.aretes_entrantes.taille();
   }
 
   /**
    * return the total degree
    **/
   public int degre() {
-    return (aretes_entrantes.taille() + aretes_sortantes.taille());
+    return (this.aretes_entrantes.taille() + this.aretes_sortantes.taille());
   }
 
   /**
    * determines the number of time un_sommet is successor of the current vertex
    **/
   public int aPourSuccesseur(Sommet un_sommet) {
-    return successeurs.cardinalite(un_sommet);
+    return this.successeurs.cardinalite(un_sommet);
   }
 
   /**
    * determines the number of time un_sommet is predecessor of the current vertex
    **/
   public int aPourPredecesseur(Sommet un_sommet) {
-    return predecesseurs.cardinalite(un_sommet);
+    return this.predecesseurs.cardinalite(un_sommet);
   }
 
   /**
    * determines the number of time un_sommet is neighbor of the current vertex
    **/
   public int aPourVoisin(Sommet un_sommet) {
-    return (successeurs.cardinalite(un_sommet) +
-            predecesseurs.cardinalite(un_sommet));
+    return (this.successeurs.cardinalite(un_sommet) +
+            this.predecesseurs.cardinalite(un_sommet));
   }
 
   /**
    * returns an enumeration of the successors
    **/
   public Enumeration successeurs() {
-    return successeurs.elements();
+    return this.successeurs.elements();
   }
 
   /**
    * returns an enumeration of the predecessors
    **/
   public Enumeration predecesseurs() {
-    return predecesseurs.elements();
+    return this.predecesseurs.elements();
   }
 
   /**
@@ -161,10 +161,10 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    **/
   public Enumeration sommetsVoisins() {
     // notes : we work here with Ensemble 
-    Ensemble e = predecesseurs.ensemble();
+    Ensemble e = this.predecesseurs.ensemble();
 
     // The union permit to delete duplicates
-    e.union(successeurs);
+    e.union(this.successeurs);
     return e.elements();
   }
 
@@ -172,24 +172,24 @@ public class Sommet extends ObjetGraphe implements Cloneable{
    * returns an enumeration of outcoming edges
    **/
   public Enumeration aretesSortantes() {
-    return aretes_sortantes.elements();
+    return this.aretes_sortantes.elements();
   }
 
   /**
    * returns an enumeration of incoming edges
    **/
   public Enumeration aretesEntrantes() {
-    return aretes_entrantes.elements();
+    return this.aretes_entrantes.elements();
   }
 
   /**
    * returns an enumeration of incident edges
    **/
   public Enumeration aretesIncidentes() {
-    Ensemble e = (Ensemble)aretes_entrantes.clone();
+    Ensemble e = (Ensemble)this.aretes_entrantes.clone();
 
     // The union permit to delete duplicates
-    e.union(aretes_sortantes);
+    e.union(this.aretes_sortantes);
     return e.elements();
   }
 
@@ -216,7 +216,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
     // recalculate position of all incident edges
 
     public void repositionnerAretes(){
-	Enumeration e = aretesIncidentes();
+	Enumeration e = this.aretesIncidentes();
 	while (e.hasMoreElements())
 	    {
 		Arete a_reposition = (Arete)e.nextElement();
@@ -227,11 +227,11 @@ public class Sommet extends ObjetGraphe implements Cloneable{
 
     // accessor and modificator to the associated sommetDessin
     public void setSommetDessin(SommetDessin a){
-	formeDessin = a;
+	this.formeDessin = a;
     }
 
     public SommetDessin getSommetDessin(){
-	return ((SommetDessin)formeDessin);
+	return ((SommetDessin)this.formeDessin);
     }
 }
 

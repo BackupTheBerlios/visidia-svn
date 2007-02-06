@@ -16,15 +16,15 @@ public class LabelChangeEvent implements SimulEvent {
     }
     
     public Integer vertexId(){
-	return vertexId;
+	return this.vertexId;
     }
  
     public String label(){
-	return label;
+	return this.label;
     }
 
     public Long eventNumber(){
-	return new Long(evtNum);
+	return new Long(this.evtNum);
     }
    
     /**

@@ -24,7 +24,7 @@ public class Rule implements Serializable {
     */ 
     public Rule(){
 	this(new Star(), new Star(), new MyVector());
-	type = SynCT.GENERIC;
+	this.type = SynCT.GENERIC;
     }
 
     
@@ -43,10 +43,10 @@ public class Rule implements Serializable {
     * @param fc a MyVector of forbidden contexts.
     */  
     public Rule(Star b, Star a, MyVector fc){
-	befor = b;
-	after = a;
-	forbContexts = fc;
-	simpleRule = false;
+	this.befor = b;
+	this.after = a;
+	this.forbContexts = fc;
+	this.simpleRule = false;
     }
     
 
@@ -54,7 +54,7 @@ public class Rule implements Serializable {
      *return the star befor
      */
     public Star befor(){
-	return befor;
+	return this.befor;
     }
     
 
@@ -63,7 +63,7 @@ public class Rule implements Serializable {
      *return the star after.
      */
     public Star after(){
-	return after;
+	return this.after;
     }
     
 
@@ -72,7 +72,7 @@ public class Rule implements Serializable {
      *return the MyVector of forbidden contexts.
      */
     public MyVector forbContexts(){
-	return forbContexts;
+	return this.forbContexts;
     }
 
 
@@ -90,7 +90,7 @@ public class Rule implements Serializable {
 
     public String toString()
 	{
-	    return "\n<Rule>=\n  Bef= "+befor.toString()+"\n"+"  Aft= "+after.toString()+" \n  <Forbidden>"+forbContexts.toString()+"<End of Forbidden>\n<End of Rule>}";
+	    return "\n<Rule>=\n  Bef= "+this.befor.toString()+"\n"+"  Aft= "+this.after.toString()+" \n  <Forbidden>"+this.forbContexts.toString()+"<End of Forbidden>\n<End of Rule>}";
 	}
     
 
@@ -100,7 +100,7 @@ public class Rule implements Serializable {
      * no verification is done.
      */
     public void setType(int t){
-	type = t;
+	this.type = t;
     }
     
 
@@ -111,7 +111,7 @@ public class Rule implements Serializable {
      */
 
    public int getType(){
-	return type;
+	return this.type;
     }
 
 
@@ -119,7 +119,7 @@ public class Rule implements Serializable {
     * return true if the rule is simple, false otherweise. 
     */
     public boolean isSimpleRule() {
-	return simpleRule;
+	return this.simpleRule;
     }
     
 
@@ -127,7 +127,7 @@ public class Rule implements Serializable {
      * sets the kind of rule, tue if simple, false if not simple.
      */
     public void setSimpleRule(boolean b) {
-	simpleRule = b;
+	this.simpleRule = b;
     }
     
 
@@ -161,8 +161,8 @@ public class Rule implements Serializable {
 	    rdvposs = false;
 	}
 	
-	Star a =(Star) befor.clone();
-	Star b =(Star) after.clone();
+	Star a =(Star) this.befor.clone();
+	Star b =(Star) this.after.clone();
 	a.setCenterState(b.centerState());
 	if(! a.containsLabels(b))//in fact it tests equality
 	    {
@@ -192,12 +192,12 @@ public class Rule implements Serializable {
 	int l=0;
 	boolean boucle = true;
 	Star context = new Star();
-	Star s = (Star)befor.clone();
+	Star s = (Star)this.befor.clone();
 	if (neighbourhood.contains(s)){
 	    /* if rule contexte is convenable */
-	    if(withForbContexts()){
+	    if(this.withForbContexts()){
 		/* testing forbidden contexts */
-		MyVector v = new MyVector(forbContexts());
+		MyVector v = new MyVector(this.forbContexts());
 		boucle = true;
 		l=0;
 		Star n = new Star();
@@ -247,14 +247,14 @@ public class Rule implements Serializable {
     public Rule inverseSimpleRule(){
 	Star b;
 	Star a;
-	Neighbour nb = befor.neighbour(0);
-	Neighbour na = after.neighbour(0);
+	Neighbour nb = this.befor.neighbour(0);
+	Neighbour na = this.after.neighbour(0);
 	b = new Star(nb.state(), 1);
-	b.setState(0, new Neighbour(befor().centerState(), nb.mark(), nb.doorNum()));
+	b.setState(0, new Neighbour(this.befor().centerState(), nb.mark(), nb.doorNum()));
 	a = new Star(na.state(), 1);
-	a.setState(0, new Neighbour(after().centerState(), na.mark(), na.doorNum()));
-	Rule r = new Rule(b, a, (MyVector) forbContexts.clone()); 
-	r.setSimpleRule(isSimpleRule());
+	a.setState(0, new Neighbour(this.after().centerState(), na.mark(), na.doorNum()));
+	Rule r = new Rule(b, a, (MyVector) this.forbContexts.clone()); 
+	r.setSimpleRule(this.isSimpleRule());
 	return r;
     }
 
@@ -267,10 +267,10 @@ public class Rule implements Serializable {
 	Rule r = new Rule();
 	r.befor =(Star) this.befor.clone();
 	r.after =(Star) this.after.clone();
-	r.forbContexts = new MyVector(forbContexts.size());
-	r.forbContexts.addAll( (Collection)forbContexts.clone());
+	r.forbContexts = new MyVector(this.forbContexts.size());
+	r.forbContexts.addAll( (Collection)this.forbContexts.clone());
 	r.type = this.type;
-	r.setSimpleRule(isSimpleRule());
+	r.setSimpleRule(this.isSimpleRule());
 	return r;
     }
 
