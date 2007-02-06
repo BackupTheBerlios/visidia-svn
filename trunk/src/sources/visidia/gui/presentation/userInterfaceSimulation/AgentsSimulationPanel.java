@@ -11,7 +11,11 @@ import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
 public class AgentsSimulationPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     
-    /** Couleur de fond par defaut du grapheVisuPanel **/
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6633924693735717321L;
+	/** Couleur de fond par defaut du grapheVisuPanel **/
     private AgentsSimulationWindow agentsSimulationWindow;
     protected FormeDessin objet_sous_souris ;
     protected int PAS_PAR_DEFAUT = 10 ; 
@@ -75,7 +79,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
 			return agentsSimulationWindow.getVueGraphe ();
 		    }
 		},
-	     (JPanel) this);
+	     this);
 
 	addMouseListener(selectionUnit);
 	addMouseListener(this);
@@ -83,7 +87,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener, Mou
 	addMouseMotionListener(this);
 	addKeyListener(this);
 
-	timer = new javax.swing.Timer(30,(ActionListener)this);
+	timer = new javax.swing.Timer(30,this);
 	setBackground(new Color(0xe6e6fa));
     }
 

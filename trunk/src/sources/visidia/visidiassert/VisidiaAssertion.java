@@ -26,7 +26,12 @@ public class VisidiaAssertion
 
 class AssertionException extends RuntimeException
 {
-  AssertionException() 
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4526896685514647211L;
+
+AssertionException() 
   {
     super("Assertion Failed");
   }

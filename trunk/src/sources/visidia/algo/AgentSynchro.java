@@ -103,7 +103,6 @@ public class AgentSynchro extends Algorithm {
 		*/
 		for( int i = 0; i < arite; i++){
 		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
-		    IntegerMessage smsg = (IntegerMessage) msg;
 		}
 		
 		
@@ -207,7 +206,6 @@ public class AgentSynchro extends Algorithm {
 		// symetriquement je recoit les reponse
 		for( int i = 0; i < arite; i++){
 		    Message msg = receiveFrom(i,new IntegerMessageCriterion());
-		    IntegerMessage smsg = (IntegerMessage) msg;
 		}
 		
 		// j'envoi 0

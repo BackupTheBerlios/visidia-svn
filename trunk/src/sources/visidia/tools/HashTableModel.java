@@ -9,7 +9,11 @@ import javax.swing.table.AbstractTableModel;
 
 public class HashTableModel extends AbstractTableModel {
 
-    protected Map table = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9162551228717994603L;
+	protected Map table = null;
     protected List keys = null;
 
     public HashTableModel(Map table){

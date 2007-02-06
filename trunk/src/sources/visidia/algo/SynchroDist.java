@@ -50,7 +50,7 @@ public class SynchroDist extends Algorithm {
         
 	label=new String[getArity()];
 		
-	if (((Integer)getId()).intValue()==0) {
+	if ((getId()).intValue()==0) {
 	    myL=nodeA;
 	    mySynchro=1;
 	    myState=new String("A,1");

@@ -197,7 +197,6 @@ public class AgentSynchroLC1 extends Algorithm {
 		// symetriquement je recoit les reponses
 		for( int i = 0; i < arite; i++){
 		    Message msg = receiveFrom(i);
-		    IntegerMessage smsg = (IntegerMessage) msg;
 		}
 		
 		// j'envoi 0

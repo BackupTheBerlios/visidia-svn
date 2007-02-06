@@ -6,7 +6,12 @@ import visidia.gui.metier.*;
 
 public class FabriqueSommetCircle implements FabriqueSommet, Serializable{
  
-    public SommetDessin creerSommet(VueGraphe vg, int x, int y, String label, Sommet s){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1074778465194624421L;
+
+	public SommetDessin creerSommet(VueGraphe vg, int x, int y, String label, Sommet s){
 	return new SommetCircle(vg,x,y,label,s);
     }
 

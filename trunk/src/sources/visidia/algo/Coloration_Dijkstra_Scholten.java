@@ -73,7 +73,7 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
                         label[i]=new String(neighbours[i].substring(0,1));
                         labelD[i]=new String(neighbours[i].substring(2,3));
                         aP[i]=new String(neighbours[i].substring(4,6));
-                        sc[i]=((Integer) new Integer(neighbours[i].substring(7))).intValue();
+                        sc[i]=(new Integer(neighbours[i].substring(7))).intValue();
                         if (labelD[i].compareTo("N")==0)
                             existN=i;
                         //System.out.println(neighbours[i]+" = "+label[i]+","+labelD[i]+","+aP[i]);

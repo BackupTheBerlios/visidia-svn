@@ -8,7 +8,11 @@ import java.util.*;
  * a double column table model.
  */ 
 public class PropertyTableModel extends AbstractPropertyTableModel {
-    protected Hashtable defProps = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2784104113451989507L;
+	protected Hashtable defProps = null;
     
     
     /**

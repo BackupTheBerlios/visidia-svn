@@ -260,7 +260,7 @@ public abstract class Algorithm implements Runnable,Cloneable
 	    setSynob((SynObject) a.synob().clone());
 	if(a.synal() != null){
 	    AbSynAlgo syn = (AbSynAlgo) a.synal().clone();
-	    syn.setSynob((SynObject) synob());
+	    syn.setSynob(synob());
 	    setSynal( syn );
 	   
 	}

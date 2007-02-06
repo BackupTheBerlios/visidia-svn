@@ -142,7 +142,7 @@ public abstract class SommetDessin extends FormeDessin {
 	this.uneImage=s.getImage();
 	this.monEtiquette=s.getEtiquette();
 	stateTable.put("label",s.getEtat());
-	super.copyAllVariable((FormeDessin)s);
+	super.copyAllVariable(s);
     }
     
 

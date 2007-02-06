@@ -7,7 +7,11 @@ import visidia.gui.presentation.*;
 
 public class DeselectFormeDessin implements UndoObject {
     
-  protected SelectionDessin selection;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2787468975690725741L;
+protected SelectionDessin selection;
   protected FormeDessin forme;
 
   /** Construit une nouvelle forme correspondant a la deselection de

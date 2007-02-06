@@ -12,7 +12,11 @@ import visidia.gui.presentation.*;
 public class Graphe implements Serializable {
   // Instance variables
 
-  /** Vertex of the graph. **/
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7542819897827124594L;
+/** Vertex of the graph. **/
   protected Monde vertex;
   /** edges of the graph. **/
   protected Monde edges;

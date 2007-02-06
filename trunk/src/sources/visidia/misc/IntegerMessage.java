@@ -7,6 +7,10 @@ package visidia.misc;
 public class IntegerMessage extends Message{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1057512822477806803L;
+	/**
      * the message data
      **/
     

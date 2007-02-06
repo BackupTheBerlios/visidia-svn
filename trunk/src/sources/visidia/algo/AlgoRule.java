@@ -57,7 +57,7 @@ public class AlgoRule extends SynchroAlgo {
 			SimpleRule r = (SimpleRule) rule.elementAt(i);
 			    
 			if( r.isApplicable(a)){
-			    after =(Arrow) r.apply(a);
+			    after =r.apply(a);
 				//marquage de l arete
 			    if(marquage[neighbour] == false)
 				marquage[neighbour] = after.isMarked;

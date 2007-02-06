@@ -13,7 +13,11 @@ import visidia.tools.LocalNodeTable;
 
 
 public class VisidiaRegistryImpl extends UnicastRemoteObject implements VisidiaRegistry {
-    private FenetreDeSimulationDist parent;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5861826658680264074L;
+	private FenetreDeSimulationDist parent;
     //private LocalNodeSelection lns;
     private Vector data;
     public VisidiaRegistryImpl(FenetreDeSimulationDist parent) throws RemoteException {
@@ -70,7 +74,11 @@ public class VisidiaRegistryImpl extends UnicastRemoteObject implements VisidiaR
 }
 
 class LocalNodeSelection extends JFrame implements ActionListener {
-    private JPanel mainPanel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4575074465934081038L;
+	private JPanel mainPanel;
     private JToolBar toolBar;
     private JButton refresh, apply, cancel, selectAll, deselectAll, delete;
     private JTextField visuHost, visuUrl;
@@ -308,7 +316,11 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 }
 
 class TableModel extends AbstractTableModel {
-    Vector data, columnNames;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2939182826721062106L;
+	Vector data, columnNames;
     public TableModel() {
 	//Vector tmp = new Vector();
 	data = new Vector();

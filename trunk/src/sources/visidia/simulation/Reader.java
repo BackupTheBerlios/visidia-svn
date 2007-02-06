@@ -85,7 +85,7 @@ public class Reader implements Runnable, Cloneable {
 		if ((position = contains(ackRcv, (Element) messages.elementAt(0))) == -1)
 		    while ((position = contains(ackRcv, (Element) messages.elementAt(0))) == -1) {
 			try {
-			    ackRcv.add((SimulAck) ackOut.get());
+			    ackRcv.add(ackOut.get());
 			}
 			catch (InterruptedException e) {
 			    //			    e.printStackTrace();

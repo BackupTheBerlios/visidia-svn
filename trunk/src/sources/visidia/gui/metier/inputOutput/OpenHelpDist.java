@@ -19,7 +19,11 @@ import java.io.*;
  */
 public class OpenHelpDist extends JDialog implements ActionListener, WindowListener {
 
-    private JEditorPane helpLocalNode = new JEditorPane();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8528289126080696814L;
+	private JEditorPane helpLocalNode = new JEditorPane();
     private JEditorPane helpNodeLocation = new JEditorPane();
     private JEditorPane helpRegistry = new JEditorPane();
     private JButton buttonOk = new JButton("Ok");

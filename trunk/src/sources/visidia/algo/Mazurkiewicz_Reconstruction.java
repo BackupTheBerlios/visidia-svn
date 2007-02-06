@@ -88,7 +88,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
                     
                     Message newName = receiveFrom(synchro);
                     node.changeNeighbours(((VectorMessage)newName).data());
-                    putProperty("My Neighbours", (Vector) node.neighbour());
+                    putProperty("My Neighbours", node.neighbour());
                     receiveKnowledge(node,synchro);
                     changeTable(node);
                 }
@@ -267,7 +267,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         intVec.add(new Integer(num));
         if (vec!=null) {
             for (int i=0;i<vec.size();i++)
-                intVec.add((Integer)vec.elementAt(i));
+                intVec.add(vec.elementAt(i));
             
         }
         return intVec;

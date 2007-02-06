@@ -96,7 +96,7 @@ public class Traitements {
 	Enumeration e = sommetDessin(v_enum);
 	if(e.hasMoreElements()) {
 	    SommetDessin sommet_courant = (SommetDessin)e.nextElement();
-	    VueGraphe un_graphe = (VueGraphe)sommet_courant.getVueGraphe();
+	    VueGraphe un_graphe = sommet_courant.getVueGraphe();
 	  
 	    Vector sommets_deja_traites = new Vector();
 	    sommets_deja_traites.addElement(sommet_courant);
@@ -171,7 +171,7 @@ public class Traitements {
 		    selection_clones.inserer(destination_clone);
 		}
 	 
-		selection_clones.inserer((AreteDessin)arete_courante.cloner(origine_clone,
+		selection_clones.inserer(arete_courante.cloner(origine_clone,
 									    destination_clone));
 	    }
 	}

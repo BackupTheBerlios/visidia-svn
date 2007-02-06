@@ -15,6 +15,11 @@ public class MultiEnsemble extends Ensemble {
     // Constructeurs.
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6429889527647953311L;
+
+	/**
      * Crée un MultiEnsemble vide.
      **/
     public MultiEnsemble() {
@@ -122,7 +127,11 @@ class MECompteur implements Cloneable ,Serializable{
 
     // Variable d'instance.
 
-    int i;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -685397766371649858L;
+	int i;
 
     // Constructeurs.
 

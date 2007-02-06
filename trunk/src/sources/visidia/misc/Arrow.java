@@ -5,6 +5,11 @@ import java.io.*;
 
 public class Arrow implements Serializable {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2971140425366521313L;
+
+	/**
      * label du premier noeud
      */
     public String left;   //label du premier noeud

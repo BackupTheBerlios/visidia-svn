@@ -11,7 +11,12 @@ public class AreteSegment extends AreteDessin{
 
     // Constructeur
 
-    public AreteSegment(SommetDessin origine, SommetDessin destination, Arete arete){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8381095101692758367L;
+
+	public AreteSegment(SommetDessin origine, SommetDessin destination, Arete arete){
 	super(origine, destination, arete);
     }
 
@@ -41,7 +46,7 @@ public class AreteSegment extends AreteDessin{
     // method which copy all the variable from the AreteSegment given
     // in parameters
     public void copyAllVariable(AreteSegment a){
-	super.copyAllVariable((AreteDessin)a);}
+	super.copyAllVariable(a);}
 
     public String forme() {
 	return new String("Segment");

@@ -9,7 +9,11 @@ import java.io.Serializable;
  * @version 1.0
  */
 public class EdgeColorChangeAck implements  SimulAck, Serializable{
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8317862315314045332L;
+	private long num;
     
     public EdgeColorChangeAck(Long evtNumber){
 	num = evtNumber.longValue();

@@ -11,7 +11,11 @@ import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
 public class SimulationPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     
-    /** Couleur de fond par defaut du grapheVisuPanel **/
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4148068412265994572L;
+	/** Couleur de fond par defaut du grapheVisuPanel **/
     //private static final Color RECT_SELECTION_COULEUR = Color.gray;
 
     private FenetreDeSimulationDist fenetreDeSimulationDist;
@@ -70,7 +74,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 			 return fenetreDeSimulation.getVueGraphe ();
 		     }
 		 },
-	      (JPanel) this);
+	      this);
 
 	 addMouseListener(selectionUnit);
 	 addMouseListener(this);
@@ -78,7 +82,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	 addMouseMotionListener(this);
 	 addKeyListener(this);
 
-	 timer = new javax.swing.Timer(30,(ActionListener)this);
+	 timer = new javax.swing.Timer(30,this);
 	 setBackground(new Color(0xe6e6fa));
      }
 
@@ -108,7 +112,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 			 return fenetreDeSimulationDist.getVueGraphe ();
 		     }
 		 },
-	      (JPanel) this);
+	      this);
 
 	 addMouseListener(selectionUnit);
 	 addMouseListener(this);
@@ -116,7 +120,7 @@ public class SimulationPanel extends JPanel implements ActionListener, MouseList
 	 addMouseMotionListener(this);
 	 addKeyListener(this);
 
-	 timer = new javax.swing.Timer(30,(ActionListener)this);
+	 timer = new javax.swing.Timer(30,this);
 	 setBackground(new Color(0xe6e6fa));
      }
 

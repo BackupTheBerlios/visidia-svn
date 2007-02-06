@@ -45,7 +45,7 @@ public class AgentStats {
      * @param key The key given to seek in the Hashtable.
      */
     public void incrementStat(String key) {
-        incrementStat(key, (long)1);
+        incrementStat(key, 1);
     }
 
     /**

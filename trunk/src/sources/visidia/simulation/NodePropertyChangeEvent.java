@@ -9,7 +9,11 @@ import java.io.Serializable;
  * value. If value is <code>null</code> it notify a property removing.
  */
 public class NodePropertyChangeEvent implements SimulEvent, Serializable{
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8655624022076056400L;
+	private long evtNum;
     private Integer id = null;
     private Object key;
     private Object value;

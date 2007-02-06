@@ -14,6 +14,10 @@ public class Sommet extends ObjetGraphe implements Cloneable{
     /* instance variables */
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4199213725347995303L;
+/**
    * Set of vertices which are predecessors of this vertex
    * They are vertices at the other extremity of incoming edges
    **/

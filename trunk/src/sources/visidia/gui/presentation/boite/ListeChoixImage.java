@@ -7,7 +7,11 @@ import java.util.*;
 import visidia.gui.presentation.*;
 
 public class ListeChoixImage extends JPanel implements ListSelectionListener {
-    Ardoise ardoise ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6790781661435062052L;
+	Ardoise ardoise ;
     boolean imageChangee = false ;
     
     
@@ -72,7 +76,11 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
 
 class Ardoise extends JPanel 
 {
-    JLabel label = new JLabel("Choose the icon");	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1276808944927505243L;
+	JLabel label = new JLabel("Choose the icon");	
     ImageIcon image = null;
     
     Ardoise(ImageIcon une_image){

@@ -3,7 +3,11 @@ package visidia.graph;
 import java.io.*;
 
 class SimpleGraphEdge implements Edge, Serializable{
-    SimpleGraphVertex vtx1 = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1657052512457268915L;
+	SimpleGraphVertex vtx1 = null;
     SimpleGraphVertex vtx2 = null;
     SimpleGraph graph = null; // référence sur la structure mère.
 

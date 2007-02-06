@@ -17,7 +17,11 @@ import javax.swing.*;
 public class PulseButton extends JButton implements ActionListener, Serializable {
 
     
-    private PulseFrame pulseFrame;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1047302737303937239L;
+	private PulseFrame pulseFrame;
     private int pulseValue;
     
     private final ImageIcon globalClock = new ImageIcon(TableImages.getImage("globalClock"));
@@ -110,6 +114,10 @@ public class PulseButton extends JButton implements ActionListener, Serializable
 
     private class PulseFrame extends JFrame {
 
+	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1600670420358598702L;
 	private JLabel pulseLabel;
 
 	PulseFrame() {

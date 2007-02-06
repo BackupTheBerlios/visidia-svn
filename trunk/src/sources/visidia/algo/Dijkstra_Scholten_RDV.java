@@ -75,7 +75,7 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
             
             n_State=new String(neighbourValue.substring(0,1));
             n_AP=new String(neighbourValue.substring(2,4));
-            n_sc=((Integer) new Integer(neighbourValue.substring(5))).intValue();
+            n_sc=(new Integer(neighbourValue.substring(5))).intValue();
             
             if ((my_State.compareTo("N")==0) && (n_State.compareTo("N")!=0) &&
             (n_AP.compareTo(active)==0)) {

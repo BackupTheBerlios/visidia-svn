@@ -7,7 +7,11 @@ import java.io.Serializable;
 
 public class LocalNodeTable implements Serializable {
     
-    private Hashtable hash ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1212519964884224960L;
+	private Hashtable hash ;
     
     public LocalNodeTable() {
 	hash = new Hashtable();
@@ -49,7 +53,7 @@ public class LocalNodeTable implements Serializable {
 		    h.put(localNode,v);
 		} else {
 		    while (!nodes.isEmpty()) {
-			v.addElement((Integer)nodes.remove(0));
+			v.addElement(nodes.remove(0));
 			h.put(localNode,v);
 		    }
 		}
@@ -102,7 +106,7 @@ public class LocalNodeTable implements Serializable {
 		Vector v = (Vector)h.get(localNode);
 		if(!v.isEmpty()){
 		    for(int i=0;i<v.size();i++)
-			System.out.print((Integer)v.elementAt(i)+" | ");
+			System.out.print(v.elementAt(i)+" | ");
 		}
 		System.out.print("\n");
 	    }

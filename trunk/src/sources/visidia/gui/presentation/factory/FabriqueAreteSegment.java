@@ -6,7 +6,12 @@ import visidia.gui.metier.*;
 
 public class FabriqueAreteSegment implements FabriqueArete,Serializable{
 
-    public AreteDessin creerArete(SommetDessin origine, SommetDessin destination, Arete a){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7755370699313986823L;
+
+	public AreteDessin creerArete(SommetDessin origine, SommetDessin destination, Arete a){
 	return new AreteSegment(origine, destination,a);
     }
  

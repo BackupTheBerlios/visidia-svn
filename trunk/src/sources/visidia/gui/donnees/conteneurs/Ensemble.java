@@ -12,7 +12,11 @@ public class Ensemble implements Cloneable, Serializable {
 
     // Variables d'instance.
 
-    protected Hashtable table;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6607985791396815079L;
+	protected Hashtable table;
     
     // Constructeurs.
 

@@ -5,7 +5,11 @@ import java.io.Serializable;
  * this class contains of implementation concerning Termination 
  */ 
 public class SynObject_TERM extends SynObject  implements Serializable {
-    /**** Detection of Termination ****/
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4984757477713462925L;
+	/**** Detection of Termination ****/
     protected boolean finishedNode[];
     protected boolean globalEnd;
     protected boolean localEnd;

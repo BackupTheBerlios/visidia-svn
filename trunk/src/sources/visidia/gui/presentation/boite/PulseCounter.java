@@ -7,7 +7,11 @@ import javax.swing.*;
 
 public class PulseCounter extends JLabel implements ActionListener, Serializable {
 
-    int pulse;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8189330111132793753L;
+	int pulse;
     
     public PulseCounter() {
 	super();

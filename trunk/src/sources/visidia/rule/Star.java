@@ -10,7 +10,11 @@ import java.io.Serializable;
  */
 public class Star implements Serializable {
     
-    protected String centerState;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7349762522537418113L;
+	protected String centerState;
     protected MyVector neighbourhood;
     static String unknown = "UNKNOWN";
     /**
@@ -35,7 +39,7 @@ public class Star implements Serializable {
 	this.centerState = new String(s.centerState);
 	neighbourhood = new MyVector(arity);
 	for(i=0;i<arity;i++){
-	    neighbourhood.add((Neighbour)(s.neighbour(i)).clone());
+	    neighbourhood.add((s.neighbour(i)).clone());
 	}
 	
     }
@@ -234,7 +238,7 @@ public class Star implements Serializable {
     * @return the index of the element if found. -1 otherwoise.
     */    
     public int contains(Neighbour nei){
-	int i = neighbourhood.indexOf((Neighbour)nei);
+	int i = neighbourhood.indexOf(nei);
 	if(i > -1){
 	    nei.setDoorNum( ((Neighbour) neighbourhood.get(i)).doorNum());
 	}
@@ -251,7 +255,7 @@ public class Star implements Serializable {
     * @return the index of the element if found. -1 otherwoise.
     */    
     public int containsLabel(Neighbour nei){
-	int i = neighbourhood.indexOfLabel((Neighbour)nei);
+	int i = neighbourhood.indexOfLabel(nei);
 	if(i > -1){
 	}
 	return i;

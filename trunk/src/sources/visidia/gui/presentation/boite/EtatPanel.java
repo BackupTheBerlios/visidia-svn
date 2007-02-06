@@ -9,7 +9,11 @@ import java.util.*;
 
 public class EtatPanel extends JPanel implements ListSelectionListener {
     
-    EtatArdoise ardoise ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8519679276639218002L;
+	EtatArdoise ardoise ;
     boolean minimumSize = false;
     JList liste;
     Vector listeItems;
@@ -117,7 +121,11 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
 }
 
 class EtatArdoise extends JPanel {
-    VueEtatPanel parent;	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5030524169778288379L;
+	VueEtatPanel parent;	
     protected  String unEtat;
     Hashtable uneHashtable;
     //PFA2003

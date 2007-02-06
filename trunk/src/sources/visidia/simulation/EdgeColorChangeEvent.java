@@ -9,7 +9,11 @@ import java.io.Serializable;
  * @version 1.0
  */
 public class EdgeColorChangeEvent implements SimulEvent, Serializable {
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3113232314871301380L;
+	private long evtNum;
     private Integer id1 = null;
     private Integer id2 = null;
     private EdgeColor ec = null;

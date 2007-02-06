@@ -19,7 +19,12 @@ import visidia.gui.presentation.userInterfaceEdition.undo.*;
  **/
 public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
     
-    /** Couleur de fond par défaut du grapheVisuPanel **/
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6415374030017341894L;
+
+	/** Couleur de fond par défaut du grapheVisuPanel **/
     private static final Color RECT_SELECTION_COULEUR = Color.gray;
     
     /** L'éditeur auquel est associé le GrapheVisuPanel */
@@ -184,23 +189,23 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 		//autre arete a ete cree, mais si l'utilisateur boucle
 		//sur le meme sommet, ceci n'efface pas la
 		//pseudo-arete.
-		if (editeur.getVueGraphe().rechercherArete(((SommetDessin)ancien_sommet_sous_souris).getEtiquette(), ((SommetDessin)sommet_en_dessous).getEtiquette()) != null)
+		if (editeur.getVueGraphe().rechercherArete((ancien_sommet_sous_souris).getEtiquette(), (sommet_en_dessous).getEtiquette()) != null)
 		    {
-			editeur.getVueGraphe().delObject((AreteDessin)((editeur.getVueGraphe()).rechercherArete(((SommetDessin)ancien_sommet_sous_souris).getEtiquette(),((SommetDessin)sommet_en_dessous).getEtiquette())));
+			editeur.getVueGraphe().delObject(((editeur.getVueGraphe()).rechercherArete((ancien_sommet_sous_souris).getEtiquette(),(sommet_en_dessous).getEtiquette())));
 		    }
 		
 		//ww: ceci efface l'arete en cas de bouclage sur un meme sommet
-		if ((editeur.getVueGraphe().rechercherArete(((SommetDessin)ancien_sommet_sous_souris).getEtiquette(), (((SommetDessin)objet_sous_souris).getEtiquette())) != null)
-		    &&( ((SommetDessin)ancien_sommet_sous_souris).getEtiquette() == (((SommetDessin)sommet_en_dessous).getEtiquette())))
+		if ((editeur.getVueGraphe().rechercherArete((ancien_sommet_sous_souris).getEtiquette(), (((SommetDessin)objet_sous_souris).getEtiquette())) != null)
+		    &&( (ancien_sommet_sous_souris).getEtiquette() == ((sommet_en_dessous).getEtiquette())))
 		    {
-			editeur.getVueGraphe().delObject((AreteDessin)((editeur.getVueGraphe()).rechercherArete(((SommetDessin)ancien_sommet_sous_souris).getEtiquette(),
+			editeur.getVueGraphe().delObject(((editeur.getVueGraphe()).rechercherArete((ancien_sommet_sous_souris).getEtiquette(),
 														((SommetDessin)objet_sous_souris).getEtiquette())));
 		    }
 		//ww: end
 		
 		
 		sommet_en_dessous.fusionner((SommetDessin)objet_sous_souris);
-		editeur.undoInfo.removeObject((SommetDessin)drag_n_dropVertex);
+		editeur.undoInfo.removeObject(drag_n_dropVertex);
 		
 		
 		
@@ -643,7 +648,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
 	try {
  
 	    SommetDessin sommet_en_dessous =
-		(SommetDessin)editeur.getVueGraphe().sommet_en_dessous(x, y,
+		editeur.getVueGraphe().sommet_en_dessous(x, y,
 								       objet_sous_souris);
     
 

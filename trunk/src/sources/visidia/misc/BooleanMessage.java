@@ -4,7 +4,11 @@ package visidia.misc;
  * Message contenant un boolean.
  */
 public class BooleanMessage extends Message{
-    boolean data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4493274078199394719L;
+	boolean data;
     
     public BooleanMessage(boolean value){
 	this.data = value;

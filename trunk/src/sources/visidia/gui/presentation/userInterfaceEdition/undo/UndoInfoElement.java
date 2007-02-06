@@ -9,7 +9,12 @@ import java.util.*;
 
 public class UndoInfoElement extends Vector{
   
-  /** Une description de l'annulation de l'opération.*/
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4338558692800561187L;
+
+/** Une description de l'annulation de l'opération.*/
   protected String undoDescription;
 
   /** Une description de la restauration de l'opération.*/

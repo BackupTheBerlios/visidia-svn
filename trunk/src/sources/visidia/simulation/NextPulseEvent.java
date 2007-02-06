@@ -5,7 +5,11 @@ package visidia.simulation;
  * 
  */
 public class NextPulseEvent implements SimulEvent {
-    private int pulse;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8490569645856290450L;
+	private int pulse;
     private long evtNum;
  
     public NextPulseEvent(Long key, int pulse) {

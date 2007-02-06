@@ -9,7 +9,11 @@ import java.io.*;
  **/
 public class Position implements Serializable {
 
-  // Variables d'instance.
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3456322232125828473L;
+// Variables d'instance.
   /** Le monde auquel appartient cette position*/
   protected Monde un_monde;
   /** L'objet situe dans le monde a cette position.*/

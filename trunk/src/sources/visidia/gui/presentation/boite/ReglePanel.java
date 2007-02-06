@@ -8,6 +8,10 @@ import java.util.*;
 
 public class ReglePanel extends JPanel implements ListSelectionListener {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 495723337179334645L;
 BoutonArdoise ardoise ;
 
 public ReglePanel(Hashtable uneHashtable , BoiteChoix parent)
@@ -78,7 +82,11 @@ public BoutonArdoise ardoise(){
 
 class BoutonArdoise extends JPanel implements ActionListener
 {
-  BoiteChoix parent;	
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -795357913763859709L;
+BoiteChoix parent;	
   JButton boutonChoix;
   public String unEtat;
   Hashtable uneHashtable;	   

@@ -5,6 +5,11 @@ package visidia.graph;
  */
 public class AddIdTwiceException extends RuntimeException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -547698594941248545L;
+
+	/**
      * fait appel au constructeur <code>super()</code>
      */
     public AddIdTwiceException(){

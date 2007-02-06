@@ -117,7 +117,7 @@ public class AgentSimulator {
 			  Vector agentsRules,
                           VQueue evtVQ, VQueue ackVQ) {
 
-	graph = (SimpleGraph) netGraph;
+	graph = netGraph;
         stats = new Bag();
 
 	threadGroup = new SimulatorThreadGroup("simulator");

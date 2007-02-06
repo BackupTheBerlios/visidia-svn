@@ -6,7 +6,12 @@ import visidia.simulation.synchro.SynCT;
  */
 public class RSOptions implements Serializable {
     
-    protected int synAlgo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3641387447017521217L;
+
+	protected int synAlgo;
 
     public boolean manageTerm;
     /**

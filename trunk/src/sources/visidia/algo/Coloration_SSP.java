@@ -57,7 +57,7 @@ public class Coloration_SSP extends Algorithm {
                         
                         neighbours[i]=new String(label[i].substring(0,1));
                         v[i]=new String(label[i].substring(2,3));
-                        sc[i]=((Integer) new Integer(label[i].substring(4))).intValue();
+                        sc[i]=(new Integer(label[i].substring(4))).intValue();
                     }
                     else
                         sc[i]=getNetSize();

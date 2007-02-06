@@ -9,7 +9,11 @@ import java.io.Serializable;
  */
 public class Neighbour implements Serializable{
 
-    protected String state;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8368204779367407395L;
+	protected String state;
     protected boolean mark;
     protected int door;
     static String unknown ="UNKNOWN";

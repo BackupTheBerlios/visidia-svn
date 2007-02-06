@@ -12,6 +12,10 @@ import java.util.Vector;
 public class VectorMessage extends Message {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2731386216356349341L;
+	/**
      * the message data
      **/
     private Vector data;
@@ -30,7 +34,7 @@ public class VectorMessage extends Message {
     }
 
     public Object getData() {
-	return (Vector)data.clone();
+	return data.clone();
     }
 
 

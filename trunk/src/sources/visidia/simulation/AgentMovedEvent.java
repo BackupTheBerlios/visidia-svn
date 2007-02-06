@@ -1,7 +1,11 @@
 package visidia.simulation;
 
 public class AgentMovedEvent implements SimulEvent {
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7689039483254275033L;
+	private long evtNum;
     protected Integer vertexId = null;
     protected Integer nbrAg = null;
  

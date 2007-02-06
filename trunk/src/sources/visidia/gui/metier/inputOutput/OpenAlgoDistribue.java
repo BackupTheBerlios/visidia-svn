@@ -8,7 +8,12 @@ import visidia.simulation.*;
 
 public class OpenAlgoDistribue implements Serializable{
     
-    /** Open  ".class" file for a simulation algorithm 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1712679803851405143L;
+
+	/** Open  ".class" file for a simulation algorithm 
 	the algorithm is affected to all the vertices*/
     public static void open(FenetreDeSimulationDist fenetre){
 	File file_open = null; 

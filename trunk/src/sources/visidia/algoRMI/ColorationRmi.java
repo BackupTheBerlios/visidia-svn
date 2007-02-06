@@ -4,7 +4,11 @@ import visidia.misc.*;
 
 
 public class ColorationRmi extends AlgorithmDist {
-    final int starCenter=-1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7361958588127066919L;
+	final int starCenter=-1;
     final int notInTheStar=-2;
     
     public ColorationRmi() {

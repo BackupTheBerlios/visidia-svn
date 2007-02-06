@@ -77,8 +77,8 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	    double step = 2 * Math.PI / (vertexNumber - 1);
 	    for (int i = 1; i < vertexNumber; i++) {
 		SommetDessin s = getVertex("" + i);
-		int x = center.x + (int) (Math.sin(alpha) * (double) ray);
-		int y = center.y - (int) (Math.cos(alpha) * (double) ray);
+		int x = center.x + (int) (Math.sin(alpha) * ray);
+		int y = center.y - (int) (Math.cos(alpha) * ray);
 		s.placer(x, y);
 		alpha += step;
 	    }
@@ -93,8 +93,8 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 	int number = 1;
 	sommetC.setEtiquette("0");
 	for (alpha = 0.0; alpha < 2 * Math.PI - 0.2; alpha += 0.2) {
-	    int x = center.x + (int) (Math.sin(alpha) * (double) ray);
-	    int y = center.y - (int) (Math.cos(alpha) * (double) ray);
+	    int x = center.x + (int) (Math.sin(alpha) * ray);
+	    int y = center.y - (int) (Math.cos(alpha) * ray);
 	    try {
 		SommetDessin s2 = (SommetDessin) vg.en_dessous(x, y, s);
 		//System.out.println ("Sommet " + s2 
@@ -121,10 +121,10 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 				   + Math.pow (y - center.y, 2));
 	    if (Math.abs(r2 - ray) > 10) 
 		return null;
-	    return new Point ((int) (center.x + (double) (ray * (x - center.x)) 
-				     / (double) r2),
-			      (int) (center.y + (double) (ray * (y - center.y)) 
-				     / (double) r2));
+	    return new Point ((int) (center.x + (ray * (x - center.x)) 
+				     / r2),
+			      (int) (center.y + (ray * (y - center.y)) 
+				     / r2));
 	}
     }
     

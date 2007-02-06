@@ -37,7 +37,11 @@ class ThreadWriter extends Thread{
 
 class MyTableModel extends AbstractTableModel {
     
-    Vector data, columnNames;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5496722266864029765L;
+	Vector data, columnNames;
     Vector notEditable;
 
     public MyTableModel() {
@@ -161,7 +165,11 @@ class MyTableModel extends AbstractTableModel {
 
 public class LocalNodeLauncher extends JFrame implements ActionListener{
     
-    protected JPanel registryPanel, localNodesPanel, localNodesGroup, controlPanel, controlButton,  rmiRegistry, remoteRegistry;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7808189195838882926L;
+	protected JPanel registryPanel, localNodesPanel, localNodesGroup, controlPanel, controlButton,  rmiRegistry, remoteRegistry;
     protected JTabbedPane tabbedPane;
     protected JToolBar toolBar;
     protected JMenuItem new_launcher;

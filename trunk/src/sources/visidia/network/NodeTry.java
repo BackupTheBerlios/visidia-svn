@@ -22,7 +22,12 @@ import java.rmi.server.*;
  */
 public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 
-    public static final int THREAD_PRIORITY = 1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7271578304492672175L;
+
+	public static final int THREAD_PRIORITY = 1;
     
     /** this contains the neighbor of the current node
      */

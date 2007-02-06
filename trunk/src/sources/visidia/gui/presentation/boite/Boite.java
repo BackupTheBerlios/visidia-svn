@@ -10,7 +10,12 @@ import javax.swing.*;
 
 public class Boite extends JOptionPane {
   
-  /** La fenetre parente : la boite sera centrée par rapport à cette
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -347585734671706624L;
+
+/** La fenetre parente : la boite sera centrée par rapport à cette
    * fenêtre.
    **/
   protected JFrame parent;

@@ -11,7 +11,11 @@ import visidia.gui.presentation.userInterfaceSimulation.*;
 
 public class SaveRules extends JFileChooser {
  
-  public static FileOutputStream fos ;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3415679244766739558L;
+public static FileOutputStream fos ;
   public static ObjectOutputStream oos ;
 
     /** The parent window(from where the saving is called) */

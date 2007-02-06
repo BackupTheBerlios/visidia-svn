@@ -12,7 +12,12 @@ import visidia.gui.presentation.userInterfaceEdition.*;
 
 public class GMLParser extends JFileChooser implements ActionListener{
 
-  /** The parent window */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2571602695974514717L;
+
+/** The parent window */
   protected Fenetre parent;
 
   /** a "valid" file : with the good extension */

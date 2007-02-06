@@ -4,7 +4,11 @@ package visidia.misc;
  * Message contenant une chaine de caractere.
  */
 public class ArrowMessage extends Message{
-    Arrow data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7063097464935592651L;
+	Arrow data;
     
     public ArrowMessage(Arrow data){
 	this.data = data;

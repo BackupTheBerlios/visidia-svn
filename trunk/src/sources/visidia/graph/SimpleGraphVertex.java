@@ -14,7 +14,11 @@ import visidia.tools.agents.WhiteBoard;
 
 public class SimpleGraphVertex  implements Vertex,Serializable {
                             
-    //    StringNodeState nodeState ;// StringNodeState("passive");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6624280273922021818L;
+	//    StringNodeState nodeState ;// StringNodeState("passive");
     Integer id;
     Integer nextDoor;
     Integer previousDoor;

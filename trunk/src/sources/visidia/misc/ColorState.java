@@ -8,7 +8,11 @@ import java.awt.Color;
  */
 public class ColorState extends EdgeColor {
 
-    Color isColor;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5260797950185458080L;
+	Color isColor;
     
     public ColorState(Color c){
 	isColor = c;

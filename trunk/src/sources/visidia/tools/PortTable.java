@@ -6,7 +6,11 @@ import java.io.Serializable;
 
 
 public class PortTable implements Serializable {
-    private Hashtable hash;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 811580916355159223L;
+	private Hashtable hash;
     
     public PortTable() {
 	hash = new Hashtable();

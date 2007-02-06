@@ -54,7 +54,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
         name.add(getId());
         name.add(new Integer(nNode));
         
-        String disp=new String("(A , "+(Integer)name.elementAt(0)+")");
+        String disp=new String("(A , "+name.elementAt(0)+")");
         putProperty("label",new String(disp));
         
         while(run){
@@ -100,7 +100,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                     if ((((Integer)name.elementAt(1)).intValue()==nNode) &&
                     (neighbourX !=-1) && (! existHigher)) {
                         String display;
-                        display=new String("(M , "+(Integer)name.elementAt(0)+")");
+                        display=new String("(M , "+name.elementAt(0)+")");
                         putProperty("label",new String(display));
                         setDoorState(new MarkedState(true),neighbourX);
                         name.setElementAt(new Integer(mNode),1);
@@ -125,7 +125,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                         (neighbourM !=-1) && (! existHigher)) {
                             
                             String display;
-                            display=new String("(F , "+(Integer)name.elementAt(0)+")");
+                            display=new String("(F , "+name.elementAt(0)+")");
                             putProperty("label",new String(display));
                             name.setElementAt(new Integer(fNode),1);
                             
@@ -147,7 +147,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                             (existHigher)) {
                                 
                                 String display;
-                                display=new String("(N , "+(Integer)name.elementAt(0)+")");
+                                display=new String("(N , "+name.elementAt(0)+")");
                                 putProperty("label",new String(display));
                                 name.setElementAt(new Integer(nodeN),1);
                                 for (int door=0;door<getArity();door++)
@@ -184,7 +184,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                                 else
                                     nodes=new String("N");
                         
-                        display=new String("("+nodes+" , "+(Integer)name.elementAt(0)+")");
+                        display=new String("("+nodes+" , "+name.elementAt(0)+")");
                         putProperty("label",new String(display));
                         for (int door=0;door<getArity();door++)
                             if (neighboursLink[door]<((Integer)name.elementAt(0)).intValue())

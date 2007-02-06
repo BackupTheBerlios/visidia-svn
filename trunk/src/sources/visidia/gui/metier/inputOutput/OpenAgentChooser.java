@@ -10,7 +10,11 @@ import visidia.simulation.agents.AgentChooser;
 
 public class OpenAgentChooser implements Serializable{
 
-    protected static final String dir = new String("visidia/agents/agentchooser");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3894605768479026621L;
+	protected static final String dir = new String("visidia/agents/agentchooser");
     
     public static boolean open(AgentsSimulationWindow window){
 

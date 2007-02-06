@@ -6,7 +6,11 @@ import visidia.misc.*;
 import java.util.*;
 
 public class Election_Tree_RDV extends AlgorithmDist {
-    final int starCenter=-1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5279235279946080354L;
+	final int starCenter=-1;
     final int notInTheStar=-2;
     
     static MessageType synchronization = new MessageType("synchronization", false, java.awt.Color.blue);

@@ -8,7 +8,11 @@ import java.io.Serializable;
  * the current phase
  */
 public class NextPulseAck implements  SimulAck, Serializable{
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4361654914043148L;
+	private long num;
     
     public NextPulseAck(Long evtNumber){
 	num = evtNumber.longValue();

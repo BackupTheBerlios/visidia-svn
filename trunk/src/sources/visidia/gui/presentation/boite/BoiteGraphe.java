@@ -11,7 +11,11 @@ Elle permet aussi de les modifier.
 **/
 public class BoiteGraphe extends Boite implements ActionListener, ChangeListener {
 
-  /** Le bouton "Apply", qui permet d'appliquer les changements. */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2720159674297753898L;
+/** Le bouton "Apply", qui permet d'appliquer les changements. */
   protected JButton applyButton;
   /** Le bouton de choix de la couleur de fond.*/
   protected JButton colorChooserButton;

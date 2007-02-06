@@ -9,7 +9,11 @@ import visidia.misc.*;
  * en transite sur le réseaux.
  */
 public class MessagePacket implements Serializable {
-    protected Integer srcId = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1392322886326529909L;
+	protected Integer srcId = null;
     protected Integer destId = null;
     protected Message mesg = null;
     protected int srcDoor = -1;

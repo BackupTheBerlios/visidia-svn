@@ -10,7 +10,11 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
        R2:   (M,i)    --->   (F,i)  , (M,i)-0-(Y,j) [j!=i];(X,i)-1-(M,i)-1-(m,i)
      */
     
-    final private int starCenter=-1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7162975217549726934L;
+	final private int starCenter=-1;
     final private int notInTheStar=-2;
     final private int nNode=0;//new String("N");
     final private int mNode=1;//new String("M");
@@ -51,7 +55,7 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
         name.add(getId());
         name.add(new Integer(nNode));
         
-        String disp=new String("(A , "+(Integer)name.elementAt(0)+")");
+        String disp=new String("(A , "+name.elementAt(0)+")");
         putProperty("label",new String(disp));
         
         while(run){
@@ -99,7 +103,7 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
                                 setDoorState(new MarkedState(false),door);
                         
                         String display;
-                        display=new String("(A' , "+(Integer)name.elementAt(0)+")");
+                        display=new String("(A' , "+name.elementAt(0)+")");
                         putProperty("label",new String(display));
                         setDoorState(new MarkedState(true),neighbourX);
                         name.setElementAt(new Integer(mNode),1);
@@ -119,7 +123,7 @@ public class Spanning_Tree_ID_With_Termination extends AlgorithmDist {
                         (nbreNM <=1) && (! existLowerOrHigher)) {
                             
                             String display;
-                            display=new String("(F , "+(Integer)name.elementAt(0)+")");
+                            display=new String("(F , "+name.elementAt(0)+")");
                             putProperty("label",new String(display));
                             name.setElementAt(new Integer(fNode),1);
                             

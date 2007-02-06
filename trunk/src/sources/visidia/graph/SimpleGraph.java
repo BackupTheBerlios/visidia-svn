@@ -12,7 +12,12 @@ import java.io.*;
  * un nombre entier unique.
  */
 public class SimpleGraph implements Cloneable, Serializable{
-    /* liste des noeuds */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1354660264862506083L;
+
+	/* liste des noeuds */
     private Hashtable hash;
 
     private Hashtable defaultVertexValues = null;

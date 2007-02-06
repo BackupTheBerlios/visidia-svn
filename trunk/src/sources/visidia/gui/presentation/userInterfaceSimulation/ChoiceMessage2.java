@@ -11,7 +11,12 @@ import visidia.gui.metier.simulation.*;
 //visualize in the graphical interface.
 
 public class ChoiceMessage2 extends JMenu implements ActionListener {
-    /** the menu depend on the choice of algorithm which determine
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7647469778187700625L;
+
+	/** the menu depend on the choice of algorithm which determine
      * exactly the different types of messages exchanged */
     private AlgoChoice algoChoice;
     

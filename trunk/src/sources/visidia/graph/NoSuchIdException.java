@@ -5,6 +5,11 @@ package visidia.graph;
  */
 public class NoSuchIdException extends RuntimeException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9012640320210051671L;
+
+	/**
      * fait appel au constructeur <code>super()</code>
      */
     public  NoSuchIdException(){

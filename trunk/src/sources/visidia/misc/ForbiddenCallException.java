@@ -5,7 +5,12 @@
 package visidia.misc;
 
 public class ForbiddenCallException extends RuntimeException {
-    public ForbiddenCallException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3245989347901387131L;
+
+	public ForbiddenCallException() {
         super();
     }
 

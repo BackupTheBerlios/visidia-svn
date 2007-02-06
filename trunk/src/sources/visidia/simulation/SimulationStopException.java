@@ -5,4 +5,9 @@ package visidia.simulation;
  * onto the graph nodes.
  */
 public class SimulationStopException extends RuntimeException{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2586322360258974548L;
 }

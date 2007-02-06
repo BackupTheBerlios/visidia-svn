@@ -9,7 +9,11 @@ import visidia.simulation.agents.AbstractExperiment;
 
 public class OpenStats implements Serializable{
 
-    protected static final String dir = new String("visidia/agents/agentstats");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 100270009806589784L;
+	protected static final String dir = new String("visidia/agents/agentstats");
     
     public static AbstractExperiment open(AgentsSimulationWindow window){
 

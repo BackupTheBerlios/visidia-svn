@@ -88,7 +88,7 @@ public class Ricart_Agrawala_LC1_V2 extends Algorithm {
 		if (((Integer) synchro.elementAt(0)).intValue()==-1) {
 		    StringMessage nodeLabel = new StringMessage(new String(getProperty("label").toString()));
 		    String myLabelString = nodeLabel.data().substring(0,1);
-		    int myLabelInt = ((Integer)new Integer(nodeLabel.data().substring(2))).intValue();
+		    int myLabelInt = (new Integer(nodeLabel.data().substring(2))).intValue();
 		    
 		    boolean hungryResult=false;
 		    boolean hungryResult1=false;
@@ -96,7 +96,7 @@ public class Ricart_Agrawala_LC1_V2 extends Algorithm {
 		    for(int i=0;i<arity;i++){
 			String msg = ((StringMessage)receiveFrom(i)).data();
 			String neighLabelString = msg.substring(0,1);
-			int neighLabelInt = ((Integer)new Integer(msg.substring(2))).intValue();
+			int neighLabelInt = (new Integer(msg.substring(2))).intValue();
 			if(myLabelString.compareTo("H")==0){
 			    if(neighLabelString.compareTo("H")==0){
 				if(neighLabelInt <= myLabelInt){

@@ -7,7 +7,11 @@ import java.io.Serializable;
 //mod
 
 public class Rule implements Serializable {
-    protected Star befor = new Star();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 387411792480860560L;
+	protected Star befor = new Star();
     protected Star after = new Star();
     protected MyVector forbContexts;
     protected int type = SynCT.GENERIC; //normal rule (default)
@@ -193,7 +197,7 @@ public class Rule implements Serializable {
 	    /* if rule contexte is convenable */
 	    if(withForbContexts()){
 		/* testing forbidden contexts */
-		MyVector v = new MyVector((Collection) forbContexts());
+		MyVector v = new MyVector(forbContexts());
 		boucle = true;
 		l=0;
 		Star n = new Star();
@@ -325,7 +329,7 @@ public class Rule implements Serializable {
 	Star befor2 = new Star("M", 0);
 	after = new Star("F",0);
 	MyVector fc3 = new MyVector(3);
-	fc3.add((Star)befor.clone());// M--N
+	fc3.add(befor.clone());// M--N
 	Star c2 = new Star("M",2);
 	c2.setState(0,mt);
 	c2.setState(1,mt);

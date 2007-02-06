@@ -11,7 +11,11 @@ import visidia.gui.presentation.userInterfaceEdition.*;
 
 public class SaveTrace extends JFileChooser {
  
-    public static FileOutputStream fos ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -167911444910849830L;
+	public static FileOutputStream fos ;
     public static ObjectOutputStream oos ;
     
     /** The parent window(from where the saving is called) */
@@ -48,7 +52,6 @@ public class SaveTrace extends JFileChooser {
     /** this method permit to gave the file name given by the user
      * Here we deal with errors and warnings (existing files, extension errors ...) */
     public void approveSelection() {
-	boolean save = true;
 	File f = getSelectedFile();
 	String s = f.getName();
 	int i = s.lastIndexOf('.');
@@ -61,16 +64,13 @@ public class SaveTrace extends JFileChooser {
 					      "Warning", 
 					      JOptionPane.WARNING_MESSAGE);
 		setSelectedFile(validFile);
-		save = false;
 		
 	    } 	  
 	} else {
 	    if (i == -1) {
 		setSelectedFile(new File(path, s + ".trace"));
-		save = true;
 	    } else {
 		setSelectedFile(new File(path, s + "trace"));
-		save = true;
 	    }
 	}
 	

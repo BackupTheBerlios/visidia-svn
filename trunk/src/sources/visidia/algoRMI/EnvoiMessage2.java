@@ -4,7 +4,11 @@ import visidia.misc.*;
 
 public class EnvoiMessage2 extends AlgorithmDist {
     
-    static MessageType labels = new MessageType("labels", true);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8870220765335762542L;
+	static MessageType labels = new MessageType("labels", true);
     
     public EnvoiMessage2 () {
 	addMessageType(labels);

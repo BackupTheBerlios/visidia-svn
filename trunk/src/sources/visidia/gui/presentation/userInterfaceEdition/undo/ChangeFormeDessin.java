@@ -7,7 +7,11 @@ import visidia.gui.presentation.*;
 
 public class ChangeFormeDessin implements UndoObject {
     
-    protected FormeDessin ancienne_forme;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6627812271765512580L;
+	protected FormeDessin ancienne_forme;
     protected FormeDessin nouvelle_forme;
 
   /** Construit une nouvelle forme correspondant à la deselection de

@@ -8,7 +8,11 @@ import java.io.Serializable;
  * d'état d'un noeud.
  */
 public class EdgeStateChangeEvent implements SimulEvent, Serializable {
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7394109180688874206L;
+	private long evtNum;
     private Integer id1 = null;
     private Integer id2 = null;
     private EdgeState es = null;

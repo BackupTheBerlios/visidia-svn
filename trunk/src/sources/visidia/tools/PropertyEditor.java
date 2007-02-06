@@ -12,7 +12,12 @@ import visidia.gui.donnees.*;
  */
 public class PropertyEditor extends JTable {
 	
-    public static void main(String[] args){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8269361080781297274L;
+
+	public static void main(String[] args){
     	PropertyTableModel model = new PropertyTableModel(System.getProperties());
     	JTable table = new JTable();
     	table.setModel(model);

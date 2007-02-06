@@ -36,7 +36,7 @@ public class TableAlgoDistribue{
 	Vector result = new Vector();
 
 	while (e.hasMoreElements())
-	    result.add((String)e.nextElement());
+	    result.add(e.nextElement());
 	return result;
     }
     

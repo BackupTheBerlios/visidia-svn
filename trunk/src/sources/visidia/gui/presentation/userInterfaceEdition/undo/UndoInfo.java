@@ -8,7 +8,11 @@ import java.util.*;
 
 public class UndoInfo extends Vector {
   
-    /** L'index de l'operation courante. */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2426695505759586262L;
+	/** L'index de l'operation courante. */
     protected int curseur;
   
     /** Instancie un nouvel objet UndoInfo vide.*/

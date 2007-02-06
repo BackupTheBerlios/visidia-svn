@@ -32,7 +32,11 @@ import java.util.*;
 
 public class AgentExperimentationFrame extends JFrame implements ActionListener {
     
-    ReadOnlyHashTableModel tableModel;	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2305092931027145019L;
+	ReadOnlyHashTableModel tableModel;	
     private JTable resultTable;
     private JScrollPane scrollPane;
     
@@ -150,7 +154,12 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 
 class ReadOnlyHashTableModel extends HashTableModel {
     
-    public ReadOnlyHashTableModel(Bag table){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5417140615816465751L;
+
+	public ReadOnlyHashTableModel(Bag table){
         super(table.asHashTable());
     }
 

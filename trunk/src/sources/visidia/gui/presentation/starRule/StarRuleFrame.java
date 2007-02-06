@@ -15,7 +15,12 @@ import java.io.*;
 
 public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
     
-    JTabbedPane rule;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5246577019616997575L;
+
+	JTabbedPane rule;
 
     //Relabeling system options
     JCheckBoxMenuItem optionTermination;
@@ -415,7 +420,11 @@ interface RuleTabbedPaneControl {
  */
 class RulePane extends JPanel implements ContexTabbedPaneControl {
     
-    final public static int NOT_TERMINIATION_RULE = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3496858951253633705L;
+	final public static int NOT_TERMINIATION_RULE = 0;
     final public static int LOCAL_TERMINIATION_RULE = 1;
     final public static int GLOBAL_TERMINIATION_RULE = 2;
     final public static String TERMINATION[] = { "Not a termination rule",
@@ -637,7 +646,11 @@ class ConvertStarVueGraph {
  */
 class BuildRulePane extends JPanel {
 	
-    SommetDessin sommetCLeft, sommetCRight;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7494110680278206197L;
+	SommetDessin sommetCLeft, sommetCRight;
     Graphe gLeft, gRight;
     VueGraphe vgLeft, vgRight;
     Point centerLeft, centerRight;
@@ -908,7 +921,11 @@ interface ContexTabbedPaneControl {
  */
 class BuildContextPane extends JPanel {
     
-    Graphe g;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3926310804273678177L;
+	Graphe g;
     VueGraphe vg;
     Point center;
     SommetDessin sommetC;

@@ -7,7 +7,12 @@ import visidia.gui.metier.*;
 public class FabriqueAreteFleche implements FabriqueArete,Serializable{
 
  
-    public AreteDessin creerArete(SommetDessin origine, SommetDessin destination, Arete a){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 472048272251051733L;
+
+	public AreteDessin creerArete(SommetDessin origine, SommetDessin destination, Arete a){
 	return new AreteFlecheSimple(origine, destination, a);
     }
 

@@ -14,6 +14,10 @@ import java.util.*;
 public class FusionneSommet implements UndoObject {
     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4954444005187665753L;
+	/**
      *le sommet qui sera detruit par la fusion(le sommet qu'on deplace) 
      **/
     protected SommetDessin sommetDetruit;

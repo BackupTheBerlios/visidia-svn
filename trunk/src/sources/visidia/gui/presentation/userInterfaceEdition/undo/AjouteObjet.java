@@ -9,7 +9,11 @@ import visidia.gui.presentation.*;
 
 public class AjouteObjet implements UndoObject{
     
-  protected FormeDessin maForme;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7822557371002569458L;
+protected FormeDessin maForme;
   
     /** L'forme cree dans le graphe est passe en argument a ce constructeur.*/
   public AjouteObjet(FormeDessin forme) {

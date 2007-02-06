@@ -6,7 +6,11 @@ import java.io.Serializable;
  * used to handle the terination of the algorithm
  */
 public class AlgorithmEndAck implements  SimulAck, Serializable{
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6352831579822684755L;
+	private long num;
     
     public AlgorithmEndAck(Long evtNumber){
 	num = evtNumber.longValue();

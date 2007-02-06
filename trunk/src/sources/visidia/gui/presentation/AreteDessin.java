@@ -120,10 +120,10 @@ public abstract class AreteDessin extends FormeDessin{
 	int y1 = origine.centreY(),
 	    y2 = destination.centreY();
 	int dx = x2 - x1, dy = y2 - y1;
-	float dist = (float)Math.sqrt((double)(dx * dx + dy * dy));
+	float dist = (float)Math.sqrt((dx * dx + dy * dy));
 	
 	if(dist > 0) {
-	    float theta = (float)Math.atan2((double)dx, (double)dy);
+	    float theta = (float)Math.atan2(dx, dy);
 	    float r1 = origine.rayon(theta),
 		r2 = destination.rayon(theta + ((theta > 0) ? (-(float)Math.PI) : (float)Math.PI));
 	    
@@ -152,10 +152,10 @@ public abstract class AreteDessin extends FormeDessin{
 	int y2 = desty;
 	
 	int dx = x2 - x1, dy = y2 - y1;
-	float dist = (float)Math.sqrt((double)(dx * dx + dy * dy));
+	float dist = (float)Math.sqrt((dx * dx + dy * dy));
 	
 	if(dist > 0) {
-	    float theta = (float)Math.atan2((double)dx, (double)dy);
+	    float theta = (float)Math.atan2(dx, dy);
 	    float r1 = origine.rayon(theta);
 	    
 	    if(r1  < dist) {
@@ -177,10 +177,10 @@ public abstract class AreteDessin extends FormeDessin{
 	int y1 = origy;
 	int y2 = destination.centreY();
 	int dx = x2 - x1, dy = y2 - y1;
-	float dist = (float)Math.sqrt((double)(dx * dx + dy * dy));
+	float dist = (float)Math.sqrt((dx * dx + dy * dy));
 	
 	if(dist > 0) {
-	    float theta = (float)Math.atan2((double)dx, (double)dy);
+	    float theta = (float)Math.atan2(dx, dy);
 	    float r2 = destination.rayon(theta + ((theta > 0) ? (-(float)Math.PI) : (float)Math.PI));
 	    
 	    if(r2 < dist) {
@@ -350,7 +350,7 @@ public abstract class AreteDessin extends FormeDessin{
     // method which copy all the variable from the AreteDessin given in parameters
     public void copyAllVariable(AreteDessin s){
 	this.etatArete=s.getEtat();
-	super.copyAllVariable((FormeDessin)s);
+	super.copyAllVariable(s);
     }
 
     public int getId1() {

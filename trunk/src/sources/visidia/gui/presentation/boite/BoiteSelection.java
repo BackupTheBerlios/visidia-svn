@@ -9,7 +9,11 @@ import visidia.gui.donnees.conteneurs.*;
  * d'élements du graphe courant.*/
 public class BoiteSelection extends Boite {
   
-    //Editeur editeur;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2488576600196748587L;
+//Editeur editeur;
   MultiEnsemble table_types;
   int taille;
   

@@ -7,6 +7,10 @@ package visidia.misc;
 public class StringMessage extends Message{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6308012798229593782L;
+	/**
      * the message data
      */
     String data;

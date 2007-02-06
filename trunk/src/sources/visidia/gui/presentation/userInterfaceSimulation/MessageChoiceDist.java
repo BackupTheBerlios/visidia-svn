@@ -9,7 +9,11 @@ import visidia.misc.*;
 //visualize in the graphical interface.
 
 public class MessageChoiceDist  extends JMenu implements ActionListener {
-    protected FenetreDeSimulationDist fenetre;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2350765310064088725L;
+	protected FenetreDeSimulationDist fenetre;
     //private AlgoChoice algoChoice;
     // the menu depend on the choice of algorithm which determine 
     // exactly the different types of messages exchanged 

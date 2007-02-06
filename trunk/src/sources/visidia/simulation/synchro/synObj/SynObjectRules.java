@@ -10,7 +10,11 @@ import java.io.Serializable;
 
 public class SynObjectRules extends SynObject_TERM implements Serializable {
     
-    public Star neighbourhood = new Star();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5031963246959857749L;
+	public Star neighbourhood = new Star();
     
     /*  Basic */
     

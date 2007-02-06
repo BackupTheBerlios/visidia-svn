@@ -10,7 +10,12 @@ import visidia.gui.presentation.SommetDessin;
 
 public class OpenAlgo implements Serializable{
     
-    /** Open  ".class" file for a simulation algorithm 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 45214117913549595L;
+
+	/** Open  ".class" file for a simulation algorithm 
 	the algorithm is affected to all the vertices*/
   public static boolean open(FenetreDeSimulation fenetre){
       File file_open = null; 

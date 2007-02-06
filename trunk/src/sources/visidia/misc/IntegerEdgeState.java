@@ -5,7 +5,11 @@ package visidia.misc;
  *
  */
 public class IntegerEdgeState extends EdgeState{
-    private int val;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2403841400262546203L;
+	private int val;
 
     public IntegerEdgeState(int value){
 	val = value;

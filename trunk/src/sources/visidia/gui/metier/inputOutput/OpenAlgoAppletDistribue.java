@@ -8,7 +8,11 @@ import visidia.gui.donnees.TableAlgoDistribue;
 
 public class OpenAlgoAppletDistribue implements Serializable{
  
-    public static FenetreDeSimulationDist fenetre;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7091632679292105738L;
+	public static FenetreDeSimulationDist fenetre;
 
     /** 
      *

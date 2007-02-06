@@ -6,6 +6,11 @@ package visidia.graph;
  */
 public class CurlException extends RuntimeException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8440514127876429043L;
+
+	/**
      * fait appel au constructeur <code>super()</code>
      */
     public   CurlException(){

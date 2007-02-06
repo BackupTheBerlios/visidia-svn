@@ -7,7 +7,13 @@ import visidia.gui.metier.*;
 
 /** this class permit to Open saved rules from directories */
 public class OpenGraph implements Serializable{
-    /** open a file for graph in the current editor or simulator */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1396329325457601152L;
+
+
+	/** open a file for graph in the current editor or simulator */
     public static void open(Fenetre  fenetre){
 	
 	Graphe unGraphe;

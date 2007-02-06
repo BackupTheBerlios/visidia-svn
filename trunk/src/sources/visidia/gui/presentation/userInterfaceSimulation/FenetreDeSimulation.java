@@ -29,7 +29,11 @@ public class FenetreDeSimulation
     implements Serializable, ActionListener, WindowListener, ChangeListener,
 	       ApplyStarRulesSystem {
     
-    protected static final String GENERAL_TITLE = "Algroithm Simulator";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2200055017799019244L;
+	protected static final String GENERAL_TITLE = "Algroithm Simulator";
     protected String algoTitle;
     
     // instance of simulator for stop/pause/start actions

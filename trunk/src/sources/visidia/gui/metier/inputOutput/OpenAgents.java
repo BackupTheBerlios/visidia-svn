@@ -10,7 +10,11 @@ import visidia.gui.presentation.SommetDessin;
 
 public class OpenAgents implements Serializable{
 
-    protected static final String dir = new String("visidia/agents");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -271522070707209586L;
+	protected static final String dir = new String("visidia/agents");
     
     /** Open  ".class" file for agents simulation
 	agents are affected to chosen vertices*/

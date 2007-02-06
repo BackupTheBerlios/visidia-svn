@@ -9,7 +9,11 @@ public class Arete extends ObjetGraphe implements Cloneable{
 
   // instance variables
 
-    /** the vertex origin of the edge */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5170642963630514417L;
+	/** the vertex origin of the edge */
   protected Sommet origine;
     /** the vertex destination of the edge */
   protected Sommet destination;

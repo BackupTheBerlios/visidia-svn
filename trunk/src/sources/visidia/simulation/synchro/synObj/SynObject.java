@@ -13,7 +13,11 @@ import java.io.Serializable;
  */
 public class SynObject implements Serializable {
     
-    public Vector synDoors = new Vector();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8377178234063154445L;
+	public Vector synDoors = new Vector();
     protected boolean edgMark[];
     protected boolean connected[];
     protected Vector synchroCenters = new Vector();//for LC1

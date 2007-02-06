@@ -19,7 +19,12 @@ import java.rmi.server.*;
  */
 public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_Int {
     
-    /** The stubs of the graph nodes
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7826804063720647857L;
+
+	/** The stubs of the graph nodes
      */
     public Hashtable graphStub = new Hashtable();
 
@@ -128,7 +133,7 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 		Enumeration theNodes = tableStubTemp.keys();
 		while(theNodes.hasMoreElements()){
 		    String node = (String)theNodes.nextElement();
-		    graphStub.put(node,(NodeInterfaceTry)tableStubTemp.get(node));
+		    graphStub.put(node,tableStubTemp.get(node));
 		}
 	    }	
 	}
@@ -523,7 +528,7 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 			break;
 			
 		    case SimulConstants.EDGE_STATE_CHANGE:
-			handleEdgeStateChangeAck((EdgeStateChangeAck)simAck);
+			handleEdgeStateChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.MESSAGE_SENT :

@@ -10,7 +10,11 @@ public class AreteFlecheSimple extends AreteDessin{
     
     // Variables de classe.
     
-    static protected double angle_branches = 3e-1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6687178169548010643L;
+	static protected double angle_branches = 3e-1;
     static protected double longueur_branches = 20;
 
     // Variables d'instance.
@@ -35,7 +39,7 @@ public class AreteFlecheSimple extends AreteDessin{
 	if(recalculer_branche)
 	    recalculer_branche();
 	double theta =
-	    Math.atan2((double)(destx - origx), (double)(desty - origy));
+	    Math.atan2((destx - origx), (desty - origy));
 
 	double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
 	//	g.drawLine(destx, desty, branche1_x, branche1_y);
@@ -74,7 +78,7 @@ public class AreteFlecheSimple extends AreteDessin{
     
     protected void recalculer_branche() {
 	double theta =
-	    Math.atan2((double)(destx - origx), (double)(desty - origy));
+	    Math.atan2((destx - origx), (desty - origy));
 	double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
 	
 	branche1_x = destx -
@@ -107,7 +111,7 @@ public class AreteFlecheSimple extends AreteDessin{
     // method which copy all the variable from the AreteFlecheSimple
     // given in parameters
     public void copyAllVariable(AreteFlecheSimple a){
-	super.copyAllVariable((AreteDessin)a);}
+	super.copyAllVariable(a);}
 
 }
 

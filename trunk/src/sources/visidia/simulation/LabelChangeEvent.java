@@ -1,7 +1,11 @@
 package visidia.simulation;
 
 public class LabelChangeEvent implements SimulEvent {
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6194741554843059451L;
+	private long evtNum;
     protected Integer vertexId = null;
     protected String label;
  

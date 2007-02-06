@@ -12,7 +12,11 @@ import visidia.simulation.*;
 
 
 public class ExperimentationFrame extends JFrame implements ActionListener{
-    private JMenuBar menuBar;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2826405311778427198L;
+	private JMenuBar menuBar;
     private JMenu fileMenu;
     //	private JMenuItem openGraphMenuItem;
     private JMenuItem saveResultMenuItem;
@@ -434,7 +438,11 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 
 
 class ExperimentationResultTableModel extends AbstractTableModel {
-    private Vector lineVector = new Vector(10,10);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6346018981396430376L;
+	private Vector lineVector = new Vector(10,10);
 	
     public void addLine(){
 	lineVector.add(new Integer(0));

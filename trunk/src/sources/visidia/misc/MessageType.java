@@ -16,7 +16,12 @@ import java.io.Serializable;
  * by the algorithm and can choose to display them or not.
  */
 public class MessageType implements Serializable {
-    private static final Color defaultColor = Color.red;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2042628623618748495L;
+
+	private static final Color defaultColor = Color.red;
 
     private String typeName;
 

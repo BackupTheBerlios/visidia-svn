@@ -12,7 +12,11 @@ import visidia.gui.presentation.factory.*;
 /** Cette classe implemente la partie graphique d'un graphe. **/
 public class VueGraphe implements Serializable, RecoverableObject{
 
-  // Variable d'instance.
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3721389339401729554L;
+// Variable d'instance.
   protected boolean afficherEtiquettes;
   protected int numero_sommet;
   protected Font fontNormal;
@@ -185,7 +189,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	    f =((FormeDessin)objets_a_etudier.pop());
 	    
 	    if (f.type().equals("edge")){
-		liste_affichage.supprimer((AreteDessin)f);
+		liste_affichage.supprimer(f);
 		nouvelle_arete = fabriqueArete.creerArete(((AreteDessin)f).getArete().origine().getSommetDessin(),((AreteDessin)f).getArete().destination().getSommetDessin(),((AreteDessin)f).getArete());
 		nouvelle_arete.copyAllVariable((AreteDessin)f);
 		undoInfo.addInfo(new ChangeFormeDessin(f,nouvelle_arete));
@@ -212,7 +216,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	    f =((FormeDessin)objets_a_etudier.pop());
     
 	    if (f.type().equals("vertex")){
-		liste_affichage.supprimer((SommetDessin)f);
+		liste_affichage.supprimer(f);
 		nouveau_sommet = fabriqueSommet.creerSommet(this,((SommetDessin)f).centreX(),((SommetDessin)f).centreY(),((SommetDessin)f).getEtiquette(),((SommetDessin)f).getSommet());
 		nouveau_sommet.copyAllVariable((SommetDessin)f);
 		undoInfo.addInfo(new ChangeFormeDessin(f,nouveau_sommet));

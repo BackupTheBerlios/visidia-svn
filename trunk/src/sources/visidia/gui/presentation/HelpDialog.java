@@ -5,7 +5,11 @@ import javax.swing.*;
 
 public class HelpDialog extends JDialog {
 
-    JTextArea textArea;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8133682274589127227L;
+	JTextArea textArea;
     JFrame owner;
 
     public HelpDialog(JFrame parent, String title) {

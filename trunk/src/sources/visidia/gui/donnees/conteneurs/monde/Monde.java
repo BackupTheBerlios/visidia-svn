@@ -11,7 +11,12 @@ public class Monde implements Serializable {
 
   // Variables d'instance.
 
-  /** Le nombre d'éléments dans le monde.*/
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -788924626663627298L;
+
+/** Le nombre d'éléments dans le monde.*/
   protected int taille = 0;
     
   /** La position de l'élément courant dans le monde.  C'est en

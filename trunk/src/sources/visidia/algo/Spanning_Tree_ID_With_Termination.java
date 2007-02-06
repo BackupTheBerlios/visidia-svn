@@ -51,7 +51,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
         name.add(getId());
         name.add(new Integer(nNode));
         
-        String disp=new String("(A , "+(Integer)name.elementAt(0)+")");
+        String disp=new String("(A , "+name.elementAt(0)+")");
         putProperty("label",new String(disp));
         
         while(run){
@@ -101,7 +101,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
                                 setDoorState(new MarkedState(false),door);
                         
                         String display;
-                        display=new String("(A' , "+(Integer)name.elementAt(0)+")");
+                        display=new String("(A' , "+name.elementAt(0)+")");
                         putProperty("label",new String(display));
                         setDoorState(new MarkedState(true),neighbourX);
                         name.setElementAt(new Integer(mNode),1);
@@ -121,7 +121,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
                         (nbreNM <=1) && (! existLowerOrHigher)) {
                             
                             String display;
-                            display=new String("(F , "+(Integer)name.elementAt(0)+")");
+                            display=new String("(F , "+name.elementAt(0)+")");
                             putProperty("label",new String(display));
                             name.setElementAt(new Integer(fNode),1);
                             

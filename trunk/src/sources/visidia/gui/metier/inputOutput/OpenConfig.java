@@ -11,7 +11,11 @@ import visidia.tools.LocalNodeTable;
 
 
 public class OpenConfig implements Serializable{
-    private static final String DEFAULT_URL_FOR_VISU = "Simulator"; 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3396865071254228328L;
+	private static final String DEFAULT_URL_FOR_VISU = "Simulator"; 
     private Hashtable parameters = new Hashtable();
     private String visuHost;
     private String visuUrl;

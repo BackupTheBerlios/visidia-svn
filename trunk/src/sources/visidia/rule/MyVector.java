@@ -9,7 +9,11 @@ import java.io.Serializable;
 public class MyVector extends Vector implements Serializable
 {
 
-    final Vector finalThis = this;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6068614038815337131L;
+	final Vector finalThis = this;
     
 
     /**

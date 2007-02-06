@@ -10,7 +10,11 @@ import java.io.Serializable;
 
 public class NeighbourMessage extends Message implements Serializable{
     
-    private boolean mark=false;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3518808742691710901L;
+	private boolean mark=false;
     private String  label="";
     
         

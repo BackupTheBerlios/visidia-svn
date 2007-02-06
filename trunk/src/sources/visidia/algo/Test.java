@@ -33,7 +33,7 @@ public class Test extends Algorithm {
 	
 	for (int i =0; i< degres ; i++) {
 	    IntegerMessage msg = (IntegerMessage)receiveFrom(i);
-	    Integer data = (Integer)msg.data();
+	    Integer data = msg.data();
 	    if (data.intValue() > id.intValue()) {
 		win  = false;
 	    }
@@ -54,7 +54,7 @@ public class Test extends Algorithm {
 	    while(bool) {
 		Door door = new Door();
 		StringMessage msg = (StringMessage)receive(door);
-		if(((String)msg.data()).compareTo("MIS")==0) {
+		if((msg.data()).compareTo("MIS")==0) {
 		    setDoorState(new MarkedState(true),door.getNum());
 		    bool=false;
 		}

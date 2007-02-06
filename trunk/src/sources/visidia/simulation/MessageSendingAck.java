@@ -6,7 +6,11 @@ package visidia.simulation;
  * a été prise en compte.
  */
 public class MessageSendingAck implements  SimulAck {
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2517621032707841286L;
+	private long num;
     
     public MessageSendingAck(Long evtNumber){
 	num = evtNumber.longValue();

@@ -8,7 +8,12 @@ a la fenetre de visualisation */
 
 public final class VisualizationOptions extends JMenu implements ActionListener {
   
-    // Constructeurs 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1800693958433731771L;
+
+	// Constructeurs 
     public VisualizationOptions(FenetreDeSimulation fenetreSim){
 	
 	super("Visualize_Events_With");

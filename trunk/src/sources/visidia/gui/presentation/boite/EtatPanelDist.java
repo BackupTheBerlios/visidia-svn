@@ -8,7 +8,11 @@ import java.util.*;
 
 public class EtatPanelDist extends JPanel implements ListSelectionListener {
     
-    EtatArdoiseDist ardoise ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4461954503469396999L;
+	EtatArdoiseDist ardoise ;
     public EtatPanelDist(Hashtable uneHashtable , BoiteChangementEtatSommetDist parent,String defaultValue) {
         ardoise = new EtatArdoiseDist(uneHashtable, parent);
         Vector listeItems = new Vector();
@@ -75,7 +79,11 @@ public class EtatPanelDist extends JPanel implements ListSelectionListener {
 
 
 class EtatArdoiseDist extends JPanel {
-    BoiteChangementEtatSommetDist parent;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8806281112016740873L;
+	BoiteChangementEtatSommetDist parent;
     protected  String unEtat;
     Hashtable uneHashtable;
     

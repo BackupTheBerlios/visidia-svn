@@ -40,7 +40,12 @@ import visidia.gui.presentation.*;
 public class Editeur extends Fenetre implements ActionListener, WindowListener ,ItemListener{
     
     
-    /** Objet <b>UndoInfo</b> qui permet de réaliser les opérations de
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6342392372397824641L;
+
+	/** Objet <b>UndoInfo</b> qui permet de réaliser les opérations de
      * "undo" et "redo". **/
     protected UndoInfo undoInfo;
   

@@ -6,7 +6,11 @@ import java.io.Serializable;
  * NodePropertyChangeAck object is used to acknowledge a property change event.
  */
 public class NodePropertyChangeAck implements  SimulAck, Serializable{
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7325381516876419185L;
+	private long num;
     
     public NodePropertyChangeAck(Long evtNumber){
 	num = evtNumber.longValue();

@@ -9,7 +9,11 @@ import visidia.gui.donnees.TableAlgo;
 
 public class OpenAlgoApplet implements Serializable{
  
-    public static FenetreDeSimulation fenetre;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8588944438817119518L;
+	public static FenetreDeSimulation fenetre;
 
     /** 
      *

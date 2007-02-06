@@ -6,7 +6,11 @@ package visidia.simulation;
  * a été prise en compte.
  */
 public class AgentMovedAck implements  SimulAck {
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4737249681721338073L;
+	private long num;
     
     public AgentMovedAck(Long evtNumber){
 	num = evtNumber.longValue();

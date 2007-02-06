@@ -12,7 +12,11 @@ public class SommetCarre extends SommetDessin{
     
     // Variables d'instance.
     
-    protected static int monCote = 20; // represente le cote d'un carre
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3875616012589868149L;
+	protected static int monCote = 20; // represente le cote d'un carre
  
   
   //Constructeurs
@@ -177,7 +181,7 @@ public class SommetCarre extends SommetDessin{
     // method which copy all the variable from the SommetCarre given in parameters
     public void copyAllVariable(SommetCarre s){
 	this.monCote=s.getCote();
-	super.copyAllVariable((SommetDessin)s);
+	super.copyAllVariable(s);
     }
 
     /**

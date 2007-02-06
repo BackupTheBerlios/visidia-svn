@@ -8,7 +8,11 @@ import java.awt.event.*;
 
 
 public class ThreadCountFrame extends JFrame {
-    private JLabel label;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -832261894060995853L;
+	private JLabel label;
     private ThreadGroup initialThreadGroup;
     private Timer timer;
 

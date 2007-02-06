@@ -6,7 +6,11 @@ import visidia.gui.presentation.*;
  * d'objets dans un graphe. */
 public class SupprimeObjet implements UndoObject {
     
-  protected FormeDessin forme;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9174487500722057854L;
+protected FormeDessin forme;
   
   /** L'objet supprimé dans le graphe est passé en argument à ce
    * constructeur.*/

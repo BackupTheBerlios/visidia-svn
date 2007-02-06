@@ -12,7 +12,11 @@ import visidia.gui.presentation.userInterfaceEdition.*;
 
 public class SaveFile extends JFileChooser {
  
-  public static FileOutputStream fos ;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8481113962193773634L;
+public static FileOutputStream fos ;
   public static ObjectOutputStream oos ;
 
   /** The parent window(from where the saving is called) */

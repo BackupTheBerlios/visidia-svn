@@ -8,7 +8,11 @@ import java.util.*;
  * a double column table model.
  */ 
 public class VertexPropertyTableModel extends PropertyTableModel {
-    protected Hashtable properties = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5806391413971676061L;
+	protected Hashtable properties = null;
     protected Hashtable hashKeys = null;
     
     /**

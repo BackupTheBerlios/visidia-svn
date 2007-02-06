@@ -11,7 +11,11 @@ import visidia.tools.agents.WhiteBoard;
  * a double column table model.
  */ 
 public class AgentPropertyTableModel extends AbstractPropertyTableModel {
-    protected WhiteBoard wb = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -823784020090568952L;
+	protected WhiteBoard wb = null;
     
     /**
      * Constructs new empty property table model.

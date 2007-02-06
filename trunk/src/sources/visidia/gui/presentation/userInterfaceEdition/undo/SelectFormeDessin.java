@@ -7,7 +7,11 @@ import visidia.gui.presentation.*;
 
 public class SelectFormeDessin implements UndoObject {
     
-  SelectionDessin selection;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 803403697548600203L;
+SelectionDessin selection;
   FormeDessin forme;
   
   /** Construit une nouvelle forme correspondant à la séléction de

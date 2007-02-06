@@ -55,7 +55,7 @@ public class SentAgent extends MovableObject {
 	    if ((event.message()).getVisualization()) {
 		Point p = currentLocation();
 		g.setColor(messageType.getColor());
-		g.drawString(mesg, p.x-(int)(stringSize/2), p.y+(imgHeight/2));
+		g.drawString(mesg, p.x-(stringSize/2), p.y+(imgHeight/2));
 		g.drawImage(img,p.x-(imgWidth/2),p.y-(imgHeight/2),null,null);
 	    }
 	}

@@ -12,7 +12,11 @@ import visidia.gui.donnees.conteneurs.*;
  * d'éléments du graphe courant.*/
 public class BoiteSelectionSimulation extends BoiteSelection {
     
-    SelectionDessin selection;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6339618893162291937L;
+	SelectionDessin selection;
 
     public BoiteSelectionSimulation(FenetreDeSimulation parent, 
 				    SelectionDessin selection, 

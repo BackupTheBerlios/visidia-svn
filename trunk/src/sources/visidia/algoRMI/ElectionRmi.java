@@ -17,6 +17,11 @@ public class ElectionRmi extends AlgorithmDist {
 
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8143775012864030440L;
+
+	/**
      *Retourne <code>true</code> si le noeud est elu ou 
      *recoit un message de fin .
      **/

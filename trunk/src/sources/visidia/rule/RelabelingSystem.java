@@ -10,7 +10,11 @@ import java.io.Serializable;
  * Relabeling Systems 
  */
 public class RelabelingSystem  implements Serializable {
-    protected String description;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8213851087363320127L;
+	protected String description;
     protected MyVector rules;
     public RSOptions userPreferences;
 
@@ -249,7 +253,7 @@ public class RelabelingSystem  implements Serializable {
 	while(j < i ){
 	    Star  neighbourhood = (Star)n.clone();
 	    Rule r = (Rule)((Rule)rules.get(j)).clone();
-	    Star s = (Star)((Star)r.befor()).clone();
+	    Star s = (Star)(r.befor()).clone();
 	    //System.out.println("\n check for "+neighbourhood);
 	    //   System.out.println("rule"+j+"with?="+r.withForbContexts()+"\n");
 	    //System.out.println("contexts"+r.forbContexts+"\n");
@@ -257,7 +261,7 @@ public class RelabelingSystem  implements Serializable {
 		/* if rule contexte is convenable */
 		if( r.withForbContexts()){
 		    /* testing forbidden contexts */
-		    MyVector v = new MyVector((Collection)r.forbContexts());
+		    MyVector v = new MyVector(r.forbContexts());
 		    boucle = true;
 		    l=0;
 		    while( boucle && l < v.count())

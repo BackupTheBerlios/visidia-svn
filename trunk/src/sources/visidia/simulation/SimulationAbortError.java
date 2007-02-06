@@ -6,7 +6,12 @@ package visidia.simulation;
  */
 public class SimulationAbortError extends Error{
 
-    public SimulationAbortError() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1021261555309603500L;
+
+	public SimulationAbortError() {
         super();
     }
 

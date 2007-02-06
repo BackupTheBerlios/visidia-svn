@@ -103,7 +103,7 @@ public abstract class AbstractRule extends Algorithm {
 		Message m = receiveFrom(door);
 		if (m != null) {
 		    StringMessage msg = (StringMessage) m;
-		    Neighbour n = new Neighbour((String)msg.data(), 
+		    Neighbour n = new Neighbour(msg.data(), 
 						synob.getMark(door), door);
 		    ((SynObjectRules) synob).neighbourhood.setState(i, n);
 		} else {
@@ -132,7 +132,7 @@ public abstract class AbstractRule extends Algorithm {
 		switch (synType){
 		case SynCT.LC1 :
 		    sendTo(n.doorNum(), 
-			   new BooleanMessage((boolean) n.mark(), MSG_TYPES.MARK));
+			   new BooleanMessage(n.mark(), MSG_TYPES.MARK));
 		    break;
 		default:
 		    sendTo(n.doorNum(), new NeighbourMessage(n , MSG_TYPES.LABE));

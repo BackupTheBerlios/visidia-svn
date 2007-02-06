@@ -28,7 +28,11 @@ import visidia.misc.*;
 public class FenetreDeSimulationDist extends Fenetre implements Serializable, ActionListener,ItemListener, WindowListener, ChangeListener {
     
     
-    protected LocalNodeTable networkParam;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8912821508346948285L;
+	protected LocalNodeTable networkParam;
     protected String simulatorHost;
     protected String simulatorUrl;
     protected String rmiRegistryPort = "1099";

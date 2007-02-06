@@ -10,7 +10,11 @@ import visidia.gui.metier.*;
 /** Raffine sa super-classe pour representer un sommet sous la forme d'un cercle.*/
 public class SommetCircle extends SommetDessin{
 
-    protected static int monCote = 20; // représente le rayon d'un cercle
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 702590799803023307L;
+	protected static int monCote = 20; // représente le rayon d'un cercle
     
     
     //Constructeurs
@@ -167,7 +171,7 @@ public class SommetCircle extends SommetDessin{
     // method which copy all the variable from the SommetCircle given in parameters
     public void copyAllVariable(SommetCircle s){
 	this.monCote=s.getCote();
-	super.copyAllVariable((SommetDessin)s);
+	super.copyAllVariable(s);
     }
 
     /**

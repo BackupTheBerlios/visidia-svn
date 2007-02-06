@@ -8,7 +8,11 @@ import java.io.Serializable;
  * compte.
  */
 public class EdgeStateChangeAck implements  SimulAck, Serializable{
-    private long num;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3118200555455758230L;
+	private long num;
     
     public EdgeStateChangeAck(Long evtNumber){
 	num = evtNumber.longValue();

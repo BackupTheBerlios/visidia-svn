@@ -271,7 +271,7 @@ public class Simulator {
 	ProcessData procData = procs[nodeId.intValue()];
 
 	Vector msgPacketVect = null;
-	msgPacketVect = (Vector)procData.msgVQueue.getAllNoWait(dpc);
+	msgPacketVect = procData.msgVQueue.getAllNoWait(dpc);
 	
 	if(msgPacketVect != null) {
 	    Vector v = new Vector();
@@ -381,7 +381,7 @@ public class Simulator {
      * retourne le degrès du noeud <i>id</id> .
      */
     public int getArity(Integer id){
-	Vertex vertex = (Vertex)graph.vertex(id);
+	Vertex vertex = graph.vertex(id);
 	return vertex.degree();
     }
 
@@ -713,7 +713,7 @@ public class Simulator {
 			break;
 			
 		    case SimulConstants.EDGE_STATE_CHANGE :
-			handleEdgeStateChangeAck((EdgeStateChangeAck)simAck);
+			handleEdgeStateChangeAck(simAck);
 			break;
 			
 		    case SimulConstants.MESSAGE_SENT :
@@ -722,7 +722,7 @@ public class Simulator {
 			break;
 
 		    case SimulConstants.EDGE_COLOR_CHANGE :
-			handleEdgeColorChangeAck((EdgeColorChangeAck)simAck);
+			handleEdgeColorChangeAck(simAck);
 			break;
 		    
 		    case SimulConstants.NEXT_PULSE :
@@ -744,7 +744,7 @@ public class Simulator {
 	
 	
 	public void handleNodePropertyChangeAck(SimulAck sa)throws InterruptedException{
-	    Object lock = (Object) evtObjectTmp.remove(sa.number());
+	    Object lock = evtObjectTmp.remove(sa.number());
 	    synchronized(lock){
 		/**
 		 * normalement il n' y a qu'un seul thread (le noeud

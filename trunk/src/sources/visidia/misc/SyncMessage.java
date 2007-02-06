@@ -7,7 +7,12 @@ package visidia.misc;
 public class SyncMessage extends Message{
 
 
-    Integer data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4018343518234819536L;
+
+	Integer data;
 
     public static final MessageType synchronizationType = new MessageType ("synchronization", false);
 

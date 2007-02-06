@@ -9,7 +9,11 @@ import visidia.gui.donnees.*;
 
 public class DistributedAlgoSimulator extends JApplet implements ActionListener {
 
-  public static final String nomDuProgramme = "DistributedAlgoSimulator";
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7028894819202792458L;
+public static final String nomDuProgramme = "DistributedAlgoSimulator";
   public static final short version_major = 2;
   public static final short version_minor = 0;
   public static final short patchLevel = 1;

@@ -21,7 +21,11 @@ import java.util.*;
 public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
    
 
-    //this name should be the name of the host where the nodes would run 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7652322589399790510L;
+	//this name should be the name of the host where the nodes would run 
     public static String serverName;
     public String registryPort ;
     public String urlName="";

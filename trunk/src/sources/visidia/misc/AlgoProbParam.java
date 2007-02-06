@@ -21,7 +21,12 @@ import java.util.Vector;
 public class AlgoProbParam extends JFrame implements ActionListener, ListSelectionListener, ChangeListener, KeyListener {
 
 
-    private final Color colorGreen = new Color(39,117,93);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6852598137642532543L;
+
+	private final Color colorGreen = new Color(39,117,93);
 
     private JSpinner probValue;
     private JButton probB;

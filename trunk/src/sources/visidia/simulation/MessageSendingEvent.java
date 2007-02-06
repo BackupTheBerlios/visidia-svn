@@ -7,7 +7,11 @@ import visidia.misc.*;
  * réseaux.
  */
 public class MessageSendingEvent implements SimulEvent {
-    private long evtNum;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3338643625856936387L;
+	private long evtNum;
     private String msg;
     protected Integer srcId = null;
     protected Integer destId = null;

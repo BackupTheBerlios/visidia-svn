@@ -65,9 +65,9 @@ public class BoiteFormeDessin implements ActionListener {
 
     couleur_trait = new LigneChoixCouleur(this,
 					  "Line color (R,G,B) : ", 
-					  ((FormeDessin)forme).couleurTrait().getRed(),
-					  ((FormeDessin)forme).couleurTrait().getGreen(),
-					  ((FormeDessin)forme).couleurTrait().getBlue(), 
+					  (forme).couleurTrait().getRed(),
+					  (forme).couleurTrait().getGreen(),
+					  (forme).couleurTrait().getBlue(), 
 					  est_editable);
     caracteristicsPane.add(couleur_trait.panel());
     
@@ -238,7 +238,7 @@ public class BoiteFormeDessin implements ActionListener {
 	throw new NumberFormatException("Bad argument type for background color:\nAn hexadecimal integer with 6 figures is expected.");
     }
     
-    ((FormeDessin)forme).changerCouleurTrait(trait);
+    (forme).changerCouleurTrait(trait);
   }
 
   /** Active ou desactive le bouton de choix de couleur, suivant la valeur du booleen passe en argument. */

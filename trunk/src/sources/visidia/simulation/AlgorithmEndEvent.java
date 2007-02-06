@@ -7,6 +7,10 @@ import java.io.Serializable;
  * sur le réseaux.
  */
 public class AlgorithmEndEvent implements SimulEvent, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -503969335525431962L;
 	long evtNum;
 
 	/**

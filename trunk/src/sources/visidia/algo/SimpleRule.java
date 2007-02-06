@@ -10,7 +10,11 @@ import java.io.*;
 
 
 public class SimpleRule  implements Serializable{
-    private Arrow leftMember;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3872496695068104648L;
+	private Arrow leftMember;
     private Arrow rightMember;
    
 

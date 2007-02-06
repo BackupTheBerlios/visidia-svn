@@ -8,7 +8,11 @@ import visidia.gui.donnees.conteneurs.*;
 
 public class DeplaceObjets implements UndoObject {
   
-    protected Ensemble objets;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9007707846920142128L;
+	protected Ensemble objets;
     protected int dx;
     protected int dy;
     

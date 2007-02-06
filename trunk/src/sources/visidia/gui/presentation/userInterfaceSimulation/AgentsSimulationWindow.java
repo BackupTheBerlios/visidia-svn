@@ -23,7 +23,6 @@ import visidia.simulation.rules.*;
 import visidia.simulation.synchro.*;
 import visidia.rule.*;
 import visidia.gui.presentation.starRule.*;
-import visidia.simulation.synchro.synObj.*;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.*;
 
@@ -33,7 +32,11 @@ public class AgentsSimulationWindow
     implements Serializable, ActionListener, WindowListener, ChangeListener,
                ApplyStarRulesSystem {
     
-    protected static final String GENERAL_TITLE = "Agents Simulator";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3485256720687047514L;
+	protected static final String GENERAL_TITLE = "Agents Simulator";
     protected String algoTitle;
     
     // instance of simulator for stop/pause/start actions
@@ -902,8 +905,8 @@ public class AgentsSimulationWindow
                 }
             }
         } else if (mi == rules_new) {
-	    StarRuleFrame starRuleFrame = new StarRuleFrame((JFrame) this,
-							    (ApplyStarRulesSystem) this);
+	    StarRuleFrame starRuleFrame = new StarRuleFrame(this,
+							    this);
 	    starRuleFrame.setVisible(true);
 	}
     }
@@ -1215,7 +1218,7 @@ public class AgentsSimulationWindow
 
     public void updateVertexState(SommetDessin vert) {
         AgentBoxChangingVertexState box = 
-            (AgentBoxChangingVertexState) boxVertices.get(vert);
+            boxVertices.get(vert);
 
         if (box!=null)          // An AgentBoxChangingVertexState is
             box.updateBox();    // open for this vertex
