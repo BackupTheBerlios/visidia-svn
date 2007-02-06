@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ViSiDiA" company="" webLink="" view-date="2007-02-05" view-index="0" gantt-divider-location="302" resource-divider-location="301" version="1.12">
+    <view zooming-state="default:3"/>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+    </calendars>    <description>    </description>
+
+    <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon" />
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon" />
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon" />
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text" />
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date" />
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date" />
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int" />
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int" />
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text" />
+            <taskproperty id="tpd9" name="predecessors" type="default" valuetype="text" />
+        </taskproperties>
+        <task id="0" name="Compréhension du code existant" color="#8cb6ce" meeting="false" start="2007-02-12" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="7" name="Trois implém. d'algos" color="#8cb6ce" meeting="false" start="2007-02-19" duration="7" complete="0" priority="1" expand="true">
+        </task>
+        <task id="8" name="Modifier mémoire Agent" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="9" name="Modifier whiteboard Sommet" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="10" name="Ajouter Agent" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="11" name="Allumer Sommet" color="#8cb6ce" meeting="false" start="2007-03-07" duration="4" complete="0" priority="1" expand="true">
+        </task>
+        <task id="12" name="Eteindre Sommet" color="#8cb6ce" meeting="false" start="2007-03-07" duration="4" complete="0" priority="1" expand="true">
+        </task>
+        <task id="13" name="Supprimer Arête" color="#8cb6ce" meeting="false" start="2007-03-07" duration="2" complete="0" priority="1" expand="true">
+        </task>
+        <task id="14" name="Supprimer Sommet" color="#8cb6ce" meeting="false" start="2007-03-09" duration="2" complete="0" priority="1" expand="true">
+        </task>
+        <task id="15" name="Ajouter Arête" color="#8cb6ce" meeting="false" start="2007-03-13" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="16" name="Ajouter Sommet" color="#8cb6ce" meeting="false" start="2007-03-13" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="17" name="Supprimer Agent" color="#8cb6ce" meeting="false" start="2007-03-13" duration="2" complete="0" priority="1" expand="true">
+        </task>
+        <task id="20" name="Statistiques locales à un noeud" color="#8cb6ce" meeting="false" start="2007-03-15" duration="3" complete="0" priority="1" expand="true">
+        </task>
+        <task id="21" name="Statistiques locales aux agents" color="#8cb6ce" meeting="false" start="2007-03-20" duration="4" complete="0" priority="1" expand="true">
+        </task>
+        <task id="22" name="Documentation" color="#8cb6ce" meeting="false" start="2007-03-20" duration="9" complete="0" priority="1" expand="true">
+        </task>
+        <task id="23" name="Tests fonctionnels" color="#8cb6ce" meeting="false" start="2007-03-20" duration="9" complete="0" priority="1" expand="true">
+        </task>
+        <task id="24" name="Statistiques de l'exécution" color="#8cb6ce" meeting="false" start="2007-03-26" duration="5" complete="0" priority="1" expand="true">
+        </task>
+    </tasks>
+
+    <resources>
+        <resource id="0" name="Binôme A" function="SoftwareDevelopment:2" contacts="" phone="" />
+        <resource id="1" name="Binôme B" function="SoftwareDevelopment:2" contacts="" phone="" />
+        <resource id="2" name="Binôme C" function="SoftwareDevelopment:2" contacts="" phone="" />
+    </resources>
+
+    <allocations>
+        <allocation task-id="0" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="8" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="9" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="10" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="11" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="12" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="13" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="14" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="17" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="20" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="22" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="24" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+    </allocations>
+
+    <vacations>
+    </vacations>
+
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="75" />
+        <displaycolumn property-id="tpd4" order="1" width="95" />
+        <displaycolumn property-id="tpd5" order="2" width="95" />
+    </taskdisplaycolumns>
+
+    <previous>
+    </previous>
+
+
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
