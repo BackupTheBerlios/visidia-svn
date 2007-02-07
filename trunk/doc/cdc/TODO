@@ -1,0 +1,38 @@
+Globalement :
+- je ne sais pas ce que vous utilisez comme pagewidth et pageheight en
+LaTeX, mais une chose est sûre : vos titres de chapitres sont coupés en
+deux.
+
+Modèle du système :
+- Vos petites phrases pour décrire les cas d'utilisation sont assez
+souvent redondantes avec la ligne "But" du cas d'utilisation. Soit vous
+détaillez les cas plus précisément, soit vous les enlevez.
+- aLgorithme
+
+- Eteindre un sommet / Scénario secondaire : on ne sait pas trop ce qui
+arrive à l'agent sur le sommet éteint. D'ailleurs, on ne sait pas trop
+ce que signifie "éteindre un sommet" ou l'"allumer".
+
+- la diragramme de classes est toujours manquant.
+
+Besoins fonctionnels et nf :
+- on n'effectue pas une fonctionnalité
+- pas français : l'utilisateur choisit l'agent qu'il veut consulter sa
+mémoire / pareil au besoin suivant
+- vote paragraphe "priorité d'implémentation" est un peu bancal. Le
+diagramme de Gantt se place à la fin dans une partie sur la façon dont
+devrait s'organiser le projet. Les "objectifs secondaires" sont des
+besoins fonctionnels, à placer dans la section associée.
+- arête
+- pas français : paragraphe "Rédaction d'une documentation ..."
+- description formelle fournie sur le site -> mettre un lien
+- k est supérieur à 2
+
+
+- il manque une partie dans les besoins non fonctionnels évoquant la
+manière dont vous aller tester le système (section "tests" dans votre
+diagramme de Gantt)
+
+Evolution du système : plutôt ne rien mettre que mettre ces deux lignes.
+Remplacer cela par une conclusion sur la façon dont vous aller mener le
+projet et sur son organisation, les dates clés.
