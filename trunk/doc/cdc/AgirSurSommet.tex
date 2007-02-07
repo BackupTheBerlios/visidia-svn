@@ -5,10 +5,10 @@
   \label{fig:cu_agir_graphe}
 \end{figure}
 
-\subsubsection{Modifier la mémoire d'un sommet}
+\subsubsection{Modifier le tableau blanc  d'un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur de modifier la memoire d'un sommet c'est a dire les variables declarees et l'etat
 des ports.
-
+\\
 
 \begin{tabular}{|l|l|}
 \hline
@@ -26,7 +26,7 @@ des ports.
 \subsubsection{Eteindre un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur d'éteindre un sommet 
 sans pour autant le supprimer. 
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Eteindre un sommet. \\ \hline
@@ -37,20 +37,20 @@ sans pour autant le supprimer.
 {Post condition}     & Le sommet sélectionné est éteint. \\ \hline
 {Commentaires}       & On ne peut éteindre qu'un seul sommet à la fois.\\ \hline
 \end{tabular} 
-
+\\
 
 Scénario principal :
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
 {1}    & L'utilisateur choisit un sommet à éteindre (n'hebergeant pas d'agent) \\ \hline
 {2}    & Le systeme eteint le sommet. \\ \hline
 \end{tabular}
-
+\\
 
 Scénario secondaire :
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
@@ -61,7 +61,7 @@ Scénario secondaire :
 
 \subsubsection{Consulter un sommet}
 Ce cas d'utilisation va permettre à l'utilisateur de consulter la mémoire d'un sommet.
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Consulter un sommet. \\ \hline
@@ -69,7 +69,7 @@ Ce cas d'utilisation va permettre à l'utilisateur de consulter la mémoire d'un s
 {But}                & Permettre à l'utilisateur de consulter la mémoire d'un sommet. \\ \hline
 {Résumé métier}      & L'utilisateur choisit selon ses besoins un sommet et consulte sa memoire. \\ \hline
 {Pré condition}      & L'utilisateur sélectionne le sommet à consulter. \\ \hline
-{Post condition}     & Le sommet sélectionné est consulté. (Alex: supprimer ?) \\ \hline
+{Post condition}     & Le sommet sélectionné est consulté. \\ \hline
 {Commentaires}       & On ne peut consulter que la mémoire d'un seul sommet à la fois. \\ \hline
 \end{tabular}
 
@@ -80,7 +80,7 @@ Ce cas d'utilisation va permettre à l'utilisateur de consulter la mémoire d'un s
 Ce cas d'utilisation va permettre à l'utilisateur d'allumer un sommet. 
 Ce dernier doit être déjà éteint car allumer un sommet qui n'est pas 
 éteint n'a pas de sens.
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Cas d'utilisation}  & Allumer un sommet.  \\ \hline
@@ -91,22 +91,22 @@ Ce dernier doit être déjà éteint car allumer un sommet qui n'est pas
 {Post condition}     & Le sommet sélectionné est allumé.  \\ \hline
 {Commentaires}       & On ne peut allumer qu'un seul sommet(éteind) à la fois.  \\ \hline
 \end{tabular}
-
+\\
 Scénario principal :
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
 {1}    & L'utilisateur choisit un sommet à allumer (n'hébergeant pas d'agent) \\ \hline
 {2}    & Le systeme allume le sommet. \\ \hline
 \end{tabular}
-
+\\
 Scénario secondaire : 
-
+\\
 \begin{tabular}{|l|l|}
 \hline
 {Numero enchainement}    & Action \\ \hline
-{1}    & L'utilisateur choisit un sommet à allumer hébergeant un agent. \\ \hline
+{1}    & L'utilisateur choisit un sommet à allumer hébergeant un agent.\\\hline
 {2}    & Le systeme allume le sommet. \\ \hline
 {3}    & L'agent reprend son exécution. \\ \hline
 \end{tabular}
