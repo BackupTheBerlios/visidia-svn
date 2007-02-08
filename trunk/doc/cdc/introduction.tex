@@ -28,23 +28,25 @@ règles de réécriture.
 L'application  va  donc  constituer  à  terme un  outil permettant la 
 validation pratique de résultats théoriques sur un environnement
 distribué.
-\subsection*{Définition d'un réseau}
 
-Un réseau est un graphe dont les sommets sont les processeurs et les
-arêtes sont les liens de communication.
+
+\subsubsection*{Définition d'un réseau}
+
+L'algorithmique distribuée s'intéresse à la réalisation d'un
+calcul distribué sur un ensemble de processeurs reliés par des
+canaux de communication. 
+Cette structure est modélisée par un graphe, dont les sommets
+représentent les processeurs et les arêtes les canaux de
+communication. Dans la suite, on ne fera pas de distinction entre
+processeurs sommets ou n\oe uds.
 
 \subsection*{Notions d'algorithmique distribuée}
 
-Il existe de nombreux modèles permettant de décrire des algorithmes
+Il existe plusieurs modèles permettant de décrire des algorithmes
 distribués. Parmi eux, deux ont été développés dans \visidia : la
-communication par 
-échange de message et par agent.
+communication par échange de message et par agent.
 
-Dans la suite, nous parlerons de mémoire d'un agent et d'un sommet,
-mais la mémoire d'un sommet contient le tableau blanc (ou
-\texttt{whiteboard} contenant les variables déclarées) et l'état de ses ports.
-
-\subsubsection*{Communication par envoi de messages}
+\subsubsection*{Modèle avec envoi de messages}
 
 Dans ce modèle, chaque n\oe ud représente un système ou un processeur. Sur chaque
 n\oe ud est exécuté un algorithme disposant de certaines primitives qui lui permettent de
@@ -52,7 +54,7 @@ communiquer à l'aide de messages avec ses n\oe uds voisins.
 Les n\oe uds sont reliés entre eux par des canaux de communication
 (les arêtes du graphe) par lesquels transitent les messages. 
 
-\subsubsection*{Version avec agent mobile}
+\subsubsection*{Modèle avec agent mobile}
 
 Ce second modèle, plus récent que le précédent, considère que le système
 représenté par un n\oe ud ne dispose pas d'unité de calcul mais seulement d'une
@@ -62,6 +64,14 @@ communiquer directement entre eux.
 L'exécution des algorithmes se fait par des agents. Ces entités possèdent une
 capacité de calcul ainsi qu'une mémoire. Un agent se déplace dans le graphe
 et exécute un algorithme qui lui est associé.
+
+Dans la suite, nous parlerons de mémoire d'un agent et d'un sommet.
+La mémoire d'un agent contient les variables qu'il a déclarées tandis que
+la mémoire d'un sommet fait référence à son \texttt{whiteboard} et aux valeurs
+de ses ports.
+Le \texttt{whiteboard} est une structure qui contient des variables tandis que
+chaque port dispose d'une valeur en mémoire qui lui est associée.
+
 
 
 \subsection*{L'existant}
@@ -79,10 +89,17 @@ programme et de consulter l'avancement d'une exécution d'agent sur un
 graphe. Elle est synchronisée avec le simulateur pour éviter toute
 incohérence. Elle fournit quelques statistiques de base sur
 l'exécution. Le simulateur coordonne les opérations. C'est le c\oe ur
-de \visidia. Enfin, ce sont les agents  qui vont réaliser ces
+de \visidia. Enfin, les agents permettent de réaliser des
 opérations sur le graphe.
 
-Une bibliothèque  de primitives de  base (\emph{API}) est mise à
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=6cm]{implantation-communication}
+  \caption{Structuration de \visidia}
+  \label{fig:implantation-communication}
+\end{figure}
+
+Une bibliothèque de primitives de  base (\emph{API}) est mise à
 disposition de l'utilisateur afin qu'il puisse réaliser ses propres
 algorithmes à base d'agent. 
 
