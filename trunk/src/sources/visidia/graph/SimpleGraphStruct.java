@@ -7,7 +7,8 @@ package visidia.graph;
 * par un entier qui est unique a travers tout le graphe. 
 * 
 */
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Vector;
 
 public class SimpleGraphStruct implements Cloneable{
     

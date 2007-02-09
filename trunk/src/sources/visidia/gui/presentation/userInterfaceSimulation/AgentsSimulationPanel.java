@@ -1,13 +1,28 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.*;
-import visidia.simulation.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Vector;
+
+import javax.swing.JPanel;
+
 import visidia.gui.metier.simulation.SentAgent;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.RecoverableObject;
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.SelectionGetData;
+import visidia.gui.presentation.SelectionUnit;
 import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
+import visidia.simulation.MessageSendingAck;
+import visidia.simulation.MessageSendingEvent;
 
 public class AgentsSimulationPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     

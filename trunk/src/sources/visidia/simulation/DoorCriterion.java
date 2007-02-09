@@ -1,6 +1,6 @@
 package visidia.simulation;
 
-import visidia.tools.*;
+import visidia.tools.Criterion;
 
 /**
  * DoorCriterion is used to select message packet according to its

@@ -1,11 +1,21 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.metier.inputOutput.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import visidia.gui.metier.inputOutput.OpenAlgoAppletDistribue;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 
 /**
  * This class creates a dialog box that load algorithms from an applet     

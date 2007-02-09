@@ -1,6 +1,6 @@
 package visidia.gui.metier;
 
-import visidia.gui.donnees.conteneurs.monde.*;
+import visidia.gui.donnees.conteneurs.monde.Position;
 import visidia.gui.presentation.AreteDessin;
 
 

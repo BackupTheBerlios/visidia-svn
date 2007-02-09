@@ -1,6 +1,7 @@
 package visidia.gui.donnees.conteneurs;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 /**
  * L'interface enumeration est le m�canisme standard offert par Java

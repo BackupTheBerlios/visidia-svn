@@ -1,7 +1,6 @@
 package visidia.simulation;
 
 import visidia.tools.VQueue;
-import visidia.simulation.SimulAck;
 
 public class RecorderAck implements Runnable, Cloneable {
 

@@ -1,13 +1,12 @@
 package visidia.agents.agentstats;
 
-import visidia.simulation.agents.AbstractExperiment;
-import visidia.simulation.agents.stats.*;
-
-import visidia.tools.Bag;
-
-
-import java.util.Set;
 import java.util.Hashtable;
+import java.util.Set;
+
+import visidia.simulation.agents.AbstractExperiment;
+import visidia.simulation.agents.stats.AgentCreationStat;
+import visidia.simulation.agents.stats.MoveStat;
+import visidia.tools.Bag;
 
 public class AverageStats extends AbstractExperiment {
     

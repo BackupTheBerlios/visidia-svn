@@ -1,16 +1,26 @@
 package visidia.gui.metier.simulation;
 
-import java.awt.*;
-import javax.swing.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.Hashtable;
 
-import visidia.misc.*;
-import visidia.simulation.*;
-import visidia.tools.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.VueGraphe;
+import javax.swing.JOptionPane;
+
 import visidia.gui.presentation.AreteDessin;
 import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
+import visidia.misc.MarkedState;
+import visidia.misc.SyncState;
+import visidia.simulation.AgentMovedAck;
+import visidia.simulation.AgentMovedEvent;
+import visidia.simulation.EdgeStateChangeAck;
+import visidia.simulation.EdgeStateChangeEvent;
+import visidia.simulation.LabelChangeEvent;
+import visidia.simulation.MessageSendingEvent;
+import visidia.simulation.NextPulseEvent;
+import visidia.simulation.SimulConstants;
+import visidia.simulation.SimulEvent;
+import visidia.tools.VQueue;
   
 /** This class is responsible of dealing with the 
     events coming from the simulator */

@@ -1,6 +1,9 @@
 package visidia.gui.presentation.boite;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * Cette classe permet de créer des boites de dialogue simples :    

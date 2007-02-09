@@ -1,6 +1,6 @@
 package visidia.simulation;
 
-import visidia.misc.*;
+import visidia.misc.Message;
 
 /**
  * Cette represente l'évènement associe a l'envoie d'un message sur le 

@@ -1,10 +1,23 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import visidia.gui.presentation.userInterfaceEdition.Editeur;
 
 /** Cette boite affiche les proprietes d'un graphe et de son editeur (couleur de fond, taille...)
 Elle permet aussi de les modifier.

@@ -1,12 +1,17 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import java.util.*;
-
-import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Serializable;
 import java.util.Enumeration;
-import visidia.gui.presentation.userInterfaceSimulation.*;
 import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import javax.swing.JFileChooser;
+
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 import visidia.tools.LocalNodeTable;
 
 

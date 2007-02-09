@@ -1,8 +1,9 @@
 package visidia.agents;
 
-import visidia.simulation.agents.Agent;
-import java.util.Set;
 import java.util.Iterator;
+import java.util.Set;
+
+import visidia.simulation.agents.Agent;
 
 /**
  * This agent moves  randomly in the graph and  prints the whiteboards

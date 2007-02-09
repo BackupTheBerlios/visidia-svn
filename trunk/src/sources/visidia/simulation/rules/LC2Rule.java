@@ -1,9 +1,8 @@
 package visidia.simulation.rules;
 
+import visidia.rule.RelabelingSystem;
 import visidia.simulation.synchro.SynCT;
-import visidia.simulation.synchro.synAlgos.*;
-
-import visidia.rule.*;
+import visidia.simulation.synchro.synAlgos.LC2;
  
 public class LC2Rule extends AbstractRule {
     

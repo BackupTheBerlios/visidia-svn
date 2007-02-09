@@ -1,9 +1,14 @@
 package visidia.gui.presentation.starRule;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import visidia.gui.presentation.*;
+import java.awt.Point;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JPanel;
+
+import visidia.gui.presentation.VueGraphe;
 
 /**
  * Visualize and permits to compose two stars at the same time.

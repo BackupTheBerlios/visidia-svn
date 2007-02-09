@@ -1,7 +1,9 @@
 package visidia.gui.metier.simulation;
 
 import java.util.Hashtable;
-import visidia.simulation.*;
+
+import visidia.simulation.AlgoChoiceInterface;
+import visidia.simulation.Algorithm;
 
 public class AlgoChoice implements AlgoChoiceInterface{
 

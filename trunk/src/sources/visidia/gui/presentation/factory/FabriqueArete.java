@@ -1,7 +1,8 @@
 package visidia.gui.presentation.factory;
 
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+import visidia.gui.metier.Arete;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.SommetDessin;
 
 public interface FabriqueArete{
 

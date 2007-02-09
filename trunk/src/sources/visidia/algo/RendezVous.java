@@ -1,7 +1,10 @@
 package visidia.algo;
 
-import visidia.simulation.*;
-import visidia.misc.*;
+import visidia.misc.IntegerMessage;
+import visidia.misc.MarkedState;
+import visidia.misc.StringMessage;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.Algorithm;
 
 public class RendezVous extends Algorithm{
 

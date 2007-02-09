@@ -4,8 +4,8 @@ package visidia.tools;
  * cette classe définit un critère qui est la conjonctions d'une liste de critères.
  * Lorsque la liste  est vide la méthode <code>isMatchedBy()</code> retourne <code>false</code>.
  */
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class CompoundCriterion implements Criterion{
     private LinkedList criterionList = null;

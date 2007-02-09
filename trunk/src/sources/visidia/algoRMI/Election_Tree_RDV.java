@@ -1,9 +1,16 @@
 
 package visidia.algoRMI;
 
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Random;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.IntegerMessageCriterion;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.misc.SyncState;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.AlgorithmDist;
 
 public class Election_Tree_RDV extends AlgorithmDist {
     /**

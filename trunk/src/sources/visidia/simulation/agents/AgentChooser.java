@@ -2,8 +2,9 @@ package visidia.simulation.agents;
 
 import java.util.Enumeration;
 
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.metier.*;
+import visidia.gui.metier.Graphe;
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 
 /**
  * This  class is  used to  place  agents on  a graph  using your  own

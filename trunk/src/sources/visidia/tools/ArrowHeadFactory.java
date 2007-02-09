@@ -1,7 +1,8 @@
 package visidia.tools;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.GeneralPath;
 
 public class ArrowHeadFactory {
     public static Shape createSegmentArrowHead(Point a, Point b, int width, int height){

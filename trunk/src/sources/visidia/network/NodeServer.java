@@ -1,7 +1,9 @@
 package visidia.network;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Hashtable;
+import java.util.Vector;
 
 public interface NodeServer extends Remote {
     public Hashtable initialize(Vector vect, String visualizatorName, String visualizatorUrl) throws RemoteException;

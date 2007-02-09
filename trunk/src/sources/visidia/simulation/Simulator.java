@@ -1,12 +1,17 @@
 package visidia.simulation;
 
-import visidia.graph.*;
-import visidia.tools.*;
-import visidia.misc.*;
-
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
-import java.util.Enumeration;
+
+import visidia.graph.SimpleGraph;
+import visidia.graph.Vertex;
+import visidia.misc.EdgeColor;
+import visidia.misc.EdgeState;
+import visidia.misc.Message;
+import visidia.tools.Criterion;
+import visidia.tools.NumberGenerator;
+import visidia.tools.VQueue;
 
 
 /**

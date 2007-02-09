@@ -1,7 +1,8 @@
 package visidia.simulation;
 
-import java.util.Hashtable; 
-import visidia.tools.*;
+import java.util.Hashtable;
+
+import visidia.tools.VQueue;
 
 /**
  * Store net nodes data.

@@ -1,9 +1,16 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
-import visidia.gui.metier.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import visidia.gui.metier.Graphe;
+import visidia.gui.presentation.userInterfaceEdition.Editeur;
+import visidia.gui.presentation.userInterfaceEdition.Fenetre;
 
 
 /**

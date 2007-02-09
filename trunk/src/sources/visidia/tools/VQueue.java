@@ -3,7 +3,7 @@ package visidia.tools;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.*;
+import java.util.Vector;
 
 /**
  * A VQueue object implements a FIFO (First In First Out) list. It can be used in multi-threads

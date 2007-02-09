@@ -1,9 +1,9 @@
 package visidia.tools.agents;
 
-import visidia.tools.HashTableModel;
-import visidia.simulation.agents.AgentSimulator;
 import visidia.simulation.agents.AbstractExperiment;
+import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.Bag;
+import visidia.tools.HashTableModel;
 
 public class UpdateTableStats extends UpdateTable {
 

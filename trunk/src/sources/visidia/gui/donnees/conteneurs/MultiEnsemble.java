@@ -1,7 +1,8 @@
 package visidia.gui.donnees.conteneurs;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 
 /**

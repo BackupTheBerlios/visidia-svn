@@ -1,16 +1,16 @@
 package visidia.graph;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Vector;
-import java.util.Enumeration;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.io.*;
 
-import visidia.visidiassert.VisidiaAssertion;
 import visidia.misc.ForbiddenCallException;
 import visidia.tools.agents.WhiteBoard;
+import visidia.visidiassert.VisidiaAssertion;
 
 public class SimpleGraphVertex  implements Vertex,Serializable {
                             

@@ -1,11 +1,15 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.util.Hashtable;
+
+import javax.swing.JOptionPane;
+
+import visidia.gui.donnees.VertexPropertyTableModel;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 
 /**
  * Cette classe cree une boite utilisee pour modifier l'etat d'un    

@@ -1,6 +1,8 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
+import visidia.misc.IntegerMessage;
+import visidia.misc.Message;
+import visidia.simulation.Algorithm;
+import visidia.simulation.Door;
 
 public class Chang_Roberts2 extends Algorithm {
     

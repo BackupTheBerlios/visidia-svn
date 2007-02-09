@@ -1,10 +1,10 @@
 package visidia.gui.metier.inputOutput;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+import visidia.gui.metier.Graphe;
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.userInterfaceEdition.Editeur;
 
 public class NewGraph {
     

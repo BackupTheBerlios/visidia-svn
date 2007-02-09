@@ -1,6 +1,5 @@
 package visidia.network;
 
-import visidia.network.NodeServer;
 import java.rmi.Naming;
 
 //*****************************************************************

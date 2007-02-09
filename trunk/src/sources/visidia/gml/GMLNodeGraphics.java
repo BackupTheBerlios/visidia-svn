@@ -1,7 +1,7 @@
 package visidia.gml;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Color;
+import java.awt.geom.Area;
 
 public class GMLNodeGraphics {
 	public static final String RECTANGLE_TYPE = "rectangle";

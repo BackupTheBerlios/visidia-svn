@@ -1,6 +1,7 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
-import visidia.gui.presentation.*;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SelectionDessin;
 
 /** Cette classe permet d'annuler et de restaurer les séléctions
  * d'objets dans le graphe. */

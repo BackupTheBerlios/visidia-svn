@@ -1,7 +1,6 @@
 package visidia.gui.presentation;
 
-import java.lang.NoSuchMethodException;
-import visidia.gui.presentation.userInterfaceEdition.undo.*;
+import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
 /*  Those 3 classes are used by SelectUnit and as they can change,
  *  a SelectUnit instance must be able to get them using those functions. */

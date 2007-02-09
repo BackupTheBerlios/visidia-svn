@@ -1,7 +1,8 @@
 package visidia.rule;
 
-import visidia.misc.*;
 import java.io.Serializable;
+
+import visidia.misc.Arrow;
 
 
 /**  a Neighbour contains all the information concerning a node.

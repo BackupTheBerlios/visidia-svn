@@ -1,7 +1,11 @@
 package visidia.simulation.synchro.synAlgos;
 
+import visidia.misc.IntegerMessage;
+import visidia.misc.MSG_TYPES;
+import visidia.misc.Message;
+import visidia.misc.SyncState;
+import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
-import visidia.misc.*;
 
 
 public class RDV extends AbSynAlgo implements IntSynchronization {

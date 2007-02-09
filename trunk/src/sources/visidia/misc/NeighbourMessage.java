@@ -1,7 +1,8 @@
 package visidia.misc;
 
-import visidia.rule.*;
 import java.io.Serializable;
+
+import visidia.rule.Neighbour;
 
 
 /**

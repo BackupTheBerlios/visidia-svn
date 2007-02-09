@@ -1,13 +1,13 @@
 package visidia.simulation.synchro.synAlgos;
 
-import visidia.simulation.synchro.synObj.*;
-
-import visidia.rule.*;
-
-import visidia.misc.*;
-import visidia.simulation.*;
-import java.util.LinkedList;
 import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.MSG_TYPES;
+import visidia.misc.SyncState;
+import visidia.rule.Star;
+import visidia.simulation.Algorithm;
+import visidia.simulation.synchro.synObj.SynObjectRules;
 /** all synchronisation algorithms should extend this class
     *
     */

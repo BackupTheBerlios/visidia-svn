@@ -1,6 +1,6 @@
 package visidia.misc;
 
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * This class is a generic representation of the color oh an edge.

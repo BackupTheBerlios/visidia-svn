@@ -1,10 +1,10 @@
 package visidia.simulation.agents;
 
-import visidia.simulation.SimulationAbortError;
 import visidia.rule.Neighbour;
 import visidia.rule.RelabelingSystem;
 import visidia.rule.Rule;
 import visidia.rule.Star;
+import visidia.simulation.SimulationAbortError;
 
 
 public class AgentRules extends AbstractAgentsRules {

@@ -1,6 +1,6 @@
 package visidia.gui.presentation.starRule;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  *  Stores margins and color data for drawing star rules

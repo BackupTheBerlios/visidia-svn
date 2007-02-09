@@ -1,8 +1,12 @@
 package visidia.gui.donnees;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
 import javax.swing.JApplet;
-import visidia.algo.*;
+
+import visidia.algo.Mazurkiewicz_Election;
 import visidia.simulation.Algorithm;
 
 public class TableAlgo{

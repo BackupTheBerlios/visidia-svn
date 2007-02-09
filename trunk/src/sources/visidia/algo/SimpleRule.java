@@ -1,8 +1,9 @@
 package visidia.algo;
 
-import visidia.visidiassert.*;
-import visidia.misc.*;
-import java.io.*;
+import java.io.Serializable;
+
+import visidia.misc.Arrow;
+import visidia.visidiassert.VisidiaAssertion;
 
 /**
  * Exemple d'implementation des regles de reecriture,a l'aide de vecteurs.

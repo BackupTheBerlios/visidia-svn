@@ -1,7 +1,9 @@
 package visidia.gui.presentation;
 
-import java.awt.*;
-import visidia.gui.metier.*;
+import java.awt.Component;
+import java.awt.Graphics;
+
+import visidia.gui.metier.Arete;
 
 
 /** 

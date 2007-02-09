@@ -1,9 +1,16 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
-import java.util.*;
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
-import visidia.gui.donnees.conteneurs.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.metier.Arete;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
 
 /**
  * La classe Traitement ne peut etre instanciée, elle contient

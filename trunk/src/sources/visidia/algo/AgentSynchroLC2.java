@@ -1,7 +1,15 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.Vector;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.IntegerMessageCriterion;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.SyncState;
+import visidia.simulation.Algorithm;
 
 public class AgentSynchroLC2 extends Algorithm {
     

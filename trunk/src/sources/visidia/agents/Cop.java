@@ -1,7 +1,8 @@
 package visidia.agents;
 
-import visidia.simulation.agents.Agent;
 import java.util.Random;
+
+import visidia.simulation.agents.Agent;
 
 
 public class Cop extends Agent {

@@ -1,9 +1,11 @@
 package visidia.gui.metier.simulation;
 
-import java.awt.*;
-import visidia.tools.MovableObject;
-import visidia.simulation.MessageSendingEvent;
+import java.awt.Graphics;
+import java.awt.Point;
+
 import visidia.misc.MessageType;
+import visidia.simulation.MessageSendingEvent;
+import visidia.tools.MovableObject;
 
 public class SentMessage extends MovableObject {
     private String mesg;

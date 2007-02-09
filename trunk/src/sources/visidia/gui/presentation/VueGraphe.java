@@ -1,13 +1,27 @@
 package visidia.gui.presentation;
 
-import java.util.*;
-import java.awt.*;
-import java.io.*;
-import visidia.gui.donnees.*;
-import visidia.gui.metier.*;
-import visidia.gui.presentation.userInterfaceEdition.undo.*;
-import visidia.gui.donnees.conteneurs.*;
-import visidia.gui.presentation.factory.*; 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.Vector;
+
+import visidia.gui.donnees.TableCouleurs;
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.metier.Graphe;
+import visidia.gui.presentation.factory.FabriqueArete;
+import visidia.gui.presentation.factory.FabriqueAreteFleche;
+import visidia.gui.presentation.factory.FabriqueAreteSegment;
+import visidia.gui.presentation.factory.FabriqueSommet;
+import visidia.gui.presentation.factory.FabriqueSommetCircle;
+import visidia.gui.presentation.userInterfaceEdition.undo.ChangeFormeDessin;
+import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
 /** Cette classe implemente la partie graphique d'un graphe. **/
 public class VueGraphe implements Serializable, RecoverableObject{

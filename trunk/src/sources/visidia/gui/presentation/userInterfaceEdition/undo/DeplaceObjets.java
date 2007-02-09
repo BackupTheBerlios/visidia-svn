@@ -1,7 +1,9 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.conteneurs.*;
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
 
 /** Cette classe contient les informations pour annuler les
  * déplacements d'objets */

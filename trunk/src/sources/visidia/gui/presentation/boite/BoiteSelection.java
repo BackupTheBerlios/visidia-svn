@@ -1,9 +1,16 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.donnees.conteneurs.*;
+import java.awt.GridLayout;
+import java.util.Enumeration;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import visidia.gui.donnees.conteneurs.MultiEnsemble;
 
 /** Cette boite affiche les caracteristiques d'une sélection
  * d'élements du graphe courant.*/

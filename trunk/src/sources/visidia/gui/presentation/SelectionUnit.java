@@ -1,10 +1,21 @@
 package visidia.gui.presentation;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
+
 import javax.swing.JPanel;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceEdition.undo.*;
+
+import visidia.gui.presentation.userInterfaceEdition.undo.DeselectFormeDessin;
+import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
+import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 
 
 public class SelectionUnit extends MouseAdapter implements MouseMotionListener {

@@ -1,11 +1,17 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.*;
-import visidia.tools.agents.*;
+import javax.swing.JOptionPane;
+
+import visidia.gui.donnees.AgentPropertyTableModel;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
+import visidia.tools.agents.UpdateTableAgent;
+import visidia.tools.agents.WhiteBoard;
 
 
 

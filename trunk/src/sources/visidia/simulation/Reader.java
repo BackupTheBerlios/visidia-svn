@@ -1,11 +1,14 @@
 package visidia.simulation;
 
-import java.io.*;
-import visidia.tools.VQueue;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Vector;
-import visidia.simulation.SimulAck;
-import visidia.simulation.SimulEvent;
+
 import visidia.tools.Element;
+import visidia.tools.VQueue;
 
 public class Reader implements Runnable, Cloneable {
     private Vector messages = new Vector();

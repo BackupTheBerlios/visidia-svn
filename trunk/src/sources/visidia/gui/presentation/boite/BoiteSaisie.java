@@ -1,6 +1,7 @@
 package visidia.gui.presentation.boite;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /** Cette classe affiche une boite de saisie d'une valeur quelconque. 
 * Les methodes de cette classe doivent etre redefinies en fonction de la saisie attendue.

@@ -1,11 +1,13 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import java.lang.Integer;
-import javax.swing.*;
+import java.io.File;
+import java.io.Serializable;
 import java.util.Enumeration;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+
+import javax.swing.JFileChooser;
+
 import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 
 
 public class OpenAgents implements Serializable{

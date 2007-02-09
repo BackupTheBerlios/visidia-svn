@@ -2,7 +2,8 @@ package visidia.simulation;
 
 
 import java.io.Serializable;
-import visidia.misc.*;
+
+import visidia.misc.Message;
 
 /**
  * cette classe permet d'encapsuler un message qui est

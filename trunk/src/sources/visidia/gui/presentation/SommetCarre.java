@@ -1,10 +1,15 @@
 package visidia.gui.presentation;
 
-import javax.swing.*;
-import java.awt.*;
-import visidia.gui.donnees.*;
-import visidia.gui.presentation.boite.*;
-import visidia.gui.metier.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import visidia.gui.donnees.TableCouleurs;
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.boite.BoiteFormeDessin;
+import visidia.gui.presentation.boite.BoiteSommetCarre;
 
 
 /** Raffine sa super-classe pour representer un sommet sous la forme d'un carre.*/

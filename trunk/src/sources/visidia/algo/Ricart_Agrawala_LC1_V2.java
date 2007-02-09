@@ -1,8 +1,17 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
 import java.awt.Color;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Vector;
+
+import visidia.misc.ColorState;
+import visidia.misc.IntegerMessage;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.misc.SyncState;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.Algorithm;
 
 /**
  * The algorithm of Ricart and Agrawala solves the problem

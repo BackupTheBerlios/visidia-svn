@@ -1,9 +1,14 @@
 package visidia.algo.synchronous;
 
 
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.MarkedState;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.simulation.Door;
+import visidia.simulation.SyncAlgorithm;
 
 
 public class SynchBFS extends SyncAlgorithm {

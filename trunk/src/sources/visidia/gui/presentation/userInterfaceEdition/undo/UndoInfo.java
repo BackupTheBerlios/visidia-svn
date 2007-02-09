@@ -1,7 +1,8 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
-import visidia.gui.presentation.*;
-import java.util.*;
+import java.util.Vector;
+
+import visidia.gui.presentation.FormeDessin;
 
 /** Cette classe implémente la structure de données utilisée pour
  * gérer les opérations de undo/redo. **/

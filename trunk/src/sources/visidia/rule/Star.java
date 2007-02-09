@@ -1,8 +1,7 @@
 package visidia.rule;
 
-import java.util.*;
-
 import java.io.Serializable;
+import java.util.Iterator;
 
 
 /**

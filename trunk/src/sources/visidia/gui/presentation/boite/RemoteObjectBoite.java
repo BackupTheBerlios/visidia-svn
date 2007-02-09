@@ -1,12 +1,25 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.util.Hashtable;
-import javax.swing.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.network.*;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
+import visidia.network.NodeServer;
 
 /**
  * Cette classe cree une boite pour specifier l'emplacement des serveurs 

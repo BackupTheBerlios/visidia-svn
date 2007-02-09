@@ -1,8 +1,14 @@
 package visidia.gui.metier.simulation;
 
-import java.util.*;
-import visidia.gui.metier.*;
-import visidia.graph.*;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import visidia.graph.SimpleGraph;
+import visidia.gui.metier.Arete;
+import visidia.gui.metier.Graphe;
+import visidia.gui.metier.Sommet;
 
 /** cette classe contient une methode statique de conversion d'un
  * grapheVisu cree par l'interface graphique en un graphe utilise par

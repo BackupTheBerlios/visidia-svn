@@ -1,6 +1,6 @@
 package visidia.graph;
 
-import java.io.*;
+import java.io.Serializable;
 
 class SimpleGraphEdge implements Edge, Serializable{
     /**

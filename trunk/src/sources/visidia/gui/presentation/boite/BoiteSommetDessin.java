@@ -1,9 +1,13 @@
 package visidia.gui.presentation.boite;
 
-import visidia.gui.presentation.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import visidia.gui.presentation.SommetDessin;
 
 /** Cette class "raffine" sa super classe en lui ajoutant les champs permettant 
  *  d'afficher et de modifier les caracteristiques specifiques au sommets

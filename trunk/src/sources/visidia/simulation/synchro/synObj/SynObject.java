@@ -1,9 +1,9 @@
 package visidia.simulation.synchro.synObj;
 
-import  visidia.simulation.synchro.SynCT;
-
-import java.util.Vector;
 import java.io.Serializable;
+import java.util.Vector;
+
+import visidia.simulation.synchro.SynCT;
 
 
 

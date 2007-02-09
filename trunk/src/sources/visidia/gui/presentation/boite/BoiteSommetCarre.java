@@ -1,9 +1,19 @@
 package visidia.gui.presentation.boite;
 
-import visidia.gui.presentation.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import visidia.gui.presentation.SommetCarre;
 
 
 /** Cette classe "raffine" sa super classe en lui ajoutant les champs

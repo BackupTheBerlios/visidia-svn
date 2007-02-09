@@ -1,9 +1,9 @@
 package visidia.agents.agentsmover;
 
+import java.util.Arrays;
+
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
-
-import java.util.Arrays;
 
 /**
  * Provides a linear  move for an Agent. On a vertex,  the agent go to

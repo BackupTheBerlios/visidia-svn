@@ -1,38 +1,40 @@
 package visidia.simulation.agents;
 
-import visidia.graph.*;
-import visidia.tools.VQueue;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Vector;
 
-import visidia.simulation.AlgorithmEndEvent;
-import visidia.simulation.MessageSendingEvent;
-import visidia.simulation.MessagePacket;
-import visidia.simulation.EdgeStateChangeEvent;
-import visidia.simulation.AgentMovedEvent;
-import visidia.simulation.LabelChangeEvent;
-import visidia.simulation.NextPulseEvent;
-
-import visidia.simulation.SimulationAbortError;
-import visidia.simulation.SimulatorThreadGroup;
-
-import visidia.simulation.agents.stats.*;
-
-import visidia.tools.NumberGenerator;
-import visidia.tools.Bag;
-
+import visidia.graph.SimpleGraph;
+import visidia.graph.Vertex;
+import visidia.misc.EdgeState;
 import visidia.misc.Message;
 import visidia.misc.StringMessage;
-import visidia.misc.EdgeState;
-
 import visidia.rule.RelabelingSystem;
-
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.Collection;
-import java.util.HashSet;
-
-import java.util.Vector;
+import visidia.simulation.AgentMovedEvent;
+import visidia.simulation.AlgorithmEndEvent;
+import visidia.simulation.EdgeStateChangeEvent;
+import visidia.simulation.LabelChangeEvent;
+import visidia.simulation.MessagePacket;
+import visidia.simulation.MessageSendingEvent;
+import visidia.simulation.NextPulseEvent;
+import visidia.simulation.SimulationAbortError;
+import visidia.simulation.SimulatorThreadGroup;
+import visidia.simulation.agents.stats.AbstractStat;
+import visidia.simulation.agents.stats.AgentCreationStat;
+import visidia.simulation.agents.stats.EdgeStateStat;
+import visidia.simulation.agents.stats.MoveStat;
+import visidia.simulation.agents.stats.PulseStat;
+import visidia.simulation.agents.stats.SleepStat;
+import visidia.simulation.agents.stats.TerminatedStat;
+import visidia.simulation.agents.stats.VertexWBAccessStat;
+import visidia.simulation.agents.stats.VertexWBChangeStat;
+import visidia.tools.Bag;
+import visidia.tools.NumberGenerator;
+import visidia.tools.VQueue;
 
 /**
  * Class  in charge  of the  simulation. Allows the communication

@@ -1,11 +1,15 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
+import java.io.File;
+import java.io.Serializable;
 import java.util.Enumeration;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.simulation.*;
+
+import javax.swing.JFileChooser;
+
 import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulation;
+import visidia.simulation.Algorithm;
+import visidia.simulation.SyncAlgorithm;
 
 
 public class OpenAlgo implements Serializable{

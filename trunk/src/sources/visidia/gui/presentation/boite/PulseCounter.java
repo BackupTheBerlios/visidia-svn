@@ -1,8 +1,10 @@
 package visidia.gui.presentation.boite;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.awt.event.*;
-import javax.swing.*;
+
+import javax.swing.JLabel;
 
 
 public class PulseCounter extends JLabel implements ActionListener, Serializable {

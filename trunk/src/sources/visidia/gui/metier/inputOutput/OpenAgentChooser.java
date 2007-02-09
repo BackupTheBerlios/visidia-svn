@@ -1,11 +1,13 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
-import java.lang.reflect.Method;
+import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
-import visidia.gui.presentation.userInterfaceSimulation.*;
+import javax.swing.JFileChooser;
+
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 import visidia.simulation.agents.AgentChooser;
 
 public class OpenAgentChooser implements Serializable{

@@ -1,7 +1,7 @@
 package visidia.simulation;
 
-import visidia.misc.*;
-import visidia.tools.*;
+import visidia.misc.MessageCriterion;
+import visidia.tools.Criterion;
 
 /**
  * MessagePacketCriterion is a massage criterion wrapper that handle a message 

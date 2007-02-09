@@ -1,8 +1,13 @@
 package visidia.gui.donnees;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
 import javax.swing.JApplet;
-import visidia.algoRMI.*;
+
+import visidia.algoRMI.ColorationRmi;
+import visidia.algoRMI.ElectionRmi;
 import visidia.simulation.AlgorithmDist;
 
 public class TableAlgoDistribue{

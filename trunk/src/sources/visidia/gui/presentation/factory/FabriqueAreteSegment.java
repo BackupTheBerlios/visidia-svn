@@ -1,8 +1,11 @@
 package visidia.gui.presentation.factory;
 
 import java.io.Serializable;
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+
+import visidia.gui.metier.Arete;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.AreteSegment;
+import visidia.gui.presentation.SommetDessin;
 
 public class FabriqueAreteSegment implements FabriqueArete,Serializable{
 

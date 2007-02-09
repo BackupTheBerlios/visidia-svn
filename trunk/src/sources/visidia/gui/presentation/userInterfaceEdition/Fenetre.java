@@ -1,9 +1,15 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
-import java.awt.*;
-import javax.swing.*;
-import java.io.*;
-import visidia.gui.presentation.*;
+import java.awt.Color;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.VueGraphe;
 
 public abstract class Fenetre extends JFrame {
  // Quelques constantes

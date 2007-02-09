@@ -1,9 +1,12 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.simulation.*;
+import java.io.File;
+import java.io.Serializable;
+
+import javax.swing.JFileChooser;
+
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
+import visidia.simulation.AlgorithmDist;
 
 
 public class OpenAlgoDistribue implements Serializable{

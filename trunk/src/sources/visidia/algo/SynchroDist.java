@@ -1,7 +1,12 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.MarkedState;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.simulation.Algorithm;
+import visidia.simulation.Door;
 
 public class SynchroDist extends Algorithm {
     final int starCenter=-1;

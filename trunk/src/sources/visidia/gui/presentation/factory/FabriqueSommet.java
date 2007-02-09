@@ -1,7 +1,8 @@
 package visidia.gui.presentation.factory;
 
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
 
 public interface FabriqueSommet{
 

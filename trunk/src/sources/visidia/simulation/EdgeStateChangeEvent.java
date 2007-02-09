@@ -1,7 +1,8 @@
 package visidia.simulation;
 
-import visidia.misc.EdgeState;
 import java.io.Serializable;
+
+import visidia.misc.EdgeState;
 
 /**
  * cette classe représente l'évènement associé au changement

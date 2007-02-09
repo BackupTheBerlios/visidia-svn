@@ -1,12 +1,23 @@
 package visidia.simulation.rules;
 
-import visidia.simulation.synchro.SynCT;
-import visidia.simulation.synchro.synObj.*;
+import java.util.Collection;
+import java.util.LinkedList;
 
-import visidia.rule.*;
-import visidia.misc.*;
-import visidia.simulation.*;
-import java.util.*;
+import visidia.misc.BooleanMessage;
+import visidia.misc.IntegerMessage;
+import visidia.misc.MSG_TYPES;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.NeighbourMessage;
+import visidia.misc.StringMessage;
+import visidia.rule.Neighbour;
+import visidia.rule.RSOptions;
+import visidia.rule.RelabelingSystem;
+import visidia.rule.Rule;
+import visidia.rule.Star;
+import visidia.simulation.Algorithm;
+import visidia.simulation.synchro.SynCT;
+import visidia.simulation.synchro.synObj.SynObjectRules;
 
 
 /** 

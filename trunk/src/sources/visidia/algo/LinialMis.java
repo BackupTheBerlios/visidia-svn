@@ -1,8 +1,11 @@
 package visidia.algo;
 
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Random;
+import java.util.Vector;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.StringMessage;
+import visidia.simulation.Algorithm;
 
 public class LinialMis extends Algorithm {
     

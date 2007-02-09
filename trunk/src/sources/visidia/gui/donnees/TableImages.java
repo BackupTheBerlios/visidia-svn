@@ -1,9 +1,11 @@
 package visidia.gui.donnees;
 
-import java.util.*;
-import java.awt.*;
-import javax.swing.JApplet;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.net.URL;
+import java.util.Hashtable;
+
+import javax.swing.JApplet;
 
 public class TableImages{
 

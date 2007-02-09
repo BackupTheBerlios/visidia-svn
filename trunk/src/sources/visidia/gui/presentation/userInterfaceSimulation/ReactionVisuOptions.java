@@ -1,6 +1,7 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 // Cette clase permet la reaction des cases a cocher 
 

@@ -1,7 +1,8 @@
 package visidia.simulation;
 
-import visidia.misc.EdgeColor;
 import java.io.Serializable;
+
+import visidia.misc.EdgeColor;
 
 /**
  * This classe represents the event associating

@@ -1,6 +1,11 @@
 package visidia.algoRMI;
-import visidia.simulation.*;
-import visidia.misc.*;
+import visidia.misc.IntegerMessage;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.AlgorithmDist;
 
 
 public class ColorationRmi extends AlgorithmDist {

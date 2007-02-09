@@ -1,6 +1,7 @@
 package visidia.gui.metier;
-import visidia.gui.presentation.FormeDessin;
 import java.io.Serializable;
+
+import visidia.gui.presentation.FormeDessin;
 
 /**
  * The ObjetGraphe interface has to be implemented

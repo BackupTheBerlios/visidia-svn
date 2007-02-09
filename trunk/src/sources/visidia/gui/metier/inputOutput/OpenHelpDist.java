@@ -6,10 +6,19 @@
 
 package visidia.gui.metier.inputOutput;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 /**
  * Help for setting up the distributed simulation (configuration steps).

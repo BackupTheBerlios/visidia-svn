@@ -1,7 +1,11 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /* Cette classe permet l'ajout graphique du menu des options de visualisation
 a la fenetre de visualisation */

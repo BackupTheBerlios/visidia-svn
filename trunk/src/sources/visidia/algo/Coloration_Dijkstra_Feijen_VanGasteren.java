@@ -1,7 +1,14 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.misc.SyncState;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.Algorithm;
 
 public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
     final int starCenter=-1;

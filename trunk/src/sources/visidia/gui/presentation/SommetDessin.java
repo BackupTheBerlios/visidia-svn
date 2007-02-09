@@ -1,9 +1,13 @@
 package visidia.gui.presentation;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import visidia.gui.metier.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.Hashtable;
+
+import javax.swing.ImageIcon;
+
+import visidia.gui.metier.Sommet;
 
 /** the geometric shape of a vertex */
 public abstract class SommetDessin extends FormeDessin {

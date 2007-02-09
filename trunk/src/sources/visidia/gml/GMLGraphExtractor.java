@@ -1,9 +1,12 @@
 package visidia.gml;
 
-import visidia.graph.*;
-import java.util.*;
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.util.Enumeration;
+import java.util.Properties;
+
+import visidia.graph.SimpleGraph;
+import visidia.graph.Vertex;
 
 /**
  * This class extracts graph from GMLPairSet.

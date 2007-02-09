@@ -1,13 +1,27 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.util.Hashtable;
-import javax.swing.*;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.metier.*;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.VueGraphe;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 import visidia.tools.LocalNodeTable;
 
 

@@ -1,7 +1,8 @@
 package visidia.gui.donnees;
 
-import javax.swing.*;
-import java.util.*;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import visidia.tools.agents.WhiteBoard;
 

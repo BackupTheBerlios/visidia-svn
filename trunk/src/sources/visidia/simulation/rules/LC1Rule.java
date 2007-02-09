@@ -1,10 +1,13 @@
 package visidia.simulation.rules;
 
+import visidia.misc.BooleanMessage;
+import visidia.misc.MSG_TYPES;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.StringMessage;
+import visidia.rule.RelabelingSystem;
 import visidia.simulation.synchro.SynCT;
-import visidia.simulation.synchro.synAlgos.*;
-
-import visidia.rule.*;
-import visidia.misc.*;
+import visidia.simulation.synchro.synAlgos.LC1;
  
 public class LC1Rule extends AbstractRule{
 

@@ -1,11 +1,17 @@
 package visidia.simulation;
 
-import visidia.misc.*;
-import visidia.tools.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Random;
 
-import  visidia.simulation.synchro.synObj.*;
-import  visidia.simulation.synchro.synAlgos.*;
+import visidia.misc.EdgeColor;
+import visidia.misc.EdgeState;
+import visidia.misc.Message;
+import visidia.misc.MessageCriterion;
+import visidia.misc.MessageType;
+import visidia.simulation.synchro.synAlgos.AbSynAlgo;
+import visidia.simulation.synchro.synObj.SynObject;
+import visidia.tools.CompoundCriterion;
 
 public abstract class Algorithm implements Runnable,Cloneable
 {

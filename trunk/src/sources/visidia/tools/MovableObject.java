@@ -1,6 +1,6 @@
 package visidia.tools;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
 */

@@ -1,13 +1,34 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.donnees.conteneurs.*;
-import visidia.gui.donnees.*;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceEdition.undo.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Rectangle;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
+import java.util.Vector;
+
+import javax.swing.JPanel;
+
+import visidia.gui.donnees.TableImages;
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
+import visidia.gui.presentation.userInterfaceEdition.undo.AjouteObjet;
+import visidia.gui.presentation.userInterfaceEdition.undo.DeplaceObjets;
+import visidia.gui.presentation.userInterfaceEdition.undo.DeselectFormeDessin;
+import visidia.gui.presentation.userInterfaceEdition.undo.FusionneSommet;
+import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
 
 /**
  * Un GrapheVisuPanel est un JPanel sur lequel le graphe est affiché

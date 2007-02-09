@@ -1,12 +1,24 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Enumeration;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import visidia.gui.metier.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
+
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
+import visidia.gui.metier.Arete;
+import visidia.gui.metier.Graphe;
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.userInterfaceEdition.Fenetre;
 
 /* this class permit to make the exportation of graph in GML format */
 

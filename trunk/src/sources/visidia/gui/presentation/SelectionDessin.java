@@ -1,7 +1,8 @@
 package visidia.gui.presentation;
 
-import java.util.*;
-import visidia.gui.donnees.conteneurs.*;
+import java.util.Enumeration;
+
+import visidia.gui.donnees.conteneurs.Ensemble;
 
 /**
  * Implements a selection of elements of a graph

@@ -1,8 +1,7 @@
 package visidia.simulation.agents;
 
-import java.util.Iterator;
-
 import java.util.Collection;
+import java.util.Iterator;
 
 public class SimpleMeetingOrganizer implements MeetingOrganizer {
   

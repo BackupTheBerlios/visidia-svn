@@ -1,7 +1,8 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
-import java.io.*;
-import visidia.gui.presentation.*;
+import java.io.Serializable;
+
+import visidia.gui.presentation.FormeDessin;
 
 /** Cette interface sera implémentée par les objets représentant des
  * opérations susceptibles d'être annulées ou restaurées (creation,

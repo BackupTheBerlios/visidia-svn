@@ -1,6 +1,7 @@
 package visidia.graph;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Enumeration;
 
 import visidia.tools.agents.WithWhiteBoard;
 

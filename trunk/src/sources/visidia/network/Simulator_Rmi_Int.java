@@ -1,11 +1,16 @@
 package visidia.network;
 
-import visidia.simulation.*;
-import visidia.graph.*;
-import visidia.tools.*;
-import visidia.misc.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Hashtable;
-import java.rmi.*;
+
+import visidia.graph.SimpleGraph;
+import visidia.misc.EdgeState;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.simulation.AlgorithmDist;
+import visidia.tools.LocalNodeTable;
+import visidia.tools.VQueue;
 
 /** This class represents a distributed simulator called also the "console".
  * It gothers messages exchanging by the nodes, communicates them to the GUI

@@ -1,9 +1,17 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.gui.metier.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
+import java.io.Serializable;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import visidia.gui.metier.Graphe;
+import visidia.gui.presentation.userInterfaceEdition.Fenetre;
 
 /** this class permit to Open saved rules from directories */
 public class OpenGraph implements Serializable{

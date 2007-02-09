@@ -1,10 +1,18 @@
 package visidia.gui.presentation.boite;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 import visidia.gui.donnees.TableImages;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 
 /**

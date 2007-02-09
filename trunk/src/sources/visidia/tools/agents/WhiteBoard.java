@@ -1,8 +1,8 @@
 package visidia.tools.agents;
 
 import java.util.Hashtable;
-import java.util.Set;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * A white board  stores properties under names like  a Hashtable. The

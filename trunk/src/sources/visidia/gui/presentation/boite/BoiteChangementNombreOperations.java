@@ -1,7 +1,9 @@
 package visidia.gui.presentation.boite;
 
-import javax.swing.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import visidia.gui.presentation.userInterfaceEdition.Editeur;
 
 /*******************************************************************
  * Cette classe permet de changer le nombre d'opérations a annuler *

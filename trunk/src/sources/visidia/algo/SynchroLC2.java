@@ -3,8 +3,11 @@
  */
 
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
+import visidia.misc.IntegerMessage;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.Algorithm;
 
 public class SynchroLC2 extends Algorithm {
 	   

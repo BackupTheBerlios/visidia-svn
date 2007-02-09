@@ -1,7 +1,9 @@
 package visidia.network;
 
-import java.rmi.*;
+import java.rmi.AccessException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 
 public class RegistrationThread extends Thread {

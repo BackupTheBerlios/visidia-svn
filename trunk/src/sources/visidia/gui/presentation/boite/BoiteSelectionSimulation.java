@@ -1,12 +1,24 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.conteneurs.*;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+import visidia.gui.donnees.conteneurs.MultiEnsemble;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulation;
 
 /** Cette boite affiche les caracteristiques d'une sélection
  * d'éléments du graphe courant.*/

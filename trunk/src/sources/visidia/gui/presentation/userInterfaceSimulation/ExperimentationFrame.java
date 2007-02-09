@@ -1,14 +1,39 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.*;
-import java.util.*;
-import java.io.*;
-import visidia.gui.metier.simulation.*;
-import visidia.gui.presentation.*;
-import visidia.simulation.*;
+import java.awt.BorderLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.table.AbstractTableModel;
+
+import visidia.gui.metier.simulation.AlgoChoice;
+import visidia.gui.metier.simulation.Convertisseur;
+import visidia.gui.presentation.VueGraphe;
+import visidia.simulation.EdgeStateChangeAck;
+import visidia.simulation.MessageSendingAck;
+import visidia.simulation.NodePropertyChangeAck;
+import visidia.simulation.SimulConstants;
+import visidia.simulation.SimulEvent;
+import visidia.simulation.Simulator;
 
 
 public class ExperimentationFrame extends JFrame implements ActionListener{

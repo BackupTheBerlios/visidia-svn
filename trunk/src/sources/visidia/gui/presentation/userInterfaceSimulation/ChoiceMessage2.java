@@ -1,11 +1,16 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
-import visidia.misc.*;
-import visidia.gui.metier.simulation.*;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+
+import visidia.gui.metier.simulation.AlgoChoice;
+import visidia.misc.MessageType;
 
 //this class will allow us to choose which messages we want to
 //visualize in the graphical interface.

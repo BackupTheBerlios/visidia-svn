@@ -1,11 +1,26 @@
 package visidia.gui.metier.simulation;
 
-import javax.swing.*;
-import java.util.*;
-import visidia.misc.*;
-import visidia.simulation.*;
-import visidia.tools.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+import java.util.Hashtable;
+
+import javax.swing.JOptionPane;
+
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulation;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
+import visidia.misc.MarkedState;
+import visidia.misc.SyncState;
+import visidia.simulation.AlgorithmEndAck;
+import visidia.simulation.AlgorithmEndEvent;
+import visidia.simulation.EdgeStateChangeAck;
+import visidia.simulation.EdgeStateChangeEvent;
+import visidia.simulation.MessageSendingEvent;
+import visidia.simulation.NextPulseAck;
+import visidia.simulation.NextPulseEvent;
+import visidia.simulation.NodePropertyChangeAck;
+import visidia.simulation.NodePropertyChangeEvent;
+import visidia.simulation.SimulConstants;
+import visidia.simulation.SimulEvent;
+import visidia.tools.VQueue;
   
 /** This class is responsible of dealing with the 
     events coming from the simulator */

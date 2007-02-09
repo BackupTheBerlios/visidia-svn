@@ -1,7 +1,15 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Vector;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.MarkedState;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.misc.VectorMessage;
+import visidia.simulation.Algorithm;
+import visidia.simulation.Door;
 
 
 public class Test extends Algorithm {

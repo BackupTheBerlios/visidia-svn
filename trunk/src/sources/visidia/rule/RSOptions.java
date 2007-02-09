@@ -1,5 +1,6 @@
 package visidia.rule;
 import java.io.Serializable;
+
 import visidia.simulation.synchro.SynCT;
 /**
  * class Relabeling system options.

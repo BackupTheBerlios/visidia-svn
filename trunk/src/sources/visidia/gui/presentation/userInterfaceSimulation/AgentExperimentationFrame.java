@@ -1,31 +1,37 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import visidia.tools.HashTableModel;
-import visidia.rule.RelabelingSystem;
-import visidia.graph.SimpleGraph;
-
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Hashtable;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 
-import java.lang.ArrayIndexOutOfBoundsException;
-
-import visidia.gui.metier.simulation.*;
-import visidia.gui.presentation.*;
-import visidia.simulation.*;
+import visidia.graph.SimpleGraph;
+import visidia.gui.metier.simulation.Convertisseur;
+import visidia.gui.presentation.VueGraphe;
+import visidia.rule.RelabelingSystem;
+import visidia.simulation.AgentMovedAck;
+import visidia.simulation.EdgeStateChangeAck;
+import visidia.simulation.MessageSendingAck;
+import visidia.simulation.SimulConstants;
+import visidia.simulation.SimulEvent;
+import visidia.simulation.SimulationAbortError;
+import visidia.simulation.SimulatorThreadGroup;
+import visidia.simulation.agents.AbstractExperiment;
 import visidia.simulation.agents.AgentSimulator;
-import visidia.tools.*;
-import visidia.tools.agents.*;
-import visidia.simulation.agents.*;
-
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
+import visidia.tools.Bag;
+import visidia.tools.HashTableModel;
+import visidia.tools.TableSorter;
+import visidia.tools.agents.UpdateTableStats;
 
 
 

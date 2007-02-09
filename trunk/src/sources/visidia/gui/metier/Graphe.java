@@ -1,9 +1,10 @@
 package visidia.gui.metier;
 
-import java.util.*;
-import java.io.*;
-import visidia.gui.donnees.conteneurs.monde.*;
-import visidia.gui.presentation.*;
+import java.io.Serializable;
+import java.util.Enumeration;
+
+import visidia.gui.donnees.conteneurs.monde.Monde;
+import visidia.gui.presentation.VueGraphe;
 
 /** This class correponds to a theorical graph
  * it simply contains the edges and the vertices used.

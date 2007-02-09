@@ -1,7 +1,8 @@
 package visidia.simulation.agents;
 
-import visidia.simulation.SimulationAbortError;
 import java.util.Hashtable;
+
+import visidia.simulation.SimulationAbortError;
 
 /**
  *  Extend this class to implement Synchronized Agents

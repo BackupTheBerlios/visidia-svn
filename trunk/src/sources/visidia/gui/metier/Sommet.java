@@ -1,9 +1,11 @@
 package visidia.gui.metier;
 
-import java.util.*;
-import visidia.gui.donnees.conteneurs.*;
-import visidia.gui.donnees.conteneurs.monde.*;
-import visidia.gui.presentation.*;
+import java.util.Enumeration;
+
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.donnees.conteneurs.MultiEnsemble;
+import visidia.gui.donnees.conteneurs.monde.Position;
+import visidia.gui.presentation.SommetDessin;
 
 
 /**

@@ -4,10 +4,10 @@
 
 package visidia.tests.tools;
 
-import visidia.tools.agents.WhiteBoard;
-
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
+
+import visidia.tools.agents.WhiteBoard;
 
 public class WhiteBoardTest extends junit.framework.TestCase {
     

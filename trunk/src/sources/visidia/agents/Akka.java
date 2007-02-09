@@ -1,9 +1,8 @@
 package visidia.agents;
 
-import visidia.simulation.agents.SynchronizedAgent;
-
-
 import java.util.Random;
+
+import visidia.simulation.agents.SynchronizedAgent;
 
 /**
  *

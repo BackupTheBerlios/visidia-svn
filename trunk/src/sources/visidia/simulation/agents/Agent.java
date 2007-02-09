@@ -1,19 +1,18 @@
 package visidia.simulation.agents;
 
-import java.util.*;
-
 import java.lang.reflect.Constructor;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Set;
 
-import visidia.tools.agents.WithWhiteBoard;
-import visidia.tools.agents.WhiteBoard;
 import visidia.misc.EdgeState;
 import visidia.misc.MarkedState;
 import visidia.misc.SyncState;
 import visidia.simulation.SimulationAbortError;
-
 import visidia.simulation.agents.stats.AbstractStat;
-
-import visidia.visidiassert.*;
+import visidia.tools.agents.WhiteBoard;
+import visidia.tools.agents.WithWhiteBoard;
+import visidia.visidiassert.VisidiaAssertion;
 
 /**
  * Abstract class used to implement agent based algorithms.  If you

@@ -1,6 +1,9 @@
 package visidia.rule;
-import java.util.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Vector;
 
 /**
  * Randomized methods 

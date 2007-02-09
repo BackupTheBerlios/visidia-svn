@@ -1,8 +1,15 @@
 
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.misc.SyncState;
+import visidia.misc.SynchronizedRandom;
+import visidia.simulation.Algorithm;
 
 public class Spanning_Tree_ID_LC2_V2 extends Algorithm {
     

@@ -1,12 +1,14 @@
 package visidia.simulation;
 
-import visidia.network.*;
-import visidia.misc.Message;
-import visidia.misc.*;
-import visidia.tools.*;
-
-import java.util.*;
 import java.io.Serializable;
+import java.util.Hashtable;
+
+import visidia.misc.EdgeState;
+import visidia.misc.Message;
+import visidia.misc.MessageCriterion;
+import visidia.misc.MessageType;
+import visidia.network.NodeTry;
+import visidia.tools.CompoundCriterion;
 
 public abstract class AlgorithmDist implements Runnable,Cloneable,Serializable
 {

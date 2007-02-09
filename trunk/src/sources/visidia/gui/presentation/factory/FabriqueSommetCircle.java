@@ -1,8 +1,11 @@
 package visidia.gui.presentation.factory;
 
 import java.io.Serializable;
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
+
+import visidia.gui.metier.Sommet;
+import visidia.gui.presentation.SommetCircle;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
 
 public class FabriqueSommetCircle implements FabriqueSommet, Serializable{
  

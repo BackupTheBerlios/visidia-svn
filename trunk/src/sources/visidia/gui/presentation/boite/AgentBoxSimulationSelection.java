@@ -1,8 +1,8 @@
 package visidia.gui.presentation.boite;
 
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.conteneurs.*;
+import visidia.gui.donnees.conteneurs.MultiEnsemble;
+import visidia.gui.presentation.SelectionDessin;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 
 /** Cette boite affiche les caracteristiques d'une sélection
  * d'éléments du graphe courant.*/

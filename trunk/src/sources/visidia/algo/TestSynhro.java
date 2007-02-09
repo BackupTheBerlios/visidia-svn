@@ -1,7 +1,10 @@
 package visidia.algo;
-import visidia.simulation.*;
-import visidia.misc.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import visidia.misc.IntegerMessage;
+import visidia.misc.MessageType;
+import visidia.simulation.SyncAlgorithm;
 
 
 public class TestSynhro extends SyncAlgorithm {

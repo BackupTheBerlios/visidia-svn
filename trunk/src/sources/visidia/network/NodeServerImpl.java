@@ -1,12 +1,12 @@
 package visidia.network;
 
-import visidia.network.NodeInterfaceTry;
-import visidia.network.NodeTry;
-import java.rmi.*;
+import java.io.PrintWriter;
 import java.rmi.Naming;
-import java.rmi.server.*;
-import java.io.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /** This class represents a Local Node. when distributing the simulation 
  * graph nodes over the network graph, we form local graphs for each one of 

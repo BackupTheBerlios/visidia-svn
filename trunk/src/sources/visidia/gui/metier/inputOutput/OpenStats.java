@@ -1,10 +1,12 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
+import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
-import visidia.gui.presentation.userInterfaceSimulation.*;
+import javax.swing.JFileChooser;
+
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 import visidia.simulation.agents.AbstractExperiment;
 
 public class OpenStats implements Serializable{

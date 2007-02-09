@@ -1,6 +1,7 @@
 package visidia.tools;
 
-import visidia.simulation.*;
+import visidia.simulation.SimulAck;
+import visidia.simulation.SimulEvent;
 
 
 

@@ -1,7 +1,8 @@
 package visidia.gui.donnees;
 
-import javax.swing.table.*;
-import java.util.*;
+import java.util.Vector;
+
+import javax.swing.table.AbstractTableModel;
 
 /**
  * Class that maps properties (key, value) entries into

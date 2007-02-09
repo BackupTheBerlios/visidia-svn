@@ -1,7 +1,8 @@
 package visidia.gui.presentation.userInterfaceSimulation;
 
-import javax.swing.*;
-import visidia.misc.*;
+import javax.swing.JCheckBoxMenuItem;
+
+import visidia.misc.MessageType;
 
 public class JMessageTypeMenuItem extends JCheckBoxMenuItem {
     /**

@@ -1,11 +1,19 @@
 package visidia.gui;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import visidia.gui.presentation.userInterfaceEdition.*;
-import visidia.gui.donnees.*;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+import visidia.gui.donnees.TableAlgo;
+import visidia.gui.donnees.TableImages;
+import visidia.gui.presentation.userInterfaceEdition.Editeur;
 
 public class DistributedAlgoSimulator extends JApplet implements ActionListener {
 

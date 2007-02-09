@@ -1,7 +1,9 @@
 package visidia.gui.donnees;
 
-import javax.swing.*;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 /**
  * Class that maps properties (key, value) entries into

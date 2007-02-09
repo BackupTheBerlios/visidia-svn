@@ -1,8 +1,8 @@
 package visidia.agents;
 
-import visidia.simulation.agents.Agent;
-
 import java.util.NoSuchElementException;
+
+import visidia.simulation.agents.Agent;
 
 
 /**

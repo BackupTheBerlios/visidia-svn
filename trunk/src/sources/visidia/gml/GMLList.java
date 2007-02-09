@@ -1,6 +1,9 @@
 package visidia.gml;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.NoSuchElementException;
+import java.util.Vector;
 /**
  * Set of pair (key, value). The containt of this set can be queried
  * by label.

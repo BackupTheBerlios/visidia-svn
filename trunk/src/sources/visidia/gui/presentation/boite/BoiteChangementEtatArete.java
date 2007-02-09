@@ -1,12 +1,24 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.donnees.conteneurs.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Enumeration;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import visidia.gui.donnees.conteneurs.Ensemble;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulation;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 
 /*
  * Cette classe crée une boite utilisée pour modifier l'état    

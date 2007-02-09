@@ -1,6 +1,7 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
+import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 // this class is the file filter which recognizes the class format (*.class)

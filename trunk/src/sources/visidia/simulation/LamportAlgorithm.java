@@ -2,8 +2,9 @@ package visidia.simulation;
 
 
 
-import visidia.misc.*;
-import visidia.tools.*;
+import visidia.misc.Message;
+import visidia.misc.MessageCriterion;
+import visidia.tools.CompoundCriterion;
 
 
 /**

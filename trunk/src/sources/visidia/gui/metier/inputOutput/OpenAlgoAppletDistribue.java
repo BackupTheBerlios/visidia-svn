@@ -1,9 +1,10 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.boite.BoiteAlgoAppletDistribue;
+import java.io.Serializable;
+
 import visidia.gui.donnees.TableAlgoDistribue;
+import visidia.gui.presentation.boite.BoiteAlgoAppletDistribue;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 
 
 public class OpenAlgoAppletDistribue implements Serializable{

@@ -1,12 +1,18 @@
 package visidia.gui.presentation.boite;
 
-import javax.swing.*;
-import java.util.*;
-import java.io.*;
-import java.awt.event.*;
-import visidia.gui.presentation.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.util.Vector;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
+import visidia.gui.presentation.VueGraphe;
+import visidia.gui.presentation.factory.FabriqueSommet;
 import visidia.gui.presentation.userInterfaceEdition.Editeur;
-import visidia.gui.presentation.factory.*; // pour avoir les fabriques
 
 /**
  * Cette classe "raffine" sa super classe en lui ajoutant les champs

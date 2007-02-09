@@ -1,9 +1,13 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
 
-import visidia.gui.presentation.*;
-import visidia.gui.metier.*;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+
+import visidia.gui.metier.Arete;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SommetDessin;
 
 /** Cette classe contient les informations pour annuler les fusions de
  * sommets intervenant lors du deplacement d'un sommet existant : il

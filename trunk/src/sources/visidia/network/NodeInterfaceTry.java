@@ -1,10 +1,14 @@
 package visidia.network;
 
-import visidia.tools.*;
-import visidia.simulation.*;
-import java.util.*;
-import java.rmi.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Hashtable;
+import java.util.Vector;
+
 import visidia.misc.MessageType;
+import visidia.simulation.AlgorithmDist;
+import visidia.simulation.MessagePacket;
+import visidia.tools.PortTable;
 
 public interface NodeInterfaceTry extends Remote {
     

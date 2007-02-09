@@ -1,7 +1,7 @@
 package visidia.simulation;
 
-import visidia.tools.Criterion;
 import visidia.misc.Message;
+import visidia.tools.Criterion;
 
 /**
  * allows to retreive a message from a node queue according to the

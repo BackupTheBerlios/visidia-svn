@@ -1,6 +1,7 @@
 package visidia.gui.donnees.conteneurs.monde;
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 /** 
  * Cette classe implémente une chaîne d'éléments.

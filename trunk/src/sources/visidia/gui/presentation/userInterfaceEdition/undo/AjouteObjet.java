@@ -1,6 +1,6 @@
 package visidia.gui.presentation.userInterfaceEdition.undo;
 
-import visidia.gui.presentation.*;
+import visidia.gui.presentation.FormeDessin;
 
 
 

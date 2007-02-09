@@ -1,8 +1,12 @@
 package visidia.algo;
 
-import visidia.simulation.*;
-import visidia.misc.*;
 import java.util.Random;
+
+import visidia.misc.Message;
+import visidia.misc.SyncMessage;
+import visidia.misc.SyncMessageCriterion;
+import visidia.misc.SyncState;
+import visidia.simulation.Algorithm;
 
 
 public abstract class SynchroAlgo extends Algorithm

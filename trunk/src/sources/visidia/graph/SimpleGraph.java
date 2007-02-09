@@ -1,10 +1,10 @@
 package visidia.graph;
 
 
-import java.util.Hashtable;
+import java.io.Serializable;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Stack;
-import java.io.*;
 
 /**
  * Cette classe implemente une une structure de graphe

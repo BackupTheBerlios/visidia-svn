@@ -1,8 +1,9 @@
 package visidia.rule;
 
-import visidia.simulation.synchro.SynCT;
-import java.util.*;
 import java.io.Serializable;
+import java.util.Collection;
+
+import visidia.simulation.synchro.SynCT;
 
 //mod
 

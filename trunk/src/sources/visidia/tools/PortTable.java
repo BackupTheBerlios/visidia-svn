@@ -1,8 +1,10 @@
 package visidia.tools;
 
-import java.util.*;
-import visidia.network.*;
 import java.io.Serializable;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import visidia.network.NodeInterfaceTry;
 
 
 public class PortTable implements Serializable {

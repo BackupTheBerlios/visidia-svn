@@ -1,15 +1,22 @@
 package visidia.network;
 
-import visidia.misc.*;
-import visidia.tools.*;
-import visidia.simulation.*;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Hashtable;
+import java.util.Vector;
 
-import visidia.tools.VQueue;
+import visidia.misc.EdgeState;
+import visidia.misc.Message;
+import visidia.misc.MessageType;
+import visidia.simulation.AlgorithmDist;
+import visidia.simulation.Door;
 import visidia.simulation.MessagePacket;
-
-import java.util.*;
-import java.rmi.*;
-import java.rmi.server.*;
+import visidia.simulation.SimulationAbortError;
+import visidia.simulation.SimulatorThreadGroup;
+import visidia.tools.Criterion;
+import visidia.tools.PortTable;
+import visidia.tools.VQueue;
 
 
 

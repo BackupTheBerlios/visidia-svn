@@ -3,8 +3,8 @@ package visidia.agents.agentchooser;
 import java.util.Random;
 import java.util.Vector;
 
-import visidia.simulation.agents.AgentChooser;
 import visidia.misc.AlgoProbParam;
+import visidia.simulation.agents.AgentChooser;
 
 /**
  * Allows user to randomize agent position. To specialize this class,

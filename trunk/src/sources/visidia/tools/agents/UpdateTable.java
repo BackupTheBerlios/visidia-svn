@@ -1,6 +1,6 @@
 package visidia.tools.agents;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 public abstract class UpdateTable implements Runnable {
 

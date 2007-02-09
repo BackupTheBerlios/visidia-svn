@@ -1,12 +1,32 @@
 package visidia.gui.presentation.boite;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
-import visidia.gui.presentation.*;
-import visidia.gui.donnees.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
+import visidia.gui.donnees.PropertyTableModel;
+import visidia.gui.donnees.TableCouleurs;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulationDist;
 
 /**
  * Cette classe créee une boite utilisée pour modifier l'état d'un

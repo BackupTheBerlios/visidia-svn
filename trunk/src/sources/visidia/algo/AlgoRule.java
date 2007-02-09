@@ -1,13 +1,17 @@
 package visidia.algo;
 
-import visidia.misc.*;
-import visidia.algo.SynchroAlgo;
-/**
- *Fonction qui prend en entree un ensemble de regles de reecriture et 
- *fait tourner ces regles sur le graphe.
- */
-
 import java.util.Vector;
+
+import visidia.misc.Arrow;
+import visidia.misc.ArrowMessage;
+import visidia.misc.ArrowMessageCriterion;
+import visidia.misc.IntegerMessage;
+import visidia.misc.IntegerMessageCriterion;
+import visidia.misc.MarkedState;
+import visidia.misc.Message;
+import visidia.misc.StringMessage;
+import visidia.misc.StringMessageCriterion;
+import visidia.misc.SynchronizedRandom;
 public class AlgoRule extends SynchroAlgo {
     public Vector rule; //SimpleRule
     protected boolean[] marquage;

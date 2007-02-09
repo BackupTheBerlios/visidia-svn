@@ -1,9 +1,15 @@
 package visidia.gui.metier.inputOutput;
 
-import java.io.*;
-import javax.swing.*;
-import java.util.*;
-import visidia.gui.presentation.userInterfaceSimulation.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import visidia.gui.presentation.userInterfaceSimulation.FenetreDeSimulation;
 
 /**
  * This class permit to save rules in text files

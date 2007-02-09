@@ -1,10 +1,14 @@
 package visidia.gui.presentation;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import visidia.gui.metier.*;
-import visidia.gui.presentation.boite.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.io.Serializable;
+
+import javax.swing.JFrame;
+
+import visidia.gui.metier.ObjetGraphe;
+import visidia.gui.presentation.boite.BoiteFormeDessin;
 
 /** represents the gemotric shape to be drawn for am element of the graph */
 public abstract class FormeDessin implements Serializable{

@@ -1,6 +1,6 @@
 package visidia.misc;
 
-import java.io.*;
+import java.io.Serializable;
 /**
  * cette classe est une représentattion générique de l'état d'un arête.
  * Toute classe définissant l'état d'une arête devrait dériver de cette

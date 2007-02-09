@@ -1,7 +1,7 @@
 package visidia.gui.donnees;
 
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.util.Hashtable;
 
 /**
  * this class contains the Color Table for the application. There is

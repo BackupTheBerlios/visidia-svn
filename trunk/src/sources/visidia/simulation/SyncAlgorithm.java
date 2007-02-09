@@ -1,7 +1,9 @@
 package visidia.simulation;
 
-import visidia.misc.*;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import visidia.misc.Message;
 
 /**
  * This classe helps the user writing an algorithm in the distibuted

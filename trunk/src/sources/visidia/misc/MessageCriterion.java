@@ -1,6 +1,6 @@
 package visidia.misc;
 
-import visidia.tools.*;
+import visidia.tools.Criterion;
 
 /**
  * classe représentant un critère de sélection portant sur un objet

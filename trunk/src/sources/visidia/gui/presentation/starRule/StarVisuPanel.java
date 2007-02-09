@@ -1,13 +1,27 @@
 package visidia.gui.presentation.starRule;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import visidia.gui.presentation.*;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
+
+import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
+import visidia.gui.donnees.TableCouleurs;
+import visidia.gui.presentation.AreteDessin;
+import visidia.gui.presentation.FormeDessin;
+import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
 import visidia.gui.presentation.boite.EtatPanel;
 import visidia.gui.presentation.boite.VueEtatPanel;
-import visidia.gui.donnees.TableCouleurs;
-import java.util.*;
 
 /**
  * Visualizes and permits to compose a star as a VueGraph.

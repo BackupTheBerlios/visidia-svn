@@ -1,5 +1,5 @@
 package visidia.gui.donnees.conteneurs.monde;
-import java.io.*;
+import java.io.Serializable;
 
 
 /**

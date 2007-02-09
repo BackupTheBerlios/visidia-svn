@@ -1,9 +1,19 @@
 package visidia.gui.presentation;
 
-import javax.swing.*;
-import java.awt.*;
-import visidia.gui.presentation.boite.*;
-import visidia.gui.metier.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.Stroke;
+
+import javax.swing.JFrame;
+
+import visidia.gui.metier.Arete;
+import visidia.gui.presentation.boite.BoiteAreteDessin;
+import visidia.gui.presentation.boite.BoiteFormeDessin;
 import visidia.tools.ArrowHeadFactory;
 
 /** This class draws an edge  */

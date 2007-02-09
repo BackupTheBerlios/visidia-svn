@@ -8,10 +8,12 @@
 
 
 package visidia.algoRMI;
-import visidia.simulation.*;
-import  visidia.misc.*;
-import java.util.Vector;
 import java.util.Random;
+import java.util.Vector;
+
+import visidia.misc.VectorMessage;
+import visidia.simulation.AlgorithmDist;
+import visidia.simulation.Door;
 
 public class ElectionRmi extends AlgorithmDist {
 

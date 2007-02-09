@@ -1,6 +1,7 @@
 package visidia.algoRMI;
-import visidia.simulation.*;
-import visidia.misc.*;
+import visidia.misc.MessageType;
+import visidia.misc.StringMessage;
+import visidia.simulation.AlgorithmDist;
 
 public class EnvoiMessage2 extends AlgorithmDist {
     
