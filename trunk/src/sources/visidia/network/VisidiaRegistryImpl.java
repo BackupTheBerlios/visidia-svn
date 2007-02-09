@@ -81,7 +81,8 @@ public class VisidiaRegistryImpl extends UnicastRemoteObject implements VisidiaR
 	while(!v.isEmpty()) {
 	    Vector tmp = (Vector)v.remove(0);
 	    if (this.data.contains(tmp)){
-		boolean bool = this.data.remove(tmp);
+		//boolean bool = 
+	    	this.data.remove(tmp);
 	    }
 	}
     }

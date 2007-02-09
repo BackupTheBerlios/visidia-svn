@@ -833,10 +833,12 @@ class BuildRulePane extends JPanel {
 		    int modifiers = evt.getModifiers();
 		    if (modifiers == InputEvent.BUTTON3_MASK) {
 			try {
-			    FormeDessin f1 = BuildRulePane.this.vgLeft.en_dessous(x, y);
+			    //FormeDessin f1 = 
+			    BuildRulePane.this.vgLeft.en_dessous(x, y);
 			} catch (NoSuchElementException e1) {
 			    try {
-				FormeDessin f2 = BuildRulePane.this.vgRight.en_dessous(x, y);
+				//FormeDessin f2 = 
+			    BuildRulePane.this.vgRight.en_dessous(x, y);
 			    } catch (NoSuchElementException e2) {
 				BuildRulePane.this.maybeShowPopup(evt);
 			    }
@@ -1073,7 +1075,8 @@ class BuildContextPane extends JPanel {
 		    int modifiers = evt.getModifiers();
 		    if (modifiers == InputEvent.BUTTON3_MASK) {
 			try {
-			    FormeDessin f = BuildContextPane.this.vg.en_dessous(x, y);
+			    //FormeDessin f = 
+			    BuildContextPane.this.vg.en_dessous(x, y);
 			} catch (NoSuchElementException e) {
 			    BuildContextPane.this.maybeShowPopup(evt);
 			}

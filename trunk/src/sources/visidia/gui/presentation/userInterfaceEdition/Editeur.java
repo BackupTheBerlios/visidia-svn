@@ -1087,7 +1087,8 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
      * restaurer grace aux commandes de undo/redo par groupes.
      **/
     public void commandeChangerNombreOperations() {
-	BoiteChangementNombreOperations b = new BoiteChangementNombreOperations(this, this.nb_op);
+	//BoiteChangementNombreOperations b = 
+		new BoiteChangementNombreOperations(this, this.nb_op);
     }
 
 

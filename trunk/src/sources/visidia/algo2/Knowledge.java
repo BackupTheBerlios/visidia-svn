@@ -70,7 +70,8 @@ public class Knowledge {
 	    if ( ((Integer)newName.elementAt(0)).intValue() != ((Integer)newName.elementAt(1)).intValue() ) {
 		//System.out.println("Vecteur = " +setKnowledge[0]);
 		//System.out.println("longueur avant= " +longKnow);
-		boolean b=this.setKnowledge[0].remove(newName.elementAt(1));
+		//boolean b=
+		this.setKnowledge[0].remove(newName.elementAt(1));
 		//System.out.println("longueur apres= " +setKnowledge[0].size());
 		longKnow=this.setKnowledge[0].size();
 		

@@ -900,8 +900,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	this.registryPanel.add(registryPanelNorth,BorderLayout.NORTH);
     }
 	
-    public static final void main(String[] args) {
-	LocalNodeLauncher lnl = new LocalNodeLauncher("Local Node Launcher");
-    }
+//    public static final void main(String[] args) {
+//	LocalNodeLauncher lnl = new LocalNodeLauncher("Local Node Launcher");
+//    }
 }
     

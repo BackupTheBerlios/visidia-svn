@@ -37,9 +37,10 @@ public class BoiteChangementNombreOperations extends BoiteSaisie {
     
     /** La saisie est correcte si c'est un entier.*/
     protected boolean saisieCorrecte() {
-	Integer i;
+	//Integer i;
 	try {
-	    i = new Integer(this.valeurDeRetour());
+	    //i = 
+		new Integer(this.valeurDeRetour());
 	} catch(NumberFormatException exception) {
 	    return false;
 	}
