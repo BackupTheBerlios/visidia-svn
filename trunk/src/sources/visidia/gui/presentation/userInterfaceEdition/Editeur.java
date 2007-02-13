@@ -937,7 +937,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    /* les éléments dans l'ordre (sinon, on ne peut pas : la méthode */
 	    /* nextElement plante!! */
 	    Enumeration e = this.vueGraphe.listeAffichage();
-	    Stack pileTmp = new Stack();
+	    Stack<AreteDessin> pileTmp = new Stack<AreteDessin>();
 	    while (e.hasMoreElements()) {
 		FormeDessin f =(FormeDessin)e.nextElement();
 		if (f.type().equals("edge"))
@@ -953,7 +953,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    }
 	} else {
 	    Enumeration e = this.selection.elements();
-	    Stack pileTmp = new Stack();
+	    Stack<AreteDessin> pileTmp = new Stack<AreteDessin>();
 	    while (e.hasMoreElements()) {
 		FormeDessin f =(FormeDessin)e.nextElement();
 		if (f.type().equals("edge"))
@@ -1028,7 +1028,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    Ensemble objetVisu_a_deplacer =
 		Traitements.sommetsTotaux(this.selection.elements());
 	    //objetVisu_a_deplacer.inserer(selection.autresObjetsVisu());
-	    this.vueGraphe.deplacerFormeDessin(objetVisu_a_deplacer.elements(), 30, 30);
+	    VueGraphe.deplacerFormeDessin(objetVisu_a_deplacer.elements(), 30, 30);
 	
 
 	    this.undoInfo.newGroup("Cancel duplication", "Duplicate");

@@ -80,7 +80,7 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements Action
 	// par défaut
 	index = 0;
 	for (int j=0;j<this.edgesNames.size();j++)
-		if (((String)this.edgesNames.elementAt(j)).equals(this.vueGraphe.getFabriqueArete().description())) 
+		if (((String)this.edgesNames.elementAt(j)).equals(VueGraphe.getFabriqueArete().description())) 
 		    index = j;
 	
 

@@ -2,6 +2,7 @@ package visidia.gui.presentation.userInterfaceSimulation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -166,8 +167,8 @@ public class FenetreDeSimulation
     }
     public FenetreDeSimulation(VueGraphe grapheVisu_edite, File fichier_edit,Editeur editeur) {
         
-        this(grapheVisu_edite, COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
-	     DIM_Y_PAR_DEFAUT, fichier_edit);
+        this(grapheVisu_edite, Fenetre.COULEUR_FOND_PAR_DEFAUT, Fenetre.DIM_X_PAR_DEFAUT,
+	     Fenetre.DIM_Y_PAR_DEFAUT, fichier_edit);
         this.addWindowListener(this);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setSize(650, 600);
@@ -430,14 +431,14 @@ public class FenetreDeSimulation
         //Build buttons on the tool bar
         this.but_start = new JButton("start");
         this.but_start.setToolTipText("Start");
-        this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_start.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_start.setEnabled(false);
         this.but_start.addActionListener(this);
         this.toolBar.add(this.but_start);
         
         this.but_pause = new JButton("pause");
         this.but_pause.setToolTipText("Pause");
-        this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_pause.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_pause.setEnabled(false);
         this.but_pause.addActionListener(this);
         this.toolBar.add(this.but_pause);
@@ -445,7 +446,7 @@ public class FenetreDeSimulation
         
         this.but_stop = new JButton("stop");
         this.but_stop.setToolTipText("Stop");
-        this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_stop.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_stop.addActionListener(this);
         this.but_stop.setEnabled(false);
         this.toolBar.add(this.but_stop);
@@ -453,7 +454,7 @@ public class FenetreDeSimulation
         this.toolBar.addSeparator();
         this.but_save = new JButton("save");
         this.but_save.setToolTipText("Save");
-        this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_save.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_save.addActionListener(this);
         this.toolBar.add(this.but_save);
         
@@ -464,8 +465,8 @@ public class FenetreDeSimulation
         this.speed_slider = new JSlider(1, 20, 10);
         this.speed_slider.addChangeListener(this);
         this.speed_slider.setToolTipText("Speed");
-        this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
-        this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+        this.speed_slider.setAlignmentY(Component.TOP_ALIGNMENT);
+        this.speed_slider.setAlignmentX(Component.LEFT_ALIGNMENT);
         this.speed_slider.setPreferredSize(new Dimension(80,15));
         this.speed_slider.setBackground(this.toolBar.getBackground().brighter());
         JPanel speed_panel = new JPanel();
@@ -475,7 +476,7 @@ public class FenetreDeSimulation
         this.speed_label = new JLabel("Speed ("+this.simulationPanel.pas()+")");
         this.speed_label.setFont(new Font("Dialog",Font.BOLD,10));
         this.speed_label.setToolTipText("Speed");
-        this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+        this.speed_label.setAlignmentY(Component.TOP_ALIGNMENT);
         this.speed_label.setForeground(Color.black);
         speed_panel.add(this.speed_slider);
         speed_panel.add(this.speed_label);
@@ -494,7 +495,7 @@ public class FenetreDeSimulation
         
         this.but_info = new JButton(new ImageIcon(TableImages.getImage("info")));//"visidia/gui/donnees/images/info.gif"));
         this.but_info.setToolTipText("Info");
-        this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_info.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_info.addActionListener(this);
         this.toolBar.add(this.but_info);
         
@@ -502,7 +503,7 @@ public class FenetreDeSimulation
         
         this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
         this.but_help.setToolTipText("Help");
-        this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_help.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_help.addActionListener(this);
         this.toolBar.add(this.but_help);
         
@@ -510,24 +511,24 @@ public class FenetreDeSimulation
         
         this.but_experimentation = new JButton("Statistics");
         this.but_experimentation.setToolTipText("Statistics");
-        this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_experimentation.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_experimentation.addActionListener(this);
         this.toolBar.add(this.but_experimentation);
         this.toolBar.addSeparator();
         
         this.but_threadCount = new JButton("Threads");
         this.but_threadCount.setToolTipText("Amount of threads that are active in the VM");
-        this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_threadCount.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_threadCount.addActionListener(this);
         this.toolBar.add(this.but_threadCount);
         this.toolBar.addSeparator();
-        if(threadCountFrame == null){
-            threadCountFrame = new ThreadCountFrame(Thread.currentThread().getThreadGroup());
+        if(FenetreDeSimulation.threadCountFrame == null){
+            FenetreDeSimulation.threadCountFrame = new ThreadCountFrame(Thread.currentThread().getThreadGroup());
         }
         
         this.but_reset = new JButton("RESET");
         this.but_reset.setToolTipText("RESET");
-        this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_reset.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.but_reset.addActionListener(this);
         this.but_reset.setEnabled((this.fichier_edite != null));
         this.toolBar.add(this.but_reset);
@@ -787,8 +788,8 @@ public class FenetreDeSimulation
 	    this.but_experimentation();
         }
 	else if (b == this.but_threadCount){
-            threadCountFrame.pack();
-            threadCountFrame.setVisible(true);
+            FenetreDeSimulation.threadCountFrame.pack();
+            FenetreDeSimulation.threadCountFrame.setVisible(true);
         }
 	else if (b == this.but_save) {
             SaveFile.save(this, this.vueGraphe.getGraphe());
@@ -1219,11 +1220,11 @@ public class FenetreDeSimulation
     }
     
     public static void setVisuAlgorithmMess(boolean b){
-        visuAlgorithmMess = b;
+        FenetreDeSimulation.visuAlgorithmMess = b;
     }
     
     public static void setVisuSynchrMess(boolean b){
-        visuSynchrMess = b;
+        FenetreDeSimulation.visuSynchrMess = b;
     }
     
     

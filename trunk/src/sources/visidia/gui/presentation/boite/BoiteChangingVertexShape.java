@@ -78,7 +78,7 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements Acti
 	// par défaut
 	index = 0;
 	for (int j=0;j<this.vertexNames.size();j++)
-	    if (((String)this.vertexNames.elementAt(j)).equals(this.vueGraphe.getFabriqueSommet().description())) 
+	    if (((String)this.vertexNames.elementAt(j)).equals(VueGraphe.getFabriqueSommet().description())) 
 		index = j;
 	
 
