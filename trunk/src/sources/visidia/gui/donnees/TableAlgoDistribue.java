@@ -12,10 +12,10 @@ import visidia.simulation.AlgorithmDist;
 
 public class TableAlgoDistribue{
 
-    protected static Hashtable tableauAlgo;
+    protected static Hashtable<String, AlgorithmDist> tableauAlgo;
 
     public static void setTableAlgo(JApplet uneApplet){
-	tableauAlgo = new Hashtable();
+	tableauAlgo = new Hashtable<String, AlgorithmDist>();
 
 	//String jarAdress = new String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
 	

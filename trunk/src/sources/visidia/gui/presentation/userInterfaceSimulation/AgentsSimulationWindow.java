@@ -201,9 +201,9 @@ public class AgentsSimulationWindow
         
 	this.agentsTable = new Hashtable();
 
-        this.boxVertices = new Hashtable();
-        this.boxAgents = new Vector();
-        this.defaultProperties = new Hashtable();
+        this.boxVertices = new Hashtable<SommetDessin,AgentBoxChangingVertexState>();
+        this.boxAgents = new Vector<AgentBoxProperty>();
+        this.defaultProperties = new Hashtable<String,Object> ();
         
 	// The manager of components
         this.content = new JPanel();

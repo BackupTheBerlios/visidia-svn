@@ -68,7 +68,7 @@ public class AgentSimulator {
      * If an agent want to lock the WhiteBoard of a Vertex,
      * all informations are stored here. 
      */
-    private Hashtable<Vertex,Agent> lockedVertices = new Hashtable();
+    private Hashtable<Vertex,Agent> lockedVertices = new Hashtable<Vertex,Agent>();
 
     /**
      * Default AgentMover used only if no AgentMover is affected to
@@ -115,22 +115,22 @@ public class AgentSimulator {
      * acknowledgment queue and the specified agents Hashtable.
      */ 
     public AgentSimulator(SimpleGraph netGraph, 
-                          Hashtable defaultAgentValues,
-			  Vector agentsRules,
-                          VQueue evtVQ, VQueue ackVQ) {
+    		              Hashtable defaultAgentValues,
+    		              Vector agentsRules,
+    		              VQueue evtVQ, VQueue ackVQ) {
 
-	this.graph = netGraph;
-        this.stats = new Bag();
+    	this.graph = netGraph;
+    	this.stats = new Bag();
 
-	this.threadGroup = new SimulatorThreadGroup("simulator");
-	this.fillAgentsTable(this.graph, defaultAgentValues, agentsRules);
-        this.evtQ = evtVQ;
-        this.ackQ = ackVQ;
+    	this.threadGroup = new SimulatorThreadGroup("simulator");
+    	this.fillAgentsTable(this.graph, defaultAgentValues, agentsRules);
+    	this.evtQ = evtVQ;
+    	this.ackQ = ackVQ;
 
 
-        this.movingMonitor = new MovingMonitor(this.ackQ);
-        this.movingMonitorThread = new Thread(this.movingMonitor);
-        this.movingMonitorThread.start();
+    	this.movingMonitor = new MovingMonitor(this.ackQ);
+    	this.movingMonitorThread = new Thread(this.movingMonitor);
+    	this.movingMonitorThread.start();
     }
 
     /** 
@@ -201,7 +201,7 @@ public class AgentSimulator {
         Enumeration vertices;
 
         this.agents = new Hashtable();
-	this.vertexAgentsNumber = new Hashtable();
+	this.vertexAgentsNumber = new Hashtable<Vertex,Collection>();
 	
         vertices = graph.vertices();
 

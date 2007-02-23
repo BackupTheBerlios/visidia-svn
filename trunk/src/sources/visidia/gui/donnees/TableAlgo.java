@@ -11,10 +11,10 @@ import visidia.simulation.Algorithm;
 
 public class TableAlgo{
 
-    protected static Hashtable tableauAlgo;
+    protected static Hashtable<String, Algorithm> tableauAlgo;
 
     public static void setTableAlgo(JApplet uneApplet){
-	tableauAlgo = new Hashtable();
+	tableauAlgo = new Hashtable<String, Algorithm> ();
 
 	//String jarAdress = new String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
 	

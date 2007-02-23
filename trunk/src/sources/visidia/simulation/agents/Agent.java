@@ -141,16 +141,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
                 IllegalArgumentException("Instance can't be created !", e);
         }
     }
-
-
-    // Meeting organizer :
-//     protected boolean meet = false;
-//     protected void planning(Agent agent){
-// 	if( meet == true ){
-// 	    System.out.println("Hello ... how r u ? " + agent.toString());
-// 	}
-//     }
-    
+   
     public Collection agentsOnVertex(){
 	return this.simulator.getAgentsVertexCollection(this.getVertexIdentity());
     }

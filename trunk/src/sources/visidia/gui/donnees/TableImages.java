@@ -9,10 +9,10 @@ import javax.swing.JApplet;
 
 public class TableImages{
 
-    protected static Hashtable tableauImages;
+    protected static Hashtable<String, java.awt.Image> tableauImages;
 
     public static void setTableImages(JApplet uneApplet){
-	tableauImages = new Hashtable();
+	tableauImages = new Hashtable<String, java.awt.Image>();
 
 	String jarAdress = new String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
 	
