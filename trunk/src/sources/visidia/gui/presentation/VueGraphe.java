@@ -39,6 +39,11 @@ public class VueGraphe implements Serializable, RecoverableObject{
   protected Font fontGrasEtiquette;
   protected Dimension size; 
 
+  /*
+   * 2007 / Alex
+   * Variable contenant la liste des objets intéractifs du graphe
+   * Ne contient pas les agents pour le moment
+   */
   protected Ensemble liste_affichage = new Ensemble(); // liste de SommetDessin et AreteDessin
 
    // this class knows what sort of creation to do
@@ -143,6 +148,10 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	return this.liste_affichage.elements();
     }
 
+    /*
+     * 2007 : Alex
+     * Méthode utilisée pour l'ajout d'élément à liste_affichage
+     */
     public void insererListeAffichage(FormeDessin f){
 	this.liste_affichage.inserer(f);}
 
