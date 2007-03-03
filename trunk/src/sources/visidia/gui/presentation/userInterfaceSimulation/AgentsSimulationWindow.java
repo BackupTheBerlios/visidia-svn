@@ -182,10 +182,6 @@ public class AgentsSimulationWindow
         
         super();
 
-	//tmp tmp tmp
-	//GuiProperty.drawNbr = true;
-
-
         this.evtPipeIn = new visidia.tools.VQueue();
         this.evtPipeOut = new visidia.tools.VQueue();
         this.ackPipeIn = new visidia.tools.VQueue();

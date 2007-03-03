@@ -142,7 +142,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotio
     
 	if (this.tracker.statusAll(false) != MediaTracker.COMPLETE)
 	    {
-		g.drawString("probleme de chargement d'image", 50, 100);
+		g.drawString("problemes de chargement d'image", 50, 100);
 		return;
 	    }
 	
