@@ -28,6 +28,15 @@ public class Simulator {
     public static final int THREAD_PRIORITY = 1;
 
     private SimpleGraph graph;
+    
+    /*
+     * Permet la mise à jour du graph du simultauer lorsque le graphe est 
+     * modifié pendant l'exécution
+     */
+    public void setGraph(SimpleGraph graph) {
+    	this.graph = graph;
+    }
+    
     private VQueue evtQ;
     private VQueue ackQ;
     private NumberGenerator numGen = new NumberGenerator();

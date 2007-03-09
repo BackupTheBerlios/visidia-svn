@@ -119,6 +119,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 		arete_courante.cloner(origine_clone,destination_clone);
 	    }
 	}
+	vue.numero_sommet = this.numero_sommet;
 	return vue;
     }
 	
@@ -157,7 +158,7 @@ public class VueGraphe implements Serializable, RecoverableObject{
 
     public void supprimerListeAffichage(FormeDessin f){
 	this.liste_affichage.supprimer(f);}
-    
+   
  
  /**
    * Accesseur a afficherEtiquettes.

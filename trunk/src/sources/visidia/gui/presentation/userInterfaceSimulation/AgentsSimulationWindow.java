@@ -217,6 +217,7 @@ public class AgentsSimulationWindow
         
         // The edited graph and the selection object which contains selected objects
         this.vueGraphe = grapheVisu_edite;
+
         this.selection = new SelectionDessin();
         
 	// The panel where the graph is drawn
@@ -1280,5 +1281,12 @@ public class AgentsSimulationWindow
     public Hashtable getDefaultProperties() {
         return this.defaultProperties;
     }
+    
+	public void updateSimulationGraphe() {
+		//visidia.gui.metier.simulation.Convertisseur c = new visidia.gui.metier.simulation.Convertisseur();
+		if(this.sim != null && this.editeur != null) {
+			this.sim.setGraph(visidia.gui.metier.simulation.Convertisseur.convertir(this.editeur.graph()));
+		}
+	}
 
 }

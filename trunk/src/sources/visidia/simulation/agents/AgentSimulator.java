@@ -43,6 +43,14 @@ import visidia.tools.VQueue;
 public class AgentSimulator {
 
     /**
+     * Permet la mise à jour du graph du simultauer lorsque le graphe est 
+     * modifié pendant l'exécution
+     */
+    public void setGraph(SimpleGraph graph) {
+    	this.graph = graph;
+    }
+    
+    /**
      * To set the priority of the thread refering to the agents.
      */    
     public static final int THREAD_PRIORITY = 1;

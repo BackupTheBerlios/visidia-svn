@@ -211,6 +211,7 @@ public class Sommet extends ObjetGraphe implements Cloneable{
     while(e.hasMoreElements())
       ((Arete)e.nextElement()).changerDestination(this);
     un_sommet.supprimer();
+  
   }
 
 

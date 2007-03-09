@@ -42,19 +42,20 @@ public abstract class AreteDessin extends FormeDessin{
     // Constructors
     
     // Create a new edge knowing its origin and destination verticies
-    public AreteDessin(SommetDessin origine, SommetDessin destination, Arete arete){
-	this.id1=Integer.valueOf(origine.getEtiquette()).intValue();
-	this.id2=Integer.valueOf(destination.getEtiquette()).intValue();
-	this.vueGraphe = origine.getVueGraphe();
-	this.repositionner(origine, destination);
-	this.graphObject = arete;
-	arete.setAreteDessin(this);
-	this.vueGraphe.insererListeAffichage(this);
+    public AreteDessin(SommetDessin origine, SommetDessin destination, Arete arete) {
+    	
+		this.id1=Integer.valueOf(origine.getEtiquette()).intValue();
+		this.id2=Integer.valueOf(destination.getEtiquette()).intValue();
+		this.vueGraphe = origine.getVueGraphe();
+		this.repositionner(origine, destination);
+		this.graphObject = arete;
+		arete.setAreteDessin(this);
+		this.vueGraphe.insererListeAffichage(this);
     }
 
     // if the edge is not specified, we create a new one
     public AreteDessin(SommetDessin origine, SommetDessin destination){
-	this(origine,destination,new Arete(origine.getVueGraphe().getGraphe(),origine.getSommet(),destination.getSommet()));
+    	this(origine,destination,new Arete(origine.getVueGraphe().getGraphe(),origine.getSommet(),destination.getSommet()));
     }
     
     //PFA2003

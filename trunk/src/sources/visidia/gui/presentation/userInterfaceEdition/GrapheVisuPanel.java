@@ -31,12 +31,15 @@ import visidia.gui.presentation.userInterfaceEdition.undo.FusionneSommet;
 import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
 
 /**
+ * 
  * Un GrapheVisuPanel est un JPanel sur lequel le graphe est affiché
  * et qui permet d'interagir avec le graphe.  <BR> Pour bien
  * comprendre la séparation des taches entre les classes Editeur et
  * GrapheVisuPanel, on peut imaginer plusieurs objets GrapheVisuPanel
  * associés a une seule instance de Editeur pour éditer plusieurs
  * parties d'un même graphe en même temps.
+ * 
+ * RQ : Panel utilisé lors de la création du graphe et non pas lors de la simulation
  **/
 public class GrapheVisuPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
     
