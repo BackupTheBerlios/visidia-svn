@@ -34,6 +34,14 @@ import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 import visidia.simulation.MessageSendingAck;
 import visidia.simulation.MessageSendingEvent;
 
+/**
+ * 
+ * Contenu par la class AgentsSimulationWindow
+ * C'est dans ce panel que s'affiche le graphe et les agents
+ * C'est cette fenêtre qui gère les actions (souris, clavier) de l'utilisateur
+ * sur les éléments du graphe
+ *
+ */
 public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		MouseListener, MouseMotionListener, KeyListener {
 
@@ -53,14 +61,6 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	 * le pas de visulaisation : vitesse de visulaisation. Bilel.
 	 */
 	protected int lePas;
-	
-	/**
-	 * indique si le graphe a été modifié durant l'exécution
-	 * pour savoir si il est nécessaire de regénérer le graphe
-	 * du simulateur (simplegraph) à partir du graphe de l'interface
-	 * (graphe)
-	 */
-	private boolean is_graph_modified = false;
 	
 	protected javax.swing.Timer timer;
 
@@ -234,9 +234,6 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	}
 
 	public void start() {
-		if(this.is_graph_modified || true) {
-			//this.updateSimulationGraphe();
-		}
 		this.timer.start();
 	}
 
@@ -284,7 +281,6 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 			this.objet_sous_souris = this.agentsSimulationWindow.getVueGraphe()
 					.sommet_en_dessous(x, y);
 		} catch (NoSuchElementException e) {
-			is_graph_modified = true;
 			this.objet_sous_souris = this.agentsSimulationWindow.getVueGraphe()
 					.creerSommet(x, y);
 
@@ -292,16 +288,18 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		}
 	}
 
-	/**
+	/** Solution non fonctionnelle
 	 * Met à jour, à partir du graphe de l'interface graphique de classe Graphe
 	 * le graph du simulateur de type SimpleGraph
-	 */
+	 
 	public void updateSimulationGraphe() {
 		//visidia.gui.metier.simulation.Convertisseur c = new visidia.gui.metier.simulation.Convertisseur();
 		if(this.agentsSimulationWindow != null) {
 			this.agentsSimulationWindow.updateSimulationGraphe();
 		}
-	}
+	}*/
+	
+	
 	public void mouseClicked(MouseEvent evt) {
 	}
 
@@ -315,7 +313,6 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 
 		if (this.drag_n_drop_sommet) {
 			try {
-				is_graph_modified = true;
 				
 				SommetDessin sommet_en_dessous = this.agentsSimulationWindow
 						.getVueGraphe().sommet_en_dessous(x, y,
@@ -441,7 +438,6 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 				this.glisseSommet(x, y);
 
 			else {
-				is_graph_modified = true;
 				// creer un nouveau sommet et l'arete qui va avec : c'est un
 				// nouvel undoGroup.
 				this.ancien_sommet_sous_souris = (SommetDessin) this.objet_sous_souris;

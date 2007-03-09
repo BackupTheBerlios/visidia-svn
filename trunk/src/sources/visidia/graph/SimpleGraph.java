@@ -23,6 +23,15 @@ public class SimpleGraph implements Cloneable, Serializable{
     private Hashtable defaultVertexValues = null;
     
     /**
+     * Retour la Hashtable defaultVertexValues du SimpleGraph
+     *
+     */
+    public Hashtable getDefaultVertexValues() {
+    	return this.defaultVertexValues;
+    }
+    
+    
+    /**
      *Construit un nouveau graphe simple vide.
      */	
     public SimpleGraph(){

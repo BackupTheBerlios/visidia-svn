@@ -51,6 +51,13 @@ public class AgentSimulator {
     }
     
     /**
+     * Permet d'accéder au graphe de l'AgentSimulator
+     */
+    public SimpleGraph getGraph() {
+    	return this.graph;
+    }
+    
+    /**
      * To set the priority of the thread refering to the agents.
      */    
     public static final int THREAD_PRIORITY = 1;
@@ -70,6 +77,10 @@ public class AgentSimulator {
      */
     private Hashtable agents;
     
+    
+    /**
+     *  Cette hashtable permet de stocker pour un Sommet donné, les Agents présent à l'intérieur de celui-ci
+     */
     private Hashtable<Vertex,Collection> vertexAgentsNumber;
 
     /**
