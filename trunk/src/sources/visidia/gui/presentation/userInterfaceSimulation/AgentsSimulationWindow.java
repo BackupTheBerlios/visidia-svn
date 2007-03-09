@@ -81,8 +81,6 @@ import visidia.simulation.synchro.SynCT;
 import visidia.tools.Bag;
 import visidia.tools.agents.UpdateTable;
 import visidia.tools.agents.UpdateTableStats;
-import visidia.graph.SimpleGraph;
-import visidia.gui.metier.simulation.Convertisseur;
 
 /** Represents the algorithm simulation window for a graph 
  * 
