@@ -1,11 +1,11 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
+import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -104,6 +104,8 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
     /** Panel ou est dessiné le Graphe*/
     protected GrapheVisuPanel grapheVisuPanel;
     
+
+    private FenetreDeSimulation fenetreDeSimulation;
 
     // * * * ************************************************************
   
@@ -1203,7 +1205,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
     public void creerFenetreSimulation(){
 	try {
 	    this.selection.deSelect();
-	    FenetreDeSimulation fenetreDeSimulation = 
+	    this.fenetreDeSimulation = 
 		new FenetreDeSimulation(this.vueGraphe.cloner(),this.fichier_edite,this);
 	    fenetreDeSimulation.show();
 	    
