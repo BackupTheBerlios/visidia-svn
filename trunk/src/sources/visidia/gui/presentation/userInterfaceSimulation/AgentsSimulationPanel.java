@@ -235,7 +235,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 
 	public void start() {
 		if(this.is_graph_modified || true) {
-			this.updateSimulationGraphe();
+			//this.updateSimulationGraphe();
 		}
 		this.timer.start();
 	}
