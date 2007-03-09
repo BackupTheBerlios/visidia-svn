@@ -301,14 +301,13 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	 **/
 	public void addAgents(Integer id, String agent) {
 
-		boolean ok;
 		SommetDessin vert = this.getVueGraphe().rechercherSommet(id.toString());
 		int nbr;
 
 		if (!this.agentsTable.containsKey(id)) {
 			this.agentsTable.put(id, new ArrayList());
 		}
-		ok = ((ArrayList) this.agentsTable.get(id)).add(agent);
+		((ArrayList)this.agentsTable.get(id)).add(agent);
 
 		vert.changerCouleurFond(Color.red);
 
@@ -681,8 +680,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.but_agents.setEnabled(true);
 		this.but_experimentation.setEnabled(true);
 
-		this.algo_open.setEnabled(false);
-		this.algo_placeAgent.setEnabled(false);
+		//qaz this.algo_open.setEnabled(false); 
+		//qaz this.algo_placeAgent.setEnabled(false);
+
 		this.rules_open.setEnabled(false);
 		this.rules_new.setEnabled(false);
 
@@ -905,15 +905,29 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 				return;
 			}
 
-			if (DistributedAlgoSimulator.estStandalone())
-				ok = OpenAgents.open(this.selection.elements(), this);
+			if(DistributedAlgoSimulator.estStandalone())
+				if(! this.but_stop.isEnabled())
+					ok = OpenAgents.open(this.selection.elements(),this);
+				else
+				{
+					Integer id = Integer.decode(((SommetDessin) (this.selection.elements()).nextElement()).getEtiquette());
+					Hashtable currentAgentTable = this.agentsTable;
+					this.agentsTable = new Hashtable(); 
+					ok = OpenAgents.open(this.selection.elements(),this);
+					String className = (String) ((ArrayList) this.agentsTable.get(this.agentsTable.keys().nextElement())).get(0);
+					this.agentsTable = currentAgentTable;
+				    this.addAgents(id , className);
+				    Agent ag = this.sim.createAgent(className, this.sim.graph.vertex(id), this.defaultProperties, this.agentsRules);
+				    this.sim.createThreadFor(ag).start();
+				}	
 			else
 				// When using Visidia with an applet: not implemented
 				// yet 
 				// OpenAlgoApplet.open(this);
 				;
 
-			if (!this.but_start.isEnabled()) {
+
+			if(! this.but_stop.isEnabled() && ! this.but_start.isEnabled()) {
 				this.but_start.setEnabled(ok);
 				this.but_experimentation.setEnabled(ok);
 			}
