@@ -46,7 +46,7 @@ public class TableImages{
 
     public static void setTableImages(Toolkit tk){
 	try{
-	    tableauImages = new Hashtable();
+	    tableauImages = new Hashtable<String, Image>();
 	    tableauImages.put("help", tk.getImage("visidia/gui/donnees/images/aide.gif"));
 	    tableauImages.put("tree", tk.getImage("visidia/gui/donnees/images/arbre.gif"));
 	    tableauImages.put("disk", tk.getImage("visidia/gui/donnees/images/disk.gif"));

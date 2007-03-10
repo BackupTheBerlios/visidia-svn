@@ -192,7 +192,7 @@ public class Sommet2Cercle extends SommetDessin{
 
     // method which copy all the variable from the Sommet2Cercle given in parameters
     public void copyAllVariable(Sommet2Cercle s){
-	this.monCote=s.getCote();
+	Sommet2Cercle.monCote=s.getCote();
 	super.copyAllVariable(s);
     }
 

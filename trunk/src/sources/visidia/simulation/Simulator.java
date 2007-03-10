@@ -52,7 +52,7 @@ public class Simulator {
     // simulator threads set
     private SimulatorThreadGroup threadGroup = null;
     private int terminatedThreadCount = 0;
-    private Object terminatedThreadCountSynchro = new Object();
+    //private Object terminatedThreadCountSynchro = new Object();
 
 
     /*

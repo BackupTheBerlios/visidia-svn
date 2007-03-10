@@ -233,7 +233,7 @@ class ExperimentationThread extends Thread {
 	while (this.isAlive()) {
 	    this.interrupt();
 	    try {
-		Thread.currentThread().sleep(10);
+		Thread.sleep(10);
 	    } catch (InterruptedException e) {
 		if (this.simulator != null)
 		    this.simulator.abortSimulation();

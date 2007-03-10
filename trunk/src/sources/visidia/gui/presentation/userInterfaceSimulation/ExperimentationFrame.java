@@ -332,7 +332,7 @@ public class ExperimentationFrame extends JFrame implements ActionListener{
 	    while(this.isAlive()){
 		this.interrupt();
 		try{
-		    Thread.currentThread().sleep(10);
+		    Thread.sleep(10);
 		}
 		catch(InterruptedException e){
 		    e.printStackTrace();

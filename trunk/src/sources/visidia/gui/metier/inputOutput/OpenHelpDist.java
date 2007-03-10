@@ -35,7 +35,7 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
 	private JEditorPane helpLocalNode = new JEditorPane();
     private JEditorPane helpNodeLocation = new JEditorPane();
     private JEditorPane helpRegistry = new JEditorPane();
-    private JButton buttonOk = new JButton("Ok");
+    //private JButton buttonOk = new JButton("Ok");
 
     /**
      * Build a failure detector configuration window.

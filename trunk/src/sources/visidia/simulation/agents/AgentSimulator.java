@@ -83,7 +83,7 @@ public class AgentSimulator {
 	 * Hashtable  which stores  informations for  each  agents.  These
 	 * informations are stored in a ProcessData Object.
 	 */
-	private Hashtable agents;
+	private Hashtable<Agent,ProcessData> agents;
 
 
 	/**
@@ -222,7 +222,7 @@ public class AgentSimulator {
 			Vector agentsRules) {
 		Enumeration vertices;
 
-		this.agents = new Hashtable();
+		this.agents = new Hashtable<Agent,ProcessData>();
 		this.vertexAgentsNumber = new Hashtable<Vertex,Collection>();
 
 		vertices = graph.vertices();
@@ -290,7 +290,7 @@ public class AgentSimulator {
 	 * method creates  a new ProcessData where  the informations about
 	 * the agent are stored.
 	 */
-	private Agent createAgent(Class agentClass, Vertex vertex,
+	private Agent createAgent(Class<?> agentClass, Vertex vertex,
 			Hashtable defaultAgentValues) {
 		Agent ag;
 
@@ -656,7 +656,7 @@ public class AgentSimulator {
 		while(this.movingMonitorThread.isAlive()) {
 			this.movingMonitorThread.interrupt();
 			try {
-				Thread.currentThread().sleep(50);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// throw new SimulationAbortError(e);
 			}
@@ -666,7 +666,7 @@ public class AgentSimulator {
 		while(this.threadGroup.activeCount() > 0) {
 			this.threadGroup.interrupt();
 			try {
-				Thread.currentThread().sleep(50);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				throw new SimulationAbortError(e);
 			}

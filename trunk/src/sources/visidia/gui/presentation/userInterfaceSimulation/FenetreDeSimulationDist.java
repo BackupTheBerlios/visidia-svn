@@ -596,7 +596,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable, Ac
 	    while(this.tg.activeCount() > 0){
 		this.tg.interrupt();
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		}
 		catch(InterruptedException e){
 		}

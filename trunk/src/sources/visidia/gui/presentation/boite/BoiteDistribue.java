@@ -59,7 +59,7 @@ public class BoiteDistribue implements ActionListener {
 	this.parent = parent;
 	this.vueGraphe = vueGraphe; 
 	this.nbrSommets = vueGraphe.getGraphe().ordre();
-	this.sommets = this.tri(vueGraphe.getGraphe().sommets(),this.nbrSommets);
+	this.sommets = BoiteDistribue.tri(vueGraphe.getGraphe().sommets(),this.nbrSommets);
 	this.nomDesSommets = new String[this.nbrSommets];
 	this.mainPane = new JPanel();
 	this.mainPane.setLayout(new BorderLayout());

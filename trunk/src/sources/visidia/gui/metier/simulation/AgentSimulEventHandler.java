@@ -155,8 +155,7 @@ public class AgentSimulEventHandler extends Thread {
             rechercherSommet(ame.vertexId().toString());
 	
 	int nbr = ame.nbrAg().intValue();
-	String nbrStr = new String();
-	nbrStr = nbrStr.valueOf(nbr);
+	String nbrStr = String.valueOf(nbr);
 
         // Updating the AgentBoxChangingVertexState
         this.agentsSimulationWindow.updateVertexState(vert);

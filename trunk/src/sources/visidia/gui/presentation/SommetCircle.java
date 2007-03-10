@@ -175,7 +175,7 @@ public class SommetCircle extends SommetDessin{
 
     // method which copy all the variable from the SommetCircle given in parameters
     public void copyAllVariable(SommetCircle s){
-	this.monCote=s.getCote();
+	SommetCircle.monCote=s.getCote();
 	super.copyAllVariable(s);
     }
 

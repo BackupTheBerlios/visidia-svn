@@ -185,7 +185,7 @@ public class SommetCarre extends SommetDessin{
 
     // method which copy all the variable from the SommetCarre given in parameters
     public void copyAllVariable(SommetCarre s){
-	this.monCote=s.getCote();
+	SommetCarre.monCote=s.getCote();
 	super.copyAllVariable(s);
     }
 

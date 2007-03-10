@@ -239,7 +239,7 @@ public class Simulator_Rmi extends UnicastRemoteObject implements Simulator_Rmi_
 	    while(this.ackHandler.isAlive()){
 		this.ackHandler.interrupt();
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		}
 		catch(InterruptedException e){}
 	    }

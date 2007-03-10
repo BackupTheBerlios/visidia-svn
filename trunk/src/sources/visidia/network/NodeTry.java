@@ -225,7 +225,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	    while(this.threadGroup.activeCount() > 0){
 		this.threadGroup.interrupt();
 		try{
-		    Thread.currentThread().sleep(50);
+		    Thread.sleep(50);
 		}
 		catch(InterruptedException e){
 		    e.printStackTrace();
