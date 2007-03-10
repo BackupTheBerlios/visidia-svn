@@ -1207,7 +1207,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    this.selection.deSelect();
 	    this.fenetreDeSimulation = 
 		new FenetreDeSimulation(this.vueGraphe.cloner(),this.fichier_edite,this);
-	    fenetreDeSimulation.show();
+	    fenetreDeSimulation.setVisible(true);
 	    
 	    
 	} catch(Exception excpt) {
@@ -1222,7 +1222,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    this.selection.deSelect();
 	    AgentsSimulationWindow agentsSimulationWindow = 
 		new AgentsSimulationWindow(this.vueGraphe.cloner(),this.fichier_edite,this);
-	    agentsSimulationWindow.show();
+	    agentsSimulationWindow.setVisible(true);
 	    
 	    
 	} catch(Exception excpt) {
@@ -1237,7 +1237,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener ,
 	    this.selection.deSelect();
 	    FenetreDeSimulationDist fenetreDeSimulationDist = 
 		new FenetreDeSimulationDist(this.vueGraphe.cloner(),this.fichier_edite);
-	    fenetreDeSimulationDist.show();
+	    fenetreDeSimulationDist.setVisible(true);
 	    
 	    
 	} catch(Exception excpt) {

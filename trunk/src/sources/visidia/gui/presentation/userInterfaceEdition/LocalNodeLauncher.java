@@ -71,7 +71,8 @@ class MyTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 5496722266864029765L;
-	Vector data, columnNames;
+	Vector data;
+	Vector<String>  columnNames;
     Vector notEditable;
 
     public MyTableModel() {
@@ -84,7 +85,7 @@ class MyTableModel extends AbstractTableModel {
 	tmp.addElement("none");
 	this.data.addElement(tmp);
     
-	this.columnNames = new Vector();
+	this.columnNames = new Vector<String>();
 	this.columnNames.addElement("Selected");
 	this.columnNames.addElement("Local Node URL");
 	this.columnNames.addElement("State");
@@ -450,7 +451,7 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	    if (((String)this.myModel.getValueAt(row,2)).equals("started")) {
 		//String hostText = localHost.getText();
 		//String portText = portRegistry.getText();
-		String url = (String)this.myModel.getValueAt(row,1);
+		//String url = (String)this.myModel.getValueAt(row,1);
 		try {
 		    NodeServer nodeServer = (NodeServer)this.nodeServers.get(new Integer(row));
 		    nodeServer.register(this.visualizationHost.getText(),this.visualizationUrl.getText());
@@ -472,7 +473,7 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
 	    if (((String)this.myModel.getValueAt(i,2)).equals("started")) {
 		//String hostText = localHost.getText();
 		//String portText = portRegistry.getText();
-		String url = (String)this.myModel.getValueAt(i,1);
+		//String url = (String)this.myModel.getValueAt(i,1);
 		try {
 		    NodeServer nodeServer = (NodeServer)this.nodeServers.get(new Integer(i));
 		    nodeServer.register(this.visualizationHost.getText(),this.visualizationUrl.getText());
@@ -618,7 +619,8 @@ public class LocalNodeLauncher extends JFrame implements ActionListener{
     private void newLauncher() {
 	try{
 	    Runtime r =  Runtime.getRuntime();
-	    Process p = r.exec("java -Xmx1024M visidia.network.LocalNodeLauncher");
+	    //Process p = 
+	    	r.exec("java -Xmx1024M visidia.network.LocalNodeLauncher");
 	} catch (Exception e) {
 	    this.write(e);
 	}

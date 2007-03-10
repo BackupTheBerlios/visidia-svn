@@ -89,11 +89,11 @@ public class VueGraphe implements Serializable, RecoverableObject{
 	    FormeDessin forme = (FormeDessin) e.nextElement();
 
 	    if (forme.type().equals("vertex")){
-		SommetDessin sommet_courant, sommet_clone;
+		SommetDessin sommet_courant;//, sommet_clone;
 		sommet_courant = (SommetDessin)forme;
 		if(!sommets_clones.containsKey(sommet_courant)){
 		  sommets_clones.put(sommet_courant,
-				     sommet_clone = (SommetDessin)sommet_courant.cloner(vue));
+				     /*sommet_clone =*/ (SommetDessin)sommet_courant.cloner(vue));
 		}
 	    }
 

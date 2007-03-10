@@ -19,7 +19,7 @@ public class VQueue{
     private int maxSize;  
 
     /* La structure stockant la file de messages*/
-    private LinkedList queue;
+    private LinkedList<Object> queue;
 
     /**
      * Constructs a queue with default maximum size which is Integer.MAX_VALUE.
@@ -33,7 +33,7 @@ public class VQueue{
      */
     public VQueue(int maxSize){
 	this.maxSize = maxSize;
-	this.queue = new LinkedList();
+	this.queue = new LinkedList<Object>();
     }
 
     /**
@@ -91,8 +91,8 @@ public class VQueue{
      * If the queue does not contains any element that match the criterion <code>c</code>,
      * this method returns null. 
      */
-    public synchronized Vector getAllNoWait(Criterion c) throws InterruptedException{
-	Vector v = new Vector();
+    public synchronized Vector<Object> getAllNoWait(Criterion c) throws InterruptedException{
+	Vector<Object> v = new Vector<Object>();
 	ListIterator li = this.queue.listIterator();
 	while( li.hasNext() ){
 	    Object o = li.next();
@@ -145,7 +145,7 @@ public class VQueue{
      * remove all elements from the queue.
      */
     public synchronized void purge(){
-	this.queue = new LinkedList();
+	this.queue = new LinkedList<Object>();
     }
 	
     /**

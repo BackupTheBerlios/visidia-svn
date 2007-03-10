@@ -70,7 +70,7 @@ public class BoiteAlgoApplet implements ActionListener  {
     /** Affiche la boite et la centre par rapport a "parent".*/
     public void show() {
 	this.dialog.pack();
-	this.dialog.show();
+	this.dialog.setVisible(true);
 	this.dialog.setLocationRelativeTo(null);
     }
 

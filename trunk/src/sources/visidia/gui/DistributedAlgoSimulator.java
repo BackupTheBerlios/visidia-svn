@@ -99,7 +99,7 @@ public static final String nomDuProgramme = "DistributedAlgoSimulator";
     if (e.getActionCommand().equals("New Graph")) {
     
 	Editeur ed = new Editeur();
-	ed.show();
+	ed.setVisible(true);
 	
     } else if (e.getActionCommand().equals("Help")) { 
       JOptionPane.showMessageDialog(this,
@@ -119,7 +119,7 @@ public static final String nomDuProgramme = "DistributedAlgoSimulator";
       TableImages.setTableImages(japplet.getToolkit()); // fill the tables of images
       est_standalone = true;
       Editeur ed = new Editeur();
-      ed.show();
+      ed.setVisible(true);
   }
 }
 

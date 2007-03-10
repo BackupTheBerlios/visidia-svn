@@ -131,7 +131,7 @@ public class BoiteChangementEtatSommet
   /** Affiche la boite et la centre par rapport a "parent".*/
   public void show(Frame parent) {
     this.dialog.pack();
-    this.dialog.show();
+    this.dialog.setVisible(true);
     this.dialog.setLocationRelativeTo(parent);
   }
   

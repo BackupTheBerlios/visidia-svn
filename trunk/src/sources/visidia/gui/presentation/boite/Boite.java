@@ -104,7 +104,7 @@ public class Boite extends JOptionPane {
     public void showDialog() { 
 	this.setMessage(this.createContent());
 	
-	this.createDialog(this.parent, this.title).show();
+	this.createDialog(this.parent, this.title).setVisible(true);
 	
 	String selectedButton = (String)this.getValue();
 	
@@ -125,7 +125,7 @@ public class Boite extends JOptionPane {
      */
     public String dialogValue() { 
 	this.setMessage(this.createContent());
-	this.createDialog(this.parent, this.title).show();
+	this.createDialog(this.parent, this.title).setVisible(true);
 	return (String)this.getValue();
     }
     

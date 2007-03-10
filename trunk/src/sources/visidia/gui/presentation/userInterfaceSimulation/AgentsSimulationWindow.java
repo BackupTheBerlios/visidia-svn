@@ -312,7 +312,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		vert.changerCouleurFond(Color.red);
 
 		nbr = ((ArrayList) this.agentsTable.get(id)).size();
-		String nbrStr = new String().valueOf(nbr);
+		String nbrStr = String.valueOf(nbr);
 
 		// bug ici (bilel) : ne marche pas avec les sommet cercle
 		// ((SommetCarre)vert).setNbr(nbrStr); : version avant

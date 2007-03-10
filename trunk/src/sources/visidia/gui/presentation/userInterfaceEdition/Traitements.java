@@ -205,7 +205,7 @@ public class Traitements {
 	    return null;
       
 	// initialisation des structures de donnees
-	SommetDessin sommet_courant = (SommetDessin)sommets_initiaux.nextElement();
+	//SommetDessin sommet_courant = (SommetDessin)sommets_initiaux.nextElement();
 	// la selection contient tous les sommets et arêtes déjà rencontrés
 	SelectionDessin selection_connexe = new SelectionDessin();
 	// la pile contient tous les sommets et aretes deja rencontres pour lesquels
@@ -262,7 +262,7 @@ public class Traitements {
 	    return null;
 
 	// initialisation des structures de donnees
-	SommetDessin sommet_courant = (SommetDessin)sommets_initiaux.nextElement();
+	//SommetDessin sommet_courant = (SommetDessin)sommets_initiaux.nextElement();
 	// la selection contient tous les sommets et aretes deja rencontres
 	SelectionDessin selection_connexe = new SelectionDessin();
 	// la pile contient tous les sommets et aretes deja rencontres pour lesquels

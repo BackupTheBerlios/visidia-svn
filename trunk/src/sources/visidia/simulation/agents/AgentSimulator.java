@@ -750,12 +750,12 @@ public class AgentSimulator {
 		Agent ag2;
 		Vertex vertexFrom, vertexTo;
 		Message msg;
-		MessagePacket msgPacket;
+		//MessagePacket msgPacket;
 
 		vertexFrom = this.getVertexFor(ag);
 		vertexTo = vertexFrom.neighbour(door);
 		msg = new StringMessage("Sent clone of "+ag.toString());
-		msgPacket = new MessagePacket(vertexFrom.identity(), door, 
+		/*msgPacket = */ new MessagePacket(vertexFrom.identity(), door, 
 				vertexTo.identity(), msg);
 
 		ag2 = this.createAgent(agClass, 

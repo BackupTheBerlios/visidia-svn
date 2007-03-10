@@ -57,7 +57,7 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
         this.helpRegistry.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    this.helpRegistry.setPage(file.toURL());
+	    this.helpRegistry.setPage(file.toURI().toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
             this.helpRegistry.setText("Help not available");
@@ -71,7 +71,7 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
         this.helpNodeLocation.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    this.helpNodeLocation.setPage(file.toURL());
+	    this.helpNodeLocation.setPage(file.toURI().toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
             this.helpNodeLocation.setText("Help not available");
@@ -85,7 +85,7 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
         this.helpLocalNode.setEditable(false);
         try {
 	    File file = new File("/net/t1/derbel/toto.html");
-	    this.helpLocalNode.setPage(file.toURL());
+	    this.helpLocalNode.setPage(file.toURI().toURL());
 	} catch (IOException e) {
 	    //e.printStackTrace();
             this.helpLocalNode.setText("Help not available");
@@ -113,6 +113,6 @@ public class OpenHelpDist extends JDialog implements ActionListener, WindowListe
      */
     public void show() {
         this.setSize(600, 400);
-	super.show();
+	super.setVisible(true);
     }
 }

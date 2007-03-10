@@ -93,7 +93,7 @@ public class BoiteChangementCouleurArete implements ActionListener{
     /** Affiche la boite et la centré par rapport à "parent".*/
     public void show(Frame parent) {
 	this.dialog.pack();
-	this.dialog.show();
+	this.dialog.setVisible(true);
 	this.dialog.setLocationRelativeTo(parent);
     }
     

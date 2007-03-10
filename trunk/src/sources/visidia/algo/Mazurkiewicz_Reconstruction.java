@@ -215,12 +215,12 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     }
     
     private void receiveKnowledge(Knowledge node,int door) {
-        int prop;
+        //int prop;
         VectorMessage vm=(VectorMessage) this.receiveFrom(door);
         Vector data =vm.data();
         while (((Integer)data.elementAt(0)).intValue() !=-1) {
             node.changeKnowledge(data);
-            prop=((Integer)data.elementAt(0)).intValue();
+            //prop=((Integer)data.elementAt(0)).intValue();
             vm=(VectorMessage) this.receiveFrom(door);
             data =vm.data();
         }

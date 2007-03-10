@@ -8,14 +8,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class CompoundCriterion implements Criterion{
-    private LinkedList criterionList = null;
+    private LinkedList<Criterion> criterionList = null;
 
     /**
      * Contruit une nouvelle classe de composition de critères. A la creation
      * elle ne contient aucun critère.
      */
     public CompoundCriterion(){
-	this.criterionList = new LinkedList();
+	this.criterionList = new LinkedList<Criterion>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class CompoundCriterion implements Criterion{
      * supprime tous les critères.
      */
     public void removeAllCriterion(){
-	this.criterionList =  new LinkedList();
+	this.criterionList =  new LinkedList<Criterion>();
     }
 
     public boolean isMatchedBy(Object o){
