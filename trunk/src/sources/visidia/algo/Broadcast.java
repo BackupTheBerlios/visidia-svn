@@ -17,7 +17,7 @@ public class Broadcast extends Algorithm {
     static MessageType ack = new MessageType("Acknowledgment", true, java.awt.Color.blue);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(ack);
         typesList.add(wave);
         return typesList;

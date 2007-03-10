@@ -24,7 +24,7 @@ public class Election_K_Tree extends Algorithm {
     static MessageType labels = new MessageType("labels", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         //typesList.add(booleen);
@@ -105,7 +105,7 @@ public class Election_K_Tree extends Algorithm {
         
         int arite = this.getArity() ;
         int[] answer = new int[arite] ;
-        Vector neighbourCenter;
+        Vector<Integer> neighbourCenter;
         
         /*random */
         int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
@@ -152,7 +152,7 @@ public class Election_K_Tree extends Algorithm {
 		    /*Message msg=*/this.receiveFrom(i);
 		}
 	    
-            neighbourCenter=new Vector();
+            neighbourCenter=new Vector<Integer>();
             neighbourCenter.add(new Integer(-1));
 	    
             synchroNumber++;

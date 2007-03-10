@@ -666,7 +666,7 @@ public class AgentSimulator {
 		while(this.threadGroup.activeCount() > 0) {
 			this.threadGroup.interrupt();
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				throw new SimulationAbortError(e);
 			}

@@ -17,7 +17,7 @@ public class SynchBFS extends SyncAlgorithm {
     
 
     public Collection getListTypes(){
-	Collection typesList = new LinkedList();
+	Collection<MessageType> typesList = new LinkedList<MessageType>();
 	typesList.add(wave);
 	
         return typesList;

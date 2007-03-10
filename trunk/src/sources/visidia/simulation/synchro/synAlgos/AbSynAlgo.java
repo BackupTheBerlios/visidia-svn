@@ -3,6 +3,7 @@ package visidia.simulation.synchro.synAlgos;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import visidia.misc.MessageType;
 import visidia.misc.MSG_TYPES;
 import visidia.misc.SyncState;
 import visidia.rule.Star;
@@ -23,7 +24,7 @@ public abstract class AbSynAlgo extends Algorithm implements IntSynchronization
   
 
     public Collection getListTypes(){
-	Collection typesList = new LinkedList();
+	Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(MSG_TYPES.SYNC);
 	typesList.add(MSG_TYPES.TERM);
 	return typesList;

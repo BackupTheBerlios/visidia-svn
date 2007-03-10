@@ -30,7 +30,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
     static MessageType labels = new MessageType("labels", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         typesList.add(termination);

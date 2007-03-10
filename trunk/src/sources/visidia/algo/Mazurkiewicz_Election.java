@@ -27,7 +27,7 @@ public class Mazurkiewicz_Election extends Algorithm {
     static MessageType labels = new MessageType("labels", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         //typesList.add(booleen);
@@ -223,7 +223,7 @@ public class Mazurkiewicz_Election extends Algorithm {
     private void sendToAllKnowledge(Know node) {
         
         int arity=this.getArity();
-        Vector vec = new Vector(2);
+        Vector<Integer> vec = new Vector<Integer>(2);
         for (int i=1;i<=node.Max();i++) {
             if ((node.NeighbourNode(i))!=-1) {
                 vec.add(new Integer(i));
@@ -244,7 +244,7 @@ public class Mazurkiewicz_Election extends Algorithm {
     }
     
     private void sendKnowledge(Know node,int synchro) {
-        Vector vec = new Vector(2);
+        Vector<Integer> vec = new Vector<Integer>(2);
         
         for (int i=1;i<=node.Max();i++) {
             if ((node.NeighbourNode(i))!=-1) {

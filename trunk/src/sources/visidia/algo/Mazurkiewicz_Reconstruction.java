@@ -27,7 +27,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     static MessageType labels = new MessageType("labels", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         //typesList.add(booleen);
@@ -66,7 +66,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
                     node.changeName(node.max()+1);
                 }
                 
-                Vector nameVector=new Vector(2);
+                Vector<Integer> nameVector=new Vector<Integer>(2);
                 nameVector.add(new Integer(node.myName()));
                 nameVector.add(new Integer(lastName));
                 
@@ -228,7 +228,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     
     private void broadcastKnowledge(Knowledge node) {
         
-        Vector vec = new Vector();
+        Vector<Integer> vec = new Vector<Integer>();
         for (int i=1;i<=node.max();i++) {
             if ((node.neighbourNode(i))!=null) {
                 vec=this.addVector(i,node.neighbourNode(i));
@@ -244,7 +244,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
     }
     
     private void sendKnowledge(Knowledge node,int synchro) {
-        Vector vec = new Vector();
+        Vector<Integer> vec = new Vector<Integer>();
         for (int i=1;i<=node.max();i++) {
             if ((node.neighbourNode(i))!=null) {
                 vec=this.addVector(i,node.neighbourNode(i));
@@ -269,8 +269,8 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
         }
     }
     
-    private Vector addVector(int num, Vector vec){
-        Vector intVec=new Vector();
+    private Vector<Integer> addVector(int num, Vector<Integer> vec){
+        Vector<Integer> intVec=new Vector<Integer>();
         
         intVec.add(new Integer(num));
         if (vec!=null) {

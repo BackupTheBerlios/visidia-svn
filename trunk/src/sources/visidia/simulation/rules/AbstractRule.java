@@ -3,6 +3,7 @@ package visidia.simulation.rules;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import visidia.misc.MessageType;
 import visidia.misc.BooleanMessage;
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
@@ -61,7 +62,7 @@ public abstract class AbstractRule extends Algorithm {
     * this methode is common to all rules simulators.
     **/
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType> ();
         typesList.add(MSG_TYPES.SYNC);
 	typesList.add(MSG_TYPES.LABE);
        	typesList.add(MSG_TYPES.TERM);

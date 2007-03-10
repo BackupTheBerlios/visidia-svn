@@ -25,7 +25,7 @@ public class AgentSynchroLC1 extends Algorithm {
     static MessageType labels = new MessageType("labels", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(round1);
         typesList.add(round2);
 	typesList.add(round3);

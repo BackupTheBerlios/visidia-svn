@@ -32,7 +32,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
     
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         typesList.add(termination);

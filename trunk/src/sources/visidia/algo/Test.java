@@ -19,7 +19,7 @@ public class Test extends Algorithm {
     static MessageType round2NotMis = new MessageType("round-2-NOT-MIS", true, new java.awt.Color(43,156,21));
     
     public Collection getListTypes(){
-	Collection typesList = new LinkedList();
+	Collection<MessageType> typesList = new LinkedList<MessageType>();
 	typesList.add(round1);
         typesList.add(round2Mis);
         typesList.add(round2NotMis);

@@ -33,7 +33,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
     
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         typesList.add(termination);

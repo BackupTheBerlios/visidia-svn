@@ -19,7 +19,7 @@ public class Coloration extends Algorithm {
     static MessageType color = new MessageType("color", true);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(color);
         //typesList.add(booleen);

@@ -26,7 +26,7 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
     final StringMessage sig=new StringMessage(new String("sig"),labels);
     
     public Collection getListTypes(){
-        Collection typesList = new LinkedList();
+        Collection<MessageType> typesList = new LinkedList<MessageType>();
         typesList.add(synchronization);
         typesList.add(labels);
         //typesList.add(booleen);
