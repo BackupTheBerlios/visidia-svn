@@ -244,7 +244,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                       this.receiveFrom(i);
                     }
                 }
                 
@@ -259,7 +259,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                       this.receiveFrom(i);
                     }
                 }
                 

@@ -174,7 +174,7 @@ public class SynchroDist extends Algorithm {
 		}
 		
 		if (!fir) {
-		    String la=(((StringMessage) this.receive(door)).data());
+		    /*String la=*/ ((StringMessage) this.receive(door)).data();
 		    i=door.getNum();
 		    
 		    if (neighbours[i]) {

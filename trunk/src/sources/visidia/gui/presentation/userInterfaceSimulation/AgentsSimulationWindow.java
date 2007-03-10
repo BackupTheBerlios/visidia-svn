@@ -997,7 +997,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.rulesWarnings(rSys);
 
 		if (this.agentsRules == null)
-			this.agentsRules = new Vector();
+			this.agentsRules = new Vector<RelabelingSystem>();
 
 		int size = this.agentsRules.size();
 

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import visidia.misc.MarkedState;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.MessageType;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
@@ -36,7 +36,7 @@ public class Broadcast extends Algorithm {
 	    }
 	} else {
 	    Door door = new Door();
-	    Message msg = this.receive(door);
+	    /*Message msg =*/ this.receive(door);
 
 	    fatherDoor = door.getNum();
 

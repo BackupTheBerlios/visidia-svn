@@ -62,7 +62,7 @@ public class DoorPulseCriterion implements Criterion {
 	if((this.pulse == null) && (this.door == null)) {
 	    return true;
 	} else if(this.pulse == null) {
-	    Message msg = ((MessagePacket)o).message();
+	    /*Message msg = */((MessagePacket)o).message();
 	    int d = ((MessagePacket)o).receiverDoor();
 	    if(this.door.getNum() == d)
 		return true;

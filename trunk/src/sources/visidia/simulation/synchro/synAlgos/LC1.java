@@ -2,7 +2,7 @@ package visidia.simulation.synchro.synAlgos;
 
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.SyncState;
 import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
@@ -108,7 +108,7 @@ public class LC1 extends  AbSynAlgo implements IntSynchronization
 	    
 	    for (int i = 0; i < arity; i++) {
 		if (! this.synob.hasFinished(i)){
-		    Message msg = this.receiveFrom(i);
+		    this.receiveFrom(i);
 		}
 	    }
 	    this.synob.setState(SynCT.IAM_THE_CENTER);
@@ -142,8 +142,8 @@ public class LC1 extends  AbSynAlgo implements IntSynchronization
     }
 
     public void reconnectionEvent(int door) {
-	Message m;
-	while ((m = this.receiveFrom(door)) != null) {
+	//Message m;
+	while ((/*m =*/ this.receiveFrom(door)) != null) {
 	}
     }
 } 

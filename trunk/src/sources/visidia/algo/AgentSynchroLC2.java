@@ -106,7 +106,7 @@ public class AgentSynchroLC2 extends Algorithm {
 		  Symetriquement, je recois les message envoye par les autres
 		*/
 		for( int i = 0; i < arite; i++){
-		    Message msg = this.receiveFrom(i);
+		    /*Message msg =*/ this.receiveFrom(i);
 		}
 		
 		
@@ -216,7 +216,7 @@ public class AgentSynchroLC2 extends Algorithm {
 		
 		// symetriquement je recoit les reponses
 		for( int i = 0; i < arite; i++){
-		    Message msg = this.receiveFrom(i);
+		    /*Message msg =*/ this.receiveFrom(i);
 		}
 		
 		// j'envoi 0

@@ -143,7 +143,7 @@ public class Spanning_Tree_ID_LC2 extends Algorithm {
             this.sendAll(new IntegerMessage(1,synchronization));
             
             for (int i=0;i<arite;i++) {
-                Message msg=this.receiveFrom(i);
+                this.receiveFrom(i);
             }
             
             return this.starCenter;

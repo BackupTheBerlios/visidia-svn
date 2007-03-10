@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import visidia.misc.MarkedState;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.MessageType;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
@@ -77,7 +77,7 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 	} else {
 	    // je suis bloque en attente de la vague
 	    Door doorB = new Door();
-	    Message msgB = this.receive(doorB);
+	    this.receive(doorB);
 	    
 	    //je recois un message; la vague est arrivee
 	    fatherDoor = doorB.getNum();

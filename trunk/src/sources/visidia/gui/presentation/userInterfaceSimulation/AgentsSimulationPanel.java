@@ -19,17 +19,17 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import visidia.gui.metier.simulation.SentAgent;
-import visidia.gui.presentation.AreteDessin;
+//import visidia.gui.presentation.AreteDessin;
 import visidia.gui.presentation.FormeDessin;
 import visidia.gui.presentation.RecoverableObject;
 import visidia.gui.presentation.SelectionDessin;
 import visidia.gui.presentation.SelectionGetData;
 import visidia.gui.presentation.SelectionUnit;
 import visidia.gui.presentation.SommetDessin;
-import visidia.gui.presentation.userInterfaceEdition.undo.AjouteObjet;
-import visidia.gui.presentation.userInterfaceEdition.undo.DeplaceObjets;
-import visidia.gui.presentation.userInterfaceEdition.undo.FusionneSommet;
-import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
+//import visidia.gui.presentation.userInterfaceEdition.undo.AjouteObjet;
+//import visidia.gui.presentation.userInterfaceEdition.undo.DeplaceObjets;
+//import visidia.gui.presentation.userInterfaceEdition.undo.FusionneSommet;
+//import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
 import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 import visidia.simulation.MessageSendingAck;
 import visidia.simulation.MessageSendingEvent;
@@ -88,16 +88,16 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	private SommetDessin ancien_sommet_sous_souris;
 
 	/** Signifie si un drag-and-drop d'une sélection est en court * */
-	private boolean drag_n_drop_selection;
+	//private boolean drag_n_drop_selection;
 
 	/** Signifie si un drag-and-drop du graphe entier est en court * */
-	private boolean drag_n_drop_graph;
+	//private boolean drag_n_drop_graph;
 
-	private FormeDessin drag_n_dropVertex;
+	//private FormeDessin drag_n_dropVertex;
 
-	private int drag_n_dropVertex_X;
+	//private int drag_n_dropVertex_X;
 
-	private int drag_n_dropVertex_Y;
+	//private int drag_n_dropVertex_Y;
 
 	/** Abscisse de la position initiale de la souris lors d'une sélection * */
 
@@ -448,9 +448,9 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 				// On sauvegarde l'objet UndoObject contenant ce
 				// sommet : on peut en effet avoir a le supprimer
 				// en cas de fusion avec un sommet existant.
-				this.drag_n_dropVertex = this.objet_sous_souris;
+				//this.drag_n_dropVertex = this.objet_sous_souris;
 
-				AreteDessin a = this.agentsSimulationWindow.getVueGraphe()
+				/*AreteDessin a = */ this.agentsSimulationWindow.getVueGraphe()
 						.creerArete(this.ancien_sommet_sous_souris,
 								(SommetDessin) this.objet_sous_souris);
 

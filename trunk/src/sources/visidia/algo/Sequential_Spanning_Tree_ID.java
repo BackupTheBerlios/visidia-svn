@@ -285,7 +285,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 
@@ -300,7 +300,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 

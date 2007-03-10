@@ -179,7 +179,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
             this.sendAll(new IntegerMessage(new Integer(1),synchronization));
             
             for (int i=0;i<arite;i++) {
-                Message msg=this.receiveFrom(i);
+                /*Message msg=*/this.receiveFrom(i);
             }
             neighbourCenter=new Vector();
             neighbourCenter.add(new Integer(-1));

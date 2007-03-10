@@ -94,10 +94,10 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
      *
      **/
     public void actionPerformed(ActionEvent e) {
-	int x1, y1, x2, y2;
+	//int x1, y1, x2, y2;
 	if (e.getSource() == this.origineX) {
 	  try {
-	      x1 = Integer.parseInt(this.origineX.getText());
+	      /*x1 =*/ Integer.parseInt(this.origineX.getText());
 	  } catch(NumberFormatException exception) {
 	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for starting point X:\n"
@@ -110,7 +110,7 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
       }
 	if (e.getSource() == this.origineY) {
 	    try {
-	      y1 = Integer.parseInt(this.origineY.getText());
+	      /*y1 =*/ Integer.parseInt(this.origineY.getText());
 	    } catch(NumberFormatException exception) {
 		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for starting point Y:\n"
@@ -123,7 +123,7 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
       }
 	if (e.getSource() == this.destinationX) {
 	    try {
-		x2 = Integer.parseInt(this.destinationX.getText());
+		/*x2 =*/ Integer.parseInt(this.destinationX.getText());
 	  } catch(NumberFormatException exception) {	
 	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for ending point X:\n"
@@ -136,7 +136,7 @@ public class BoiteAreteDessin extends BoiteFormeDessin implements ActionListener
 	}
 	if (e.getSource() == this.destinationY) {
 	  try {
-	      y2 = Integer.parseInt(this.destinationY.getText());
+	      /*y2 =*/ Integer.parseInt(this.destinationY.getText());
 	  } catch(NumberFormatException exception) {
 	      JOptionPane.showMessageDialog(this.dialog,
 					    "Bad argument type for ending point Y:\n"

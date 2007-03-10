@@ -110,7 +110,7 @@ public class AgentSynchro extends Algorithm {
 		  Symetriquement, je recois les message envoye par les autres
 		*/
 		for( int i = 0; i < arite; i++){
-		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
+		    /*Message msg =*/ this.receiveFrom(i,new IntegerMessageCriterion());
 		}
 		
 		
@@ -213,7 +213,7 @@ public class AgentSynchro extends Algorithm {
 		
 		// symetriquement je recoit les reponse
 		for( int i = 0; i < arite; i++){
-		    Message msg = this.receiveFrom(i,new IntegerMessageCriterion());
+		    /*Message msg =*/ this.receiveFrom(i,new IntegerMessageCriterion());
 		}
 		
 		// j'envoi 0

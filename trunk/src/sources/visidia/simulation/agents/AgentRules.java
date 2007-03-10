@@ -9,7 +9,7 @@ import visidia.simulation.SimulationAbortError;
 
 public class AgentRules extends AbstractAgentsRules {
 
-    private int v,u;
+    //private int v,u;
     private String labelV, labelU;
     private int door;
     private int step;
@@ -21,13 +21,13 @@ public class AgentRules extends AbstractAgentsRules {
 	while (true) {
 
             if (this.lockVertexIfPossible()) {
-                this.v = this.getVertexIdentity();
+                /*this.v = */this.getVertexIdentity();
                 this.labelV = (String)this.getVertexProperty("label");
                 this.step = 1;
 
                 this.randomMove();
 
-		this.u = this.getVertexIdentity();
+		/*this.u =*/ this.getVertexIdentity();
 
                 if (this.lockVertexIfPossible()) {
                     this.labelU = (String)this.getVertexProperty("label");

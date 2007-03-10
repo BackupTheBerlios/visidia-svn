@@ -1,7 +1,7 @@
 package visidia.algo;
 
 import visidia.misc.MarkedState;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
 import visidia.simulation.Door;
@@ -29,7 +29,7 @@ public class FloodTree extends Algorithm {
 	     * returned in the msg variable. The incoming door is
 	     * returned in the door variable */
 	    Door door = new Door();
-	    Message msg = this.receive(door);
+	    /*Message msg =*/ this.receive(door);
 	    parentDoor = door.getNum();
 	    
 	    /* the node becomes in the tree */

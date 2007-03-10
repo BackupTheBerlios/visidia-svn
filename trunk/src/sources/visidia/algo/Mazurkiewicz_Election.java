@@ -170,7 +170,7 @@ public class Mazurkiewicz_Election extends Algorithm {
             
             for (int i=0;i<arite;i++) {
                 if (! finishedNode[i]) {
-                    Message msg=this.receiveFrom(i);
+                    /*Message msg=*/this.receiveFrom(i);
                 }
             }
             synchroNumber++;

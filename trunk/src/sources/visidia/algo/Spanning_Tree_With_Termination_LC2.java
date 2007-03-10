@@ -222,7 +222,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 
@@ -237,7 +237,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 

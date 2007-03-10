@@ -3,7 +3,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import visidia.misc.MarkedState;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.MessageType;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
@@ -63,7 +63,7 @@ public class BroadcastTermination extends Algorithm {
 	} else {
 
 	    Door doorB = new Door();
-	    Message msgB = this.receive(doorB);
+	    this.receive(doorB);
 	    
 	    fatherDoor = doorB.getNum();
 

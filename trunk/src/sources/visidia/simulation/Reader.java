@@ -12,7 +12,7 @@ import visidia.tools.VQueue;
 
 public class Reader implements Runnable, Cloneable {
     private Vector messages = new Vector();
-    private Vector stringMessages = new Vector();
+    //private Vector stringMessages = new Vector();
     private VQueue ackOut = null;
     private VQueue evtOut = null;
     private File file;

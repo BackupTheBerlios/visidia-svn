@@ -2,7 +2,7 @@ package visidia.simulation.synchro.synAlgos;
 
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
-import visidia.misc.Message;
+//import visidia.misc.Message;
 import visidia.misc.SyncState;
 import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
@@ -118,8 +118,8 @@ public class RDV extends AbSynAlgo implements IntSynchronization {
     }
     
     public void reconnectionEvent(int door) {
-	Message m;
-	while ((m = this.receiveFrom(door)) != null) {
+	//Message m;
+	while ((/*m =*/ this.receiveFrom(door)) != null) {
 	}
     }
 } 

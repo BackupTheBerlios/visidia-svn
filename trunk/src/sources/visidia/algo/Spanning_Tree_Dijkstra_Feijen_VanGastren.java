@@ -270,7 +270,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 
@@ -285,7 +285,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
                 
                 for (int i=0;i<arite;i++) {
                     if (! finishedNode[i]) {
-                        Message msg=this.receiveFrom(i);
+                        this.receiveFrom(i);
                     }
                 }
                 

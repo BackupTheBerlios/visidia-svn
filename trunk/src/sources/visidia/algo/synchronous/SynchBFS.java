@@ -41,7 +41,7 @@ public class SynchBFS extends SyncAlgorithm {
 	    } else {
 		if(this.anyMsg()) {
 		    Door door = new Door();
-		    StringMessage msg = (StringMessage)this.receive(door);
+		    /*StringMessage msg = (StringMessage)*/this.receive(door);
 		    // je marque mon père
 		    this.setDoorState(new MarkedState(true),door.getNum());
 		    this.putProperty("label", new String("L"));

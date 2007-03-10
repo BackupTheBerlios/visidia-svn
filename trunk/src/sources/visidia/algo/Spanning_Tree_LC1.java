@@ -114,7 +114,7 @@ public class Spanning_Tree_LC1 extends Algorithm {
             this.sendAll(new IntegerMessage(new Integer(1),synchronization));
             
             for (int i=0;i<arite;i++) {
-                Message msg=this.receiveFrom(i);
+                this.receiveFrom(i);
             }
             neighbourCenter=new Vector();
             neighbourCenter.add(new Integer(-1));

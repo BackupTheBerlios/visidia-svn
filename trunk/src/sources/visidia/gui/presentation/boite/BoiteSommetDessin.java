@@ -107,9 +107,9 @@ public class BoiteSommetDessin extends BoiteFormeDessin{
     
     public void actionPerformed(ActionEvent evt) {
 	if (evt.getSource() == this.centreX) {
-	    int x;
+	    //int x;
 	    try {
-		x = Integer.parseInt(this.centreX.getText());
+		/*x =*/ Integer.parseInt(this.centreX.getText());
 	    } catch(NumberFormatException exception) {
 		JOptionPane.showMessageDialog(this.dialog,
 					      "Bad argument type for X:\n"
@@ -121,9 +121,9 @@ public class BoiteSommetDessin extends BoiteFormeDessin{
 	    this.elementModified();
 	}
 	if (evt.getSource() == this.centreY) {
-	    int y;
+	    //int y;
 	    try {
-		y = Integer.parseInt(this.centreY.getText());
+		/*y =*/ Integer.parseInt(this.centreY.getText());
 	    } catch(NumberFormatException exception) {
 	  JOptionPane.showMessageDialog(this.dialog,
 					"Bad argument type for Y:\n"

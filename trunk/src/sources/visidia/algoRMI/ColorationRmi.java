@@ -121,7 +121,7 @@ public class ColorationRmi extends AlgorithmDist {
 		this.sendTo(i,new IntegerMessage(1));
 	     
 	    for (int i=0;i<arite;i++) {
-		Message msg=this.receiveFrom(i);
+		this.receiveFrom(i);
 		
 	    }
 	    return this.starCenter;

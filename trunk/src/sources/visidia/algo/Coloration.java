@@ -128,7 +128,7 @@ public class Coloration extends Algorithm {
                 this.sendTo(i,new IntegerMessage(1,synchronization));
             
             for (int i=0;i<arite;i++) {
-                Message msg=this.receiveFrom(i);
+                /*Message msg=*/this.receiveFrom(i);
                 
             }
             return this.starCenter;
