@@ -3,12 +3,12 @@ package visidia.simulation.rules;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import visidia.misc.MessageType;
 import visidia.misc.BooleanMessage;
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
 import visidia.misc.MarkedState;
 import visidia.misc.Message;
+import visidia.misc.MessageType;
 import visidia.misc.NeighbourMessage;
 import visidia.misc.StringMessage;
 import visidia.rule.Neighbour;
