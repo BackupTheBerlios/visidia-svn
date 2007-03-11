@@ -14,12 +14,12 @@ public class EnvoiMessage2 extends AlgorithmDist {
 	static MessageType labels = new MessageType("labels", true);
 
 	public EnvoiMessage2() {
-		this.addMessageType(labels);
+		this.addMessageType(EnvoiMessage2.labels);
 	}
 
 	public void init() {
 
-		this.sendTo(0, new StringMessage("Hello", labels));
+		this.sendTo(0, new StringMessage("Hello", EnvoiMessage2.labels));
 	}
 
 	public Object clone() {

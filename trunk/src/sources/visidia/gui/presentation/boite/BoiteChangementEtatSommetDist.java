@@ -200,8 +200,9 @@ public class BoiteChangementEtatSommetDist implements ActionListener,
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -215,8 +216,9 @@ public class BoiteChangementEtatSommetDist implements ActionListener,
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -230,15 +232,17 @@ public class BoiteChangementEtatSommetDist implements ActionListener,
 	public void elementModified() {
 		PropertyTableModel mod = (PropertyTableModel) this.table.getModel();
 		mod.putProperty("label", this.etatPanel.ardoise().donneEtat());
-		if (this.hasFailure)
+		if (this.hasFailure) {
 			mod.putProperty("failure", "yes");
-		else
+		} else {
 			mod.putProperty("failure", "no");
+		}
 
-		if (this.drawMessage)
+		if (this.drawMessage) {
 			mod.putProperty("draw messages", "yes");
-		else
+		} else {
 			mod.putProperty("draw messages", "no");
+		}
 	}
 
 	/** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok. */

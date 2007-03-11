@@ -42,10 +42,11 @@ public class MultiEnsemble extends Ensemble {
 	 */
 	public void inserer(Object un_objet) {
 		Object c = this.table.get(un_objet);
-		if (c == null)
+		if (c == null) {
 			this.table.put(un_objet, new MECompteur());
-		else
+		} else {
 			((MECompteur) c).i++;
+		}
 	}
 
 	/**
@@ -56,10 +57,11 @@ public class MultiEnsemble extends Ensemble {
 	public void inserer(Object un_objet, int cardinalite) {
 		// assert(cardinalite > 0)
 		Object c = this.table.get(un_objet);
-		if (c == null)
+		if (c == null) {
 			this.table.put(un_objet, new MECompteur(cardinalite));
-		else
+		} else {
 			((MECompteur) c).i += cardinalite;
+		}
 	}
 
 	/**
@@ -69,10 +71,11 @@ public class MultiEnsemble extends Ensemble {
 	 */
 	public void supprimer(Object un_objet) {
 		MECompteur c = (MECompteur) this.table.get(un_objet);
-		if ((c != null) && (c.i != 1))
+		if ((c != null) && (c.i != 1)) {
 			c.i--;
-		else
+		} else {
 			this.table.remove(un_objet);
+		}
 	}
 
 	/**
@@ -81,10 +84,11 @@ public class MultiEnsemble extends Ensemble {
 	 */
 	public int cardinalite(Object un_objet) {
 		Object c = this.table.get(un_objet);
-		if (c == null)
+		if (c == null) {
 			return 0;
-		else
+		} else {
 			return ((MECompteur) c).i;
+		}
 	}
 
 	/**

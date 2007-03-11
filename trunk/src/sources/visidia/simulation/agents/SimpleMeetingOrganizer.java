@@ -22,16 +22,18 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	 * @see whatToDoIfMeeted
 	 */
 	public void howToMeetTogether(Collection netAgents) {
-		if (this.enable == false)
+		if (this.enable == false) {
 			return;
+		}
 		Iterator it = netAgents.iterator();
 
 		while (it.hasNext()) {
 			Agent agent = (Agent) it.next();
 			if ((agent instanceof SynchronizedAgent)
 					&& (((SynchronizedAgent) agent).meet == true)
-					&& (netAgents.size() > 1))
+					&& (netAgents.size() > 1)) {
 				this.whatToDoIfMeeted(netAgents, (SynchronizedAgent) agent);
+			}
 		}
 	}
 
@@ -45,16 +47,18 @@ public class SimpleMeetingOrganizer implements MeetingOrganizer {
 	 */
 	public void whatToDoIfMeeted(Collection meetedAgents,
 			SynchronizedAgent agentManager) {
-		if (this.enable == false)
+		if (this.enable == false) {
 			return;
+		}
 		Iterator it = meetedAgents.iterator();
 
 		while (it.hasNext()) {
 			Agent agent = (Agent) it.next();
 			if ((agent instanceof SynchronizedAgent)
 					&& (((SynchronizedAgent) agent).meet == true)
-					&& (agent != agentManager))
+					&& (agent != agentManager)) {
 				agentManager.planning((SynchronizedAgent) agent);
+			}
 		}
 	}
 }

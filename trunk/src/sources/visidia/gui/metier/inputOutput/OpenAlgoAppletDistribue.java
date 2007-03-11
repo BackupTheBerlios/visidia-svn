@@ -22,15 +22,16 @@ public class OpenAlgoAppletDistribue implements Serializable {
 	 */
 
 	public static void open(FenetreDeSimulationDist fenet) {
-		fenetre = fenet;
-		BoiteAlgoAppletDistribue box = new BoiteAlgoAppletDistribue(fenetre,
-				TableAlgoDistribue.getKeys());
+		OpenAlgoAppletDistribue.fenetre = fenet;
+		BoiteAlgoAppletDistribue box = new BoiteAlgoAppletDistribue(
+				OpenAlgoAppletDistribue.fenetre, TableAlgoDistribue.getKeys());
 		box.show();
 	}
 
 	public static void setAlgorithm(String key) {
 		try {
-			fenetre.setAlgo(TableAlgoDistribue.getAlgo(key));
+			OpenAlgoAppletDistribue.fenetre.setAlgo(TableAlgoDistribue
+					.getAlgo(key));
 		} catch (Exception excpt) {
 			System.out.println("Problem: " + excpt);
 		}

@@ -2,6 +2,7 @@ package visidia.gui.presentation.userInterfaceSimulation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -168,8 +169,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 	public FenetreDeSimulationDist(VueGraphe grapheVisu_edite, File fichier_edit) {
 
-		this(grapheVisu_edite, COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
-				DIM_Y_PAR_DEFAUT, fichier_edit);
+		this(grapheVisu_edite, Fenetre.COULEUR_FOND_PAR_DEFAUT,
+				Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT,
+				fichier_edit);
 		this.addWindowListener(this);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setSize(650, 600);
@@ -236,10 +238,12 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				if (FenetreDeSimulationDist.this.simulationPanel != null)
+				if (FenetreDeSimulationDist.this.simulationPanel != null) {
 					FenetreDeSimulationDist.this.simulationPanel.stop();
-				if (FenetreDeSimulationDist.this.seh != null)
+				}
+				if (FenetreDeSimulationDist.this.seh != null) {
 					FenetreDeSimulationDist.this.seh.abort();
+				}
 				FenetreDeSimulationDist.this.commandeClose();
 				FenetreDeSimulationDist.this.raz();
 				FenetreDeSimulationDist.this.setVisible(false);
@@ -254,8 +258,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		this.addToolBar();
 
 		// On disable les items non-valide pour une applet
-		if (!DistributedAlgoSimulator.estStandalone())
+		if (!DistributedAlgoSimulator.estStandalone()) {
 			this.disableButtonForApplet();
+		}
 
 		this.setContentPane(this.content);
 		boolean bool = true;
@@ -441,21 +446,21 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		// Build buttons on the tool bar
 		this.but_start = new JButton("start");
 		this.but_start.setToolTipText("Start");
-		this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_start.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_start.setEnabled(false);
 		this.but_start.addActionListener(this);
 		this.toolBar.add(this.but_start);
 
 		this.but_pause = new JButton("pause");
 		this.but_pause.setToolTipText("Pause");
-		this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_pause.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_pause.setEnabled(false);
 		this.but_pause.addActionListener(this);
 		this.toolBar.add(this.but_pause);
 
 		this.but_stop = new JButton("stop");
 		this.but_stop.setToolTipText("Stop");
-		this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_stop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_stop.addActionListener(this);
 		this.but_stop.setEnabled(false);
 		this.toolBar.add(this.but_stop);
@@ -464,7 +469,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		this.toolBar.addSeparator();
 		this.but_save = new JButton("save");
 		this.but_save.setToolTipText("Save");
-		this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_save.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_save.addActionListener(this);
 		this.toolBar.add(this.but_save);
 
@@ -474,8 +479,8 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		this.speed_slider = new JSlider(1, 20, 10);
 		this.speed_slider.addChangeListener(this);
 		this.speed_slider.setToolTipText("Speed");
-		this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
-		this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+		this.speed_slider.setAlignmentY(Component.TOP_ALIGNMENT);
+		this.speed_slider.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.speed_slider.setPreferredSize(new Dimension(80, 15));
 		this.speed_slider
 				.setBackground(this.toolBar.getBackground().brighter());
@@ -487,7 +492,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 				+ ")");
 		this.speed_label.setFont(new Font("Dialog", Font.BOLD, 10));
 		this.speed_label.setToolTipText("Speed");
-		this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+		this.speed_label.setAlignmentY(Component.TOP_ALIGNMENT);
 		this.speed_label.setForeground(Color.black);
 		speed_panel.add(this.speed_slider);
 		speed_panel.add(this.speed_label);
@@ -496,7 +501,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		this.but_info = new JButton(new ImageIcon(TableImages.getImage("info")));// "fr/enserb/das/gui/donnees/images/info.gif"));
 		this.but_info.setToolTipText("Info");
-		this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_info.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_info.addActionListener(this);
 		this.toolBar.add(this.but_info);
 
@@ -504,7 +509,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
 		this.but_help.setToolTipText("Help");
-		this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_help.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_help.addActionListener(this);
 		this.toolBar.add(this.but_help);
 
@@ -512,7 +517,8 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		this.but_information_distribue = new JButton("Remote Node");
 		this.but_information_distribue.setToolTipText("Remote Node");
-		this.but_information_distribue.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_information_distribue
+				.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_information_distribue.addActionListener(this);
 		this.toolBar.add(this.but_information_distribue);
 
@@ -520,7 +526,7 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		this.but_experimentation = new JButton("Statistics");
 		this.but_experimentation.setToolTipText("Statistics");
-		this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_experimentation.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_experimentation.addActionListener(this);
 		this.toolBar.add(this.but_experimentation);
 
@@ -529,18 +535,18 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		this.but_threadCount = new JButton("threads");
 		this.but_threadCount
 				.setToolTipText("amount of threads that are active in the VM");
-		this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_threadCount.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_threadCount.addActionListener(this);
 		this.toolBar.add(this.but_threadCount);
 		this.toolBar.addSeparator();
-		if (threadCountFrame == null) {
-			threadCountFrame = new ThreadCountFrame(Thread.currentThread()
-					.getThreadGroup());
+		if (FenetreDeSimulationDist.threadCountFrame == null) {
+			FenetreDeSimulationDist.threadCountFrame = new ThreadCountFrame(
+					Thread.currentThread().getThreadGroup());
 		}
 
 		this.but_reset = new JButton("RESET");
 		this.but_reset.setToolTipText("RESET");
-		this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_reset.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_reset.addActionListener(this);
 		this.but_reset.setEnabled((this.fichier_edite != null));
 		this.toolBar.add(this.but_reset);
@@ -562,8 +568,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 	/* saving is made and then change the title of the window */
 	/** ******************************************************* */
 	public void mettreAJourTitreFenetre(File fichier) {
-		if (fichier != null)
+		if (fichier != null) {
 			this.but_reset.setEnabled(true);
+		}
 		super.mettreAJourTitreFenetre(fichier);
 	}
 
@@ -581,10 +588,11 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 	/** ****************************************************** */
 	public void actionPerformed(ActionEvent evt) {
 
-		if (evt.getSource() instanceof JButton)
+		if (evt.getSource() instanceof JButton) {
 			this.action_toolbar((JButton) evt.getSource());
-		else if (evt.getSource() instanceof JMenuItem)
+		} else if (evt.getSource() instanceof JMenuItem) {
 			this.action_menu((JMenuItem) evt.getSource());
+		}
 	}
 
 	/** ****************************************************** */
@@ -608,16 +616,17 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 		if (le_menu == "PopFile") {
 			this.menuFile(mi);
-		} else if (le_menu == "PopGraph")
+		} else if (le_menu == "PopGraph") {
 			this.menuGraph(mi);
-		else if (le_menu == "PopAlgo")
+		} else if (le_menu == "PopAlgo") {
 			this.menuAlgo(mi);
-		else if (le_menu == "PopConfig")
+		} else if (le_menu == "PopConfig") {
 			this.menuConfig(mi);
-		else if (le_menu == "PopExperiment")
+		} else if (le_menu == "PopExperiment") {
 			this.menuExperiment(mi);
-		// else if(le_menu == "PopTypeMessage")
-		// menuTypeMessage(mi);
+			// else if(le_menu == "PopTypeMessage")
+			// menuTypeMessage(mi);
+		}
 	}
 
 	/** ****************************************************** */
@@ -759,8 +768,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 
 			this.seh.abort();
 
-			if (this.fichier_edite != null)
+			if (this.fichier_edite != null) {
 				OpenGraph.open(this, this.fichier_edite);
+			}
 			// OpenGraph.open(this);
 			this.evtPipeIn = new visidia.tools.VQueue();
 			this.evtPipeOut = new visidia.tools.VQueue();
@@ -812,10 +822,11 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 									+ "except changing the state of edges or vertices\n"
 									+ "before starting simulation you must load an algorithm \n "
 									+ "or a list of simple rules \n");
-		} else if (mi == this.file_close)
+		} else if (mi == this.file_close) {
 			this.commandeClose();
-		else if (mi == this.file_quit)
+		} else if (mi == this.file_quit) {
 			System.exit(0);
+		}
 	}
 
 	/** ********************************************************** */
@@ -857,10 +868,11 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 	/** ********************************************************** */
 	public void menuAlgo(JMenuItem mi) {
 		if (mi == this.algo_open) {
-			if (DistributedAlgoSimulator.estStandalone())
+			if (DistributedAlgoSimulator.estStandalone()) {
 				OpenAlgoDistribue.open(this);
-			else
+			} else {
 				OpenAlgoAppletDistribue.open(this);
+			}
 			this.simulationAlgo = true;
 			this.but_start.setEnabled(true);
 		}
@@ -1072,18 +1084,19 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 	 */
 	public void emptyCurrentSelection(boolean deselect) { // Penser au
 		// repaint()
-		if (!this.selection.estVide())
+		if (!this.selection.estVide()) {
 			if (deselect) {
 				this.selection.deSelect();
 			}
+		}
 	}
 
 	// action on the property button with a selection
 
 	private void propertiesControl() {
-		if (this.selection.estVide())
+		if (this.selection.estVide()) {
 			System.out.println("empty");
-		else {
+		} else {
 			Enumeration e = this.selection.elements();
 			FormeDessin firstElement = ((FormeDessin) e.nextElement());
 			if (!Traitements.sommetDessin(this.selection.elements())
@@ -1103,9 +1116,10 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 			} else {
 				e = this.selection.elements();
 				visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
-				while (e.hasMoreElements())
+				while (e.hasMoreElements()) {
 					table_des_types.inserer(((FormeDessin) e.nextElement())
 							.type());
+				}
 				BoiteSelection.show(this, this.selection.nbElements(),
 						table_des_types);
 			}
@@ -1205,8 +1219,9 @@ public class FenetreDeSimulationDist extends Fenetre implements Serializable,
 		try {
 			if (this.sim_Rmi == null) {
 				this.algoRmi.setMessageType(msgType, msgTypeState);
-			} else
+			} else {
 				this.sim_Rmi.setMessageType(msgType, msgTypeState);
+			}
 		} catch (Exception e) {
 			System.out.println("Erreur : " + e);
 			e.printStackTrace();

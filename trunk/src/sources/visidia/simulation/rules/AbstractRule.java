@@ -65,10 +65,12 @@ public abstract class AbstractRule extends Algorithm {
 		typesList.add(MSG_TYPES.SYNC);
 		typesList.add(MSG_TYPES.LABE);
 		typesList.add(MSG_TYPES.TERM);
-		if (this.synType == SynCT.LC1)
+		if (this.synType == SynCT.LC1) {
 			typesList.add(MSG_TYPES.MARK);
-		if (this.synType == SynCT.RDV)
+		}
+		if (this.synType == SynCT.RDV) {
 			typesList.add(MSG_TYPES.DUEL);
+		}
 		return typesList;
 	}
 
@@ -165,8 +167,9 @@ public abstract class AbstractRule extends Algorithm {
 	 *            the neighbour door.
 	 */
 	public void sendState(int neighbour) {
-		if (this.synob.isConnected(neighbour))
+		if (this.synob.isConnected(neighbour)) {
 			this.sendTo(neighbour, new StringMessage(this.getState()));
+		}
 	}
 
 	/**
@@ -199,9 +202,9 @@ public abstract class AbstractRule extends Algorithm {
 		while (this.synob.run) {
 			round++;
 			this.synob.reset();
-			if (this.synob.allFinished())
+			if (this.synob.allFinished()) {
 				this.synob.run = false;
-			else {
+			} else {
 				this.synal.trySynchronize();
 			}
 			((SynObjectRules) this.synob).refresh();
@@ -219,8 +222,9 @@ public abstract class AbstractRule extends Algorithm {
 					int kindOfRule = this.applyRule(ruleToApply);
 					this.sendUpdate();
 					this.synal.breakSynchro();
-					if (this.relSys.userPreferences.manageTerm)
+					if (this.relSys.userPreferences.manageTerm) {
 						this.endRuleAction(kindOfRule);
+					}
 				} else {
 					this.sendUpdate();
 					this.synal.breakSynchro();
@@ -297,9 +301,10 @@ public abstract class AbstractRule extends Algorithm {
 	 */
 	public void sendMyState() {
 		// System.out.println("LC2 ou rdv");
-		if (this.synob.isConnected(this.synob.center))
+		if (this.synob.isConnected(this.synob.center)) {
 			this.sendTo(this.synob.center, new StringMessage(((String) this
 					.getProperty("label")), MSG_TYPES.LABE));
+		}
 	}
 
 	/**

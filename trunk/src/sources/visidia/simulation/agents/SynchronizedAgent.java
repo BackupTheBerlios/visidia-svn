@@ -46,7 +46,7 @@ public abstract class SynchronizedAgent extends Agent {
 		super();
 		this.meet = true;
 		this.meetedAgentsnames = new Hashtable<Integer, String>();
-		++nbAgents;
+		++SynchronizedAgent.nbAgents;
 	}
 
 	/**
@@ -54,9 +54,9 @@ public abstract class SynchronizedAgent extends Agent {
 	 * simultion is finished or aborted.
 	 */
 	public static void clear() {
-		nbAgents = 0;
-		count = 0;
-		pulseNumber = 0;
+		SynchronizedAgent.nbAgents = 0;
+		SynchronizedAgent.count = 0;
+		SynchronizedAgent.pulseNumber = 0;
 	}
 
 	/**
@@ -66,19 +66,20 @@ public abstract class SynchronizedAgent extends Agent {
 	 */
 	public void nextPulse() {
 
-		synchronized (synchronisation) {
+		synchronized (SynchronizedAgent.synchronisation) {
 
-			++count;
+			++SynchronizedAgent.count;
 
 			// la fonction howToMeetTogether est buggué. à modifier
 			// acun risque de plantage si la fonction planning n'est
 			// pas utlisé par l'utilisateur final
-			if ((this.meet == true) && (this.agentsOnVertex().size() > 1))
+			if ((this.meet == true) && (this.agentsOnVertex().size() > 1)) {
 				this.meetOrg.howToMeetTogether(this.agentsOnVertex());
+			}
 
-			if (count < nbAgents) {
+			if (SynchronizedAgent.count < SynchronizedAgent.nbAgents) {
 				try {
-					synchronisation.wait();
+					SynchronizedAgent.synchronisation.wait();
 				} catch (InterruptedException e) {
 					throw new SimulationAbortError(e);
 				}
@@ -93,15 +94,16 @@ public abstract class SynchronizedAgent extends Agent {
 	}
 
 	protected void planning(SynchronizedAgent agent) {
-		if (this.meet == true)
-			this.meetedAgentsnames.put(new Integer(meetingnum + 1), agent
-					.toString());
+		if (this.meet == true) {
+			this.meetedAgentsnames.put(new Integer(
+					SynchronizedAgent.meetingnum + 1), agent.toString());
+		}
 	}
 
 	protected void unblockAgents() {
-		super.newPulse(++pulseNumber);
-		count = 0;
-		synchronisation.notifyAll();
+		super.newPulse(++SynchronizedAgent.pulseNumber);
+		SynchronizedAgent.count = 0;
+		SynchronizedAgent.synchronisation.notifyAll();
 	}
 
 	/**
@@ -111,15 +113,16 @@ public abstract class SynchronizedAgent extends Agent {
 
 		super.death();
 
-		synchronized (synchronisation) {
+		synchronized (SynchronizedAgent.synchronisation) {
 
-			--nbAgents;
+			--SynchronizedAgent.nbAgents;
 
 			/*
 			 * I have to check if the other agents are not waiting for me
 			 */
-			if (count == nbAgents)
+			if (SynchronizedAgent.count == SynchronizedAgent.nbAgents) {
 				this.unblockAgents();
+			}
 
 		}
 

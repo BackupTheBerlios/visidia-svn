@@ -3,6 +3,7 @@ package visidia.gui.presentation.starRule;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -45,6 +46,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import visidia.gui.donnees.TableImages;
@@ -108,7 +110,7 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 				StarRuleFrame.this.fileName = null;
 			}
 		});
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -164,8 +166,8 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 		ImageIcon imageHelp = new ImageIcon(TableImages.getImage("help"));
 		JButton butHelp = new JButton(imageHelp);
 		butHelp.setToolTipText("Help");
-		butHelp.setAlignmentX(CENTER_ALIGNMENT);
-		butHelp.setAlignmentY(CENTER_ALIGNMENT);
+		butHelp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		butHelp.setAlignmentY(Component.CENTER_ALIGNMENT);
 		Dimension dim = new Dimension(imageHelp.getIconWidth() + 8, imageHelp
 				.getIconHeight() + 7);
 		butHelp.setSize(dim);
@@ -256,8 +258,9 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 
 		fileSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (StarRuleFrame.this.fileName == null)
+				if (StarRuleFrame.this.fileName == null) {
 					return;
+				}
 				try {
 					FileOutputStream ostream = new FileOutputStream(
 							StarRuleFrame.this.fileName);
@@ -309,8 +312,9 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						String fName = chooser.getSelectedFile().getPath();
-						if (!fName.endsWith("srs"))
+						if (!fName.endsWith("srs")) {
 							fName += ".srs";
+						}
 						FileOutputStream ostream = new FileOutputStream(fName);
 						ObjectOutputStream p = new ObjectOutputStream(ostream);
 						p.writeObject(StarRuleFrame.this.getRelabelingSystem());
@@ -331,8 +335,9 @@ public class StarRuleFrame extends JFrame implements RuleTabbedPaneControl {
 				int res = JOptionPane.showConfirmDialog(
 						StarRuleFrame.this.finalThis, "Load file ?",
 						"Load file", JOptionPane.YES_NO_OPTION);
-				if (res != JOptionPane.YES_OPTION)
+				if (res != JOptionPane.YES_OPTION) {
 					return;
+				}
 
 				JFileChooser chooser = new JFileChooser();
 				chooser.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -513,7 +518,7 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 					null));
 			this.buildRulePane = new BuildRulePane(tabbedPaneControl, null,
 					null, false);
-			this.terminationType = NOT_TERMINIATION_RULE;
+			this.terminationType = RulePane.NOT_TERMINIATION_RULE;
 		} else {
 			this.buildRulePane = new BuildRulePane(tabbedPaneControl, rule
 					.befor(), rule.after(), rule.isSimpleRule());
@@ -529,12 +534,13 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 				}
 			}
 			int t = rule.getType();
-			if (t == SynCT.GENERIC)
-				this.terminationType = NOT_TERMINIATION_RULE;
-			else if (t == SynCT.LOCAL_END)
-				this.terminationType = LOCAL_TERMINIATION_RULE;
-			else if (t == SynCT.GLOBAL_END)
-				this.terminationType = GLOBAL_TERMINIATION_RULE;
+			if (t == SynCT.GENERIC) {
+				this.terminationType = RulePane.NOT_TERMINIATION_RULE;
+			} else if (t == SynCT.LOCAL_END) {
+				this.terminationType = RulePane.LOCAL_TERMINIATION_RULE;
+			} else if (t == SynCT.GLOBAL_END) {
+				this.terminationType = RulePane.GLOBAL_TERMINIATION_RULE;
+			}
 			this.renameContext();
 		}
 
@@ -543,7 +549,7 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 		rulePaneWithCombo.setBackground(StarData.ruleColor);
 		JPanel comboPanel = new JPanel();
 		comboPanel.setBackground(StarData.ruleColor);
-		final JComboBox comboTermination = new JComboBox(TERMINATION);
+		final JComboBox comboTermination = new JComboBox(RulePane.TERMINATION);
 		comboTermination.setBackground(new Color(185, 225, 215));
 		comboTermination.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -593,12 +599,13 @@ class RulePane extends JPanel implements ContexTabbedPaneControl {
 		Rule r = new Rule(this.buildRulePane.getLeftStar(), this.buildRulePane
 				.getRightStar(), v);
 		// Sets the type of the rule
-		if (this.terminationType == NOT_TERMINIATION_RULE)
+		if (this.terminationType == RulePane.NOT_TERMINIATION_RULE) {
 			r.setType(SynCT.GENERIC);
-		else if (this.terminationType == LOCAL_TERMINIATION_RULE)
+		} else if (this.terminationType == RulePane.LOCAL_TERMINIATION_RULE) {
 			r.setType(SynCT.LOCAL_END);
-		else if (this.terminationType == GLOBAL_TERMINIATION_RULE)
+		} else if (this.terminationType == RulePane.GLOBAL_TERMINIATION_RULE) {
 			r.setType(SynCT.GLOBAL_END);
+		}
 		r.setSimpleRule(this.buildRulePane.getIsSimpleRule());
 
 		return r;
@@ -682,8 +689,9 @@ class ConvertStarVueGraph {
 		for (Enumeration e = vg.listeAffichage(); e.hasMoreElements();) {
 			FormeDessin f = (FormeDessin) e.nextElement();
 			if (f instanceof SommetDessin) {
-				if (((SommetDessin) f).getEtiquette().equals(id))
+				if (((SommetDessin) f).getEtiquette().equals(id)) {
 					return (SommetDessin) f;
+				}
 			}
 		}
 		return null;
@@ -699,7 +707,7 @@ class ConvertStarVueGraph {
 		Star star = new Star(sommetC.getEtat());
 
 		for (int i = 1; i < vertexNumber; i++) {
-			SommetDessin s = getVertex(vg, "" + i);
+			SommetDessin s = ConvertStarVueGraph.getVertex(vg, "" + i);
 			AreteDessin a = vg.rechercherArete(s.getEtiquette(), sommetC
 					.getEtiquette());
 			star.addNeighbour(new Neighbour(s.getEtat(), a.getEtat()));
@@ -794,14 +802,16 @@ class BuildRulePane extends JPanel {
 				for (Enumeration v_enum = BuildRulePane.this.vgLeft
 						.listeAffichage(); v_enum.hasMoreElements();) {
 					FormeDessin f = (FormeDessin) v_enum.nextElement();
-					if (f != BuildRulePane.this.sommetCLeft)
+					if (f != BuildRulePane.this.sommetCLeft) {
 						BuildRulePane.this.vgLeft.delObject(f);
+					}
 				}
 				for (Enumeration v_enum = BuildRulePane.this.vgRight
 						.listeAffichage(); v_enum.hasMoreElements();) {
 					FormeDessin f = (FormeDessin) v_enum.nextElement();
-					if (f != BuildRulePane.this.sommetCRight)
+					if (f != BuildRulePane.this.sommetCRight) {
 						BuildRulePane.this.vgRight.delObject(f);
+					}
 				}
 				BuildRulePane.this.repaint();
 				tabbedPaneControl.deleteRule();
@@ -1091,8 +1101,9 @@ class BuildContextPane extends JPanel {
 				for (Enumeration v_enum = BuildContextPane.this.vg
 						.listeAffichage(); v_enum.hasMoreElements();) {
 					FormeDessin f = (FormeDessin) v_enum.nextElement();
-					if (f != BuildContextPane.this.sommetC)
+					if (f != BuildContextPane.this.sommetC) {
 						BuildContextPane.this.vg.delObject(f);
+					}
 				}
 				BuildContextPane.this.repaint();
 				tabbedPaneControl.deleteContext();

@@ -58,10 +58,11 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements
 			String[] listOfFiles = factoryDirectory.list();
 			Class fabriqueSommet = Class.forName(this.factoryPointPath
 					+ this.interfaceFactoryName);
-			for (String element : listOfFiles)
+			for (String element : listOfFiles) {
 				if (this.accept(element)) { // we keep only .class files
-					if (element.equals(this.interfaceFactoryName + ".class"))
+					if (element.equals(this.interfaceFactoryName + ".class")) {
 						continue; // don't keep interface
+					}
 					Class factFile = Class.forName(this.factoryPointPath
 							+ this.nameWithoutExtension(element));
 					if (fabriqueSommet.isAssignableFrom(factFile)) {
@@ -72,6 +73,7 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements
 						index++;
 					}
 				}
+			}
 
 		} catch (Exception e) {
 			System.out.println("Problem : " + e);
@@ -80,10 +82,12 @@ public class BoiteChangingVertexShape extends BoiteChangingShape implements
 		// on regarde la fabrique utilisée pour donner la bonne valeur
 		// par défaut
 		index = 0;
-		for (int j = 0; j < this.vertexNames.size(); j++)
+		for (int j = 0; j < this.vertexNames.size(); j++) {
 			if (((String) this.vertexNames.elementAt(j)).equals(VueGraphe
-					.getFabriqueSommet().description()))
+					.getFabriqueSommet().description())) {
 				index = j;
+			}
+		}
 
 		this.choix_type = this.ligne_choix(this.caracteristicsPane,
 				"Vertex shape :", this.vertexNames, this.est_editable,

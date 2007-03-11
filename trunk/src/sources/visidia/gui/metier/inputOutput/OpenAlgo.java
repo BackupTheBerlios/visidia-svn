@@ -30,12 +30,14 @@ public class OpenAlgo implements Serializable {
 		fc.setFileFilter(classFileFilter);
 
 		int returnVal = fc.showOpenDialog(fenetre);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file_open = fc.getSelectedFile();
+		}
 
 		String file_name = fc.getName(file_open);
-		if (file_name == null)
+		if (file_name == null) {
 			return false; // if canceled
+		}
 		fenetre.mettreAJourTitreFenetre(file_name);
 
 		int index = file_name.lastIndexOf('.');
@@ -100,12 +102,14 @@ public class OpenAlgo implements Serializable {
 		fc.setFileFilter(classFileFilter);
 
 		int returnVal = fc.showOpenDialog(fenetre);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file_open = fc.getSelectedFile();
+		}
 
 		String file_name = fc.getName(file_open);
-		if (file_name == null)
+		if (file_name == null) {
 			return false; // if canceled
+		}
 		fenetre.mettreAJourTitreFenetre(file_name);
 
 		int index = file_name.lastIndexOf('.');

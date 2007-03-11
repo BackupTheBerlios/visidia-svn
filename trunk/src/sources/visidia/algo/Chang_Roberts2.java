@@ -16,25 +16,28 @@ public class Chang_Roberts2 extends Algorithm {
 
 		label = "(" + this.getId() + "," + myNb + ")";
 		this.putProperty("label", label);
-		if (this.getId().intValue() == 0)
+		if (this.getId().intValue() == 0) {
 			this.sendTo(0, new IntegerMessage(new Integer(myNb)));
+		}
 
 		do {
 			Message msg = this.receive(door);
 			answer = ((IntegerMessage) msg).value();
 
-			if (answer == this.getId().intValue())
+			if (answer == this.getId().intValue()) {
 				this.putProperty("label", new String("E"));
+			}
 			if (answer > myNb) {
 				myNb = answer;
 				label = "(" + this.getId() + "," + myNb + ")";
 				this.putProperty("label", label);
 			}
 			int s = door.getNum();
-			if (answer != this.getId().intValue())
+			if (answer != this.getId().intValue()) {
 				this.sendTo((s + 1) % 2, new IntegerMessage(new Integer(myNb)));
-			else
+			} else {
 				run = false;
+			}
 		} while (run);
 
 	}

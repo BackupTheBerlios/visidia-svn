@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.WindowConstants;
 
 import visidia.graph.SimpleGraph;
 import visidia.gui.metier.simulation.Convertisseur;
@@ -104,7 +105,7 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 		this.scrollPane = new JScrollPane(this.resultTable);
 		this.getContentPane().add(this.scrollPane, BorderLayout.CENTER);
 
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
 	public HashTableModel getTableModel() {
@@ -139,8 +140,9 @@ public class AgentExperimentationFrame extends JFrame implements ActionListener 
 	}
 
 	public void start() {
-		if (this.expThread != null)
+		if (this.expThread != null) {
 			this.abort();
+		}
 		this.getTableModel().setProperties(new Hashtable());
 		this.threadGroup = new SimulatorThreadGroup("simulator");
 		this.expThread = new ExperimentationThread(this.threadGroup,
@@ -171,12 +173,13 @@ class ReadOnlyHashTableModel extends HashTableModel {
 	}
 
 	public Class getColumnClass(int column) {
-		if (column == 0)
+		if (column == 0) {
 			return String.class;
-		else if (column == 1)
+		} else if (column == 1) {
 			return Long.class;
-		else
+		} else {
 			throw new ArrayIndexOutOfBoundsException();
+		}
 	}
 
 	public Object getValueAt(int row, int col) {
@@ -235,14 +238,16 @@ class ExperimentationThread extends Thread {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				if (this.simulator != null)
+				if (this.simulator != null) {
 					this.simulator.abortSimulation();
+				}
 				throw new SimulationAbortError(e);
 			}
 		}
 
-		if (this.simulator != null)
+		if (this.simulator != null) {
 			this.simulator.abortSimulation();
+		}
 	}
 
 	public void run() {

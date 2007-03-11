@@ -47,12 +47,12 @@ public class RandomAgentChooser extends AgentChooser {
 	 *         This one returns "Handshake".
 	 */
 	protected String agentName() {
-		if (this.algoNames == null)
+		if (this.algoNames == null) {
 			return this.algoName;
-		else {
-			if (this.algoNames.size() == 1)
+		} else {
+			if (this.algoNames.size() == 1) {
 				return this.algoNames.elementAt(0);
-			else {
+			} else {
 				int index = Math.abs(this.genNames.nextInt(this.algoNames
 						.size()));
 				return this.algoNames.elementAt(index);
@@ -83,9 +83,10 @@ public class RandomAgentChooser extends AgentChooser {
 		float probability = this.probability();
 		float rand = Math.abs(this.generator.nextFloat());
 
-		if ((probability < 0.0) || (probability > 1.0))
+		if ((probability < 0.0) || (probability > 1.0)) {
 			throw new IllegalArgumentException("Probability must be "
 					+ "between 0 and 1.");
+		}
 		return (rand < this.probability());
 	}
 

@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import visidia.misc.MarkedState;
-//import visidia.misc.Message;
 import visidia.misc.MessageType;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
@@ -23,9 +22,9 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(ack);
-		typesList.add(wave);
-		typesList.add(termination);
+		typesList.add(BroadcastRandomSpeedWithTermination.ack);
+		typesList.add(BroadcastRandomSpeedWithTermination.wave);
+		typesList.add(BroadcastRandomSpeedWithTermination.termination);
 		return typesList;
 	}
 
@@ -41,7 +40,8 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 		if (label.compareTo("A") == 0) {
 			// debut de la vague
 			for (int i = 0; i < degres; i++) {
-				this.sendTo(i, new StringMessage("Wave", wave));
+				this.sendTo(i, new StringMessage("Wave",
+						BroadcastRandomSpeedWithTermination.wave));
 				try {
 					int timeToSleep = (generator.nextInt() % 20) * 1000;
 					Thread.sleep(timeToSleep);
@@ -62,7 +62,8 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 					// j'attends plus rien de ce voisin
 					childrenStates[doorNum] = 1;
 				} else if (data.compareTo("Wave") == 0) {
-					this.sendTo(doorNum, new StringMessage("Ack_No", ack));
+					this.sendTo(doorNum, new StringMessage("Ack_No",
+							BroadcastRandomSpeedWithTermination.ack));
 				} else if (data.compareTo("END") == 0) {
 					// terminaison sur le sous arbre correspondant
 					// j'attends plus rien
@@ -71,9 +72,10 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 
 				terminated = true;
 				for (int i = 0; i < degres; i++) {
-					if (childrenStates[i] != 1)
+					if (childrenStates[i] != 1) {
 						// j'attends encore un Ack ou un END
 						terminated = false;
+					}
 				}
 			}
 			// terminaison detecte
@@ -89,7 +91,8 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 
 			// je renvoi un accusee de reception a celui qui m a informe : mon
 			// pere
-			this.sendTo(fatherDoor, new StringMessage("Ack_Yes", ack));
+			this.sendTo(fatherDoor, new StringMessage("Ack_Yes",
+					BroadcastRandomSpeedWithTermination.ack));
 
 			// je me ratache a mon pere dans l'arbre
 			this.putProperty("label", new String("I"));
@@ -104,7 +107,8 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 					} catch (Exception e) {
 					}
 
-					this.sendTo(i, new StringMessage("Wave", wave));
+					this.sendTo(i, new StringMessage("Wave",
+							BroadcastRandomSpeedWithTermination.wave));
 				}
 			}
 
@@ -122,21 +126,24 @@ public class BroadcastRandomSpeedWithTermination extends Algorithm {
 					} else if (data.compareTo("Ack_No") == 0) {
 						childrenStates[doorNum] = 1;
 					} else if (data.compareTo("Wave") == 0) {
-						this.sendTo(doorNum, new StringMessage("Ack_No", ack));
+						this.sendTo(doorNum, new StringMessage("Ack_No",
+								BroadcastRandomSpeedWithTermination.ack));
 					} else if (data.compareTo("END") == 0) {
 						childrenStates[doorNum] = 1;
 					}
 
 					terminated = true;
 					for (int i = 0; i < degres; i++) {
-						if (childrenStates[i] != 1)
+						if (childrenStates[i] != 1) {
 							terminated = false;
+						}
 					}
 				}
 			}
 
 			// terminaison dans le sous arbre detecte : j'envoi ack a mon pere
-			this.sendTo(fatherDoor, new StringMessage("END", termination));
+			this.sendTo(fatherDoor, new StringMessage("END",
+					BroadcastRandomSpeedWithTermination.termination));
 			// j'ai localement termine
 			this.putProperty("label", new String("F"));
 		}

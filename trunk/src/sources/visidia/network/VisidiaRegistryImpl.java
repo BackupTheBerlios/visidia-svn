@@ -86,8 +86,9 @@ public class VisidiaRegistryImpl extends UnicastRemoteObject implements
 		Vector tmp = new Vector();
 		tmp.addElement(host);
 		tmp.addElement(url);
-		if (!this.data.contains(tmp))
+		if (!this.data.contains(tmp)) {
 			this.data.addElement(tmp);
+		}
 		System.out.println("Le noeud local (" + host + ";" + url
 				+ ")vient de s'enregistrer");
 	}
@@ -244,8 +245,9 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 
 		Vector selectedRows = this.getSelectedRows();
 		int localNodeNumber = selectedRows.size();
-		if (localNodeNumber == 0)
+		if (localNodeNumber == 0) {
 			return;
+		}
 		if (this.sizeOfTheGraph <= localNodeNumber) {
 			int i = 0;
 			while (!selectedRows.isEmpty() && (i < this.sizeOfTheGraph)) {
@@ -268,15 +270,17 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 				String localNode = (String) this.getValueAt(index, 1);
 				if (reste > 0) {
 					Vector vect = new Vector();
-					for (int j = current; j < current + pas + 1; j++)
+					for (int j = current; j < current + pas + 1; j++) {
 						vect.addElement(new Integer(j));
+					}
 					lnt.addLocalNode(aHost, localNode, vect);
 					current = current + pas + 1;
 					reste -= 1;
 				} else {
 					Vector vect = new Vector();
-					for (int j = current; j < current + pas; j++)
+					for (int j = current; j < current + pas; j++) {
 						vect.addElement(new Integer(j));
+					}
 					lnt.addLocalNode(aHost, localNode, vect);
 					current = current + pas;
 				}
@@ -293,10 +297,11 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 		} else {
 			in2 = this.visuHost.getText();
 		}
-		if (this.visuUrl.getText().equals(""))
+		if (this.visuUrl.getText().equals("")) {
 			in3 = "Simulator";
-		else
+		} else {
 			in3 = this.visuUrl.getText();
+		}
 
 		this.ancetre.setNetworkParam(lnt, in2, in3);
 
@@ -442,11 +447,13 @@ class TableModel extends AbstractTableModel {
 		tmp.addElement(host);
 		tmp.addElement(url);
 		tmp.addElement(new Boolean(true));
-		if (this.data.contains(tmp))
+		if (this.data.contains(tmp)) {
 			return;
+		}
 		tmp.set(2, new Boolean(false));
-		if (this.data.contains(tmp))
+		if (this.data.contains(tmp)) {
 			return;
+		}
 		this.data.addElement(tmp);
 		this.fireTableRowsInserted(index, index);
 	}

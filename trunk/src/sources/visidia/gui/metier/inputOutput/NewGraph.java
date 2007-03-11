@@ -15,10 +15,12 @@ public class NewGraph {
 					"Do you want to save before opening a new file ?",
 					"Warning", JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-			if (n == JOptionPane.YES_OPTION)
+			if (n == JOptionPane.YES_OPTION) {
 				SaveFile.save(editeur, editeur.graph());
-			if (n == JOptionPane.CANCEL_OPTION)
+			}
+			if (n == JOptionPane.CANCEL_OPTION) {
 				return;
+			}
 
 		}
 

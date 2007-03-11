@@ -191,10 +191,11 @@ public class SimulEventHandler extends Thread {
 
 	public void handleMessageSentEvt(SimulEvent se) {
 		MessageSendingEvent mse = (MessageSendingEvent) se;
-		if (this.fenetreSimulDist == null)
+		if (this.fenetreSimulDist == null) {
 			this.fenetreSimul.simulationPanel().animate(mse);
-		else
+		} else {
 			this.fenetreSimulDist.simulationPanel().animate(mse);
+		}
 	}
 
 	public void handleAlgorithmEndEvent(SimulEvent se)

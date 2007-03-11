@@ -34,9 +34,10 @@ public class UpdateTableStats extends UpdateTable {
 			}
 			this.expType.setStats(this.sim.getStats());
 			Bag stats = this.expType.getStats();
-			if (stats != null)
+			if (stats != null) {
 				((HashTableModel) this.table)
 						.setProperties(stats.asHashTable());
+			}
 		}
 	}
 

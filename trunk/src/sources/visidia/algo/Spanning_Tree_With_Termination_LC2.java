@@ -41,9 +41,9 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(Spanning_Tree_With_Termination_LC2.synchronization);
+		typesList.add(Spanning_Tree_With_Termination_LC2.labels);
+		typesList.add(Spanning_Tree_With_Termination_LC2.termination);
 		return typesList;
 	}
 
@@ -59,12 +59,14 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 		// int pere=-1;
 
 		neighboursLink = new boolean[this.getArity()];
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			neighboursLink[i] = false;
+		}
 
 		finishedNode = new boolean[this.getArity()];
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			finishedNode[i] = false;
+		}
 
 		neighboursLabel = new String[this.getArity()];
 
@@ -79,7 +81,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 				int nbreF = 0;
 				int nbreLinkAM = 0;
 
-				for (int door = 0; door < this.getArity(); door++)
+				for (int door = 0; door < this.getArity(); door++) {
 					if (!finishedNode[door]) {
 						neighboursLabel[door] = ((StringMessage) this
 								.receiveFrom(door)).data();
@@ -87,65 +89,93 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 						if ((neighboursLabel[door].compareTo(this.aNode) == 0)
 								|| (neighboursLabel[door].compareTo(this.mNode) == 0)) {
 							neighbourAM = door;
-							if (neighboursLink[door])
+							if (neighboursLink[door]) {
 								nbreLinkAM++;
+							}
 						}
 
-						if (neighboursLabel[door].compareTo(this.nNode) == 0)
+						if (neighboursLabel[door].compareTo(this.nNode) == 0) {
 							nbreN++;
+						}
 
-						if (neighboursLabel[door].compareTo(this.fNode) == 0)
+						if (neighboursLabel[door].compareTo(this.fNode) == 0) {
 							nbreF++;
+						}
 
 					}
+				}
 				if ((((String) this.getProperty("label")).compareTo(this.aNode) == 0)
-						&& (nbreF == this.getArity()))
+						&& (nbreF == this.getArity())) {
 					run = false;
+				}
 
 				if ((((String) this.getProperty("label")).compareTo(this.nNode) == 0)
 						&& (neighbourAM != -1)) {
 					this.putProperty("label", new String(this.mNode));
 					this.setDoorState(new MarkedState(true), neighbourAM);
 					neighboursLink[neighbourAM] = true;
-					for (int door = 0; door < this.getArity(); door++)
+					for (int door = 0; door < this.getArity(); door++) {
 						if (!finishedNode[door]) {
 							if (door != neighbourAM) {
-								this.sendTo(door, new IntegerMessage(
-										new Integer(0), labels));
+								this
+										.sendTo(
+												door,
+												new IntegerMessage(
+														new Integer(0),
+														Spanning_Tree_With_Termination_LC2.labels));
 							} else {
-								this.sendTo(door, new IntegerMessage(
-										new Integer(1), labels));
+								this
+										.sendTo(
+												door,
+												new IntegerMessage(
+														new Integer(1),
+														Spanning_Tree_With_Termination_LC2.labels));
 							}
 						}
+					}
 				} else {
 					if ((((String) this.getProperty("label"))
 							.compareTo(this.mNode) == 0)
 							&& (nbreN == 0) && (nbreLinkAM <= 1)) {
 						this.putProperty("label", new String(this.fNode));
-						for (int door = 0; door < this.getArity(); door++)
+						for (int door = 0; door < this.getArity(); door++) {
 							if (!finishedNode[door]) {
-								this.sendTo(door, new IntegerMessage(
-										new Integer(0), labels));
+								this
+										.sendTo(
+												door,
+												new IntegerMessage(
+														new Integer(0),
+														Spanning_Tree_With_Termination_LC2.labels));
 							}
-					} else
-						for (int door = 0; door < this.getArity(); door++)
+						}
+					} else {
+						for (int door = 0; door < this.getArity(); door++) {
 							if (!finishedNode[door]) {
-								this.sendTo(door, new IntegerMessage(
-										new Integer(0), labels));
+								this
+										.sendTo(
+												door,
+												new IntegerMessage(
+														new Integer(0),
+														Spanning_Tree_With_Termination_LC2.labels));
 							}
+						}
+					}
 				}
 				this.breakSynchro();
 			} else if (synchro != this.notInTheStar) {
 				// String newState;
 				int linkOn;
 				this.sendTo(synchro, new StringMessage((String) this
-						.getProperty("label"), labels));
+						.getProperty("label"),
+						Spanning_Tree_With_Termination_LC2.labels));
 				linkOn = ((IntegerMessage) this.receiveFrom(synchro)).value();
-				if (linkOn == 1)
+				if (linkOn == 1) {
 					neighboursLink[synchro] = true;
+				}
 			}
 		}
-		this.sendAll(new IntegerMessage(new Integer(-3), termination));
+		this.sendAll(new IntegerMessage(new Integer(-3),
+				Spanning_Tree_With_Termination_LC2.termination));
 	}
 
 	public int starSynchro(boolean finishedNode[]) {
@@ -161,7 +191,7 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Spanning_Tree_With_Termination_LC2.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -169,8 +199,9 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 				if (answer[i] == -3) {
 					finishedNode[i] = true;
 					theEnd = true;
@@ -182,17 +213,19 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
-		if (theEnd)
+		if (theEnd) {
 			max = -3;
+		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Spanning_Tree_With_Termination_LC2.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -209,22 +242,29 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (!finishedNode[i])
-				if (answer[i] >= max)
+			if (!finishedNode[i]) {
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			if (!theEnd) {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(1),
-								synchronization));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(1),
+												Spanning_Tree_With_Termination_LC2.synchronization));
 					}
 				}
 
@@ -238,8 +278,12 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 			} else {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(-3),
-								termination));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(-3),
+												Spanning_Tree_With_Termination_LC2.termination));
 					}
 				}
 
@@ -256,8 +300,12 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
-					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+					this
+							.sendTo(
+									i,
+									new IntegerMessage(
+											new Integer(0),
+											Spanning_Tree_With_Termination_LC2.synchronization));
 				}
 			}
 
@@ -272,12 +320,13 @@ public class Spanning_Tree_With_Termination_LC2 extends Algorithm {
 					}
 				}
 			}
-			if (inTheStar != this.notInTheStar)
+			if (inTheStar != this.notInTheStar) {
 				return inTheStar;
-			else if (theEnd)
+			} else if (theEnd) {
 				return -3;
-			else
+			} else {
 				return this.notInTheStar;
+			}
 
 		}
 	}

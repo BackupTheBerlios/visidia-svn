@@ -23,14 +23,16 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 	// java.awt.Color.blue);
 	static MessageType labels = new MessageType("labels", true);
 
-	final StringMessage end = new StringMessage(new String("End"), labels);
+	final StringMessage end = new StringMessage(new String("End"),
+			Coloration_Dijkstra_Feijen_VanGasteren.labels);
 
-	final StringMessage active = new StringMessage(new String("Ac"), labels);
+	final StringMessage active = new StringMessage(new String("Ac"),
+			Coloration_Dijkstra_Feijen_VanGasteren.labels);
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Coloration_Dijkstra_Feijen_VanGasteren.synchronization);
+		typesList.add(Coloration_Dijkstra_Feijen_VanGasteren.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -76,7 +78,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 				cD = new String[this.getArity()];
 				tD = new String[this.getArity()];
 
-				for (int i = 0; i < this.getArity(); i++)
+				for (int i = 0; i < this.getArity(); i++) {
 					if (!finishedNode[i]) {
 						neighbours[i] = ((StringMessage) this.receiveFrom(i))
 								.data();
@@ -92,6 +94,7 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 						// System.out.println(neighbours[i]+" =
 						// "+label[i]+","+labelD[i]+","+aP[i]);
 					}
+				}
 				if (!finishedNode[0] && !finishedNode[1]) {
 					while ((label[0].compareTo(myColor) == 0)
 							|| (label[1].compareTo(myColor) == 0)) {
@@ -106,15 +109,18 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 				if (myToken) {
 					if (aP[this.nextDoor()].compareTo("Pa") == 0) {
 						this.sendTo(this.nextDoor(), new StringMessage(
-								new String(myColorD), labels));
+								new String(myColorD),
+								Coloration_Dijkstra_Feijen_VanGasteren.labels));
 						myColorD = new String("w");
 						myToken = false;
 					}
 				}
-				if (!finishedNode[0] && !finishedNode[1])
+				if (!finishedNode[0] && !finishedNode[1]) {
 					if ((label[0].compareTo(myColor) != 0)
-							&& (label[1].compareTo(myColor) != 0))
+							&& (label[1].compareTo(myColor) != 0)) {
 						myAP = new String("Pa");
+					}
+				}
 
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
@@ -125,10 +131,11 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 				myState = myColor + "," + myLabelD + "," + myAP + ","
 						+ myColorD + ",";
 
-				if (myToken)
+				if (myToken) {
 					myState = myState + "HT";
-				else
+				} else {
 					myState = myState + "NT";
+				}
 
 				this.putProperty("label", myState);
 
@@ -138,22 +145,28 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 				if (synchro != this.notInTheStar) {
 					String son;
 
-					this.sendTo(synchro, new StringMessage(myState, labels));
+					this.sendTo(synchro, new StringMessage(myState,
+							Coloration_Dijkstra_Feijen_VanGasteren.labels));
 					son = ((StringMessage) this.receiveFrom(synchro)).data();
 
 					while (son.compareTo(this.end.data()) != 0) {
 						if (son.compareTo(this.active.data()) != 0) {
-							if (myLabelD.compareTo("A") != 0)
-								if (son.compareTo("b") == 0)
+							if (myLabelD.compareTo("A") != 0) {
+								if (son.compareTo("b") == 0) {
 									myColorD = new String("b");
-							if (myLabelD.compareTo("A") == 0)
-								if (son.compareTo("b") == 0)
+								}
+							}
+							if (myLabelD.compareTo("A") == 0) {
+								if (son.compareTo("b") == 0) {
 									myColorD = new String("w");
-								else if (myColorD.compareTo("w") == 0)
+								} else if (myColorD.compareTo("w") == 0) {
 									run = false;
+								}
+							}
 							myToken = true;
-						} else
+						} else {
 							myAP = new String("Ac");
+						}
 						son = ((StringMessage) this.receiveFrom(synchro))
 								.data();
 					}
@@ -161,10 +174,11 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 					myState = myColor + "," + myLabelD + "," + myAP + ","
 							+ myColorD + ",";
 
-					if (myToken)
+					if (myToken) {
 						myState = myState + "HT";
-					else
+					} else {
 						myState = myState + "NT";
+					}
 
 					this.putProperty("label", myState);
 				}
@@ -179,12 +193,13 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 	}
 
 	private String getNewColor(int color) {
-		if (color == 0)
+		if (color == 0) {
 			return new String("X");
-		else if (color == 1)
+		} else if (color == 1) {
 			return new String("Y");
-		else
+		} else {
 			return new String("Z");
+		}
 	}
 
 	public int starSynchro(boolean finishedNode[]) {
@@ -198,8 +213,12 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 		/* Send to all neighbours */
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+				this
+						.sendTo(
+								i,
+								new IntegerMessage(
+										new Integer(choosenNumber),
+										Coloration_Dijkstra_Feijen_VanGasteren.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -207,8 +226,9 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -216,15 +236,20 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+				this
+						.sendTo(
+								i,
+								new IntegerMessage(
+										new Integer(max),
+										Coloration_Dijkstra_Feijen_VanGasteren.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -238,20 +263,26 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
-					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+					this
+							.sendTo(
+									i,
+									new IntegerMessage(
+											new Integer(1),
+											Coloration_Dijkstra_Feijen_VanGasteren.synchronization));
 				}
 			}
 
@@ -267,8 +298,12 @@ public class Coloration_Dijkstra_Feijen_VanGasteren extends Algorithm {
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
-					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+					this
+							.sendTo(
+									i,
+									new IntegerMessage(
+											new Integer(0),
+											Coloration_Dijkstra_Feijen_VanGasteren.synchronization));
 				}
 			}
 

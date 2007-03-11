@@ -24,27 +24,31 @@ public class Knowledge {
 		i = 0;
 		j = 0;
 
-		if (v2 == null)
+		if (v2 == null) {
 			return true;
-		if (v1 == null)
+		}
+		if (v1 == null) {
 			return false;
+		}
 
 		while (true) {
 			if (v1.size() > i) {
-				if (v2.size() <= j)
+				if (v2.size() <= j) {
 					return true;
-				else if (((Integer) v1.elementAt(i)).intValue() == ((Integer) v2
+				} else if (((Integer) v1.elementAt(i)).intValue() == ((Integer) v2
 						.elementAt(j)).intValue()) {
 					i++;
 					j++;
 				} else if (((Integer) v1.elementAt(i)).intValue() > ((Integer) v2
 						.elementAt(j)).intValue()) {
 					return true;
-				} else
+				} else {
 					return false;
+				}
 
-			} else
+			} else {
 				return false;
+			}
 
 		}
 	}
@@ -74,9 +78,9 @@ public class Knowledge {
 			// System.out.println("longueur apres= " +setKnowledge[0].size());
 			longKnow = this.setKnowledge[0].size();
 
-			if (this.setKnowledge[0].isEmpty())
+			if (this.setKnowledge[0].isEmpty()) {
 				this.setKnowledge[0].add(newName.elementAt(0));
-			else {
+			} else {
 				if (longKnow > 1) {
 					if (((Integer) this.setKnowledge[0].elementAt(0))
 							.intValue() < ((Integer) newName.elementAt(0))
@@ -89,11 +93,11 @@ public class Knowledge {
 						// System.out.println(" vecteur 2 = "+newName);
 						if (((Integer) this.setKnowledge[0]
 								.elementAt(longKnow - 1)).intValue() > ((Integer) newName
-								.elementAt(0)).intValue())
+								.elementAt(0)).intValue()) {
 							this.setKnowledge[0].addElement(newName
 									.elementAt(0));
-						else {
-							for (int i = 0; i < longKnow - 1; i++)
+						} else {
+							for (int i = 0; i < longKnow - 1; i++) {
 								if ((((Integer) this.setKnowledge[0]
 										.elementAt(i)).intValue() > ((Integer) newName
 										.elementAt(0)).intValue())
@@ -104,16 +108,18 @@ public class Knowledge {
 											newName.elementAt(0), i + 1);
 									break;
 								}
+							}
 						}
 					}
 				} else {
 					if (((Integer) this.setKnowledge[0].elementAt(0))
 							.intValue() > ((Integer) newName.elementAt(0))
-							.intValue())
+							.intValue()) {
 						this.setKnowledge[0].addElement(newName.elementAt(0));
-					else
+					} else {
 						this.setKnowledge[0].insertElementAt(newName
 								.elementAt(0), 0);
+					}
 				}
 			}
 		}
@@ -133,8 +139,9 @@ public class Knowledge {
 
 	public void changeName(int newName) {
 		this.myName = newName;
-		if (this.myName > this.maxNumber)
+		if (this.myName > this.maxNumber) {
 			this.maxNumber = this.myName;
+		}
 	}
 
 	public int myName() {
@@ -156,7 +163,7 @@ public class Knowledge {
 		}
 
 		if (var) {
-			for (int i = 1; i <= graphS; i++)
+			for (int i = 1; i <= graphS; i++) {
 				for (int j = 0; j < this.setKnowledge[i].size(); j++) {
 					k = ((Integer) this.setKnowledge[i].elementAt(j))
 							.intValue();
@@ -165,6 +172,7 @@ public class Knowledge {
 						break;
 					}
 				}
+			}
 
 		}
 

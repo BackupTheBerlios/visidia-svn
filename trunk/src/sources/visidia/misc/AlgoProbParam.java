@@ -292,10 +292,11 @@ public class AlgoProbParam extends JFrame implements ActionListener,
 							((Float) this.probValue.getValue()).floatValue(),
 							selection);
 
-				} else
+				} else {
 					((RandomAgentChooser) this.agentChooser).setParam(
 							this.algoName.getText(), ((Float) this.probValue
 									.getValue()).floatValue());
+				}
 				this.close();
 			} else if (evt.getSource() == this.cancelB) {
 				this.close();

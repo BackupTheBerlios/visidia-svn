@@ -14,10 +14,11 @@ public class Bag {
 	public long getOccurrencesOf(Object o) {
 		Long occurrences = this.table.get(o);
 
-		if (occurrences == null)
+		if (occurrences == null) {
 			return 0;
-		else
+		} else {
 			return occurrences.intValue();
+		}
 	}
 
 	public void add(Object o, long occurrences) {

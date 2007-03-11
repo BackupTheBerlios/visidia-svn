@@ -20,9 +20,9 @@ public class TestSynhro extends SyncAlgorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(round1);
-		typesList.add(round2Mis);
-		typesList.add(round2NotMis);
+		typesList.add(TestSynhro.round1);
+		typesList.add(TestSynhro.round2Mis);
+		typesList.add(TestSynhro.round2NotMis);
 		return typesList;
 	}
 
@@ -38,12 +38,15 @@ public class TestSynhro extends SyncAlgorithm {
 		boolean firstTime = true;
 		while (this.getPulse() != 20) {
 			if (id == 1) {
-				if (this.getPulse() == 2)
-					this.sendAll(new IntegerMessage(this.getPulse(), round1));
+				if (this.getPulse() == 2) {
+					this.sendAll(new IntegerMessage(this.getPulse(),
+							TestSynhro.round1));
+				}
 				this.nextPulse();
 			} else {
 				if (this.anyMsg() && firstTime) {
-					this.sendAll(new IntegerMessage(this.getPulse(), round1));
+					this.sendAll(new IntegerMessage(this.getPulse(),
+							TestSynhro.round1));
 					firstTime = false;
 				}
 				this.nextPulse();

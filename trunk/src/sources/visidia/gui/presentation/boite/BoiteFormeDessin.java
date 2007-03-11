@@ -236,8 +236,9 @@ public class BoiteFormeDessin implements ActionListener {
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -253,8 +254,9 @@ public class BoiteFormeDessin implements ActionListener {
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}

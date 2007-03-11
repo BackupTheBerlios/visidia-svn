@@ -50,8 +50,9 @@ public class AlgoChoice implements AlgoChoiceInterface {
 	// determines wether all the vertices have an algorithm
 	public boolean verticesHaveAlgorithm() {
 		for (int id = 0; id < this.numberOfVertices; id++) {
-			if (!this.algoTable.containsKey(String.valueOf(id)))
+			if (!this.algoTable.containsKey(String.valueOf(id))) {
 				return false;
+			}
 		}
 		return true;
 	}

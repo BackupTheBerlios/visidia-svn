@@ -93,16 +93,18 @@ public final class ASCII_CharStream {
 				if (this.tokenBegin > 2048) {
 					this.bufpos = this.maxNextCharInd = 0;
 					this.available = this.tokenBegin;
-				} else if (this.tokenBegin < 0)
+				} else if (this.tokenBegin < 0) {
 					this.bufpos = this.maxNextCharInd = 0;
-				else
+				} else {
 					this.ExpandBuff(false);
-			} else if (this.available > this.tokenBegin)
+				}
+			} else if (this.available > this.tokenBegin) {
 				this.available = this.bufsize;
-			else if ((this.tokenBegin - this.available) < 2048)
+			} else if ((this.tokenBegin - this.available) < 2048) {
 				this.ExpandBuff(true);
-			else
+			} else {
 				this.available = this.tokenBegin;
+			}
 		}
 
 		int i;
@@ -111,14 +113,16 @@ public final class ASCII_CharStream {
 					this.available - this.maxNextCharInd)) == -1) {
 				this.inputStream.close();
 				throw new java.io.IOException();
-			} else
+			} else {
 				this.maxNextCharInd += i;
+			}
 			return;
 		} catch (java.io.IOException e) {
 			--this.bufpos;
 			this.backup(0);
-			if (this.tokenBegin == -1)
+			if (this.tokenBegin == -1) {
 				this.tokenBegin = this.bufpos;
+			}
 			throw e;
 		}
 	}
@@ -141,8 +145,9 @@ public final class ASCII_CharStream {
 			this.prevCharIsCR = false;
 			if (c == '\n') {
 				this.prevCharIsLF = true;
-			} else
+			} else {
 				this.line += (this.column = 1);
+			}
 		}
 
 		switch (c) {
@@ -171,8 +176,9 @@ public final class ASCII_CharStream {
 					: ++this.bufpos]);
 		}
 
-		if (++this.bufpos >= this.maxNextCharInd)
+		if (++this.bufpos >= this.maxNextCharInd) {
 			this.FillBuff();
+		}
 
 		char c = (char) ((char) 0xff & this.buffer[this.bufpos]);
 
@@ -217,8 +223,9 @@ public final class ASCII_CharStream {
 	public final void backup(int amount) {
 
 		this.inBuf += amount;
-		if ((this.bufpos -= amount) < 0)
+		if ((this.bufpos -= amount) < 0) {
 			this.bufpos += this.bufsize;
+		}
 	}
 
 	public ASCII_CharStream(java.io.Reader dstream, int startline,
@@ -282,21 +289,22 @@ public final class ASCII_CharStream {
 	}
 
 	public final String GetImage() {
-		if (this.bufpos >= this.tokenBegin)
+		if (this.bufpos >= this.tokenBegin) {
 			return new String(this.buffer, this.tokenBegin, this.bufpos
 					- this.tokenBegin + 1);
-		else
+		} else {
 			return new String(this.buffer, this.tokenBegin, this.bufsize
 					- this.tokenBegin)
 					+ new String(this.buffer, 0, this.bufpos + 1);
+		}
 	}
 
 	public final char[] GetSuffix(int len) {
 		char[] ret = new char[len];
 
-		if ((this.bufpos + 1) >= len)
+		if ((this.bufpos + 1) >= len) {
 			System.arraycopy(this.buffer, this.bufpos - len + 1, ret, 0, len);
-		else {
+		} else {
 			System.arraycopy(this.buffer, this.bufsize
 					- (len - this.bufpos - 1), ret, 0, len - this.bufpos - 1);
 			System.arraycopy(this.buffer, 0, ret, len - this.bufpos - 1,
@@ -344,10 +352,11 @@ public final class ASCII_CharStream {
 
 			while (i++ < len) {
 				if (this.bufline[j = start % this.bufsize] != this.bufline[++start
-						% this.bufsize])
+						% this.bufsize]) {
 					this.bufline[j] = newLine++;
-				else
+				} else {
 					this.bufline[j] = newLine;
+				}
 			}
 		}
 

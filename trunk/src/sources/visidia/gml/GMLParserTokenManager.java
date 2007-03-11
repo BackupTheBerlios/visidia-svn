@@ -44,8 +44,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 		}
 		switch (this.curChar) {
 		case 10:
-			if ((active0 & 0x10L) != 0L)
+			if ((active0 & 0x10L) != 0L) {
 				return this.jjStopAtPos(1, 4);
+			}
 			break;
 		default:
 			break;
@@ -62,7 +63,7 @@ public class GMLParserTokenManager implements GMLParserConstants {
 
 	private final void jjAddStates(int start, int end) {
 		do {
-			this.jjstateSet[this.jjnewStateCnt++] = jjnextStates[start];
+			this.jjstateSet[this.jjnewStateCnt++] = GMLParserTokenManager.jjnextStates[start];
 		} while (start++ != end);
 	}
 
@@ -73,7 +74,7 @@ public class GMLParserTokenManager implements GMLParserConstants {
 
 	private final void jjCheckNAddStates(int start, int end) {
 		do {
-			this.jjCheckNAdd(jjnextStates[start]);
+			this.jjCheckNAdd(GMLParserTokenManager.jjnextStates[start]);
 		} while (start++ != end);
 	}
 
@@ -86,8 +87,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 		// int j,
 		int kind = 0x7fffffff;
 		for (;;) {
-			if (++this.jjround == 0x7fffffff)
+			if (++this.jjround == 0x7fffffff) {
 				this.ReInitRounds();
+			}
 			if (this.curChar < 64) {
 				long l = 1L << this.curChar;
 				// MatchLoop:
@@ -95,65 +97,80 @@ public class GMLParserTokenManager implements GMLParserConstants {
 					switch (this.jjstateSet[--i]) {
 					case 5:
 						if ((0x3ff000000000000L & l) != 0L) {
-							if (kind > 13)
+							if (kind > 13) {
 								kind = 13;
+							}
 							this.jjCheckNAddStates(0, 2);
-						} else if ((0x280000000000L & l) != 0L)
+						} else if ((0x280000000000L & l) != 0L) {
 							this.jjCheckNAddStates(0, 2);
-						else if (this.curChar == 46) {
-							if (kind > 15)
+						} else if (this.curChar == 46) {
+							if (kind > 15) {
 								kind = 15;
+							}
 							this.jjCheckNAddTwoStates(1, 2);
 						}
 						break;
 					case 0:
-						if (this.curChar != 46)
+						if (this.curChar != 46) {
 							break;
+						}
 						kind = 15;
 						this.jjCheckNAddTwoStates(1, 2);
 						break;
 					case 1:
-						if ((0x3ff000000000000L & l) == 0L)
+						if ((0x3ff000000000000L & l) == 0L) {
 							break;
-						if (kind > 15)
+						}
+						if (kind > 15) {
 							kind = 15;
+						}
 						this.jjCheckNAddTwoStates(1, 2);
 						break;
 					case 3:
-						if ((0x280000000000L & l) != 0L)
+						if ((0x280000000000L & l) != 0L) {
 							this.jjstateSet[this.jjnewStateCnt++] = 4;
+						}
 						break;
 					case 4:
-						if (((0x3ff000000000000L & l) != 0L) && (kind > 15))
+						if (((0x3ff000000000000L & l) != 0L) && (kind > 15)) {
 							kind = 15;
+						}
 						break;
 					case 6:
-						if ((0x3ff000000000000L & l) == 0L)
+						if ((0x3ff000000000000L & l) == 0L) {
 							break;
-						if (kind > 16)
+						}
+						if (kind > 16) {
 							kind = 16;
+						}
 						this.jjstateSet[this.jjnewStateCnt++] = 6;
 						break;
 					case 7:
-						if ((0x280000000000L & l) != 0L)
+						if ((0x280000000000L & l) != 0L) {
 							this.jjCheckNAddStates(0, 2);
+						}
 						break;
 					case 8:
-						if ((0x3ff000000000000L & l) == 0L)
+						if ((0x3ff000000000000L & l) == 0L) {
 							break;
-						if (kind > 13)
+						}
+						if (kind > 13) {
 							kind = 13;
+						}
 						this.jjCheckNAdd(8);
 						break;
 					case 9:
-						if ((0x3ff000000000000L & l) != 0L)
+						if ((0x3ff000000000000L & l) != 0L) {
 							this.jjCheckNAddTwoStates(9, 0);
+						}
 						break;
 					case 10:
-						if ((0x3ff000000000000L & l) == 0L)
+						if ((0x3ff000000000000L & l) == 0L) {
 							break;
-						if (kind > 13)
+						}
+						if (kind > 13) {
 							kind = 13;
+						}
 						this.jjCheckNAddStates(0, 2);
 						break;
 					default:
@@ -167,15 +184,18 @@ public class GMLParserTokenManager implements GMLParserConstants {
 					switch (this.jjstateSet[--i]) {
 					case 5:
 					case 6:
-						if ((0x7fffffe07fffffeL & l) == 0L)
+						if ((0x7fffffe07fffffeL & l) == 0L) {
 							break;
-						if (kind > 16)
+						}
+						if (kind > 16) {
 							kind = 16;
+						}
 						this.jjCheckNAdd(6);
 						break;
 					case 2:
-						if (this.curChar == 69)
+						if (this.curChar == 69) {
 							this.jjAddStates(3, 4);
+						}
 						break;
 					default:
 						break;
@@ -196,8 +216,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 				kind = 0x7fffffff;
 			}
 			++curPos;
-			if ((i = this.jjnewStateCnt) == (startsAt = 11 - (this.jjnewStateCnt = startsAt)))
+			if ((i = this.jjnewStateCnt) == (startsAt = 11 - (this.jjnewStateCnt = startsAt))) {
 				return curPos;
+			}
 			try {
 				this.curChar = this.input_stream.readChar();
 			} catch (java.io.IOException e) {
@@ -227,16 +248,18 @@ public class GMLParserTokenManager implements GMLParserConstants {
 		// int j,
 		int kind = 0x7fffffff;
 		for (;;) {
-			if (++this.jjround == 0x7fffffff)
+			if (++this.jjround == 0x7fffffff) {
 				this.ReInitRounds();
+			}
 			if (this.curChar < 64) {
 				long l = 1L << this.curChar;
 				// MatchLoop:
 				do {
 					switch (this.jjstateSet[--i]) {
 					case 0:
-						if ((0xf7fffffbffffffffL & l) == 0L)
+						if ((0xf7fffffbffffffffL & l) == 0L) {
 							break;
+						}
 						kind = 6;
 						this.jjstateSet[this.jjnewStateCnt++] = 0;
 						break;
@@ -263,10 +286,12 @@ public class GMLParserTokenManager implements GMLParserConstants {
 				do {
 					switch (this.jjstateSet[--i]) {
 					case 0:
-						if ((jjbitVec0[i2] & l2) == 0L)
+						if ((GMLParserTokenManager.jjbitVec0[i2] & l2) == 0L) {
 							break;
-						if (kind > 6)
+						}
+						if (kind > 6) {
 							kind = 6;
+						}
 						this.jjstateSet[this.jjnewStateCnt++] = 0;
 						break;
 					default:
@@ -280,8 +305,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 				kind = 0x7fffffff;
 			}
 			++curPos;
-			if ((i = this.jjnewStateCnt) == (startsAt = 1 - (this.jjnewStateCnt = startsAt)))
+			if ((i = this.jjnewStateCnt) == (startsAt = 1 - (this.jjnewStateCnt = startsAt))) {
 				return curPos;
+			}
 			try {
 				this.curChar = this.input_stream.readChar();
 			} catch (java.io.IOException e) {
@@ -310,16 +336,18 @@ public class GMLParserTokenManager implements GMLParserConstants {
 		// int j,
 		int kind = 0x7fffffff;
 		for (;;) {
-			if (++this.jjround == 0x7fffffff)
+			if (++this.jjround == 0x7fffffff) {
 				this.ReInitRounds();
+			}
 			if (this.curChar < 64) {
 				long l = 1L << this.curChar;
 				// MatchLoop:
 				do {
 					switch (this.jjstateSet[--i]) {
 					case 0:
-						if ((0xffffffbbffffffffL & l) == 0L)
+						if ((0xffffffbbffffffffL & l) == 0L) {
 							break;
+						}
 						kind = 8;
 						this.jjstateSet[this.jjnewStateCnt++] = 0;
 						break;
@@ -346,10 +374,12 @@ public class GMLParserTokenManager implements GMLParserConstants {
 				do {
 					switch (this.jjstateSet[--i]) {
 					case 0:
-						if ((jjbitVec0[i2] & l2) == 0L)
+						if ((GMLParserTokenManager.jjbitVec0[i2] & l2) == 0L) {
 							break;
-						if (kind > 8)
+						}
+						if (kind > 8) {
 							kind = 8;
+						}
 						this.jjstateSet[this.jjnewStateCnt++] = 0;
 						break;
 					default:
@@ -363,8 +393,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 				kind = 0x7fffffff;
 			}
 			++curPos;
-			if ((i = this.jjnewStateCnt) == (startsAt = 1 - (this.jjnewStateCnt = startsAt)))
+			if ((i = this.jjnewStateCnt) == (startsAt = 1 - (this.jjnewStateCnt = startsAt))) {
 				return curPos;
+			}
 			try {
 				this.curChar = this.input_stream.readChar();
 			} catch (java.io.IOException e) {
@@ -406,9 +437,10 @@ public class GMLParserTokenManager implements GMLParserConstants {
 	protected char curChar;
 
 	public GMLParserTokenManager(ASCII_CharStream stream) {
-		if (ASCII_CharStream.staticFlag)
+		if (ASCII_CharStream.staticFlag) {
 			throw new Error(
 					"ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+		}
 		this.input_stream = stream;
 	}
 
@@ -427,8 +459,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 	private final void ReInitRounds() {
 		int i;
 		this.jjround = 0x80000001;
-		for (i = 11; i-- > 0;)
+		for (i = 11; i-- > 0;) {
 			this.jjrounds[i] = 0x80000000;
+		}
 	}
 
 	public void ReInit(ASCII_CharStream stream, int lexState) {
@@ -437,18 +470,19 @@ public class GMLParserTokenManager implements GMLParserConstants {
 	}
 
 	public void SwitchTo(int lexState) {
-		if ((lexState >= 3) || (lexState < 0))
+		if ((lexState >= 3) || (lexState < 0)) {
 			throw new TokenMgrError("Error: Ignoring invalid lexical state : "
 					+ lexState + ". State unchanged.",
 					TokenMgrError.INVALID_LEXICAL_STATE);
-		else
+		} else {
 			this.curLexState = lexState;
+		}
 	}
 
 	private final Token jjFillToken() {
 		Token t = Token.newToken(this.jjmatchedKind);
 		t.kind = this.jjmatchedKind;
-		String im = jjstrLiteralImages[this.jjmatchedKind];
+		String im = GMLParserTokenManager.jjstrLiteralImages[this.jjmatchedKind];
 		t.image = (im == null) ? this.input_stream.GetImage() : im;
 		t.beginLine = this.input_stream.getBeginLine();
 		t.beginColumn = this.input_stream.getBeginColumn();
@@ -492,8 +526,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 					try {
 						this.input_stream.backup(0);
 						while ((this.curChar <= 32)
-								&& ((0x100000600L & (1L << this.curChar)) != 0L))
+								&& ((0x100000600L & (1L << this.curChar)) != 0L)) {
 							this.curChar = this.input_stream.BeginToken();
+						}
 					} catch (java.io.IOException e1) {
 						continue EOFLoop;
 					}
@@ -513,23 +548,27 @@ public class GMLParserTokenManager implements GMLParserConstants {
 					break;
 				}
 				if (this.jjmatchedKind != 0x7fffffff) {
-					if (this.jjmatchedPos + 1 < curPos)
+					if (this.jjmatchedPos + 1 < curPos) {
 						this.input_stream
 								.backup(curPos - this.jjmatchedPos - 1);
-					if ((jjtoToken[this.jjmatchedKind >> 6] & (1L << (this.jjmatchedKind & 077))) != 0L) {
+					}
+					if ((GMLParserTokenManager.jjtoToken[this.jjmatchedKind >> 6] & (1L << (this.jjmatchedKind & 077))) != 0L) {
 						matchedToken = this.jjFillToken();
 						this.TokenLexicalActions(matchedToken);
-						if (jjnewLexState[this.jjmatchedKind] != -1)
-							this.curLexState = jjnewLexState[this.jjmatchedKind];
+						if (GMLParserTokenManager.jjnewLexState[this.jjmatchedKind] != -1) {
+							this.curLexState = GMLParserTokenManager.jjnewLexState[this.jjmatchedKind];
+						}
 						return matchedToken;
-					} else if ((jjtoSkip[this.jjmatchedKind >> 6] & (1L << (this.jjmatchedKind & 077))) != 0L) {
-						if (jjnewLexState[this.jjmatchedKind] != -1)
-							this.curLexState = jjnewLexState[this.jjmatchedKind];
+					} else if ((GMLParserTokenManager.jjtoSkip[this.jjmatchedKind >> 6] & (1L << (this.jjmatchedKind & 077))) != 0L) {
+						if (GMLParserTokenManager.jjnewLexState[this.jjmatchedKind] != -1) {
+							this.curLexState = GMLParserTokenManager.jjnewLexState[this.jjmatchedKind];
+						}
 						continue EOFLoop;
 					}
 					this.MoreLexicalActions();
-					if (jjnewLexState[this.jjmatchedKind] != -1)
-						this.curLexState = jjnewLexState[this.jjmatchedKind];
+					if (GMLParserTokenManager.jjnewLexState[this.jjmatchedKind] != -1) {
+						this.curLexState = GMLParserTokenManager.jjnewLexState[this.jjmatchedKind];
+					}
 					curPos = 0;
 					this.jjmatchedKind = 0x7fffffff;
 					try {
@@ -552,8 +591,9 @@ public class GMLParserTokenManager implements GMLParserConstants {
 					if ((this.curChar == '\n') || (this.curChar == '\r')) {
 						error_line++;
 						error_column = 0;
-					} else
+					} else {
 						error_column++;
+					}
 				}
 				if (!EOFSeen) {
 					this.input_stream.backup(1);
@@ -571,12 +611,13 @@ public class GMLParserTokenManager implements GMLParserConstants {
 		this.jjimageLen += (this.lengthOfMatch = this.jjmatchedPos + 1);
 		switch (this.jjmatchedKind) {
 		case 5:
-			if (this.image == null)
+			if (this.image == null) {
 				this.image = new StringBuffer(new String(this.input_stream
 						.GetSuffix(this.jjimageLen)));
-			else
+			} else {
 				this.image.append(new String(this.input_stream
 						.GetSuffix(this.jjimageLen)));
+			}
 			this.jjimageLen = 0;
 			// replace the name by the corresponding character.
 			int start = this.image.toString().lastIndexOf('&');
@@ -600,16 +641,17 @@ public class GMLParserTokenManager implements GMLParserConstants {
 	final void TokenLexicalActions(Token matchedToken) {
 		switch (this.jjmatchedKind) {
 		case 9:
-			if (this.image == null)
+			if (this.image == null) {
 				this.image = new StringBuffer(
 						new String(this.input_stream.GetSuffix(this.jjimageLen
 								+ (this.lengthOfMatch = this.jjmatchedPos + 1))));
-			else
+			} else {
 				this.image
 						.append(new String(
 								this.input_stream
 										.GetSuffix(this.jjimageLen
 												+ (this.lengthOfMatch = this.jjmatchedPos + 1))));
+			}
 			matchedToken.image = this.image.toString();
 			break;
 		default:

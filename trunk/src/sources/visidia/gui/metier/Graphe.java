@@ -92,13 +92,13 @@ public class Graphe implements Serializable {
 	 * returns the file extension
 	 */
 	public String extension() {
-		return extension;
+		return Graphe.extension;
 	}
 
 	/**
 	 * Returns the file description
 	 */
 	public String getFileDescription() {
-		return description;
+		return Graphe.description;
 	}
 }

@@ -18,7 +18,7 @@ import visidia.gui.metier.Sommet;
 public class Convertisseur {
 
 	public static SimpleGraph convertir(Graphe ancienGraphe) {
-		return convertir(ancienGraphe, null);
+		return Convertisseur.convertir(ancienGraphe, null);
 	}
 
 	public static SimpleGraph convertir(Graphe ancienGraphe, Hashtable defProps) {
@@ -56,14 +56,12 @@ public class Convertisseur {
 				Integer dest = new Integer(uneArete.destination()
 						.getSommetDessin().getEtiquette());
 				nouveauGraph.orientedLink(origine, dest);
-			}
-
-			else
-
+			} else {
 				nouveauGraph.link(new Integer(uneArete.origine()
 						.getSommetDessin().getEtiquette()),
 						new Integer(uneArete.destination().getSommetDessin()
 								.getEtiquette()));
+			}
 		}
 
 		return nouveauGraph;
@@ -71,7 +69,7 @@ public class Convertisseur {
 
 	public static SimpleGraph convert(Graphe oldGraph,
 			Hashtable agentsPosition, Hashtable defProps) {
-		SimpleGraph graph = convertir(oldGraph, defProps);
+		SimpleGraph graph = Convertisseur.convertir(oldGraph, defProps);
 		// int i;
 		Enumeration e;
 
@@ -89,6 +87,6 @@ public class Convertisseur {
 	}
 
 	public static SimpleGraph convert(Graphe oldGraph, Hashtable agentsPosition) {
-		return convert(oldGraph, agentsPosition, null);
+		return Convertisseur.convert(oldGraph, agentsPosition, null);
 	}
 }

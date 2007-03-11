@@ -103,10 +103,12 @@ public class TokenMgrError extends Error {
 				+ ", column "
 				+ errorColumn
 				+ ".  Encountered: "
-				+ (EOFSeen ? "<EOF> " : ("\""
-						+ addEscapes(String.valueOf(curChar)) + "\"")
-						+ " (" + (int) curChar + "), ") + "after : \""
-				+ addEscapes(errorAfter) + "\"");
+				+ (EOFSeen ? "<EOF> "
+						: ("\""
+								+ TokenMgrError.addEscapes(String
+										.valueOf(curChar)) + "\"")
+								+ " (" + (int) curChar + "), ") + "after : \""
+				+ TokenMgrError.addEscapes(errorAfter) + "\"");
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class TokenMgrError extends Error {
 
 	public TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
 			int errorColumn, String errorAfter, char curChar, int reason) {
-		this(LexicalError(EOFSeen, lexState, errorLine, errorColumn,
-				errorAfter, curChar), reason);
+		this(TokenMgrError.LexicalError(EOFSeen, lexState, errorLine,
+				errorColumn, errorAfter, curChar), reason);
 	}
 }

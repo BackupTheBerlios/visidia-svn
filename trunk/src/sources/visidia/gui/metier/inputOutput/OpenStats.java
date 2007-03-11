@@ -21,18 +21,20 @@ public class OpenStats implements Serializable {
 	public static AbstractExperiment open(AgentsSimulationWindow window) {
 
 		File file_open = null;
-		JFileChooser fc = new JFileChooser(dir);
+		JFileChooser fc = new JFileChooser(OpenStats.dir);
 		javax.swing.filechooser.FileFilter classFileFilter = new FileFilterClass();
 		fc.addChoosableFileFilter(classFileFilter);
 		fc.setFileFilter(classFileFilter);
 
 		int returnVal = fc.showOpenDialog(window);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file_open = fc.getSelectedFile();
+		}
 
 		String file_name = fc.getName(file_open);
-		if (file_name == null)
+		if (file_name == null) {
 			return null; // if canceled
+		}
 		window.mettreAJourTitreFenetre(file_name);
 
 		int index = file_name.lastIndexOf('.');

@@ -28,9 +28,9 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(Spanning_Tree__Dijkstra_Scholten_LC2.synchronization);
+		typesList.add(Spanning_Tree__Dijkstra_Scholten_LC2.labels);
+		typesList.add(Spanning_Tree__Dijkstra_Scholten_LC2.termination);
 		return typesList;
 	}
 
@@ -39,10 +39,12 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 		final String active = new String("Ac");
 		final String passive = new String("Pa");
 		final Integer p0 = new Integer(-1);
-		final StringMessage mes = new StringMessage(new String("mes"), labels);
+		final StringMessage mes = new StringMessage(new String("mes"),
+				Spanning_Tree__Dijkstra_Scholten_LC2.labels);
 		final StringMessage noMes = new StringMessage(new String("No Mes"),
-				labels);
-		final StringMessage sig = new StringMessage(new String("sig"), labels);
+				Spanning_Tree__Dijkstra_Scholten_LC2.labels);
+		final StringMessage sig = new StringMessage(new String("sig"),
+				Spanning_Tree__Dijkstra_Scholten_LC2.labels);
 		final String nodeA = new String("A");
 		final String nodeN = new String("N");
 
@@ -68,30 +70,34 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 			myState = nodeA;
 			this.putProperty("label", new String("A : " + active + " : sc="
 					+ sc));
-		} else
+		} else {
 			this.putProperty("label", new String("N : " + passive + " : sc="
 					+ sc));
+		}
 
 		while (run) {
 
 			synchro = this.starSynchro(finishedNode);
-			if (synchro == -3)
+			if (synchro == -3) {
 				run = false;
-			else if (synchro == this.starCenter) {
+			} else if (synchro == this.starCenter) {
 				int neighbourA = -1;
 				boolean neighbourN = false;
 
-				for (int door = 0; door < this.getArity(); door++)
+				for (int door = 0; door < this.getArity(); door++) {
 					if (!finishedNode[door]) {
 						neighboursLabel = ((StringMessage) this
 								.receiveFrom(door)).data();
 
-						if (neighboursLabel.compareTo(nodeA) == 0)
+						if (neighboursLabel.compareTo(nodeA) == 0) {
 							neighbourA = door;
+						}
 
-						if (neighboursLabel.compareTo(nodeN) == 0)
+						if (neighboursLabel.compareTo(nodeN) == 0) {
 							neighbourN = true;
+						}
 					}
+				}
 
 				// System.out.println(getId()+" : "+neighbourN);
 
@@ -103,13 +109,15 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 							+ " : sc=" + sc));
 					this.setDoorState(new MarkedState(true), neighbourA);
 
-					for (int door = 0; door < this.getArity(); door++)
+					for (int door = 0; door < this.getArity(); door++) {
 						if (!finishedNode[door]) {
-							if (door == father.intValue())
+							if (door == father.intValue()) {
 								this.sendTo(door, mes);
-							else
+							} else {
 								this.sendTo(door, noMes);
+							}
 						}
+					}
 				} else {
 					if ((myState.compareTo(nodeA) == 0) && (!neighbourN)
 							&& (state.compareTo(active) == 0)) {
@@ -117,28 +125,32 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 						this.putProperty("label", new String("A : " + state
 								+ " : sc=" + sc));
 
-						if (sc == 0)
+						if (sc == 0) {
 							if (father == p0) {
 								this.sendAll(noMes);
 								run = false;
 							} else {
-								if (father != null)
+								if (father != null) {
 									for (int i = 0; i < this.getArity(); i++) {
-										if (!finishedNode[i])
+										if (!finishedNode[i]) {
 											if (i == father.intValue()) {
 												this.sendTo(i, sig);
 												// setDoorState(new
 												// MarkedState(false),i);
-											} else
+											} else {
 												this.sendTo(i, noMes);
+											}
+										}
 									}
-								else
+								} else {
 									this.sendAll(noMes);
+								}
 
 								father = null;
 							}
-						else
+						} else {
 							this.sendAll(noMes);
+						}
 					} else if ((myState.compareTo(nodeA) == 0)
 							&& (state.compareTo(passive) == 0) && (sc == 0)
 							&& (father != null)) {
@@ -147,19 +159,22 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 							run = false;
 						} else {
 							for (int i = 0; i < this.getArity(); i++) {
-								if (!finishedNode[i])
+								if (!finishedNode[i]) {
 									if (i == father.intValue()) {
 										this.sendTo(i, sig);
 										// setDoorState(new
 										// MarkedState(false),i);
-									} else
+									} else {
 										this.sendTo(i, noMes);
+									}
+								}
 							}
 
 							father = null;
 						}
-					} else
+					} else {
 						this.sendAll(noMes);
+					}
 				}
 
 				this.breakSynchro();
@@ -168,7 +183,8 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 			else if (synchro != this.notInTheStar) {
 				String son;
 
-				this.sendTo(synchro, new StringMessage(myState, labels));
+				this.sendTo(synchro, new StringMessage(myState,
+						Spanning_Tree__Dijkstra_Scholten_LC2.labels));
 
 				son = ((StringMessage) this.receiveFrom(synchro)).data();
 
@@ -185,7 +201,8 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 			}
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(-3), termination));
+		this.sendAll(new IntegerMessage(new Integer(-3),
+				Spanning_Tree__Dijkstra_Scholten_LC2.termination));
 
 	}
 
@@ -202,7 +219,7 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Spanning_Tree__Dijkstra_Scholten_LC2.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -210,8 +227,9 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 				if (answer[i] == -3) {
 					finishedNode[i] = true;
 					theEnd = true;
@@ -223,17 +241,19 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
-		if (theEnd)
+		if (theEnd) {
 			max = -3;
+		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Spanning_Tree__Dijkstra_Scholten_LC2.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -250,22 +270,29 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (!finishedNode[i])
-				if (answer[i] >= max)
+			if (!finishedNode[i]) {
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			if (!theEnd) {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(1),
-								synchronization));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(1),
+												Spanning_Tree__Dijkstra_Scholten_LC2.synchronization));
 					}
 				}
 
@@ -279,8 +306,12 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 			} else {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(-3),
-								termination));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(-3),
+												Spanning_Tree__Dijkstra_Scholten_LC2.termination));
 					}
 				}
 
@@ -297,8 +328,12 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
-					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+					this
+							.sendTo(
+									i,
+									new IntegerMessage(
+											new Integer(0),
+											Spanning_Tree__Dijkstra_Scholten_LC2.synchronization));
 				}
 			}
 
@@ -313,12 +348,13 @@ public class Spanning_Tree__Dijkstra_Scholten_LC2 extends Algorithm {
 					}
 				}
 			}
-			if (inTheStar != this.notInTheStar)
+			if (inTheStar != this.notInTheStar) {
 				return inTheStar;
-			else if (theEnd)
+			} else if (theEnd) {
 				return -3;
-			else
+			} else {
 				return this.notInTheStar;
+			}
 
 		}
 	}

@@ -327,8 +327,9 @@ public class Simulator {
 		if (previous != null) {
 			Door previousDoor = new Door(previous.intValue());
 			return this.getNextMessage(nodeId, previousDoor, c);
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	private void pushNodePropertyChangeEvent(Integer nodeId, Object key,
@@ -454,7 +455,7 @@ public class Simulator {
 			Algorithm a = this.procs[id].algo;
 			a.setId(new Integer(id));
 			Thread currThread = new Thread(this.threadGroup, a);
-			currThread.setPriority(THREAD_PRIORITY);
+			currThread.setPriority(Simulator.THREAD_PRIORITY);
 			this.procs[id].processThread = currThread;
 			a.setSimulator(this);
 		}
@@ -828,7 +829,7 @@ public class Simulator {
 			this.procs[nodeId].processThread.stop();
 			Thread currThread = new Thread(this.threadGroup,
 					this.procs[nodeId].algo);
-			currThread.setPriority(THREAD_PRIORITY);
+			currThread.setPriority(Simulator.THREAD_PRIORITY);
 			this.procs[nodeId].processThread = currThread;
 			this.procs[nodeId].processThread.start();
 		}
@@ -838,15 +839,17 @@ public class Simulator {
 	 * update node properties
 	 */
 	public void setNodeProperties(int nodeId, Hashtable properties) {
-		if (this.started)
+		if (this.started) {
 			this.procs[nodeId].props = properties;
+		}
 	}
 
 	public boolean getDraw(int id) {
-		if (this.getNodeProperty(id, "draw messages").equals("yes"))
+		if (this.getNodeProperty(id, "draw messages").equals("yes")) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 }

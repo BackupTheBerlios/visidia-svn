@@ -27,8 +27,8 @@ public class Spanning_Tree_RDV extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Spanning_Tree_RDV.synchronization);
+		typesList.add(Spanning_Tree_RDV.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -45,7 +45,7 @@ public class Spanning_Tree_RDV extends Algorithm {
 			synchro = this.synchronization();
 
 			this.sendTo(synchro, new StringMessage((String) this
-					.getProperty("label"), labels));
+					.getProperty("label"), Spanning_Tree_RDV.labels));
 			neighbourValue = ((StringMessage) this.receiveFrom(synchro)).data();
 
 			if ((neighbourValue.compareTo("A") == 0)
@@ -63,8 +63,9 @@ public class Spanning_Tree_RDV extends Algorithm {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < 0) {
 			i = this.trySynchronize();
@@ -86,11 +87,12 @@ public class Spanning_Tree_RDV extends Algorithm {
 		int choosenNeighbour = Math.abs((generator.nextInt())) % arite;
 
 		this.sendTo(choosenNeighbour, new IntegerMessage(new Integer(1),
-				synchronization));
+				Spanning_Tree_RDV.synchronization));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
+			if (i != choosenNeighbour) {
 				this.sendTo(i, new IntegerMessage(new Integer(0),
-						synchronization));
+						Spanning_Tree_RDV.synchronization));
+			}
 
 		}
 

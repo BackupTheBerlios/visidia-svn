@@ -162,10 +162,11 @@ public class AgentSimulEventHandler extends Thread {
 		// Updating the AgentBoxChangingVertexState
 		this.agentsSimulationWindow.updateVertexState(vert);
 
-		if (nbr == 0)
+		if (nbr == 0) {
 			vert.changerCouleurFond(Color.white);
-		else
+		} else {
 			vert.changerCouleurFond(Color.red);
+		}
 
 		vert.setNbr(nbrStr);
 		// ((SommetCarre)vert).setNbr(nbrStr);

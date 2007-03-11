@@ -43,12 +43,14 @@ public class OpenConfig implements Serializable {
 		fc.setFileFilter(hostFileFilter);
 
 		int returnVal = fc.showOpenDialog(fenetre);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file_open = fc.getSelectedFile();
+		}
 
 		String file_name = fc.getName(file_open);
-		if (file_name == null)
+		if (file_name == null) {
 			return; // must implement "cancel" button action
+		}
 		try {
 			FileReader fr = new FileReader(file_open);
 			BufferedReader br = new BufferedReader(fr);
@@ -74,13 +76,15 @@ public class OpenConfig implements Serializable {
 	private void setVisu(String ligne) {
 		StringTokenizer st = new StringTokenizer(ligne);
 		while (st.hasMoreTokens()) {
-			if (this.visuHost == null)
+			if (this.visuHost == null) {
 				this.visuHost = st.nextToken();
-			else if (this.visuUrl == null)
+			} else if (this.visuUrl == null) {
 				this.visuUrl = st.nextToken();
+			}
 		}
-		if (this.visuUrl == null)
-			this.visuUrl = DEFAULT_URL_FOR_VISU;
+		if (this.visuUrl == null) {
+			this.visuUrl = OpenConfig.DEFAULT_URL_FOR_VISU;
+		}
 
 	}
 
@@ -92,9 +96,9 @@ public class OpenConfig implements Serializable {
 		// host
 		Vector vect = new Vector();
 		while (st.hasMoreTokens()) {
-			if (host == null)
+			if (host == null) {
 				host = st.nextToken();
-			else {
+			} else {
 				String url = st.nextToken();
 				vect.addElement(url);
 			}
@@ -138,16 +142,18 @@ public class OpenConfig implements Serializable {
 					String localNode = (String) localNodes.remove(0);
 					if (reste > 0) {
 						Vector vect = new Vector();
-						for (int j = current; j < current + pas + 1; j++)
+						for (int j = current; j < current + pas + 1; j++) {
 							vect.addElement(new Integer(j));
+						}
 
 						lnt.addLocalNode(aHost, localNode, vect);
 						current = current + pas + 1;
 						reste -= 1;
 					} else {
 						Vector vect = new Vector();
-						for (int j = current; j < current + pas; j++)
+						for (int j = current; j < current + pas; j++) {
 							vect.addElement(new Integer(j));
+						}
 						lnt.addLocalNode(aHost, localNode, vect);
 						current = current + pas;
 					}

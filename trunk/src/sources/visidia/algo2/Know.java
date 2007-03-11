@@ -44,8 +44,9 @@ public class Know {
 
 	public void ChangeName(int newName) {
 		this.myName = newName;
-		if (this.myName > this.maxNumber)
+		if (this.myName > this.maxNumber) {
 			this.maxNumber = this.myName;
+		}
 	}
 
 	public int MyName() {

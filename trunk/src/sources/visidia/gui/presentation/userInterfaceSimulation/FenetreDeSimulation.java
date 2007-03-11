@@ -288,8 +288,9 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 		this.addToolBar();
 
 		// On disable les items non-valide pour une applet
-		if (!DistributedAlgoSimulator.estStandalone())
+		if (!DistributedAlgoSimulator.estStandalone()) {
 			this.disableButtonForApplet();
+		}
 
 		this.setContentPane(this.content);
 	}
@@ -607,10 +608,11 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 	/** ****************************************************** */
 	public void actionPerformed(ActionEvent evt) {
 
-		if (evt.getSource() instanceof JButton)
+		if (evt.getSource() instanceof JButton) {
 			this.action_toolbar((JButton) evt.getSource());
-		else if (evt.getSource() instanceof JMenuItem)
+		} else if (evt.getSource() instanceof JMenuItem) {
 			this.action_menu((JMenuItem) evt.getSource());
+		}
 	}
 
 	/** ****************************************************** */
@@ -634,17 +636,18 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 
 		if (le_menu == "PopFile") {
 			this.menuFile(mi);
-		} else if (le_menu == "PopGraph")
+		} else if (le_menu == "PopGraph") {
 			this.menuGraph(mi);
-		else if (le_menu == "PopAlgo")
+		} else if (le_menu == "PopAlgo") {
 			this.menuAlgo(mi);
-		else if (le_menu == "PopRules")
+		} else if (le_menu == "PopRules") {
 			this.menuRules(mi);
-		else if (le_menu == "PopTrace")
+		} else if (le_menu == "PopTrace") {
 			this.menuTrace(mi);
-		/*
-		 * else if(le_menu == "PopRules_new") menuNew(mi);
-		 */
+			/*
+			 * else if(le_menu == "PopRules_new") menuNew(mi);
+			 */
+		}
 
 	}
 
@@ -689,10 +692,11 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 					this.ackPipeOut, this.evtPipeOut, this.fileSaveTrace);
 			reader.read();
 			new Thread(this.tg, reader).start();
-		} else if (this.item_nothing.isSelected())
+		} else if (this.item_nothing.isSelected()) {
 			this.sim = new Simulator(Convertisseur.convertir(this.vueGraphe
 					.getGraphe()), this.evtPipeOut, this.ackPipeOut,
 					this.algoChoice);
+		}
 
 		/*
 		 * if(simulationRegles) algoChoice.putAlgorithmToAllVertices(new
@@ -714,12 +718,13 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 			}
 		}
 
-		if (this.item_saveTrace.isSelected())
+		if (this.item_saveTrace.isSelected()) {
 			this.seh = new SimulEventHandler(this, this.evtPipeOut,
 					this.ackPipeIn);
-		else
+		} else {
 			this.seh = new SimulEventHandler(this, this.evtPipeOut,
 					this.ackPipeOut);
+		}
 
 		this.seh.start();
 
@@ -748,8 +753,9 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 		this.simulationPanel.stop();
 		System.out.println("  ==> Stopped");
 		System.out.println("Stopping the Simulator");
-		if (this.sim != null)
+		if (this.sim != null) {
 			this.sim.abortSimulation();
+		}
 		System.out.println("  ==> Stopped");
 
 		System.out.println("Stopping the Simulator Event Handler");
@@ -784,8 +790,9 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 
 	public void but_reset() {
 		this.simulationPanel.stop();
-		if (this.sim != null)
+		if (this.sim != null) {
 			this.sim.abortSimulation();
+		}
 
 		this.seh.abort();
 
@@ -872,10 +879,11 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 									+ "except changing the state of edges or vertices\n"
 									+ "before starting simulation you must load an algorithm \n "
 									+ "or a list of simple rules \n");
-		} else if (mi == this.file_close)
+		} else if (mi == this.file_close) {
 			this.commandeClose();
-		else if (mi == this.file_quit)
+		} else if (mi == this.file_quit) {
 			System.exit(0);
+		}
 	}
 
 	/** ********************************************************** */
@@ -898,10 +906,11 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 			this.simulationPanel.scrollRectToVisible(new Rectangle(650, 600, 0,
 					0));
 			this.simulationPanel.repaint();
-			if (this.item_replay.isSelected())
+			if (this.item_replay.isSelected()) {
 				this.but_start.setEnabled(true);
-			else
+			} else {
 				this.but_start.setEnabled(false);
+			}
 			this.but_pause.setEnabled(false);
 			this.but_stop.setEnabled(false);
 		}
@@ -932,9 +941,10 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 				if (DistributedAlgoSimulator.estStandalone()) {
 					OpenAlgo.openForVertex(this.selection.elements(), this);
 					System.out.println("choix de l'algo reussi");
-				} else
+				} else {
 					OpenAlgoApplet.openForVertices(this.selection.elements(),
 							this);
+				}
 				this.but_start.setEnabled(this.algoChoice
 						.verticesHaveAlgorithm());
 			}
@@ -949,13 +959,15 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 			else {
 				// PFA2003
 				boolean ok = true;
-				if (DistributedAlgoSimulator.estStandalone())
+				if (DistributedAlgoSimulator.estStandalone()) {
 					ok = OpenAlgo.open(this);
-				else
+				} else {
 					OpenAlgoApplet.open(this);
+				}
 				this.simulationAlgo = ok;
-				if (!this.but_start.isEnabled())
+				if (!this.but_start.isEnabled()) {
 					this.but_start.setEnabled(ok);
+				}
 			}
 		}
 	}
@@ -1060,11 +1072,13 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 			this.simulationPanel.repaint();
 
 		} else if (mi == this.item_nothing) {
-			if (this.simulationAlgo == false)
+			if (this.simulationAlgo == false) {
 				this.but_start.setEnabled(false);
+			}
 		} else if (mi == this.item_saveTrace) {
-			if (this.simulationAlgo == false)
+			if (this.simulationAlgo == false) {
 				this.but_start.setEnabled(false);
+			}
 		} else if (mi == this.item_chose) {
 			File f = SaveTrace.save(this);
 			if (f != null) {
@@ -1124,8 +1138,9 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 	/* saving is made and then change the title of the window */
 	/** ******************************************************* */
 	public void mettreAJourTitreFenetre(File fichier) {
-		if (fichier != null)
+		if (fichier != null) {
 			this.but_reset.setEnabled(true);
+		}
 		super.mettreAJourTitreFenetre(fichier);
 	}
 
@@ -1199,18 +1214,19 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 	 */
 	public void emptyCurrentSelection(boolean deselect) { // Penser au
 		// repaint()
-		if (!this.selection.estVide())
+		if (!this.selection.estVide()) {
 			if (deselect) {
 				this.selection.deSelect();
 			}
+		}
 	}
 
 	// action on the property button with a selection
 
 	private void propertiesControl() {
-		if (this.selection.estVide())
+		if (this.selection.estVide()) {
 			System.out.println("empty");
-		else {
+		} else {
 			Enumeration e = this.selection.elements();
 			FormeDessin firstElement = ((FormeDessin) e.nextElement());
 			if (!Traitements.sommetDessin(this.selection.elements())
@@ -1230,9 +1246,10 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 			} else {
 				e = this.selection.elements();
 				visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
-				while (e.hasMoreElements())
+				while (e.hasMoreElements()) {
 					table_des_types.inserer(((FormeDessin) e.nextElement())
 							.type());
+				}
 				BoiteSelectionSimulation.show(this, this.selection,
 						table_des_types);
 			}
@@ -1261,10 +1278,11 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 	}
 
 	public visidia.tools.VQueue getAckPipe() {
-		if (this.item_saveTrace.isSelected())
+		if (this.item_saveTrace.isSelected()) {
 			return this.ackPipeIn;
-		else
+		} else {
 			return this.ackPipeOut;
+		}
 	}
 
 	public void setEdgeState(int id1, int id2, boolean hasFailure) {
@@ -1281,9 +1299,10 @@ public class FenetreDeSimulation extends Fenetre implements Serializable,
 
 	public void nodeStateChanged(int nodeId, Hashtable properties) {
 		// System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
-		if (this.sim != null)
+		if (this.sim != null) {
 			this.sim.setNodeProperties(nodeId, properties);
-		// sim.restartNode(nodeId);
+			// sim.restartNode(nodeId);
+		}
 	}
 
 	/**

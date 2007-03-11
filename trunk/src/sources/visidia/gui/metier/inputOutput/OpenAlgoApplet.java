@@ -23,16 +23,17 @@ public class OpenAlgoApplet implements Serializable {
 	 * algorithm is affected to all the vertices
 	 */
 	public static void open(FenetreDeSimulation fenet) {
-		fenetre = fenet;
-		BoiteAlgoApplet box = new BoiteAlgoApplet(fenetre, TableAlgo.getKeys());
+		OpenAlgoApplet.fenetre = fenet;
+		BoiteAlgoApplet box = new BoiteAlgoApplet(OpenAlgoApplet.fenetre,
+				TableAlgo.getKeys());
 		box.show();
 	}
 
 	public static void setAlgorithm(String key) {
 		try {
-			fenetre.getAlgorithms().putAlgorithmToAllVertices(
+			OpenAlgoApplet.fenetre.getAlgorithms().putAlgorithmToAllVertices(
 					TableAlgo.getAlgo(key));
-			fenetre.getMenuChoice().setListTypes(
+			OpenAlgoApplet.fenetre.getMenuChoice().setListTypes(
 					(TableAlgo.getAlgo(key)).getListTypes());
 			System.err.println("Changement du menu reussi\n");
 		} catch (Exception excpt) {
@@ -47,9 +48,9 @@ public class OpenAlgoApplet implements Serializable {
 
 	public static void openForVertices(Enumeration vertices,
 			FenetreDeSimulation fenet) {
-		fenetre = fenet;
-		BoiteAlgoApplet box = new BoiteAlgoApplet(fenetre, TableAlgo.getKeys(),
-				vertices);
+		OpenAlgoApplet.fenetre = fenet;
+		BoiteAlgoApplet box = new BoiteAlgoApplet(OpenAlgoApplet.fenetre,
+				TableAlgo.getKeys(), vertices);
 		box.show();
 	}
 
@@ -58,9 +59,9 @@ public class OpenAlgoApplet implements Serializable {
 			String id;
 			while (e.hasMoreElements()) {
 				id = ((SommetDessin) e.nextElement()).getEtiquette();
-				fenetre.getAlgorithms()
-						.putAlgorithm(id, TableAlgo.getAlgo(key));
-				fenetre.getMenuChoice().addAtListTypes(
+				OpenAlgoApplet.fenetre.getAlgorithms().putAlgorithm(id,
+						TableAlgo.getAlgo(key));
+				OpenAlgoApplet.fenetre.getMenuChoice().addAtListTypes(
 						(TableAlgo.getAlgo(key)).getListTypes());
 			}
 		} catch (Exception excpt) {

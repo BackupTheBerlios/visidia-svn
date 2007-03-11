@@ -41,7 +41,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	// Constructors
 	public NodeServerImpl(String name, String regPort) throws RemoteException {
 		super();
-		serverName = name;
+		NodeServerImpl.serverName = name;
 		this.registryPort = regPort;
 
 	}
@@ -49,7 +49,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	public NodeServerImpl(String name, String regPort, String urlName)
 			throws RemoteException {
 		super();
-		serverName = name;
+		NodeServerImpl.serverName = name;
 		this.registryPort = regPort;
 		this.urlName = urlName;
 	}
@@ -57,7 +57,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	public NodeServerImpl(String name, String regPort, String urlName,
 			PrintWriter out) throws RemoteException {
 		super();
-		serverName = name;
+		NodeServerImpl.serverName = name;
 		this.registryPort = regPort;
 		this.urlName = urlName;
 		this.out = out;
@@ -69,14 +69,15 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	// nom, String visuUrl) throws RemoteException{
 	public Hashtable initialize(Vector vect, String nom, String visuUrl)
 			throws RemoteException {
-		if (this.out == null)
+		if (this.out == null) {
 			System.out.println("Noeud Local contacte");
-		else
+		} else {
 			try {
 				this.out.println("Noeud Local contacte");
 				this.out.flush();
 			} catch (Exception e) {
 			}
+		}
 
 		for (int i = 0; i < vect.size(); i++) {
 			try {
@@ -85,14 +86,15 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 						this.registryPort);
 				this.graphStub.put(node, nodeSimul);
 			} catch (Exception e) {
-				if (this.out == null)
+				if (this.out == null) {
 					System.out.println(e);
-				else
+				} else {
 					try {
 						this.out.println(e.toString());
 						this.out.flush();
 					} catch (Exception expt) {
 					}
+				}
 			}
 		}
 		return this.graphStub;
@@ -109,15 +111,16 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 				// nodeSimul = null;
 			}
 		} catch (Exception e) {
-			if (this.out == null)
+			if (this.out == null) {
 				System.out.println("Erreur dans la reinitialisation" + e);
-			else
+			} else {
 				try {
 					this.out.println("Erreur dans la reinitialisation"
 							+ e.toString());
 					this.out.flush();
 				} catch (Exception expt) {
 				}
+			}
 		}
 
 		this.graphStub = new Hashtable();
@@ -135,7 +138,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 	}
 
 	public String getHostName() throws RemoteException {
-		return serverName;
+		return NodeServerImpl.serverName;
 	}
 
 	public Vector getNodes() throws RemoteException {
@@ -158,14 +161,15 @@ public class NodeServerImpl extends UnicastRemoteObject implements NodeServer {
 					this.registryPort, this);
 			rt.start();
 		} catch (Exception e) {
-			if (this.out == null)
+			if (this.out == null) {
 				System.out.println(e);
-			else
+			} else {
 				try {
 					this.out.println(e.toString());
 					this.out.flush();
 				} catch (Exception expt) {
 				}
+			}
 		}
 	}
 

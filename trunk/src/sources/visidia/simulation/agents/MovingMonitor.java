@@ -48,8 +48,9 @@ public class MovingMonitor implements Runnable {
 				try {
 					// Wait until somebody get the element just
 					// grabbed from the queue.
-					while (this.fromQueue != null)
+					while (this.fromQueue != null) {
 						this.synchronisation.wait();
+					}
 
 					// Someone took the object, grab another one.
 					this.fromQueue = (SimulAck) this.ackQ.get();
@@ -85,8 +86,9 @@ public class MovingMonitor implements Runnable {
 
 			// Wait until the answer is for me.
 			while ((this.fromQueue == null)
-					|| !this.fromQueue.number().equals(key))
+					|| !this.fromQueue.number().equals(key)) {
 				this.synchronisation.wait();
+			}
 
 			// The object grab from the queue is my
 			// acknowledgment. I need to return now.

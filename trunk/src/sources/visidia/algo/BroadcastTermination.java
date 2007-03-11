@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import visidia.misc.MarkedState;
-//import visidia.misc.Message;
 import visidia.misc.MessageType;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
@@ -22,9 +21,9 @@ public class BroadcastTermination extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(ack);
-		typesList.add(wave);
-		typesList.add(termination);
+		typesList.add(BroadcastTermination.ack);
+		typesList.add(BroadcastTermination.wave);
+		typesList.add(BroadcastTermination.termination);
 		return typesList;
 	}
 
@@ -38,7 +37,8 @@ public class BroadcastTermination extends Algorithm {
 		String label = (String) this.getProperty("label");
 		if (label.compareTo("A") == 0) {
 			for (int i = 0; i < degres; i++) {
-				this.sendTo(i, new StringMessage("Wave", wave));
+				this.sendTo(i, new StringMessage("Wave",
+						BroadcastTermination.wave));
 			}
 
 			while (!terminated) {
@@ -51,15 +51,17 @@ public class BroadcastTermination extends Algorithm {
 				} else if (data.compareTo("Ack_No") == 0) {
 					childrenStates[doorNum] = 1;
 				} else if (data.compareTo("Wave") == 0) {
-					this.sendTo(doorNum, new StringMessage("Ack_No", ack));
+					this.sendTo(doorNum, new StringMessage("Ack_No",
+							BroadcastTermination.ack));
 				} else if (data.compareTo("END") == 0) {
 					childrenStates[doorNum] = 1;
 				}
 
 				terminated = true;
 				for (int i = 0; i < degres; i++) {
-					if (childrenStates[i] != 1)
+					if (childrenStates[i] != 1) {
 						terminated = false;
+					}
 				}
 			}
 			this.putProperty("label", new String("L"));
@@ -71,14 +73,16 @@ public class BroadcastTermination extends Algorithm {
 
 			fatherDoor = doorB.getNum();
 
-			this.sendTo(fatherDoor, new StringMessage("Ack_Yes", ack));
+			this.sendTo(fatherDoor, new StringMessage("Ack_Yes",
+					BroadcastTermination.ack));
 
 			this.putProperty("label", new String("I"));
 			this.setDoorState(new MarkedState(true), fatherDoor);
 
 			for (int i = 0; i < degres; i++) {
 				if (i != fatherDoor) {
-					this.sendTo(i, new StringMessage("Wave", wave));
+					this.sendTo(i, new StringMessage("Wave",
+							BroadcastTermination.wave));
 				}
 			}
 
@@ -94,7 +98,8 @@ public class BroadcastTermination extends Algorithm {
 					} else if (data.compareTo("Ack_No") == 0) {
 						childrenStates[doorNum] = 1;
 					} else if (data.compareTo("Wave") == 0) {
-						this.sendTo(doorNum, new StringMessage("Ack_No", ack));
+						this.sendTo(doorNum, new StringMessage("Ack_No",
+								BroadcastTermination.ack));
 
 					} else if (data.compareTo("END") == 0) {
 						childrenStates[doorNum] = 1;
@@ -102,12 +107,14 @@ public class BroadcastTermination extends Algorithm {
 
 					terminated = true;
 					for (int i = 0; i < degres; i++) {
-						if (childrenStates[i] != 1)
+						if (childrenStates[i] != 1) {
 							terminated = false;
+						}
 					}
 				}
 			}
-			this.sendTo(fatherDoor, new StringMessage("END", termination));
+			this.sendTo(fatherDoor, new StringMessage("END",
+					BroadcastTermination.termination));
 			this.putProperty("label", new String("F"));
 		}
 	}

@@ -46,9 +46,9 @@ public class SaveTrace extends JFileChooser {
 			((Editeur) parent).commandeRenumeroter();
 		}
 
-		nombre++;
-		this.validFile = new File(path, "trace_" + Integer.toString(nombre)
-				+ ".trace");
+		SaveTrace.nombre++;
+		this.validFile = new File(path, "trace_"
+				+ Integer.toString(SaveTrace.nombre) + ".trace");
 		this.setSelectedFile(this.validFile);
 		this.parent = parent;
 	}
@@ -95,7 +95,7 @@ public class SaveTrace extends JFileChooser {
 	 * Reaction when we use the "cancel" button or validation of an empty file
 	 */
 	public void cancelSelection() {
-		nombre--;
+		SaveTrace.nombre--;
 		if (this.getSelectedFile() == null) {
 			JOptionPane.showMessageDialog(this,
 					"You must choose a file to save your trace in !",

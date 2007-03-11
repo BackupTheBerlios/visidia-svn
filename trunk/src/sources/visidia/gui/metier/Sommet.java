@@ -203,12 +203,14 @@ public class Sommet extends ObjetGraphe implements Cloneable {
 	public void fusionner(Sommet un_sommet) {
 
 		Enumeration e = un_sommet.aretesSortantes();
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			((Arete) e.nextElement()).changerOrigine(this);
+		}
 
 		e = un_sommet.aretesEntrantes();
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			((Arete) e.nextElement()).changerDestination(this);
+		}
 		un_sommet.supprimer();
 
 	}

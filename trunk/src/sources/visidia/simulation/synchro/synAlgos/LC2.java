@@ -2,7 +2,6 @@ package visidia.simulation.synchro.synAlgos;
 
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
-//import visidia.misc.Message;
 import visidia.misc.SyncState;
 import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
@@ -51,8 +50,9 @@ public class LC2 extends AbSynAlgo implements IntSynchronization {
 				if (msg != null) {
 					this.answer[i] = msg.value();
 					if (msg.getType().equals(MSG_TYPES.TERM)) {
-						if (this.answer[i] == SynCT.LOCAL_END)
+						if (this.answer[i] == SynCT.LOCAL_END) {
 							this.synob.setFinished(i, true);
+						}
 						if (this.answer[i] == SynCT.GLOBAL_END) {
 							this.synob.setGlobEnd(true);
 							this.synob.setFinished(i, true);
@@ -75,8 +75,9 @@ public class LC2 extends AbSynAlgo implements IntSynchronization {
 					if (msg != null) {
 						this.answer[i] = msg.value();
 						if (msg.getType().equals(MSG_TYPES.TERM)) {
-							if (this.answer[i] == SynCT.LOCAL_END)
+							if (this.answer[i] == SynCT.LOCAL_END) {
 								this.synob.setFinished(i, true);
+							}
 							if (this.answer[i] == SynCT.GLOBAL_END) {
 								this.synob.setGlobEnd(true);
 								this.synob.setFinished(i, true);
@@ -94,8 +95,9 @@ public class LC2 extends AbSynAlgo implements IntSynchronization {
 		int max = choosenNumber;
 		for (int i = 0; i < arity; i++) {
 			if (!this.synob.hasFinished(i) && this.synob.isConnected(i)) {
-				if (this.answer[i] >= max)
+				if (this.answer[i] >= max) {
 					max = this.answer[i];
+				}
 			}
 		}
 
@@ -122,8 +124,9 @@ public class LC2 extends AbSynAlgo implements IntSynchronization {
 		max = choosenNumber;
 		for (int i = 0; i < arity; i++) {
 			if (!this.synob.hasFinished(i) && this.synob.isConnected(i)) {
-				if (this.answer[i] >= max)
+				if (this.answer[i] >= max) {
 					max = this.answer[i];
+				}
 			}
 		}
 
@@ -147,8 +150,9 @@ public class LC2 extends AbSynAlgo implements IntSynchronization {
 			for (int i = 0; i < arity; i++) {
 				if (!this.synob.hasFinished(i) && this.synob.isConnected(i)) {
 					IntegerMessage msg = (IntegerMessage) this.receiveFrom(i);
-					if (msg == null)
+					if (msg == null) {
 						this.synob.setConnected(i, false);
+					}
 				}
 			}
 

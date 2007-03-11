@@ -47,18 +47,19 @@ public class SommetCarre extends SommetDessin {
 
 	// Agrandit la taille du sommet de "coef" fois
 	public void agrandir(float coef) {
-		if (coef > 0)
-			monCote = (int) (coef * monCote);
+		if (coef > 0) {
+			SommetCarre.monCote = (int) (coef * SommetCarre.monCote);
+		}
 	}
 
 	// Retourne le cote du sommet carre
 	public int getCote() {
-		return monCote;
+		return SommetCarre.monCote;
 	}
 
 	// Modifie le cote du sommet carre
 	public void setCote(int cote) {
-		monCote = cote;
+		SommetCarre.monCote = cote;
 		this.vueGraphe.setFontSize(((float) cote / 3) + 1);
 	}
 
@@ -82,14 +83,16 @@ public class SommetCarre extends SommetDessin {
 		int cote_sur_2 = cote / 2;
 
 		// Dessin de la forme carre du sommet
-		if (this.est_enlumine())
+		if (this.est_enlumine()) {
 			g.setColor(this.couleur_fond);
-		else
+		} else {
 			g.setColor(this.couleur_trait);
+		}
 
 		// La bordure est rouge si enluminerBis
-		if (this.est_enlumineBis())
+		if (this.est_enlumineBis()) {
 			g.setColor(Color.red);
+		}
 
 		g.drawRect(this.posx - cote_sur_2 - 1, this.posy - cote_sur_2 - 1,
 				2 * cote_sur_2 + 2, 2 * cote_sur_2 + 2);
@@ -100,10 +103,11 @@ public class SommetCarre extends SommetDessin {
 		g.drawRect(this.posx - cote_sur_2 - 2, this.posy - cote_sur_2 - 2,
 				2 * cote_sur_2 + 4, 2 * cote_sur_2 + 4 + 2 * cote_sur_2 / 3);
 
-		if (this.est_enlumine())
+		if (this.est_enlumine()) {
 			g.setColor(this.couleur_trait);
-		else
+		} else {
 			g.setColor(this.couleur_fond);
+		}
 
 		g.fillRect(this.posx - cote_sur_2, this.posy - cote_sur_2,
 				2 * cote_sur_2, 2 * cote_sur_2);
@@ -111,17 +115,19 @@ public class SommetCarre extends SommetDessin {
 		// affichage de l'etiquette
 		if ((this.getVueGraphe()).afficherEtiquettes()) {
 			g.setColor(Color.blue);
-			if (this.est_enlumine())
+			if (this.est_enlumine()) {
 				g.setFont((this.getVueGraphe()).fontGras());
-			else
+			} else {
 				g.setFont((this.getVueGraphe()).fontNormal());
+			}
 			g.drawString((this.getEtiquette()) + " , " + this.getEtat(), x
 					- cote / 2, y + cote + 8);
 		}
 
 		// affichage d'une icone si elle existe
-		if (this.getImage() != null)
+		if (this.getImage() != null) {
 			(this.getImage()).paintIcon(c, g, x - cote / 2, y - cote / 2);
+		}
 
 		g.setColor((Color) ((TableCouleurs.getTableCouleurs()).get(this
 				.getEtat().substring(0, 1))));
@@ -133,17 +139,17 @@ public class SommetCarre extends SommetDessin {
 
 	// Teste si le point donne en parametre appartient au sommet
 	public boolean appartient(int x, int y) {
-		return ((Math.abs(this.posx - x) <= (monCote / 2)) && (Math
-				.abs(this.posy - y) <= (monCote / 2)));
+		return ((Math.abs(this.posx - x) <= (SommetCarre.monCote / 2)) && (Math
+				.abs(this.posy - y) <= (SommetCarre.monCote / 2)));
 	}
 
 	// Teste si le sommet est contenu en entier dans une zone rectangulaire.
 	// (x1, y1) coordonnees en haut a gauche et (x2, y2) coordonnees en bas a
 	// droite.
 	public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-		return ((x1 <= (this.posx - (monCote / 2)))
-				&& (y1 <= (this.posy - (monCote / 2)))
-				&& (x2 >= (this.posx + (monCote / 2))) && (y2 >= (this.posy + (monCote / 2))));
+		return ((x1 <= (this.posx - (SommetCarre.monCote / 2)))
+				&& (y1 <= (this.posy - (SommetCarre.monCote / 2)))
+				&& (x2 >= (this.posx + (SommetCarre.monCote / 2))) && (y2 >= (this.posy + (SommetCarre.monCote / 2))));
 	}
 
 	// returns the distance from the center to determines the positions of edges
@@ -151,7 +157,7 @@ public class SommetCarre extends SommetDessin {
 		float tempo = Math.abs(angle);
 
 		tempo = Math.min(tempo, (float) Math.PI - tempo);
-		return monCote
+		return SommetCarre.monCote
 				/ (float) (2 * Math.cos(Math.min(tempo, (float) Math.PI / 2
 						- tempo)));
 	}

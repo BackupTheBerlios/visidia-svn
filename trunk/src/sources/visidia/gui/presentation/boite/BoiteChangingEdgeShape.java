@@ -61,10 +61,11 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements
 			String[] listOfFiles = factoryDirectory.list();
 			Class fabriqueArete = Class.forName(this.factoryPointPath
 					+ this.interfaceFactoryName);
-			for (String element : listOfFiles)
+			for (String element : listOfFiles) {
 				if (this.accept(element)) { // we keep only .class files
-					if (element.equals(this.interfaceFactoryName + ".class"))
+					if (element.equals(this.interfaceFactoryName + ".class")) {
 						continue; // don't keep interface
+					}
 					Class factFile = Class.forName(this.factoryPointPath
 							+ this.nameWithoutExtension(element));
 					if (fabriqueArete.isAssignableFrom(factFile)) {
@@ -75,6 +76,7 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements
 						index++;
 					}
 				}
+			}
 
 		} catch (Exception e) {
 			System.out.println("Problem : " + e);
@@ -83,10 +85,12 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements
 		// on regarde la fabrique utilisée pour donner la bonne valeur
 		// par défaut
 		index = 0;
-		for (int j = 0; j < this.edgesNames.size(); j++)
+		for (int j = 0; j < this.edgesNames.size(); j++) {
 			if (((String) this.edgesNames.elementAt(j)).equals(VueGraphe
-					.getFabriqueArete().description()))
+					.getFabriqueArete().description())) {
 				index = j;
+			}
+		}
 
 		this.choix_type = this.ligne_choix(this.caracteristicsPane,
 				"Edge shape :", this.edgesNames, this.est_editable,

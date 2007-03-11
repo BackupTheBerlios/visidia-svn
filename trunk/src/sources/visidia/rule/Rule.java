@@ -131,8 +131,9 @@ public class Rule implements Serializable {
 	 *            rule.
 	 */
 	public boolean equals(Rule r) {
-		if ((this.befor.equals(r.befor())) && (this.after.equals(r.after())))
+		if ((this.befor.equals(r.befor())) && (this.after.equals(r.after()))) {
 			return true;
+		}
 		return false;
 	}
 
@@ -159,14 +160,17 @@ public class Rule implements Serializable {
 		{
 			lc1poss = false;
 		}
-		if (rdvposs && !lc1poss)
+		if (rdvposs && !lc1poss) {
 			return SynCT.RDV;
-		if (lc1poss && !rdvposs)
+		}
+		if (lc1poss && !rdvposs) {
 			return SynCT.LC1;
-		if (lc1poss && rdvposs)
+		}
+		if (lc1poss && rdvposs) {
 			return SynCT.RDV_LC1;
-		else
+		} else {
 			return SynCT.LC2;
+		}
 	}
 
 	/**

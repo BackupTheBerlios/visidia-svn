@@ -2,7 +2,6 @@ package visidia.simulation.synchro.synAlgos;
 
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
-//import visidia.misc.Message;
 import visidia.misc.SyncState;
 import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
@@ -45,8 +44,9 @@ public class LC1 extends AbSynAlgo implements IntSynchronization {
 				if (msg != null) {
 					answer[i] = msg.value();
 					if (msg.getType().equals(MSG_TYPES.TERM)) {
-						if (answer[i] == SynCT.LOCAL_END)
+						if (answer[i] == SynCT.LOCAL_END) {
 							this.synob.setFinished(i, true);
+						}
 						if (answer[i] == SynCT.GLOBAL_END) {
 							this.synob.setGlobEnd(true);
 							this.synob.setFinished(i, true);
@@ -69,8 +69,9 @@ public class LC1 extends AbSynAlgo implements IntSynchronization {
 					if (msg != null) {
 						answer[i] = msg.value();
 						if (msg.getType().equals(MSG_TYPES.TERM)) {
-							if (answer[i] == SynCT.LOCAL_END)
+							if (answer[i] == SynCT.LOCAL_END) {
 								this.synob.setFinished(i, true);
+							}
 							if (answer[i] == SynCT.GLOBAL_END) {
 								this.synob.setGlobEnd(true);
 								this.synob.setFinished(i, true);
@@ -87,8 +88,9 @@ public class LC1 extends AbSynAlgo implements IntSynchronization {
 		int max = choosenNumber;
 		for (int i = 0; i < arity; i++) {
 			if (!this.synob.hasFinished(i) && this.synob.isConnected(i)) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 

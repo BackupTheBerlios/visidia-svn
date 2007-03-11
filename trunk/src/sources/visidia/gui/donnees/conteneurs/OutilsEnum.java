@@ -39,8 +39,9 @@ public class OutilsEnum {
 				if (this.has_more) {
 					this.has_more = false;
 					return un_objet;
-				} else
+				} else {
 					throw new NoSuchElementException("No more element");
+				}
 			}
 		};
 	}
@@ -54,7 +55,7 @@ public class OutilsEnum {
 		Object[] un_tableau = new Object[2];
 		un_tableau[0] = obj1;
 		un_tableau[1] = obj2;
-		return creerEnumeration(un_tableau);
+		return OutilsEnum.creerEnumeration(un_tableau);
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class OutilsEnum {
 		un_tableau[0] = obj1;
 		un_tableau[1] = obj2;
 		un_tableau[2] = obj3;
-		return creerEnumeration(un_tableau);
+		return OutilsEnum.creerEnumeration(un_tableau);
 	}
 
 	/**
@@ -91,10 +92,11 @@ public class OutilsEnum {
 			}
 
 			public Object nextElement() {
-				if (this.indice_courant < un_tableau.length)
+				if (this.indice_courant < un_tableau.length) {
 					return un_tableau[this.indice_courant++];
-				else
+				} else {
 					throw new NoSuchElementException("No more element");
+				}
 			}
 		};
 	}
@@ -123,8 +125,9 @@ public class OutilsEnum {
 
 			public Object nextElement() {
 				if ((this.enumeration_courante != e2)
-						&& (!this.enumeration_courante.hasMoreElements()))
+						&& (!this.enumeration_courante.hasMoreElements())) {
 					this.enumeration_courante = e2;
+				}
 				return this.enumeration_courante.nextElement();
 			}
 		};

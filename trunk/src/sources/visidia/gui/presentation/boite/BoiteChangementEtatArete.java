@@ -134,10 +134,11 @@ public class BoiteChangementEtatArete implements ActionListener, ItemListener {
 		this.dialog.pack();
 		this.dialog.setVisible(true);
 		// dialog.setLocationRelativeTo(parent);
-		if (this.parentDist == null)
+		if (this.parentDist == null) {
 			this.dialog.setLocationRelativeTo(parent);
-		else
+		} else {
 			this.dialog.setLocationRelativeTo(this.parentDist);
+		}
 
 	}
 
@@ -179,12 +180,13 @@ public class BoiteChangementEtatArete implements ActionListener, ItemListener {
 		}
 		if (e.getSource() == this.buttonApply) {
 			this.buttonOk();
-			if (this.parent != null)
+			if (this.parent != null) {
 				this.parent.repaint();
-			else if (this.parentAgent != null)
+			} else if (this.parentAgent != null) {
 				this.parentAgent.repaint();
-			else
+			} else {
 				this.parentDist.repaint();
+			}
 			this.modif = false;
 			this.buttonApply.setEnabled(false);
 
@@ -219,12 +221,13 @@ public class BoiteChangementEtatArete implements ActionListener, ItemListener {
 			// areteCourante.getId1(), hasFailure);
 		}
 
-		if (this.parent != null)
+		if (this.parent != null) {
 			this.parent.simulationPanel().repaint();
-		else if (this.parentAgent != null)
+		} else if (this.parentAgent != null) {
 			this.parentAgent.simulationPanel().repaint();
-		else
+		} else {
 			this.parentDist.simulationPanel().repaint();
+		}
 	}
 
 	/** Retourne le JDialog. */

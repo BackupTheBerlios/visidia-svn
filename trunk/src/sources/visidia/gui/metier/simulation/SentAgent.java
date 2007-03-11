@@ -24,10 +24,11 @@ public class SentAgent extends MovableObject {
 		this.event = event;
 		this.mesg = event.message().toString();
 
-		if (a.getX() < b.getX())
+		if (a.getX() < b.getX()) {
 			this.moveForward = true;
-		else
+		} else {
 			this.moveForward = false;
+		}
 	}
 
 	public MessageSendingEvent getEvent() {
@@ -41,10 +42,11 @@ public class SentAgent extends MovableObject {
 
 		Image img;
 
-		if (this.moveForward)
+		if (this.moveForward) {
 			img = TableImages.getImage("miroirHomme");
-		else
+		} else {
 			img = TableImages.getImage("homme");
+		}
 
 		int imgHeight = img.getHeight(null);
 		int imgWidth = img.getWidth(null);

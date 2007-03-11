@@ -76,10 +76,11 @@ public abstract class Fenetre extends JFrame {
 	 */
 	protected void mettreAJourTitreFenetre() {
 		String nom_fichier;
-		if (this.fichier_edite == null)
+		if (this.fichier_edite == null) {
 			nom_fichier = "no title";
-		else
+		} else {
 			nom_fichier = this.fichier_edite.getName();
+		}
 		this.setTitle(this.titre() + " [" + nom_fichier + "]");
 	}
 
@@ -93,9 +94,9 @@ public abstract class Fenetre extends JFrame {
 	 */
 	public void mettreAJourTitreFenetre(File fichier) {
 		String nom_fichier;
-		if (fichier == null)
+		if (fichier == null) {
 			nom_fichier = "no title";
-		else {
+		} else {
 			nom_fichier = fichier.getName();
 			this.fichier_edite = fichier;
 		}

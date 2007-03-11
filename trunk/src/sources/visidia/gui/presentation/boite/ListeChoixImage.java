@@ -58,20 +58,21 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
 	}
 
 	ImageIcon donneImage(String s) {
-		if ((s == null) || s.equals("no icon              "))
+		if ((s == null) || s.equals("no icon              ")) {
 			return null;
-		else if (s.equals("PC                   "))
+		} else if (s.equals("PC                   ")) {
 			return (new ImageIcon("visidia/gui/donnees/images/image1.gif"));
-		else if (s.equals("station              "))
+		} else if (s.equals("station              ")) {
 			return (new ImageIcon("visidia/gui/donnees/images/image2.gif"));
-		else if (s.equals("printer              "))
+		} else if (s.equals("printer              ")) {
 			return (new ImageIcon("visidia/gui/donnees/images/image3.gif"));
-		else if (s.equals("server               "))
+		} else if (s.equals("server               ")) {
 			return (new ImageIcon("visidia/gui/donnees/images/image4.gif"));
-		else if (s.equals("mac                  "))
+		} else if (s.equals("mac                  ")) {
 			return (new ImageIcon("visidia/gui/donnees/images/image6.jpg"));
-		else
+		} else {
 			return null;
+		}
 
 	}
 
@@ -102,8 +103,9 @@ class Ardoise extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (this.image != null)
+		if (this.image != null) {
 			this.image.paintIcon(this, g, 100, 20);
+		}
 
 	}
 

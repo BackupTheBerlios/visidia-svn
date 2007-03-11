@@ -25,8 +25,8 @@ public class Election_Tree extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Election_Tree.synchronization);
+		typesList.add(Election_Tree.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -59,16 +59,19 @@ public class Election_Tree extends Algorithm {
 				int n_Count = 0;
 				int f_Count = 0;
 
-				for (int door = 0; door < neighbour; door++)
+				for (int door = 0; door < neighbour; door++) {
 					if (!finishedNode[door]) {
 						neighbourState[door] = ((StringMessage) this
 								.receiveFrom(door)).data();
-						if (neighbourState[door].compareTo(nodeN) == 0)
+						if (neighbourState[door].compareTo(nodeN) == 0) {
 							n_Count++;
-						else
+						} else {
 							f_Count++;
-					} else
+						}
+					} else {
 						f_Count++;
+					}
+				}
 
 				if ((((String) this.getProperty("label")).compareTo(nodeN) == 0)
 						&& (n_Count == 1)) {
@@ -87,14 +90,15 @@ public class Election_Tree extends Algorithm {
 				if (synchro != this.notInTheStar) {
 
 					this.sendTo(synchro, new StringMessage((String) this
-							.getProperty("label"), labels));
+							.getProperty("label"), Election_Tree.labels));
 				}
 
 			}
 
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(-1), synchronization));
+		this.sendAll(new IntegerMessage(new Integer(-1),
+				Election_Tree.synchronization));
 
 	}
 
@@ -110,7 +114,7 @@ public class Election_Tree extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Election_Tree.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -118,8 +122,9 @@ public class Election_Tree extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -127,15 +132,16 @@ public class Election_Tree extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Election_Tree.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -149,20 +155,22 @@ public class Election_Tree extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							Election_Tree.synchronization));
 				}
 			}
 
@@ -179,7 +187,7 @@ public class Election_Tree extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Election_Tree.synchronization));
 				}
 			}
 

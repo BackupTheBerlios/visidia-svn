@@ -40,14 +40,16 @@ public class CompoundCriterion implements Criterion {
 	}
 
 	public boolean isMatchedBy(Object o) {
-		if (this.criterionList.isEmpty())
+		if (this.criterionList.isEmpty()) {
 			return false;
+		}
 
 		Iterator iterator = this.criterionList.iterator();
 		while (iterator.hasNext()) {
 			Criterion c = (Criterion) iterator.next();
-			if (!c.isMatchedBy(o))
+			if (!c.isMatchedBy(o)) {
 				return false;
+			}
 		}
 
 		return true;

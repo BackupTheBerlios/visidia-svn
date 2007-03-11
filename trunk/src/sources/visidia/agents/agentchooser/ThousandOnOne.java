@@ -11,8 +11,9 @@ public class ThousandOnOne extends AgentChooser {
 	protected void chooseForVertex(Integer vertexIdentity) {
 
 		if (vertexIdentity.intValue() == 0) {
-			for (int i = 0; i < 1000; ++i)
+			for (int i = 0; i < 1000; ++i) {
 				this.addAgent(vertexIdentity, this.agentName());
+			}
 		}
 
 	}

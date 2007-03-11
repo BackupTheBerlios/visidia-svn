@@ -27,7 +27,7 @@ public class Neighbour implements Serializable {
 	 * the default constructor default values are : "UNKNOWN", false , -1
 	 */
 	public Neighbour() {
-		this.state = unknown;
+		this.state = Neighbour.unknown;
 		this.mark = false;
 		this.door = -1;
 	}
@@ -55,7 +55,7 @@ public class Neighbour implements Serializable {
 	}
 
 	public Neighbour(boolean edgMark, int door) {
-		this(unknown, edgMark, door);
+		this(Neighbour.unknown, edgMark, door);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class Neighbour implements Serializable {
 	}
 
 	public Neighbour(int door) {
-		this(unknown, false, door);
+		this(Neighbour.unknown, false, door);
 	}
 
 	/**
@@ -168,8 +168,9 @@ public class Neighbour implements Serializable {
 	 */
 	public boolean equals(Neighbour n) {
 		if ((this.mark == n.mark) && this.state.equals(n.state)) {
-			if (n.door == -1)
+			if (n.door == -1) {
 				return true;
+			}
 			return (this.door == n.door);
 		}
 		return false;

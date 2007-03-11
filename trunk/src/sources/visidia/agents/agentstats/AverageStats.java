@@ -21,10 +21,11 @@ public class AverageStats extends AbstractExperiment {
 		keys = this.getBag().keySet();
 
 		for (Object key : keys) {
-			if (key instanceof AgentCreationStat)
+			if (key instanceof AgentCreationStat) {
 				this.agentsByClass.put(((AgentCreationStat) key)
 						.getAgentClass(), new Long(this.getBag()
 						.getOccurrencesOf(key)));
+			}
 		}
 	}
 

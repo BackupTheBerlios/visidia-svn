@@ -69,8 +69,9 @@ public class Between2PulsesCriterion implements Criterion {
 	 * 
 	 */
 	public boolean isMatchedBy(Object o) {
-		if (!(o instanceof MessagePacket))
+		if (!(o instanceof MessagePacket)) {
 			return false;
+		}
 
 		return true;
 
@@ -98,16 +99,18 @@ public class Between2PulsesCriterion implements Criterion {
 	}
 
 	public int getDoor() {
-		if (this.door == null)
+		if (this.door == null) {
 			return -1;
+		}
 		return this.door.getNum();
 	}
 
 	public void setDoor(int door) {
-		if (this.door == null)
+		if (this.door == null) {
 			this.door = new Door(door);
-		else
+		} else {
 			this.door.setNum(door);
+		}
 	}
 
 	public void setPulseInf(int pulseInf) {

@@ -103,8 +103,9 @@ public class LocalNodeTable implements Serializable {
 				System.out.print("LocalNode : " + localNode + " --> ");
 				Vector v = (Vector) h.get(localNode);
 				if (!v.isEmpty()) {
-					for (int i = 0; i < v.size(); i++)
+					for (int i = 0; i < v.size(); i++) {
 						System.out.print(v.elementAt(i) + " | ");
+					}
 				}
 				System.out.print("\n");
 			}

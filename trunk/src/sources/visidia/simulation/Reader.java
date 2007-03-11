@@ -37,10 +37,11 @@ public class Reader implements Runnable, Cloneable {
 			while (fileIS.available() > 0) {
 				Object o = null;
 				o = objectIS.readObject();
-				if (o instanceof SimulAck)
+				if (o instanceof SimulAck) {
 					this.messages.add(new Element((SimulAck) o));
-				else if (o instanceof SimulEvent)
+				} else if (o instanceof SimulEvent) {
 					this.messages.add(new Element((SimulEvent) o));
+				}
 			}
 			objectIS.close();
 		} catch (FileNotFoundException e) {
@@ -57,10 +58,11 @@ public class Reader implements Runnable, Cloneable {
 		if (pipe.size() != 0) {
 			while (pipe.size() > i) {
 				if (a.getSimulAck().number().equals(
-						((SimulAck) pipe.elementAt(i)).number()))
+						((SimulAck) pipe.elementAt(i)).number())) {
 					return i;
-				else
+				} else {
 					i++;
+				}
 			}
 		}
 
@@ -85,7 +87,7 @@ public class Reader implements Runnable, Cloneable {
 			} else {
 				int position = -1;
 				if ((position = this.contains(ackRcv, (Element) this.messages
-						.elementAt(0))) == -1)
+						.elementAt(0))) == -1) {
 					while ((position = this.contains(ackRcv,
 							(Element) this.messages.elementAt(0))) == -1) {
 						try {
@@ -95,6 +97,7 @@ public class Reader implements Runnable, Cloneable {
 							return;
 						}
 					}
+				}
 				ackRcv.remove(position);
 				this.messages.remove(0);
 			}

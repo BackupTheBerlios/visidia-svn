@@ -189,11 +189,12 @@ public class BoiteDistribue implements ActionListener {
 								Vector v = new Vector();
 								v.addElement(new Integer(j));
 								tmp.put(server, v);
-							} else
+							} else {
 								// sinon on sauvegarde le nouveau noeud avec les
 								// ancien
 								((Vector) tmp.get(server))
 										.addElement(new Integer(j));
+							}
 						}
 					} else {
 						// sinon : on lit un noeud local
@@ -241,10 +242,11 @@ public class BoiteDistribue implements ActionListener {
 		Component component = this.labelPanel.getComponent(2);
 		JTextField texte = (JTextField) component;
 		String textValue = texte.getText();
-		if (textValue.equals("") | (textValue == null))
+		if (textValue.equals("") | (textValue == null)) {
 			return this.DEFAULT_URL_FOR_SIMULATOR;
-		else
+		} else {
 			return textValue;
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {

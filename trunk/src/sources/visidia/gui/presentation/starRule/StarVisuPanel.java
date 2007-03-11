@@ -77,8 +77,9 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 		for (Enumeration e = this.vg.listeAffichage(); e.hasMoreElements();) {
 			FormeDessin f = (FormeDessin) e.nextElement();
 			if (f instanceof SommetDessin) {
-				if (((SommetDessin) f).getEtiquette().equals(id))
+				if (((SommetDessin) f).getEtiquette().equals(id)) {
 					return (SommetDessin) f;
+				}
 			}
 		}
 		return null;
@@ -91,8 +92,9 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 		if (this.isSimpleRule) {
 			SommetDessin s = this.getVertex("1");
 			this.sommetC.placer(this.center.x, this.center.y);
-			if (s != null)
+			if (s != null) {
 				s.placer(this.center.x + this.ray, this.center.y);
+			}
 		} else {
 			double alpha = 0;
 			double step = 2 * Math.PI / (this.vertexNumber - 1);
@@ -134,15 +136,17 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 		if (this.isSimpleRule) {
 			if ((x > this.center.x + this.ray - 25)
 					&& (x < this.center.x + this.ray + 25)
-					&& (y > this.center.y - 50) && (y < this.center.y + 50))
+					&& (y > this.center.y - 50) && (y < this.center.y + 50)) {
 				return new Point(this.center.x + this.ray, this.center.y);
-			else
+			} else {
 				return null;
+			}
 		} else {
 			double r2 = Math.sqrt(Math.pow(x - this.center.x, 2)
 					+ Math.pow(y - this.center.y, 2));
-			if (Math.abs(r2 - this.ray) > 10)
+			if (Math.abs(r2 - this.ray) > 10) {
 				return null;
+			}
 			return new Point(
 					(int) (this.center.x + (this.ray * (x - this.center.x))
 							/ r2),
@@ -189,9 +193,10 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 				|| ((modifiers == (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK)) && !this.isSimpleRule)) {
 			// Center click or left + shift
 			try {
-				if (this.getRoundedPosition(x, y) != null)
+				if (this.getRoundedPosition(x, y) != null) {
 					this.drag_n_drop_sommet = (SommetDessin) this.vg
 							.en_dessous(x, y);
+				}
 			} catch (NoSuchElementException e) {
 				this.drag_n_drop_sommet = null;
 				this.ancien_pos = new Point(x, y);
@@ -200,8 +205,9 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 			// Right click
 			try {
 				FormeDessin f = this.vg.en_dessous(x, y);
-				if ((f instanceof AreteDessin) || (f instanceof SommetDessin))
+				if ((f instanceof AreteDessin) || (f instanceof SommetDessin)) {
 					this.maybeShowPopup(evt, f);
+				}
 			} catch (NoSuchElementException e) {
 
 			}
@@ -225,10 +231,11 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 			final boolean estSommet = (f instanceof SommetDessin);
 			VueEtatPanel vueEtatPanel = new VueEtatPanel() {
 				public void elementModified(String str) {
-					if (estSommet)
+					if (estSommet) {
 						((SommetDessin) f).setEtat(str);
-					else
+					} else {
 						((AreteDessin) f).setEtat(str);
+					}
 					StarVisuPanel.this.vertexPopup.setVisible(false);
 					StarVisuPanel.this.parent.repaint();
 				}
@@ -262,8 +269,9 @@ public class StarVisuPanel implements MouseListener, MouseMotionListener {
 				}
 				this.vertexPopup.addSeparator();
 			}
-			if (etat == null)
+			if (etat == null) {
 				etat = "N";
+			}
 			EtatPanel etatPanel = new EtatPanel(TableCouleurs
 					.getTableCouleurs(), vueEtatPanel, etat, true);
 			this.vertexPopup.add(etatPanel);

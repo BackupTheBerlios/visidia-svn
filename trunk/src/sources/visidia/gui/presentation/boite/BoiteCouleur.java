@@ -65,8 +65,9 @@ public class BoiteCouleur implements ActionListener {
 		String initialValue = new String(Integer.toString(R) + ","
 				+ Integer.toString(G) + "," + Integer.toString(B));
 		String tmp = new String(label + initialValue);
-		while (tmp.length() < 38)
+		while (tmp.length() < 38) {
 			tmp = tmp + " ";
+		}
 		this.jlabel = new JLabel(tmp);
 		this.panel.add(this.jlabel);
 		this.button = new JButton("Change Color");
@@ -111,8 +112,9 @@ public class BoiteCouleur implements ActionListener {
 					+ Integer.toString(this.getRed()) + ","
 					+ Integer.toString(this.getGreen()) + ","
 					+ Integer.toString(this.getBlue()));
-			while (tmp.length() < 38)
+			while (tmp.length() < 38) {
 				tmp = tmp + " ";
+			}
 			this.jlabel.setText(tmp);
 		}
 	}

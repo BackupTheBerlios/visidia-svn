@@ -122,18 +122,22 @@ public class RelabelingSystem implements Serializable {
 			case SynCT.RDV_LC1:
 				break;
 			}
-			if (!lc1poss && !rdvposs)
+			if (!lc1poss && !rdvposs) {
 				return SynCT.LC2;
+			}
 			i++;
 		}
-		if (rdvposs && !lc1poss)
+		if (rdvposs && !lc1poss) {
 			return SynCT.RDV;
-		if (lc1poss && !rdvposs)
+		}
+		if (lc1poss && !rdvposs) {
 			return SynCT.LC1;
-		if (lc1poss && rdvposs)
+		}
+		if (lc1poss && rdvposs) {
 			return SynCT.RDV_LC1;
-		else
+		} else {
 			return SynCT.LC2;
+		}
 	}
 
 	/**

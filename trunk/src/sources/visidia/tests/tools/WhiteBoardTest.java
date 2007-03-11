@@ -7,6 +7,7 @@ package visidia.tests.tools;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
 
+import junit.framework.Assert;
 import visidia.tools.agents.WhiteBoard;
 
 public class WhiteBoardTest extends junit.framework.TestCase {
@@ -41,8 +42,8 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 	 * Nothing modified, WhiteBoards must returns default values.
 	 */
 	public void testGetDefaults() {
-		assertEquals(new Integer(1), this.wb1.getValue("key1"));
-		assertEquals("2", this.wb1.getValue(new Integer(2)));
+		Assert.assertEquals(new Integer(1), this.wb1.getValue("key1"));
+		Assert.assertEquals("2", this.wb1.getValue(new Integer(2)));
 	}
 
 	/**
@@ -57,7 +58,8 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 			ok = true;
 		}
 
-		assertTrue("Previous getValue() should have raised an Exception", ok);
+		Assert.assertTrue(
+				"Previous getValue() should have raised an Exception", ok);
 
 		ok = false;
 
@@ -67,7 +69,8 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 			ok = true;
 		}
 
-		assertTrue("Previous getValue() should have raised an Exception", ok);
+		Assert.assertTrue(
+				"Previous getValue() should have raised an Exception", ok);
 	}
 
 	/**
@@ -75,9 +78,9 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 	 * value.
 	 */
 	public void testOverrideDefault() {
-		assertEquals(new Integer(1), this.wb1.getValue("key1"));
+		Assert.assertEquals(new Integer(1), this.wb1.getValue("key1"));
 		this.wb1.setValue("key1", new Integer(3));
-		assertEquals(new Integer(3), this.wb1.getValue("key1"));
+		Assert.assertEquals(new Integer(3), this.wb1.getValue("key1"));
 	}
 
 	/**
@@ -86,9 +89,9 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 	 */
 	public void testOverride() {
 		this.wb1.setValue("key1", new Integer(3));
-		assertEquals(new Integer(3), this.wb1.getValue("key1"));
+		Assert.assertEquals(new Integer(3), this.wb1.getValue("key1"));
 		this.wb1.setValue("key1", new Integer(6));
-		assertEquals(new Integer(6), this.wb1.getValue("key1"));
+		Assert.assertEquals(new Integer(6), this.wb1.getValue("key1"));
 	}
 
 	/**
@@ -97,9 +100,9 @@ public class WhiteBoardTest extends junit.framework.TestCase {
 	 * Hashtable (not copying it).
 	 */
 	public void testDoNotCopyDefaults() {
-		assertTrue("Should not copy values (must keep memory space)", this.wb1
-				.getValue(this.key1) == this.value1);
-		assertTrue("Should not copy values (must keep memory space)", this.wb1
-				.getValue(this.key2) == this.value2);
+		Assert.assertTrue("Should not copy values (must keep memory space)",
+				this.wb1.getValue(this.key1) == this.value1);
+		Assert.assertTrue("Should not copy values (must keep memory space)",
+				this.wb1.getValue(this.key2) == this.value2);
 	}
 }

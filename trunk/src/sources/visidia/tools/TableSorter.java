@@ -80,7 +80,8 @@ public class TableSorter extends AbstractTableModel {
 
 	public static final int ASCENDING = 1;
 
-	private static Directive EMPTY_DIRECTIVE = new Directive(-1, NOT_SORTED);
+	private static Directive EMPTY_DIRECTIVE = new Directive(-1,
+			TableSorter.NOT_SORTED);
 
 	public static final Comparator COMPARABLE_COMAPRATOR = new Comparator() {
 		public int compare(Object o1, Object o2) {
@@ -180,7 +181,7 @@ public class TableSorter extends AbstractTableModel {
 				return directive;
 			}
 		}
-		return EMPTY_DIRECTIVE;
+		return TableSorter.EMPTY_DIRECTIVE;
 	}
 
 	public int getSortingStatus(int column) {
@@ -197,10 +198,10 @@ public class TableSorter extends AbstractTableModel {
 
 	public void setSortingStatus(int column, int status) {
 		Directive directive = this.getDirective(column);
-		if (directive != EMPTY_DIRECTIVE) {
+		if (directive != TableSorter.EMPTY_DIRECTIVE) {
 			this.sortingColumns.remove(directive);
 		}
-		if (status != NOT_SORTED) {
+		if (status != TableSorter.NOT_SORTED) {
 			this.sortingColumns.add(new Directive(column, status));
 		}
 		this.sortingStatusChanged();
@@ -208,10 +209,10 @@ public class TableSorter extends AbstractTableModel {
 
 	protected Icon getHeaderRendererIcon(int column, int size) {
 		Directive directive = this.getDirective(column);
-		if (directive == EMPTY_DIRECTIVE) {
+		if (directive == TableSorter.EMPTY_DIRECTIVE) {
 			return null;
 		}
-		return new Arrow(directive.direction == DESCENDING, size,
+		return new Arrow(directive.direction == TableSorter.DESCENDING, size,
 				this.sortingColumns.indexOf(directive));
 	}
 
@@ -236,9 +237,9 @@ public class TableSorter extends AbstractTableModel {
 			return comparator;
 		}
 		if (Comparable.class.isAssignableFrom(columnType)) {
-			return COMPARABLE_COMAPRATOR;
+			return TableSorter.COMPARABLE_COMAPRATOR;
 		}
-		return LEXICAL_COMPARATOR;
+		return TableSorter.LEXICAL_COMPARATOR;
 	}
 
 	private Row[] getViewToModel() {
@@ -336,7 +337,7 @@ public class TableSorter extends AbstractTableModel {
 							.compare(o1, o2);
 				}
 				if (comparison != 0) {
-					return directive.direction == DESCENDING ? -comparison
+					return directive.direction == TableSorter.DESCENDING ? -comparison
 							: comparison;
 				}
 			}
@@ -389,7 +390,7 @@ public class TableSorter extends AbstractTableModel {
 			int column = e.getColumn();
 			if ((e.getFirstRow() == e.getLastRow())
 					&& (column != TableModelEvent.ALL_COLUMNS)
-					&& (TableSorter.this.getSortingStatus(column) == NOT_SORTED)
+					&& (TableSorter.this.getSortingStatus(column) == TableSorter.NOT_SORTED)
 					&& (TableSorter.this.modelToView != null)) {
 				int viewIndex = TableSorter.this.getModelToView()[e
 						.getFirstRow()];

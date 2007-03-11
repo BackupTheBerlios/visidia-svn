@@ -88,7 +88,7 @@ public abstract class AreteDessin extends FormeDessin {
 	public void dessiner(Component c, Graphics g) {
 		if (this.etatArete) {
 			if (this.enlumineBis) {
-				g.setColor(COULEUR_ENLUMINER_BIS);
+				g.setColor(AreteDessin.COULEUR_ENLUMINER_BIS);
 				this.dessinerLigne(g, 7.0f, this.origx, this.origy, this.destx,
 						this.desty);
 			}
@@ -97,7 +97,7 @@ public abstract class AreteDessin extends FormeDessin {
 					this.desty);
 		} else {
 			if (this.enlumineBis) {
-				g.setColor(COULEUR_ENLUMINER_BIS);
+				g.setColor(AreteDessin.COULEUR_ENLUMINER_BIS);
 				this.dessinerLigne(g, 3.0f, this.origx, this.origy, this.destx,
 						this.desty);
 			}
@@ -118,10 +118,11 @@ public abstract class AreteDessin extends FormeDessin {
 
 		if (this.etiquetteEtatArete != null) {
 			g.setColor(Color.blue);
-			if (this.est_enlumine())
+			if (this.est_enlumine()) {
 				g.setFont((this.getVueGraphe()).fontGras());
-			else
+			} else {
 				g.setFont((this.getVueGraphe()).fontNormal());
+			}
 			g.drawString(this.etiquetteEtatArete,
 					(this.origx + this.destx) / 2 + 5,
 					(this.origy + this.desty) / 2);
@@ -214,9 +215,10 @@ public abstract class AreteDessin extends FormeDessin {
 	public void deplacer(int dx, int dy) {
 		((Arete) this.graphObject).origine().getSommetDessin().deplacer(dx, dy);
 		if (((Arete) this.graphObject).origine() != ((Arete) this.graphObject)
-				.destination())
+				.destination()) {
 			((Arete) this.graphObject).destination().getSommetDessin()
 					.deplacer(dx, dy);
+		}
 	}
 
 	// Tests whether the point parameter belongs to the edge
@@ -232,9 +234,10 @@ public abstract class AreteDessin extends FormeDessin {
 					* long_carre - Math.pow(scalaire, 2))
 					/ long_carre;
 			return ((Math.pow(scalaire, 2) < Math.pow(long_carre, 2)) && (distance_carre < Math
-					.pow(precision, 2)));
-		} else
+					.pow(AreteDessin.precision, 2)));
+		} else {
 			return false;
+		}
 	}
 
 	// Tests whether the edge is entirely inside a rectangular zone

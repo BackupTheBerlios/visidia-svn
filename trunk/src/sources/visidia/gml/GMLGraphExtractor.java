@@ -18,7 +18,8 @@ public class GMLGraphExtractor {
 		if (graphElements != null) {
 			Enumeration v_enum = graphElements.getValues("node");
 			while (v_enum.hasMoreElements()) {
-				GMLNode gmlNode = extractNode((GMLList) v_enum.nextElement());
+				GMLNode gmlNode = GMLGraphExtractor
+						.extractNode((GMLList) v_enum.nextElement());
 				graph.put(gmlNode.getId());
 				Vertex vertex = graph.vertex(gmlNode.getId());
 				vertex.setData(gmlNode);
@@ -26,7 +27,8 @@ public class GMLGraphExtractor {
 
 			v_enum = graphElements.getValues("edge");
 			while (v_enum.hasMoreElements()) {
-				GMLEdge gmlEdge = extractEdge((GMLList) v_enum.nextElement());
+				GMLEdge gmlEdge = GMLGraphExtractor
+						.extractEdge((GMLList) v_enum.nextElement());
 				graph.link(gmlEdge.getSourceId(), gmlEdge.getTargetId());
 			}
 		}
@@ -39,7 +41,8 @@ public class GMLGraphExtractor {
 		gmlNode.setLabel((String) list.getValue("label"));
 		GMLList graphicList = (GMLList) list.getValue("graphics");
 		if (graphicList != null) {
-			gmlNode.setGraphics(extractNodeGraphics(graphicList));
+			gmlNode.setGraphics(GMLGraphExtractor
+					.extractNodeGraphics(graphicList));
 		}
 		return gmlNode;
 	}

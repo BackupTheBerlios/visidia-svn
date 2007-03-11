@@ -1,11 +1,12 @@
 package visidia.gui.presentation.userInterfaceEdition;
 
-import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -158,11 +159,11 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 	 * couleur de fond, ...) ayant des valeurs par defaut.
 	 */
 	public Editeur() {
-		this(new Graphe(), COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
-				DIM_Y_PAR_DEFAUT);
+		this(new Graphe(), Fenetre.COULEUR_FOND_PAR_DEFAUT,
+				Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT);
 		this.addWindowListener(this);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.setSize(DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT);
+		this.setSize(Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT);
 		this.pack();
 		this.setVisible(true);
 
@@ -222,8 +223,9 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 		this.addToolBar();
 
 		// On disable les items non-valide pour une applet
-		if (!DistributedAlgoSimulator.estStandalone())
+		if (!DistributedAlgoSimulator.estStandalone()) {
 			this.disableButtonForApplet();
+		}
 
 		this.setContentPane(this.content);
 	}
@@ -240,7 +242,8 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		this.menuBar = new JMenuBar();
 		this.menuBar.setOpaque(true);
-		this.menuBar.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT, 20));
+		this.menuBar.setPreferredSize(new Dimension(Fenetre.DIM_X_PAR_DEFAUT,
+				20));
 
 		// Build the menu File
 		this.file = new JMenu("File");
@@ -417,24 +420,25 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 		this.toolBar = new JToolBar();
 		this.toolBar.setBackground(new Color(120, 120, 120));
 		this.toolBar.setOpaque(true);
-		this.toolBar.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT, 40));
+		this.toolBar.setPreferredSize(new Dimension(Fenetre.DIM_X_PAR_DEFAUT,
+				40));
 
 		// Build buttons on the tool bar
 		this.but_new = new JButton(new ImageIcon(TableImages.getImage("new")));
 		this.but_new.setToolTipText("New");
-		this.but_new.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_new.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_new.addActionListener(this);
 		this.toolBar.add(this.but_new);
 
 		this.but_open = new JButton(new ImageIcon(TableImages.getImage("open")));
 		this.but_open.setToolTipText("Open");
-		this.but_open.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_open.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_open.addActionListener(this);
 		this.toolBar.add(this.but_open);
 
 		this.but_save = new JButton(new ImageIcon(TableImages.getImage("disk")));
 		this.but_save.setToolTipText("Save");
-		this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_save.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_save.addActionListener(this);
 		this.toolBar.add(this.but_save);
 
@@ -443,27 +447,27 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 		this.but_duplicate = new JButton(new ImageIcon(TableImages
 				.getImage("duplicate")));
 		this.but_duplicate.setToolTipText("Duplicate");
-		this.but_duplicate.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_duplicate.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_duplicate.addActionListener(this);
 		this.toolBar.add(this.but_duplicate);
 
 		this.but_undo = new JButton(new ImageIcon(TableImages.getImage("undo")));// "visidia/gui/donnees/images/undo.gif"));
 		this.but_undo.setToolTipText("Undo");
-		this.but_undo.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_undo.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_undo.addActionListener(this);
 		this.but_undo.setEnabled(false);
 		this.toolBar.add(this.but_undo);
 
 		this.but_redo = new JButton(new ImageIcon(TableImages.getImage("redo")));// "visidia/gui/donnees/images/redo.gif"));
 		this.but_redo.setToolTipText("Redo");
-		this.but_redo.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_redo.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_redo.addActionListener(this);
 		this.but_redo.setEnabled(false);
 		this.toolBar.add(this.but_redo);
 
 		this.but_info = new JButton(new ImageIcon(TableImages.getImage("info")));// "visidia/gui/donnees/images/info.gif"));
 		this.but_info.setToolTipText("Properties");
-		this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_info.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_info.addActionListener(this);
 		this.toolBar.add(this.but_info);
 
@@ -471,7 +475,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));// "visidia/gui/donnees/images/aide.gif"));
 		this.but_help.setToolTipText("Help");
-		this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_help.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_help.addActionListener(this);
 		this.toolBar.add(this.but_help);
 
@@ -479,7 +483,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		this.but_simulation = new JButton("simulation");
 		this.but_simulation.setToolTipText("simulation");
-		this.but_simulation.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_simulation.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_simulation.addActionListener(this);
 		this.toolBar.add(this.but_simulation);
 
@@ -487,7 +491,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		this.but_agents_simulation = new JButton("Agent Simulation");
 		this.but_agents_simulation.setToolTipText("Agent Simulation");
-		this.but_agents_simulation.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_agents_simulation.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_agents_simulation.addActionListener(this);
 		this.toolBar.add(this.but_agents_simulation);
 
@@ -495,7 +499,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		this.but_simulation_distribue = new JButton("Network Simulation");
 		this.but_simulation_distribue.setToolTipText("Network Simualtion");
-		this.but_simulation_distribue.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_simulation_distribue.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_simulation_distribue.addActionListener(this);
 		this.toolBar.add(this.but_simulation_distribue);
 
@@ -585,10 +589,11 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 	 * les menus déroulants et les boutons de la barre d'outils.
 	 */
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() instanceof JMenuItem)
+		if (evt.getSource() instanceof JMenuItem) {
 			this.action_menu((JMenuItem) evt.getSource());
-		else if (evt.getSource() instanceof JButton)
+		} else if (evt.getSource() instanceof JButton) {
 			this.action_toolbar((JButton) evt.getSource());
+		}
 	}
 
 	/**
@@ -600,12 +605,13 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 		if (le_menu == "PopFile") {
 			this.menuFile(mi);
-		} else if (le_menu == "PopEdition")
+		} else if (le_menu == "PopEdition") {
 			this.menuEdition(mi);
-		else if (le_menu == "PopTransformation")
+		} else if (le_menu == "PopTransformation") {
 			this.menuTransformation(mi);
-		else if (le_menu == "PopOption")
+		} else if (le_menu == "PopOption") {
 			this.menuOption(mi);
+		}
 	}
 
 	/**
@@ -643,9 +649,9 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			this.grapheVisuPanel.repaint();
 		}
 
-		else if (b == this.but_info)
+		else if (b == this.but_info) {
 			this.commandeProprietes();
-		else if (b == this.but_help)
+		} else if (b == this.but_help) {
 			JOptionPane
 					.showMessageDialog(
 							this,
@@ -667,7 +673,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 									+ "    Right mouse button\n"
 
 					);
-		else if (b == this.but_open) {
+		} else if (b == this.but_open) {
 
 			OpenGraph.open(this);
 			this.grapheVisuPanel.setPreferredSize(this.vueGraphe
@@ -675,10 +681,11 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			this.grapheVisuPanel.revalidate();
 
 			this.grapheVisuPanel.scrollRectToVisible(new Rectangle(
-					DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT, 0, 0));
+					Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT, 0, 0));
 			this.grapheVisuPanel.repaint();
-		} else if (b == this.but_save)
+		} else if (b == this.but_save) {
 			SaveFile.save(this, this.vueGraphe.getGraphe());
+		}
 	}
 
 	/** Méthode de traitement des fonctionnalités du menu File. * */
@@ -690,24 +697,24 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 					.donnerDimension());
 			this.grapheVisuPanel.revalidate();
 			this.grapheVisuPanel.scrollRectToVisible(new Rectangle(
-					DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT, 0, 0));
+					Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT, 0, 0));
 			this.grapheVisuPanel.repaint();
 
 		} else if (mi == this.file_new) {
 			NewGraph.newGraphe(this);
 			this.grapheVisuPanel.repaint();
-		} else if (mi == this.file_save)
+		} else if (mi == this.file_save) {
 			SaveFile.save(this, this.vueGraphe.getGraphe());
-		else if (mi == this.file_save_as) {
+		} else if (mi == this.file_save_as) {
 			this.fichier_edite = null;
 			SaveFile.saveAs(this, this.vueGraphe.getGraphe());
 		} else if (mi == this.file_gml_export) {
 			GMLParser.export(this, this.vueGraphe.getGraphe());
 		} else if (mi == this.file_gml_import) {
 			this.importGMLGraph();
-		} else if (mi == this.file_refresh)
+		} else if (mi == this.file_refresh) {
 			this.grapheVisuPanel.repaint();
-		else if (mi == this.file_help) {
+		} else if (mi == this.file_help) {
 			JOptionPane
 					.showMessageDialog(
 							this,
@@ -739,23 +746,24 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 									+ "  standalone !!\n"
 									+ "* select a vertex before using\n"
 									+ "  random walk simulation\n" + " \n");
-		} else if (mi == this.file_close)
+		} else if (mi == this.file_close) {
 			this.commandeClose();
-		else if (mi == this.file_quit)
+		} else if (mi == this.file_quit) {
 			System.exit(0);
+		}
 	}
 
 	/** Methode de traitement des fonctionnalites du menu Edition. * */
 	public void menuEdition(JMenuItem mi) {
-		if (mi == this.edition_properties)
+		if (mi == this.edition_properties) {
 			this.commandeProprietes();
-		else if (mi == this.edition_duplication)
+		} else if (mi == this.edition_duplication) {
 			this.commandeDupliquer();
-		else if (mi == this.edition_cut)
+		} else if (mi == this.edition_cut) {
 			this.commandeSupprimer();
-		else if (mi == this.edition_select_all)
+		} else if (mi == this.edition_select_all) {
 			this.commandeToutSelectionner();
-		else if (mi == this.edition_undo) {
+		} else if (mi == this.edition_undo) {
 			this.undoInfo.undo();
 			this.setUndo();
 		} else if (mi == this.edition_redo) {
@@ -775,16 +783,13 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 	/** Methode de traitement des fonctionnalites du menu Transformation. * */
 	public void menuTransformation(JMenuItem mi) {
-		if (mi == this.transformation_complete)
+		if (mi == this.transformation_complete) {
 			this.commandeCompleter();
-
-		else if (mi == this.transformation_cut_edges)
+		} else if (mi == this.transformation_cut_edges) {
 			this.commandeSupprimerAretes();
-
-		else if (mi == this.transformation_renumeroter)
+		} else if (mi == this.transformation_renumeroter) {
 			this.commandeRenumeroter();
-
-		else if (mi == this.transformation_change_shape_edges) {
+		} else if (mi == this.transformation_change_shape_edges) {
 			this.deSelect(this.selection);
 			BoiteChangingEdgeShape changeBox = new BoiteChangingEdgeShape(this,
 					this.vueGraphe);
@@ -796,20 +801,18 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			BoiteChangingVertexShape changeBox = new BoiteChangingVertexShape(
 					this, this.vueGraphe);
 			changeBox.show();
-		}
-
-		else
+		} else {
 			return;
+		}
 
 		this.grapheVisuPanel.repaint();
 	}
 
 	/** Methode de traitement des fonctionnalites du menu Options. * */
 	public void menuOption(JMenuItem mi) {
-		if (mi == this.option_labels)
+		if (mi == this.option_labels) {
 			this.vueGraphe.afficherEtiquettes(this.option_labels.getState());
-
-		else if (mi == this.option_dictionnaire) {
+		} else if (mi == this.option_dictionnaire) {
 
 			BoiteChoix boiteChoix = new BoiteChoix(this,
 					"tableau de choix des couleurs");
@@ -880,9 +883,10 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 			} else {
 				MultiEnsemble table_des_types = new MultiEnsemble();
-				while (e.hasMoreElements())
+				while (e.hasMoreElements()) {
 					table_des_types.inserer(((FormeDessin) e.nextElement())
 							.type());
+				}
 
 				BoiteSelection.show(this, taille_selection, table_des_types);
 			}
@@ -917,9 +921,10 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 					"Complete selection");
 			e = Traitements.completersousGraphe(this.selection.elements());
 		}
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			this.undoInfo
 					.addInfo(new AjouteObjet((FormeDessin) e.nextElement()));
+		}
 		this.setUndo();
 	}
 
@@ -940,8 +945,9 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			Stack<AreteDessin> pileTmp = new Stack<AreteDessin>();
 			while (e.hasMoreElements()) {
 				FormeDessin f = (FormeDessin) e.nextElement();
-				if (f.type().equals("edge"))
+				if (f.type().equals("edge")) {
 					pileTmp.push((AreteDessin) f);
+				}
 			}
 			if (!pileTmp.isEmpty()) {
 				this.undoInfo.newGroup("Restore edges in the graph",
@@ -957,8 +963,9 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			Stack<AreteDessin> pileTmp = new Stack<AreteDessin>();
 			while (e.hasMoreElements()) {
 				FormeDessin f = (FormeDessin) e.nextElement();
-				if (f.type().equals("edge"))
+				if (f.type().equals("edge")) {
 					pileTmp.push((AreteDessin) f);
+				}
 			}
 			if (!pileTmp.isEmpty()) {
 				this.undoInfo.newGroup("Restore edges in the graph",
@@ -980,9 +987,10 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 	public void commandeViderSelection(boolean deselect) { // Penser au
 		// repaint()
 		if (!this.selection.estVide()) {
-			if (deselect)
+			if (deselect) {
 				this.deSelect(this.selection); // deselection with creating
-			// undo group
+				// undo group
+			}
 		}
 		this.setUndo();
 	}
@@ -1036,9 +1044,10 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 
 			this.undoInfo.newGroup("Cancel duplication", "Duplicate");
 			Enumeration e = this.selection.elements();
-			while (e.hasMoreElements())
+			while (e.hasMoreElements()) {
 				this.undoInfo.addInfo(new AjouteObjet((FormeDessin) e
 						.nextElement()));
+			}
 			this.setUndo();
 		}
 	}
@@ -1182,8 +1191,8 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 		this.content.remove(this.scroller);
 		this.grapheVisuPanel = unGrapheVisuPanel;
 		this.scroller = new JScrollPane(this.grapheVisuPanel);
-		this.scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,
-				DIM_Y_PAR_DEFAUT));
+		this.scroller.setPreferredSize(new Dimension(Fenetre.DIM_X_PAR_DEFAUT,
+				Fenetre.DIM_Y_PAR_DEFAUT));
 		this.scroller.setOpaque(true);
 		this.content.add(this.scroller, BorderLayout.CENTER);
 	}
@@ -1194,8 +1203,9 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() instanceof JCheckBoxMenuItem)
+		if (e.getSource() instanceof JCheckBoxMenuItem) {
 			this.menuOption((JMenuItem) e.getSource());
+		}
 	}
 
 	public void creerFenetreSimulation() {
@@ -1203,7 +1213,7 @@ public class Editeur extends Fenetre implements ActionListener, WindowListener,
 			this.selection.deSelect();
 			this.fenetreDeSimulation = new FenetreDeSimulation(this.vueGraphe
 					.cloner(), this.fichier_edite, this);
-			fenetreDeSimulation.setVisible(true);
+			this.fenetreDeSimulation.setVisible(true);
 
 		} catch (Exception excpt) {
 			System.out.println("Problem: " + excpt);

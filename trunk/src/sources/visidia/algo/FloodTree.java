@@ -1,7 +1,6 @@
 package visidia.algo;
 
 import visidia.misc.MarkedState;
-//import visidia.misc.Message;
 import visidia.misc.StringMessage;
 import visidia.simulation.Algorithm;
 import visidia.simulation.Door;
@@ -45,8 +44,9 @@ public class FloodTree extends Algorithm {
 			 * in the tree
 			 */
 			for (int i = 0; i < nodeDegree; i++) {
-				if (i != parentDoor)
+				if (i != parentDoor) {
 					this.sendTo(i, new StringMessage("WAVE"));
+				}
 			}
 			/*
 			 * other message are ignored and the node locally terminates: no

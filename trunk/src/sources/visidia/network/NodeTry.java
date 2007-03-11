@@ -228,7 +228,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 			this.algorithm.setServer(this);
 			this.thread = new Thread(this.threadGroup, this.algorithm);
 			this.thread = new Thread(this.algorithm);
-			this.thread.setPriority(THREAD_PRIORITY);
+			this.thread.setPriority(NodeTry.THREAD_PRIORITY);
 		} catch (Exception e) {
 			System.out
 					.println("Erreur lors de la creation du thread : startServer");
@@ -329,10 +329,11 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	public void setNodeDrawingMessage(boolean bool) throws RemoteException {
 		synchronized (this.propsObject) {
 			if (bool != this.drawMessage) {
-				if (bool)
+				if (bool) {
 					this.props.put("draw messages", "yes");
-				else
+				} else {
 					this.props.put("draw messages", "no");
+				}
 			}
 			this.drawMessage = bool;
 		}
@@ -346,10 +347,11 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 			this.props = properties;
 		}
 		boolean drawMessageNewValue;
-		if (((String) properties.get("draw messages")).equals("yes"))
+		if (((String) properties.get("draw messages")).equals("yes")) {
 			drawMessageNewValue = true;
-		else
+		} else {
 			drawMessageNewValue = false;
+		}
 
 		if (drawMessageNewValue != this.drawMessage) {
 			this.drawMessage = drawMessageNewValue;
@@ -520,8 +522,9 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 			throws RemoteException {
 		synchronized (this.propsObject) {
 			this.props.put(key, value);
-			if (this.drawMessage)
+			if (this.drawMessage) {
 				this.pushNodePropertyChangeEvent(nodeId, key, value);
+			}
 
 		}
 	}

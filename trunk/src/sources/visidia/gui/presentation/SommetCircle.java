@@ -44,18 +44,19 @@ public class SommetCircle extends SommetDessin {
 
 	// Agrandit la taille du sommet de "coef" fois
 	public void agrandir(float coef) {
-		if (coef > 0)
-			monCote = (int) (coef * monCote);
+		if (coef > 0) {
+			SommetCircle.monCote = (int) (coef * SommetCircle.monCote);
+		}
 	}
 
 	// Retourne le cote du sommet carre
 	public int getCote() {
-		return monCote;
+		return SommetCircle.monCote;
 	}
 
 	// Modifie le cote du sommet carre
 	public void setCote(int cote) {
-		monCote = cote;
+		SommetCircle.monCote = cote;
 		this.vueGraphe.setFontSize(((float) cote / 3) + 1);
 	}
 
@@ -79,14 +80,16 @@ public class SommetCircle extends SommetDessin {
 		int cote_sur_2 = cote / 2;
 
 		// Dessin de la forme cercke du sommet
-		if (this.est_enlumine())
+		if (this.est_enlumine()) {
 			g.setColor(this.couleur_fond);
-		else
+		} else {
 			g.setColor(this.couleur_trait);
+		}
 
 		// La bordure est rouge si enluminerBis
-		if (this.est_enlumineBis())
+		if (this.est_enlumineBis()) {
 			g.setColor(Color.red);
+		}
 
 		// dessin du conteur
 		g.drawOval(this.posx - cote_sur_2 - 1, this.posy - cote_sur_2 - 1,
@@ -99,10 +102,11 @@ public class SommetCircle extends SommetDessin {
 		// affichage de l'etiquette
 		if ((this.getVueGraphe()).afficherEtiquettes()) {
 			g.setColor(Color.blue);
-			if (this.est_enlumine())
+			if (this.est_enlumine()) {
 				g.setFont((this.getVueGraphe()).fontGras());
-			else
+			} else {
 				g.setFont((this.getVueGraphe()).fontNormal());
+			}
 			g.drawString((this.getEtiquette()) + " , " + this.getEtat(), x
 					- cote / 2, y + cote + 8);
 		}
@@ -118,17 +122,17 @@ public class SommetCircle extends SommetDessin {
 
 	// Teste si le point donne en parametre appartient au sommet
 	public boolean appartient(int x, int y) {
-		return ((Math.abs(this.posx - x) <= (monCote / 2)) && (Math
-				.abs(this.posy - y) <= (monCote / 2)));
+		return ((Math.abs(this.posx - x) <= (SommetCircle.monCote / 2)) && (Math
+				.abs(this.posy - y) <= (SommetCircle.monCote / 2)));
 	}
 
 	// Teste si le sommet est contenu en entier dans une zone rectangulaire.
 	// (x1, y1) coordonnees en haut a gauche et (x2, y2) coordonnees en bas a
 	// droite.
 	public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-		return ((x1 <= (this.posx - (monCote / 2)))
-				&& (y1 <= (this.posy - (monCote / 2)))
-				&& (x2 >= (this.posx + (monCote / 2))) && (y2 >= (this.posy + (monCote / 2))));
+		return ((x1 <= (this.posx - (SommetCircle.monCote / 2)))
+				&& (y1 <= (this.posy - (SommetCircle.monCote / 2)))
+				&& (x2 >= (this.posx + (SommetCircle.monCote / 2))) && (y2 >= (this.posy + (SommetCircle.monCote / 2))));
 	}
 
 	// returns the distance from the center to determines the positions of edges
@@ -136,7 +140,7 @@ public class SommetCircle extends SommetDessin {
 		float tempo = Math.abs(angle);
 
 		tempo = Math.min(tempo, (float) Math.PI - tempo);
-		return monCote
+		return SommetCircle.monCote
 				/ (float) (2 * Math.cos(Math.min(tempo, (float) Math.PI / 2
 						- tempo)));
 	}

@@ -42,8 +42,9 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
 	}
 
 	public void putProperty(String key, Object value) {
-		if (!this.keys.contains(key))
+		if (!this.keys.contains(key)) {
 			this.keys.add(key);
+		}
 		this.defProps.put(key, value);
 		this.fireTableDataChanged();
 	}
@@ -105,30 +106,31 @@ public class PropertyTableModel extends AbstractPropertyTableModel {
 
 		try {
 
-			if (obj instanceof String)
+			if (obj instanceof String) {
 				this.defProps.put(this.keys.elementAt(row), value);
-			else if (obj instanceof Integer) {
+			} else if (obj instanceof Integer) {
 				this.defProps.put(this.keys.elementAt(row), Integer
 						.decode(value));
-			} else if (obj instanceof Byte)
+			} else if (obj instanceof Byte) {
 				this.defProps.put(this.keys.elementAt(row), Byte.decode(value));
-			else if (obj instanceof Character)
+			} else if (obj instanceof Character) {
 				this.defProps.put(this.keys.elementAt(row), value.charAt(0));
-			else if (obj instanceof Double)
+			} else if (obj instanceof Double) {
 				this.defProps.put(this.keys.elementAt(row), Double
 						.parseDouble(value));
-			else if (obj instanceof Float)
+			} else if (obj instanceof Float) {
 				this.defProps.put(this.keys.elementAt(row), Float
 						.parseFloat(value));
-			else if (obj instanceof Long)
+			} else if (obj instanceof Long) {
 				this.defProps.put(this.keys.elementAt(row), Long
 						.parseLong(value));
-			else if (obj instanceof Short)
+			} else if (obj instanceof Short) {
 				this.defProps.put(this.keys.elementAt(row), Short
 						.parseShort(value));
-			else if (obj instanceof Boolean)
+			} else if (obj instanceof Boolean) {
 				this.defProps.put(this.keys.elementAt(row), Boolean
 						.parseBoolean(value));
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning",
 					JOptionPane.WARNING_MESSAGE);

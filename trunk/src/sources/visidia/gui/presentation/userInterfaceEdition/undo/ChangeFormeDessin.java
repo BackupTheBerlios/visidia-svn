@@ -50,10 +50,11 @@ public class ChangeFormeDessin implements UndoObject {
 	}
 
 	private void miseAJourModel(FormeDessin f) {
-		if (f.type().equals("vertex"))
+		if (f.type().equals("vertex")) {
 			((SommetDessin) f).getSommet().setSommetDessin((SommetDessin) f);
-		else if (f.type().equals("edge"))
+		} else if (f.type().equals("edge")) {
 			((AreteDessin) f).getArete().setAreteDessin((AreteDessin) f);
+		}
 	}
 
 	public FormeDessin content() {

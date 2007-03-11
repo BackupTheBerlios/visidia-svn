@@ -31,9 +31,10 @@ public class ChoiceMessage2 extends JMenu implements ActionListener {
 
 	public ChoiceMessage2(AlgoChoice algoChoice) {
 		super("Messages Type");
-		if (algoChoice.getTableAlgo().isEmpty())// before choosing any algo from
+		if (algoChoice.getTableAlgo().isEmpty()) {
 			// the list
 			this.menusNames = new LinkedList();
+		}
 	}
 
 	public void setListTypes(Collection lt) {

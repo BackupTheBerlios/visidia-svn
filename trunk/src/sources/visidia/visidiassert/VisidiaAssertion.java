@@ -3,14 +3,16 @@ package visidia.visidiassert;
 public class VisidiaAssertion {
 	public static void verify(boolean condition, String assertion,
 			Object uneInstance) {
-		if (debogage) {
-			if (condition)
+		if (VisidiaAssertion.debogage) {
+			if (condition) {
 				return;
-			else
+			} else {
 				throw new AssertionException("Assertion -> " + assertion
 						+ " in Class " + uneInstance.getClass().getName());
-		} else
+			}
+		} else {
 			return;
+		}
 	}
 
 	private static final boolean debogage = true;

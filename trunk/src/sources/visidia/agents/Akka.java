@@ -13,8 +13,9 @@ public class Akka extends SynchronizedAgent {
 		Random rand = new Random();
 		while (true) {
 			int i = rand.nextInt(this.getArity() + 1);
-			if (i < this.getArity())
+			if (i < this.getArity()) {
 				this.moveToDoor(i);
+			}
 
 			this.nextPulse();
 

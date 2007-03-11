@@ -70,8 +70,9 @@ public class SynchroLC1 extends Algorithm {
 		/* get the max */
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		/* results */

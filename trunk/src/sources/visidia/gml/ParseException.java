@@ -111,8 +111,9 @@ public class ParseException extends Exception {
 		String retval = "Encountered \"";
 		Token tok = this.currentToken.next;
 		for (int i = 0; i < maxSize; i++) {
-			if (i != 0)
+			if (i != 0) {
 				retval += " ";
+			}
 			if (tok.kind == 0) {
 				retval += this.tokenImage[0];
 				break;

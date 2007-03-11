@@ -44,9 +44,9 @@ public class SaveRules extends JFileChooser {
 		super(path);
 		this.path = path;
 
-		nombre++;
-		this.validFile = new File(path, "noname_" + Integer.toString(nombre)
-				+ ".rule");
+		SaveRules.nombre++;
+		this.validFile = new File(path, "noname_"
+				+ Integer.toString(SaveRules.nombre) + ".rule");
 		this.setSelectedFile(this.validFile);
 		this.parent = parent;
 
@@ -106,7 +106,7 @@ public class SaveRules extends JFileChooser {
 	 */
 
 	public void cancelSelection() {
-		nombre--;
+		SaveRules.nombre--;
 		if (this.getSelectedFile() == null) {
 			JOptionPane.showMessageDialog(this,
 					"You must choose a file to save your rules in !",
@@ -129,11 +129,11 @@ public class SaveRules extends JFileChooser {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				f = st.getSelectedFile();
 				try {
-					fos = new FileOutputStream(f);
-					oos = new ObjectOutputStream(fos);
-					oos.writeObject(listRules);
-					oos.close();
-					fos.close();
+					SaveRules.fos = new FileOutputStream(f);
+					SaveRules.oos = new ObjectOutputStream(SaveRules.fos);
+					SaveRules.oos.writeObject(listRules);
+					SaveRules.oos.close();
+					SaveRules.fos.close();
 
 				} catch (IOException e) {
 					System.out.println("Problem: " + e);
@@ -141,12 +141,12 @@ public class SaveRules extends JFileChooser {
 			}
 		} else {
 			try {
-				fos = new FileOutputStream(f);
-				oos = new ObjectOutputStream(fos);
-				oos.writeObject(listRules);
+				SaveRules.fos = new FileOutputStream(f);
+				SaveRules.oos = new ObjectOutputStream(SaveRules.fos);
+				SaveRules.oos.writeObject(listRules);
 
-				oos.close();
-				fos.close();
+				SaveRules.oos.close();
+				SaveRules.fos.close();
 
 			} catch (IOException e) {
 				System.out.println("Problem: " + e);
@@ -162,12 +162,12 @@ public class SaveRules extends JFileChooser {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			f = st.getSelectedFile();
 			try {
-				fos = new FileOutputStream(f);
-				oos = new ObjectOutputStream(fos);
-				oos.writeObject(listRules);
+				SaveRules.fos = new FileOutputStream(f);
+				SaveRules.oos = new ObjectOutputStream(SaveRules.fos);
+				SaveRules.oos.writeObject(listRules);
 
-				oos.close();
-				fos.close();
+				SaveRules.oos.close();
+				SaveRules.fos.close();
 
 			} catch (IOException e) {
 				System.out.println("Problem: " + e);

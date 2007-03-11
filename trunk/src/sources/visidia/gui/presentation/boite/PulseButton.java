@@ -2,6 +2,7 @@ package visidia.gui.presentation.boite;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -53,7 +54,7 @@ public class PulseButton extends JButton implements ActionListener,
 	public PulseButton() {
 		super();
 		this.addActionListener(this);
-		this.setAlignmentY(CENTER_ALIGNMENT);
+		this.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.initState();
 	}
 

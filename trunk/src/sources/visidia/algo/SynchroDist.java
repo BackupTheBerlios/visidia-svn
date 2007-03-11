@@ -26,9 +26,9 @@ public class SynchroDist extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(SynchroDist.synchronization);
+		typesList.add(SynchroDist.labels);
+		typesList.add(SynchroDist.termination);
 		return typesList;
 	}
 
@@ -78,12 +78,18 @@ public class SynchroDist extends Algorithm {
 			do {
 
 				if ((myL.compareTo(nodeA) == 0) && (!fir)) {
-					if (father == -1)
-						this.sendAll(new StringMessage(myL, labels));
-					else
-						for (int j = 0; j < this.getArity(); j++)
-							if (j != father)
-								this.sendTo(j, new StringMessage(myL, labels));
+					if (father == -1) {
+						this
+								.sendAll(new StringMessage(myL,
+										SynchroDist.labels));
+					} else {
+						for (int j = 0; j < this.getArity(); j++) {
+							if (j != father) {
+								this.sendTo(j, new StringMessage(myL,
+										SynchroDist.labels));
+							}
+						}
+					}
 					fir = true;
 				}
 
@@ -116,8 +122,9 @@ public class SynchroDist extends Algorithm {
 
 				if (label[i].compareTo(nodeA) == 0) {
 					countA++;
-					if (father == -1)
+					if (father == -1) {
 						father = i;
+					}
 				}
 
 				if (label[i].compareTo(nodeL) == 0) {
@@ -133,25 +140,30 @@ public class SynchroDist extends Algorithm {
 					myState = myL + "," + ssy;
 					this.putProperty("label", myState);
 
-					this.sendTo(father, new StringMessage(nodeL, labels));
+					this.sendTo(father, new StringMessage(nodeL,
+							SynchroDist.labels));
 					this.setDoorState(new MarkedState(true), father);
 				}
 				count++;
 			} while (count < this.getArity());
 
-			if (countA == this.getArity())
+			if (countA == this.getArity()) {
 				myL = nodeN;
+			}
 
 			fir = false;
 
 			countL = 0;
 
-			for (int j = 0; j < this.getArity(); j++)
-				if (neighbours[j])
+			for (int j = 0; j < this.getArity(); j++) {
+				if (neighbours[j]) {
 					countL++;
+				}
+			}
 
-			if (countL == 1)
+			if (countL == 1) {
 				myL = nodeN;
+			}
 
 			ssy = new String((new Integer(mySynchro)).toString());
 			myState = myL + "," + ssy;
@@ -164,7 +176,8 @@ public class SynchroDist extends Algorithm {
 					 * sendTo(j,new StringMessage(nodeF,labels));
 					 */
 					// if (father!=-1) {
-					this.sendTo(father, new StringMessage(nodeF, labels));
+					this.sendTo(father, new StringMessage(nodeF,
+							SynchroDist.labels));
 					neighbours[father] = false;
 					countL--;
 					// }
@@ -183,8 +196,9 @@ public class SynchroDist extends Algorithm {
 					}
 					this.setDoorState(new MarkedState(false), i);
 
-					if (countL == 1)
+					if (countL == 1) {
 						myL = nodeN;
+					}
 					if (countL == 0) {
 						myL = nodeA;
 						mySynchro++;

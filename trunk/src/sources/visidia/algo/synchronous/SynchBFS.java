@@ -16,7 +16,7 @@ public class SynchBFS extends SyncAlgorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(wave);
+		typesList.add(SynchBFS.wave);
 
 		return typesList;
 	}
@@ -33,7 +33,7 @@ public class SynchBFS extends SyncAlgorithm {
 		while (run) {
 			if (id == 1) {
 				this.putProperty("label", new String("R"));
-				this.sendAll(new StringMessage("WAVE", wave));
+				this.sendAll(new StringMessage("WAVE", SynchBFS.wave));
 				run = false;
 				this.nextPulse();
 			} else {
@@ -45,7 +45,7 @@ public class SynchBFS extends SyncAlgorithm {
 					this.setDoorState(new MarkedState(true), door.getNum());
 					this.putProperty("label", new String("L"));
 					// j'envoi à tout le monde
-					this.sendAll(new StringMessage("WAVE", wave));
+					this.sendAll(new StringMessage("WAVE", SynchBFS.wave));
 					run = false;
 				}
 				this.nextPulse();

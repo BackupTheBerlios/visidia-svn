@@ -64,8 +64,9 @@ public class MyVector extends Vector implements Serializable {
 		Iterator it = this.randIterator();
 		while (it.hasNext()) {
 			n = (Neighbour) it.next();
-			if (n.equals(nei))
+			if (n.equals(nei)) {
 				return ((Vector) this).indexOf(n);
+			}
 		}
 		return -1;
 	}
@@ -82,8 +83,9 @@ public class MyVector extends Vector implements Serializable {
 		Iterator it = this.randIterator();
 		while (it.hasNext()) {
 			n = (Neighbour) it.next();
-			if (n.sameState(nei))
+			if (n.sameState(nei)) {
 				return ((Vector) this).indexOf(n);
+			}
 		}
 		return -1;
 	}
@@ -118,8 +120,9 @@ public class MyVector extends Vector implements Serializable {
 		Iterator it = this.randIterator();
 		while (it.hasNext()) {
 			n = (Rule) it.next();
-			if (n.equals(r))
+			if (n.equals(r)) {
 				return this.indexOf(n);
+			}
 		}
 		return -1;
 	}

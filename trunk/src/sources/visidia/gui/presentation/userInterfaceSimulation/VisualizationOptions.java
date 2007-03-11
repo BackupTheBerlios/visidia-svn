@@ -69,8 +69,9 @@ public final class VisualizationOptions extends JMenu implements ActionListener 
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() instanceof JMenuItem)
+		if (evt.getSource() instanceof JMenuItem) {
 			this.reactionVisuOptions.action((JMenuItem) evt.getSource());
+		}
 	}
 
 	// Methodes

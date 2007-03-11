@@ -40,9 +40,9 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(Sequential_Spanning_Tree_LC2.synchronization);
+		typesList.add(Sequential_Spanning_Tree_LC2.labels);
+		typesList.add(Sequential_Spanning_Tree_LC2.termination);
 		return typesList;
 	}
 
@@ -57,110 +57,147 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 		int pere = -1;
 
 		finishedNode = new boolean[this.getArity()];
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			finishedNode[i] = false;
+		}
 
 		neighboursLabel = new String[this.getArity()];
 
 		while (run) {
 
 			synchro = this.starSynchro(finishedNode);
-			if (synchro == -3)
+			if (synchro == -3) {
 				run = false;
-			else if (synchro == this.starCenter) {
+			} else if (synchro == this.starCenter) {
 				int neighbourA = -1;
 				int neighbourM = -1;
 				int neighbourN = -1;
 				int nbreN = 0;
 				int nbreF = 0;
 
-				for (int door = 0; door < this.getArity(); door++)
+				for (int door = 0; door < this.getArity(); door++) {
 					if (!finishedNode[door]) {
 						neighboursLabel[door] = ((StringMessage) this
 								.receiveFrom(door)).data();
 
-						if (neighboursLabel[door].compareTo(this.aNode) == 0)
+						if (neighboursLabel[door].compareTo(this.aNode) == 0) {
 							neighbourA = door;
+						}
 
 						if (neighboursLabel[door].compareTo(this.nNode) == 0) {
 							nbreN++;
 							neighbourN = door;
 						}
 
-						if (neighboursLabel[door].compareTo(this.fNode) == 0)
+						if (neighboursLabel[door].compareTo(this.fNode) == 0) {
 							nbreF++;
+						}
 
 						if ((neighboursLabel[door].compareTo(this.mNode) == 0)
-								&& (door == pere))
+								&& (door == pere)) {
 							neighbourM = door;
+						}
 
 					}
+				}
 				if ((((String) this.getProperty("label")).compareTo(this.aNode) == 0)
-						&& (nbreF == this.getArity()))
+						&& (nbreF == this.getArity())) {
 					run = false;
+				}
 
 				if ((((String) this.getProperty("label")).compareTo(this.nNode) == 0)
 						&& (neighbourA != -1)) {
 					this.putProperty("label", new String(this.aNode));
 					this.setDoorState(new MarkedState(true), neighbourA);
 					pere = neighbourA;
-					for (int door = 0; door < this.getArity(); door++)
+					for (int door = 0; door < this.getArity(); door++) {
 						if (!finishedNode[door]) {
-							if (door != neighbourA)
+							if (door != neighbourA) {
 								this.sendTo(door, new StringMessage(
-										neighboursLabel[door], labels));
-							else
+										neighboursLabel[door],
+										Sequential_Spanning_Tree_LC2.labels));
+							} else {
 								this.sendTo(door, new StringMessage(new String(
-										"M"), labels));
+										"M"),
+										Sequential_Spanning_Tree_LC2.labels));
+							}
 						}
+					}
 				} else {
 					if ((((String) this.getProperty("label"))
 							.compareTo(this.aNode) == 0)
 							&& (neighbourM != -1) && (nbreN == 0)) {
 						this.putProperty("label", new String(this.fNode));
-						for (int door = 0; door < this.getArity(); door++)
+						for (int door = 0; door < this.getArity(); door++) {
 							if (!finishedNode[door]) {
-								if (door != neighbourM)
-									this.sendTo(door, new StringMessage(
-											neighboursLabel[door], labels));
-								else
-									this.sendTo(door, new StringMessage(
-											new String("A"), labels));
+								if (door != neighbourM) {
+									this
+											.sendTo(
+													door,
+													new StringMessage(
+															neighboursLabel[door],
+															Sequential_Spanning_Tree_LC2.labels));
+								} else {
+									this
+											.sendTo(
+													door,
+													new StringMessage(
+															new String("A"),
+															Sequential_Spanning_Tree_LC2.labels));
+								}
 							}
+						}
 					} else if ((((String) this.getProperty("label"))
 							.compareTo(this.aNode) == 0)
 							&& (neighbourN != -1)) {
 						this.putProperty("label", new String(this.mNode));
 						this.setDoorState(new MarkedState(true), neighbourN);
-						for (int door = 0; door < this.getArity(); door++)
+						for (int door = 0; door < this.getArity(); door++) {
 							if (!finishedNode[door]) {
-								if (door != neighbourN)
-									this.sendTo(door, new StringMessage(
-											neighboursLabel[door], labels));
-								else
-									this.sendTo(door, new StringMessage(
-											new String("A"), labels));
+								if (door != neighbourN) {
+									this
+											.sendTo(
+													door,
+													new StringMessage(
+															neighboursLabel[door],
+															Sequential_Spanning_Tree_LC2.labels));
+								} else {
+									this
+											.sendTo(
+													door,
+													new StringMessage(
+															new String("A"),
+															Sequential_Spanning_Tree_LC2.labels));
+								}
 							}
-					} else
-						for (int door = 0; door < this.getArity(); door++)
-							if (!finishedNode[door])
+						}
+					} else {
+						for (int door = 0; door < this.getArity(); door++) {
+							if (!finishedNode[door]) {
 								this.sendTo(door, new StringMessage(
-										neighboursLabel[door], labels));
+										neighboursLabel[door],
+										Sequential_Spanning_Tree_LC2.labels));
+							}
+						}
+					}
 				}
 				this.breakSynchro();
 			} else if (synchro != this.notInTheStar) {
 				String newState;
 				this.sendTo(synchro, new StringMessage((String) this
-						.getProperty("label"), labels));
+						.getProperty("label"),
+						Sequential_Spanning_Tree_LC2.labels));
 				newState = ((StringMessage) this.receiveFrom(synchro)).data();
 				if ((newState.compareTo(this.aNode) == 0)
 						&& (((String) this.getProperty("label"))
-								.compareTo(this.nNode) == 0))
+								.compareTo(this.nNode) == 0)) {
 					pere = synchro;
+				}
 				this.putProperty("label", new String(newState));
 			}
 		}
-		this.sendAll(new IntegerMessage(new Integer(-3), termination));
+		this.sendAll(new IntegerMessage(new Integer(-3),
+				Sequential_Spanning_Tree_LC2.termination));
 	}
 
 	public int starSynchro(boolean finishedNode[]) {
@@ -176,7 +213,7 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Sequential_Spanning_Tree_LC2.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -184,8 +221,9 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 				if (answer[i] == -3) {
 					finishedNode[i] = true;
 					theEnd = true;
@@ -197,17 +235,19 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
-		if (theEnd)
+		if (theEnd) {
 			max = -3;
+		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Sequential_Spanning_Tree_LC2.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -224,22 +264,25 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (!finishedNode[i])
-				if (answer[i] >= max)
+			if (!finishedNode[i]) {
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			if (!theEnd) {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
 						this.sendTo(i, new IntegerMessage(new Integer(1),
-								synchronization));
+								Sequential_Spanning_Tree_LC2.synchronization));
 					}
 				}
 
@@ -254,7 +297,7 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
 						this.sendTo(i, new IntegerMessage(new Integer(-3),
-								termination));
+								Sequential_Spanning_Tree_LC2.termination));
 					}
 				}
 
@@ -272,7 +315,7 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Sequential_Spanning_Tree_LC2.synchronization));
 				}
 			}
 
@@ -287,12 +330,13 @@ public class Sequential_Spanning_Tree_LC2 extends Algorithm {
 					}
 				}
 			}
-			if (inTheStar != this.notInTheStar)
+			if (inTheStar != this.notInTheStar) {
 				return inTheStar;
-			else if (theEnd)
+			} else if (theEnd) {
 				return -3;
-			else
+			} else {
 				return this.notInTheStar;
+			}
 
 		}
 	}

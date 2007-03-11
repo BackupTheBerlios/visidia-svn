@@ -14,7 +14,7 @@ public class TableAlgo {
 	protected static Hashtable<String, Algorithm> tableauAlgo;
 
 	public static void setTableAlgo(JApplet uneApplet) {
-		tableauAlgo = new Hashtable<String, Algorithm>();
+		TableAlgo.tableauAlgo = new Hashtable<String, Algorithm>();
 
 		// String jarAdress = new
 		// String("jar:"+uneApplet.getCodeBase()+"DistributedAlgoSimulator.jar!/");
@@ -24,7 +24,8 @@ public class TableAlgo {
 			// tableauAlgo.put("algorule", new AlgoRule());
 			// tableauAlgo.put("Election With Net Size", new
 			// ElectionWithNetSize());
-			tableauAlgo.put("Mazurkiewicz", new Mazurkiewicz_Election());
+			TableAlgo.tableauAlgo.put("Mazurkiewicz",
+					new Mazurkiewicz_Election());
 			// tableauAlgo.put("Router", new Router());
 			// tableauAlgo.put("Sequence Test", new SequenceTest());
 			// tableauAlgo.put("simpleRule", new SimpleRule());
@@ -44,18 +45,20 @@ public class TableAlgo {
 	// returns the image by the key parameter
 
 	public static Algorithm getAlgo(String key) {
-		if (tableauAlgo.containsKey(key))
-			return (Algorithm) (tableauAlgo.get(key));
-		else
+		if (TableAlgo.tableauAlgo.containsKey(key)) {
+			return (TableAlgo.tableauAlgo.get(key));
+		} else {
 			return null;
+		}
 	}
 
 	public static Vector getKeys() {
-		Enumeration e = tableauAlgo.keys();
+		Enumeration e = TableAlgo.tableauAlgo.keys();
 		Vector result = new Vector();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			result.add(e.nextElement());
+		}
 		return result;
 	}
 

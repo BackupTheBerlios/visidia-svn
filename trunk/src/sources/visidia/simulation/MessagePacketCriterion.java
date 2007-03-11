@@ -25,8 +25,9 @@ class MessagePacketCriterion implements Criterion {
 			return false;
 		}
 
-		if (!(o instanceof MessagePacket))
+		if (!(o instanceof MessagePacket)) {
 			return false;
+		}
 
 		MessagePacket mp = (MessagePacket) o;
 

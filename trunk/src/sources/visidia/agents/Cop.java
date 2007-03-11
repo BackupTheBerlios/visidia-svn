@@ -11,7 +11,7 @@ public class Cop extends Agent {
 	protected void init() {
 		Random randMove = new Random();
 
-		while (!thiefCaptured) {
+		while (!Cop.thiefCaptured) {
 			int degree = this.getArity();
 			int randomDirection = Math.abs(randMove.nextInt(degree));
 
@@ -19,7 +19,7 @@ public class Cop extends Agent {
 
 			this.lockVertexProperties();
 			if (((String) this.getVertexProperty("label")).equals("S")) {
-				thiefCaptured = true;
+				Cop.thiefCaptured = true;
 				this.setVertexProperty("label", new String("C"));
 			}
 			this.unlockVertexProperties();

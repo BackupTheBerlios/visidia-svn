@@ -16,7 +16,8 @@ public class RandomWalk extends RandomAgentMover {
 
 	public final void move() throws InterruptedException {
 		Random rand = new Random();
-		if (0 == rand.nextInt(2))
+		if (0 == rand.nextInt(2)) {
 			super.move();
+		}
 	}
 }

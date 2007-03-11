@@ -41,26 +41,28 @@ public class AreteFlecheSimple extends AreteDessin {
 	// Dessiner une fleche avec sa pointe sur un Graphics passe en argument.
 	public void dessiner(Component c, Graphics g) {
 		super.dessiner(c, g);
-		if (this.recalculer_branche)
+		if (this.recalculer_branche) {
 			this.recalculer_branche();
+		}
 		double theta = Math.atan2((this.destx - this.origx),
 				(this.desty - this.origy));
 
-		double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
+		double angle1 = theta - AreteFlecheSimple.angle_branches, angle2 = theta
+				+ AreteFlecheSimple.angle_branches;
 		// g.drawLine(destx, desty, branche1_x, branche1_y);
 		g.drawLine((this.origx + this.destx) / 2,
 				(this.origy + this.desty) / 2, ((this.origx + this.destx) / 2)
-						- ((int) Math.round(longueur_branches
+						- ((int) Math.round(AreteFlecheSimple.longueur_branches
 								* Math.sin(angle1))) / 2,
 				((this.origy + this.desty) / 2)
-						- ((int) Math.round(longueur_branches
+						- ((int) Math.round(AreteFlecheSimple.longueur_branches
 								* Math.cos(angle1))) / 2);
 		g.drawLine((this.origx + this.destx) / 2,
 				(this.origy + this.desty) / 2, ((this.origx + this.destx) / 2)
-						- ((int) Math.round(longueur_branches
+						- ((int) Math.round(AreteFlecheSimple.longueur_branches
 								* Math.sin(angle2))) / 2,
 				((this.origy + this.desty) / 2)
-						- ((int) Math.round(longueur_branches
+						- ((int) Math.round(AreteFlecheSimple.longueur_branches
 								* Math.cos(angle2))) / 2);
 		// g.drawLine(destx, desty, branche2_x, branche2_y);
 	}
@@ -94,16 +96,21 @@ public class AreteFlecheSimple extends AreteDessin {
 	protected void recalculer_branche() {
 		double theta = Math.atan2((this.destx - this.origx),
 				(this.desty - this.origy));
-		double angle1 = theta - angle_branches, angle2 = theta + angle_branches;
+		double angle1 = theta - AreteFlecheSimple.angle_branches, angle2 = theta
+				+ AreteFlecheSimple.angle_branches;
 
 		this.branche1_x = this.destx
-				- (int) Math.round(longueur_branches * Math.sin(angle1));
+				- (int) Math.round(AreteFlecheSimple.longueur_branches
+						* Math.sin(angle1));
 		this.branche1_y = this.desty
-				- (int) Math.round(longueur_branches * Math.cos(angle1));
+				- (int) Math.round(AreteFlecheSimple.longueur_branches
+						* Math.cos(angle1));
 		this.branche2_x = this.destx
-				- (int) Math.round(longueur_branches * Math.sin(angle2));
+				- (int) Math.round(AreteFlecheSimple.longueur_branches
+						* Math.sin(angle2));
 		this.branche2_y = this.desty
-				- (int) Math.round(longueur_branches * Math.cos(angle2));
+				- (int) Math.round(AreteFlecheSimple.longueur_branches
+						* Math.cos(angle2));
 		// mi_bran1_x = branche1_x-((branche1_x+origx)/2);
 		// mi_bran1_y = branche1_y-((branche1_y+origy)/2);
 		// mi_bran2_x = branche2_x-((branche2_x+origx)/2);

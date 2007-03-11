@@ -129,8 +129,9 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 		this.vecteurImages.add(TableImages.getImage("image5"));
 		this.vecteurImages.add(TableImages.getImage("image6"));
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 6; i++) {
 			this.tracker.addImage((Image) this.vecteurImages.elementAt(i), 0);
+		}
 		try {
 			this.tracker.waitForID(0);
 		} catch (InterruptedException e) {
@@ -140,8 +141,9 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 		if (this.editeur.graph().ordre() != 0) {
 
 			this.size = this.editeur.getVueGraphe().donnerDimension();
-		} else
+		} else {
 			this.size = new Dimension(0, 0);
+		}
 		this.objet_sous_souris = null;
 		this.drag_n_drop_sommet = false;
 		this.drag_n_drop_sommet_existant = false;
@@ -169,9 +171,10 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 			return;
 		}
 
-		if (this.carre_selection)
+		if (this.carre_selection) {
 			this.dessinerCarre(g, this.selection_x1, this.selection_y1,
 					this.selection_x2, this.selection_y2);
+		}
 	}
 
 	/**
@@ -663,12 +666,12 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 		// AreteDessin areteCree = null;
 
 		if (this.objet_sous_souris != null) {
-			if (this.drag_n_drop_sommet)
+			if (this.drag_n_drop_sommet) {
 				this.glisseSommet(x, y);
-			else {
-				if (this.objet_sous_souris.appartient(x, y))
+			} else {
+				if (this.objet_sous_souris.appartient(x, y)) {
 					return;
-				else {
+				} else {
 					// creer un nouveau sommet et l'arete qui va avec : c'est un
 					// nouvel undoGroup.
 					this.ancien_sommet_sous_souris = (SommetDessin) this.objet_sous_souris;
@@ -788,7 +791,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 	 * Méthode de dessin du carré de sélection.
 	 */
 	private void dessinerCarre(Graphics g, int x1, int y1, int x2, int y2) {
-		g.setColor(RECT_SELECTION_COULEUR);
+		g.setColor(GrapheVisuPanel.RECT_SELECTION_COULEUR);
 		g.drawRect(x1, y1, x2 - x1, y2 - y1);
 	}
 }

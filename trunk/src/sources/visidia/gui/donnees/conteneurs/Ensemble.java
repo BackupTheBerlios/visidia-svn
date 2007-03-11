@@ -67,8 +67,9 @@ public class Ensemble implements Cloneable, Serializable {
 	 * deja present, rien ne se passe. Aucun objet ne doit etre "null".
 	 */
 	public void inserer(Enumeration e) {
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			this.inserer(e.nextElement());
+		}
 	}
 
 	/**
@@ -113,8 +114,9 @@ public class Ensemble implements Cloneable, Serializable {
 	public void union(Ensemble un_ensemble) {
 		Enumeration e = un_ensemble.table.keys();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			this.inserer(e.nextElement());
+		}
 	}
 
 	/**
@@ -123,9 +125,11 @@ public class Ensemble implements Cloneable, Serializable {
 	 */
 	public boolean inclut(Ensemble un_ensemble) {
 		Enumeration e = un_ensemble.table.keys();
-		while (e.hasMoreElements())
-			if (!this.table.containsKey(e.nextElement()))
+		while (e.hasMoreElements()) {
+			if (!this.table.containsKey(e.nextElement())) {
 				return false;
+			}
+		}
 		return true;
 	}
 

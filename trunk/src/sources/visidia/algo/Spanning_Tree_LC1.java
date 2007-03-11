@@ -36,8 +36,8 @@ public class Spanning_Tree_LC1 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Spanning_Tree_LC1.synchronization);
+		typesList.add(Spanning_Tree_LC1.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -65,8 +65,9 @@ public class Spanning_Tree_LC1 extends Algorithm {
 						neighboursLabel[door] = ((StringMessage) this
 								.receiveFrom(door)).data();
 
-						if (neighboursLabel[door].compareTo(this.aNode) == 0)
+						if (neighboursLabel[door].compareTo(this.aNode) == 0) {
 							doorA = door;
+						}
 
 					}
 
@@ -78,11 +79,13 @@ public class Spanning_Tree_LC1 extends Algorithm {
 					}
 					this.breakSynchro();
 				} else {
-					for (int i = 0; i < synchro.size(); i++)
+					for (int i = 0; i < synchro.size(); i++) {
 						this.sendTo(
 								((Integer) synchro.elementAt(i)).intValue(),
 								new StringMessage(((String) this
-										.getProperty("label")), labels));
+										.getProperty("label")),
+										Spanning_Tree_LC1.labels));
+					}
 				}
 			}
 		}
@@ -103,7 +106,7 @@ public class Spanning_Tree_LC1 extends Algorithm {
 
 		/* Send to all neighbours */
 		this.sendAll(new IntegerMessage(new Integer(choosenNumber),
-				synchronization));
+				Spanning_Tree_LC1.synchronization));
 
 		/* receive all numbers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -114,8 +117,9 @@ public class Spanning_Tree_LC1 extends Algorithm {
 		/* get the max */
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
@@ -123,7 +127,8 @@ public class Spanning_Tree_LC1 extends Algorithm {
 				this.setDoorState(new SyncState(true), door);
 			}
 
-			this.sendAll(new IntegerMessage(new Integer(1), synchronization));
+			this.sendAll(new IntegerMessage(new Integer(1),
+					Spanning_Tree_LC1.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				this.receiveFrom(i);
@@ -136,7 +141,8 @@ public class Spanning_Tree_LC1 extends Algorithm {
 
 			neighbourCenter = new Vector();
 
-			this.sendAll(new IntegerMessage(new Integer(0), synchronization));
+			this.sendAll(new IntegerMessage(new Integer(0),
+					Spanning_Tree_LC1.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				Message msg = this.receiveFrom(i);
@@ -144,8 +150,9 @@ public class Spanning_Tree_LC1 extends Algorithm {
 					neighbourCenter.add(new Integer(i));
 				}
 			}
-			if (neighbourCenter.size() == 0)
+			if (neighbourCenter.size() == 0) {
 				neighbourCenter = null;
+			}
 
 			return neighbourCenter;
 

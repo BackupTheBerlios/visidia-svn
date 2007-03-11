@@ -83,12 +83,14 @@ public class DuoStarVisuPanel extends MouseAdapter implements
 		// xPanelCenter));
 		if (evt.getX() < this.xPanelCenter) {
 			this.svpLeft.mousePressed(evt);
-			if (modifiers != InputEvent.BUTTON3_MASK) // Not right click
+			if (modifiers != InputEvent.BUTTON3_MASK) {
 				this.svpRight.mousePressed(this.makeMouseEvent(evt, false));
+			}
 		} else {
 			this.svpRight.mousePressed(evt);
-			if (modifiers != InputEvent.BUTTON3_MASK) // Not right click
+			if (modifiers != InputEvent.BUTTON3_MASK) {
 				this.svpLeft.mousePressed(this.makeMouseEvent(evt, true));
+			}
 		}
 	}
 
@@ -102,12 +104,14 @@ public class DuoStarVisuPanel extends MouseAdapter implements
 
 		if (evt.getX() < this.xPanelCenter) {
 			this.svpLeft.mouseReleased(evt);
-			if (modifiers != InputEvent.BUTTON3_MASK) // Not right click
+			if (modifiers != InputEvent.BUTTON3_MASK) {
 				this.svpRight.mouseReleased(this.makeMouseEvent(evt, false));
+			}
 		} else {
 			this.svpRight.mouseReleased(evt);
-			if (modifiers != InputEvent.BUTTON3_MASK) // Not right click
+			if (modifiers != InputEvent.BUTTON3_MASK) {
 				this.svpLeft.mouseReleased(this.makeMouseEvent(evt, true));
+			}
 		}
 	}
 

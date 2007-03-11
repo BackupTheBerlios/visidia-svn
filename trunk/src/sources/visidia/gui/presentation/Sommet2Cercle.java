@@ -48,19 +48,20 @@ public class Sommet2Cercle extends SommetDessin {
 
 	// Agrandit la taille du sommet de "coef" fois
 	public void agrandir(float coef) {
-		if (coef > 0)
-			monCote = (int) (coef * monCote);
+		if (coef > 0) {
+			Sommet2Cercle.monCote = (int) (coef * Sommet2Cercle.monCote);
+		}
 	}
 
 	// Retourne le cote du sommet routage
 	public int getCote() {
-		return monCote;
+		return Sommet2Cercle.monCote;
 	}
 
 	// Modifie le cote du sommet routage
 	public void setCote(int cote) {
-		monCote = cote;
-		this.vueGraphe.setFontSize(((float) monCote / 3) + 1);
+		Sommet2Cercle.monCote = cote;
+		this.vueGraphe.setFontSize(((float) Sommet2Cercle.monCote / 3) + 1);
 	}
 
 	public void dessiner(Component c, Graphics g, String tag) {
@@ -84,28 +85,32 @@ public class Sommet2Cercle extends SommetDessin {
 		int _rayon = this.getCote();
 
 		// on fait l'interieur
-		if (this.est_enlumine())
+		if (this.est_enlumine()) {
 			g.setColor(this.couleur_trait);
-		else
+		} else {
 			g.setColor(this.couleur_fond);
+		}
 
 		// La bordure est rouge si enluminerBis
-		if (this.est_enlumineBis())
+		if (this.est_enlumineBis()) {
 			g.setColor(Color.red);
+		}
 
 		// g.fillOval(posx-rayon,posy-rayon,2*rayon,2*rayon);
 		g.fillOval(this.posx - _rayon / 2 - 4, this.posy - _rayon / 2 - 2,
 				_rayon + 8, _rayon + 8);
 
 		// Dessin de la forme carre du sommet
-		if (this.est_enlumine())
+		if (this.est_enlumine()) {
 			g.setColor(this.couleur_fond);
-		else
+		} else {
 			g.setColor(this.couleur_trait);
+		}
 
 		// La bordure est rouge si enluminerBis
-		if (this.est_enlumineBis())
+		if (this.est_enlumineBis()) {
 			g.setColor(Color.red);
+		}
 
 		// g.drawOval(posx-rayon,posy-rayon,2*rayon,2*rayon);
 		g.drawOval(this.posx - _rayon / 2 - 4, this.posy - _rayon / 2 - 2,
@@ -114,10 +119,11 @@ public class Sommet2Cercle extends SommetDessin {
 		// affichage de l'etiquette
 		if ((this.getVueGraphe()).afficherEtiquettes()) {
 			g.setColor(Color.blue);
-			if (this.est_enlumine())
+			if (this.est_enlumine()) {
 				g.setFont((this.getVueGraphe()).fontGras());
-			else
+			} else {
 				g.setFont((this.getVueGraphe()).fontNormal());
+			}
 			// dans ancienne version y avait ca :
 			// g.drawString((getEtiquette()+ " , "+((String)getValue("arg
 			// 1")))+" ,",x - rayon , y + rayon + 12);
@@ -126,8 +132,9 @@ public class Sommet2Cercle extends SommetDessin {
 
 		}
 		// affichage d'une icone si elle existe
-		if (this.getImage() != null)
+		if (this.getImage() != null) {
 			(this.getImage()).paintIcon(c, g, x - _rayon / 2, y - _rayon / 2);
+		}
 
 		g.setColor((Color) ((TableCouleurs.getTableCouleurs()).get(this
 				.getEtat())));
@@ -140,15 +147,16 @@ public class Sommet2Cercle extends SommetDessin {
 
 	// Teste si le point donne en parametre appartient au sommet
 	public boolean appartient(int x, int y) {
-		return ((((this.posx - x) * (this.posx - x)) + ((this.posy - y) * (this.posy - y))) <= (monCote * monCote));
+		return ((((this.posx - x) * (this.posx - x)) + ((this.posy - y) * (this.posy - y))) <= (Sommet2Cercle.monCote * Sommet2Cercle.monCote));
 	}
 
 	// Teste si le sommet est contenu en entier dans une zone rectangulaire.
 	// (x1, y1) coordonnees en haut a gauche et (x2, y2) coordonnees en bas a
 	// droite.
 	public boolean estDansRegion(int x1, int y1, int x2, int y2) {
-		return (((x1 <= (this.posx - monCote)) && (y1 <= this.posy - monCote)) && ((x2 >= (this.posx + monCote)) && (y2 >= this.posy
-				+ monCote / 2)));
+		return (((x1 <= (this.posx - Sommet2Cercle.monCote)) && (y1 <= this.posy
+				- Sommet2Cercle.monCote)) && ((x2 >= (this.posx + Sommet2Cercle.monCote)) && (y2 >= this.posy
+				+ Sommet2Cercle.monCote / 2)));
 	}
 
 	// returns the distance from the center to determines the positions of edges
@@ -156,7 +164,7 @@ public class Sommet2Cercle extends SommetDessin {
 		float tempo = Math.abs(angle);
 
 		tempo = Math.min(tempo, (float) Math.PI - tempo);
-		return monCote
+		return Sommet2Cercle.monCote
 				/ (float) (2 * Math.cos(Math.min(tempo, (float) Math.PI / 2
 						- tempo)));
 	}

@@ -17,12 +17,12 @@ public class SyncMessage extends Message {
 
 	public SyncMessage(Integer data) {
 		this.data = new Integer(data.intValue());
-		this.setType(synchronizationType);
+		this.setType(SyncMessage.synchronizationType);
 	}
 
 	public SyncMessage(int value) {
 		this.data = new Integer(value);
-		this.setType(synchronizationType);
+		this.setType(SyncMessage.synchronizationType);
 	}
 
 	public int value() {

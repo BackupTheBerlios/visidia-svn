@@ -31,8 +31,8 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Mazurkiewicz_Reconstruction.synchronization);
+		typesList.add(Mazurkiewicz_Reconstruction.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -60,8 +60,9 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 			if (synchro == this.starCenter) {
 
 				for (int door = 0; door < this.getArity(); door++) {
-					if (!finishedNode[door])
+					if (!finishedNode[door]) {
 						this.receiveKnowledge(node, door);
+					}
 				}
 				lastName = node.myName();
 
@@ -75,8 +76,9 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 				nameVector.add(new Integer(node.myName()));
 				nameVector.add(new Integer(lastName));
 
-				this.sendAll(new VectorMessage(nameVector, labels));
-				messagesNumber += this.getArity();
+				this.sendAll(new VectorMessage(nameVector,
+						Mazurkiewicz_Reconstruction.labels));
+				Mazurkiewicz_Reconstruction.messagesNumber += this.getArity();
 				this.putProperty("label", new String(
 						(new Integer(node.myName())).toString()));
 
@@ -108,9 +110,12 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(-1), synchronization));
-		System.out.println("Nombre de starSynchro = " + synchroNumber
-				+ "   Nombre de messages = " + messagesNumber);
+		this.sendAll(new IntegerMessage(new Integer(-1),
+				Mazurkiewicz_Reconstruction.synchronization));
+		System.out.println("Nombre de starSynchro = "
+				+ Mazurkiewicz_Reconstruction.synchroNumber
+				+ "   Nombre de messages = "
+				+ Mazurkiewicz_Reconstruction.messagesNumber);
 
 	}
 
@@ -126,7 +131,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Mazurkiewicz_Reconstruction.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -134,8 +139,9 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -143,15 +149,16 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Mazurkiewicz_Reconstruction.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -165,20 +172,22 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							Mazurkiewicz_Reconstruction.synchronization));
 				}
 			}
 
@@ -187,7 +196,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 					/* Message msg= */this.receiveFrom(i);
 				}
 			}
-			synchroNumber++;
+			Mazurkiewicz_Reconstruction.synchroNumber++;
 			return this.starCenter;
 		} else {
 			int inTheStar = this.notInTheStar;
@@ -195,7 +204,7 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Mazurkiewicz_Reconstruction.synchronization));
 				}
 			}
 
@@ -237,15 +246,17 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 		for (int i = 1; i <= node.max(); i++) {
 			if ((node.neighbourNode(i)) != null) {
 				vec = this.addVector(i, node.neighbourNode(i));
-				this.sendAll(new VectorMessage((Vector) vec.clone(), labels));
+				this.sendAll(new VectorMessage((Vector) vec.clone(),
+						Mazurkiewicz_Reconstruction.labels));
 				vec.clear();
-				messagesNumber += this.getArity();
+				Mazurkiewicz_Reconstruction.messagesNumber += this.getArity();
 			}
 		}
 
 		vec.add(new Integer(-1));
 		vec.add(new Integer(-1));
-		this.sendAll(new VectorMessage((Vector) vec.clone(), labels));
+		this.sendAll(new VectorMessage((Vector) vec.clone(),
+				Mazurkiewicz_Reconstruction.labels));
 	}
 
 	private void sendKnowledge(Knowledge node, int synchro) {
@@ -254,15 +265,16 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 			if ((node.neighbourNode(i)) != null) {
 				vec = this.addVector(i, node.neighbourNode(i));
 				this.sendTo(synchro, new VectorMessage((Vector) vec.clone(),
-						labels));
+						Mazurkiewicz_Reconstruction.labels));
 				vec.clear();
-				messagesNumber++;
+				Mazurkiewicz_Reconstruction.messagesNumber++;
 			}
 		}
 
 		vec.add(new Integer(-1));
 		vec.add(new Integer(-1));
-		this.sendTo(synchro, new VectorMessage((Vector) vec.clone(), labels));
+		this.sendTo(synchro, new VectorMessage((Vector) vec.clone(),
+				Mazurkiewicz_Reconstruction.labels));
 
 	}
 
@@ -280,8 +292,9 @@ public class Mazurkiewicz_Reconstruction extends Algorithm {
 
 		intVec.add(new Integer(num));
 		if (vec != null) {
-			for (int i = 0; i < vec.size(); i++)
+			for (int i = 0; i < vec.size(); i++) {
 				intVec.add(vec.elementAt(i));
+			}
 
 		}
 		return intVec;

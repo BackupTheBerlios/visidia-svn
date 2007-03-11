@@ -29,8 +29,8 @@ public class Election_Tree_RDV extends AlgorithmDist {
 	static MessageType labels = new MessageType("labels", true);
 
 	public Election_Tree_RDV() {
-		this.addMessageType(synchronization);
-		this.addMessageType(labels);
+		this.addMessageType(Election_Tree_RDV.synchronization);
+		this.addMessageType(Election_Tree_RDV.labels);
 	}
 
 	public void init() {
@@ -49,8 +49,9 @@ public class Election_Tree_RDV extends AlgorithmDist {
 
 		this.putProperty("label", new String(nodeN));
 
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			finishedNode[i] = false;
+		}
 
 		while (run) {
 			synchro = this.synchronization(finishedNode);
@@ -61,7 +62,7 @@ public class Election_Tree_RDV extends AlgorithmDist {
 			}
 
 			this.sendTo(synchro, new StringMessage((String) this
-					.getProperty("label"), labels));
+					.getProperty("label"), Election_Tree_RDV.labels));
 			neighbourState = ((StringMessage) this.receiveFrom(synchro)).data();
 
 			if (neighbourState.compareTo(nodeF) == 0) {
@@ -78,10 +79,11 @@ public class Election_Tree_RDV extends AlgorithmDist {
 					if (choosenNumber > answer) {
 						this.putProperty("label", new String(nodeE));
 						run = false;
-					} else if (choosenNumber < answer)
+					} else if (choosenNumber < answer) {
 						run = false;
-					else
+					} else {
 						this.putProperty("label", new String(nodeN));
+					}
 				}
 
 			}
@@ -93,8 +95,9 @@ public class Election_Tree_RDV extends AlgorithmDist {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < 0) {
 			i = this.trySynchronize(finishedNode);
@@ -123,12 +126,14 @@ public class Election_Tree_RDV extends AlgorithmDist {
 		}
 
 		this.sendTo(choosenNeighbour, new IntegerMessage(new Integer(1),
-				synchronization));
+				Election_Tree_RDV.synchronization));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
-				if (!finishedNode[i])
+			if (i != choosenNeighbour) {
+				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Election_Tree_RDV.synchronization));
+				}
+			}
 
 		}
 

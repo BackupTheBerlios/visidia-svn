@@ -80,8 +80,9 @@ public class UndoInfo extends Vector {
 	 * simples dans l'opération complexe courante.
 	 */
 	public void addInfo(UndoObject objet) {
-		if (this.currentGroup() != null)
+		if (this.currentGroup() != null) {
 			this.currentGroup().add(objet);
+		}
 	}
 
 	/**

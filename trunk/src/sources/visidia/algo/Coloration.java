@@ -25,8 +25,8 @@ public class Coloration extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(color);
+		typesList.add(Coloration.synchronization);
+		typesList.add(Coloration.color);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -44,20 +44,22 @@ public class Coloration extends Algorithm {
 		while (true) {
 			synchro = this.starSynchro();
 			if (synchro == this.starCenter) {
-				for (int i = 0; i < this.getArity(); i++)
+				for (int i = 0; i < this.getArity(); i++) {
 					neighbours[i] = ((StringMessage) this.receiveFrom(i))
 							.data();
+				}
 
 				if ((neighbours[0].compareTo(myColor) == 0)
 						&& (neighbours[1].compareTo(myColor) == 0)) {
 					myC = (myC + 1) % 3;
 					myColor = this.getNewColor(myC);
-				} else
+				} else {
 					while ((neighbours[0].compareTo(myColor) == 0)
 							|| (neighbours[1].compareTo(myColor) == 0)) {
 						myC = (myC + 1) % 3;
 						myColor = this.getNewColor(myC);
 					}
+				}
 
 				this.putProperty("label", myColor);
 
@@ -65,19 +67,21 @@ public class Coloration extends Algorithm {
 
 			} else {
 				if (synchro != this.notInTheStar) {
-					this.sendTo(synchro, new StringMessage(myColor, color));
+					this.sendTo(synchro, new StringMessage(myColor,
+							Coloration.color));
 				}
 			}
 		}
 	}
 
 	private String getNewColor(int colors) {
-		if (colors == 0)
+		if (colors == 0) {
 			return new String("X");
-		else if (colors == 1)
+		} else if (colors == 1) {
 			return new String("Y");
-		else
+		} else {
 			return new String("Z");
+		}
 	}
 
 	public int starSynchro() {
@@ -89,9 +93,10 @@ public class Coloration extends Algorithm {
 		int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
 
 		/* Send to all neighbours */
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-					synchronization));
+					Coloration.synchronization));
+		}
 
 		/* receive all numbers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -102,13 +107,15 @@ public class Coloration extends Algorithm {
 
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
-		for (int i = 0; i < arite; i++)
-			this.sendTo(i,
-					new IntegerMessage(new Integer(max), synchronization));
+		for (int i = 0; i < arite; i++) {
+			this.sendTo(i, new IntegerMessage(new Integer(max),
+					Coloration.synchronization));
+		}
 
 		/* get alla answers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -119,8 +126,9 @@ public class Coloration extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
@@ -128,8 +136,10 @@ public class Coloration extends Algorithm {
 				this.setDoorState(new SyncState(true), door);
 			}
 
-			for (int i = 0; i < arite; i++)
-				this.sendTo(i, new IntegerMessage(1, synchronization));
+			for (int i = 0; i < arite; i++) {
+				this.sendTo(i,
+						new IntegerMessage(1, Coloration.synchronization));
+			}
 
 			for (int i = 0; i < arite; i++) {
 				/* Message msg= */this.receiveFrom(i);
@@ -139,8 +149,10 @@ public class Coloration extends Algorithm {
 		} else {
 			int inTheStar = this.notInTheStar;
 
-			for (int i = 0; i < arite; i++)
-				this.sendTo(i, new IntegerMessage(0, synchronization));
+			for (int i = 0; i < arite; i++) {
+				this.sendTo(i,
+						new IntegerMessage(0, Coloration.synchronization));
+			}
 
 			for (int i = 0; i < arite; i++) {
 				Message msg = this.receiveFrom(i);

@@ -48,9 +48,9 @@ public class SaveFile extends JFileChooser {
 			((Editeur) parent).commandeRenumeroter();
 		}
 
-		nombre++;
-		this.validFile = new File(path, "noname_" + Integer.toString(nombre)
-				+ ".graph");
+		SaveFile.nombre++;
+		this.validFile = new File(path, "noname_"
+				+ Integer.toString(SaveFile.nombre) + ".graph");
 		this.setSelectedFile(this.validFile);
 		this.parent = parent;
 
@@ -108,7 +108,7 @@ public class SaveFile extends JFileChooser {
 	 * Reaction when we use the "cancel" button or validation of an empty file
 	 */
 	public void cancelSelection() {
-		nombre--;
+		SaveFile.nombre--;
 		if (this.getSelectedFile() == null) {
 			JOptionPane.showMessageDialog(this,
 					"You must choose a file to save your graph in !",
@@ -134,12 +134,12 @@ public class SaveFile extends JFileChooser {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				f = st.getSelectedFile();
 				try {
-					fos = new FileOutputStream(f);
-					oos = new ObjectOutputStream(fos);
-					oos.writeObject(graphe);
+					SaveFile.fos = new FileOutputStream(f);
+					SaveFile.oos = new ObjectOutputStream(SaveFile.fos);
+					SaveFile.oos.writeObject(graphe);
 					fenetre.mettreAJourTitreFenetre(f);
-					oos.close();
-					fos.close();
+					SaveFile.oos.close();
+					SaveFile.fos.close();
 
 				} catch (IOException e) {
 					System.out.println("Problem: " + e);
@@ -147,12 +147,12 @@ public class SaveFile extends JFileChooser {
 			}
 		} else {
 			try {
-				fos = new FileOutputStream(f);
-				oos = new ObjectOutputStream(fos);
-				oos.writeObject(graphe);
+				SaveFile.fos = new FileOutputStream(f);
+				SaveFile.oos = new ObjectOutputStream(SaveFile.fos);
+				SaveFile.oos.writeObject(graphe);
 				fenetre.mettreAJourTitreFenetre(f);
-				oos.close();
-				fos.close();
+				SaveFile.oos.close();
+				SaveFile.fos.close();
 
 			} catch (IOException e) {
 				System.out.println("Problem: " + e);
@@ -173,12 +173,12 @@ public class SaveFile extends JFileChooser {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			f = st.getSelectedFile();
 			try {
-				fos = new FileOutputStream(f);
-				oos = new ObjectOutputStream(fos);
-				oos.writeObject(graphe);
+				SaveFile.fos = new FileOutputStream(f);
+				SaveFile.oos = new ObjectOutputStream(SaveFile.fos);
+				SaveFile.oos.writeObject(graphe);
 				fenetre.mettreAJourTitreFenetre(f);
-				oos.close();
-				fos.close();
+				SaveFile.oos.close();
+				SaveFile.fos.close();
 
 			} catch (IOException e) {
 				System.out.println("Problem: " + e);

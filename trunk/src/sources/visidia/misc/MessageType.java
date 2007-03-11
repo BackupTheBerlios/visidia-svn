@@ -38,7 +38,7 @@ public class MessageType implements Serializable {
 	}
 
 	public MessageType(String typeName, boolean toPaint) {
-		this(typeName, toPaint, defaultColor);
+		this(typeName, toPaint, MessageType.defaultColor);
 	}
 
 	public MessageType(String typeName) {

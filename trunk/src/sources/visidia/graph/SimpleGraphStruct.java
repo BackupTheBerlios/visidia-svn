@@ -78,8 +78,9 @@ public class SimpleGraphStruct implements Cloneable {
 		Vector v1 = this.getNeighbourVector(id1);
 		Vector v2 = this.getNeighbourVector(id2);
 
-		if (v1.contains(id2) || v2.contains(id1))
+		if (v1.contains(id2) || v2.contains(id1)) {
 			return;
+		}
 
 		v1.add(id2);
 		v2.add(id1);
@@ -137,8 +138,9 @@ public class SimpleGraphStruct implements Cloneable {
 	 *                i>id1</i> et <i>id2</i>.
 	 */
 	public void unlink(Integer id1, Integer id2) {
-		if (!this.areLinked(id1, id2))
+		if (!this.areLinked(id1, id2)) {
 			return;
+		}
 
 		this.getNeighbourVector(id1).remove(id2);
 		this.getNeighbourVector(id2).remove(id1);

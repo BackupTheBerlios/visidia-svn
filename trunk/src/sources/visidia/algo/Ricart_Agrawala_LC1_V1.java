@@ -44,9 +44,9 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(booleen);
+		typesList.add(Ricart_Agrawala_LC1_V1.synchronization);
+		typesList.add(Ricart_Agrawala_LC1_V1.labels);
+		typesList.add(Ricart_Agrawala_LC1_V1.booleen);
 		return typesList;
 	}
 
@@ -89,8 +89,9 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 							.compareTo("E") == 0) {
 						count = 0;
 						eatingcount = 0;
-						for (int i = 0; i < arity; i++)
+						for (int i = 0; i < arity; i++) {
 							this.setEdgeColor(i, new ColorState(Color.black));
+						}
 						this.putProperty("label", theThinkingNode);
 					}
 				}
@@ -139,8 +140,9 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 						}
 					}
 					if ((hungryResult == true) && (hungryResult1 == false)) {
-						for (int i = 0; i < arity; i++)
+						for (int i = 0; i < arity; i++) {
 							this.setEdgeColor(i, new ColorState(Color.red));
+						}
 						this.putProperty("label", myEatingNode);
 					}
 					if (hungryResult1 == true) {
@@ -150,11 +152,13 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 					this.breakSynchro();
 				} else {
 					StringMessage nodeLabel = new StringMessage(new String(this
-							.getProperty("label").toString()), labels);
-					for (int i = 0; i < synchro.size(); i++)
+							.getProperty("label").toString()),
+							Ricart_Agrawala_LC1_V1.labels);
+					for (int i = 0; i < synchro.size(); i++) {
 						this.sendTo(
 								((Integer) synchro.elementAt(i)).intValue(),
 								nodeLabel);
+					}
 				}
 			}
 		}
@@ -174,7 +178,7 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 
 		/* Send to all neighbours */
 		this.sendAll(new IntegerMessage(new Integer(choosenNumber),
-				synchronization));
+				Ricart_Agrawala_LC1_V1.synchronization));
 
 		/* receive all numbers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -185,8 +189,9 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 		/* get the max */
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
@@ -194,7 +199,8 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 				this.setDoorState(new SyncState(true), door);
 			}
 
-			this.sendAll(new IntegerMessage(new Integer(1), synchronization));
+			this.sendAll(new IntegerMessage(new Integer(1),
+					Ricart_Agrawala_LC1_V1.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				/* Message msg= */this.receiveFrom(i);
@@ -207,7 +213,8 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 
 			neighbourCenter = new Vector();
 
-			this.sendAll(new IntegerMessage(new Integer(0), synchronization));
+			this.sendAll(new IntegerMessage(new Integer(0),
+					Ricart_Agrawala_LC1_V1.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				Message msg = this.receiveFrom(i);
@@ -215,8 +222,9 @@ public class Ricart_Agrawala_LC1_V1 extends Algorithm {
 					neighbourCenter.add(new Integer(i));
 				}
 			}
-			if (neighbourCenter.size() == 0)
+			if (neighbourCenter.size() == 0) {
 				neighbourCenter = null;
+			}
 
 			return neighbourCenter;
 

@@ -6,14 +6,14 @@ package visidia.graph;
  * une arete ne devrait pas comporter la notion de sens; En effet on a:
  * 
  * <pre>
- *   e1 = (v11,v12) et e2 = (v21,v22)
+ *    e1 = (v11,v12) et e2 = (v21,v22)
+ *    
+ *                         e1 = e2
  *   
- *                        e1 = e2
- *  
- *                   si et seulement si
- *  
- *       { v11 = v21 et v12 = v22 } ou { v11 = v22 et v12 = v21 }
- *  
+ *                    si et seulement si
+ *   
+ *        { v11 = v21 et v12 = v22 } ou { v11 = v22 et v12 = v21 }
+ *   
  * </pre>
  */
 public interface Edge {

@@ -30,7 +30,7 @@ public class BoiteSelection extends Boite {
 
 	public BoiteSelection(JFrame parent, int taille_selection,
 			MultiEnsemble table_types) {
-		super(parent, "Selection properties", DISMISS_OPTION);
+		super(parent, "Selection properties", Boite.DISMISS_OPTION);
 		// this.editeur = editeur;
 		this.taille = taille_selection;
 		this.table_types = table_types;

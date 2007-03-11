@@ -98,8 +98,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,
 	 */
 	protected void sendAll(Message msg) {
 		int arite = this.getArity();
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, msg);
+		}
 	}
 
 	/**
@@ -174,8 +175,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,
 	 * specified pulse
 	 */
 	protected final boolean anyMsgPulse(int pulse) {
-		if (pulse >= this.getPulse())
+		if (pulse >= this.getPulse()) {
 			return false;
+		}
 
 		DoorPulseCriterion dpc = new DoorPulseCriterion(pulse);
 		return this.existMessage(dpc);
@@ -187,8 +189,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,
 	 * 
 	 */
 	protected final boolean anyMsgDoorPulse(int door, int pulse) {
-		if (pulse >= this.getPulse())
+		if (pulse >= this.getPulse()) {
 			return false;
+		}
 
 		DoorPulseCriterion dpc = new DoorPulseCriterion(door, pulse);
 		return this.existMessage(dpc);
@@ -267,8 +270,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,
 	 * 
 	 */
 	protected final Message receive(Door door, int pulse) {
-		if (pulse >= this.getPulse())
+		if (pulse >= this.getPulse()) {
 			return null;
+		}
 
 		DoorPulseCriterion dpc = new DoorPulseCriterion(pulse);
 		Message msg = this.getNextMessage(dpc);
@@ -298,8 +302,9 @@ public abstract class SyncAlgorithm extends Algorithm implements Runnable,
 	 * 
 	 */
 	protected final Message receive(int door, int pulse) {
-		if (pulse >= this.getPulse())
+		if (pulse >= this.getPulse()) {
 			return null;
+		}
 		DoorPulseCriterion dpc = new DoorPulseCriterion(door, pulse);
 		Message msg = this.getNextMessage(dpc);
 

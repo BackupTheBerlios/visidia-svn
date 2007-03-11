@@ -28,11 +28,13 @@ public class ElectionRmi extends AlgorithmDist {
 	 */
 	private boolean isFinished(int ig) {
 		String mystate = this.getState();
-		if (mystate.equals("G"))
+		if (mystate.equals("G")) {
 			return true;
+		}
 
-		if (mystate.equals("F"))
+		if (mystate.equals("F")) {
 			return true;
+		}
 
 		return false;
 	}
@@ -73,10 +75,11 @@ public class ElectionRmi extends AlgorithmDist {
 			if (data.elementAt(0) instanceof Boolean) {
 				this.setState("F");
 				for (int i = 0; i < arity; i++) {
-					if (i != sender)
+					if (i != sender) {
 						this
 								.sendTo(i, new VectorMessage((Vector) data
 										.clone()));
+					}
 				}
 				break;
 			}

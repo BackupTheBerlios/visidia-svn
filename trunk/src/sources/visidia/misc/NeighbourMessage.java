@@ -68,8 +68,9 @@ public class NeighbourMessage extends Message implements Serializable {
 	}
 
 	public String toString() {
-		if (this.mark())
+		if (this.mark()) {
 			return "-X-" + this.label();
+		}
 		return "---" + this.label();
 	}
 }

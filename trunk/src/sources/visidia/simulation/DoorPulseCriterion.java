@@ -53,44 +53,50 @@ public class DoorPulseCriterion implements Criterion {
 	 * 
 	 */
 	public boolean isMatchedBy(Object o) {
-		if (!(o instanceof MessagePacket))
+		if (!(o instanceof MessagePacket)) {
 			return false;
+		}
 
 		if ((this.pulse == null) && (this.door == null)) {
 			return true;
 		} else if (this.pulse == null) {
 			/* Message msg = */((MessagePacket) o).message();
 			int d = ((MessagePacket) o).receiverDoor();
-			if (this.door.getNum() == d)
+			if (this.door.getNum() == d) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		} else if (this.door == null) {
 			Message msg = ((MessagePacket) o).message();
 			int p = msg.getMsgClock();
-			if (this.pulse.intValue() == p)
+			if (this.pulse.intValue() == p) {
 				return true;
+			}
 			return false;
 		} else {
 			Message msg = ((MessagePacket) o).message();
 			int p = msg.getMsgClock();
 			int d = ((MessagePacket) o).receiverDoor();
-			if ((this.door.getNum() == d) && (this.pulse.intValue() == p))
+			if ((this.door.getNum() == d) && (this.pulse.intValue() == p)) {
 				return true;
+			}
 			return false;
 		}
 	}
 
 	public int getPulse() {
-		if (this.pulse == null)
+		if (this.pulse == null) {
 			return -1;
+		}
 
 		return this.pulse.intValue();
 	}
 
 	public int getDoor() {
-		if (this.door == null)
+		if (this.door == null) {
 			return -1;
+		}
 		return this.door.getNum();
 	}
 
@@ -101,17 +107,19 @@ public class DoorPulseCriterion implements Criterion {
 	 * 
 	 */
 	public void setDoor(int door) {
-		if (this.door == null)
+		if (this.door == null) {
 			this.door = new Door(door);
-		else
+		} else {
 			this.door.setNum(door);
+		}
 	}
 
 	public void setPulse(int pulse) {
-		if (this.pulse == null)
+		if (this.pulse == null) {
 			this.pulse = new Pulse(pulse);
-		else
+		} else {
 			this.pulse.setValue(pulse);
+		}
 	}
 
 	public boolean pulseIsNull() {

@@ -22,17 +22,19 @@ public class Element {
 	}
 
 	public SimulEvent getSimulEvent() {
-		if (this.isEvent())
+		if (this.isEvent()) {
 			return this.se;
-		else
+		} else {
 			return null;
+		}
 	}
 
 	public SimulAck getSimulAck() {
-		if (!this.isEvent())
+		if (!this.isEvent()) {
 			return this.sa;
-		else
+		} else {
 			return null;
+		}
 	}
 
 	public boolean isEvent() {

@@ -82,8 +82,9 @@ public class AgentRules extends AbstractAgentsRules {
 			this.setVertexProperty("label", afterStar.centerState());
 			this.moveBack();
 
-			if (neighbourV.mark())
+			if (neighbourV.mark()) {
 				this.markDoor(this.door);
+			}
 
 			this.step = 4;
 		}

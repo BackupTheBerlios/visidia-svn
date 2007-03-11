@@ -2,6 +2,7 @@ package visidia.gui.presentation.userInterfaceSimulation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -213,11 +214,12 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	public AgentsSimulationWindow(VueGraphe grapheVisu_edite,
 			File fichier_edit, Editeur editeur) {
 
-		this(grapheVisu_edite, COULEUR_FOND_PAR_DEFAUT, DIM_X_PAR_DEFAUT,
-				DIM_Y_PAR_DEFAUT, fichier_edit);
+		this(grapheVisu_edite, Fenetre.COULEUR_FOND_PAR_DEFAUT,
+				Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT,
+				fichier_edit);
 		this.addWindowListener(this);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.setSize(DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT);
+		this.setSize(Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT);
 		this.pack();
 		this.setVisible(true);
 		this.editeur = editeur;
@@ -270,12 +272,12 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		// The panel where the graph is drawn
 		this.simulationPanel = new AgentsSimulationPanel(this);
-		super.setSize(DIM_X_PAR_DEFAUT, DIM_Y_PAR_DEFAUT);
+		super.setSize(Fenetre.DIM_X_PAR_DEFAUT, Fenetre.DIM_Y_PAR_DEFAUT);
 		// un setSize est a faire avant l'ajout de composants pour eviter
 		// les warnings
 		this.scroller = new JScrollPane(this.simulationPanel);
-		this.scroller.setPreferredSize(new Dimension(DIM_X_PAR_DEFAUT,
-				DIM_Y_PAR_DEFAUT));
+		this.scroller.setPreferredSize(new Dimension(Fenetre.DIM_X_PAR_DEFAUT,
+				Fenetre.DIM_Y_PAR_DEFAUT));
 		this.simulationPanel.revalidate();
 
 		this.simulationPanel.scrollRectToVisible(new Rectangle((this.vueGraphe
@@ -300,8 +302,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.addToolBar();
 
 		// On disable les items non-valide pour une applet
-		if (!DistributedAlgoSimulator.estStandalone())
+		if (!DistributedAlgoSimulator.estStandalone()) {
 			this.disableButtonForApplet();
+		}
 
 		this.setContentPane(this.content);
 	}
@@ -472,21 +475,21 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		// Build buttons on the tool bar
 		this.but_start = new JButton("start");
 		this.but_start.setToolTipText("Start");
-		this.but_start.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_start.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_start.setEnabled(false);
 		this.but_start.addActionListener(this);
 		this.toolBar.add(this.but_start);
 
 		this.but_pause = new JButton("pause");
 		this.but_pause.setToolTipText("Pause");
-		this.but_pause.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_pause.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_pause.setEnabled(false);
 		this.but_pause.addActionListener(this);
 		this.toolBar.add(this.but_pause);
 
 		this.but_stop = new JButton("stop");
 		this.but_stop.setToolTipText("Stop");
-		this.but_stop.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_stop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_stop.addActionListener(this);
 		this.but_stop.setEnabled(false);
 		this.toolBar.add(this.but_stop);
@@ -494,7 +497,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.toolBar.addSeparator();
 		this.but_save = new JButton("save");
 		this.but_save.setToolTipText("Save");
-		this.but_save.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_save.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_save.addActionListener(this);
 		this.toolBar.add(this.but_save);
 
@@ -504,8 +507,8 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.speed_slider = new JSlider(1, 20, 10);
 		this.speed_slider.addChangeListener(this);
 		this.speed_slider.setToolTipText("Speed");
-		this.speed_slider.setAlignmentY(TOP_ALIGNMENT);
-		this.speed_slider.setAlignmentX(LEFT_ALIGNMENT);
+		this.speed_slider.setAlignmentY(Component.TOP_ALIGNMENT);
+		this.speed_slider.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.speed_slider.setPreferredSize(new Dimension(80, 15));
 		this.speed_slider
 				.setBackground(this.toolBar.getBackground().brighter());
@@ -517,7 +520,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 				+ ")");
 		this.speed_label.setFont(new Font("Dialog", Font.BOLD, 10));
 		this.speed_label.setToolTipText("Speed");
-		this.speed_label.setAlignmentY(TOP_ALIGNMENT);
+		this.speed_label.setAlignmentY(Component.TOP_ALIGNMENT);
 		this.speed_label.setForeground(Color.black);
 		speed_panel.add(this.speed_slider);
 		speed_panel.add(this.speed_label);
@@ -529,14 +532,14 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.but_info = new JButton(new ImageIcon(TableImages
 				.getImage("vertexwb")));
 		this.but_info.setToolTipText("Info");
-		this.but_info.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_info.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_info.addActionListener(this);
 		this.toolBar.add(this.but_info);
 
 		this.but_default = new JButton(new ImageIcon(TableImages
 				.getImage("vertexdefwb")));
 		this.but_default.setToolTipText("Initialisation");
-		this.but_default.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_default.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_default.addActionListener(this);
 		this.toolBar.add(this.but_default);
 
@@ -545,7 +548,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.but_agents = new JButton(new ImageIcon(TableImages
 				.getImage("agentwb")));
 		this.but_agents.setToolTipText("Agent whiteboard");
-		this.but_agents.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_agents.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_agents.setEnabled(false);
 		this.but_agents.addActionListener(this);
 		this.toolBar.add(this.but_agents);
@@ -554,7 +557,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
 		this.but_help.setToolTipText("Help");
-		this.but_help.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_help.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_help.addActionListener(this);
 		this.toolBar.add(this.but_help);
 
@@ -562,7 +565,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		this.but_experimentation = new JButton("Statistics");
 		this.but_experimentation.setToolTipText("Statistics");
-		this.but_experimentation.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_experimentation.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_experimentation.addActionListener(this);
 		this.but_experimentation.setEnabled(false);
 		this.toolBar.add(this.but_experimentation);
@@ -571,18 +574,18 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.but_threadCount = new JButton("Threads");
 		this.but_threadCount
 				.setToolTipText("Amount of threads that are active in the VM");
-		this.but_threadCount.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_threadCount.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_threadCount.addActionListener(this);
 		this.toolBar.add(this.but_threadCount);
 		this.toolBar.addSeparator();
-		if (threadCountFrame == null) {
-			threadCountFrame = new ThreadCountFrame(Thread.currentThread()
-					.getThreadGroup());
+		if (AgentsSimulationWindow.threadCountFrame == null) {
+			AgentsSimulationWindow.threadCountFrame = new ThreadCountFrame(
+					Thread.currentThread().getThreadGroup());
 		}
 
 		this.but_reset = new JButton("RESET");
 		this.but_reset.setToolTipText("RESET");
-		this.but_reset.setAlignmentY(CENTER_ALIGNMENT);
+		this.but_reset.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_reset.addActionListener(this);
 		this.but_reset.setEnabled((this.fichier_edite != null));
 		this.toolBar.add(this.but_reset);
@@ -618,10 +621,11 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	/** ****************************************************** */
 	public void actionPerformed(ActionEvent evt) {
 
-		if (evt.getSource() instanceof JButton)
+		if (evt.getSource() instanceof JButton) {
 			this.action_toolbar((JButton) evt.getSource());
-		else if (evt.getSource() instanceof JMenuItem)
+		} else if (evt.getSource() instanceof JMenuItem) {
 			this.action_menu((JMenuItem) evt.getSource());
+		}
 	}
 
 	/** ****************************************************** */
@@ -645,15 +649,16 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		if (le_menu == "PopFile") {
 			this.menuFile(mi);
-		} else if (le_menu == "PopGraph")
+		} else if (le_menu == "PopGraph") {
 			this.menuGraph(mi);
-		else if (le_menu == "PopAlgo")
+		} else if (le_menu == "PopAlgo") {
 			this.menuAlgo(mi);
-		else if (le_menu == "PopRules")
+		} else if (le_menu == "PopRules") {
 			this.menuRules(mi);
-		/*
-		 * else if(le_menu == "PopRules_new") menuNew(mi);
-		 */
+			/*
+			 * else if(le_menu == "PopRules_new") menuNew(mi);
+			 */
+		}
 
 	}
 
@@ -741,8 +746,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		Bag expStats;
 		AbstractExperiment classStats = OpenStats.open(this);
 
-		if (classStats == null)
+		if (classStats == null) {
 			return;
+		}
 
 		if (this.sim == null) {
 			statsFrame = new AgentExperimentationFrame(this.vueGraphe,
@@ -772,8 +778,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			this.sim.abortSimulation();
 			this.sim = null;
 		}
-		if (this.seh != null)
+		if (this.seh != null) {
 			this.seh.abort();
+		}
 
 		/*
 		 * if (fichier_edite != null) OpenGraph.open(this,fichier_edite);
@@ -823,8 +830,8 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		} else if (b == this.but_experimentation) {
 			this.but_experimentation();
 		} else if (b == this.but_threadCount) {
-			threadCountFrame.pack();
-			threadCountFrame.setVisible(true);
+			AgentsSimulationWindow.threadCountFrame.pack();
+			AgentsSimulationWindow.threadCountFrame.setVisible(true);
 		} else if (b == this.but_save) {
 			SaveFile.save(this, this.vueGraphe.getGraphe());
 		} else if (b == this.but_info) {
@@ -860,10 +867,11 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 									+ "except changing the state of edges or vertices\n"
 									+ "before starting simulation you must load an algorithm \n "
 									+ "or a list of simple rules \n");
-		} else if (mi == this.file_close)
+		} else if (mi == this.file_close) {
 			this.commandeClose();
-		else if (mi == this.file_quit)
+		} else if (mi == this.file_quit) {
 			System.exit(0);
+		}
 	}
 
 	/** ********************************************************** */
@@ -889,8 +897,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			if (this.item_replay.isSelected()) {
 				this.but_start.setEnabled(true);
 				this.but_experimentation.setEnabled(true);
-			} else
+			} else {
 				this.but_start.setEnabled(false);
+			}
 			this.but_pause.setEnabled(false);
 			this.but_stop.setEnabled(false);
 		}
@@ -926,10 +935,10 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 				return;
 			}
 
-			if (DistributedAlgoSimulator.estStandalone())
-				if (!this.but_stop.isEnabled())
+			if (DistributedAlgoSimulator.estStandalone()) {
+				if (!this.but_stop.isEnabled()) {
 					ok = OpenAgents.open(this.selection.elements(), this);
-				else {
+				} else {
 					Integer id = Integer.decode(((SommetDessin) (this.selection
 							.elements()).nextElement()).getEtiquette());
 					Hashtable currentAgentTable = this.agentsTable;
@@ -944,11 +953,12 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 							this.agentsRules);
 					this.sim.createThreadFor(ag).start();
 				}
-			else
+			} else {
 				// When using Visidia with an applet: not implemented
 				// yet
 				// OpenAlgoApplet.open(this);
 				;
+			}
 
 			if (!this.but_stop.isEnabled() && !this.but_start.isEnabled()) {
 				this.but_start.setEnabled(ok);
@@ -1019,8 +1029,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	public void applyStarRulesSystem(RelabelingSystem rSys) {
 		this.rulesWarnings(rSys);
 
-		if (this.agentsRules == null)
+		if (this.agentsRules == null) {
 			this.agentsRules = new Vector<RelabelingSystem>();
+		}
 
 		int size = this.agentsRules.size();
 
@@ -1052,8 +1063,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			this.simulationPanel.stop();
 			System.out.println("  ==> Stopped");
 			System.out.println("Stopping the Simulator");
-			if (this.sim != null)
+			if (this.sim != null) {
 				this.sim.abortSimulation();
+			}
 
 			System.out.println("  ==> Stopped");
 
@@ -1109,8 +1121,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	/* saving is made and then change the title of the window */
 	/** ******************************************************* */
 	public void mettreAJourTitreFenetre(File fichier) {
-		if (fichier != null)
+		if (fichier != null) {
 			this.but_reset.setEnabled(true);
+		}
 		super.mettreAJourTitreFenetre(fichier);
 	}
 
@@ -1184,18 +1197,19 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	 */
 	public void emptyCurrentSelection(boolean deselect) { // Penser au
 		// repaint()
-		if (!this.selection.estVide())
+		if (!this.selection.estVide()) {
 			if (deselect) {
 				this.selection.deSelect();
 			}
+		}
 	}
 
 	// action on the property button with a selection
 
 	private void propertiesControl() {
-		if (this.selection.estVide())
+		if (this.selection.estVide()) {
 			System.out.println("empty");
-		else {
+		} else {
 			Enumeration e = this.selection.elements();
 			FormeDessin firstElement = ((FormeDessin) e.nextElement());
 			if (!Traitements.sommetDessin(this.selection.elements())
@@ -1225,9 +1239,10 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			} else {
 				e = this.selection.elements();
 				visidia.gui.donnees.conteneurs.MultiEnsemble table_des_types = new MultiEnsemble();
-				while (e.hasMoreElements())
+				while (e.hasMoreElements()) {
 					table_des_types.inserer(((FormeDessin) e.nextElement())
 							.type());
+				}
 				AgentBoxSimulationSelection.show(this, this.selection,
 						table_des_types);
 			}
@@ -1287,19 +1302,20 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	}
 
 	public static void setVisuAlgorithmMess(boolean b) {
-		visuAlgorithmMess = b;
+		AgentsSimulationWindow.visuAlgorithmMess = b;
 	}
 
 	public static void setVisuSynchrMess(boolean b) {
-		visuSynchrMess = b;
+		AgentsSimulationWindow.visuSynchrMess = b;
 	}
 
 	public void nodeStateChanged(int nodeId, Hashtable properties) {
 		// System.out.println("aaaa= "+nodeId+" gggg = "+ properties);
-		if (this.sim != null)
+		if (this.sim != null) {
 			// dam sim.setNodeProperties(nodeId, properties);
 			;
-		// sim.restartNode(nodeId);
+			// sim.restartNode(nodeId);
+		}
 	}
 
 	public void rulesWarnings(RelabelingSystem r) {
@@ -1332,8 +1348,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	public void updateVertexState(SommetDessin vert) {
 		AgentBoxChangingVertexState box = this.boxVertices.get(vert);
 
-		if (box != null) // An AgentBoxChangingVertexState is
+		if (box != null) {
 			box.updateBox(); // open for this vertex
+		}
 
 	}
 

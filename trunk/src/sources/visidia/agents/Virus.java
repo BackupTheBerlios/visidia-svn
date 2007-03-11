@@ -32,8 +32,9 @@ public class Virus extends Agent {
 
 			this.unlockVertexProperties();
 
-			for (int i = 0; i < this.getArity(); ++i)
+			for (int i = 0; i < this.getArity(); ++i) {
 				this.cloneAndSend(i);
+			}
 		}
 	}
 }

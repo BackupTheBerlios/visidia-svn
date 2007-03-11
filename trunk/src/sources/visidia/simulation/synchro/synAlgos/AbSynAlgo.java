@@ -3,8 +3,8 @@ package visidia.simulation.synchro.synAlgos;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import visidia.misc.MessageType;
 import visidia.misc.MSG_TYPES;
+import visidia.misc.MessageType;
 import visidia.misc.SyncState;
 import visidia.rule.Star;
 import visidia.simulation.Algorithm;

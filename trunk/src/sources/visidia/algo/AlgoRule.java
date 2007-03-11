@@ -27,8 +27,9 @@ public class AlgoRule extends SynchroAlgo {
 
 		int arity = this.getArity();
 		this.marquage = new boolean[arity];
-		for (int i = 0; i < arity; i++)
+		for (int i = 0; i < arity; i++) {
 			this.marquage[i] = false;
+		}
 		while (true) {
 
 			// synchro
@@ -66,11 +67,13 @@ public class AlgoRule extends SynchroAlgo {
 						if (r.isApplicable(a)) {
 							after = r.apply(a);
 							// marquage de l arete
-							if (this.marquage[neighbour] == false)
+							if (this.marquage[neighbour] == false) {
 								this.marquage[neighbour] = after.isMarked;
-							if (a.isMarked)
+							}
+							if (a.isMarked) {
 								this.setDoorState(new MarkedState(true),
 										neighbour);
+							}
 
 							this.setState(after.left);
 							this.sendTo(neighbour, new ArrowMessage(after));
@@ -92,10 +95,12 @@ public class AlgoRule extends SynchroAlgo {
 					this.setState(arete.right);
 					// marquage de l arete;
 
-					if (this.marquage[neighbour] == false)
+					if (this.marquage[neighbour] == false) {
 						this.marquage[neighbour] = arete.isMarked;
-					if (arete.isMarked)
+					}
+					if (arete.isMarked) {
 						this.setDoorState(new MarkedState(true), neighbour);
+					}
 				}
 			}
 		}

@@ -36,10 +36,10 @@ public class AgentSynchroLC1 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(round1);
-		typesList.add(round2);
-		typesList.add(round3);
-		typesList.add(labels);
+		typesList.add(AgentSynchroLC1.round1);
+		typesList.add(AgentSynchroLC1.round2);
+		typesList.add(AgentSynchroLC1.round3);
+		typesList.add(AgentSynchroLC1.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -60,7 +60,7 @@ public class AgentSynchroLC1 extends Algorithm {
 			// System.out.println("OK");
 			int n = this.getNetSize();
 			System.out.println("la taille du graphe est :" + n);
-			initialLocation = new int[n];
+			AgentSynchroLC1.initialLocation = new int[n];
 			double _k = Math.log(1.5) * n;
 			// System.out.println(_k);
 			int k = (int) _k;
@@ -70,27 +70,29 @@ public class AgentSynchroLC1 extends Algorithm {
 			while (k > 0) {
 				int choosenNode = Math.abs((generator.nextInt())) % n;
 				// System.out.println(choosenNode);
-				initialLocation[choosenNode] += 1;
+				AgentSynchroLC1.initialLocation[choosenNode] += 1;
 				k--;
 			}
 			try {
-				synchronized (notReady) {
-					notReadyBool = false;
-					notReady.notifyAll();
+				synchronized (AgentSynchroLC1.notReady) {
+					AgentSynchroLC1.notReadyBool = false;
+					AgentSynchroLC1.notReady.notifyAll();
 				}
 			} catch (Exception e) {
 			}
 
 		} else {
 			try {
-				synchronized (notReady) {
-					if (notReadyBool)
-						notReady.wait();
+				synchronized (AgentSynchroLC1.notReady) {
+					if (AgentSynchroLC1.notReadyBool) {
+						AgentSynchroLC1.notReady.wait();
+					}
 				}
 			} catch (Exception e) {
 			}
 
-			numberOfPresentAgent = initialLocation[this.getId().intValue()];
+			numberOfPresentAgent = AgentSynchroLC1.initialLocation[this.getId()
+					.intValue()];
 			if (numberOfPresentAgent > 0) {
 				agentPresent = true;
 			}
@@ -108,7 +110,8 @@ public class AgentSynchroLC1 extends Algorithm {
 				 */
 
 				for (int i = 0; i < arite; i++) {
-					this.sendTo(i, new IntegerMessage(new Integer(1), round1));
+					this.sendTo(i, new IntegerMessage(new Integer(1),
+							AgentSynchroLC1.round1));
 				}
 
 				/*
@@ -123,7 +126,8 @@ public class AgentSynchroLC1 extends Algorithm {
 				 * Non
 				 */
 				for (int i = 0; i < arite; i++) {
-					this.sendTo(i, new IntegerMessage(new Integer(0), round2));
+					this.sendTo(i, new IntegerMessage(new Integer(0),
+							AgentSynchroLC1.round2));
 				}
 
 				/*
@@ -133,15 +137,16 @@ public class AgentSynchroLC1 extends Algorithm {
 				for (int i = 0; i < arite; i++) {
 					Message msg = this.receiveFrom(i);
 					IntegerMessage smsg = (IntegerMessage) msg;
-					if (smsg.value() == 0)
+					if (smsg.value() == 0) {
 						tentative = false;
+					}
 				}
 
 				if (tentative) {
 					for (int door = 0; door < arite; door++) {
 						this.setDoorState(new SyncState(true), door);
 					}
-					numberRdv += 1;
+					AgentSynchroLC1.numberRdv += 1;
 				}
 
 				/*
@@ -166,7 +171,7 @@ public class AgentSynchroLC1 extends Algorithm {
 
 				for (int i = 0; i < arite; i++) {
 					this.sendTo(i, new IntegerMessage(new Integer(
-							goDirection[i]), labels));
+							goDirection[i]), AgentSynchroLC1.labels));
 				}
 
 				/*
@@ -179,10 +184,11 @@ public class AgentSynchroLC1 extends Algorithm {
 					numberOfPresentAgent += smsg.value();
 				}
 
-				if (numberOfPresentAgent > 0)
+				if (numberOfPresentAgent > 0) {
 					agentPresent = true;
-				else
+				} else {
 					agentPresent = false;
+				}
 
 				for (int door = 0; door < arite; door++) {
 					this.setDoorState(new SyncState(false), door);
@@ -194,7 +200,8 @@ public class AgentSynchroLC1 extends Algorithm {
 
 				// j'envoi 0 a tout le monde
 				for (int i = 0; i < arite; i++) {
-					this.sendTo(i, new IntegerMessage(new Integer(0), round1));
+					this.sendTo(i, new IntegerMessage(new Integer(0),
+							AgentSynchroLC1.round1));
 				}
 
 				// je recois les requetes des voisins
@@ -211,7 +218,7 @@ public class AgentSynchroLC1 extends Algorithm {
 				// j'envoi 1 a tout ceux qui m'ont choisit
 				for (int i = 0; i < arite; i++) {
 					this.sendTo(i, new IntegerMessage(new Integer(
-							ilMontChoisit[i]), round2));
+							ilMontChoisit[i]), AgentSynchroLC1.round2));
 				}
 
 				// symetriquement je recoit les reponses
@@ -221,7 +228,8 @@ public class AgentSynchroLC1 extends Algorithm {
 
 				// j'envoi 0
 				for (int i = 0; i < arite; i++) {
-					this.sendTo(i, new IntegerMessage(new Integer(0), round3));
+					this.sendTo(i, new IntegerMessage(new Integer(0),
+							AgentSynchroLC1.round3));
 				}
 
 				// je recois les nouveau jeton
@@ -231,20 +239,21 @@ public class AgentSynchroLC1 extends Algorithm {
 					numberOfPresentAgent += smsg.value();
 				}
 
-				if (numberOfPresentAgent > 0)
+				if (numberOfPresentAgent > 0) {
 					agentPresent = true;
-				else
+				} else {
 					agentPresent = false;
+				}
 
 			}
 
 		}
 
 		if (this.getId().intValue() == 0) {
-			System.out.println("nombre de RDV : " + numberRdv);
+			System.out.println("nombre de RDV : " + AgentSynchroLC1.numberRdv);
 			// System.out.println("##############################################");
-			notReadyBool = true;
-			numberRdv = 0;
+			AgentSynchroLC1.notReadyBool = true;
+			AgentSynchroLC1.numberRdv = 0;
 		}
 	}
 

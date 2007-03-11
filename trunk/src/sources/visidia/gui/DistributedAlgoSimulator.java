@@ -58,8 +58,12 @@ public class DistributedAlgoSimulator extends JApplet implements ActionListener 
 	}
 
 	public String getAppletInfo() {
-		return nomDuProgramme + " v" + version_major + "." + version_minor
-				+ "." + patchLevel + " by " + auteur + " " + date;
+		return DistributedAlgoSimulator.nomDuProgramme + " v"
+				+ DistributedAlgoSimulator.version_major + "."
+				+ DistributedAlgoSimulator.version_minor + "."
+				+ DistributedAlgoSimulator.patchLevel + " by "
+				+ DistributedAlgoSimulator.auteur + " "
+				+ DistributedAlgoSimulator.date;
 	}
 
 	public String[][] getParameterInfo() {
@@ -68,15 +72,15 @@ public class DistributedAlgoSimulator extends JApplet implements ActionListener 
 	}
 
 	public static boolean estStandalone() {
-		return est_standalone;
+		return DistributedAlgoSimulator.est_standalone;
 	}
 
 	public static JApplet applet() {
-		return japplet;
+		return DistributedAlgoSimulator.japplet;
 	}
 
 	public void init() {
-		est_standalone = false;
+		DistributedAlgoSimulator.est_standalone = false;
 		TableImages.setTableImages(this); // fill the tables of images
 		TableAlgo.setTableAlgo(this); // fill the table of alforithms
 
@@ -123,9 +127,10 @@ public class DistributedAlgoSimulator extends JApplet implements ActionListener 
 	}
 
 	public static void main(String[] args) {
-		TableImages.setTableImages(japplet.getToolkit()); // fill the tables
+		TableImages.setTableImages(DistributedAlgoSimulator.japplet
+				.getToolkit()); // fill the tables
 		// of images
-		est_standalone = true;
+		DistributedAlgoSimulator.est_standalone = true;
 		Editeur ed = new Editeur();
 		ed.setVisible(true);
 	}

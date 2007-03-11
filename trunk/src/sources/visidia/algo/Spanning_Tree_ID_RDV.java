@@ -31,8 +31,8 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Spanning_Tree_ID_RDV.synchronization);
+		typesList.add(Spanning_Tree_ID_RDV.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -46,8 +46,9 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 		int name;
 		int neighbourValue;
 
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			neighboursLink[i] = 0;
+		}
 
 		name = this.getId().intValue();
 
@@ -58,7 +59,8 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 
 			synchro = this.synchronization();
 
-			this.sendTo(synchro, new IntegerMessage(new Integer(name), labels));
+			this.sendTo(synchro, new IntegerMessage(new Integer(name),
+					Spanning_Tree_ID_RDV.labels));
 			neighbourValue = (((IntegerMessage) this.receiveFrom(synchro))
 					.data()).intValue();
 
@@ -67,13 +69,16 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 				neighboursLink[synchro] = name;
 				disp = new Integer(name);
 				this.putProperty("label", disp.toString());
-				for (int i = 0; i < this.getArity(); i++)
-					if (neighboursLink[i] < name)
+				for (int i = 0; i < this.getArity(); i++) {
+					if (neighboursLink[i] < name) {
 						this.setDoorState(new MarkedState(false), i);
+					}
+				}
 
 				this.setDoorState(new MarkedState(true), synchro);
-			} else if (neighbourValue < name)
+			} else if (neighbourValue < name) {
 				neighboursLink[synchro] = name;
+			}
 		}
 		// printStatistics();
 	}
@@ -83,8 +88,9 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < 0) {
 			i = this.trySynchronize();
@@ -106,11 +112,12 @@ public class Spanning_Tree_ID_RDV extends Algorithm {
 		int choosenNeighbour = Math.abs((generator.nextInt())) % arite;
 
 		this.sendTo(choosenNeighbour, new IntegerMessage(new Integer(1),
-				synchronization));
+				Spanning_Tree_ID_RDV.synchronization));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
+			if (i != choosenNeighbour) {
 				this.sendTo(i, new IntegerMessage(new Integer(0),
-						synchronization));
+						Spanning_Tree_ID_RDV.synchronization));
+			}
 
 		}
 

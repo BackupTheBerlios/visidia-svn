@@ -30,8 +30,8 @@ public class Election_K_Tree extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Election_K_Tree.synchronization);
+		typesList.add(Election_K_Tree.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -65,16 +65,19 @@ public class Election_K_Tree extends Algorithm {
 					int n_Count = 0;
 					int f_Count = 0;
 
-					for (int door = 0; door < neighbour; door++)
+					for (int door = 0; door < neighbour; door++) {
 						if (!finishedNode[door]) {
 							neighbourState[door] = ((StringMessage) this
 									.receiveFrom(door)).data();
-							if (neighbourState[door].compareTo(nodeN) == 0)
+							if (neighbourState[door].compareTo(nodeN) == 0) {
 								n_Count++;
-							else
+							} else {
 								f_Count++;
-						} else
+							}
+						} else {
 							f_Count++;
+						}
+					}
 
 					if ((((String) this.getProperty("label")).compareTo(nodeN) == 0)
 							&& (n_Count <= this.K) && (n_Count > 0)) {
@@ -90,18 +93,21 @@ public class Election_K_Tree extends Algorithm {
 					this.breakSynchro();
 
 				} else {
-					for (int i = 0; i < synchro.size(); i++)
+					for (int i = 0; i < synchro.size(); i++) {
 						this.sendTo(
 								((Integer) synchro.elementAt(i)).intValue(),
 								new StringMessage((String) this
-										.getProperty("label"), labels));
+										.getProperty("label"),
+										Election_K_Tree.labels));
+					}
 				}
 
 			}
 
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(-1), synchronization));
+		this.sendAll(new IntegerMessage(new Integer(-1),
+				Election_K_Tree.synchronization));
 
 	}
 
@@ -120,49 +126,55 @@ public class Election_K_Tree extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Election_K_Tree.synchronization));
 			}
 		}
 
 		/* receive all numbers from neighbours */
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
+		}
 
 		/* get the max */
 		int max = choosenNumber;
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
+		}
 
 		if (choosenNumber >= max) {
-			for (int door = 0; door < this.getArity(); door++)
+			for (int door = 0; door < this.getArity(); door++) {
 				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
 				}
+			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							Election_K_Tree.synchronization));
 				}
 			}
 
-			for (int i = 0; i < arite; i++)
+			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					/* Message msg= */this.receiveFrom(i);
 				}
+			}
 
 			neighbourCenter = new Vector<Integer>();
 			neighbourCenter.add(new Integer(-1));
 
-			synchroNumber++;
+			Election_K_Tree.synchroNumber++;
 			return neighbourCenter;
 		} else {
 
@@ -171,20 +183,22 @@ public class Election_K_Tree extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Election_K_Tree.synchronization));
 				}
 			}
 
-			for (int i = 0; i < arite; i++)
+			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					Message msg = this.receiveFrom(i);
 					if (((IntegerMessage) msg).value() == 1) {
 						neighbourCenter.add(new Integer(i));
 					}
 				}
+			}
 
-			if (neighbourCenter.size() == 0)
+			if (neighbourCenter.size() == 0) {
 				neighbourCenter = null;
+			}
 
 			return neighbourCenter;
 

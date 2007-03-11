@@ -31,8 +31,9 @@ public class OpenGraph implements Serializable {
 		fc.setFileFilter(graphFileFilter);
 
 		int returnVal = fc.showOpenDialog(fenetre);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file_open = fc.getSelectedFile();
+		}
 
 		// file name specified ?
 		String file_name = fc.getName(file_open);
@@ -52,10 +53,12 @@ public class OpenGraph implements Serializable {
 						"Do you want to save before opening a new file ?",
 						"Warning", JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-				if (n == JOptionPane.YES_OPTION)
+				if (n == JOptionPane.YES_OPTION) {
 					SaveFile.save(fenetre, fenetre.getVueGraphe().getGraphe());
-				if (n == JOptionPane.CANCEL_OPTION)
+				}
+				if (n == JOptionPane.CANCEL_OPTION) {
 					return;
+				}
 			}
 
 			unGraphe = (Graphe) oI.readObject();

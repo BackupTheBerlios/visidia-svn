@@ -29,7 +29,7 @@ public class Boite extends JOptionPane {
 
 	protected static Object[] OK_CANCEL_BUTTONS = { "Ok", "Cancel" };
 
-	protected static int DISMISS_OPTION = DEFAULT_OPTION;
+	protected static int DISMISS_OPTION = JOptionPane.DEFAULT_OPTION;
 
 	/**
 	 * Construit une boite de type <b>type</b>, centrée sur <b>parent</b>, et
@@ -52,14 +52,14 @@ public class Boite extends JOptionPane {
 		this.title = title;
 		this.parent = parent;
 
-		if (type == OK_CANCEL_OPTION) {
-			this.setOptions(OK_CANCEL_BUTTONS);
+		if (type == JOptionPane.OK_CANCEL_OPTION) {
+			this.setOptions(Boite.OK_CANCEL_BUTTONS);
 		} else {
-			this.setOptions(DISMISS_BUTTON);
+			this.setOptions(Boite.DISMISS_BUTTON);
 		}
 
 		this.setOptionType(type);
-		this.setMessageType(PLAIN_MESSAGE);
+		this.setMessageType(JOptionPane.PLAIN_MESSAGE);
 
 	}
 
@@ -78,8 +78,8 @@ public class Boite extends JOptionPane {
 		Object[] labels = { labelGauche, labelDroite };
 		this.setOptions(labels);
 
-		this.setOptionType(OK_CANCEL_OPTION);
-		this.setMessageType(PLAIN_MESSAGE);
+		this.setOptionType(JOptionPane.OK_CANCEL_OPTION);
+		this.setMessageType(JOptionPane.PLAIN_MESSAGE);
 
 	}
 

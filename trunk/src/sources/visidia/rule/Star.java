@@ -23,7 +23,7 @@ public class Star implements Serializable {
 	 * default constructor. default centerState is "UNKNOWN"
 	 */
 	public Star() {
-		this.centerState = unknown;
+		this.centerState = Star.unknown;
 		this.neighbourhood = new MyVector();
 
 	}
@@ -83,7 +83,7 @@ public class Star implements Serializable {
 	 */
 	public Star(int arity) {
 		int i;
-		this.centerState = unknown;
+		this.centerState = Star.unknown;
 		this.neighbourhood = new MyVector(arity);
 		for (i = 0; i < arity; i++) {
 
@@ -223,8 +223,9 @@ public class Star implements Serializable {
 		this.setCenterState(b.centerState());
 		for (i = 0; i < b.arity(); i++) {
 			for (int k = 0; k < this.arity(); k++) {
-				if (b.neighbour(i).doorNum() == this.neighbour(k).doorNum())
+				if (b.neighbour(i).doorNum() == this.neighbour(k).doorNum()) {
 					this.setState(k, b.neighbour(i));
+				}
 			}
 		}
 	}

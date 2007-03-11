@@ -14,8 +14,9 @@ class DoorCriterion implements Criterion {
 	}
 
 	public boolean isMatchedBy(Object o) {
-		if (!(o instanceof MessagePacket))
+		if (!(o instanceof MessagePacket)) {
 			return false;
+		}
 
 		MessagePacket mesgPacket = (MessagePacket) o;
 		int door = mesgPacket.receiverDoor();

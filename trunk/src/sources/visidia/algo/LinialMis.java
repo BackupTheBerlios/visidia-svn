@@ -37,9 +37,10 @@ public class LinialMis extends Algorithm {
 
 				/* send x to all active neighbors */
 				for (Integer i = 0; i < nodeDegree; i++) {
-					if (!finishedNeighbors.contains(i))
+					if (!finishedNeighbors.contains(i)) {
 						/* send x to the neighbor connected on door i */
 						this.sendTo(i, new IntegerMessage(x));
+					}
 				}
 
 				/* receive the integers sent by active neighbors */
@@ -52,8 +53,9 @@ public class LinialMis extends Algorithm {
 						 */
 						IntegerMessage msg = (IntegerMessage) this
 								.receiveFrom(i);
-						if (msg.getData() >= x)
+						if (msg.getData() >= x) {
 							biggest = false;
+						}
 					}
 				}
 
@@ -62,8 +64,9 @@ public class LinialMis extends Algorithm {
 					/* the node is in the MIS */
 					covered = true;
 					for (Integer i = 0; i < nodeDegree; i++) {
-						if (!finishedNeighbors.contains(i))
+						if (!finishedNeighbors.contains(i)) {
 							this.sendTo(i, new StringMessage("MIS"));
+						}
 					}
 
 					/*
@@ -76,8 +79,9 @@ public class LinialMis extends Algorithm {
 
 					/* the node is not in the MIS */
 					for (Integer i = 0; i < nodeDegree; i++) {
-						if (!finishedNeighbors.contains(i))
+						if (!finishedNeighbors.contains(i)) {
 							this.sendTo(i, new StringMessage("NOT MIS"));
+						}
 					}
 
 					/* receive messages from neighbors */
@@ -99,8 +103,9 @@ public class LinialMis extends Algorithm {
 						 * the MIS
 						 */
 						for (Integer i = 0; i < nodeDegree; i++) {
-							if (!finishedNeighbors.contains(i))
+							if (!finishedNeighbors.contains(i)) {
 								this.sendTo(i, new StringMessage("COVERED"));
+							}
 						}
 
 						/*
@@ -117,10 +122,11 @@ public class LinialMis extends Algorithm {
 						 * by the MIS
 						 */
 						for (Integer i = 0; i < nodeDegree; i++) {
-							if (!finishedNeighbors.contains(i))
+							if (!finishedNeighbors.contains(i)) {
 								this
 										.sendTo(i, new StringMessage(
 												"NOT COVERED"));
+							}
 						}
 						/* check if any neighor was covered */
 						for (Integer i = 0; i < nodeDegree; i++) {

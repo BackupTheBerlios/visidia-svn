@@ -119,15 +119,15 @@ public class SimpleGraph implements Cloneable, Serializable {
 		SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
 
 		SimpleGraphEdge edg_12 = new SimpleGraphEdge(this, sgv1, sgv2); // arete
-																		// de
-																		// sgv1
-																		// vers
-																		// sgv2
+		// de
+		// sgv1
+		// vers
+		// sgv2
 		SimpleGraphEdge edg_21 = new SimpleGraphEdge(this, sgv2, sgv1); // arete
-																		// de
-																		// sgv2
-																		// vers
-																		// sgv1
+		// de
+		// sgv2
+		// vers
+		// sgv1
 		sgv1.addNeighbour(sgv2, edg_12);
 		sgv2.addNeighbour(sgv1, edg_21);
 	}

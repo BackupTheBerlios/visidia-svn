@@ -24,8 +24,9 @@ public class RendezVous extends Algorithm {
 
 			// and send 0 to others
 			for (int i = 0; i < neighbourCount; i++) {
-				if (i == rendezVousNeighbour)
+				if (i == rendezVousNeighbour) {
 					continue;
+				}
 
 				this.sendTo(i, new IntegerMessage(0));
 			}

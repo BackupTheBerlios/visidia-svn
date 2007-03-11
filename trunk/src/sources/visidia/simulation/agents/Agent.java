@@ -72,7 +72,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	 * @see #setSimulator(AgentSimulator)
 	 */
 	public Agent() {
-		this.agentIdentity = createdAgentCount++;
+		this.agentIdentity = Agent.createdAgentCount++;
 	}
 
 	/**
@@ -349,10 +349,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	public boolean lockVertexIfPossible() {
 		boolean lock;
 
-		synchronized (askForLock) {
+		synchronized (Agent.askForLock) {
 			lock = this.vertexPropertiesLocked();
-			if (lock)
+			if (lock) {
 				return false;
+			}
 			this.lockVertexProperties();
 			return true;
 		}

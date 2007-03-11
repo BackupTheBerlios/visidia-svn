@@ -77,17 +77,19 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 					this.selection_y2);
 
 			if (e.hasMoreElements()) {
-				if (this.undoInfo != null)
+				if (this.undoInfo != null) {
 					this.undoInfo.newGroup(
 							"Unselect elements in rectangular area",
 							"Select elements in rectangular area");
+				}
 
 				while (e.hasMoreElements()) {
 					FormeDessin formeDessin = (FormeDessin) e.nextElement();
 					this.selection.insererElement(formeDessin);
-					if (this.undoInfo != null)
+					if (this.undoInfo != null) {
 						this.undoInfo.addInfo(new SelectFormeDessin(
 								this.selection, formeDessin));
+					}
 				}
 			}
 			this.carre_selection = false;
@@ -251,7 +253,7 @@ public class SelectionUnit extends MouseAdapter implements MouseMotionListener {
 
 	public void drawSelection(Graphics g) {
 		if (this.carre_selection) {
-			g.setColor(RECT_SELECTION_COLOR);
+			g.setColor(SelectionUnit.RECT_SELECTION_COLOR);
 			g.drawRect(this.selection_x1, this.selection_y1, this.selection_x2
 					- this.selection_x1, this.selection_y2 - this.selection_y1);
 		}

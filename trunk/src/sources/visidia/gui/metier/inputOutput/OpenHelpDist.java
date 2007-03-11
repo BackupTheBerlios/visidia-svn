@@ -14,7 +14,6 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-// import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;

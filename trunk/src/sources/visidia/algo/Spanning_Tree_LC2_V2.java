@@ -35,8 +35,8 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Spanning_Tree_LC2_V2.synchronization);
+		typesList.add(Spanning_Tree_LC2_V2.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -65,11 +65,13 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 					neighboursLabel[door] = ((StringMessage) this
 							.receiveFrom(door)).data();
 
-					if (neighboursLabel[door].compareTo(this.nNode) == 0)
+					if (neighboursLabel[door].compareTo(this.nNode) == 0) {
 						nbreN++;
+					}
 
-					if (neighboursLabel[door].compareTo(this.aNode) == 0)
+					if (neighboursLabel[door].compareTo(this.aNode) == 0) {
 						doorA = door;
+					}
 				}
 
 				if ((((String) this.getProperty("label")).compareTo(this.nNode) == 0)
@@ -83,20 +85,21 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 						if (neighboursLabel[door].compareTo(this.nNode) == 0) {
 							this.setDoorState(new MarkedState(true), door);
 						}
-						this
-								.sendTo(door, new StringMessage(this.aNode,
-										labels));
+						this.sendTo(door, new StringMessage(this.aNode,
+								Spanning_Tree_LC2_V2.labels));
 					}
-				} else
+				} else {
 					for (int door = 0; door < this.getArity(); door++) {
 						this.sendTo(door, new StringMessage(
-								neighboursLabel[door], labels));
+								neighboursLabel[door],
+								Spanning_Tree_LC2_V2.labels));
 					}
+				}
 				this.breakSynchro();
 			} else if (synchro != this.notInTheStar) {
 				String newState;
 				this.sendTo(synchro, new StringMessage(((String) this
-						.getProperty("label")), labels));
+						.getProperty("label")), Spanning_Tree_LC2_V2.labels));
 				newState = ((StringMessage) this.receiveFrom(synchro)).data();
 				this.putProperty("label", new String(newState));
 			}
@@ -117,7 +120,7 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 
 		/* Send to all neighbours */
 		this.sendAll(new IntegerMessage(new Integer(choosenNumber),
-				synchronization));
+				Spanning_Tree_LC2_V2.synchronization));
 
 		/* receive all numbers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -128,11 +131,13 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 		/* get the max */
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(max), synchronization));
+		this.sendAll(new IntegerMessage(new Integer(max),
+				Spanning_Tree_LC2_V2.synchronization));
 
 		/* get alla answers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -143,8 +148,9 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
@@ -152,7 +158,8 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 				this.setDoorState(new SyncState(true), door);
 			}
 
-			this.sendAll(new IntegerMessage(1, synchronization));
+			this.sendAll(new IntegerMessage(1,
+					Spanning_Tree_LC2_V2.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				this.receiveFrom(i);
@@ -162,7 +169,8 @@ public class Spanning_Tree_LC2_V2 extends Algorithm {
 		} else {
 			int inTheStar = this.notInTheStar;
 
-			this.sendAll(new IntegerMessage(0, synchronization));
+			this.sendAll(new IntegerMessage(0,
+					Spanning_Tree_LC2_V2.synchronization));
 
 			for (int i = 0; i < arite; i++) {
 				Message msg = this.receiveFrom(i);

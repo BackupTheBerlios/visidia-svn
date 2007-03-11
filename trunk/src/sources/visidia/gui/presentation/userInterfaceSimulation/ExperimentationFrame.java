@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.WindowConstants;
 import javax.swing.table.AbstractTableModel;
 
 import visidia.gui.metier.simulation.AlgoChoice;
@@ -146,7 +147,7 @@ public class ExperimentationFrame extends JFrame implements ActionListener {
 
 		this.fileChooser = new JFileChooser(".");
 
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.graph = vueGraphe;
 		this.algoChoice = algoChoice;

@@ -34,18 +34,19 @@ public class SimpleRule implements Serializable {
 
 	public boolean isApplicable(Arrow a) {
 		if (a.left.equals(this.leftMember.left)) {
-			if (a.right.equals(this.leftMember.right))
+			if (a.right.equals(this.leftMember.right)) {
 				return a.isMarked == this.leftMember.isMarked;
-
-			else
+			} else {
 				return false;
+			}
 		}
 
 		if (a.left.equals(this.leftMember.right)) {
-			if (a.right.equals(this.leftMember.left))
+			if (a.right.equals(this.leftMember.left)) {
 				return a.isMarked == this.leftMember.isMarked;
-			else
+			} else {
 				return false;
+			}
 		}
 		return false;
 	}
@@ -54,12 +55,13 @@ public class SimpleRule implements Serializable {
 		VisidiaAssertion.verify(this.isApplicable(a), "regle non applicable",
 				this);
 
-		if (a.left.equals(this.leftMember.left))
+		if (a.left.equals(this.leftMember.left)) {
 			return new Arrow(this.rightMember.left, this.rightMember.right,
 					this.rightMember.isMarked);
-		else
+		} else {
 			return new Arrow(this.rightMember.right, this.rightMember.left,
 					this.rightMember.isMarked);
+		}
 
 	}
 

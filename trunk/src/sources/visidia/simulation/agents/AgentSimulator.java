@@ -176,9 +176,9 @@ public class AgentSimulator {
 	 */
 	private int addAgentToVertex(Vertex vertex, Agent ag) {
 		synchronized (this.vertexAgentsNumber) {
-			if (this.vertexAgentsNumber.get(vertex) != null)
+			if (this.vertexAgentsNumber.get(vertex) != null) {
 				this.vertexAgentsNumber.get(vertex).add(ag);
-			else {
+			} else {
 				Collection<Agent> colOfAgents = new HashSet();
 				colOfAgents.add(ag);
 				this.vertexAgentsNumber.put(vertex, colOfAgents);
@@ -199,8 +199,9 @@ public class AgentSimulator {
 			if (this.vertexAgentsNumber.get(vertex).isEmpty()) {
 				this.vertexAgentsNumber.remove(vertex);
 				return 0;
-			} else
+			} else {
 				return this.vertexAgentsNumber.get(vertex).size();
+			}
 		}
 	}
 
@@ -260,8 +261,9 @@ public class AgentSimulator {
 		if (agentName.startsWith("Agents Rules")) {
 			mode_rules = true;
 			completName = new String("visidia.simulation.agents.AgentRules");
-		} else
+		} else {
 			completName = new String("visidia.agents." + agentName);
+		}
 
 		try {
 			agent = this.createAgent(Class.forName(completName), vertex,
@@ -317,7 +319,7 @@ public class AgentSimulator {
 	 */
 	public void agentDeath(Agent ag) throws InterruptedException {
 
-		ProcessData data = (ProcessData) this.agents.get(ag);
+		ProcessData data = this.agents.get(ag);
 		Vertex vertex = data.vertex;
 		Long key = new Long(this.numGen.alloc());
 
@@ -346,13 +348,14 @@ public class AgentSimulator {
 	 *            the door to which you want to move the Agent
 	 */
 	public void moveAgentTo(Agent ag, int door) throws InterruptedException {
-		ProcessData data = (ProcessData) this.agents.get(ag);
+		ProcessData data = this.agents.get(ag);
 		Vertex vertexFrom, vertexTo;
 		Message msg;
 		MessagePacket msgPacket;
 
-		if ((door < 0) || (door >= this.getArity(ag)))
+		if ((door < 0) || (door >= this.getArity(ag))) {
 			throw new IllegalArgumentException("This door doesn't exist !");
+		}
 
 		vertexFrom = data.vertex;
 		vertexTo = vertexFrom.neighbour(door);
@@ -401,8 +404,9 @@ public class AgentSimulator {
 	 *            the agent you want information about.
 	 */
 	public int entryDoor(Agent ag) {
-		if (this.getLastVertexSeen(ag) == null)
+		if (this.getLastVertexSeen(ag) == null) {
 			throw new IllegalStateException();
+		}
 		return this.getVertexFor(ag).indexOf(
 				this.getLastVertexSeen(ag).identity());
 	}
@@ -455,8 +459,9 @@ public class AgentSimulator {
 	 * @see #lockVertexProperties(Agent)
 	 */
 	public boolean vertexPropertiesLocked(Vertex v) {
-		if (this.getVertexPropertiesOwner(v) == null)
+		if (this.getVertexPropertiesOwner(v) == null) {
 			return false;
+		}
 		return true;
 	}
 
@@ -486,11 +491,10 @@ public class AgentSimulator {
 	public void lockVertexProperties(Agent ag) {
 		Vertex actualVertex = this.getVertexFor(ag);
 
-		if (this.getVertexPropertiesOwner(actualVertex) == ag)
+		if (this.getVertexPropertiesOwner(actualVertex) == ag) {
 			throw new IllegalStateException("Try to lock a WhiteBoard"
 					+ "already locked by me");
-
-		else {
+		} else {
 			synchronized (actualVertex) {
 				while (this.vertexPropertiesLocked(actualVertex)) {
 
@@ -523,9 +527,10 @@ public class AgentSimulator {
 					&& (this.getVertexPropertiesOwner(actualVertex) == ag)) {
 				this.lockedVertices.remove(actualVertex);
 				actualVertex.notifyAll();
-			} else
+			} else {
 				throw new IllegalStateException("Try to unlock a WhiteBoard "
 						+ "that doesn't belong to us");
+			}
 		}
 	}
 
@@ -690,7 +695,7 @@ public class AgentSimulator {
 	 *            Milliseconds to sleep
 	 */
 	public void sleep(Agent ag, long millis) throws InterruptedException {
-		this.getThreadFor(ag).sleep(millis);
+		Thread.sleep(millis);
 		this.stats.add(new SleepStat(ag.getClass()), millis);
 
 	}
@@ -803,7 +808,7 @@ public class AgentSimulator {
 		ProcessData data = this.getDataFor(ag);
 
 		data.thread = new Thread(this.threadGroup, ag);
-		data.thread.setPriority(THREAD_PRIORITY);
+		data.thread.setPriority(AgentSimulator.THREAD_PRIORITY);
 
 		return data.thread;
 	}
@@ -821,7 +826,7 @@ public class AgentSimulator {
 	}
 
 	private ProcessData getDataFor(Agent ag) {
-		return (ProcessData) this.agents.get(ag);
+		return this.agents.get(ag);
 	}
 
 	private class ProcessData {

@@ -25,8 +25,8 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Dijkstra_Scholten_RDV.synchronization);
+		typesList.add(Dijkstra_Scholten_RDV.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -63,8 +63,9 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 		}
 
 		son = new boolean[this.getArity()];
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			son[i] = false;
+		}
 
 		while (run) {
 			String n_State, n_AP;
@@ -82,7 +83,7 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 			synchro = this.synchronization();
 
 			this.sendTo(synchro, new StringMessage((String) this
-					.getProperty("label"), labels));
+					.getProperty("label"), Dijkstra_Scholten_RDV.labels));
 			neighbourValue = ((StringMessage) this.receiveFrom(synchro)).data();
 
 			n_State = new String(neighbourValue.substring(0, 1));
@@ -102,9 +103,9 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 				son[synchro] = true;
 			} else if ((my_State.compareTo("N") != 0)
 					&& (state.compareTo(passive) == 0) && (sc != 0)
-					&& (n_AP.compareTo(active) == 0))
+					&& (n_AP.compareTo(active) == 0)) {
 				state = active;
-			else if ((my_State.compareTo("N") != 0)
+			} else if ((my_State.compareTo("N") != 0)
 					&& (state.compareTo(passive) == 0) && (sc == 0)
 					&& (father.intValue() == synchro)) {
 				state = passive;
@@ -138,8 +139,9 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < 0) {
 			i = this.trySynchronize();
@@ -161,11 +163,12 @@ public class Dijkstra_Scholten_RDV extends Algorithm {
 		int choosenNeighbour = Math.abs((generator.nextInt())) % arite;
 
 		this.sendTo(choosenNeighbour, new IntegerMessage(new Integer(1),
-				synchronization));
+				Dijkstra_Scholten_RDV.synchronization));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
+			if (i != choosenNeighbour) {
 				this.sendTo(i, new IntegerMessage(new Integer(0),
-						synchronization));
+						Dijkstra_Scholten_RDV.synchronization));
+			}
 
 		}
 

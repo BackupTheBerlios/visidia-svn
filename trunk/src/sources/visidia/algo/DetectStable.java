@@ -24,8 +24,8 @@ public class DetectStable extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(DetectStable.synchronization);
+		typesList.add(DetectStable.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -66,13 +66,15 @@ public class DetectStable extends Algorithm {
 			if (synchro == this.starCenter) {
 				int minA = 2 * graphSize;
 
-				for (int door = 0; door < arity; door++)
+				for (int door = 0; door < arity; door++) {
 					if (!finishedNode[door]) {
 						neighboursA[door] = ((IntegerMessage) this
 								.receiveFrom(door)).value();
-						if (neighboursA[door] < minA)
+						if (neighboursA[door] < minA) {
 							minA = neighboursA[door];
+						}
 					}
+				}
 				if (myP) {
 					myA = 1 + minA;
 					myState = "T: " + myA;
@@ -80,8 +82,9 @@ public class DetectStable extends Algorithm {
 
 				this.putProperty("label", new String(myState));
 
-				if (myA > graphSize)
+				if (myA > graphSize) {
 					run = false;
+				}
 
 				this.breakSynchro();
 
@@ -89,7 +92,7 @@ public class DetectStable extends Algorithm {
 				if (synchro != this.notInTheStar) {
 
 					this.sendTo(synchro, new IntegerMessage(new Integer(myA),
-							labels));
+							DetectStable.labels));
 				}
 			}
 		}
@@ -97,7 +100,7 @@ public class DetectStable extends Algorithm {
 		for (int i = 0; i < this.getArity(); i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(-1),
-						synchronization));
+						DetectStable.synchronization));
 			}
 		}
 
@@ -115,7 +118,7 @@ public class DetectStable extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						DetectStable.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -123,8 +126,9 @@ public class DetectStable extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -132,15 +136,16 @@ public class DetectStable extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						DetectStable.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -154,20 +159,22 @@ public class DetectStable extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							DetectStable.synchronization));
 				}
 			}
 
@@ -184,7 +191,7 @@ public class DetectStable extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							DetectStable.synchronization));
 				}
 			}
 

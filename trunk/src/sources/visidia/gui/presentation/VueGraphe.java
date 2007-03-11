@@ -100,8 +100,7 @@ public class VueGraphe implements Serializable, RecoverableObject {
 				SommetDessin sommet_courant;// , sommet_clone;
 				sommet_courant = (SommetDessin) forme;
 				if (!sommets_clones.containsKey(sommet_courant)) {
-					sommets_clones.put(sommet_courant,
-					/* sommet_clone = */(SommetDessin) sommet_courant
+					sommets_clones.put(sommet_courant, sommet_courant
 							.cloner(vue));
 				}
 			}
@@ -114,16 +113,16 @@ public class VueGraphe implements Serializable, RecoverableObject {
 				SommetDessin destination = arete_courante.getArete()
 						.destination().getSommetDessin();
 
-				if (sommets_clones.containsKey(origine))
+				if (sommets_clones.containsKey(origine)) {
 					origine_clone = (SommetDessin) sommets_clones.get(origine);
-				else {
+				} else {
 					sommets_clones.put(origine,
 							origine_clone = (SommetDessin) origine.cloner(vue));
 				}
-				if (sommets_clones.containsKey(destination))
+				if (sommets_clones.containsKey(destination)) {
 					destination_clone = (SommetDessin) sommets_clones
 							.get(destination);
-				else {
+				} else {
 					sommets_clones.put(destination,
 							destination_clone = (SommetDessin) destination
 									.cloner(vue));
@@ -142,12 +141,14 @@ public class VueGraphe implements Serializable, RecoverableObject {
 		Enumeration e = this.listeAffichage();
 		while (e.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) e.nextElement();
-			if (f.type().equals("vertex"))
+			if (f.type().equals("vertex")) {
 				((SommetDessin) f).changerCouleurFond(Color.white);
+			}
 
-			if (f.type().equals("edge"))
+			if (f.type().equals("edge")) {
 				((AreteDessin) e.nextElement())
 						.changerCouleurTrait(Color.black);
+			}
 		}
 	}
 
@@ -189,7 +190,7 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	 * Creer un nouveau sommet dans le graphe avec une position donnee.
 	 */
 	public SommetDessin creerSommet(int posx, int posy) {
-		return fabriqueSommet.creerSommet(this, posx, posy, Integer
+		return VueGraphe.fabriqueSommet.creerSommet(this, posx, posy, Integer
 				.toString(this.numero_sommet++));
 	}
 
@@ -198,12 +199,12 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	 * d'origine et de destination
 	 */
 	public AreteDessin creerArete(SommetDessin origine, SommetDessin destination) {
-		return fabriqueArete.creerArete(origine, destination);
+		return VueGraphe.fabriqueArete.creerArete(origine, destination);
 	}
 
 	public AreteDessin creerAreteFleche(SommetDessin origine,
 			SommetDessin destination) {
-		return fabriqueAreteFleche.creerArete(origine, destination);
+		return VueGraphe.fabriqueAreteFleche.creerArete(origine, destination);
 	}
 
 	// pour les aretes et les sommets, il est possible de changer le type
@@ -211,13 +212,14 @@ public class VueGraphe implements Serializable, RecoverableObject {
 
 	// pour les aretes : pour les differents types d'affichage.
 	public void changerFormeArete(FabriqueArete fabrique, UndoInfo undoInfo) {
-		fabriqueArete = fabrique;
+		VueGraphe.fabriqueArete = fabrique;
 		Enumeration e = this.listeAffichage();
 		FormeDessin f;
 		AreteDessin nouvelle_arete;
 		Stack objets_a_etudier = new Stack();
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			objets_a_etudier.push(e.nextElement());
+		}
 
 		undoInfo.newGroup("Replace edges styles", "Remake edge styles");
 		while (!objets_a_etudier.empty()) {
@@ -225,11 +227,11 @@ public class VueGraphe implements Serializable, RecoverableObject {
 
 			if (f.type().equals("edge")) {
 				this.liste_affichage.supprimer(f);
-				nouvelle_arete = fabriqueArete.creerArete(((AreteDessin) f)
-						.getArete().origine().getSommetDessin(),
-						((AreteDessin) f).getArete().destination()
+				nouvelle_arete = VueGraphe.fabriqueArete.creerArete(
+						((AreteDessin) f).getArete().origine()
 								.getSommetDessin(), ((AreteDessin) f)
-								.getArete());
+								.getArete().destination().getSommetDessin(),
+						((AreteDessin) f).getArete());
 				nouvelle_arete.copyAllVariable((AreteDessin) f);
 				undoInfo.addInfo(new ChangeFormeDessin(f, nouvelle_arete));
 			}
@@ -240,14 +242,15 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	// pour les sommets : pour les differents types d'affichage
 
 	public void changerFormeSommet(FabriqueSommet fabrique, UndoInfo undoInfo) {
-		fabriqueSommet = fabrique;
+		VueGraphe.fabriqueSommet = fabrique;
 		Enumeration e = this.listeAffichage();
 		FormeDessin f;
 		SommetDessin nouveau_sommet;
 
 		Stack objets_a_etudier = new Stack();
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			objets_a_etudier.push(e.nextElement());
+		}
 
 		undoInfo.newGroup("Replace vertices styles", "Remake vertices styles");
 		while (!objets_a_etudier.empty()) {
@@ -255,7 +258,7 @@ public class VueGraphe implements Serializable, RecoverableObject {
 
 			if (f.type().equals("vertex")) {
 				this.liste_affichage.supprimer(f);
-				nouveau_sommet = fabriqueSommet.creerSommet(this,
+				nouveau_sommet = VueGraphe.fabriqueSommet.creerSommet(this,
 						((SommetDessin) f).centreX(), ((SommetDessin) f)
 								.centreY(), ((SommetDessin) f).getEtiquette(),
 						((SommetDessin) f).getSommet());
@@ -281,9 +284,10 @@ public class VueGraphe implements Serializable, RecoverableObject {
 		this.numero_sommet = 0;
 		while (e.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) e.nextElement();
-			if (f.type().equals("vertex"))
+			if (f.type().equals("vertex")) {
 				((SommetDessin) f).setEtiquette(Integer
 						.toString(this.numero_sommet++));
+			}
 		}
 	}
 
@@ -361,14 +365,16 @@ public class VueGraphe implements Serializable, RecoverableObject {
 		Enumeration e = this.listeAffichage();
 		while (e.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) e.nextElement();
-			if (f.type().equals("edge"))
+			if (f.type().equals("edge")) {
 				f.dessiner(c, g);
+			}
 		}
 		e = this.listeAffichage();
 		while (e.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) e.nextElement();
-			if (f.type().equals("vertex"))
+			if (f.type().equals("vertex")) {
 				f.dessiner(c, g);
+			}
 		}
 	}
 
@@ -382,14 +388,16 @@ public class VueGraphe implements Serializable, RecoverableObject {
 			Enumeration e = this.listeAffichage();
 			while (e.hasMoreElements()) {
 				FormeDessin f = (FormeDessin) e.nextElement();
-				if (f.type().equals("edge"))
+				if (f.type().equals("edge")) {
 					f.dessiner(c, g);
+				}
 			}
 			e = this.listeAffichage();
 			while (e.hasMoreElements()) {
 				FormeDessin f = (FormeDessin) e.nextElement();
-				if (f.type().equals("vertex"))
+				if (f.type().equals("vertex")) {
 					f.dessiner(c, g, "agents");
+				}
 			}
 		}
 	}
@@ -412,8 +420,9 @@ public class VueGraphe implements Serializable, RecoverableObject {
 		// ok car c'est aussi l'exception "pas d'objet dessous"
 		FormeDessin elt = (FormeDessin) ensemble.nextElement();
 
-		while ((!elt.appartient(x, y)) || (elt == sauf_celui_ci))
+		while ((!elt.appartient(x, y)) || (elt == sauf_celui_ci)) {
 			elt = (FormeDessin) ensemble.nextElement();
+		}
 
 		return elt;
 	}
@@ -440,8 +449,9 @@ public class VueGraphe implements Serializable, RecoverableObject {
 
 		while (e.hasMoreElements()) {
 			FormeDessin elt = (FormeDessin) e.nextElement();
-			if (elt.estDansRegion(x1, y1, x2, y2))
+			if (elt.estDansRegion(x1, y1, x2, y2)) {
 				trouves.addElement(elt);
+			}
 		}
 		return trouves.elements();
 	}
@@ -535,8 +545,9 @@ public class VueGraphe implements Serializable, RecoverableObject {
 
 		while ((!objet_visu_courant.appartient(x, y))
 				|| (objet_visu_courant == pas_celui_ci)
-				|| (!type_element.equals(objet_visu_courant.type())))
+				|| (!type_element.equals(objet_visu_courant.type()))) {
 			objet_visu_courant = (FormeDessin) enum_objets_visu.nextElement();
+		}
 
 		return objet_visu_courant;
 	}
@@ -558,9 +569,11 @@ public class VueGraphe implements Serializable, RecoverableObject {
 		FormeDessin f;
 		while (e.hasMoreElements()) {
 			f = (FormeDessin) e.nextElement();
-			if (f.type().equals("vertex"))
-				if (((SommetDessin) f).getEtiquette().equals(id))
+			if (f.type().equals("vertex")) {
+				if (((SommetDessin) f).getEtiquette().equals(id)) {
 					return ((SommetDessin) f);
+				}
+			}
 		}
 		return null;
 	}
@@ -575,13 +588,15 @@ public class VueGraphe implements Serializable, RecoverableObject {
 				if (a.getArete().origine().getSommetDessin().getEtiquette()
 						.equals(id1)
 						&& a.getArete().destination().getSommetDessin()
-								.getEtiquette().equals(id2))
+								.getEtiquette().equals(id2)) {
 					return a;
+				}
 				if (a.getArete().origine().getSommetDessin().getEtiquette()
 						.equals(id2)
 						&& a.getArete().destination().getSommetDessin()
-								.getEtiquette().equals(id1))
+								.getEtiquette().equals(id1)) {
 					return a;
+				}
 
 			}
 		}
@@ -602,8 +617,9 @@ public class VueGraphe implements Serializable, RecoverableObject {
 				if (a.getArete().origine().getSommetDessin().getEtiquette()
 						.equals(id1)
 						|| a.getArete().destination().getSommetDessin()
-								.getEtiquette().equals(id1))
+								.getEtiquette().equals(id1)) {
 					v.add(a);
+				}
 			}
 		}
 		return v.iterator();
@@ -617,21 +633,22 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	 * Permet de deplacer l'ensemble des elements contenus dans la selection.
 	 */
 	public static void deplacerFormeDessin(Enumeration e, int dx, int dy) {
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			((FormeDessin) e.nextElement()).deplacer(dx, dy);
+		}
 	}
 
 	// return the factory used
 	public static FabriqueArete getFabriqueArete() {
-		return fabriqueArete;
+		return VueGraphe.fabriqueArete;
 	}
 
 	public static FabriqueSommet getFabriqueSommet() {
-		return fabriqueSommet;
+		return VueGraphe.fabriqueSommet;
 	}
 
 	public static FabriqueArete getFabriqueAreteFleche() {
-		return fabriqueAreteFleche;
+		return VueGraphe.fabriqueAreteFleche;
 	}
 
 }

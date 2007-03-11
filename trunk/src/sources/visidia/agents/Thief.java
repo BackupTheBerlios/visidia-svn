@@ -33,10 +33,11 @@ public class Thief extends Agent {
 				}
 
 				this.lockVertexProperties();
-				if (((String) this.getVertexProperty("label")).equals("C"))
+				if (((String) this.getVertexProperty("label")).equals("C")) {
 					captured = true;
-				else
+				} else {
 					this.setVertexProperty("label", new String("D"));
+				}
 				this.unlockVertexProperties();
 			} else {
 				this.setVertexProperty("label", new String("D"));

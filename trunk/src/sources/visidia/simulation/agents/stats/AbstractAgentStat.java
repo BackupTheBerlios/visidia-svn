@@ -9,8 +9,9 @@ public abstract class AbstractAgentStat extends AbstractStat {
 	}
 
 	public boolean equals(Object o) {
-		if (super.equals(o) == false)
+		if (super.equals(o) == false) {
 			return false;
+		}
 
 		AbstractAgentStat o2 = (AbstractAgentStat) o;
 		return this.agClass.equals(o2.agClass);

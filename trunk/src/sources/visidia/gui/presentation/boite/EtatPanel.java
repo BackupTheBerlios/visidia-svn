@@ -155,10 +155,11 @@ class EtatArdoise extends JPanel {
 		super.paintComponent(g);
 		if (this.uneHashtable.get(this.unEtat) != null) {
 			g.setColor((Color) this.uneHashtable.get(this.unEtat));
-			if (this.minimumSize)
+			if (this.minimumSize) {
 				g.fillRect(5, 5, 40, 40);
-			else
+			} else {
 				g.fillRect(100, 20, 40, 40);
+			}
 		}
 	}
 

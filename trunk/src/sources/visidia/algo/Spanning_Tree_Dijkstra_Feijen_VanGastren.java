@@ -26,15 +26,17 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 
 	static MessageType labels = new MessageType("labels", true);
 
-	final StringMessage end = new StringMessage(new String("End"), labels);
+	final StringMessage end = new StringMessage(new String("End"),
+			Spanning_Tree_Dijkstra_Feijen_VanGastren.labels);
 
-	final StringMessage activate = new StringMessage(new String("Ac"), labels);
+	final StringMessage activate = new StringMessage(new String("Ac"),
+			Spanning_Tree_Dijkstra_Feijen_VanGastren.labels);
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(Spanning_Tree_Dijkstra_Feijen_VanGastren.synchronization);
+		typesList.add(Spanning_Tree_Dijkstra_Feijen_VanGastren.labels);
+		typesList.add(Spanning_Tree_Dijkstra_Feijen_VanGastren.termination);
 		return typesList;
 	}
 
@@ -77,9 +79,9 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 		while (run) {
 
 			synchro = this.starSynchro(finishedNode);
-			if (synchro == -3)
+			if (synchro == -3) {
 				run = false;
-			else if (synchro == this.starCenter) {
+			} else if (synchro == this.starCenter) {
 				int neighbourN = -1, neighbourA = -1;
 				String label[], labelD[], aP[], cD[], tD[];
 
@@ -89,7 +91,7 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 				cD = new String[this.getArity()];
 				tD = new String[this.getArity()];
 
-				for (int door = 0; door < this.getArity(); door++)
+				for (int door = 0; door < this.getArity(); door++) {
 					if (!finishedNode[door]) {
 						neighbours[door] = ((StringMessage) this
 								.receiveFrom(door)).data();
@@ -102,13 +104,16 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 						cD[door] = new String(neighbours[door].substring(7, 8));
 						tD[door] = new String(neighbours[door].substring(9, 11));
 
-						if (label[door].compareTo(nodeN) == 0)
+						if (label[door].compareTo(nodeN) == 0) {
 							neighbourN = door;
+						}
 
-						if (label[door].compareTo(nodeA) == 0)
+						if (label[door].compareTo(nodeA) == 0) {
 							neighbourA = door;
+						}
 
 					}
+				}
 
 				// System.out.println(getId()+" : "+neighbourN);
 
@@ -126,8 +131,12 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 
 				if (myToken) {
 					if (aP[this.nextDoor()].compareTo("Pa") == 0) {
-						this.sendTo(this.nextDoor(), new StringMessage(
-								new String(myColorD), labels));
+						this
+								.sendTo(
+										this.nextDoor(),
+										new StringMessage(
+												new String(myColorD),
+												Spanning_Tree_Dijkstra_Feijen_VanGastren.labels));
 						myColorD = new String("w");
 						myToken = false;
 					}
@@ -142,10 +151,11 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 				myState = myStates + "," + myLabelD + "," + state + ","
 						+ myColorD + ",";
 
-				if (myToken)
+				if (myToken) {
 					myState = myState + "HT";
-				else
+				} else {
 					myState = myState + "NT";
+				}
 
 				this.putProperty("label", myState);
 
@@ -155,20 +165,25 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 			else if (synchro != this.notInTheStar) {
 				String son;
 
-				this.sendTo(synchro, new StringMessage(myState, labels));
+				this.sendTo(synchro, new StringMessage(myState,
+						Spanning_Tree_Dijkstra_Feijen_VanGastren.labels));
 
 				son = ((StringMessage) this.receiveFrom(synchro)).data();
 
 				while (son.compareTo(this.end.data()) != 0) {
 					if (son.compareTo(this.activate.data()) != 0) {
-						if (myLabelD.compareTo("A") != 0)
-							if (son.compareTo("b") == 0)
+						if (myLabelD.compareTo("A") != 0) {
+							if (son.compareTo("b") == 0) {
 								myColorD = new String("b");
-						if (myLabelD.compareTo("A") == 0)
-							if (son.compareTo("b") == 0)
+							}
+						}
+						if (myLabelD.compareTo("A") == 0) {
+							if (son.compareTo("b") == 0) {
 								myColorD = new String("w");
-							else if (myColorD.compareTo("w") == 0)
+							} else if (myColorD.compareTo("w") == 0) {
 								run = false;
+							}
+						}
 						myToken = true;
 					} else {
 						myStates = nodeA;
@@ -179,17 +194,19 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 				myState = myStates + "," + myLabelD + "," + state + ","
 						+ myColorD + ",";
 
-				if (myToken)
+				if (myToken) {
 					myState = myState + "HT";
-				else
+				} else {
 					myState = myState + "NT";
+				}
 
 				this.putProperty("label", myState);
 
 			}
 		}
 
-		this.sendAll(new IntegerMessage(new Integer(-3), termination));
+		this.sendAll(new IntegerMessage(new Integer(-3),
+				Spanning_Tree_Dijkstra_Feijen_VanGastren.termination));
 
 	}
 
@@ -205,8 +222,12 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 		/* Send to all neighbours */
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+				this
+						.sendTo(
+								i,
+								new IntegerMessage(
+										new Integer(choosenNumber),
+										Spanning_Tree_Dijkstra_Feijen_VanGastren.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -214,8 +235,9 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 				if (answer[i] == -3) {
 					finishedNode[i] = true;
 					theEnd = true;
@@ -227,17 +249,23 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
-		if (theEnd)
+		if (theEnd) {
 			max = -3;
+		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+				this
+						.sendTo(
+								i,
+								new IntegerMessage(
+										new Integer(max),
+										Spanning_Tree_Dijkstra_Feijen_VanGastren.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -254,22 +282,29 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (!finishedNode[i])
-				if (answer[i] >= max)
+			if (!finishedNode[i]) {
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			if (!theEnd) {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(1),
-								synchronization));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(1),
+												Spanning_Tree_Dijkstra_Feijen_VanGastren.synchronization));
 					}
 				}
 
@@ -283,8 +318,12 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 			} else {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(-3),
-								termination));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(-3),
+												Spanning_Tree_Dijkstra_Feijen_VanGastren.termination));
 					}
 				}
 
@@ -301,8 +340,12 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
-					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+					this
+							.sendTo(
+									i,
+									new IntegerMessage(
+											new Integer(0),
+											Spanning_Tree_Dijkstra_Feijen_VanGastren.synchronization));
 				}
 			}
 
@@ -317,12 +360,13 @@ public class Spanning_Tree_Dijkstra_Feijen_VanGastren extends Algorithm {
 					}
 				}
 			}
-			if (inTheStar != this.notInTheStar)
+			if (inTheStar != this.notInTheStar) {
 				return inTheStar;
-			else if (theEnd)
+			} else if (theEnd) {
 				return -3;
-			else
+			} else {
 				return this.notInTheStar;
+			}
 
 		}
 	}

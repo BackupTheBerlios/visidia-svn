@@ -96,11 +96,12 @@ public class BoiteChangementEtatSommet implements ActionListener, ItemListener,
 
 		this.vertex_id = Integer.valueOf(sommet.getEtiquette()).intValue();
 		String algoString = new String();
-		if (parent.getAlgorithms().getAlgorithm(this.vertex_id) == null)
+		if (parent.getAlgorithms().getAlgorithm(this.vertex_id) == null) {
 			algoString = "None";
-		else
+		} else {
 			algoString = parent.getAlgorithms().getAlgorithm(this.vertex_id)
 					.getClass().getName();
+		}
 		this.algoUsed = new JLabel("Algorithm used : " + algoString);
 
 		this.etatPanel = new EtatPanel(TableCouleurs.getTableCouleurs(), this);
@@ -193,8 +194,9 @@ public class BoiteChangementEtatSommet implements ActionListener, ItemListener,
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -208,8 +210,9 @@ public class BoiteChangementEtatSommet implements ActionListener, ItemListener,
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -229,10 +232,11 @@ public class BoiteChangementEtatSommet implements ActionListener, ItemListener,
 		PropertyTableModel mod = (PropertyTableModel) this.table.getModel();
 		mod.putProperty("label", this.etatPanel.ardoise().donneEtat());
 
-		if (this.drawMessage)
+		if (this.drawMessage) {
 			mod.putProperty("draw messages", "yes");
-		else
+		} else {
 			mod.putProperty("draw messages", "no");
+		}
 	}
 
 	/** Cette methode est appelee si l'utilisateur appuie sur le bouton Ok. */

@@ -2,7 +2,6 @@ package visidia.simulation.synchro.synAlgos;
 
 import visidia.misc.IntegerMessage;
 import visidia.misc.MSG_TYPES;
-//import visidia.misc.Message;
 import visidia.misc.SyncState;
 import visidia.misc.SynchronizedRandom;
 import visidia.simulation.synchro.SynCT;
@@ -73,8 +72,9 @@ public class RDV extends AbSynAlgo implements IntSynchronization {
 				if (msg != null) {
 					this.answer[i] = msg.value();
 					if (msg.getType().equals(MSG_TYPES.TERM)) {
-						if (this.answer[i] == SynCT.LOCAL_END)
+						if (this.answer[i] == SynCT.LOCAL_END) {
 							this.synob.setFinished(i, true);
+						}
 						if (this.answer[i] == SynCT.GLOBAL_END) {
 							this.synob.setGlobEnd(true);
 							this.synob.setFinished(i, true);
@@ -113,8 +113,9 @@ public class RDV extends AbSynAlgo implements IntSynchronization {
 				this.synob.setState(SynCT.IN_THE_STAR);
 				return;
 			}
-		} else
+		} else {
 			this.synob.setState(SynCT.NOT_IN_THE_STAR);
+		}
 		// System.out.println ("----" + getId() + " 6");
 		return;
 	}

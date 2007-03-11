@@ -60,8 +60,9 @@ public abstract class AlgorithmDist implements Runnable, Cloneable,
 	 */
 	protected void sendAll(Message msg) {
 		int arite = this.getArity();
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, msg);
+		}
 	}
 
 	/**

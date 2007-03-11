@@ -24,8 +24,9 @@ public class HashTableModel extends AbstractTableModel {
 
 	public void setProperties(Map table) {
 
-		if (table == null)
+		if (table == null) {
 			table = new Hashtable();
+		}
 
 		this.table = table;
 		this.keys = new Vector(table.keySet());

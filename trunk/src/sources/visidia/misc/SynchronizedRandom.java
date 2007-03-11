@@ -14,12 +14,12 @@ public class SynchronizedRandom {
 	private static Random generator = new Random();
 
 	public static synchronized int nextInt() {
-		return generator.nextInt();
+		return SynchronizedRandom.generator.nextInt();
 
 	}
 
 	public static synchronized float nextFloat() {
-		return generator.nextFloat();
+		return SynchronizedRandom.generator.nextFloat();
 	}
 
 }

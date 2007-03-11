@@ -83,8 +83,9 @@ public abstract class Algorithm implements Runnable, Cloneable {
 	 */
 	protected void sendAll(Message msg) {
 		int arite = this.getArity();
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, msg);
+		}
 	}
 
 	/**
@@ -239,8 +240,9 @@ public abstract class Algorithm implements Runnable, Cloneable {
 
 	// PFA2003
 	public final void copy(Algorithm a) {
-		if (a.synob() != null)
+		if (a.synob() != null) {
 			this.setSynob((SynObject) a.synob().clone());
+		}
 		if (a.synal() != null) {
 			AbSynAlgo syn = (AbSynAlgo) a.synal().clone();
 			syn.setSynob(this.synob());
@@ -423,14 +425,16 @@ public abstract class Algorithm implements Runnable, Cloneable {
 	}
 
 	public SynObject synob() {
-		if (this.synob != null)
+		if (this.synob != null) {
 			return this.synob;
+		}
 		return null;
 	}
 
 	public AbSynAlgo synal() {
-		if (this.synal != null)
+		if (this.synal != null) {
 			return this.synal;
+		}
 		return null;
 	}
 

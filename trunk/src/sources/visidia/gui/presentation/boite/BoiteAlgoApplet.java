@@ -98,12 +98,13 @@ public class BoiteAlgoApplet implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.buttonOpen) {
 			try {
-				if (this.enumOfVertices == null)
+				if (this.enumOfVertices == null) {
 					OpenAlgoApplet.setAlgorithm((String) (this.liste
 							.getSelectedValue()));
-				else
+				} else {
 					OpenAlgoApplet.setAlgorithmForVertices((String) (this.liste
 							.getSelectedValue()), this.enumOfVertices);
+				}
 				this.dialog.setVisible(false);
 				this.dialog.dispose();
 			} catch (NumberFormatException exception) {
@@ -111,8 +112,9 @@ public class BoiteAlgoApplet implements ActionListener {
 						exception.getMessage(), "\n");
 				int nb_lignes = st.countTokens();
 				String message = new String();
-				for (int i = 0; i < nb_lignes; i++)
+				for (int i = 0; i < nb_lignes; i++) {
 					message = message + "\n" + st.nextToken();
+				}
 				JOptionPane.showMessageDialog(this.parent, message, "Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}

@@ -56,8 +56,9 @@ public abstract class LamportAlgorithm extends Algorithm implements Runnable,
 	 */
 	protected final void sendAll(Message msg) {
 		int arite = this.getArity();
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, msg);
+		}
 	}
 
 	/**

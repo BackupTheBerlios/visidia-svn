@@ -33,10 +33,11 @@ public class AgentStats {
 		Long value = this.stats.get(key);
 		long intValue;
 
-		if (value == null)
+		if (value == null) {
 			intValue = 0;
-		else
+		} else {
 			intValue = value.longValue();
+		}
 		return intValue;
 	}
 
@@ -79,7 +80,8 @@ public class AgentStats {
 		System.out.println("|         Stats       |");
 		System.out.println("+---------------------+");
 
-		for (String key : keys)
+		for (String key : keys) {
 			System.out.println(key + ": " + this.stats.get(key));
+		}
 	}
 }

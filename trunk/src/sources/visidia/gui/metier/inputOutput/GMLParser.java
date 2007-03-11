@@ -144,8 +144,9 @@ public class GMLParser extends JFileChooser implements ActionListener {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File f = st.getSelectedFile();
 			try {
-				fileWriter = new FileWriter(f);
-				creatingGMLFile(graph); // write in the object output stream
+				GMLParser.fileWriter = new FileWriter(f);
+				GMLParser.creatingGMLFile(graph); // write in the object
+													// output stream
 			} catch (IOException e) {
 				System.out.println("Problem: " + e);
 			}
@@ -155,9 +156,9 @@ public class GMLParser extends JFileChooser implements ActionListener {
 	// print the informations in the GML file
 	private static void creatingGMLFile(Graphe graph) throws IOException {
 		Enumeration e;
-		write("graph [");
-		indentMore();
-		writeln("comment \"Graph make by VisDa\" ");
+		GMLParser.write("graph [");
+		GMLParser.indentMore();
+		GMLParser.writeln("comment \"Graph make by VisDa\" ");
 		// writeln("directed 1");
 		e = graph.sommets();
 
@@ -165,19 +166,19 @@ public class GMLParser extends JFileChooser implements ActionListener {
 		Sommet v;
 		while (e.hasMoreElements()) {
 			v = ((Sommet) e.nextElement());
-			writeln("node [");
-			indentMore();
-			writeln("id " + v.getSommetDessin().getEtiquette());
-			if (graphicsInfo) {
-				writeln("graphics [");
-				indentMore();
-				writeln("x " + v.getSommetDessin().centreX());
-				writeln("y " + v.getSommetDessin().centreY());
-				indentLess();
-				writeln("]");
+			GMLParser.writeln("node [");
+			GMLParser.indentMore();
+			GMLParser.writeln("id " + v.getSommetDessin().getEtiquette());
+			if (GMLParser.graphicsInfo) {
+				GMLParser.writeln("graphics [");
+				GMLParser.indentMore();
+				GMLParser.writeln("x " + v.getSommetDessin().centreX());
+				GMLParser.writeln("y " + v.getSommetDessin().centreY());
+				GMLParser.indentLess();
+				GMLParser.writeln("]");
 			}
-			indentLess();
-			writeln("]");
+			GMLParser.indentLess();
+			GMLParser.writeln("]");
 		}
 
 		// for the edges
@@ -185,75 +186,80 @@ public class GMLParser extends JFileChooser implements ActionListener {
 		Arete edg;
 		while (e.hasMoreElements()) {
 			edg = ((Arete) e.nextElement());
-			writeln("edge [");
-			indentMore();
-			writeln("source " + edg.origine().getSommetDessin().getEtiquette());
-			writeln("target "
+			GMLParser.writeln("edge [");
+			GMLParser.indentMore();
+			GMLParser.writeln("source "
+					+ edg.origine().getSommetDessin().getEtiquette());
+			GMLParser.writeln("target "
 					+ edg.destination().getSommetDessin().getEtiquette());
-			if (graphicsInfo) {
-				writeln("graphics [");
-				indentMore();
+			if (GMLParser.graphicsInfo) {
+				GMLParser.writeln("graphics [");
+				GMLParser.indentMore();
 
-				writeln("Line [");
-				indentMore();
+				GMLParser.writeln("Line [");
+				GMLParser.indentMore();
 
-				writeln("Point [");
-				indentMore();
-				writeln("x " + edg.getAreteDessin().origineX());
-				writeln("y " + edg.getAreteDessin().origineY());
-				indentLess();
-				writeln("]");
+				GMLParser.writeln("Point [");
+				GMLParser.indentMore();
+				GMLParser.writeln("x " + edg.getAreteDessin().origineX());
+				GMLParser.writeln("y " + edg.getAreteDessin().origineY());
+				GMLParser.indentLess();
+				GMLParser.writeln("]");
 
-				writeln("Point [");
-				indentMore();
-				writeln("x " + edg.getAreteDessin().destinationX());
-				writeln("y " + edg.getAreteDessin().destinationY());
-				indentLess();
-				writeln("]");
+				GMLParser.writeln("Point [");
+				GMLParser.indentMore();
+				GMLParser.writeln("x " + edg.getAreteDessin().destinationX());
+				GMLParser.writeln("y " + edg.getAreteDessin().destinationY());
+				GMLParser.indentLess();
+				GMLParser.writeln("]");
 
-				indentLess();
-				writeln("]"); // for line
+				GMLParser.indentLess();
+				GMLParser.writeln("]"); // for line
 
-				indentLess();
-				writeln("]"); // for graphics
+				GMLParser.indentLess();
+				GMLParser.writeln("]"); // for graphics
 			}
-			indentLess();
-			writeln("]"); // for edges
+			GMLParser.indentLess();
+			GMLParser.writeln("]"); // for edges
 		}
-		indentLess();
-		writeln("]"); // for graph
+		GMLParser.indentLess();
+		GMLParser.writeln("]"); // for graph
 
-		fileWriter.close();
+		GMLParser.fileWriter.close();
 	}
 
 	// write the string in the buffer
 	private static void write(String stringToWrite) throws IOException {
-		fileWriter.write(stringToWrite);
-		fileWriter.flush();
+		GMLParser.fileWriter.write(stringToWrite);
+		GMLParser.fileWriter.flush();
 	}
 
 	// write the string in a new line, with the rigth indentation
 	private static void writeln(String stringToWrite) throws IOException {
-		fileWriter.write("\n" + indentString + stringToWrite);
-		fileWriter.flush();
+		GMLParser.fileWriter.write("\n" + GMLParser.indentString
+				+ stringToWrite);
+		GMLParser.fileWriter.flush();
 	}
 
 	// add some spaces to the indent string
 	private static void indentMore() {
-		indentString = indentString.concat("   ");
+		GMLParser.indentString = GMLParser.indentString.concat("   ");
 	}
 
 	// delete some spaces to the indent string
 	private static void indentLess() {
-		if (indentString.length() < 3)
-			indentString = new String("");
-		else
-			indentString = indentString.substring(0, indentString.length() - 3);
+		if (GMLParser.indentString.length() < 3) {
+			GMLParser.indentString = new String("");
+		} else {
+			GMLParser.indentString = GMLParser.indentString.substring(0,
+					GMLParser.indentString.length() - 3);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.graphicsButton)
-			graphicsInfo = this.graphicsButton.isSelected();
+		if (e.getSource() == this.graphicsButton) {
+			GMLParser.graphicsInfo = this.graphicsButton.isSelected();
+		}
 	}
 
 	private void addTheButtons(JFileChooser dialog) {
@@ -261,7 +267,8 @@ public class GMLParser extends JFileChooser implements ActionListener {
 		JLabel labelGraphics = new JLabel("Print graphics coordinates ");
 
 		this.graphicsButton = new JRadioButton();
-		this.graphicsButton.setSelected(graphicsInfo); // is the button
+		this.graphicsButton.setSelected(GMLParser.graphicsInfo); // is the
+																	// button
 		// selected ?
 		this.graphicsButton.addActionListener(this);
 

@@ -25,9 +25,9 @@ public class Test extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(round1);
-		typesList.add(round2Mis);
-		typesList.add(round2NotMis);
+		typesList.add(Test.round1);
+		typesList.add(Test.round2Mis);
+		typesList.add(Test.round2NotMis);
 		return typesList;
 	}
 
@@ -41,7 +41,7 @@ public class Test extends Algorithm {
 		this.putProperty("toto", new Toto());
 
 		for (int i = 0; i < degres; i++) {
-			this.sendTo(i, new IntegerMessage(id, round1));
+			this.sendTo(i, new IntegerMessage(id, Test.round1));
 		}
 
 		for (int i = 0; i < degres; i++) {
@@ -55,14 +55,14 @@ public class Test extends Algorithm {
 		if (win) {
 			this.putProperty("label", "I");
 			for (int i = 0; i < degres; i++) {
-				this.sendTo(i, new StringMessage("MIS", round2Mis));
+				this.sendTo(i, new StringMessage("MIS", Test.round2Mis));
 			}
 			Vector vect = new Vector();
 			vect.add("toto");
 			vect.add("titi");
 			this.sendAll(new VectorMessage(vect));
 		} else {
-			this.sendAll(new StringMessage("NOT MIS", round2NotMis));
+			this.sendAll(new StringMessage("NOT MIS", Test.round2NotMis));
 			boolean bool = true;
 			while (bool) {
 				Door door = new Door();

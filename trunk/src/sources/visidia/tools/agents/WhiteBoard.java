@@ -58,12 +58,13 @@ public class WhiteBoard {
 	 *             board.
 	 */
 	public Object getValue(Object key) {
-		if (this.values.containsKey(key))
+		if (this.values.containsKey(key)) {
 			return this.values.get(key);
-		else if (this.defaults.containsKey(key))
+		} else if (this.defaults.containsKey(key)) {
 			return this.defaults.get(key);
-		else
+		} else {
 			throw new NoSuchElementException();
+		}
 	}
 
 	/**

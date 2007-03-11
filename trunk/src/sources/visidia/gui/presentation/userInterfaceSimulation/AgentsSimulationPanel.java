@@ -12,24 +12,18 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-//import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
 import visidia.gui.metier.simulation.SentAgent;
-//import visidia.gui.presentation.AreteDessin;
 import visidia.gui.presentation.FormeDessin;
 import visidia.gui.presentation.RecoverableObject;
 import visidia.gui.presentation.SelectionDessin;
 import visidia.gui.presentation.SelectionGetData;
 import visidia.gui.presentation.SelectionUnit;
 import visidia.gui.presentation.SommetDessin;
-//import visidia.gui.presentation.userInterfaceEdition.undo.AjouteObjet;
-//import visidia.gui.presentation.userInterfaceEdition.undo.DeplaceObjets;
-//import visidia.gui.presentation.userInterfaceEdition.undo.FusionneSommet;
-//import visidia.gui.presentation.userInterfaceEdition.undo.SelectFormeDessin;
 import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 import visidia.simulation.MessageSendingAck;
 import visidia.simulation.MessageSendingEvent;
@@ -219,10 +213,11 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	}
 
 	public boolean isRunning() {
-		if (this.timer.isRunning())
+		if (this.timer.isRunning()) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	public void start() {
@@ -424,10 +419,9 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		// AreteDessin areteCree = null;
 
 		if (this.objet_sous_souris != null) {
-			if (this.drag_n_drop_sommet)
+			if (this.drag_n_drop_sommet) {
 				this.glisseSommet(x, y);
-
-			else {
+			} else {
 				// creer un nouveau sommet et l'arete qui va avec : c'est un
 				// nouvel undoGroup.
 				this.ancien_sommet_sous_souris = (SommetDessin) this.objet_sous_souris;

@@ -23,11 +23,13 @@ public class StarData {
 
 	public static int rule_center = 110;
 
-	public static int arrow_x1 = ray * 2 + rule_left + rule_center / 4;
+	public static int arrow_x1 = StarData.ray * 2 + StarData.rule_left
+			+ StarData.rule_center / 4;
 
-	public static int arrow_x2 = ray * 2 + rule_left + 3 * rule_center / 4;
+	public static int arrow_x2 = StarData.ray * 2 + StarData.rule_left + 3
+			* StarData.rule_center / 4;
 
-	public static int arrow_length = rule_center / 2;
+	public static int arrow_length = StarData.rule_center / 2;
 
 	public static int ctxt_top = 35;
 

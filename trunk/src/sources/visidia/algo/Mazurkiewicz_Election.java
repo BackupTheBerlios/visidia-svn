@@ -32,8 +32,8 @@ public class Mazurkiewicz_Election extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Mazurkiewicz_Election.synchronization);
+		typesList.add(Mazurkiewicz_Election.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -62,8 +62,9 @@ public class Mazurkiewicz_Election extends Algorithm {
 
 			if (synchro == this.starCenter) {
 				for (int door = 0; door < arity; door++) {
-					if (!finishedNode[door])
+					if (!finishedNode[door]) {
 						this.receiveKnowledge(node, door);
+					}
 				}
 
 				if ((node.MyName() == 0)
@@ -72,13 +73,15 @@ public class Mazurkiewicz_Election extends Algorithm {
 					node.ChangeName(node.Max() + 1);
 				}
 
-				this.sendAll(new IntegerMessage(node.MyName(), labels));
+				this.sendAll(new IntegerMessage(node.MyName(),
+						Mazurkiewicz_Election.labels));
 				this.putProperty("label", new String(
 						(new Integer(node.MyName())).toString()));
 
 				node.ChangeKnowledge(node.MyName(), node.Neighbour());
 
-				messagesNumber = messagesNumber + arity;
+				Mazurkiewicz_Election.messagesNumber = Mazurkiewicz_Election.messagesNumber
+						+ arity;
 
 				this.sendToAllKnowledge(node);
 
@@ -103,10 +106,13 @@ public class Mazurkiewicz_Election extends Algorithm {
 			}
 
 		}
-		this.sendAll(new IntegerMessage(new Integer(-1), synchronization));
+		this.sendAll(new IntegerMessage(new Integer(-1),
+				Mazurkiewicz_Election.synchronization));
 
-		System.out.println("Nombre de starSynchro = " + synchroNumber
-				+ "   Nombre de messages = " + messagesNumber);
+		System.out.println("Nombre de starSynchro = "
+				+ Mazurkiewicz_Election.synchroNumber
+				+ "   Nombre de messages = "
+				+ Mazurkiewicz_Election.messagesNumber);
 
 	}
 
@@ -122,7 +128,7 @@ public class Mazurkiewicz_Election extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Mazurkiewicz_Election.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -130,8 +136,9 @@ public class Mazurkiewicz_Election extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -139,15 +146,16 @@ public class Mazurkiewicz_Election extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Mazurkiewicz_Election.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -161,20 +169,22 @@ public class Mazurkiewicz_Election extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							Mazurkiewicz_Election.synchronization));
 				}
 			}
 
@@ -183,7 +193,7 @@ public class Mazurkiewicz_Election extends Algorithm {
 					/* Message msg= */this.receiveFrom(i);
 				}
 			}
-			synchroNumber++;
+			Mazurkiewicz_Election.synchroNumber++;
 			return this.starCenter;
 		} else {
 			int inTheStar = this.notInTheStar;
@@ -191,7 +201,7 @@ public class Mazurkiewicz_Election extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Mazurkiewicz_Election.synchronization));
 				}
 			}
 
@@ -244,9 +254,11 @@ public class Mazurkiewicz_Election extends Algorithm {
 			if ((node.NeighbourNode(i)) != -1) {
 				vec.add(new Integer(i));
 				vec.add(new Integer(node.NeighbourNode(i)));
-				this.sendAll(new VectorMessage((Vector) vec.clone(), labels));
+				this.sendAll(new VectorMessage((Vector) vec.clone(),
+						Mazurkiewicz_Election.labels));
 				vec.clear();
-				messagesNumber = messagesNumber + arity;
+				Mazurkiewicz_Election.messagesNumber = Mazurkiewicz_Election.messagesNumber
+						+ arity;
 				/*
 				 * System.out.println("3-centre envois :"+ i +"=" +
 				 * node.NeighbourNode(i));
@@ -257,7 +269,8 @@ public class Mazurkiewicz_Election extends Algorithm {
 
 		vec.add(new Integer(-1));
 		vec.add(new Integer(-1));
-		this.sendAll(new VectorMessage((Vector) vec.clone(), labels));
+		this.sendAll(new VectorMessage((Vector) vec.clone(),
+				Mazurkiewicz_Election.labels));
 		/* System.out.println( "4-centre envoit -1"); */
 	}
 
@@ -269,14 +282,15 @@ public class Mazurkiewicz_Election extends Algorithm {
 				vec.add(new Integer(i));
 				vec.add(new Integer(node.NeighbourNode(i)));
 				this.sendTo(synchro, new VectorMessage((Vector) vec.clone(),
-						labels));
+						Mazurkiewicz_Election.labels));
 				vec.clear();
-				messagesNumber++;
+				Mazurkiewicz_Election.messagesNumber++;
 			}
 		}
 		vec.add(new Integer(-1));
 		vec.add(new Integer(-1));
-		this.sendTo(synchro, new VectorMessage((Vector) vec.clone(), labels));
+		this.sendTo(synchro, new VectorMessage((Vector) vec.clone(),
+				Mazurkiewicz_Election.labels));
 	}
 
 	private void changeTable(Know node) {

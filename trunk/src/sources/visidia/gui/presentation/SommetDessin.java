@@ -169,10 +169,11 @@ public abstract class SommetDessin extends FormeDessin {
 
 	public void setDrawMessage(boolean bool) {
 		this.drawMessage = bool;
-		if (this.drawMessage)
+		if (this.drawMessage) {
 			this.setValue("draw messages", "yes");
-		else
+		} else {
 			this.setValue("draw messages", "no");
+		}
 	}
 
 	public boolean getDrawMessage() {

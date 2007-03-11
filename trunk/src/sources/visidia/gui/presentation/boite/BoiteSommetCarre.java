@@ -107,8 +107,9 @@ public class BoiteSommetCarre extends BoiteSommetDessin implements
 	public void buttonOk() {
 		super.buttonOk();
 		((SommetCarre) this.forme).setCote(this.cote);
-		if (this.iconPane.estChangee())
+		if (this.iconPane.estChangee()) {
 			((SommetCarre) this.forme).changerImage(this.iconPane.ardoise()
 					.image());
+		}
 	}
 }

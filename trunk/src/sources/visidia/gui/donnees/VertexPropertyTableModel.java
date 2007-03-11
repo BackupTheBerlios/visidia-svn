@@ -51,8 +51,9 @@ public class VertexPropertyTableModel extends PropertyTableModel {
 	}
 
 	public void putProperty(String key, Object value) {
-		if (!this.keys.contains(key))
+		if (!this.keys.contains(key)) {
 			this.keys.add(key);
+		}
 		this.properties.put(key, value);
 		this.fireTableDataChanged();
 	}
@@ -72,8 +73,9 @@ public class VertexPropertyTableModel extends PropertyTableModel {
 	}
 
 	private Object getValueFromHashtables(Object key) {
-		if (this.properties.containsKey(key))
+		if (this.properties.containsKey(key)) {
 			return this.properties.get(key);
+		}
 
 		return this.defProps.get(key);
 	}
@@ -110,31 +112,32 @@ public class VertexPropertyTableModel extends PropertyTableModel {
 
 		try {
 
-			if (obj instanceof String)
+			if (obj instanceof String) {
 				this.properties.put(this.keys.elementAt(row), value);
-			else if (obj instanceof Integer) {
+			} else if (obj instanceof Integer) {
 				this.properties.put(this.keys.elementAt(row), Integer
 						.decode(value));
-			} else if (obj instanceof Byte)
+			} else if (obj instanceof Byte) {
 				this.properties.put(this.keys.elementAt(row), Byte
 						.decode(value));
-			else if (obj instanceof Character)
+			} else if (obj instanceof Character) {
 				this.properties.put(this.keys.elementAt(row), value.charAt(0));
-			else if (obj instanceof Double)
+			} else if (obj instanceof Double) {
 				this.properties.put(this.keys.elementAt(row), Double
 						.parseDouble(value));
-			else if (obj instanceof Float)
+			} else if (obj instanceof Float) {
 				this.properties.put(this.keys.elementAt(row), Float
 						.parseFloat(value));
-			else if (obj instanceof Long)
+			} else if (obj instanceof Long) {
 				this.properties.put(this.keys.elementAt(row), Long
 						.parseLong(value));
-			else if (obj instanceof Short)
+			} else if (obj instanceof Short) {
 				this.properties.put(this.keys.elementAt(row), Short
 						.parseShort(value));
-			else if (obj instanceof Boolean)
+			} else if (obj instanceof Boolean) {
 				this.properties.put(this.keys.elementAt(row), Boolean
 						.parseBoolean(value));
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Warning",
 					JOptionPane.WARNING_MESSAGE);

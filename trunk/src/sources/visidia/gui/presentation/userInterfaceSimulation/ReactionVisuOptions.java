@@ -14,11 +14,13 @@ public class ReactionVisuOptions {
 	public void action(JMenuItem mi) {
 		String le_menu = ((JPopupMenu) mi.getParent()).getName();
 		if (le_menu == this.visuOptions.getAlgorithmOptions().getPopupMenu()
-				.getName())
+				.getName()) {
 			this.actionAlgorithm(mi);
+		}
 		if (le_menu == this.visuOptions.getSynchrOptions().getPopupMenu()
-				.getName())
+				.getName()) {
 			this.actionSynchr(mi);
+		}
 	}
 
 	// L'action a realiser si c'est le menu pour l'algorithme

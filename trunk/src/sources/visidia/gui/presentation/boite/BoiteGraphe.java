@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -66,7 +67,7 @@ public class BoiteGraphe extends Boite implements ActionListener,
 	/** Cree une nouvelle boite. */
 	public BoiteGraphe(Editeur parent) {
 
-		super(parent, "Document Properties", OK_CANCEL_OPTION);
+		super(parent, "Document Properties", JOptionPane.OK_CANCEL_OPTION);
 		this.editeur = parent;
 	}
 

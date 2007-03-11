@@ -103,10 +103,11 @@ public class VQueue {
 				v.addElement(o);
 			}
 		}
-		if (v.size() == 0)
+		if (v.size() == 0) {
 			return null;
-		else
+		} else {
 			return v;
+		}
 	}
 
 	/**

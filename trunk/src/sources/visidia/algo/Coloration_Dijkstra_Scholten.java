@@ -24,16 +24,19 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 	// java.awt.Color.blue);
 	static MessageType labels = new MessageType("labels", true);
 
-	final StringMessage mes = new StringMessage(new String("mes"), labels);
+	final StringMessage mes = new StringMessage(new String("mes"),
+			Coloration_Dijkstra_Scholten.labels);
 
-	final StringMessage noMes = new StringMessage(new String("No Mes"), labels);
+	final StringMessage noMes = new StringMessage(new String("No Mes"),
+			Coloration_Dijkstra_Scholten.labels);
 
-	final StringMessage sig = new StringMessage(new String("sig"), labels);
+	final StringMessage sig = new StringMessage(new String("sig"),
+			Coloration_Dijkstra_Scholten.labels);
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Coloration_Dijkstra_Scholten.synchronization);
+		typesList.add(Coloration_Dijkstra_Scholten.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -77,7 +80,7 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 				aP = new String[this.getArity()];
 				sc = new int[this.getArity()];
 
-				for (int i = 0; i < this.getArity(); i++)
+				for (int i = 0; i < this.getArity(); i++) {
 					if (!finishedNode[i]) {
 						neighbours[i] = ((StringMessage) this.receiveFrom(i))
 								.data();
@@ -87,11 +90,13 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 						aP[i] = new String(neighbours[i].substring(4, 6));
 						sc[i] = (new Integer(neighbours[i].substring(7)))
 								.intValue();
-						if (labelD[i].compareTo("N") == 0)
+						if (labelD[i].compareTo("N") == 0) {
 							existN = i;
-						// System.out.println(neighbours[i]+" =
-						// "+label[i]+","+labelD[i]+","+aP[i]);
+							// System.out.println(neighbours[i]+" =
+							// "+label[i]+","+labelD[i]+","+aP[i]);
+						}
 					}
+				}
 				if (!finishedNode[0] && !finishedNode[1]) {
 					while ((label[0].compareTo(myColor) == 0)
 							|| (label[1].compareTo(myColor) == 0)) {
@@ -113,8 +118,9 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 					}
 				}
 				if ((mySc == 0) && (myLabelD.compareTo("A") == 0)
-						&& (existN == -1))
+						&& (existN == -1)) {
 					run = false;
+				}
 
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
@@ -132,7 +138,8 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 				if (synchro != this.notInTheStar) {
 					String son;
 
-					this.sendTo(synchro, new StringMessage(myState, labels));
+					this.sendTo(synchro, new StringMessage(myState,
+							Coloration_Dijkstra_Scholten.labels));
 					son = ((StringMessage) this.receiveFrom(synchro)).data();
 
 					while (son.compareTo(this.noMes.data()) != 0) {
@@ -157,18 +164,19 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(-1),
-						synchronization));
+						Coloration_Dijkstra_Scholten.synchronization));
 			}
 		}
 	}
 
 	private String getNewColor(int color) {
-		if (color == 0)
+		if (color == 0) {
 			return new String("X");
-		else if (color == 1)
+		} else if (color == 1) {
 			return new String("Y");
-		else
+		} else {
 			return new String("Z");
+		}
 	}
 
 	public int starSynchro(boolean finishedNode[]) {
@@ -183,7 +191,7 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Coloration_Dijkstra_Scholten.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -191,8 +199,9 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 			}
 		}
 
@@ -200,15 +209,16 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Coloration_Dijkstra_Scholten.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -222,20 +232,22 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(1),
-							synchronization));
+							Coloration_Dijkstra_Scholten.synchronization));
 				}
 			}
 
@@ -252,7 +264,7 @@ public class Coloration_Dijkstra_Scholten extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Coloration_Dijkstra_Scholten.synchronization));
 				}
 			}
 

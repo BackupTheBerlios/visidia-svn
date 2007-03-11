@@ -91,8 +91,9 @@ public abstract class AbstractDefaultBox implements ActionListener,
 		panelCentre.add(spane, BorderLayout.NORTH);
 
 		this.dialog.getContentPane().setLayout(new BorderLayout());
-		if (createEtatPanel == true)
+		if (createEtatPanel == true) {
 			this.dialog.getContentPane().add(panelHaut, BorderLayout.NORTH);
+		}
 		this.dialog.getContentPane().add(panelCentre, BorderLayout.CENTER);
 		this.dialog.setSize(400, 200);
 

@@ -35,20 +35,22 @@ public class ColorationRmi extends AlgorithmDist {
 		while (true) {
 			synchro = this.starSynchro();
 			if (synchro == this.starCenter) {
-				for (int i = 0; i < this.getArity(); i++)
+				for (int i = 0; i < this.getArity(); i++) {
 					neighbours[i] = ((StringMessage) this.receiveFrom(i))
 							.data();
+				}
 
 				if ((neighbours[0].compareTo(myColor) == 0)
 						&& (neighbours[1].compareTo(myColor) == 0)) {
 					myC = (myC + 1) % 3;
 					myColor = this.getNewColor(myC);
-				} else
+				} else {
 					while ((neighbours[0].compareTo(myColor) == 0)
 							|| (neighbours[1].compareTo(myColor) == 0)) {
 						myC = (myC + 1) % 3;
 						myColor = this.getNewColor(myC);
 					}
+				}
 
 				this.putProperty("label", myColor);
 
@@ -63,12 +65,13 @@ public class ColorationRmi extends AlgorithmDist {
 	}
 
 	private String getNewColor(int color) {
-		if (color == 0)
+		if (color == 0) {
 			return new String("X");
-		else if (color == 1)
+		} else if (color == 1) {
 			return new String("Y");
-		else
+		} else {
 			return new String("Z");
+		}
 	}
 
 	public int starSynchro() {
@@ -80,8 +83,9 @@ public class ColorationRmi extends AlgorithmDist {
 		int choosenNumber = Math.abs(SynchronizedRandom.nextInt());
 
 		/* Send to all neighbours */
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, new IntegerMessage(new Integer(choosenNumber)));
+		}
 
 		/* receive all numbers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -92,12 +96,14 @@ public class ColorationRmi extends AlgorithmDist {
 
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
-		for (int i = 0; i < arite; i++)
+		for (int i = 0; i < arite; i++) {
 			this.sendTo(i, new IntegerMessage(new Integer(max)));
+		}
 
 		/* get alla answers from neighbours */
 		for (int i = 0; i < arite; i++) {
@@ -108,8 +114,9 @@ public class ColorationRmi extends AlgorithmDist {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (answer[i] >= max)
+			if (answer[i] >= max) {
 				max = answer[i];
+			}
 		}
 
 		if (choosenNumber >= max) {
@@ -117,8 +124,9 @@ public class ColorationRmi extends AlgorithmDist {
 				this.setDoorState(new MarkedState(true), door);
 			}
 
-			for (int i = 0; i < arite; i++)
+			for (int i = 0; i < arite; i++) {
 				this.sendTo(i, new IntegerMessage(1));
+			}
 
 			for (int i = 0; i < arite; i++) {
 				this.receiveFrom(i);
@@ -128,8 +136,9 @@ public class ColorationRmi extends AlgorithmDist {
 		} else {
 			int inTheStar = this.notInTheStar;
 
-			for (int i = 0; i < arite; i++)
+			for (int i = 0; i < arite; i++) {
 				this.sendTo(i, new IntegerMessage(0));
+			}
 
 			for (int i = 0; i < arite; i++) {
 				Message msg = this.receiveFrom(i);

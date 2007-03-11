@@ -29,8 +29,8 @@ public class Election_Complet extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
+		typesList.add(Election_Complet.synchronization);
+		typesList.add(Election_Complet.labels);
 		// typesList.add(booleen);
 		return typesList;
 	}
@@ -52,24 +52,27 @@ public class Election_Complet extends Algorithm {
 		int nb;
 		// Vector name;
 
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			finishedNode[i] = false;
+		}
 
 		while (run) {
 
 			synchro = this.synchronization(finishedNode);
 
 			nb = this.getArity();
-			for (int i = 0; i < this.getArity(); i++)
-				if (finishedNode[i])
+			for (int i = 0; i < this.getArity(); i++) {
+				if (finishedNode[i]) {
 					nb--;
+				}
+			}
 			if (nb == 0) {
 				this.putProperty("label", new String(this.eNode));
 				break;
 			}
 
 			this.sendTo(synchro, new StringMessage((String) this
-					.getProperty("label"), labels));
+					.getProperty("label"), Election_Complet.labels));
 			neighbourLabel = ((StringMessage) this.receiveFrom(synchro)).data();
 
 			if ((((String) this.getProperty("label")).compareTo(this.nNode) == 0)
@@ -95,10 +98,12 @@ public class Election_Complet extends Algorithm {
 
 		}
 
-		for (int i = 0; i < this.getArity(); i++)
-			if (!finishedNode[i])
+		for (int i = 0; i < this.getArity(); i++) {
+			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(-1),
-						synchronization));
+						Election_Complet.synchronization));
+			}
+		}
 	}
 
 	/**
@@ -110,15 +115,17 @@ public class Election_Complet extends Algorithm {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < -1) {
 			i = this.trySynchronize(finishedNode);
 		}
 		// interface graphique: je suis synchro sur la porte i
-		if (i > -1)
+		if (i > -1) {
 			this.setDoorState(new SyncState(true), i);
+		}
 		return i;
 	}
 
@@ -135,12 +142,15 @@ public class Election_Complet extends Algorithm {
 		int choosenNeighbour = Math.abs((generator.nextInt())) % arite;
 
 		nb = arite;
-		for (int i = 0; i < arite; i++)
-			if (finishedNode[i])
+		for (int i = 0; i < arite; i++) {
+			if (finishedNode[i]) {
 				nb--;
+			}
+		}
 
-		if (nb == 0)
+		if (nb == 0) {
 			return -1;
+		}
 
 		while (finishedNode[choosenNeighbour]) {
 			generator = new Random();
@@ -148,12 +158,14 @@ public class Election_Complet extends Algorithm {
 		}
 
 		this.sendTo(choosenNeighbour, new IntegerMessage(new Integer(1),
-				synchronization));
+				Election_Complet.synchronization));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
-				if (!finishedNode[i])
+			if (i != choosenNeighbour) {
+				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Election_Complet.synchronization));
+				}
+			}
 
 		}
 
@@ -164,15 +176,17 @@ public class Election_Complet extends Algorithm {
 				IntegerMessage smsg = (IntegerMessage) msg;
 
 				answer[i] = smsg.value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 
 			}
 		}
 		if (answer[choosenNeighbour] == 1) {
 			return choosenNeighbour;
-		} else
+		} else {
 			return -2;
+		}
 
 	}
 

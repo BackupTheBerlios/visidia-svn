@@ -19,8 +19,9 @@ public abstract class SynchroAlgo extends Algorithm {
 		int a = this.getArity();
 
 		// interface graphique:je ne suis plus synchro
-		for (int door = 0; door < a; door++)
+		for (int door = 0; door < a; door++) {
 			this.setDoorState(new SyncState(false), door);
+		}
 
 		while (i < 0) {
 			i = this.trySynchronize();
@@ -43,8 +44,9 @@ public abstract class SynchroAlgo extends Algorithm {
 
 		this.sendTo(choosenNeighbour, new SyncMessage(new Integer(1)));
 		for (int i = 0; i < arite; i++) {
-			if (i != choosenNeighbour)
+			if (i != choosenNeighbour) {
 				this.sendTo(i, new SyncMessage(new Integer(0)));
+			}
 
 		}
 

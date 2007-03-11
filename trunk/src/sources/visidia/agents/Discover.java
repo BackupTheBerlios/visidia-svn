@@ -26,8 +26,9 @@ public class Discover extends Agent {
 				this.setProperty("marked", ++markedVertex);
 			}
 
-			if (markedVertex == this.getNetSize())
+			if (markedVertex == this.getNetSize()) {
 				break;
+			}
 
 			this.move();
 

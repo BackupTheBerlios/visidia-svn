@@ -172,11 +172,11 @@ public class SimulationPanel extends JPanel implements ActionListener,
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (this.fenetreDeSimulationDist == null)
+		if (this.fenetreDeSimulationDist == null) {
 			this.fenetreDeSimulation.getVueGraphe().dessiner(this, g);
-
-		else
+		} else {
 			this.fenetreDeSimulationDist.getVueGraphe().dessiner(this, g);
+		}
 
 		g.setColor(Color.red);
 
@@ -216,8 +216,9 @@ public class SimulationPanel extends JPanel implements ActionListener,
 						if (this.fenetreDeSimulationDist == null) {
 							this.fenetreDeSimulation.getAckPipe().put(msa);
 							// System.out.println("UN MESSAGE TRANSMIS");
-						} else
+						} else {
 							this.fenetreDeSimulationDist.getAckPipe().put(msa);
+						}
 
 					} catch (InterruptedException exp) {
 						// this interruption should have been caused
@@ -248,10 +249,11 @@ public class SimulationPanel extends JPanel implements ActionListener,
 	}
 
 	public boolean isRunning() {
-		if (this.timer.isRunning())
+		if (this.timer.isRunning()) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	public void start() {
@@ -307,10 +309,11 @@ public class SimulationPanel extends JPanel implements ActionListener,
 		// Delete
 		case KeyEvent.VK_DELETE:
 		case KeyEvent.VK_BACK_SPACE:
-			if (this.fenetreDeSimulationDist == null)
+			if (this.fenetreDeSimulationDist == null) {
 				this.fenetreDeSimulation.commandeSupprimer();
-			else
+			} else {
 				this.fenetreDeSimulationDist.commandeSupprimer();
+			}
 			this.repaint();
 			break;
 		default:

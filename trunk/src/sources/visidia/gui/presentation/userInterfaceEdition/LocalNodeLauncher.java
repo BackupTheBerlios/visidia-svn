@@ -133,16 +133,18 @@ class MyTableModel extends AbstractTableModel {
 	public boolean isCellEditable(int row, int col) {
 		// Note that the data/cell address is constant,
 		// no matter where the cell appears onscreen.
-		if (col == 0)
+		if (col == 0) {
 			return true;
+		}
 		if (col == 1) {
 			// if (notEditable != null)
-			if (this.notEditable.contains(new Integer(row)))
+			if (this.notEditable.contains(new Integer(row))) {
 				return false;
-			else
+			} else {
 				return true;
-			// else
-			// return true;
+				// else
+				// return true;
+			}
 		} else {
 			return false;
 		}
@@ -291,9 +293,9 @@ public class LocalNodeLauncher extends JFrame implements ActionListener {
 		Object source = ae.getSource();
 		if (source instanceof JRadioButton) {
 			source = (JRadioButton) source;
-			if (source == this.manyLocalNodes)
+			if (source == this.manyLocalNodes) {
 				this.js.setEnabled(this.manyLocalNodes.isSelected());
-			else if (source == this.runRegistry) {
+			} else if (source == this.runRegistry) {
 				this.startRegistry.setEnabled(this.runRegistry.isSelected());
 			}
 		} else if (source instanceof JButton) {
@@ -557,8 +559,9 @@ public class LocalNodeLauncher extends JFrame implements ActionListener {
 						this.write(
 								"\nCouldn't unbind Local Node from registry",
 								Color.red);
-						if (this.fullDebug.isSelected())
+						if (this.fullDebug.isSelected()) {
 							this.write(expt);
+						}
 					}
 					UnicastRemoteObject.unexportObject(nodeServer, true);
 				} catch (Exception e) {
@@ -597,8 +600,9 @@ public class LocalNodeLauncher extends JFrame implements ActionListener {
 						this.write(
 								"\nCouldn't unbind Local Node from registry",
 								Color.red);
-						if (this.fullDebug.isSelected())
+						if (this.fullDebug.isSelected()) {
 							this.write(expt);
+						}
 					}
 					UnicastRemoteObject.unexportObject(nodeServer, true);
 				} catch (Exception e) {

@@ -33,8 +33,9 @@ public class Traitements {
 		Ensemble ensemble = new Ensemble();
 		while (v_enum.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) v_enum.nextElement();
-			if (f.type().equals("vertex"))
+			if (f.type().equals("vertex")) {
 				ensemble.inserer(f);
+			}
 			if (f.type().equals("edge")) {
 				ensemble.inserer(((AreteDessin) f).getArete().origine()
 						.getSommetDessin());
@@ -56,14 +57,16 @@ public class Traitements {
 		Ensemble ensemble = new Ensemble();
 		while (v_enum.hasMoreElements()) {
 			FormeDessin f = (FormeDessin) v_enum.nextElement();
-			if (f.type().equals("edge"))
+			if (f.type().equals("edge")) {
 				ensemble.inserer(f);
+			}
 			if (f.type().equals("vertex")) {
 				Enumeration e = (((SommetDessin) f).getSommet()
 						.aretesIncidentes());
-				while (e.hasMoreElements())
+				while (e.hasMoreElements()) {
 					ensemble
 							.inserer(((Arete) e.nextElement()).getAreteDessin());
+				}
 				ensemble.inserer(f);
 			}
 		}
@@ -76,8 +79,9 @@ public class Traitements {
 		FormeDessin elt;
 		while (e.hasMoreElements()) {
 			elt = (FormeDessin) e.nextElement();
-			if (elt.type().equals("vertex"))
+			if (elt.type().equals("vertex")) {
 				ens_Temp.inserer(elt);
+			}
 		}
 		return ens_Temp.elements();
 	}
@@ -88,8 +92,9 @@ public class Traitements {
 		FormeDessin elt;
 		while (e.hasMoreElements()) {
 			elt = (FormeDessin) e.nextElement();
-			if (elt.type().equals("edge"))
+			if (elt.type().equals("edge")) {
 				ens_Temp.inserer(elt);
+			}
 		}
 		return ens_Temp.elements();
 	}
@@ -104,7 +109,7 @@ public class Traitements {
 	 */
 	public static Enumeration completersousGraphe(Enumeration v_enum) {
 		Ensemble ensembleArete = new Ensemble();
-		Enumeration e = sommetDessin(v_enum);
+		Enumeration e = Traitements.sommetDessin(v_enum);
 		if (e.hasMoreElements()) {
 			SommetDessin sommet_courant = (SommetDessin) e.nextElement();
 			VueGraphe un_graphe = sommet_courant.getVueGraphe();
@@ -120,9 +125,10 @@ public class Traitements {
 					SommetDessin un_sommet = (SommetDessin) une_enumeration
 							.nextElement();
 					if (sommet_courant.getSommet().aPourVoisin(
-							un_sommet.getSommet()) == 0)
+							un_sommet.getSommet()) == 0) {
 						ensembleArete.inserer(un_graphe.creerArete(un_sommet,
 								sommet_courant));
+					}
 				}
 
 				sommets_deja_traites.addElement(sommet_courant);
@@ -170,18 +176,18 @@ public class Traitements {
 				destination = arete_courante.getArete().destination()
 						.getSommetDessin();
 
-				if (sommets_clones.containsKey(origine))
+				if (sommets_clones.containsKey(origine)) {
 					origine_clone = (SommetDessin) sommets_clones.get(origine);
-				else {
+				} else {
 					sommets_clones.put(origine,
 							origine_clone = (SommetDessin) origine.cloner());
 					selection_clones.inserer(origine_clone);
 				}
 
-				if (sommets_clones.containsKey(destination))
+				if (sommets_clones.containsKey(destination)) {
 					destination_clone = (SommetDessin) sommets_clones
 							.get(destination);
-				else {
+				} else {
 					sommets_clones.put(destination,
 							destination_clone = (SommetDessin) destination
 									.cloner());
@@ -211,8 +217,9 @@ public class Traitements {
 	 */
 	public static SelectionDessin sousGrapheConnexeOriente(
 			Enumeration sommets_initiaux) {
-		if (!sommets_initiaux.hasMoreElements())
+		if (!sommets_initiaux.hasMoreElements()) {
 			return null;
+		}
 
 		// initialisation des structures de donnees
 		// SommetDessin sommet_courant =
@@ -260,9 +267,10 @@ public class Traitements {
 	 *         connexe contenant le sommet.
 	 */
 	public static SelectionDessin sousGrapheConnexe(Enumeration v_enum) {
-		Enumeration sommets_initiaux = sommetDessin(v_enum);
-		if (!sommets_initiaux.hasMoreElements())
+		Enumeration sommets_initiaux = Traitements.sommetDessin(v_enum);
+		if (!sommets_initiaux.hasMoreElements()) {
 			return null;
+		}
 
 		// initialisation des structures de donnees
 		// SommetDessin sommet_courant =

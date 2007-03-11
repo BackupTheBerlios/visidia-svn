@@ -28,8 +28,9 @@ public class PulseCounter extends JLabel implements ActionListener,
 	}
 
 	public void setPulse(int pulse) {
-		if (!this.isEnabled())
+		if (!this.isEnabled()) {
 			this.setEnabled(true);
+		}
 		this.setText("Pulse Counter : " + String.valueOf(pulse));
 	}
 

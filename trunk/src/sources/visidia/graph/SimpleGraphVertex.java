@@ -244,8 +244,9 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * Add an agent name to this vertex.
 	 */
 	public void addAgentName(String agentName) {
-		if (this.getAgentsNames() == null)
+		if (this.getAgentsNames() == null) {
 			this.setAgentsNames(new LinkedList());
+		}
 
 		this.getAgentsNames().add(agentName);
 	}
@@ -269,11 +270,12 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * @see #SimpleGraphVertex(Integer, Hashtable)
 	 */
 	public Object getProperty(Object key) {
-		if (this.whiteBoard == null)
+		if (this.whiteBoard == null) {
 			throw new ForbiddenCallException(
 					"This vertex hasn't got any white "
 							+ "board. You should have pass a "
 							+ "Hashtable to the constructor");
+		}
 
 		return this.whiteBoard.getValue(key);
 	}
@@ -289,11 +291,12 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * @see #SimpleGraphVertex(Integer, Hashtable)
 	 */
 	public void setProperty(Object key, Object value) {
-		if (this.whiteBoard == null)
+		if (this.whiteBoard == null) {
 			throw new ForbiddenCallException(
 					"This vertex hasn't got any white "
 							+ "board. You should have pass a "
 							+ "Hashtable to the constructor");
+		}
 		this.whiteBoard.setValue(key, value);
 	}
 

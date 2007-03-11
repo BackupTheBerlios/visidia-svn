@@ -40,9 +40,9 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 
 	public Collection getListTypes() {
 		Collection<MessageType> typesList = new LinkedList<MessageType>();
-		typesList.add(synchronization);
-		typesList.add(labels);
-		typesList.add(termination);
+		typesList.add(Spanning_Tree_ID_With_Termination.synchronization);
+		typesList.add(Spanning_Tree_ID_With_Termination.labels);
+		typesList.add(Spanning_Tree_ID_With_Termination.termination);
 		return typesList;
 	}
 
@@ -56,14 +56,16 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 		int neighboursLink[] = new int[this.getArity()];
 		Vector name = new Vector(2);
 
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			neighboursLink[i] = 0;
+		}
 
 		neighboursLabel = new Vector[this.getArity()];
 		finishedNode = new boolean[this.getArity()];
 
-		for (int i = 0; i < this.getArity(); i++)
+		for (int i = 0; i < this.getArity(); i++) {
 			finishedNode[i] = false;
+		}
 
 		name.add(this.getId());
 		name.add(new Integer(this.nNode));
@@ -93,38 +95,44 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 								.intValue() != this.fNode)
 								&& (((Integer) neighboursLabel[door]
 										.elementAt(0)).intValue() > ((Integer) name
-										.elementAt(0)).intValue()))
+										.elementAt(0)).intValue())) {
 							neighbourX = door;
-						else if (((Integer) neighboursLabel[door].elementAt(0))
-								.intValue() != ((Integer) name.elementAt(0))
-								.intValue())
+						} else if (((Integer) neighboursLabel[door]
+								.elementAt(0)).intValue() != ((Integer) name
+								.elementAt(0)).intValue()) {
 							existLowerOrHigher = true;
+						}
 
 						if (((Integer) neighboursLabel[door].elementAt(1))
-								.intValue() == this.fNode)
+								.intValue() == this.fNode) {
 							nbreF++;
+						}
 
 						if ((((Integer) neighboursLabel[door].elementAt(1))
 								.intValue() != this.fNode)
 								&& (neighboursLink[door] == ((Integer) name
-										.elementAt(0)).intValue()))
+										.elementAt(0)).intValue())) {
 							nbreNM++;
+						}
 					}
 				}
 
 				if ((((Integer) name.elementAt(1)).intValue() == this.nNode)
-						&& (nbreF == this.getArity()))
+						&& (nbreF == this.getArity())) {
 					run = false;
+				}
 
 				if (neighbourX != -1) {
 					name.setElementAt(
 							new Integer(((Integer) neighboursLabel[neighbourX]
 									.elementAt(0)).intValue()), 0);
 
-					for (int door = 0; door < this.getArity(); door++)
+					for (int door = 0; door < this.getArity(); door++) {
 						if (neighboursLink[door] < ((Integer) name.elementAt(0))
-								.intValue())
+								.intValue()) {
 							this.setDoorState(new MarkedState(false), door);
+						}
+					}
 
 					String display;
 					display = new String("(A' , " + name.elementAt(0) + ")");
@@ -135,14 +143,17 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 					neighboursLink[neighbourX] = ((Integer) name.elementAt(0))
 							.intValue();
 
-					for (int door = 0; door < this.getArity(); door++)
-						if (door != neighbourX)
+					for (int door = 0; door < this.getArity(); door++) {
+						if (door != neighbourX) {
 							this.sendTo(door, new IntegerMessage(
-									new Integer(0), labels));
-						else {
+									new Integer(0),
+									Spanning_Tree_ID_With_Termination.labels));
+						} else {
 							this.sendTo(door, new IntegerMessage(
-									new Integer(1), labels));
+									new Integer(1),
+									Spanning_Tree_ID_With_Termination.labels));
 						}
+					}
 
 				} else {
 					if ((((Integer) name.elementAt(1)).intValue() == this.mNode)
@@ -153,14 +164,19 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 						this.putProperty("label", new String(display));
 						name.setElementAt(new Integer(this.fNode), 1);
 
-						for (int door = 0; door < this.getArity(); door++)
+						for (int door = 0; door < this.getArity(); door++) {
 							this.sendTo(door, new IntegerMessage(
-									new Integer(0), labels));
+									new Integer(0),
+									Spanning_Tree_ID_With_Termination.labels));
+						}
 
-					} else
-						for (int door = 0; door < this.getArity(); door++)
+					} else {
+						for (int door = 0; door < this.getArity(); door++) {
 							this.sendTo(door, new IntegerMessage(
-									new Integer(0), labels));
+									new Integer(0),
+									Spanning_Tree_ID_With_Termination.labels));
+						}
+					}
 				}
 
 				this.breakSynchro();
@@ -168,15 +184,17 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 				Integer change;
 
 				this.sendTo(synchro, new VectorMessage((Vector) name.clone(),
-						labels));
+						Spanning_Tree_ID_With_Termination.labels));
 				change = ((IntegerMessage) this.receiveFrom(synchro)).data();
-				if (change.intValue() == 1)
+				if (change.intValue() == 1) {
 					neighboursLink[synchro] = ((Integer) name.elementAt(0))
 							.intValue();
+				}
 			}
 		}
 		// printStatistics();
-		this.sendAll(new IntegerMessage(new Integer(-3), termination));
+		this.sendAll(new IntegerMessage(new Integer(-3),
+				Spanning_Tree_ID_With_Termination.termination));
 	}
 
 	/**
@@ -196,7 +214,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(choosenNumber),
-						synchronization));
+						Spanning_Tree_ID_With_Termination.synchronization));
 			}
 		}
 		/* receive all numbers from neighbours */
@@ -204,8 +222,9 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 			if (!finishedNode[i]) {
 				Message msg = this.receiveFrom(i);
 				answer[i] = ((IntegerMessage) msg).value();
-				if (answer[i] == -1)
+				if (answer[i] == -1) {
 					finishedNode[i] = true;
+				}
 				if (answer[i] == -3) {
 					finishedNode[i] = true;
 					theEnd = true;
@@ -217,17 +236,19 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 		int max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
-				if (answer[i] >= max)
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
 			}
 		}
-		if (theEnd)
+		if (theEnd) {
 			max = -3;
+		}
 
 		for (int i = 0; i < arite; i++) {
 			if (!finishedNode[i]) {
 				this.sendTo(i, new IntegerMessage(new Integer(max),
-						synchronization));
+						Spanning_Tree_ID_With_Termination.synchronization));
 			}
 		}
 		/* get alla answers from neighbours */
@@ -244,22 +265,29 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 		/* get the max */
 		max = choosenNumber;
 		for (int i = 0; i < arite; i++) {
-			if (!finishedNode[i])
-				if (answer[i] >= max)
+			if (!finishedNode[i]) {
+				if (answer[i] >= max) {
 					max = answer[i];
+				}
+			}
 		}
 
 		if (choosenNumber >= max) {
 			for (int door = 0; door < arite; door++) {
-				if (!finishedNode[door])
+				if (!finishedNode[door]) {
 					this.setDoorState(new SyncState(true), door);
+				}
 			}
 
 			if (!theEnd) {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
-						this.sendTo(i, new IntegerMessage(new Integer(1),
-								synchronization));
+						this
+								.sendTo(
+										i,
+										new IntegerMessage(
+												new Integer(1),
+												Spanning_Tree_ID_With_Termination.synchronization));
 					}
 				}
 
@@ -274,7 +302,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 				for (int i = 0; i < arite; i++) {
 					if (!finishedNode[i]) {
 						this.sendTo(i, new IntegerMessage(new Integer(-3),
-								termination));
+								Spanning_Tree_ID_With_Termination.termination));
 					}
 				}
 
@@ -292,7 +320,7 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 			for (int i = 0; i < arite; i++) {
 				if (!finishedNode[i]) {
 					this.sendTo(i, new IntegerMessage(new Integer(0),
-							synchronization));
+							Spanning_Tree_ID_With_Termination.synchronization));
 				}
 			}
 
@@ -307,12 +335,13 @@ public class Spanning_Tree_ID_With_Termination extends Algorithm {
 					}
 				}
 			}
-			if (inTheStar != this.notInTheStar)
+			if (inTheStar != this.notInTheStar) {
 				return inTheStar;
-			else if (theEnd)
+			} else if (theEnd) {
 				return -3;
-			else
+			} else {
 				return this.notInTheStar;
+			}
 
 		}
 	}

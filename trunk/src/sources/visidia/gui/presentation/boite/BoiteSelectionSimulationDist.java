@@ -68,8 +68,9 @@ public class BoiteSelectionSimulationDist extends BoiteSelection {
 		Enumeration tous_les_types = this.table_types.elements();
 		while (tous_les_types.hasMoreElements()) {
 			String un_type = (String) tous_les_types.nextElement();
-			if (un_type.equals("vertex"))
+			if (un_type.equals("vertex")) {
 				vertexSelected = true;
+			}
 		}
 		final JCheckBox drawMessageCheckBox = new JCheckBox("Draw messages");
 		secPane.add(drawMessageCheckBox);
