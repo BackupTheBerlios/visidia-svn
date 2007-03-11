@@ -11,15 +11,15 @@ import java.util.Set;
  */
 public class WhiteBoard {
 
-    private Hashtable values;
-    private final Hashtable defaults;
+    private Hashtable<Object, Object> values;
+    private final Hashtable<Object, Object> defaults;
 
     /**
      * Using this  constructor, there will  be no default  values. The
      * WhiteBoard will be used just like a Hashtable.
      */
     public WhiteBoard() {
-        this(new Hashtable());
+        this(new Hashtable<Object, Object>());
     }
 
     /**
@@ -28,8 +28,8 @@ public class WhiteBoard {
      * @param defaults  Default values that  will be used  when nobody
      * has modified them. 
      */
-    public WhiteBoard(Hashtable defaults) {
-        this(defaults,new Hashtable());
+    public WhiteBoard(Hashtable<Object, Object> defaults) {
+        this(defaults,new Hashtable<Object, Object>());
     }
 
 
@@ -41,7 +41,7 @@ public class WhiteBoard {
      * @param properties Specifics values that will be used for this
      * Whiteboard.
      */
-    public WhiteBoard(Hashtable def, Hashtable properties ) {
+    public WhiteBoard(Hashtable<Object, Object> def, Hashtable<Object, Object> properties ) {
         this.defaults = def;
         this.values = properties;
     }
@@ -74,7 +74,7 @@ public class WhiteBoard {
     }
     
     public Set keys() {
-        Hashtable common = (Hashtable)this.defaults.clone();
+        Hashtable<Object, Object> common = (Hashtable<Object, Object>)this.defaults.clone();
         common.putAll(this.values);
 
         return common.keySet();
