@@ -12,10 +12,8 @@ import java.util.Stack;
  * un nombre entier unique.
  */
 public class SimpleGraph implements Cloneable, Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1354660264862506083L;
+  
+    private static final long serialVersionUID = 1354660264862506083L;
 
 	/* liste des noeuds */
     private Hashtable hash;
