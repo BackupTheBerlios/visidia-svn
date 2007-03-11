@@ -9,50 +9,52 @@ import visidia.simulation.agents.stats.MoveStat;
 import visidia.tools.Bag;
 
 public class AverageStats extends AbstractExperiment {
-    
-    private Hashtable<Class, Long> agentsByClass;
-    private Bag stats;
 
-    private void countAgents() {
-	Set keys;
-	this.agentsByClass = new Hashtable<Class, Long>(10);
+	private Hashtable<Class, Long> agentsByClass;
 
-	keys = this.getBag().keySet();
+	private Bag stats;
 
-	for(Object key: keys) {
-	    if (key instanceof AgentCreationStat)
-		this.agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
-				  new Long(this.getBag().getOccurrencesOf(key)));
+	private void countAgents() {
+		Set keys;
+		this.agentsByClass = new Hashtable<Class, Long>(10);
+
+		keys = this.getBag().keySet();
+
+		for (Object key : keys) {
+			if (key instanceof AgentCreationStat)
+				this.agentsByClass.put(((AgentCreationStat) key)
+						.getAgentClass(), new Long(this.getBag()
+						.getOccurrencesOf(key)));
+		}
 	}
-    }
 
-    private void computeStats() {
-	Set keys;
+	private void computeStats() {
+		Set keys;
 
-	this.stats = new Bag();
+		this.stats = new Bag();
 
-	this.countAgents();
+		this.countAgents();
 
-	keys = this.getBag().keySet();
+		keys = this.getBag().keySet();
 
-	for(Object key: keys) {
+		for (Object key : keys) {
 
-	    if (key instanceof MoveStat) {
-		Class agClass = ((MoveStat)key).getAgentClass();
-		long agentsForClass = this.agentsByClass.get(agClass).longValue();
-		long movesForClass = this.getBag().getOccurrencesOf(key);
+			if (key instanceof MoveStat) {
+				Class agClass = ((MoveStat) key).getAgentClass();
+				long agentsForClass = this.agentsByClass.get(agClass)
+						.longValue();
+				long movesForClass = this.getBag().getOccurrencesOf(key);
 
-		this.stats.add("Average moves by agent (" 
-			  + agClass.getSimpleName() + ")",
-			  new Long(movesForClass / agentsForClass));
-	    }
+				this.stats.add("Average moves by agent ("
+						+ agClass.getSimpleName() + ")", new Long(movesForClass
+						/ agentsForClass));
+			}
+		}
 	}
-    }
 
-
-    public Bag getStats() {
-        this.computeStats();
-        return this.stats;
-    }
+	public Bag getStats() {
+		this.computeStats();
+		return this.stats;
+	}
 
 }

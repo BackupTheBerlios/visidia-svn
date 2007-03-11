@@ -3,41 +3,39 @@ package visidia.tools;
 import visidia.simulation.SimulAck;
 import visidia.simulation.SimulEvent;
 
-
-
 public class Element {
 
-    private SimulAck sa=null;
-    private SimulEvent se=null;
-    private boolean event;
-    
-    
-    public Element(SimulAck sa_){
-	this.sa = sa_;
-	this.event=false;
-    }
+	private SimulAck sa = null;
 
-    public Element(SimulEvent se_){
-	this.se = se_;
-	this.event=true;
-    }
-    
-    public SimulEvent getSimulEvent() {
-	if (this.isEvent())
-	    return this.se;
-	else
-	    return null;
-    }
+	private SimulEvent se = null;
 
-    public SimulAck getSimulAck() {
-	if (!this.isEvent())
-	    return this.sa;
-	else
-	    return null;
-    }
+	private boolean event;
 
-    public boolean isEvent() {
-	return this.event;
-    }
+	public Element(SimulAck sa_) {
+		this.sa = sa_;
+		this.event = false;
+	}
+
+	public Element(SimulEvent se_) {
+		this.se = se_;
+		this.event = true;
+	}
+
+	public SimulEvent getSimulEvent() {
+		if (this.isEvent())
+			return this.se;
+		else
+			return null;
+	}
+
+	public SimulAck getSimulAck() {
+		if (!this.isEvent())
+			return this.sa;
+		else
+			return null;
+	}
+
+	public boolean isEvent() {
+		return this.event;
+	}
 }
-

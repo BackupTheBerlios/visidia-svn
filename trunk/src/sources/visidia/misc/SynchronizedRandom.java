@@ -1,6 +1,5 @@
 package visidia.misc;
 
-
 /**
  * générateur de nombre aléatoire. Permet d'obtenir des valeurs
  * uniques dans un contexte distribué et d'appels concurrents.  Cette
@@ -10,18 +9,17 @@ package visidia.misc;
 
 import java.util.Random;
 
-public class SynchronizedRandom  {
+public class SynchronizedRandom {
 
-    private static Random generator =new Random();
+	private static Random generator = new Random();
 
+	public static synchronized int nextInt() {
+		return generator.nextInt();
 
-    public static synchronized int nextInt(){
-	return generator.nextInt();
+	}
 
-    }
-
-    public static synchronized float nextFloat(){
-        return  generator.nextFloat();
-    }
+	public static synchronized float nextFloat() {
+		return generator.nextFloat();
+	}
 
 }

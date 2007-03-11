@@ -6,36 +6,36 @@ import visidia.simulation.agents.Agent;
 
 /**
  * Agent that remembers how many times it visited each vertex.
- *
+ * 
  * @see Agent#setVertexProperty(Object, Object)
  * @see Agent#getVertexProperty(Object)
  */
 public class RecogniseAgent extends Agent {
 
-    protected void init() {
+	protected void init() {
 
-        this.setAgentMover("LinearAgentMover");
-        
-        do {
-            Integer nbPassages;
+		this.setAgentMover("LinearAgentMover");
 
-            /**
-             * When  the whiteboard  does not  contain an  element, it
-             * throws a NoSuchElementException.
-             */
-            try {
-                nbPassages = (Integer) this.getVertexProperty("nbPassages");
-            } catch (NoSuchElementException e) {
-                nbPassages = 0;
-            }
+		do {
+			Integer nbPassages;
 
-            nbPassages = new Integer(nbPassages.intValue() + 1);
-            this.setVertexProperty("nbPassages", nbPassages);
+			/**
+			 * When the whiteboard does not contain an element, it throws a
+			 * NoSuchElementException.
+			 */
+			try {
+				nbPassages = (Integer) this.getVertexProperty("nbPassages");
+			} catch (NoSuchElementException e) {
+				nbPassages = 0;
+			}
 
-            System.out.println(this.getVertexIdentity() + " has seen an agent "
-                               + nbPassages + " time(s).");
+			nbPassages = new Integer(nbPassages.intValue() + 1);
+			this.setVertexProperty("nbPassages", nbPassages);
 
-            this.move();
-        } while (true);
-    }
+			System.out.println(this.getVertexIdentity() + " has seen an agent "
+					+ nbPassages + " time(s).");
+
+			this.move();
+		} while (true);
+	}
 }

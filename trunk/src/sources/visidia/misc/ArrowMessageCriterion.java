@@ -1,11 +1,10 @@
 package visidia.misc;
 
-
 /**
  * permet de choisir un objet selon sa classe.
  */
 public class ArrowMessageCriterion extends MessageCriterion {
-    public boolean isMatchedBy(Object o){
-	return o instanceof ArrowMessage;	
-    }
+	public boolean isMatchedBy(Object o) {
+		return o instanceof ArrowMessage;
+	}
 }

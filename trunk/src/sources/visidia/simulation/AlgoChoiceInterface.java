@@ -1,7 +1,7 @@
 package visidia.simulation;
 
-public interface AlgoChoiceInterface{
+public interface AlgoChoiceInterface {
 
-    public Algorithm getAlgorithm(int id);
+	public Algorithm getAlgorithm(int id);
 
 }

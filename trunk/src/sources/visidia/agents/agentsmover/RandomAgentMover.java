@@ -6,18 +6,18 @@ import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 
 /**
- * Provides a random move for an Agent. On a vertex, the agent goes to
- * a random door.
+ * Provides a random move for an Agent. On a vertex, the agent goes to a random
+ * door.
  */
 public class RandomAgentMover extends AgentMover {
 
-    private Random rand = new Random();
-    
-    public RandomAgentMover(Agent ag) {
-        super(ag);
-    }
+	private Random rand = new Random();
 
-    protected int findNextDoor() {
-        return this.rand.nextInt(this.agent().getArity());
-    }
+	public RandomAgentMover(Agent ag) {
+		super(ag);
+	}
+
+	protected int findNextDoor() {
+		return this.rand.nextInt(this.agent().getArity());
+	}
 }

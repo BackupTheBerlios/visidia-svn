@@ -6,14 +6,13 @@ import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
  *  a SelectUnit instance must be able to get them using those functions. */
 public interface SelectionGetData {
 
-    public SelectionDessin getSelectionDessin ();
+	public SelectionDessin getSelectionDessin();
 
-    /**
-     *  Throws noSuchMethoException if the undo processing isn't used
-     */
-    public UndoInfo getUndoInfo ()
-	throws NoSuchMethodException;
+	/**
+	 * Throws noSuchMethoException if the undo processing isn't used
+	 */
+	public UndoInfo getUndoInfo() throws NoSuchMethodException;
 
-    public RecoverableObject getRecoverableObject ();
+	public RecoverableObject getRecoverableObject();
 
 }

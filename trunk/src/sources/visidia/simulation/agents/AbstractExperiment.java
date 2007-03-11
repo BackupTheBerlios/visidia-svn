@@ -4,17 +4,18 @@ import visidia.tools.Bag;
 
 public abstract class AbstractExperiment {
 
-    private Bag stats;
+	private Bag stats;
 
-    public AbstractExperiment() {}
+	public AbstractExperiment() {
+	}
 
-    public void setStats(Bag stats) {
-        this.stats = stats;
-    }
+	public void setStats(Bag stats) {
+		this.stats = stats;
+	}
 
-    protected Bag getBag() {
-        return this.stats;
-    }
+	protected Bag getBag() {
+		return this.stats;
+	}
 
-    public abstract Bag getStats();
+	public abstract Bag getStats();
 }

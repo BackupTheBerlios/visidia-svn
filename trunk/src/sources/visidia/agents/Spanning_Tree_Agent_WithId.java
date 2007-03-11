@@ -6,71 +6,69 @@ import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.stats.FailedMoveStat;
 
 /**
- * Implements a spanning tree algorithm with an agent. This agent uses
- * the unique identification for each vertex.
- *
+ * Implements a spanning tree algorithm with an agent. This agent uses the
+ * unique identification for each vertex.
+ * 
  * @see Spanning_Tree_Agent_WithoutId
  */
 public class Spanning_Tree_Agent_WithId extends Agent {
 
-    /**
-     * Remembers if the vertex has already been seen at least once.
-     */
-    boolean[] vertexMarks;
+	/**
+	 * Remembers if the vertex has already been seen at least once.
+	 */
+	boolean[] vertexMarks;
 
-    protected void init() {
-        
-        int nbSelectedEdges = 0;
-        int nbVertices = this.getNetSize();
-        
-        this.setAgentMover("RandomAgentMover");
+	protected void init() {
 
-        this.vertexMarks = new boolean [nbVertices];
+		int nbSelectedEdges = 0;
+		int nbVertices = this.getNetSize();
 
-        /**
-         * Puts false on all cells of vertexMarks.
-         */
-        Arrays.fill(this.vertexMarks, false);
+		this.setAgentMover("RandomAgentMover");
 
-        /**
-         * Marks the first vertex as already been seen.
-         */
-        this.mark(this.getVertexIdentity());
+		this.vertexMarks = new boolean[nbVertices];
 
-        /**
-         * A tree has nbVertices - 1 edges.
-         */
-        while ( nbSelectedEdges < (nbVertices - 1) ) {
+		/**
+		 * Puts false on all cells of vertexMarks.
+		 */
+		Arrays.fill(this.vertexMarks, false);
 
-            this.move();
+		/**
+		 * Marks the first vertex as already been seen.
+		 */
+		this.mark(this.getVertexIdentity());
 
-            if ( ! this.isMarked(this.getVertexIdentity()) ) {
-                /**
-                 * The current vertex has not been seen already.
-                 */
+		/**
+		 * A tree has nbVertices - 1 edges.
+		 */
+		while (nbSelectedEdges < (nbVertices - 1)) {
 
-                /**
-                 * Put the last  edge in bold. It will  be part of the
-                 * tree.
-                 */
-                this.markDoor(this.entryDoor());
+			this.move();
 
-                this.mark(this.getVertexIdentity());
-                nbSelectedEdges ++;
-            }
-            else {
-                this.incrementStat(new FailedMoveStat(this.getClass()));
-            }
+			if (!this.isMarked(this.getVertexIdentity())) {
+				/**
+				 * The current vertex has not been seen already.
+				 */
 
-        }
-    }
+				/**
+				 * Put the last edge in bold. It will be part of the tree.
+				 */
+				this.markDoor(this.entryDoor());
 
-    private void mark (int vertex) {
-        this.vertexMarks[vertex] = true;
-    }
+				this.mark(this.getVertexIdentity());
+				nbSelectedEdges++;
+			} else {
+				this.incrementStat(new FailedMoveStat(this.getClass()));
+			}
 
-    private boolean isMarked(int vertex) {
-        return this.vertexMarks[vertex];
-    }
+		}
+	}
+
+	private void mark(int vertex) {
+		this.vertexMarks[vertex] = true;
+	}
+
+	private boolean isMarked(int vertex) {
+		return this.vertexMarks[vertex];
+	}
 
 }

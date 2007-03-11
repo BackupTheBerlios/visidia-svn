@@ -4,24 +4,26 @@ import javax.swing.table.AbstractTableModel;
 
 public abstract class UpdateTable implements Runnable {
 
-    AbstractTableModel table;
-    long sleepTime;
-    boolean stop;
+	AbstractTableModel table;
 
-    public UpdateTable(AbstractTableModel table, long sleepTime) {
-        this.table = table;
-        this.sleepTime = sleepTime;
-        this.stop = false;
-    }
+	long sleepTime;
 
-    public UpdateTable(AbstractTableModel table) {
-        this(table, 1000);
-    }
+	boolean stop;
 
-    public void stop() {
-        this.stop = true;
-    }
+	public UpdateTable(AbstractTableModel table, long sleepTime) {
+		this.table = table;
+		this.sleepTime = sleepTime;
+		this.stop = false;
+	}
 
-    abstract public void run();
+	public UpdateTable(AbstractTableModel table) {
+		this(table, 1000);
+	}
+
+	public void stop() {
+		this.stop = true;
+	}
+
+	abstract public void run();
 
 }

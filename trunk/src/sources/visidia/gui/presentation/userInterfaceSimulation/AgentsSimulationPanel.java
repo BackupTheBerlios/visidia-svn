@@ -36,11 +36,10 @@ import visidia.simulation.MessageSendingEvent;
 
 /**
  * 
- * Contenu par la class AgentsSimulationWindow
- * C'est dans ce panel que s'affiche le graphe et les agents
- * C'est cette fenêtre qui gère les actions (souris, clavier) de l'utilisateur
- * sur les éléments du graphe
- *
+ * Contenu par la class AgentsSimulationWindow C'est dans ce panel que s'affiche
+ * le graphe et les agents C'est cette fenêtre qui gère les actions (souris,
+ * clavier) de l'utilisateur sur les éléments du graphe
+ * 
  */
 public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		MouseListener, MouseMotionListener, KeyListener {
@@ -61,7 +60,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	 * le pas de visulaisation : vitesse de visulaisation. Bilel.
 	 */
 	protected int lePas;
-	
+
 	protected javax.swing.Timer timer;
 
 	protected int x_ancien;
@@ -88,17 +87,12 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	private SommetDessin ancien_sommet_sous_souris;
 
 	/** Signifie si un drag-and-drop d'une sélection est en court * */
-	//private boolean drag_n_drop_selection;
-
+	// private boolean drag_n_drop_selection;
 	/** Signifie si un drag-and-drop du graphe entier est en court * */
-	//private boolean drag_n_drop_graph;
-
-	//private FormeDessin drag_n_dropVertex;
-
-	//private int drag_n_dropVertex_X;
-
-	//private int drag_n_dropVertex_Y;
-
+	// private boolean drag_n_drop_graph;
+	// private FormeDessin drag_n_dropVertex;
+	// private int drag_n_dropVertex_X;
+	// private int drag_n_dropVertex_Y;
 	/** Abscisse de la position initiale de la souris lors d'une sélection * */
 
 	/** Dimension du graphique */
@@ -124,9 +118,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		this.agentsSimulationWindow = simulation;
 		this.objet_sous_souris = null;
 		this.lePas = this.PAS_PAR_DEFAUT;
-		
-		
-		
+
 		if (simulation.getVueGraphe().getGraphe().ordre() != 0) {
 			this.size = simulation.getVueGraphe().donnerDimension();
 			this.setPreferredSize(this.size);
@@ -288,18 +280,17 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		}
 	}
 
-	/** Solution non fonctionnelle
-	 * Met à jour, à partir du graphe de l'interface graphique de classe Graphe
-	 * le graph du simulateur de type SimpleGraph
-	 
-	public void updateSimulationGraphe() {
-		//visidia.gui.metier.simulation.Convertisseur c = new visidia.gui.metier.simulation.Convertisseur();
-		if(this.agentsSimulationWindow != null) {
-			this.agentsSimulationWindow.updateSimulationGraphe();
-		}
-	}*/
-	
-	
+	/**
+	 * Solution non fonctionnelle Met à jour, à partir du graphe de l'interface
+	 * graphique de classe Graphe le graph du simulateur de type SimpleGraph
+	 * 
+	 * public void updateSimulationGraphe() {
+	 * //visidia.gui.metier.simulation.Convertisseur c = new
+	 * visidia.gui.metier.simulation.Convertisseur();
+	 * if(this.agentsSimulationWindow != null) {
+	 * this.agentsSimulationWindow.updateSimulationGraphe(); } }
+	 */
+
 	public void mouseClicked(MouseEvent evt) {
 	}
 
@@ -313,7 +304,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 
 		if (this.drag_n_drop_sommet) {
 			try {
-				
+
 				SommetDessin sommet_en_dessous = this.agentsSimulationWindow
 						.getVueGraphe().sommet_en_dessous(x, y,
 								this.objet_sous_souris);
@@ -369,9 +360,9 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 				 * On fusionne deux sommets existants par deplacement de l'un
 				 * d'eux.
 				 */
-				SommetDessin sommet_en_dessous = this.ancien_sommet_sous_souris.getVueGraphe()
-						.sommet_en_dessous(x, y, this.objet_sous_souris);
-		
+				SommetDessin sommet_en_dessous = this.ancien_sommet_sous_souris
+						.getVueGraphe().sommet_en_dessous(x, y,
+								this.objet_sous_souris);
 
 				sommet_en_dessous
 						.fusionner((SommetDessin) this.objet_sous_souris);
@@ -380,10 +371,9 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 			}
 			this.drag_n_drop_sommet_existant = false;
 		}
-		
 
 		// On reinitialise les variables utilisees
-		//this.formeDessin_a_deplacer = null;
+		// this.formeDessin_a_deplacer = null;
 		this.objet_sous_souris = null;
 
 		if (x + 20 > this.size.width) {
@@ -396,12 +386,12 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 			changed = true;
 		}
 		if (changed) {
-			//this.editeur.changerDimensionGraphe(this.size);
+			// this.editeur.changerDimensionGraphe(this.size);
 			this.setPreferredSize(this.size);
 			this.revalidate();
 		}
 		this.scrollRectToVisible(new Rectangle(x - 10, y - 10, 30, 30));
-		//this.editeur.setUndo();
+		// this.editeur.setUndo();
 		this.repaint();
 	}
 
@@ -448,10 +438,11 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 				// On sauvegarde l'objet UndoObject contenant ce
 				// sommet : on peut en effet avoir a le supprimer
 				// en cas de fusion avec un sommet existant.
-				//this.drag_n_dropVertex = this.objet_sous_souris;
+				// this.drag_n_dropVertex = this.objet_sous_souris;
 
-				/*AreteDessin a = */ this.agentsSimulationWindow.getVueGraphe()
-						.creerArete(this.ancien_sommet_sous_souris,
+				/* AreteDessin a = */this.agentsSimulationWindow
+						.getVueGraphe().creerArete(
+								this.ancien_sommet_sous_souris,
 								(SommetDessin) this.objet_sous_souris);
 
 				this.drag_n_drop_sommet = true;

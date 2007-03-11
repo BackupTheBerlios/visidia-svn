@@ -5,52 +5,48 @@ import java.io.Serializable;
 import visidia.rule.Neighbour;
 
 public class Arrow implements Serializable {
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2971140425366521313L;
 
 	/**
-     * label du premier noeud
-     */
-    public String left;   //label du premier noeud
-   
-    /**
-     * label du deuxième noeud
-     **/ 
-    public String right;  
+	 * label du premier noeud
+	 */
+	public String left; // label du premier noeud
 
-    
-    /**
-     * vrai si l arête est marquée
-     **/
-    public boolean isMarked;  
-    
-    
-    public Arrow( String leftState, String rightState){
-	this.left =  leftState;
-	this.right =  rightState;
-	this.isMarked = false;
-    }
+	/**
+	 * label du deuxième noeud
+	 */
+	public String right;
 
-    public  Arrow( String leftState, String rightState,boolean marquage){
-	this.left =  leftState;
-	this.right =  rightState;
-	this.isMarked = marquage;
-    }
-    
-    // ajout fahsi
-    public Arrow(Neighbour n,  String center){ 
-	
-	this.right = n.state();
-	this.left = new String(center);
-	this.isMarked = n.mark();
-    }
+	/**
+	 * vrai si l arête est marquée
+	 */
+	public boolean isMarked;
 
-  
-    public String right(){
-	return this.right;
-    }
-    
+	public Arrow(String leftState, String rightState) {
+		this.left = leftState;
+		this.right = rightState;
+		this.isMarked = false;
+	}
+
+	public Arrow(String leftState, String rightState, boolean marquage) {
+		this.left = leftState;
+		this.right = rightState;
+		this.isMarked = marquage;
+	}
+
+	// ajout fahsi
+	public Arrow(Neighbour n, String center) {
+
+		this.right = n.state();
+		this.left = new String(center);
+		this.isMarked = n.mark();
+	}
+
+	public String right() {
+		return this.right;
+	}
+
 }
-

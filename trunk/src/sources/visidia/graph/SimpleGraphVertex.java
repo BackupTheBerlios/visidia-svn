@@ -12,326 +12,340 @@ import visidia.misc.ForbiddenCallException;
 import visidia.tools.agents.WhiteBoard;
 import visidia.visidiassert.VisidiaAssertion;
 
-public class SimpleGraphVertex  implements Vertex,Serializable {
-                            
-    /**
+public class SimpleGraphVertex implements Vertex, Serializable {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6624280273922021818L;
-	//    StringNodeState nodeState ;// StringNodeState("passive");
-    Integer id;
-    Integer nextDoor;
-    Integer previousDoor;
-    String nodeState ;
-    Vector neighbours;
-    Vector edg;
-    Object data = null;
-    boolean visualization;
-    Hashtable connectingPorts = new Hashtable();
-    private int size = 0;
-    
-    private WhiteBoard whiteBoard = null;
 
-    private Collection agentsNames;
-    
-    /**
-     *
-     */	
-    public SimpleGraphVertex(Integer nodeId){
-        this(nodeId,null, new Hashtable());
-    }
-    
-    public SimpleGraphVertex(Integer nodeId, Hashtable defaults, Hashtable properties ) {
-	this.id = nodeId;
-	this.neighbours = new Vector(10,0);
-	this.edg = new Vector(10,0);
-	this.visualization=true;
+	// StringNodeState nodeState ;// StringNodeState("passive");
+	Integer id;
 
-//         if (defaults != null)
-//             whiteBoard = new WhiteBoard(defaults);
+	Integer nextDoor;
 
-        this.whiteBoard = new WhiteBoard(defaults,properties);
-    }
+	Integer previousDoor;
 
-    void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge){
-	Integer neighborIdentity = sgv.identity();
-	if( !this.isNeighbour(neighborIdentity)){
-	    this.neighbours.add(sgv);
-	    this.connectingPorts.put(new Integer(this.size),neighborIdentity);
-	    this.size+=1;
-	    this.edg.add(sge);
-	}
-    }
-    
-    /**
-     *
-     */	
-    void removeNeighbour(SimpleGraphVertex sgv){
-	VisidiaAssertion.verify(this.isNeighbour(sgv.identity()),"id :"+sgv.identity()+" n'est pas voisin de "+this.identity()+" ",this);	
-	int index = this.indexOf(sgv.identity());
-	this.neighbours.remove(index);
-	this.edg.remove(index);
-    }
-    
-    /**
-     *
-     */	
-    boolean equals(SimpleGraphVertex sgv){
-	return sgv.identity().equals(this.id);
-    }
-    
-    void print(){
-	Enumeration e = this.neighbours();
-	System.out.print(this.id + " ->");
-	while( e.hasMoreElements() ){
-	    Vertex v = ( Vertex ) e.nextElement();
-	    System.out.print(v.identity() + " ");
-	}
-	System.out.println("");
-    }
-    
-    //implementation de l'interface Vertex
-    
-    /**
-     * retourne l'identité de ce sommet.
-     */	
-    public Integer identity(){
-	return this.id;
-    }
-    
-    /**
-     *retourne le nombre de sommet de ce voisin.
-     */	
-    public int degree(){
-	return this.neighbours.size();
-    }
-    
-    /**
-     * Retourne une enumeration des sommets voisins de ce sommet.
-     */	
-    public Enumeration neighbours(){
-	return this.neighbours.elements();
-    }
-    
-    /**
-     * retourne le voisin de numéro <i>index</i>. 
-     * Les voisins sont à partir de 0 dans leur ordre d'arrivée.
-     * Ne pas confondre les numéros et les identités.
-     * @exception ArrayIndexOutOfBoundsException est levée si <code>index &gt; degree()</code>  
-     */	
-    public Vertex neighbour(int index){
-	return (Vertex) this.neighbours.get(index);
-    }
-    
-    /**
-     * retourne le voisin dont l'identité est <i>id</i>.
-     * @exception NoSuchLinkException levée si le sommet identifié par <i>id</i>
-     * n'est pas voisin de ce sommet.
-     */	
-    public Vertex neighbour(Integer id){
-	return (Vertex) this.neighbours.get(this.indexOf(id));
-    }
-    
+	String nodeState;
 
+	Vector neighbours;
 
-    /**
-     * retourne l'arête entre ce sommet et le voisin numéro <i>index</i>. 
-     * @exception ArrayIndexOutOfBoundsException est levée si <code>index &gt; degree()</code>  
-     */	
-    public Edge edge(int index){
-	return (Edge) this.edg.get(index);
-    }
+	Vector edg;
 
-    /**
-     * retourne l'arête entre ce sommet et le voisin dont l'identité est <i>id</i>.
-     * @exception NoSuchLinkException levée si le sommet identifié par <i>id</i>
-     * n'est pas voisin de ce sommet.
-     */	
-    public Edge edge(Integer id){
-	return (Edge) this.edg.get(this.indexOf(id));
-    }
+	Object data = null;
 
+	boolean visualization;
 
-    /**
-     * retourne une enumeration d'arêtes dont ce sommet est un extrémite.
-     */
-    public Enumeration edges(){
-	return this.edg.elements();
-    }
-    
-    /**
-     * retourne le numéro du voisin identifié par <i>id</i>.
-     * @exception NoSuchLinkException levée si le sommet identifié par <i>id</i>
-     * n'est pas voisin de ce sommet.
-     */
-    public int indexOf(Integer id){
-	Enumeration e = this.neighbours();
-	int i = 0;
+	Hashtable connectingPorts = new Hashtable();
 
-	while( e.hasMoreElements() ){
-	    Vertex v = ( Vertex ) e.nextElement();
-	    if( v.identity().equals(id) ){
-		return i;
-	    }
-	    i++;
-	} 
+	private int size = 0;
 
-	throw new NoSuchLinkException();
-    }
+	private WhiteBoard whiteBoard = null;
 
+	private Collection agentsNames;
 
-    /**
-     * retourne <code>true</code> si cet <i>id</i> est voisin de cet sommet.
-     */
-    public boolean isNeighbour(Integer id){
-	try{
-	    this.indexOf(id);
-	}
-	catch(NoSuchLinkException e){
-	    return false;
+	/**
+	 * 
+	 */
+	public SimpleGraphVertex(Integer nodeId) {
+		this(nodeId, null, new Hashtable());
 	}
 
-	return true;
-    }
-    
-    
-    
-    /**
-     *
-     */	
-    public void setData(Object dt){
-	this.data = dt;
-    }
-    
-    /**
-     *
-     */	
-    public Object getData(){
-	return this.data;
-    }
+	public SimpleGraphVertex(Integer nodeId, Hashtable defaults,
+			Hashtable properties) {
+		this.id = nodeId;
+		this.neighbours = new Vector(10, 0);
+		this.edg = new Vector(10, 0);
+		this.visualization = true;
 
-    /**
-     * Set agents on this vertex.
-     */
-    public void setAgentsNames(Collection agentsNames) {
-        this.agentsNames = agentsNames;
-    }
+		// if (defaults != null)
+		// whiteBoard = new WhiteBoard(defaults);
 
+		this.whiteBoard = new WhiteBoard(defaults, properties);
+	}
 
-    /**
-     * Get the agent's names on this vertex.
-     */
-    public Collection getAgentsNames() {
-        return this.agentsNames;
-    }
+	void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge) {
+		Integer neighborIdentity = sgv.identity();
+		if (!this.isNeighbour(neighborIdentity)) {
+			this.neighbours.add(sgv);
+			this.connectingPorts.put(new Integer(this.size), neighborIdentity);
+			this.size += 1;
+			this.edg.add(sge);
+		}
+	}
 
-    /**
-     * Add an agent name to this vertex.
-     */
-    public void addAgentName(String agentName) {
-        if (this.getAgentsNames() == null)
-            this.setAgentsNames(new LinkedList());
+	/**
+	 * 
+	 */
+	void removeNeighbour(SimpleGraphVertex sgv) {
+		VisidiaAssertion.verify(this.isNeighbour(sgv.identity()), "id :"
+				+ sgv.identity() + " n'est pas voisin de " + this.identity()
+				+ " ", this);
+		int index = this.indexOf(sgv.identity());
+		this.neighbours.remove(index);
+		this.edg.remove(index);
+	}
 
-        this.getAgentsNames().add(agentName);
-    }
-    /**
-     * Remove all agents names.
-     */
-    public void clearAgentNames() {
-        this.setAgentsNames(null);
-    }
+	/**
+	 * 
+	 */
+	boolean equals(SimpleGraphVertex sgv) {
+		return sgv.identity().equals(this.id);
+	}
 
-    /**
-     * Accesses  the   vertex  white  board  and   returns  the  value
-     * associated to  the key. To have  a white board  on this vertex,
-     * you must use the constructor with the Hashtable. 
-     *
-     * @param key The key for the value you want
-     *
-     * @see #setProperty(Object, Object)
-     * @see #SimpleGraphVertex(Integer, Hashtable)
-     */
-    public Object getProperty(Object key) {
-        if (this.whiteBoard == null)
-            throw new
-                ForbiddenCallException("This vertex hasn't got any white " +
-                                       "board. You should have pass a " +
-                                       "Hashtable to the constructor");
+	void print() {
+		Enumeration e = this.neighbours();
+		System.out.print(this.id + " ->");
+		while (e.hasMoreElements()) {
+			Vertex v = (Vertex) e.nextElement();
+			System.out.print(v.identity() + " ");
+		}
+		System.out.println("");
+	}
 
-        return this.whiteBoard.getValue(key);
-    }
+	// implementation de l'interface Vertex
 
-    /**
-     * Allow the  user to save a value  in the white board.  To have a
-     * white board on  this vertex, you must use  the constructor with
-     * the Hashtable.
-     *
-     * @param key The key for the value you want
-     *
-     * @see #getProperty(Object)
-     * @see #SimpleGraphVertex(Integer, Hashtable)
-     */
-    public void setProperty(Object key, Object value) {
-        if (this.whiteBoard == null)
-            throw new
-                ForbiddenCallException("This vertex hasn't got any white " +
-                                       "board. You should have pass a " +
-                                       "Hashtable to the constructor");
-        this.whiteBoard.setValue(key, value);
-    }
+	/**
+	 * retourne l'identité de ce sommet.
+	 */
+	public Integer identity() {
+		return this.id;
+	}
 
-    public Set getPropertyKeys() {
-        return this.whiteBoard.keys();
-    }
+	/**
+	 * retourne le nombre de sommet de ce voisin.
+	 */
+	public int degree() {
+		return this.neighbours.size();
+	}
 
-    public void setNext(Integer i) {
-	this.nextDoor = i;
-    }
+	/**
+	 * Retourne une enumeration des sommets voisins de ce sommet.
+	 */
+	public Enumeration neighbours() {
+		return this.neighbours.elements();
+	}
 
-    public Integer getNext() {
-	return this.nextDoor;
-    }
+	/**
+	 * retourne le voisin de numéro <i>index</i>. Les voisins sont à partir de
+	 * 0 dans leur ordre d'arrivée. Ne pas confondre les numéros et les
+	 * identités.
+	 * 
+	 * @exception ArrayIndexOutOfBoundsException
+	 *                est levée si <code>index &gt; degree()</code>
+	 */
+	public Vertex neighbour(int index) {
+		return (Vertex) this.neighbours.get(index);
+	}
 
-    public Integer getPrevious() {
-	return this.previousDoor;
-    }
-    public void setPrevious(Integer previous) {
-	this.previousDoor = previous;
-    }
-    public void setNodeState(String state) {
-	this.nodeState = state;
-    }
-    
-    public String getNodeState() {
-	return this.nodeState;
-    }
+	/**
+	 * retourne le voisin dont l'identité est <i>id</i>.
+	 * 
+	 * @exception NoSuchLinkException
+	 *                levée si le sommet identifié par <i>id</i> n'est pas
+	 *                voisin de ce sommet.
+	 */
+	public Vertex neighbour(Integer id) {
+		return (Vertex) this.neighbours.get(this.indexOf(id));
+	}
 
-    public void setVisualization(boolean s){
-	this.visualization=s;
-    }
+	/**
+	 * retourne l'arête entre ce sommet et le voisin numéro <i>index</i>.
+	 * 
+	 * @exception ArrayIndexOutOfBoundsException
+	 *                est levée si <code>index &gt; degree()</code>
+	 */
+	public Edge edge(int index) {
+		return (Edge) this.edg.get(index);
+	}
 
-    public boolean getVisualization(){
-	return this.visualization;
-    }
+	/**
+	 * retourne l'arête entre ce sommet et le voisin dont l'identité est <i>id</i>.
+	 * 
+	 * @exception NoSuchLinkException
+	 *                levée si le sommet identifié par <i>id</i> n'est pas
+	 *                voisin de ce sommet.
+	 */
+	public Edge edge(Integer id) {
+		return (Edge) this.edg.get(this.indexOf(id));
+	}
 
-    /**
-     * Return a Hshtable (key,value) where key is the number of a port (door) 
-     * and value corresponds to the identity of the neighbor connected on
-     * that port
-     */
-    public Hashtable connectingPorts() {
-	return(this.connectingPorts);
-    }
+	/**
+	 * retourne une enumeration d'arêtes dont ce sommet est un extrémite.
+	 */
+	public Enumeration edges() {
+		return this.edg.elements();
+	}
 
-    /*public void setNodeState(StringNodeState nodeState) {
-      nodeState = nodeState;
-      }
+	/**
+	 * retourne le numéro du voisin identifié par <i>id</i>.
+	 * 
+	 * @exception NoSuchLinkException
+	 *                levée si le sommet identifié par <i>id</i> n'est pas
+	 *                voisin de ce sommet.
+	 */
+	public int indexOf(Integer id) {
+		Enumeration e = this.neighbours();
+		int i = 0;
 
-      public String getNodeState() {
-      return nodeState.getString();
-      }
-    **/
-} 
+		while (e.hasMoreElements()) {
+			Vertex v = (Vertex) e.nextElement();
+			if (v.identity().equals(id)) {
+				return i;
+			}
+			i++;
+		}
 
+		throw new NoSuchLinkException();
+	}
 
+	/**
+	 * retourne <code>true</code> si cet <i>id</i> est voisin de cet sommet.
+	 */
+	public boolean isNeighbour(Integer id) {
+		try {
+			this.indexOf(id);
+		} catch (NoSuchLinkException e) {
+			return false;
+		}
 
+		return true;
+	}
+
+	/**
+	 * 
+	 */
+	public void setData(Object dt) {
+		this.data = dt;
+	}
+
+	/**
+	 * 
+	 */
+	public Object getData() {
+		return this.data;
+	}
+
+	/**
+	 * Set agents on this vertex.
+	 */
+	public void setAgentsNames(Collection agentsNames) {
+		this.agentsNames = agentsNames;
+	}
+
+	/**
+	 * Get the agent's names on this vertex.
+	 */
+	public Collection getAgentsNames() {
+		return this.agentsNames;
+	}
+
+	/**
+	 * Add an agent name to this vertex.
+	 */
+	public void addAgentName(String agentName) {
+		if (this.getAgentsNames() == null)
+			this.setAgentsNames(new LinkedList());
+
+		this.getAgentsNames().add(agentName);
+	}
+
+	/**
+	 * Remove all agents names.
+	 */
+	public void clearAgentNames() {
+		this.setAgentsNames(null);
+	}
+
+	/**
+	 * Accesses the vertex white board and returns the value associated to the
+	 * key. To have a white board on this vertex, you must use the constructor
+	 * with the Hashtable.
+	 * 
+	 * @param key
+	 *            The key for the value you want
+	 * 
+	 * @see #setProperty(Object, Object)
+	 * @see #SimpleGraphVertex(Integer, Hashtable)
+	 */
+	public Object getProperty(Object key) {
+		if (this.whiteBoard == null)
+			throw new ForbiddenCallException(
+					"This vertex hasn't got any white "
+							+ "board. You should have pass a "
+							+ "Hashtable to the constructor");
+
+		return this.whiteBoard.getValue(key);
+	}
+
+	/**
+	 * Allow the user to save a value in the white board. To have a white board
+	 * on this vertex, you must use the constructor with the Hashtable.
+	 * 
+	 * @param key
+	 *            The key for the value you want
+	 * 
+	 * @see #getProperty(Object)
+	 * @see #SimpleGraphVertex(Integer, Hashtable)
+	 */
+	public void setProperty(Object key, Object value) {
+		if (this.whiteBoard == null)
+			throw new ForbiddenCallException(
+					"This vertex hasn't got any white "
+							+ "board. You should have pass a "
+							+ "Hashtable to the constructor");
+		this.whiteBoard.setValue(key, value);
+	}
+
+	public Set getPropertyKeys() {
+		return this.whiteBoard.keys();
+	}
+
+	public void setNext(Integer i) {
+		this.nextDoor = i;
+	}
+
+	public Integer getNext() {
+		return this.nextDoor;
+	}
+
+	public Integer getPrevious() {
+		return this.previousDoor;
+	}
+
+	public void setPrevious(Integer previous) {
+		this.previousDoor = previous;
+	}
+
+	public void setNodeState(String state) {
+		this.nodeState = state;
+	}
+
+	public String getNodeState() {
+		return this.nodeState;
+	}
+
+	public void setVisualization(boolean s) {
+		this.visualization = s;
+	}
+
+	public boolean getVisualization() {
+		return this.visualization;
+	}
+
+	/**
+	 * Return a Hshtable (key,value) where key is the number of a port (door)
+	 * and value corresponds to the identity of the neighbor connected on that
+	 * port
+	 */
+	public Hashtable connectingPorts() {
+		return (this.connectingPorts);
+	}
+
+	/*
+	 * public void setNodeState(StringNodeState nodeState) { nodeState =
+	 * nodeState; }
+	 * 
+	 * public String getNodeState() { return nodeState.getString(); }
+	 */
+}

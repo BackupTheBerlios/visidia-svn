@@ -11,117 +11,112 @@ import visidia.gui.donnees.PropertyTableModel;
 import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
 
 /**
- * Cette classe cree une boite utilisee pour modifier l'etat d'un    
- * ou de plusieurs sommets selectionne elle est appelee quand on ne    
- * selectionne que des sommets et qu'on appui sur le bouton info     
+ * Cette classe cree une boite utilisee pour modifier l'etat d'un ou de
+ * plusieurs sommets selectionne elle est appelee quand on ne selectionne que
+ * des sommets et qu'on appui sur le bouton info
  */
-public class DefaultBoxVertex
-    extends AbstractDefaultBox
-    implements ActionListener, ItemListener, VueEtatPanel
-{
+public class DefaultBoxVertex extends AbstractDefaultBox implements
+		ActionListener, ItemListener, VueEtatPanel {
 
-    /**
-     * Cree une nouvelle boite pour afficher les caractéristiques de
-     * "un_objet".  Ces caractéristiques seront modifiables.
-     */
+	/**
+	 * Cree une nouvelle boite pour afficher les caractéristiques de "un_objet".
+	 * Ces caractéristiques seront modifiables.
+	 */
 
-    
-    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h) {
-	this(parent, h,  "Default Vertex properties state");
-    }
-    
-    /**
-     * Cree une nouvelle boite appelee "titre" pour afficher les
-     * caracteristiques de "un_objet".
-     */
-    public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h, 
-                            String titre) {
+	public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h) {
+		this(parent, h, "Default Vertex properties state");
+	}
 
-        super(parent,titre,false);
+	/**
+	 * Cree une nouvelle boite appelee "titre" pour afficher les
+	 * caracteristiques de "un_objet".
+	 */
+	public DefaultBoxVertex(AgentsSimulationWindow parent, Hashtable h,
+			String titre) {
 
-        this.tbModel = new PropertyTableModel(h);
+		super(parent, titre, false);
 
-        this.table.setModel(this.tbModel);
-    }
+		this.tbModel = new PropertyTableModel(h);
 
-    //Methodes  
+		this.table.setModel(this.tbModel);
+	}
 
-    public void updateBox() {
-        this.tbModel.fireTableDataChanged();
-    }
-  
+	// Methodes
 
-    public void actionPerformed(ActionEvent e) {
-        
-        if(e.getSource() == this.buttonDone) {
-            this.dialog.setVisible(false);
-            this.dialog.dispose();
-        }
-        if(e.getSource() == this.buttonAdd) {
-            
-            
-            Object[] possibilities = {"String", "Integer|int", "Byte", "Character|char",
-                                      "Double|double","Float|float", "Long|long", 
-                                      "Short|short", "Boolean|boolean"};
-            
-            Object objValue;
-            
-            String s = (String) JOptionPane.showInputDialog(this.parent,
-                                                            "Select the type:",
-                                                            "Type",
-                                                            JOptionPane.PLAIN_MESSAGE,
-                                                            null,
-                                                            possibilities,
-                                                            "String");
-            
-            //If a string was returned, say so.
-            if ((s != null) && (s.length() > 0)) {
-                
-                String name = JOptionPane.showInputDialog(this.parent, "Enter the name :");
-                String value = JOptionPane.showInputDialog(this.parent, "Enter the value :");
-                
-                if ( (name != null)  && (value != null) )
-                    {
-                        objValue = value;
+	public void updateBox() {
+		this.tbModel.fireTableDataChanged();
+	}
 
-                        try{
+	public void actionPerformed(ActionEvent e) {
 
-                            if      ( s.equals("Integer|int") ) {objValue = new Integer(value); }
-                            else if ( s.equals("Byte") ) {objValue = new Byte(value);}
-                            else if ( s.equals("Character|char") ) {objValue = new Character(value.charAt(0));}
-                            else if ( s.equals("Double|double") ) {objValue = new Double(value);}
-                            else if ( s.equals("Float|float") ) {objValue = new Float(value);}
-                            else if ( s.equals("Long|long") ) {objValue = new Long(value);}
-                            else if ( s.equals("Short|short") ) {objValue = new Short(value);}
-                            else if ( s.equals("Boolean|boolean") ) {objValue = new Boolean(value);}
+		if (e.getSource() == this.buttonDone) {
+			this.dialog.setVisible(false);
+			this.dialog.dispose();
+		}
+		if (e.getSource() == this.buttonAdd) {
 
-                            this.tbModel.putProperty(name,objValue);
-                        }
-                        catch(Exception e2) {
-                            JOptionPane.showMessageDialog(null,
-                                          e2.getMessage(), 
-                                          "Warning",
-                                          JOptionPane.WARNING_MESSAGE); 
-                        }
-                    }
-            }
-            
-        }
-        if(e.getSource() == this.buttonRemove) {
-            
-            if (this.table.getSelectedRow() == -1 ) {
-                JOptionPane.showMessageDialog(this.parent,
-                                              "No property selected !", 
-                                              "Warning",
-                                              JOptionPane.WARNING_MESSAGE);
-            }
-            else {
-                this.tbModel.removeProperty(this.table.getSelectedRow());
-            }
-            
-        }
-        
-    }
-    
+			Object[] possibilities = { "String", "Integer|int", "Byte",
+					"Character|char", "Double|double", "Float|float",
+					"Long|long", "Short|short", "Boolean|boolean" };
+
+			Object objValue;
+
+			String s = (String) JOptionPane.showInputDialog(this.parent,
+					"Select the type:", "Type", JOptionPane.PLAIN_MESSAGE,
+					null, possibilities, "String");
+
+			// If a string was returned, say so.
+			if ((s != null) && (s.length() > 0)) {
+
+				String name = JOptionPane.showInputDialog(this.parent,
+						"Enter the name :");
+				String value = JOptionPane.showInputDialog(this.parent,
+						"Enter the value :");
+
+				if ((name != null) && (value != null)) {
+					objValue = value;
+
+					try {
+
+						if (s.equals("Integer|int")) {
+							objValue = new Integer(value);
+						} else if (s.equals("Byte")) {
+							objValue = new Byte(value);
+						} else if (s.equals("Character|char")) {
+							objValue = new Character(value.charAt(0));
+						} else if (s.equals("Double|double")) {
+							objValue = new Double(value);
+						} else if (s.equals("Float|float")) {
+							objValue = new Float(value);
+						} else if (s.equals("Long|long")) {
+							objValue = new Long(value);
+						} else if (s.equals("Short|short")) {
+							objValue = new Short(value);
+						} else if (s.equals("Boolean|boolean")) {
+							objValue = new Boolean(value);
+						}
+
+						this.tbModel.putProperty(name, objValue);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, e2.getMessage(),
+								"Warning", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+
+		}
+		if (e.getSource() == this.buttonRemove) {
+
+			if (this.table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this.parent,
+						"No property selected !", "Warning",
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				this.tbModel.removeProperty(this.table.getSelectedRow());
+			}
+
+		}
+
+	}
+
 }
-

@@ -6,37 +6,36 @@ import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 
 /**
- * Provides a linear  move for an Agent. On a vertex,  the agent go to
- * the first never-visited door.
- *
- * /!\ Warning,  this implementation implies  that each vertex  has an
- * unique identifier !!!
+ * Provides a linear move for an Agent. On a vertex, the agent go to the first
+ * never-visited door.
+ * 
+ * /!\ Warning, this implementation implies that each vertex has an unique
+ * identifier !!!
  */
 public class LinearAgentMover extends AgentMover {
-    
-    // Remembers the door on which the agent will go next time
-    int[] nextDoorToGo;
 
-    /**
-     * Constructor.  Allows to  create a  new AgentMover  for  a given
-     * Agent.
-     */
-    public LinearAgentMover(Agent ag) {
-        super(ag);
-        this.nextDoorToGo = new int [ag.getNetSize()];
+	// Remembers the door on which the agent will go next time
+	int[] nextDoorToGo;
 
-        /* Starts on the first door */
-        Arrays.fill(this.nextDoorToGo, 0);
-    }
+	/**
+	 * Constructor. Allows to create a new AgentMover for a given Agent.
+	 */
+	public LinearAgentMover(Agent ag) {
+		super(ag);
+		this.nextDoorToGo = new int[ag.getNetSize()];
 
-    protected int findNextDoor() {
-        int vertex = this.agent().getVertexIdentity();
-        int doorToGo = this.nextDoorToGo[vertex];
-        int arity = this.agent().getArity();
+		/* Starts on the first door */
+		Arrays.fill(this.nextDoorToGo, 0);
+	}
 
-        /* The following door is the current one plus 1 */
-        this.nextDoorToGo[vertex] = (this.nextDoorToGo[vertex] + 1) % arity;
+	protected int findNextDoor() {
+		int vertex = this.agent().getVertexIdentity();
+		int doorToGo = this.nextDoorToGo[vertex];
+		int arity = this.agent().getArity();
 
-        return doorToGo;
-    }
+		/* The following door is the current one plus 1 */
+		this.nextDoorToGo[vertex] = (this.nextDoorToGo[vertex] + 1) % arity;
+
+		return doorToGo;
+	}
 }

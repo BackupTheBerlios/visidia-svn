@@ -15,583 +15,584 @@ import visidia.tools.agents.WithWhiteBoard;
 import visidia.visidiassert.VisidiaAssertion;
 
 /**
- * Abstract class used to implement agent based algorithms.  If you
- * want to write a new Agent, subclass it or subclass
- * SynchronizedAgent which allows you to get synchronisation.<br>
- *
+ * Abstract class used to implement agent based algorithms. If you want to write
+ * a new Agent, subclass it or subclass SynchronizedAgent which allows you to
+ * get synchronisation.<br>
+ * 
  * All new agents MUST be in the package {@link visidia.agents}.
- *
+ * 
  * @see SynchronizedAgent
  * @see AgentSimulator
  */
 public abstract class Agent implements Runnable, WithWhiteBoard {
-    
-    /**
-     * A  link  to  the  simulator  responsible  for  nearly  all  the
-     * actions. Can't do anything alone.
-     */
-    private AgentSimulator simulator;
 
-    /**
-     * A  WhiteBoard allows  one to  store  values with  keys (like  a
-     * Hashtable). With  this, the class can  store information during
-     * its live time.
-     * 
-     * @see getProperty()
-     * @see setProperty()
-     */
-    private WhiteBoard whiteBoard;
+	/**
+	 * A link to the simulator responsible for nearly all the actions. Can't do
+	 * anything alone.
+	 */
+	private AgentSimulator simulator;
 
-    /**
-     * An AgentMover is used to move  in a specific way.  For a random
-     * move use RandomAgentMover for example.
-     *
-     * @see setAgentMover()
-     * @see move()
-     */
-    private AgentMover agentMover = null;
+	/**
+	 * A WhiteBoard allows one to store values with keys (like a Hashtable).
+	 * With this, the class can store information during its live time.
+	 * 
+	 * @see getProperty()
+	 * @see setProperty()
+	 */
+	private WhiteBoard whiteBoard;
 
-    /**
-     * Unique identifier over all the agents.
-     */
-    private int agentIdentity;
-    
-    /**
-     * Number  of agents  in  the  simulation. Used  to  set a  unique
-     * identifier. 
-     *
-     * @see agentIdentity
-     */
-    private static int createdAgentCount = 0;
+	/**
+	 * An AgentMover is used to move in a specific way. For a random move use
+	 * RandomAgentMover for example.
+	 * 
+	 * @see setAgentMover()
+	 * @see move()
+	 */
+	private AgentMover agentMover = null;
 
-    private static Boolean askForLock = new Boolean(true);
+	/**
+	 * Unique identifier over all the agents.
+	 */
+	private int agentIdentity;
 
-    /**
-     * Default  constructor. Creates  a new  agent and  assigns  it an
-     * unique identifier.  Don't forget to  use setSimulator() because
-     * an agent can't do anything without an AgentSimulator.
-     *
-     * @see #setSimulator(AgentSimulator)
-     */
-    public Agent() {
-	this.agentIdentity = createdAgentCount++;
-    }
+	/**
+	 * Number of agents in the simulation. Used to set a unique identifier.
+	 * 
+	 * @see agentIdentity
+	 */
+	private static int createdAgentCount = 0;
 
-    /**
-     * Affets a simulator to this  agent. This is mandatory because an
-     * agent can't do anything by itself.
-     *
-     * @param simulator Affect this simulator to the agent
-     */
-    public void setSimulator(AgentSimulator simulator) {
-        this.simulator = simulator;
-    }
+	private static Boolean askForLock = new Boolean(true);
 
-    /**
-     * Removes the existing white board and affect this one.
-     *
-     * @param wb The white board to affect.
-     * @see #getWhiteBoard()
-     */
-    public void setWhiteBoard(WhiteBoard wb) {
-        this.whiteBoard = wb;
-    }
+	/**
+	 * Default constructor. Creates a new agent and assigns it an unique
+	 * identifier. Don't forget to use setSimulator() because an agent can't do
+	 * anything without an AgentSimulator.
+	 * 
+	 * @see #setSimulator(AgentSimulator)
+	 */
+	public Agent() {
+		this.agentIdentity = createdAgentCount++;
+	}
 
-    /**
-     * Creates a new WhiteBoard with defaults values.
-     */
-    public void setWhiteBoard(Hashtable defaults) {
-        this.whiteBoard = new WhiteBoard(defaults);
-    }
+	/**
+	 * Affets a simulator to this agent. This is mandatory because an agent
+	 * can't do anything by itself.
+	 * 
+	 * @param simulator
+	 *            Affect this simulator to the agent
+	 */
+	public void setSimulator(AgentSimulator simulator) {
+		this.simulator = simulator;
+	}
 
-    /**
-     * Returns the WhiteBoard associated with this agent.
-     *
-     * @see #setWhiteBoard(Hashtable)
-     */
-    public WhiteBoard getWhiteBoard() {
-        return this.whiteBoard;
-    }
+	/**
+	 * Removes the existing white board and affect this one.
+	 * 
+	 * @param wb
+	 *            The white board to affect.
+	 * @see #getWhiteBoard()
+	 */
+	public void setWhiteBoard(WhiteBoard wb) {
+		this.whiteBoard = wb;
+	}
 
-    
-    /**
-     * Creates a  new agent mover based  on the name  in parameter and
-     * affect it to the agent.
-     *
-     * @param   agentMoverClassName    a   String   representing   the
-     * AgentMoverClass. Like \a RandomAgentMover for exemple.
-     * @see #setAgentMover(AgentMover)
-     */
-    public void setAgentMover(String agentMoverClassName) {
+	/**
+	 * Creates a new WhiteBoard with defaults values.
+	 */
+	public void setWhiteBoard(Hashtable defaults) {
+		this.whiteBoard = new WhiteBoard(defaults);
+	}
 
-        try {
-            Constructor  constructor;
-            Class agClass;
-            String completName;
-            AgentMover mover;
+	/**
+	 * Returns the WhiteBoard associated with this agent.
+	 * 
+	 * @see #setWhiteBoard(Hashtable)
+	 */
+	public WhiteBoard getWhiteBoard() {
+		return this.whiteBoard;
+	}
 
-            completName = new String("visidia.agents.agentsmover." 
-                                     + agentMoverClassName);
-            agClass = Class.forName(completName);
-            constructor = agClass.getConstructor(Agent.class);
-            mover = (AgentMover)constructor.newInstance(this);
-            this.setAgentMover(mover);
-        } catch (Exception e) {
-            throw new 
-                IllegalArgumentException("Instance can't be created !", e);
-        }
-    }
-   
-    public Collection agentsOnVertex(){
-	return this.simulator.getAgentsVertexCollection(this.getVertexIdentity());
-    }
-    
-    /**
-     * Uses the AgentMover as parameter to move the agent.
-     *
-     * @see #setAgentMover(String)
-     */
-    public void setAgentMover(AgentMover am) {
-        this.agentMover = am;
-    }
+	/**
+	 * Creates a new agent mover based on the name in parameter and affect it to
+	 * the agent.
+	 * 
+	 * @param agentMoverClassName
+	 *            a String representing the AgentMoverClass. Like \a
+	 *            RandomAgentMover for exemple.
+	 * @see #setAgentMover(AgentMover)
+	 */
+	public void setAgentMover(String agentMoverClassName) {
 
-    /**
-     * Returns the current AgentMover.
-     */
-    public AgentMover getAgentMover() {
-        return this.agentMover;
-    }
+		try {
+			Constructor constructor;
+			Class agClass;
+			String completName;
+			AgentMover mover;
 
-    /**
-     * Returns the door from which the agent comes.
-     */
-    public int entryDoor() {
-        return this.simulator.entryDoor(this);
-    }
+			completName = new String("visidia.agents.agentsmover."
+					+ agentMoverClassName);
+			agClass = Class.forName(completName);
+			constructor = agClass.getConstructor(Agent.class);
+			mover = (AgentMover) constructor.newInstance(this);
+			this.setAgentMover(mover);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Instance can't be created !", e);
+		}
+	}
 
-    /**
-     * Low level  method to move the  agent.  You might  prefer to use
-     * move() in conjunction with an AgentMover.
-     *
-     * @param door The door to which move
-     * @see #setAgentMover(String)
-     * @see #move()
-     */
-    public void moveToDoor(int door) {
-        try {
-            this.simulator.moveAgentTo(this, door);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	public Collection agentsOnVertex() {
+		return this.simulator.getAgentsVertexCollection(this
+				.getVertexIdentity());
+	}
 
-    /**
-     * Moves the  agent using the  AgentMover. You should have  set an
-     * AgentMover   before   that   using   setAgentMover(String)   or
-     * setAgentMover(AgentMover).
-     *
-     * @see #setAgentMover(String)
-     * @see #setAgentMover(AgentMover)
-     */
-    public void move() {
-        VisidiaAssertion.verify( this.agentMover != null ,
-                                 "In move() : The AgentMover hasn't been " +
-                                 "specified yet !",
-                                 this);
-        try {
-            this.agentMover.move();
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
-    
-    /**
-     * Moves the agent  using the AgentMover to a  specified door. You
-     * should   have    set   an   AgentMover    before   that   using
-     * setAgentMover(String) or setAgentMover(AgentMover).
-     *
-     * @param door The door to which move
-     *
-     * @see #setAgentMover(String)
-     * @see #setAgentMover(AgentMover)
-     */
-    public void move(int door) {
-        VisidiaAssertion.verify( this.agentMover != null ,
-                                 "In move() : The AgentMover hasn't been " +
-                                 "specified yet !",
-                                 this);
-        try {
-            this.agentMover.move(door);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * Uses the AgentMover as parameter to move the agent.
+	 * 
+	 * @see #setAgentMover(String)
+	 */
+	public void setAgentMover(AgentMover am) {
+		this.agentMover = am;
+	}
 
-    /**
-     * Moves the agent back to the vertex from where it comes.
-     */
-    public void moveBack() {
-	this.moveToDoor(this.entryDoor());
-    }
+	/**
+	 * Returns the current AgentMover.
+	 */
+	public AgentMover getAgentMover() {
+		return this.agentMover;
+	}
 
-    /**
-     * Returns the number of doors available from the vertex the agent
-     * is on.
-     */
-    public int getArity() {
-        return this.simulator.getArity(this);
-    }
+	/**
+	 * Returns the door from which the agent comes.
+	 */
+	public int entryDoor() {
+		return this.simulator.entryDoor(this);
+	}
 
-    /**
-     * Use this method  if you want to fall asleep  for a given amount
-     * of milliseconds.
-     *
-     * @param millis Milliseconds to sleep.
-     */
-    protected void sleep(long millis) {
-        try {
-            this.simulator.sleep(this, millis);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * Low level method to move the agent. You might prefer to use move() in
+	 * conjunction with an AgentMover.
+	 * 
+	 * @param door
+	 *            The door to which move
+	 * @see #setAgentMover(String)
+	 * @see #move()
+	 */
+	public void moveToDoor(int door) {
+		try {
+			this.simulator.moveAgentTo(this, door);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Returns the number of vertices in the graph.
-     */
-    public int getNetSize() {
-        return this.simulator.getNetSize();
-    }
+	/**
+	 * Moves the agent using the AgentMover. You should have set an AgentMover
+	 * before that using setAgentMover(String) or setAgentMover(AgentMover).
+	 * 
+	 * @see #setAgentMover(String)
+	 * @see #setAgentMover(AgentMover)
+	 */
+	public void move() {
+		VisidiaAssertion.verify(this.agentMover != null,
+				"In move() : The AgentMover hasn't been " + "specified yet !",
+				this);
+		try {
+			this.agentMover.move();
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Returns  the unique  identifier that  identifies  the currently
-     * visited vertex.
-     */
-    public int getVertexIdentity() {
-        return this.simulator.getVertexIdentity(this);
-    }
+	/**
+	 * Moves the agent using the AgentMover to a specified door. You should have
+	 * set an AgentMover before that using setAgentMover(String) or
+	 * setAgentMover(AgentMover).
+	 * 
+	 * @param door
+	 *            The door to which move
+	 * 
+	 * @see #setAgentMover(String)
+	 * @see #setAgentMover(AgentMover)
+	 */
+	public void move(int door) {
+		VisidiaAssertion.verify(this.agentMover != null,
+				"In move() : The AgentMover hasn't been " + "specified yet !",
+				this);
+		try {
+			this.agentMover.move(door);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Returns the unique identifier that identifies the agent.
-     */
-    public int getIdentity() {
-        return this.agentIdentity;
-    }
+	/**
+	 * Moves the agent back to the vertex from where it comes.
+	 */
+	public void moveBack() {
+		this.moveToDoor(this.entryDoor());
+	}
 
-    /**
-     * Gets a value from the WhiteBoard.
-     *
-     * @param key Key behind which found the value.
-     * @see #setProperty(Object, Object)
-     * @see #setWhiteBoard(Hashtable)
-     */
-    public Object getProperty(Object key) {
-        return this.whiteBoard.getValue(key);
-    }
+	/**
+	 * Returns the number of doors available from the vertex the agent is on.
+	 */
+	public int getArity() {
+		return this.simulator.getArity(this);
+	}
 
-    /**
-     * Puts a value in the WhiteBoard. The key references this value.
-     *
-     * @see #getProperty(Object)
-     * @see #setWhiteBoard(Hashtable)
-     * @param key Key on which the value must be stored
-     * @param value Value that must be stored
-     */
-    public void setProperty(Object key, Object value) {
-        this.whiteBoard.setValue(key, value);
-    }
-        
-    /**
-     * Returns a collection of all the keys of the WitheBoard.
-     */
-    public Set getPropertyKeys() {
-        return this.whiteBoard.keys();
-    }
+	/**
+	 * Use this method if you want to fall asleep for a given amount of
+	 * milliseconds.
+	 * 
+	 * @param millis
+	 *            Milliseconds to sleep.
+	 */
+	protected void sleep(long millis) {
+		try {
+			this.simulator.sleep(this, millis);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Lock the Vertex WhiteBoard where the Agent is.
-     * If already locked, wait until the owner unlocks it
-     *
-     * @exception IllegalStateException if Vertex properties are
-     * already locked by this agent
-     * @see #unlockVertexProperties()
-     */
-    public void lockVertexProperties() {
-	this.simulator.lockVertexProperties(this);
-    }
+	/**
+	 * Returns the number of vertices in the graph.
+	 */
+	public int getNetSize() {
+		return this.simulator.getNetSize();
+	}
 
-    /**
-     * Unlock the Vertex WhiteBoard  where the Agent is.
-     *
-     * @exception IllegalStateException if the WhiteBoard is
-     * unlock, or if the Agent is not the owner of the lock
-     * @see #lockVertexProperties()
-     */
-    public void unlockVertexProperties() {
-	this.simulator.unlockVertexProperties(this);
-    }
+	/**
+	 * Returns the unique identifier that identifies the currently visited
+	 * vertex.
+	 */
+	public int getVertexIdentity() {
+		return this.simulator.getVertexIdentity(this);
+	}
 
-    /**
-     * Return true if the Vertex is locked, otherwise false
-     *
-     * @see #lockVertexProperties()
-     */
-    public boolean vertexPropertiesLocked() {
-	return this.simulator.vertexPropertiesLocked(this);
-    }
+	/**
+	 * Returns the unique identifier that identifies the agent.
+	 */
+	public int getIdentity() {
+		return this.agentIdentity;
+	}
 
-    /**
-     *
-     */
-    public boolean lockVertexIfPossible() {
-        boolean lock;
-        
-        synchronized (askForLock) {
-            lock = this.vertexPropertiesLocked();
-            if (lock)
-                return false;
-            this.lockVertexProperties();
-            return true;
-        }
-    }
+	/**
+	 * Gets a value from the WhiteBoard.
+	 * 
+	 * @param key
+	 *            Key behind which found the value.
+	 * @see #setProperty(Object, Object)
+	 * @see #setWhiteBoard(Hashtable)
+	 */
+	public Object getProperty(Object key) {
+		return this.whiteBoard.getValue(key);
+	}
 
-    /**
-     * Return the Agent which blocks the Vertex WhiteBoard, or null if
-     * nobody has lock the vertex.
-     *
-     * @see #lockVertexProperties()
-     */
-    public Agent getVertexPropertiesOwner() {
-	return this.simulator.getVertexPropertiesOwner(this);
-    }
+	/**
+	 * Puts a value in the WhiteBoard. The key references this value.
+	 * 
+	 * @see #getProperty(Object)
+	 * @see #setWhiteBoard(Hashtable)
+	 * @param key
+	 *            Key on which the value must be stored
+	 * @param value
+	 *            Value that must be stored
+	 */
+	public void setProperty(Object key, Object value) {
+		this.whiteBoard.setValue(key, value);
+	}
 
-    /**
-     * Like getProperty(), but for the current vertex. Gets a property
-     * behind a key on the vertex.
-     * If the Vertex properties are locked by another agent, wait until 
-     * the lock's freeing.
-     *
-     * @param key Key behind which value will be find
-     * @see #lockVertexProperties()
-     */
-    public Object getVertexProperty(Object key) {
-        return this.simulator.getVertexProperty(this, key);
-    }
+	/**
+	 * Returns a collection of all the keys of the WitheBoard.
+	 */
+	public Set getPropertyKeys() {
+		return this.whiteBoard.keys();
+	}
 
-    /**
-     * Sets a value on the current vertex.
-     * If the Vertex properties are locked by another agent, wait until 
-     * the lock's freeing.
-     *
-     * @param key Key behind which storing the value
-     * @param value Value to store on the vertex
-     * @see #lockVertexProperties()
-     */
-    public void setVertexProperty(Object key, Object value) {
-        this.simulator.setVertexProperty(this, key, value);
-    }
+	/**
+	 * Lock the Vertex WhiteBoard where the Agent is. If already locked, wait
+	 * until the owner unlocks it
+	 * 
+	 * @exception IllegalStateException
+	 *                if Vertex properties are already locked by this agent
+	 * @see #unlockVertexProperties()
+	 */
+	public void lockVertexProperties() {
+		this.simulator.lockVertexProperties(this);
+	}
 
-    /**
-     * Just like  getPropertyKeys(), this method  returns a collection
-     * of all the keys but for the current vertex.
-     * If the Vertex properties are locked by another agent, wait until 
-     * the lock's freeing.
-     *
-     * @see #lockVertexProperties()
-     */
-    public Set getVertexPropertyKeys() {
-        return this.simulator.getVertexPropertyKeys(this);
-    }
+	/**
+	 * Unlock the Vertex WhiteBoard where the Agent is.
+	 * 
+	 * @exception IllegalStateException
+	 *                if the WhiteBoard is unlock, or if the Agent is not the
+	 *                owner of the lock
+	 * @see #lockVertexProperties()
+	 */
+	public void unlockVertexProperties() {
+		this.simulator.unlockVertexProperties(this);
+	}
 
-    /**
-     * Used to change the edge associated with the door on the current
-     * vertex.
-     *
-     * @param state The new state to affect to the edge
-     * @param door Door from which the edge will be changed
-     */
-    private void changeDoorState(int door, EdgeState state) {
-        try {
-            this.simulator.changeDoorState(this, door, state);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * Return true if the Vertex is locked, otherwise false
+	 * 
+	 * @see #lockVertexProperties()
+	 */
+	public boolean vertexPropertiesLocked() {
+		return this.simulator.vertexPropertiesLocked(this);
+	}
 
-    /**
-     * A shortcut to changeDoorState(). It marks one edges in bold.
-     *
-     * @param door the door on which you want to mark the edge
-     *
-     * @see #unmarkDoor(int)
-     * @see #changeDoorState(int, EdgeState)
-     */
-    public void markDoor(int door) {
-        this.changeDoorState(door, new MarkedState(true));
-    }
+	/**
+	 * 
+	 */
+	public boolean lockVertexIfPossible() {
+		boolean lock;
 
-    /**
-     * Removes the  mark previously done by markDoor().  The door does
-     * not need  to be  the same used  in markDoor()  ; it can  be the
-     * other site of the edge.
-     *
-     * @see #markDoor(int)
-     * @see #changeDoorState(int, EdgeState)
-     */
-    public void unmarkDoor(int door) {
-        this.changeDoorState(door, new MarkedState(false));
-    }
+		synchronized (askForLock) {
+			lock = this.vertexPropertiesLocked();
+			if (lock)
+				return false;
+			this.lockVertexProperties();
+			return true;
+		}
+	}
 
-    /**
-     * A shortcut to changeDoorState(). It marks one edges in bold.
-     *
-     * @param door the door on which you want to mark the edge as
-     * synchronized. The edge and its two end points are drawn in red
-     * over black
-     *
-     * @see #unsyncDoor(int)
-     * @see #markDoor(int)
-     * @see #changeDoorState(int, EdgeState)
-     */
-    public void syncDoor(int door) {
-        this.changeDoorState(door, new SyncState(true));
-    }
+	/**
+	 * Return the Agent which blocks the Vertex WhiteBoard, or null if nobody
+	 * has lock the vertex.
+	 * 
+	 * @see #lockVertexProperties()
+	 */
+	public Agent getVertexPropertiesOwner() {
+		return this.simulator.getVertexPropertiesOwner(this);
+	}
 
-    /**
-     * Removes the mark previously done by syncDoor().  The door does
-     * not need to be the same used in syncDoor() ; it can be the
-     * other end-point of the edge.
-     *
-     * @see #syncDoor(int)
-     * @see #markDoor(int)
-     * @see #changeDoorState(int, EdgeState)
-     */
-    public void unsyncDoor(int door) {
-        this.changeDoorState(door, new SyncState(false));
-    }
+	/**
+	 * Like getProperty(), but for the current vertex. Gets a property behind a
+	 * key on the vertex. If the Vertex properties are locked by another agent,
+	 * wait until the lock's freeing.
+	 * 
+	 * @param key
+	 *            Key behind which value will be find
+	 * @see #lockVertexProperties()
+	 */
+	public Object getVertexProperty(Object key) {
+		return this.simulator.getVertexProperty(this, key);
+	}
 
-    /**
-     * Creates a new agent of the same type in the same vertex.
-     *
-     * @see #createAgent(Class)
-     */
-    public void cloneAgent() {
-	this.createAgent(this.getClass());
-    }
+	/**
+	 * Sets a value on the current vertex. If the Vertex properties are locked
+	 * by another agent, wait until the lock's freeing.
+	 * 
+	 * @param key
+	 *            Key behind which storing the value
+	 * @param value
+	 *            Value to store on the vertex
+	 * @see #lockVertexProperties()
+	 */
+	public void setVertexProperty(Object key, Object value) {
+		this.simulator.setVertexProperty(this, key, value);
+	}
 
-    /**
-     * Creates a new agent of the same  type and puts it on one of the
-     * neighboor vertex.
-     *
-     * @param door Door where to send the clone.
-     * @see #createAgentAndSend(Class, int)
-     */
-    public void cloneAndSend(int door) {
-            this.createAgentAndSend(this.getClass(), door);
-    }
+	/**
+	 * Just like getPropertyKeys(), this method returns a collection of all the
+	 * keys but for the current vertex. If the Vertex properties are locked by
+	 * another agent, wait until the lock's freeing.
+	 * 
+	 * @see #lockVertexProperties()
+	 */
+	public Set getVertexPropertyKeys() {
+		return this.simulator.getVertexPropertyKeys(this);
+	}
 
-    /**
-     * Creates a new agent on the current vertex.
-     *
-     * @param agClass Class from which to create the agent.
-     */
-    public void createAgent(Class agClass) {
-        this.simulator.clone(this, agClass);
-    }
+	/**
+	 * Used to change the edge associated with the door on the current vertex.
+	 * 
+	 * @param state
+	 *            The new state to affect to the edge
+	 * @param door
+	 *            Door from which the edge will be changed
+	 */
+	private void changeDoorState(int door, EdgeState state) {
+		try {
+			this.simulator.changeDoorState(this, door, state);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Creates a new agent and send it to door.
-     *
-     */
-    public void createAgentAndSend(Class agClass, int door) {
-        try {
-            this.simulator.cloneAndSend(this, agClass, door);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * A shortcut to changeDoorState(). It marks one edges in bold.
+	 * 
+	 * @param door
+	 *            the door on which you want to mark the edge
+	 * 
+	 * @see #unmarkDoor(int)
+	 * @see #changeDoorState(int, EdgeState)
+	 */
+	public void markDoor(int door) {
+		this.changeDoorState(door, new MarkedState(true));
+	}
 
-    /**
-     * Returns a  printable string  to differentiate the  agents. This
-     * string will be printed when  an agent is moving from one vertex
-     * to  another. You  may  want  to override  this  method to  have
-     * something specific for your agents.
-     *
-     * @return The  name of the agent  class, an '_'  and the identity
-     * number of the agent are returned by this method
-     */
-    public String toString() {
-	return this.className() + "_" + this.getIdentity();
-    }
-    
+	/**
+	 * Removes the mark previously done by markDoor(). The door does not need to
+	 * be the same used in markDoor() ; it can be the other site of the edge.
+	 * 
+	 * @see #markDoor(int)
+	 * @see #changeDoorState(int, EdgeState)
+	 */
+	public void unmarkDoor(int door) {
+		this.changeDoorState(door, new MarkedState(false));
+	}
 
-    /**
-     * Return the class name of this agent as a String
-     * @return A String representing the class name of this agent
-     */
-    public String className() {
-	String class_name = this.getClass().getName();
-	return class_name.substring(class_name.lastIndexOf('.')+1);
-    } 
+	/**
+	 * A shortcut to changeDoorState(). It marks one edges in bold.
+	 * 
+	 * @param door
+	 *            the door on which you want to mark the edge as synchronized.
+	 *            The edge and its two end points are drawn in red over black
+	 * 
+	 * @see #unsyncDoor(int)
+	 * @see #markDoor(int)
+	 * @see #changeDoorState(int, EdgeState)
+	 */
+	public void syncDoor(int door) {
+		this.changeDoorState(door, new SyncState(true));
+	}
 
+	/**
+	 * Removes the mark previously done by syncDoor(). The door does not need to
+	 * be the same used in syncDoor() ; it can be the other end-point of the
+	 * edge.
+	 * 
+	 * @see #syncDoor(int)
+	 * @see #markDoor(int)
+	 * @see #changeDoorState(int, EdgeState)
+	 */
+	public void unsyncDoor(int door) {
+		this.changeDoorState(door, new SyncState(false));
+	}
 
-    /**
-     * Method of the Runnable interface. Launches init().
-     *
-     * @see #init()
-     */
-    public final void run() {
-        this.init();
-	this.death();
-    };
+	/**
+	 * Creates a new agent of the same type in the same vertex.
+	 * 
+	 * @see #createAgent(Class)
+	 */
+	public void cloneAgent() {
+		this.createAgent(this.getClass());
+	}
 
-    /**
-     * Override this  method to implement  your agent.
-     */
-    protected abstract void init();
+	/**
+	 * Creates a new agent of the same type and puts it on one of the neighboor
+	 * vertex.
+	 * 
+	 * @param door
+	 *            Door where to send the clone.
+	 * @see #createAgentAndSend(Class, int)
+	 */
+	public void cloneAndSend(int door) {
+		this.createAgentAndSend(this.getClass(), door);
+	}
 
-    /**
-     * Kills the  agent. This method  is automatically called  and you
-     * should not call it yourself. Instead, if you want your agent to
-     * disappear, you should return from your #init() method.
-     */
-    protected void death() {
-        try {
-            this.simulator.agentDeath(this);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * Creates a new agent on the current vertex.
+	 * 
+	 * @param agClass
+	 *            Class from which to create the agent.
+	 */
+	public void createAgent(Class agClass) {
+		this.simulator.clone(this, agClass);
+	}
 
+	/**
+	 * Creates a new agent and send it to door.
+	 * 
+	 */
+	public void createAgentAndSend(Class agClass, int door) {
+		try {
+			this.simulator.cloneAndSend(this, agClass, door);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
 
-    /**
-     * Tells the simulator that a SynchronizedAgent starts a new pulse.
-     */ 
-    protected void newPulse(int pulse) {
-	try {
-	    this.simulator.newPulse(pulse);
-	} catch(InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    }
+	/**
+	 * Returns a printable string to differentiate the agents. This string will
+	 * be printed when an agent is moving from one vertex to another. You may
+	 * want to override this method to have something specific for your agents.
+	 * 
+	 * @return The name of the agent class, an '_' and the identity number of
+	 *         the agent are returned by this method
+	 */
+	public String toString() {
+		return this.className() + "_" + this.getIdentity();
+	}
 
+	/**
+	 * Return the class name of this agent as a String
+	 * 
+	 * @return A String representing the class name of this agent
+	 */
+	public String className() {
+		String class_name = this.getClass().getName();
+		return class_name.substring(class_name.lastIndexOf('.') + 1);
+	}
 
-    /**
-     * Increments statistics for the key  \a stat. Use this method when
-     * you want to count something and get the result at the end.
-     *
-     * @see #incrementStat(AbstractStat, long)
-     */
-    public void incrementStat(AbstractStat stat) {
-        this.incrementStat(stat, 1);
-    }
+	/**
+	 * Method of the Runnable interface. Launches init().
+	 * 
+	 * @see #init()
+	 */
+	public final void run() {
+		this.init();
+		this.death();
+	};
 
-    /**
-     * Increments statistics by  \a increment for the key  \a key. Use
-     * this method when you want to count something and get the result
-     * at this end.
-     */
-    public void incrementStat(AbstractStat stat, long increment) {
-        this.simulator.incrementStat(stat, increment);
-    }
+	/**
+	 * Override this method to implement your agent.
+	 */
+	protected abstract void init();
+
+	/**
+	 * Kills the agent. This method is automatically called and you should not
+	 * call it yourself. Instead, if you want your agent to disappear, you
+	 * should return from your #init() method.
+	 */
+	protected void death() {
+		try {
+			this.simulator.agentDeath(this);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
+
+	/**
+	 * Tells the simulator that a SynchronizedAgent starts a new pulse.
+	 */
+	protected void newPulse(int pulse) {
+		try {
+			this.simulator.newPulse(pulse);
+		} catch (InterruptedException e) {
+			throw new SimulationAbortError(e);
+		}
+	}
+
+	/**
+	 * Increments statistics for the key \a stat. Use this method when you want
+	 * to count something and get the result at the end.
+	 * 
+	 * @see #incrementStat(AbstractStat, long)
+	 */
+	public void incrementStat(AbstractStat stat) {
+		this.incrementStat(stat, 1);
+	}
+
+	/**
+	 * Increments statistics by \a increment for the key \a key. Use this method
+	 * when you want to count something and get the result at this end.
+	 */
+	public void incrementStat(AbstractStat stat, long increment) {
+		this.simulator.incrementStat(stat, increment);
+	}
 }
