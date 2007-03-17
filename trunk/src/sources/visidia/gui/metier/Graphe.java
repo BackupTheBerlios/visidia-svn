@@ -14,9 +14,6 @@ import visidia.gui.presentation.VueGraphe;
 public class Graphe implements Serializable {
 	// Instance variables
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7542819897827124594L;
 
 	/** Vertex of the graph. * */

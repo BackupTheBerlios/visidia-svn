@@ -21,7 +21,7 @@ public abstract class SommetDessin extends FormeDessin {
 
 	protected ImageIcon uneImage = null;
 
-	protected String monEtiquette; // label of a vertex
+	protected String monEtiquette; // label(id number) of a vertex 
 
 	protected Hashtable stateTable = new Hashtable();
 
@@ -165,6 +165,7 @@ public abstract class SommetDessin extends FormeDessin {
 	public void fusionner(SommetDessin s) {
 		this.getSommet().fusionner(s.getSommet());
 		this.getVueGraphe().supprimerListeAffichage(s);
+		this.getVueGraphe().numero_sommet--;
 	}
 
 	public void setDrawMessage(boolean bool) {

@@ -34,7 +34,7 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	// Variable d'instance.
 	protected boolean afficherEtiquettes;
 
-	protected int numero_sommet;
+	public int numero_sommet;
 
 	protected Font fontNormal;
 

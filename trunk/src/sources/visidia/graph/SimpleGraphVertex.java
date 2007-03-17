@@ -58,9 +58,6 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 		this.edg = new Vector(10, 0);
 		this.visualization = true;
 
-		// if (defaults != null)
-		// whiteBoard = new WhiteBoard(defaults);
-
 		this.whiteBoard = new WhiteBoard(defaults, properties);
 	}
 

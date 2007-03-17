@@ -197,11 +197,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 	protected Hashtable<SommetDessin, AgentBoxChangingVertexState> boxVertices; // To
 
-	// store
-	// the
 
-	// AgentBoxChangingVertex for
-	// each SommetDessin (needed for automatic refresh)
 
 	private Hashtable<String, Object> defaultProperties; // To initialize the
 
@@ -685,6 +681,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			} catch (InterruptedException e) {
 			}
 		}
+
 
 		this.sim = new AgentSimulator(Convertisseur.convert(this.vueGraphe
 				.getGraphe(), this.agentsTable, this.defaultProperties),

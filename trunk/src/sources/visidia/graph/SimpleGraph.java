@@ -16,11 +16,14 @@ public class SimpleGraph implements Cloneable, Serializable {
 	/* liste des noeuds */
 	private Hashtable hash;
 
+	/**
+	 * 
+	 * Agents contenus au démarrage dans le sommet
+	 */
 	private Hashtable defaultVertexValues = null;
 
 	/**
 	 * Retour la Hashtable defaultVertexValues du SimpleGraph
-	 * 
 	 */
 	public Hashtable getDefaultVertexValues() {
 		return this.defaultVertexValues;

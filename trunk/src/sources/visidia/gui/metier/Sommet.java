@@ -212,6 +212,7 @@ public class Sommet extends ObjetGraphe implements Cloneable {
 			((Arete) e.nextElement()).changerDestination(this);
 		}
 		un_sommet.supprimer();
+		
 
 	}
 

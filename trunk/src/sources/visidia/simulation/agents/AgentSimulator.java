@@ -41,23 +41,7 @@ import visidia.tools.VQueue;
  * and the graphic interface.
  */
 public class AgentSimulator {
-
-	/**
-	 * Permet la mise à jour du graph du simultauer lorsque le graphe est
-	 * modifié pendant l'exécution
-	 */
-	public void setGraph(SimpleGraph graph) {
-		this.graph = graph;
-	}
-
-	/**
-	 * Permet d'accéder au graphe de l'AgentSimulator
-	 */
-	public SimpleGraph getGraph() {
-		return this.graph;
-	}
-
-	/**
+    /**
 	 * To set the priority of the thread refering to the agents.
 	 */
 	public static final int THREAD_PRIORITY = 1;
@@ -117,6 +101,23 @@ public class AgentSimulator {
 	 */
 	// private AgentStats stats;
 	private Bag stats;
+	
+	/**
+	 * Permet la mise à jour du graph du simultauer lorsque le graphe est
+	 * modifié pendant l'exécution
+	 */
+	public void setGraph(SimpleGraph graph) {
+		this.graph = graph;
+	}
+
+	/**
+	 * Permet d'accéder au graphe de l'AgentSimulator
+	 */
+	public SimpleGraph getGraph() {
+		return this.graph;
+	}
+
+	
 
 	/**
 	 * Constructor. Creates a new AgentSimulator and affect its the specified
