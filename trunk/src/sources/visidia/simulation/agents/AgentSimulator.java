@@ -836,12 +836,13 @@ public class AgentSimulator {
 	 */
 	public void realyKillAgent(Agent ag)
 	{
-		try{
+		/*try{
 		this.evtQ.put(new AgentMovedEvent(new Long(this.numGen.alloc()), this.getVertexFor(ag).identity(),
 				this.removeAgentFromVertex(this.getVertexFor(ag), ag)));
 		}
 		catch (InterruptedException e)
-		{}
+		{}*/
+		this.removeAgentFromVertex(this.getVertexFor(ag), ag);
 		this.getThreadFor(ag).stop();
 		ag.death();
 		
