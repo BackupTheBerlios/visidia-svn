@@ -195,17 +195,14 @@ public class AgentSimulator {
 	 */
 	private int removeAgentFromVertex(Vertex vertex, Agent ag) {
 		synchronized (this.vertexAgentsNumber) {
-			//if (ag != null && vertex != null){
-			Collection agVertex = this.vertexAgentsNumber.get(vertex);
-			if (agVertex != null)
+			if (this.vertexAgentsNumber.get(vertex) != null && ag != null)
 			{
-				agVertex.remove(ag);
-				//}
-				if (agVertex.isEmpty()) {
+				this.vertexAgentsNumber.get(vertex).remove(ag);
+				if (this.vertexAgentsNumber.get(vertex).isEmpty()) {
 					this.vertexAgentsNumber.remove(vertex);
 					return 0;
 				} else {
-					return agVertex.size();
+					return this.vertexAgentsNumber.get(vertex).size();
 				}
 			}
 			return 0;
@@ -823,10 +820,31 @@ public class AgentSimulator {
 
 		return data.thread;
 	}
-
+    /**
+     * Ask for the death of one agent.
+     * @param ag the agent you want to kill
+     */
 	public void killAgent(Agent ag){
-		getThreadFor(ag).stop();
+		ag.setDeath();
+	}
+	
+	/** 
+	 * Clean simulator after the death of an agent.
+	 * This function must only be launch by the agent who wants to die.
+	 * 
+	 * @param ag the agent who wants to die
+	 */
+	public void realyKillAgent(Agent ag)
+	{
+		try{
+		this.evtQ.put(new AgentMovedEvent(new Long(this.numGen.alloc()), this.getVertexFor(ag).identity(),
+				this.removeAgentFromVertex(this.getVertexFor(ag), ag)));
+		}
+		catch (InterruptedException e)
+		{}
+		this.getThreadFor(ag).stop();
 		ag.death();
+		
 	}
 	
 	private Thread getThreadFor(Agent ag) {

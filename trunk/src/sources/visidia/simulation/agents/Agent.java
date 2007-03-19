@@ -179,10 +179,16 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	 * @see #move()
 	 */
 	public void moveToDoor(int door) {
-		try {
-			this.simulator.moveAgentTo(this, door);
-		} catch (InterruptedException e) {
-			throw new SimulationAbortError(e);
+		if (this.isDead != true)
+		{
+			try {
+				this.simulator.moveAgentTo(this, door);
+			} catch (InterruptedException e) {
+				throw new SimulationAbortError(e);
+			}
+		}
+		else{
+			this.simulator.realyKillAgent(this);
 		}
 	}
 
@@ -224,6 +230,13 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 		} catch (InterruptedException e) {
 			throw new SimulationAbortError(e);
 		}
+	}
+	
+	
+	private boolean isDead = false; 
+	public void setDeath()
+	{
+		this.isDead = true;
 	}
 
 	/**
