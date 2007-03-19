@@ -138,9 +138,9 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 	protected JMenu file, rules, graph, algo;
 
 	protected JMenuItem graph_open, algo_open, algo_placeAgent,
-	algo_open_vertices, graph_save, graph_save_as, file_quit,
-	file_close, file_help, graph_select_all, graph_disconnect,
-	graph_reconnect;
+	algo_killAgent, algo_open_vertices, graph_save, graph_save_as,
+	file_quit, file_close, file_help, graph_select_all,
+	graph_disconnect, graph_reconnect;
 
 	protected JMenuItem rules_open, rules_new;
 
@@ -419,6 +419,10 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.algo_placeAgent = new JMenuItem("Place Agents...");
 		this.algo_placeAgent.addActionListener(this);
 		this.algo.add(this.algo_placeAgent);
+
+		this.algo_killAgent = new JMenuItem("Kill Agents...");
+		this.algo_killAgent.addActionListener(this);
+		this.algo.add(this.algo_killAgent);
 
 		this.algo.setEnabled(this.vueGraphe.getGraphe().ordre() > 0); // if we
 		// have
@@ -809,6 +813,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		/* enable the button to add agents */
 		this.algo_open.setEnabled(true);
 		this.algo_placeAgent.setEnabled(true);
+		this.algo_killAgent.setEnabled(true);
 		this.rules_open.setEnabled(true);
 		this.rules_new.setEnabled(true);
 
@@ -991,7 +996,25 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 				this.but_experimentation.setEnabled(ok);
 			}
 		}
+
+
+
+		/*****************/
+		/* A IMPLEMENTER */
+		/*****************/
+		if (mi == this.algo_killAgent) {
+			if (this.selection.estVide()) {
+				JOptionPane.showMessageDialog(this,
+						"You must select at least" + " one vertex or one agent !", "Warning",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}			
+		}
+
+
 	}
+
+
 
 	/** ********************************************************** */
 	/* Method for the fonctionnalities of the "rules" menu. */
