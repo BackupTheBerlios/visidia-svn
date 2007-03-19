@@ -93,7 +93,7 @@ import visidia.tools.agents.UpdateTableStats;
  * 
  */
 public class AgentsSimulationWindow extends Fenetre implements Serializable,
-		ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
+ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 
 	/**
 	 * 
@@ -112,7 +112,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	protected JToolBar toolBar;
 
 	protected JButton but_start, but_pause, but_save, but_stop, but_help,
-			but_experimentation, but_threadCount;
+	but_experimentation, but_threadCount;
 
 	protected JButton but_info, but_regles, but_reset;
 
@@ -138,9 +138,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	protected JMenu file, rules, graph, algo;
 
 	protected JMenuItem graph_open, algo_open, algo_placeAgent,
-			algo_open_vertices, graph_save, graph_save_as, file_quit,
-			file_close, file_help, graph_select_all, graph_disconnect,
-			graph_reconnect;
+	algo_open_vertices, graph_save, graph_save_as, file_quit,
+	file_close, file_help, graph_select_all, graph_disconnect,
+	graph_reconnect;
 
 	protected JMenuItem rules_open, rules_new;
 
@@ -278,7 +278,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		this.simulationPanel.scrollRectToVisible(new Rectangle((this.vueGraphe
 				.donnerDimension()).width - 10, (this.vueGraphe
-				.donnerDimension()).height - 10, 30, 30));
+						.donnerDimension()).height - 10, 30, 30));
 		this.simulationPanel.repaint();
 
 		this.scroller.setOpaque(true);
@@ -402,7 +402,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.graph_select_all = new JMenuItem("Select all");
 		this.graph_select_all.addActionListener(this);
 		this.graph_select_all
-				.setToolTipText("Select all the elements of the graph");
+		.setToolTipText("Select all the elements of the graph");
 		this.graph.add(this.graph_select_all);
 
 		this.graph.addActionListener(this);
@@ -507,7 +507,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		this.speed_slider.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.speed_slider.setPreferredSize(new Dimension(80, 15));
 		this.speed_slider
-				.setBackground(this.toolBar.getBackground().brighter());
+		.setBackground(this.toolBar.getBackground().brighter());
 		JPanel speed_panel = new JPanel();
 
 		speed_panel.setMaximumSize(new Dimension(85, 40));
@@ -569,7 +569,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		this.but_threadCount = new JButton("Threads");
 		this.but_threadCount
-				.setToolTipText("Amount of threads that are active in the VM");
+		.setToolTipText("Amount of threads that are active in the VM");
 		this.but_threadCount.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.but_threadCount.addActionListener(this);
 		this.toolBar.add(this.but_threadCount);
@@ -857,13 +857,13 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		if (mi == this.file_help) {
 			JOptionPane
-					.showMessageDialog(
-							this,
-							"DistributedAlgoSimulator, v2\n"
-									+ "in this window you can't modifie the graph \n"
-									+ "except changing the state of edges or vertices\n"
-									+ "before starting simulation you must load an algorithm \n "
-									+ "or a list of simple rules \n");
+			.showMessageDialog(
+					this,
+					"DistributedAlgoSimulator, v2\n"
+					+ "in this window you can't modifie the graph \n"
+					+ "except changing the state of edges or vertices\n"
+					+ "before starting simulation you must load an algorithm \n "
+					+ "or a list of simple rules \n");
 		} else if (mi == this.file_close) {
 			this.commandeClose();
 		} else if (mi == this.file_quit) {
@@ -918,6 +918,25 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		}
 	}
 
+
+	/********************************************************************/
+	/* Returns the identity of a selected vertex contained in
+	 * this.selection.elements() : this method is only used in menulAlgo()
+	/********************************************************************/
+	private Integer getId(Enumeration e) {
+		return Integer.decode(((SommetDessin) e.nextElement()).getEtiquette());
+	}
+
+
+	/************************************************************/
+	/* Returns the first class name in the hashtable "agentsTable"
+	 * This method is only used in menulAlgo()
+	/************************************************************/
+	private String getClassName(Hashtable agentsTable) {
+		return (String) ((ArrayList) agentsTable.get(this.agentsTable.keys().nextElement())).get(0);
+	}
+
+
 	/** ********************************************************** */
 	/* Method for the fonctionnalities of the "Algo" menu. */
 	/** ********************************************************** */
@@ -936,13 +955,11 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 				if (!this.but_stop.isEnabled()) {
 					ok = OpenAgents.open(this.selection.elements(), this);
 				} else {
-					Integer id = Integer.decode(((SommetDessin) (this.selection
-							.elements()).nextElement()).getEtiquette());
+					Integer id = getId(this.selection.elements());
 					Hashtable currentAgentTable = this.agentsTable;
 					this.agentsTable = new Hashtable();
 					ok = OpenAgents.open(this.selection.elements(), this);
-					String className = (String) ((ArrayList) this.agentsTable
-							.get(this.agentsTable.keys().nextElement())).get(0);
+					String className = getClassName(this.agentsTable);
 					this.agentsTable = currentAgentTable;
 					this.addAgents(id, className);
 					Agent ag = this.sim.createAgent(className, this.sim.graph
@@ -1038,7 +1055,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		while (e.hasMoreElements()) {
 			int id;
 			id = Integer
-					.decode(((SommetDessin) e.nextElement()).getEtiquette());
+			.decode(((SommetDessin) e.nextElement()).getEtiquette());
 			this.addAgents(id, "Agents Rules_" + size);
 		}
 
@@ -1327,13 +1344,13 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 			if ((synType == SynCT.RDV) && (type == SynCT.LC1)) {
 				JOptionPane.showMessageDialog(this,
 						"The rendez-vous synchronisation cannot be used\n"
-								+ "because of context or arity", "Error",
+						+ "because of context or arity", "Error",
 						JOptionPane.WARNING_MESSAGE);
 			}
 			if ((synType == SynCT.LC1) && (type == SynCT.RDV)) {
 				JOptionPane.showMessageDialog(this,
 						"The use of use of LC1 is not recommended :\n"
-								+ "check if you modify the neighbors.",
+						+ "check if you modify the neighbors.",
 						"Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} else {
