@@ -118,7 +118,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 
 	protected JButton but_default;
 
-	protected JButton but_agents;
+	protected JButton but_agents, but_agentsKillers;
 
 	protected PulseCounter global_clock;
 
@@ -138,7 +138,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 	protected JMenu file, rules, graph, algo;
 
 	protected JMenuItem graph_open, algo_open, algo_placeAgent,
-	algo_killAgent, algo_open_vertices, graph_save, graph_save_as,
+	/*algo_killAgent,*/ algo_open_vertices, graph_save, graph_save_as,
 	file_quit, file_close, file_help, graph_select_all,
 	graph_disconnect, graph_reconnect;
 
@@ -420,9 +420,9 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.algo_placeAgent.addActionListener(this);
 		this.algo.add(this.algo_placeAgent);
 
-		this.algo_killAgent = new JMenuItem("Kill Agents...");
-		this.algo_killAgent.addActionListener(this);
-		this.algo.add(this.algo_killAgent);
+		// this.algo_killAgent = new JMenuItem("Kill Agents...");
+		// this.algo_killAgent.addActionListener(this);
+		// this.algo.add(this.algo_killAgent);
 
 		this.algo.setEnabled(this.vueGraphe.getGraphe().ordre() > 0); // if we
 		// have
@@ -553,6 +553,14 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.but_agents.addActionListener(this);
 		this.toolBar.add(this.but_agents);
 
+		this.but_agentsKillers = new JButton(new ImageIcon(TableImages
+				.getImage("agentkiller")));
+		this.but_agentsKillers.setToolTipText("Agent killer");
+		this.but_agentsKillers.setAlignmentY(Component.CENTER_ALIGNMENT);
+		this.but_agentsKillers.setEnabled(false);
+		this.but_agentsKillers.addActionListener(this);
+		this.toolBar.add(this.but_agentsKillers);
+		
 		this.toolBar.addSeparator();
 
 		this.but_help = new JButton(new ImageIcon(TableImages.getImage("help")));
@@ -700,6 +708,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.but_start.setEnabled(false);
 
 		this.but_agents.setEnabled(true);
+		this.but_agentsKillers.setEnabled(true);
 		this.but_experimentation.setEnabled(true);
 
 		// qaz this.algo_open.setEnabled(false);
@@ -738,7 +747,8 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.but_reset.setEnabled(true);
 
 		this.but_agents.setEnabled(false);
-
+		this.but_agentsKillers.setEnabled(false);
+		
 		this.global_clock.initState();
 	}
 
@@ -813,7 +823,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		/* enable the button to add agents */
 		this.algo_open.setEnabled(true);
 		this.algo_placeAgent.setEnabled(true);
-		this.algo_killAgent.setEnabled(true);
+		// this.algo_killAgent.setEnabled(true);
 		this.rules_open.setEnabled(true);
 		this.rules_new.setEnabled(true);
 
@@ -842,6 +852,8 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 			this.but_initWhiteboard();
 		} else if (b == this.but_agents) {
 			this.but_agentsWhiteboard();
+		} else if (b == this.but_agentsKillers) {
+			this.but_agentsKiller();
 		}
 		// PFA2003
 		else if (b == this.but_help) {
@@ -967,10 +979,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 					String className = getClassName(this.agentsTable);
 					this.agentsTable = currentAgentTable;
 					this.addAgents(id, className);
-					Agent ag = this.sim.createAgent(className, this.sim.graph
-							.vertex(id), this.defaultProperties,
-							this.agentsRules);
-					this.sim.createThreadFor(ag).start();
+					this.sim.createAgentDuringExecution(className, id, this.defaultProperties, this.agentsRules);
 				}
 			} else {
 				// When using Visidia with an applet: not implemented
@@ -1002,6 +1011,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		/*****************/
 		/* A IMPLEMENTER */
 		/*****************/
+		/*
 		if (mi == this.algo_killAgent) {
 			if (this.selection.estVide()) {
 				JOptionPane.showMessageDialog(this,
@@ -1010,7 +1020,7 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 				return;
 			}			
 		}
-
+        */
 
 	}
 
@@ -1310,6 +1320,20 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 
 	}
 
+	private void but_agentsKiller() {
+
+		Object[] agents = this.sim.getAllAgents().toArray();
+
+		Agent ag = (Agent) JOptionPane.showInputDialog(this,
+				"Select the agent:", "Agent's Killer",
+				JOptionPane.PLAIN_MESSAGE, null, agents, null);
+
+		if (ag != null) {
+			this.sim.killAgent(ag);
+		}
+
+	}
+	
 	public void removeWindow(AbstractDefaultBox box) {
 		this.boxAgents.remove(box);
 	}

@@ -121,6 +121,8 @@ public class TableImages {
 					.getImage("visidia/gui/donnees/images/homme2miroir.gif"));
 			TableImages.tableauImages.put("agentwb", tk
 					.getImage("visidia/gui/donnees/images/agentwb.gif"));
+			TableImages.tableauImages.put("agentkiller", tk
+					.getImage("visidia/gui/donnees/images/agentkiller.gif"));
 			TableImages.tableauImages.put("vertexwb", tk
 					.getImage("visidia/gui/donnees/images/vertexwb.gif"));
 			TableImages.tableauImages.put("vertexdefwb", tk

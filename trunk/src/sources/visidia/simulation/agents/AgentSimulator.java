@@ -49,7 +49,6 @@ public class AgentSimulator {
 	/**
 	 * A link to the graph on which the simulation is done
 	 */
-	// test: private
 	public SimpleGraph graph;
 
 	/**
@@ -196,13 +195,20 @@ public class AgentSimulator {
 	 */
 	private int removeAgentFromVertex(Vertex vertex, Agent ag) {
 		synchronized (this.vertexAgentsNumber) {
-			this.vertexAgentsNumber.get(vertex).remove(ag);
-			if (this.vertexAgentsNumber.get(vertex).isEmpty()) {
-				this.vertexAgentsNumber.remove(vertex);
-				return 0;
-			} else {
-				return this.vertexAgentsNumber.get(vertex).size();
+			//if (ag != null && vertex != null){
+			Collection agVertex = this.vertexAgentsNumber.get(vertex);
+			if (agVertex != null)
+			{
+				agVertex.remove(ag);
+				//}
+				if (agVertex.isEmpty()) {
+					this.vertexAgentsNumber.remove(vertex);
+					return 0;
+				} else {
+					return agVertex.size();
+				}
 			}
+			return 0;
 		}
 	}
 
@@ -247,14 +253,19 @@ public class AgentSimulator {
 		}
 	}
 
+
+	public void createAgentDuringExecution(String className, Integer id, Hashtable<String, Object> defaultProperties, Vector<RelabelingSystem> agentsRules) {
+		Agent ag = this.createAgent(className, this.graph.vertex(id), defaultProperties,agentsRules);
+		this.createThreadFor(ag).start();
+	}
+
 	/**
 	 * In charge of the creation of agents. This method gives a name to the
 	 * agent created and creat it on a specified vertex.
 	 * 
 	 * @see #createAgent(Class, Vertex, Hashtable).
 	 */
-	// test: private
-	public Agent createAgent(String agentName, Vertex vertex,
+		private Agent createAgent(String agentName, Vertex vertex,
 			Hashtable defaultAgentValues, Vector agentsRules) {
 		Agent agent;
 		String completName;
@@ -804,8 +815,7 @@ public class AgentSimulator {
 		this.movingMonitor.waitForAnswer(keyArr);
 	}
 
-	// test :private
-	public Thread createThreadFor(Agent ag) {
+	private Thread createThreadFor(Agent ag) {
 		ProcessData data = this.getDataFor(ag);
 
 		data.thread = new Thread(this.threadGroup, ag);
@@ -814,6 +824,11 @@ public class AgentSimulator {
 		return data.thread;
 	}
 
+	public void killAgent(Agent ag){
+		getThreadFor(ag).stop();
+		ag.death();
+	}
+	
 	private Thread getThreadFor(Agent ag) {
 		return this.getDataFor(ag).thread;
 	}
