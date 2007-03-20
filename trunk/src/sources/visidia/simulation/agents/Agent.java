@@ -100,7 +100,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	/**
 	 * Creates a new WhiteBoard with defaults values.
 	 */
-	public void setWhiteBoard(Hashtable defaults) {
+	public void setWhiteBoard(Hashtable<Object,Object> defaults) {
 		this.whiteBoard = new WhiteBoard(defaults);
 	}
 
@@ -559,7 +559,11 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	 * @see #init()
 	 */
 	public final void run() {
-		this.init();
+		try {
+		  this.init();
+		}
+		catch (java.lang.NullPointerException e) /*une mort brutale*/
+		{}
 		this.death();
 	};
 
@@ -579,6 +583,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 		} catch (InterruptedException e) {
 			throw new SimulationAbortError(e);
 		}
+		catch (java.lang.NullPointerException e) {}
 	}
 
 	/**

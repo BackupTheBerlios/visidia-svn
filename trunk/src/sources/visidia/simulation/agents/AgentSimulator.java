@@ -327,7 +327,7 @@ public class AgentSimulator {
 	 * Hashtable is empty it is the end of the algorithm.
 	 */
 	public void agentDeath(Agent ag) throws InterruptedException {
-
+		
 		ProcessData data = this.agents.get(ag);
 		Vertex vertex = data.vertex;
 		Long key = new Long(this.numGen.alloc());
@@ -836,16 +836,13 @@ public class AgentSimulator {
 	 */
 	public void realyKillAgent(Agent ag)
 	{
-		/*try{
-		this.evtQ.put(new AgentMovedEvent(new Long(this.numGen.alloc()), this.getVertexFor(ag).identity(),
-				this.removeAgentFromVertex(this.getVertexFor(ag), ag)));
+		try {
+		  this.agentDeath(ag);
 		}
 		catch (InterruptedException e)
-		{}*/
-		this.removeAgentFromVertex(this.getVertexFor(ag), ag);
-		this.getThreadFor(ag).stop();
-		ag.death();
-		
+		{
+		  System.out.println("AgentSimulator.realyKillAgent() : InterruptedException");
+		}
 	}
 	
 	private Thread getThreadFor(Agent ag) {
