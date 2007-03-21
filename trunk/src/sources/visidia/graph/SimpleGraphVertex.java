@@ -61,6 +61,13 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 		this.whiteBoard = new WhiteBoard(defaults, properties);
 	}
 
+	
+	 /**
+     * Adds a vertex to the graph as a neighbour of the vertex <i>"this"</i>.
+     * @param sgv: the vertex to be added as a neighbour of the vertex <i>"this"</i>.
+     * @param sge: the edge to be added to make a link between svg and the vertex <i>"this"</i>.
+     * @see addNeighbourToSwitchOn(SimpleGraphVertex sgv, SimpleGraphEdge sge)
+     */
 	void addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge) {
 		Integer neighborIdentity = sgv.identity();
 		if (!this.isNeighbour(neighborIdentity)) {
@@ -70,10 +77,24 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 			this.edg.add(sge);
 		}
 	}
-
-	/**
-	 * 
-	 */
+	
+	 /**
+     * Swithes on the neighbour <i>svg</i>.
+     * @param sgv: the vertex to be added as a neighbour of the vertex <i>"this"</i>.
+     * @param sge: The edge to be added to make a link between svg and the vertex <i>"this"</i>.
+     * @see addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge)
+     */  
+    public void addNeighbourToSwitchOn(SimpleGraphVertex sgv, SimpleGraphEdge sge){    	
+    	this.addNeighbour(sgv, sge);
+    }
+    
+	
+    /**
+     *Removes the neighbour <i>sgv</i>.
+     *@param svg: It is the vertex to be removed from the 
+     * set containing all the neighbours of the vertex <i>"this"</i>.
+     * @see swithOffMyNeighbour(SimpleGraphVertex sgv)
+     */	
 	void removeNeighbour(SimpleGraphVertex sgv) {
 		VisidiaAssertion.verify(this.isNeighbour(sgv.identity()), "id :"
 				+ sgv.identity() + " n'est pas voisin de " + this.identity()
@@ -83,6 +104,16 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 		this.edg.remove(index);
 	}
 
+	 /**
+     * swithes off the neighbour <i>sgv</i>.
+     * @param svg: It is the vertex to be switch off. It is one of
+     * the neighbours of the vertex <i>"this"</i>.
+     * @see removeNeighbour(SimpleGraphVertex sgv)
+     */
+    public void SwitchOffMyNeighbour (SimpleGraphVertex svg){    	
+    	this.removeNeighbour(svg); 	
+    }
+    
 	/**
 	 * 
 	 */

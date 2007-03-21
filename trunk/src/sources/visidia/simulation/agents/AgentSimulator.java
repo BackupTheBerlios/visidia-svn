@@ -852,11 +852,19 @@ public class AgentSimulator {
 	private Vertex getVertexFor(Agent ag) {
 		return this.getDataFor(ag).vertex;
 	}
-
+	
+	public Vertex getVertexArrival(Agent ag){
+    	return this.getVertexFor(ag);
+    }
+	
 	private Vertex getLastVertexSeen(Agent ag) {
 		return this.getDataFor(ag).lastVertexSeen;
 	}
-
+	
+	public Vertex getVertexDeparture(Agent ag){
+   	 return this.getLastVertexSeen(ag);
+    }
+	
 	private ProcessData getDataFor(Agent ag) {
 		return this.agents.get(ag);
 	}

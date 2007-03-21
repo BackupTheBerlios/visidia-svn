@@ -3,6 +3,7 @@ package visidia.gui.presentation.boite;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.swing.JOptionPane;
@@ -49,7 +50,13 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
 		((VertexPropertyTableModel) this.tbModel).updateKeys();
 		this.tbModel.fireTableDataChanged();
 	}
-
+	
+	/**
+	   * According to the button pressed on, it performs one of these actions:
+	   * validating changes (<i>buttonDone</i>), removing the selected row (<i>buttonRemove</i>),
+	   * adding a new row (<i>buttonAdd</i>) and modifying a row (<i>buttonModify</i>).
+	   */
+	
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == this.buttonDone) {
@@ -123,6 +130,46 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
 			}
 
 		}
+		
+          if(e.getSource() == this.buttonModify) {
+        	
+        	int rowNb = this.table.getRowCount();
+        	int i;
+        	Object [] possibilities;
+        	possibilities = new Object[rowNb];
+        	    for (i=0; i<rowNb; i++){
+        		   possibilities[i]=this.table.getValueAt(i, 0);
+        		}
+        	
+        	String s = (String) JOptionPane.showInputDialog(this.parent,
+                    "Select the proprety to be changed",
+                    "Vertex proprety modification",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    possibilities[0]);
+        	
+        	
+        	 if ((s != null) && (s.length() > 0)) {
+                 
+                 String value = JOptionPane.showInputDialog(this.parent, "Enter the new value :");
+        	 
+                 int j=0;
+                 while (!(possibilities[j]==s)){
+                	 j++;
+                 }
+                 Enumeration elt = this.parent.selection.elements();
+                 SommetDessin firstElement = ((SommetDessin)elt.nextElement());
+                
+                if  (firstElement.type().equals("vertex")){
+                	firstElement.setWhiteBoardValue(s, value);
+                	this.table.setValueAt(value,j,2);
+                }
+                 	 
+                 
+             }
+        		
+        }
 	}
 
 }

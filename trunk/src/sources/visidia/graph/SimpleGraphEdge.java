@@ -2,7 +2,7 @@ package visidia.graph;
 
 import java.io.Serializable;
 
-class SimpleGraphEdge implements Edge, Serializable {
+public class SimpleGraphEdge implements Edge, Serializable {
 	/**
 	 * 
 	 */
@@ -16,7 +16,7 @@ class SimpleGraphEdge implements Edge, Serializable {
 
 	Object data;
 
-	SimpleGraphEdge(SimpleGraph graph, SimpleGraphVertex v1,
+	public SimpleGraphEdge(SimpleGraph graph, SimpleGraphVertex v1,
 			SimpleGraphVertex v2) {
 		this.vtx1 = v1;
 		this.vtx2 = v2;

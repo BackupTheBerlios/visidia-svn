@@ -54,6 +54,8 @@ public abstract class AbstractDefaultBox implements ActionListener,
 	// Button for removing property from the whiteboard
 	protected JButton buttonRemove;
 
+	protected JButton buttonModify;
+	 
 	protected AbstractPropertyTableModel tbModel;
 
 	protected int lastItemSelected = -1;
@@ -135,10 +137,15 @@ public abstract class AbstractDefaultBox implements ActionListener,
 
 		this.buttonRemove = new JButton("Remove");
 		this.buttonRemove.addActionListener(this);
+		
+		this.buttonModify = new JButton("Modify");
+        this.buttonModify.addActionListener(this);
+
 
 		addRemovePane.add(this.buttonAdd);
 		addRemovePane.add(this.buttonRemove);
-
+		addRemovePane.add(this.buttonModify);
+		
 		JPanel okCancelApplyPane = new JPanel(new FlowLayout());
 
 		this.buttonDone = new JButton("Done");

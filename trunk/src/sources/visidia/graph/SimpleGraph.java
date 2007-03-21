@@ -273,7 +273,7 @@ public class SimpleGraph implements Cloneable, Serializable {
 	/*
 	 * 
 	 */
-	private SimpleGraphVertex getSimpleGraphVertex(Integer id) {
+	public SimpleGraphVertex getSimpleGraphVertex(Integer id) {
 
 		SimpleGraphVertex sgv = (SimpleGraphVertex) this.hash.get(id);
 		if (sgv == null) {

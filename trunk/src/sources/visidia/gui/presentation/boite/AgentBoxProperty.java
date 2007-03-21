@@ -143,6 +143,38 @@ public class AgentBoxProperty extends AbstractDefaultBox implements
 			}
 
 		}
+		
+		if(e.getSource() == this.buttonModify) {
+			  
+        	int rowNb = this.table.getRowCount();
+        	int i;
+        	Object [] possibilities;
+        	possibilities = new Object[rowNb];
+        	for (i=0; i<rowNb; i++)	possibilities[i]=this.table.getValueAt(i, 0);
+  
+        	String s = (String) JOptionPane.showInputDialog(this.parent,
+                    "Select the proprety to be changed",
+                    "Agent propreties modification",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    possibilities[0]);
+        	
+        	
+        	 if ((s != null) && (s.length() > 0)) {
+                 
+                 String value = JOptionPane.showInputDialog(this.parent, "Enter the new value :");
+        	 
+                 int j=0;
+                 while (!(possibilities[j]==s)){
+                	 j++;
+                 }
+      
+                     this.table.setValueAt(value,j,2);
+                 	 
+                 
+            }
+        }
 
 	}
 

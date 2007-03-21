@@ -43,6 +43,8 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import visidia.graph.SimpleGraphEdge;
+import visidia.graph.SimpleGraphVertex;
 import visidia.gui.DistributedAlgoSimulator;
 import visidia.gui.donnees.GuiProperty;
 import visidia.gui.donnees.TableImages;
@@ -119,6 +121,10 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 	protected JButton but_default;
 
 	protected JButton but_agents, but_agentsKillers;
+	
+	protected JButton but_SwitchOff;
+	
+	protected JButton but_SwitchOn;
 
 	protected PulseCounter global_clock;
 
@@ -536,6 +542,22 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		this.but_info.addActionListener(this);
 		this.toolBar.add(this.but_info);
 
+		this.but_SwitchOn = new JButton(new ImageIcon(TableImages.getImage("vertexwb")));
+        this.but_SwitchOn.setToolTipText("SwitchOn");
+        this.but_SwitchOn.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_SwitchOn.setEnabled(false);
+        this.but_SwitchOn.addActionListener(this);
+        this.toolBar.add(this.but_SwitchOn);
+        
+        
+        this.but_SwitchOff = new JButton(new ImageIcon(TableImages.getImage("vertexwb")));
+        this.but_SwitchOff.setToolTipText("SwitchOff");
+        this.but_SwitchOff.setAlignmentY(CENTER_ALIGNMENT);
+        this.but_SwitchOff.setEnabled(false);
+        this.but_SwitchOff.addActionListener(this);
+        this.toolBar.add(this.but_SwitchOff);
+        
+		
 		this.but_default = new JButton(new ImageIcon(TableImages
 				.getImage("vertexdefwb")));
 		this.but_default.setToolTipText("Initialisation");
@@ -705,6 +727,8 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 
 		this.but_stop.setEnabled(true);
 		this.but_pause.setEnabled(true);
+		this.but_SwitchOff.setEnabled(true);
+		this.but_SwitchOn.setEnabled(true);
 		this.but_start.setEnabled(false);
 
 		this.but_agents.setEnabled(true);
@@ -783,6 +807,117 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 
 	}
 
+	
+	 /**
+     * Swithes on a vertex already swith off.
+     * You have to select the vertex before swithing it on.
+     * The vertex you select should not be a vertex already switch on. 
+     * 
+     */
+    
+ 
+    public void but_SwitchOn (){
+    	
+ 
+    	if (this.selection.estVide())
+    		JOptionPane.showMessageDialog
+		    (this, "You should select the vertex you want to switch on!", "Error",
+		     JOptionPane.WARNING_MESSAGE);
+    	
+        else {
+       	 
+            Enumeration e = this.selection.elements();
+            FormeDessin firstElement = ((FormeDessin)e.nextElement());
+            if ((this.selection.nbElements() == 1) &&
+       		     (firstElement.type().equals("vertex"))){
+           	 
+           	SimpleGraphVertex vertex, vert_neighbours;        	
+           	String x = ((SommetDessin)firstElement).getEtiquette();
+           	Integer y;
+           	y = Integer.parseInt(x);
+           	vertex =  this.sim.getGraph().getSimpleGraphVertex(y);
+           	if(!vertex.getVisualization()){
+           		Enumeration d = vertex.neighbours();
+           		while(d.hasMoreElements()){
+           			vert_neighbours = (SimpleGraphVertex)d.nextElement();
+           			if (vert_neighbours.getVisualization()){
+           			SimpleGraphEdge sge = new SimpleGraphEdge(this.sim.getGraph(),vertex, vert_neighbours);
+           			vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
+           			}
+           		}
+           		vertex.setVisualization(true);
+           		vertex.setProperty("Visualization", true);
+           		
+           	}
+           	else{
+           		JOptionPane.showMessageDialog
+    		    (this, "The vertex selected is already switch on!", "Error",
+    		     JOptionPane.WARNING_MESSAGE);
+           		
+           	}
+           		
+            }
+        }
+    	
+    	
+    	
+    	
+    }    	
+    	
+    /**
+     * Swithes off the selected vertex.
+     * You have to select the vertex before swithing it off.
+     * The vertex you select should not be a vertex alraedy swith off.
+     * 
+     */
+    
+   
+    public void but_SwitchOff (){
+    	
+    	
+    	
+    	 if (this.selection.estVide()){          	 
+    	 JOptionPane.showMessageDialog
+		    (this, "You should select the vertex you want to switch off!", "Error",
+		     JOptionPane.WARNING_MESSAGE);
+         }
+    	 
+    	 
+         else {
+        	 
+             Enumeration e = this.selection.elements();
+             FormeDessin firstElement = ((FormeDessin)e.nextElement());
+             if ((this.selection.nbElements() == 1) &&
+        		     (firstElement.type().equals("vertex"))){
+            	 
+            	SimpleGraphVertex vertex, vert_neighbours;        	
+            	String x = ((SommetDessin)firstElement).getEtiquette();
+            	Integer y;
+            	y = Integer.parseInt(x);
+            	vertex =  this.sim.getGraph().getSimpleGraphVertex(y);
+            	if(vertex.getVisualization()){
+            		Enumeration d = vertex.neighbours();
+            		while(d.hasMoreElements()){
+            			vert_neighbours = (SimpleGraphVertex)d.nextElement();
+            			vert_neighbours.SwitchOffMyNeighbour(vertex);
+            			
+            		}
+            		vertex.setVisualization(false);
+            		vertex.setProperty("Visualization", false);
+            		
+            	}
+            	else{
+            		JOptionPane.showMessageDialog
+        		    (this, "The vertex selected is already switch off!!", "Error",
+        		     JOptionPane.WARNING_MESSAGE);
+            		
+                }
+             }
+         }
+    }
+	
+	
+	
 	public void but_reset() {
 		this.simulationPanel.stop();
 		if (this.sim != null) {
@@ -855,6 +990,16 @@ ActionListener, WindowListener, ChangeListener, ApplyStarRulesSystem {
 		} else if (b == this.but_agentsKillers) {
 			this.but_agentsKiller();
 		}
+		
+		else if (b == this.but_SwitchOn){
+            this.but_SwitchOn();
+        }
+        
+        else if (b == this.but_SwitchOff){
+            this.but_SwitchOff();
+        }
+		
+		
 		// PFA2003
 		else if (b == this.but_help) {
 			System.out.println("BUTTON HELP : NOT IMPLMENTED YET");
