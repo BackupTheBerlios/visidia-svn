@@ -650,5 +650,13 @@ public class VueGraphe implements Serializable, RecoverableObject {
 	public static FabriqueArete getFabriqueAreteFleche() {
 		return VueGraphe.fabriqueAreteFleche;
 	}
+	
+	public void deleteGraphicVertex(String etiquetteV){
+	    Iterator it = this.rechercherAretesIncidentes(etiquetteV);
+	    
+	    while(it.hasNext()){
+		this.delObject((FormeDessin) it.next());
+	    }
+	}
 
 }

@@ -38,9 +38,7 @@ import visidia.simulation.MessageSendingEvent;
 public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	MouseListener, MouseMotionListener, KeyListener {
 
-    /**
-         * 
-         */
+ 
     private static final long serialVersionUID = 6633924693735717321L;
 
     /** Couleur de fond par defaut du grapheVisuPanel * */
@@ -252,6 +250,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	    break;
 	case InputEvent.BUTTON2_MASK:
 	    System.out.println("vive");
+	    this.repaint();
 	    break;
 	default:
 
@@ -311,7 +310,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	int x = evt.getX();
 	int y = evt.getY();
 	boolean changed = false;
-
+	
 	if (this.drag_n_drop_sommet) {
 	    try {
 
@@ -344,6 +343,33 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		    passuppr = false;
 		}
 
+	
+		// En cas d'ajout d'une arrête entre deux sommets existants
+		// L'extrémité de l'arrête ajoutée lors du début du drag est le sommet
+		// qui va êter fusionné et qui n'est donc pas valide
+		// On supprimé donc l'arrête avec le sommet invalide et on la rajoute
+		// avec le sommet actualisé
+		if (this.agentsSimulationWindow.getVueGraphe().rechercherArete(
+			(this.ancien_sommet_sous_souris).getEtiquette(),
+			((SommetDessin)(this.objet_sous_souris)).getEtiquette()) != null) {
+		    	// l'arrete existe déjà
+		    this.agentsSimulationWindow
+			    .getVueGraphe()
+			    .delObject(
+				    ((this.agentsSimulationWindow
+					    .getVueGraphe()).rechercherArete(
+					    (this.ancien_sommet_sous_souris)
+						    .getEtiquette(),
+					    ((SommetDessin)(this.objet_sous_souris)).getEtiquette())));
+		    
+			this.agentsSimulationWindow.getVueGraphe().creerArete(
+				this.ancien_sommet_sous_souris,
+				sommet_en_dessous);
+		
+		}
+		
+		
+		
 		// ww: ceci efface l'arete en cas de bouclage sur un meme sommet
 		if ((this.agentsSimulationWindow
 			.getVueGraphe()
@@ -368,6 +394,8 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		
 		sommet_en_dessous
 		.fusionner((SommetDessin) this.objet_sous_souris);
+		
+
 
 		// ww: end
 		if(passuppr) {
