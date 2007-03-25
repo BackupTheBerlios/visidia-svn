@@ -6,8 +6,8 @@ public class SleepStat extends AbstractAgentStat {
 		super(agClass);
 	}
 
-	public SleepStat(Class agClass, String agName) {
-		super(agClass, agName);
+	public SleepStat(Class agClass, Integer agId) {
+		super(agClass, agId);
 	}
 	
 	public String descriptionName() {

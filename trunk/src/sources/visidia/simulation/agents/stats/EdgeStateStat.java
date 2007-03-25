@@ -6,8 +6,8 @@ public class EdgeStateStat extends AbstractAgentStat {
 		super(agClass);
 	}
 
-	public EdgeStateStat(Class agClass, String agName) {
-		super(agClass, agName);
+	public EdgeStateStat(Class agClass, Integer agId) {
+		super(agClass, agId);
 	}
 	
 	public String descriptionName() {

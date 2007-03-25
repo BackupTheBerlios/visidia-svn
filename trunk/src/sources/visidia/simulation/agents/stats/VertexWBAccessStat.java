@@ -6,8 +6,8 @@ public class VertexWBAccessStat extends AbstractAgentStat {
 		super(agClass);
 	}
 	
-	public VertexWBAccessStat(Class agClass, String agName) {
-		super(agClass, agName);
+	public VertexWBAccessStat(Class agClass, Integer agId) {
+		super(agClass, agId);
 	}
 	
 	public String descriptionName() {

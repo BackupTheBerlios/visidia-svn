@@ -381,7 +381,7 @@ public class AgentSimulator {
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 
-	this.stats.add(new MoveStat(ag.getClass()));
+	this.stats.add(new MoveStat(ag.getClass(), ag.getIdentity()));
     }
 
     /**
@@ -406,7 +406,7 @@ public class AgentSimulator {
 		.identity(), state);
 	this.evtQ.put(event);
 	this.movingMonitor.waitForAnswer(key);
-	this.stats.add(new EdgeStateStat(ag.getClass()));
+	this.stats.add(new EdgeStateStat(ag.getClass(), ag.getIdentity()));
     }
 
     /**
@@ -570,7 +570,7 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-	    this.stats.add(new VertexWBAccessStat(ag.getClass()));
+	    this.stats.add(new VertexWBAccessStat(ag.getClass(),ag.getIdentity()));
 
 	    return vertex.getProperty(key);
 	}
@@ -601,7 +601,7 @@ public class AgentSimulator {
 		    throw new SimulationAbortError(e);
 		}
 	    }
-	    this.stats.add(new VertexWBChangeStat(ag.getClass()));
+	    this.stats.add(new VertexWBChangeStat(ag.getClass(), ag.getIdentity()));
 
 	    vertex.setProperty(key, value);
 
@@ -711,7 +711,7 @@ public class AgentSimulator {
          */
     public void sleep(Agent ag, long millis) throws InterruptedException {
 	Thread.sleep(millis);
-	this.stats.add(new SleepStat(ag.getClass()), millis);
+	this.stats.add(new SleepStat(ag.getClass(), ag.getIdentity()), millis);
 
     }
 

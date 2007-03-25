@@ -6,8 +6,8 @@ public class MoveStat extends AbstractAgentStat {
 		super(agClass);
 	}
 	
-	public MoveStat(Class agClass, String agName) {
-		super(agClass, agName);
+	public MoveStat(Class agClass, Integer agId) {
+		super(agClass, agId);
 	}
 	
 	public String descriptionName() {

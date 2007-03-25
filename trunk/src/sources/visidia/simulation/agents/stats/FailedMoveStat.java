@@ -6,8 +6,8 @@ public class FailedMoveStat extends AbstractAgentStat {
 		super(agClass);
 	}
 	
-	public FailedMoveStat(Class agClass, String agName) {
-		super(agClass, agName);
+	public FailedMoveStat(Class agClass, Integer agId) {
+		super(agClass, agId);
 	}
 	public String descriptionName() {
 		return "Failed moves";
