@@ -20,7 +20,7 @@ public abstract class AbstractAgentStat extends AbstractStat {
 		}
 
 		AbstractAgentStat o2 = (AbstractAgentStat) o;
-		return this.agClass.equals(o2.agClass);
+		return this.agClass.equals(o2.agClass) && this.agId == o2.agId;
 	}
 
 	public String getAgentClassName() {
@@ -43,6 +43,9 @@ public abstract class AbstractAgentStat extends AbstractStat {
 	}
 
 	public String toString() {
-		return this.descriptionName() + " (" + this.getAgentClassName() + ")";
+		if (this.agId == null)
+			return this.descriptionName() + " (" + this.getAgentClassName() + ")";
+		else
+			return this.descriptionName() + " (" + this.getAgentClassName() + " : "+ this.getAgentId() + ")";
 	}
 }
