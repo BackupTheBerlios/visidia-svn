@@ -12,11 +12,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import visidia.gui.donnees.conteneurs.Ensemble;
 import visidia.gui.metier.simulation.SentAgent;
 import visidia.gui.presentation.FormeDessin;
 import visidia.gui.presentation.RecoverableObject;
@@ -24,6 +26,8 @@ import visidia.gui.presentation.SelectionDessin;
 import visidia.gui.presentation.SelectionGetData;
 import visidia.gui.presentation.SelectionUnit;
 import visidia.gui.presentation.SommetDessin;
+import visidia.gui.presentation.VueGraphe;
+import visidia.gui.presentation.userInterfaceEdition.Traitements;
 import visidia.gui.presentation.userInterfaceEdition.undo.UndoInfo;
 import visidia.simulation.MessageSendingAck;
 import visidia.simulation.MessageSendingEvent;
@@ -38,7 +42,6 @@ import visidia.simulation.MessageSendingEvent;
 public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	MouseListener, MouseMotionListener, KeyListener {
 
- 
     private static final long serialVersionUID = 6633924693735717321L;
 
     /** Couleur de fond par defaut du grapheVisuPanel * */
@@ -66,6 +69,8 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
     /** Signifie si un drag-and-drop d'un sommet est en court * */
     private boolean drag_n_drop_sommet;
 
+    // Stocke l'élément courant qu'on deplace
+    private Ensemble formeDessin_a_deplacer; 
     /***********************************************************************
          * Signifie si un drag-and-drop d'un sommet est en court, mais avec
          * déplacement d'un objet déàja existant
@@ -79,13 +84,17 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
     private SommetDessin ancien_sommet_sous_souris;
 
     /** Signifie si un drag-and-drop d'une sélection est en court * */
-    // private boolean drag_n_drop_selection;
+    private boolean drag_n_drop_selection;
     /** Signifie si un drag-and-drop du graphe entier est en court * */
-    // private boolean drag_n_drop_graph;
-    // private FormeDessin drag_n_dropVertex;
-    // private int drag_n_dropVertex_X;
-    // private int drag_n_dropVertex_Y;
+    private boolean drag_n_drop_graph;
+    private FormeDessin drag_n_dropVertex;
+    private int drag_n_dropVertex_X;
+    private int drag_n_dropVertex_Y;
     /** Abscisse de la position initiale de la souris lors d'une sélection * */
+	private int x_origine;
+
+	/** Ordonnee de la position initiale de la souris lors d'une sélection * */
+	private int y_origine;
 
     /** Dimension du graphique */
     protected Dimension size;
@@ -244,13 +253,15 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	this.size = this.getPreferredSize();
 
 	switch (evt.getModifiers()) {
+	
+	case InputEvent.BUTTON2_MASK:
+	case (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK): 
+	    	// Pour les souris sans boutton du milieu
+		this.appuiBoutonMilieu(x, y);
+		break;
 	// Bouton gauche
 	case InputEvent.BUTTON1_MASK:
 	    this.appuiBoutonGauche(x, y);
-	    break;
-	case InputEvent.BUTTON2_MASK:
-	    System.out.println("vive");
-	    this.repaint();
 	    break;
 	default:
 
@@ -279,27 +290,140 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	    // le graphe du simulateur sera initialisé en conséquence lors
 	    // du début de la simulation
 	    if (this.agentsSimulationWindow.sim != null) {
-		this.addVertexSimpleGraph((SommetDessin)objet_sous_souris);
+		this.addVertexSimpleGraph((SommetDessin) objet_sous_souris);
 	    }
-	   
+
 	    this.repaint();
 
 	}
     }
 
     /**
-     * Ajout du sommet au graph du simulateur pendant la simulation
-     * @param numVertex Le sommet du dessin à ajouter au simulateur
-     */
+         * L'appui du bouton du milieu de la souris permet de déplacer un objet,
+         * la sélection ou la zone visible du plan de travail.
+         */
+    public void appuiBoutonMilieu(int x, int y) {
+	this.x_ancien = x;
+	this.y_ancien = y;
+
+	try {
+	    this.objet_sous_souris = this.agentsSimulationWindow.getVueGraphe().en_dessous(x,
+		    y);
+
+	    if (this.agentsSimulationWindow.selection.contient(this.objet_sous_souris)) {
+		// Deplacement de la selection
+
+		// on ne deplace pas les aretes, mais leurs sommets incidents.
+		this.formeDessin_a_deplacer = Traitements
+			.sommetsTotaux(this.agentsSimulationWindow.selection.elements());
+
+		// formeDessin_a_deplacer.inserer(editeur.selection.autresObjetsVisu());
+		this.drag_n_drop_selection = true;
+
+		this.x_origine = x;
+		this.y_origine = y;
+	    } else if (this.objet_sous_souris.type().equals("vertex")) {
+
+		this.drag_n_drop_sommet_existant = true;
+		// Quand on drag un sommet, on veut un positionnement precis par
+		// rapport au curseur, on sauvegarde donc la position relative
+		// du sommet par rapport au curseur.
+		this.drag_n_dropVertex_X = ((SommetDessin) this.objet_sous_souris)
+			.centreX();
+		this.drag_n_dropVertex_Y = ((SommetDessin) this.objet_sous_souris)
+			.centreY();
+
+		this.dx = ((SommetDessin) this.objet_sous_souris).centreX() - x;
+		this.dy = ((SommetDessin) this.objet_sous_souris).centreY() - y;
+	    }
+	} catch (NoSuchElementException e) {
+	    this.drag_n_drop_graph = true;
+	    this.x_origine = x;
+	    this.y_origine = y;
+	}
+    }
+
+    /**
+	 * Permet de déplacer l'objet sous le curseur en même temps que la souris au
+	 * cas ou on maintient le bouton du milieu appuyé.
+	 */
+	public void glisseBoutonMilieu(int x, int y) {
+		// deplacer objet sous la souris
+		if (this.objet_sous_souris != null) {
+			if (this.formeDessin_a_deplacer != null) {
+				// on deplace la selection
+
+				VueGraphe.deplacerFormeDessin(this.formeDessin_a_deplacer
+						.elements(), x - this.x_ancien, y - this.y_ancien);
+				this.x_ancien = x;
+				this.y_ancien = y;
+			} else if (this.drag_n_drop_sommet
+					|| this.drag_n_drop_sommet_existant) {
+				// on deplace un sommet
+				this.glisseSommet(x, y);
+			} else {
+				// on deplace un formeDessin quelconque
+				this.objet_sous_souris.deplacer(x - this.x_ancien, y
+						- this.y_ancien);
+				this.x_ancien = x;
+				this.y_ancien = y;
+			}
+		} else {
+			boolean changed = false;
+
+			// Rien sous la souris
+			// On va donc translater tout le graphe
+
+			this.formeDessin_a_deplacer = Traitements
+					.sommetsTotaux(this.agentsSimulationWindow.getVueGraphe().listeAffichage());
+			if (this.formeDessin_a_deplacer != null) {
+				VueGraphe.deplacerFormeDessin(this.formeDessin_a_deplacer
+						.elements(), x - this.x_ancien, y - this.y_ancien);
+				this.x_ancien = x;
+				this.y_ancien = y;
+			}
+			Enumeration objets_deplaces = this.formeDessin_a_deplacer
+					.elements();
+			while (objets_deplaces.hasMoreElements()) {
+				SommetDessin objet = (SommetDessin) objets_deplaces
+						.nextElement();
+				if (objet.centreX() + 20 > this.size.width) {
+					this.size.width = objet.centreX() + 20;
+					changed = true;
+				}
+				if (objet.centreY() + 20 > this.size.height) {
+					this.size.height = objet.centreY() + 20;
+					changed = true;
+				}
+			}
+			if (changed) {
+				
+				this.setPreferredSize(this.size);
+				this.revalidate();
+			}
+			this.scrollRectToVisible(new Rectangle(Math.min(x,
+					this.size.width - 20) - 10, Math.min(y,
+					this.size.height - 20) - 10, 30, 30));
+		}
+		this.repaint();
+	}
+
+    /**
+         * Ajout du sommet au graph du simulateur pendant la simulation
+         * 
+         * @param numVertex
+         *                Le sommet du dessin à ajouter au simulateur
+         */
     public void addVertexSimpleGraph(SommetDessin sommetD) {
 
-	this.agentsSimulationWindow.sim.graph
-	.put(new Integer(sommetD.getEtiquette()),sommetD.getWhiteBoardTable());
-	this.agentsSimulationWindow.sim.graph
-	.vertex(new Integer(sommetD.getEtiquette())).setData(sommetD.getStateTable().clone());
+	this.agentsSimulationWindow.sim.graph.put(new Integer(sommetD
+		.getEtiquette()), sommetD.getWhiteBoardTable());
+	this.agentsSimulationWindow.sim.graph.vertex(
+		new Integer(sommetD.getEtiquette())).setData(
+		sommetD.getStateTable().clone());
 
     }
-    
+
     public void mouseClicked(MouseEvent evt) {
     }
 
@@ -310,27 +434,26 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	int x = evt.getX();
 	int y = evt.getY();
 	boolean changed = false;
-	
+
 	if (this.drag_n_drop_sommet) {
 	    try {
 
 		SommetDessin sommet_en_dessous = this.agentsSimulationWindow
 			.getVueGraphe().sommet_en_dessous(x, y,
 				this.objet_sous_souris);
-		
 
 		/*
                  * On efface l'ancienne arete si une autre arete a ete cree Si
                  * l'utilisateur boucle sur le meme sommet, ceci n'efface pas la
                  * pseudo-arete.
                  */
-		
+
 		boolean passuppr = true;
 
 		if (this.agentsSimulationWindow.getVueGraphe().rechercherArete(
 			(this.ancien_sommet_sous_souris).getEtiquette(),
 			(sommet_en_dessous).getEtiquette()) != null) {
-		    	// l'arrete existe déjà
+		    // l'arrete existe déjà
 		    this.agentsSimulationWindow
 			    .getVueGraphe()
 			    .delObject(
@@ -339,37 +462,38 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 					    (this.ancien_sommet_sous_souris)
 						    .getEtiquette(),
 					    (sommet_en_dessous).getEtiquette())));
-		    
+
 		    passuppr = false;
 		}
 
-	
 		// En cas d'ajout d'une arrête entre deux sommets existants
-		// L'extrémité de l'arrête ajoutée lors du début du drag est le sommet
+		// L'extrémité de l'arrête ajoutée lors du début du drag est le
+                // sommet
 		// qui va êter fusionné et qui n'est donc pas valide
-		// On supprimé donc l'arrête avec le sommet invalide et on la rajoute
+		// On supprimé donc l'arrête avec le sommet invalide et on la
+                // rajoute
 		// avec le sommet actualisé
 		if (this.agentsSimulationWindow.getVueGraphe().rechercherArete(
 			(this.ancien_sommet_sous_souris).getEtiquette(),
-			((SommetDessin)(this.objet_sous_souris)).getEtiquette()) != null) {
-		    	// l'arrete existe déjà
+			((SommetDessin) (this.objet_sous_souris))
+				.getEtiquette()) != null) {
+		    // l'arrete existe déjà
 		    this.agentsSimulationWindow
 			    .getVueGraphe()
 			    .delObject(
 				    ((this.agentsSimulationWindow
-					    .getVueGraphe()).rechercherArete(
-					    (this.ancien_sommet_sous_souris)
-						    .getEtiquette(),
-					    ((SommetDessin)(this.objet_sous_souris)).getEtiquette())));
-		    
-			this.agentsSimulationWindow.getVueGraphe().creerArete(
-				this.ancien_sommet_sous_souris,
-				sommet_en_dessous);
-		
+					    .getVueGraphe())
+					    .rechercherArete(
+						    (this.ancien_sommet_sous_souris)
+							    .getEtiquette(),
+						    ((SommetDessin) (this.objet_sous_souris))
+							    .getEtiquette())));
+
+		    this.agentsSimulationWindow.getVueGraphe().creerArete(
+			    this.ancien_sommet_sous_souris, sommet_en_dessous);
+
 		}
-		
-		
-		
+
 		// ww: ceci efface l'arete en cas de bouclage sur un meme sommet
 		if ((this.agentsSimulationWindow
 			.getVueGraphe()
@@ -391,14 +515,12 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 							    .getEtiquette())));
 		    passuppr = false;
 		}
-		
-		sommet_en_dessous
-		.fusionner((SommetDessin) this.objet_sous_souris);
-		
 
+		sommet_en_dessous
+			.fusionner((SommetDessin) this.objet_sous_souris);
 
 		// ww: end
-		if(passuppr) {
+		if (passuppr) {
 		    // Si le simulateur n'est pas encore créé, on ajoute
 		    // seulement
 		    // le sommet au graphe dessin,
@@ -414,10 +536,11 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 					Integer.valueOf(sommet_en_dessous
 						.getEtiquette()),
 					Integer
-						.valueOf((this.ancien_sommet_sous_souris).getEtiquette()));
+						.valueOf((this.ancien_sommet_sous_souris)
+							.getEtiquette()));
 		    }
 		}
-		
+
 	    } catch (NoSuchElementException e) {
 		// Si le simulateur n'est pas encore créé, on ajoute seulement
 		// le sommet au graphe dessin,
@@ -425,18 +548,19 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 		// du début de la simulation
 		if (this.agentsSimulationWindow.sim != null) {
 
-		    this.addVertexSimpleGraph((SommetDessin)this.objet_sous_souris);
+		    this
+			    .addVertexSimpleGraph((SommetDessin) this.objet_sous_souris);
 
 		    System.out.println(Integer
 			    .valueOf(((SommetDessin) this.objet_sous_souris)
 				    .getEtiquette()));
-		    
+
 		    // Edges between the old vertex and the new vertex added
 		    // to the simumation graph and ...
-		    this.agentsSimulationWindow.sim.graph
-			    .link(
-				    new Integer(((SommetDessin)this.objet_sous_souris).getEtiquette()),
-				    new Integer((this.ancien_sommet_sous_souris).getEtiquette()));
+		    this.agentsSimulationWindow.sim.graph.link(new Integer(
+			    ((SommetDessin) this.objet_sous_souris)
+				    .getEtiquette()), new Integer(
+			    (this.ancien_sommet_sous_souris).getEtiquette()));
 
 		}
 	    }
@@ -491,6 +615,15 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	int y = evt.getY();
 
 	switch (evt.getModifiers()) {
+	// Bouton du milieu
+	case InputEvent.BUTTON2_MASK:
+	case (InputEvent.BUTTON1_MASK | InputEvent.ALT_MASK): // Pour les
+		// souris sans
+		// boutton du
+		// milieu
+		this.glisseBoutonMilieu(x, y);
+		break;
+		
 	// Bouton gauche
 	case InputEvent.BUTTON1_MASK:
 	case 0:
