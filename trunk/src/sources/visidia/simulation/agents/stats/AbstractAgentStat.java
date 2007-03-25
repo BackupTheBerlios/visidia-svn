@@ -3,9 +3,15 @@ package visidia.simulation.agents.stats;
 public abstract class AbstractAgentStat extends AbstractStat {
 
 	private Class agClass;
+	private String agName;
 
 	public AbstractAgentStat(Class agClass) {
 		this.agClass = agClass;
+	}
+	
+	public AbstractAgentStat(Class agClass, String agName) {
+		this.agClass = agClass;
+		this.agName = agName;
 	}
 
 	public boolean equals(Object o) {
@@ -20,7 +26,10 @@ public abstract class AbstractAgentStat extends AbstractStat {
 	public String getAgentClassName() {
 		return this.agClass.getSimpleName();
 	}
-
+	
+	public String getAgentName() {
+		return this.agName;
+	}
 	public Class getAgentClass() {
 		return this.agClass;
 	}
