@@ -154,8 +154,9 @@ public class AgentSimulEventHandler extends Thread {
 		AgentMovedEvent ame = (AgentMovedEvent) se;
 
 		SommetDessin vert = this.agentsSimulationWindow.getVueGraphe()
-				.rechercherSommet(ame.vertexId().toString());
-
+		                    .rechercherSommet(ame.vertexId().toString());
+		if (vert==null)
+			return;
 		int nbr = ame.nbrAg().intValue();
 		String nbrStr = String.valueOf(nbr);
 

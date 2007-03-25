@@ -1573,11 +1573,13 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
     }
 
     public void updateVertexState(SommetDessin vert) {
-	AgentBoxChangingVertexState box = this.boxVertices.get(vert);
+    	if (vert == null)
+    		return;
+    	AgentBoxChangingVertexState box = this.boxVertices.get(vert);
 
-	if (box != null) {
-	    box.updateBox(); // open for this vertex
-	}
+    	if (box != null) {
+    		box.updateBox(); // open for this vertex
+    	}
 
     }
 
