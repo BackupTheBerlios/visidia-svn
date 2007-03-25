@@ -845,12 +845,13 @@ public class AgentSimulator {
          *                the agent who wants to die
          */
     public void realyKillAgent(Agent ag) {
-	try {
-	    this.agentDeath(ag);
-	} catch (InterruptedException e) {
-	    System.out
-		    .println("AgentSimulator.realyKillAgent() : InterruptedException");
-	}
+    	try {
+    		this.agentDeath(ag);
+    	} catch (InterruptedException e) {
+    		System.out
+    		.println("AgentSimulator.realyKillAgent() : InterruptedException");
+    	}
+    	this.getThreadFor(ag).stop();
     }
 
     private Thread getThreadFor(Agent ag) {

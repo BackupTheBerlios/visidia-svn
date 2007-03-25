@@ -7,6 +7,6 @@ public class TerminatedStat extends AbstractAgentStat {
 	}
 
 	public String descriptionName() {
-		return "Terminated algorithms";
+		return "Terminated algorithms/killed agents";
 	}
 }

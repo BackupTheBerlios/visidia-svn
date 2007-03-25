@@ -189,11 +189,19 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * @see #move()
      */
     public void moveToDoor(int door) {
+    	if (this.isDead)
+    	{
+    		this.simulator.realyKillAgent(this);
+    	}
         try {
             this.simulator.moveAgentTo(this, door);
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
+    	if (this.isDead)
+    	{
+    		this.simulator.realyKillAgent(this);
+    	}
     }
 
     /**
@@ -248,7 +256,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Moves the agent back to the vertex from where it comes.
      */
     public void moveBack() {
-	this.moveToDoor(this.entryDoor());
+    	this.moveToDoor(this.entryDoor());
     }
 
     /**
