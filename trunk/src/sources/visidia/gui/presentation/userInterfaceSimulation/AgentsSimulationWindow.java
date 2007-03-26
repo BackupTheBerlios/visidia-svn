@@ -43,8 +43,6 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import visidia.graph.SimpleGraphEdge;
-import visidia.graph.SimpleGraphVertex;
 import visidia.gui.DistributedAlgoSimulator;
 import visidia.gui.donnees.GuiProperty;
 import visidia.gui.donnees.TableImages;

@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.swing.JOptionPane;
-
 import visidia.graph.SimpleGraph;
 import visidia.graph.SimpleGraphEdge;
 import visidia.graph.SimpleGraphVertex;
@@ -181,7 +179,7 @@ public class AgentSimulator {
 	    if (this.vertexAgentsNumber.get(vertex) != null) {
 		this.vertexAgentsNumber.get(vertex).add(ag);
 	    } else {
-		Collection<Agent> colOfAgents = new HashSet();
+		Collection<Agent> colOfAgents = new HashSet<Agent> ();
 		colOfAgents.add(ag);
 		this.vertexAgentsNumber.put(vertex, colOfAgents);
 	    }
