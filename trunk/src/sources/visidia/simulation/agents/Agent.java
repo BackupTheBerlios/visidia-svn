@@ -222,6 +222,16 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         } catch (InterruptedException e) {
             throw new SimulationAbortError(e);
         }
+		catch (MoveException e)
+		{
+			/*
+			 * This zone can be used to control new
+			 * movement exception
+			 */
+			if(e.getMouvementTypeException() == MoveException.NoDoorFound) {
+S				this.processingAgentIsolated();
+			}
+		}
     }
     
     /**
@@ -325,7 +335,25 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      }
   
     
-    
+
+    /**
+     * Processes the agent when its arrival vertex is isolated
+     * (with an arrity 0)
+     * This methode can be overridden if another processing is needed.
+     */
+        
+    public void processingAgentIsolated(){
+    	
+    Vertex   vertex_D = this.simulator.getVertexDeparture(this);
+        
+       
+    		if(!vertex_D.getVisualization())
+    			this.death();
+    		else
+    			this.moveBack();
+    		
+    	
+     }
     
     /**
      * Returns the number of vertices in the graph.
@@ -626,7 +654,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 		  this.init();
 		}
 		catch (java.lang.NullPointerException e) /*une mort brutale*/
-		{}
+		{
+			
+		}
+
 		this.death();
 	};
 

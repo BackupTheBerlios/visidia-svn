@@ -2,6 +2,8 @@ package visidia.agents.agentsmover;
 
 import java.util.Random;
 
+import visidia.simulation.agents.MoveException;
+
 import visidia.simulation.agents.Agent;
 
 /**
@@ -14,7 +16,7 @@ public class RandomWalk extends RandomAgentMover {
 		super(ag);
 	}
 
-	public final void move() throws InterruptedException {
+	public final void move() throws InterruptedException, MoveException {
 		Random rand = new Random();
 		if (0 == rand.nextInt(2)) {
 			super.move();

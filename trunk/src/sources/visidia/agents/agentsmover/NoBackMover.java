@@ -1,6 +1,7 @@
 package visidia.agents.agentsmover;
 
 import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.MoveException;
 
 /**
  * I'm a linear agent mover which try not to go to the door I have just come
@@ -12,7 +13,7 @@ public class NoBackMover extends LinearAgentMover {
 		super(ag);
 	}
 
-	protected int findNextDoor() {
+	protected int findNextDoor() throws MoveException {
 		int doorToGo;
 
 		// Asks the LinearAgentMover for the next door

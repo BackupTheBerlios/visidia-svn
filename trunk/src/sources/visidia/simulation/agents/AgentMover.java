@@ -1,5 +1,7 @@
 package visidia.simulation.agents;
 
+import visidia.simulation.agents.MoveException;
+
 /**
  * Abstract class providing different moving types for the agents. You should
  * subclass this class to create your own style of move.
@@ -33,7 +35,7 @@ public abstract class AgentMover {
 	/**
 	 * Moves the agent to the next door.
 	 */
-	public void move() throws InterruptedException {
+	public void move() throws InterruptedException, MoveException {
 		this.move(this.findNextDoor());
 	}
 
@@ -51,6 +53,6 @@ public abstract class AgentMover {
 	 * Returns the door to which the agent will go. This method needs to be
 	 * specialized in the sub-classes.
 	 */
-	protected abstract int findNextDoor();
+	protected abstract int findNextDoor() throws MoveException;
 
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
+import visidia.simulation.agents.MoveException;
 
 /**
  * Provides a linear move for an Agent. On a vertex, the agent go to the first
@@ -28,13 +29,18 @@ public class LinearAgentMover extends AgentMover {
 		Arrays.fill(this.nextDoorToGo, 0);
 	}
 
-	protected int findNextDoor() {
+	protected int findNextDoor() throws MoveException {
 		int vertex = this.agent().getVertexIdentity();
 		int doorToGo = this.nextDoorToGo[vertex];
 		int arity = this.agent().getArity();
 
 		/* The following door is the current one plus 1 */
-		this.nextDoorToGo[vertex] = (this.nextDoorToGo[vertex] + 1) % arity;
+		if(arity == 0) {
+			throw new MoveException(MoveException.NoDoorFound);
+		}
+		else {
+			this.nextDoorToGo[vertex] = (this.nextDoorToGo[vertex] + 1) % arity;
+		}
 
 		return doorToGo;
 	}

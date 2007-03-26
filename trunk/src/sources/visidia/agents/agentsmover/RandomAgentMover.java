@@ -5,6 +5,8 @@ import java.util.Random;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 
+import visidia.simulation.agents.MoveException;
+
 /**
  * Provides a random move for an Agent. On a vertex, the agent goes to a random
  * door.
@@ -17,7 +19,13 @@ public class RandomAgentMover extends AgentMover {
 		super(ag);
 	}
 
-	protected int findNextDoor() {
-		return this.rand.nextInt(this.agent().getArity());
+	protected int findNextDoor() throws MoveException {
+		int arity;
+		arity = this.agent().getArity();
+	
+		if(arity == 0)
+			throw new MoveException(MoveException.NoDoorFound);
+		else
+			return this.rand.nextInt(arity);
 	}
 }
