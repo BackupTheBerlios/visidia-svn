@@ -378,7 +378,8 @@ public class AgentSimulator {
 
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
-
+	
+	this.stats.add(new MoveStat(ag.getClass()));
 	this.stats.add(new MoveStat(ag.getClass(), ag.getIdentity()));
     }
 
