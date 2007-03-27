@@ -52,6 +52,10 @@ public class Bag {
 	}
 	
 	
+	public void replace (Object o, long occurences){
+		this.table.put(o, new Long(occurences));
+	}
+	
 	public Hashtable asHashTable() {
 		return this.table;
 	}
