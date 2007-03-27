@@ -401,13 +401,11 @@ public class AgentSimulator {
 
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass()),ag.getWhiteBoard().keys().size());
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass(), ag.getIdentity()),ag.getWhiteBoard().keys().size());
-	this.stats.max(new visidia.simulation.agents.stats.MaxNbAgent(ag.getClass()), this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MoveStat(ag.getClass())) - this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.TerminatedStat(ag.getClass())));
+	this.stats.max(new visidia.simulation.agents.stats.MaxNbAgent(ag.getClass()), this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.AgentCreationStat(ag.getClass())) - this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.TerminatedStat(ag.getClass())));
 	
 	this.stats.max(new visidia.simulation.agents.stats.MemorySizeMax(ag.getClass()),ag.getWhiteBoard().keys().size());
 	this.stats.min(new visidia.simulation.agents.stats.MemorySizeMin(ag.getClass()),ag.getWhiteBoard().keys().size());
-	
 	this.stats.replace(new visidia.simulation.agents.stats.MemoryAverageSize(	ag.getClass()), this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass())) / this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MoveStat(ag.getClass())));
-    //this.stats.replace(new visidia.simulation.agents.stats.MemoryAverageSize(Long.class.getClass()), 10);
 
     }
 
@@ -872,15 +870,14 @@ public class AgentSimulator {
          *                the agent who wants to die
          */
     public void realyKillAgent(Agent ag) {
-    	
-       	this.getThreadFor(ag).stop();
-    	
+    	 	
     	try {
     		this.agentDeath(ag);
     	} catch (InterruptedException e) {
     		System.out
     		.println("AgentSimulator.realyKillAgent() : InterruptedException");
     	}
+       	this.getThreadFor(ag).stop();
      }
 
     private Thread getThreadFor(Agent ag) {
