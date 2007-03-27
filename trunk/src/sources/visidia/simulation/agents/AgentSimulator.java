@@ -379,11 +379,16 @@ public class AgentSimulator {
 	data.vertex = vertexTo;
 	data.lastVertexSeen = vertexFrom;
 	
+	
 	this.stats.add(new MoveStat(ag.getClass()));
 	this.stats.add(new MoveStat(ag.getClass(), ag.getIdentity()));
+
+	this.stats.max(new visidia.simulation.agents.stats.MoveMaxStat(ag.getClass()), this.stats.getOccurrencesOf(new MoveStat(ag.getClass(), ag.getIdentity())));
+
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass()),ag.getWhiteBoard().keys().size());
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass(), ag.getIdentity()),ag.getWhiteBoard().keys().size());
 	
+
     }
 
     /**

@@ -31,6 +31,27 @@ public class Bag {
 		this.add(o, 1);
 	}
 
+	/*
+	 * Compare la valeur courante du Bag correspondant a l'objet o avec la valeur occurences,
+	 * et remplace cette valeur du Bag par le minimum des deux
+	 */
+	public void min(Object o, long occurences){
+		if (occurences < this.getOccurrencesOf(o)){
+			this.table.put(o, new Long(occurences));
+		}	
+	}
+	
+	/*
+	 * Compare la valeur courante du Bag correspondant a l'objet o avec la valeur occurences,
+	 * et remplace cette valeur du Bag par le maximum des deux
+	 */
+	public void max(Object o, long occurences){
+		if (occurences > this.getOccurrencesOf(o)){
+			this.table.put(o, new Long(occurences));
+		}	
+	}
+	
+	
 	public Hashtable asHashTable() {
 		return this.table;
 	}
