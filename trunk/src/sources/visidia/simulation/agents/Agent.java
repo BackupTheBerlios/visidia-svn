@@ -65,8 +65,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     private static int createdAgentCount = 0;
 
     private static Boolean askForLock = new Boolean(true);
-    
+ 
+ 
     private boolean isDead = false;
+
 
 
     /**
@@ -261,6 +263,13 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
      * Use to kill an agent when he have finished its work
      * during the move() method
      */
+
+
+
+	public boolean isAgentDead(){
+		return this.isDead;
+	}
+	
     public void setDeath() {
 		this.isDead = true ;
 		
@@ -712,6 +721,18 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	public void incrementStat(AbstractStat stat, long increment) {
 		this.simulator.incrementStat(stat, increment);
 	}
+    /**
+     * It is called to kill the agent with smaller Id
+     * when another agent with bigger Id reaches the subtree computed
+     * by the agent with smaller Id. 
+     *
+     */ 
+	//Aymen & Ramzy
+	public void assasinateAgent() {
+		if (!isAgentDead())	this.death();
+	}
 
-	
+	public int nbSelectedEdges=0;
+
+	public boolean canBeManipulated = true;
 }

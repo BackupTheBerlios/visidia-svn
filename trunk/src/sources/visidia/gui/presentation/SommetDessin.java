@@ -40,6 +40,8 @@ public abstract class SommetDessin extends FormeDessin {
 		this.vueGraphe.insererListeAffichage(this);
 		this.stateTable.put("label", "N"); // the state is saved in the table
 		this.stateTable.put("draw messages", "yes");
+		this.stateTable.put("Visualization", "true");
+		this.wbTable.put("Visualization", "true");
 		this.wbTable.put("label", "N");
 	}
 

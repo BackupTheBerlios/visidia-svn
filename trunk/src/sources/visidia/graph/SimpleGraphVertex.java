@@ -1,5 +1,6 @@
 package visidia.graph;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -102,6 +103,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 		int index = this.indexOf(sgv.identity());
 		this.neighbours.remove(index);
 		this.edg.remove(index);
+	
 	}
 
 	 /**

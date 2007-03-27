@@ -833,6 +833,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
     
     public void removeEdge(FormeDessin f) {
 
+
 		AreteSegment seg = (AreteSegment) f;
 		
 		// Deleting agent from simulation

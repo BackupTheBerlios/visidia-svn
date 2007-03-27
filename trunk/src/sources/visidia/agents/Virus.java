@@ -28,7 +28,7 @@ public class Virus extends Agent {
 			this.unlockVertexProperties();
 		} catch (NoSuchElementException e) {
 			this.setVertexProperty("alreadyInfected", this);
-			this.setVertexProperty("label", "B");
+			this.setVertexProperty("label", "A");
 
 			this.unlockVertexProperties();
 

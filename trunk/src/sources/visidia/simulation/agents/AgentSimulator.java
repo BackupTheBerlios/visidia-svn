@@ -1,5 +1,6 @@
 package visidia.simulation.agents;
 
+
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -53,6 +54,10 @@ public class AgentSimulator {
          * A link to the graph on which the simulation is done
          */
     public SimpleGraph graph;
+	
+	 public boolean vertexMarks[];
+	 public Integer markedBy[];
+	//public int nbSelectedEdges;
 
     /**
          * Cette hashtable permet de stocker pour un Sommet donné, les Agents
@@ -145,10 +150,12 @@ public class AgentSimulator {
 	this.evtQ = evtVQ;
 	this.ackQ = ackVQ;
 
+
 	this.movingMonitor = new MovingMonitor(this.ackQ);
 	this.movingMonitorThread = new Thread(this.movingMonitor);
 	this.movingMonitorThread.start();
     }
+
 
     /**
          * Return the collection af agents which are on the vertex that have the
@@ -209,6 +216,7 @@ public class AgentSimulator {
 	}
     }
 
+
     /**
          * Fills the agent table agents given a SimpleGraph and a default values
          * Hashtable
@@ -221,6 +229,7 @@ public class AgentSimulator {
     private void fillAgentsTable(SimpleGraph graph,
 	    Hashtable defaultAgentValues, Vector agentsRules) {
 	Enumeration vertices;
+
 
 	this.agents = new Hashtable<Agent, ProcessData>();
 	this.vertexAgentsNumber = new Hashtable<Vertex, Collection>();

@@ -34,13 +34,6 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
         this.setAgentMover("RandomAgentMover");
         this.mark();
         
-        //On récupère le sommet vers lequel l'agent se dirige
-        //pour voir s'il est éteint ou pas.
-        
-        //Ceux deux lignes sont à revoir avec Ramzy
-        //vertex_A.setProperty("NbVisited", 1);
-        //this.setProperty("Vertex"+this.getVertexIdentity(),this.getVertexIdentity());
-        
         while ( nbSelectedEdges < nbVertices - 1 ) {
         	
         	nbSelectedEdges = (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
@@ -48,7 +41,7 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
             this.move();
             
             counter = counter ++;
-            nbSelectedEdges = (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
+            
             nbVertices = (Integer)this.getWhiteBoard().getValue("nbVertices");
             
             
@@ -66,11 +59,10 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
 			                this.markDoor(this.entryDoor());
 			                
 			                this.mark();
+			                this.setProperty("Entry Door for vertex_"+this.getVertexIdentity(),this.entryDoor());
+			                this.setProperty("Vertex"+this.getVertexIdentity(),"marked by me");
 			                
-			                /*this.setProperty("port_vertex_"+this.getVertexIdentity(),this.entryDoor());
-			                this.setProperty("Vertex"+this.getVertexIdentity(),this.getVertexIdentity());*/
-			                
-			                
+			                nbSelectedEdges = (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
 			                nbSelectedEdges++;
 			                this.setProperty("nbSelectedEdges", new Integer(nbSelectedEdges));
             		
@@ -79,6 +71,11 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
             			 this.incrementStat(new FailedMoveStat(this.getClass()));
              }
             
+            	nbVertices = (Integer) this.getWhiteBoard().getValue("nbVertices");
+                this.setProperty("nbVertices", nbVertices);
+            	
+            	
+            	
             	}
                
             }
@@ -87,7 +84,8 @@ public class Spanning_Tree_Agent_WithoutId extends Agent {
     
 
     private void mark() {
-        this.setVertexProperty("marked",new Boolean(true) );
+        //this.setVertexProperty("marked",new Boolean(true) );
+        this.setVertexProperty("marked","by "+this );
     }
     //
     private boolean isMarked() {

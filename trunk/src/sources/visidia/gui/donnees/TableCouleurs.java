@@ -39,6 +39,7 @@ public class TableCouleurs {
 		TableCouleurs.tableauCouleurs.put("X", new Color(164, 27, 120));
 		TableCouleurs.tableauCouleurs.put("Y", new Color(98, 194, 239));
 		TableCouleurs.tableauCouleurs.put("Z", new Color(145, 239, 98));
+		TableCouleurs.tableauCouleurs.put("gray", Color.gray);
 
 	}
 
