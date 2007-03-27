@@ -818,65 +818,70 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
     }
 
-    public void removeVertex(FormeDessin f){
-	String x = ((SommetDessin) f).getEtiquette();
-	Integer y;
-	y = Integer.parseInt(x);
-	
-	if(this.sim != null){
-	    this.sim.deleteVertex(y);
-	}
-	
-	this.vueGraphe.deleteGraphicVertex(x);
-	this.vueGraphe.delObject(f);
-    }
-    
-    public void removeEdge(FormeDessin f){
+    public void removeVertex(FormeDessin f) {
+		String x = ((SommetDessin) f).getEtiquette();
+		Integer y;
+		y = Integer.parseInt(x);
 
-	if(this.sim != null){
-	    AreteSegment seg = (AreteSegment) f;
-	    
-	    this.sim.deleteEdge(
-		    this.sim.graph.getSimpleGraphVertex(seg.getId1()),
-		    this.sim.graph.getSimpleGraphVertex(seg.getId2()));  
+		if (this.sim != null) {
+			this.sim.deleteVertex(y);
+		}
+
+		this.vueGraphe.deleteGraphicVertex(x);
+		this.vueGraphe.delObject(f);
 	}
-    }
+    
+    public void removeEdge(FormeDessin f) {
+
+		AreteSegment seg = (AreteSegment) f;
+		
+		// Deleting agent from simulation
+		//this.sim.realyKillAgent(ag);
+		
+		if (this.sim != null) {
+			// Deleting edge from simulation
+			this.sim.deleteEdge(this.sim.graph.getSimpleGraphVertex(seg
+					.getId1()), this.sim.graph.getSimpleGraphVertex(seg
+					.getId2()));
+		}
+		
+		// Deleting edge from visualisation
+		this.vueGraphe.delObject(seg);		
+		
+	}
     
     public void but_suppression() {
-	if (this.selection.estVide()) {
-	    JOptionPane
-		    .showMessageDialog(
-			    this,
-			    "You should select the vertex or the edge you want to delete!",
-			    "Error", JOptionPane.WARNING_MESSAGE);
+		if (this.selection.estVide()) {
+			JOptionPane
+					.showMessageDialog(
+							this,
+							"You should select the vertex or the edge you want to delete!",
+							"Error", JOptionPane.WARNING_MESSAGE);
+		}
+
+		else {
+
+			Enumeration e = this.selection.elements();
+			FormeDessin firstElement = ((FormeDessin) e.nextElement());
+
+			if ((this.selection.nbElements() == 1)
+					&& (firstElement.type().equals("vertex")))
+				this.removeVertex(firstElement);
+			else if ((this.selection.nbElements() == 1)
+					&& (firstElement.type().equals("edge")))
+				this.removeEdge(firstElement);
+
+
+		}
+		this.simulationPanel.repaint();
 	}
 
-	else {
-
-
-	    Enumeration e = this.selection.elements();
-	    FormeDessin firstElement = ((FormeDessin) e.nextElement());
-
-	    if ((this.selection.nbElements() == 1)
-		    && (firstElement.type().equals("vertex"))) 
-			this.removeVertex(firstElement);
-	    else if ((this.selection.nbElements() == 1)
-		    && (firstElement.type().equals("edge")))
-			this.removeEdge(firstElement);
-
-		this.vueGraphe.delObject(firstElement);
-		
-
-	    }
-	    this.simulationPanel.repaint();
-    }
-
     /**
-         * Swithes on a vertex already swith off. You have to select the vertex
-         * before swithing it on. The vertex you select should not be a vertex
-         * already switch on.
-         * 
-         */
+	 * Swithes on a vertex already swith off. You have to select the vertex
+	 * before swithing it on. The vertex you select should not be a vertex
+	 * already switch on.
+	 * 
+	 */
 
     public void but_SwitchOn() {
 

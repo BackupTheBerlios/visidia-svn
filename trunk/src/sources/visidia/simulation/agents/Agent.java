@@ -66,7 +66,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 
     private static Boolean askForLock = new Boolean(true);
     
-  
+    private boolean isDead = false;
+
 
     /**
      * Default  constructor. Creates  a new  agent and  assigns  it an
@@ -256,7 +257,10 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         }
     }
     
-    private boolean isDead = false;
+    /**
+     * Use to kill an agent when he have finished its work
+     * during the move() method
+     */
     public void setDeath() {
 		this.isDead = true ;
 		

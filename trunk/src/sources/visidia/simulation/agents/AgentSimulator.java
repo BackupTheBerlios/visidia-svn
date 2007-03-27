@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
+import java.util.LinkedList;
 
 import visidia.graph.SimpleGraph;
 import visidia.graph.SimpleGraphEdge;
@@ -370,14 +371,18 @@ public class AgentSimulator {
 	vertexFrom = data.vertex;
 	vertexTo = vertexFrom.neighbour(door);
 
+	data.vertex = vertexTo;
+	data.lastVertexSeen = vertexFrom;
+
 	msg = new StringMessage(ag.toString());
 	msgPacket = new MessagePacket(vertexFrom.identity(), door, vertexTo
 		.identity(), msg);
 
 	this.pushMessageSendingEvent(msgPacket, ag);
 
-	data.vertex = vertexTo;
-	data.lastVertexSeen = vertexFrom;
+	//Alex: mise à jour de l'information trop tard => bogue
+	//data.vertex = vertexTo;
+	//data.lastVertexSeen = vertexFrom;
 	
 	
 	this.stats.add(new MoveStat(ag.getClass()));
@@ -394,6 +399,7 @@ public class AgentSimulator {
 	
 	this.stats.replace(new visidia.simulation.agents.stats.MemoryAverageSize(	ag.getClass()), this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass())) / this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MoveStat(ag.getClass())));
     //this.stats.replace(new visidia.simulation.agents.stats.MemoryAverageSize(Long.class.getClass()), 10);
+
     }
 
     /**
@@ -857,14 +863,16 @@ public class AgentSimulator {
          *                the agent who wants to die
          */
     public void realyKillAgent(Agent ag) {
+    	
+       	this.getThreadFor(ag).stop();
+    	
     	try {
     		this.agentDeath(ag);
     	} catch (InterruptedException e) {
     		System.out
     		.println("AgentSimulator.realyKillAgent() : InterruptedException");
     	}
-    	this.getThreadFor(ag).stop();
-    }
+     }
 
     private Thread getThreadFor(Agent ag) {
 	return this.getDataFor(ag).thread;
@@ -901,9 +909,23 @@ public class AgentSimulator {
 	SimpleGraphVertex vert_neighbours;
 
 	// delete the vertex on the other vertex
-	Enumeration d = v.neighbours();
+	Enumeration<SimpleGraphVertex> d = v.neighbours();
+	
 	while (d.hasMoreElements()) {
-	    vert_neighbours = (SimpleGraphVertex) d.nextElement();
+		
+	    vert_neighbours = d.nextElement();
+	    
+		// kill agents on the edge that is removed
+	    
+		Collection<Agent> agents = this.getAgentsOnEdge(num,vert_neighbours.identity());
+		Iterator<Agent> i = agents.iterator();
+		
+		while(i.hasNext()) {
+			this.realyKillAgent(i.next());
+		}
+
+		
+		// remove from neighbours in the simulator
 	    vert_neighbours.SwitchOffMyNeighbour(v);
 	}
 	v.setVisualization(false);
@@ -922,6 +944,7 @@ public class AgentSimulator {
      */
     public void deleteEdge(SimpleGraphVertex v1, SimpleGraphVertex v2) {
 	
+    // Removing the edge
 	v1.SwitchOffMyNeighbour(v2);
 	v2.SwitchOffMyNeighbour(v1);
 	
@@ -974,14 +997,39 @@ public class AgentSimulator {
 	}
 	else return false;
     }
+    
+    /**
+     * Returns a list of agents which are located on the edge in parameter
+     * @param v1 First Vertex 
+     * @param v2 Second vertex
+     * @return a list of agents
+     */
+    public Collection<Agent> getAgentsOnEdge(Integer v1, Integer v2) {
+    	
+    	LinkedList<Agent> listAgents = new LinkedList<Agent>();
+    	
+    	Collection<ProcessData> processData = this.agents.values();
+    	Iterator<ProcessData> i = processData.iterator();
+    	
+	    while (i.hasNext()) {
+	    	ProcessData procData = i.next();
+	    	
+	    	if(procData.lastVertexSeen.identity().equals(v1) && procData.vertex.identity().equals(v2)
+	    			|| procData.lastVertexSeen.identity().equals(v2) && procData.vertex.identity().equals(v1)) {
+	    		listAgents.add(procData.agent);
+	    	}
+	    }
+	    
+	    return listAgents;	
+    }
 
     private class ProcessData {
-	public Agent agent;
+		public Agent agent;
 
-	public Vertex vertex;
+		public Vertex vertex;
 
-	public Vertex lastVertexSeen;
+		public Vertex lastVertexSeen;
 
-	public Thread thread;
-    }
+		public Thread thread;
+	}
 }

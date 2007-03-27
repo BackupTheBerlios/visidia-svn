@@ -28,7 +28,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 
 	String nodeState;
 
-	Vector neighbours;
+	Vector<SimpleGraphVertex> neighbours;
 
 	Vector edg;
 
@@ -150,7 +150,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	/**
 	 * Retourne une enumeration des sommets voisins de ce sommet.
 	 */
-	public Enumeration neighbours() {
+	public Enumeration<SimpleGraphVertex> neighbours() {
 		return this.neighbours.elements();
 	}
 
