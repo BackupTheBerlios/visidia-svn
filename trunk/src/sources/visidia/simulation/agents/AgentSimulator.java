@@ -387,6 +387,7 @@ public class AgentSimulator {
 
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass()),ag.getWhiteBoard().keys().size());
 	this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag.getClass(), ag.getIdentity()),ag.getWhiteBoard().keys().size());
+	this.stats.max(new visidia.simulation.agents.stats.MaxNbAgent(ag.getClass()), this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.MoveStat(ag.getClass())) - this.stats.getOccurrencesOf(new visidia.simulation.agents.stats.TerminatedStat(ag.getClass())));
 	
 	this.stats.max(new visidia.simulation.agents.stats.MemorySizeMax(ag.getClass()),ag.getWhiteBoard().keys().size());
 	this.stats.min(new visidia.simulation.agents.stats.MemorySizeMin(ag.getClass()),ag.getWhiteBoard().keys().size());
