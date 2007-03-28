@@ -194,7 +194,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     public void moveToDoor(int door) {
     	if (this.isDead)
     	{
-    		this.simulator.killAgent(this);
+    		this.simulator.realyKillAgent(this);
     	}
         try {
             this.simulator.moveAgentTo(this, door);
