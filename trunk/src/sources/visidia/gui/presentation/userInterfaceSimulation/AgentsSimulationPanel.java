@@ -760,7 +760,12 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	// actualise cependant les variables x_ancien et y_ancien pour
 	// homogeneiser avec le cas général.
     }
-
+    
+    /** 
+     * Erase the dead agent into the graphic interface.
+     * 
+     * @param se agent dead event for the agent which must be erased
+     */
     public void agentDead(visidia.simulation.AgentDeadEvent se)
     {
     	synchronized (this.concurrentObject) {

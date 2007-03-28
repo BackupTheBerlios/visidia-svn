@@ -99,6 +99,10 @@ public class AgentSimulEventHandler extends Thread {
 
 	}
 
+	/**
+	 * What must be done when a AgentDeadEvent is catch.
+	 * @param se the agent dead event
+	 */
 	public void handleAgentDeadEvt(SimulEvent se)
 	{ 
 		this.agentsSimulationWindow.simulationPanel().agentDead((visidia.simulation.AgentDeadEvent) se);

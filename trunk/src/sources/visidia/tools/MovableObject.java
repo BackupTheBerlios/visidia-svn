@@ -84,6 +84,9 @@ public class MovableObject {
 		this.y = this.ay;
 	}
 	
+	/**
+	 * Put the object to its end position.
+	 */
 	public void end()
 	{
 		this.x = this.bx;
