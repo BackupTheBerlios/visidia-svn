@@ -1490,7 +1490,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
     }
 
-    private void but_agentsKiller() {
+    private void but_agentsKiller(){
 
 	Object[] agents = this.sim.getAllAgents().toArray();
 
@@ -1499,7 +1499,10 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		JOptionPane.PLAIN_MESSAGE, null, agents, null);
 
 	if (ag != null) {
+		try {
 	    this.sim.killAgent(ag);
+		}
+		catch (InterruptedException e) {} //rien à faire
 	}
 
     }

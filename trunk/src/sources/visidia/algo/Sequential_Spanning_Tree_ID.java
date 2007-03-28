@@ -174,7 +174,7 @@ public class Sequential_Spanning_Tree_ID extends Algorithm {
 															neighboursLabel[door],
 															Sequential_Spanning_Tree_ID.labels));
 								} else {
-									Vector trans = new Vector(2);
+									Vector<Object> trans = new Vector<Object>(2);
 									trans.addElement(name.elementAt(0));
 									trans.addElement(new Integer(this.nNode));
 

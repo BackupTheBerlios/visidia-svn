@@ -12,10 +12,10 @@ import java.util.Vector;
 
 public class SimpleGraphStruct implements Cloneable {
 
-	private Hashtable hash;
+	private Hashtable<Integer,Vector<Integer>> hash;
 
 	public SimpleGraphStruct() {
-		this.hash = new Hashtable();
+		this.hash = new Hashtable<Integer,Vector<Integer>> ();
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class SimpleGraphStruct implements Cloneable {
 					"Already contains the id : " + id));
 		}
 
-		this.hash.put(new Integer(id.intValue()), new Vector(5, 10));
+		this.hash.put(new Integer(id.intValue()), new Vector<Integer>(5, 10));
 	}
 
 	/**
@@ -75,8 +75,8 @@ public class SimpleGraphStruct implements Cloneable {
 					" This graph do not supports curls"));
 		}
 
-		Vector v1 = this.getNeighbourVector(id1);
-		Vector v2 = this.getNeighbourVector(id2);
+		Vector<Integer> v1 = this.getNeighbourVector(id1);
+		Vector<Integer> v2 = this.getNeighbourVector(id2);
 
 		if (v1.contains(id2) || v2.contains(id1)) {
 			return;
@@ -146,12 +146,12 @@ public class SimpleGraphStruct implements Cloneable {
 		this.getNeighbourVector(id2).remove(id1);
 	}
 
-	private Vector getNeighbourVector(Integer id) {
+	private Vector<Integer> getNeighbourVector(Integer id) {
 		if (this.contains(id)) {
 			throw new NoSuchIdException(new String(
 					" this graph don't contain id " + id));
 		}
-		return (Vector) this.hash.get(id);
+		return this.hash.get(id);
 	}
 
 	/**

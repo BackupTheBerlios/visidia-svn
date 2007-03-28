@@ -58,7 +58,7 @@ public class ElectionRmi extends AlgorithmDist {
 		int mynumber = (new Random()).nextInt() * this.getId().intValue();
 		// j envoie mon tirage a tout mes voisins
 		for (int i = 0; i < arity; i++) {
-			Vector vec = new Vector(2);
+			Vector<Integer> vec = new Vector<Integer>(2);
 			vec.add(this.getId());
 			vec.add(new Integer(mynumber));
 			this.sendTo(i, new VectorMessage((Vector) vec.clone()));
@@ -92,7 +92,7 @@ public class ElectionRmi extends AlgorithmDist {
 				if (senderId == this.getId().intValue()) {
 					this.setState("G");
 					// printStatistics();
-					Vector v = new Vector(1);
+					Vector<Boolean> v = new Vector<Boolean>(1);
 					v.add(new Boolean(true));
 					for (int i = 0; i < arity; i++) {
 						this.sendTo(i, new VectorMessage((Vector) v.clone()));
@@ -103,7 +103,7 @@ public class ElectionRmi extends AlgorithmDist {
 					this.setState("P");
 					for (int i = 0; i < arity; i++) {
 						if (i != sender) {
-							Vector vec = new Vector(2);
+							Vector<Integer> vec = new Vector<Integer> (2);
 							vec.add(new Integer(senderId));
 							vec.add(new Integer(hisnumber));
 							this.sendTo(i, new VectorMessage((Vector) vec
@@ -117,7 +117,7 @@ public class ElectionRmi extends AlgorithmDist {
 					if (this.getId().intValue() > senderId) {
 						this.setState("G");
 						// printStatistics();
-						Vector v = new Vector(1);
+						Vector<Boolean> v = new Vector<Boolean>(1);
 						v.add(new Boolean(true));
 						for (int i = 0; i < arity; i++) {
 							this.sendTo(i,
@@ -127,7 +127,7 @@ public class ElectionRmi extends AlgorithmDist {
 						this.setState("P");
 						for (int i = 0; i < arity; i++) {
 							if (i != sender) {
-								Vector vec = new Vector(2);
+								Vector<Integer> vec = new Vector<Integer>(2);
 								vec.add(new Integer(senderId));
 								vec.add(new Integer(hisnumber));
 								this.sendTo(i, new VectorMessage((Vector) vec
@@ -139,7 +139,7 @@ public class ElectionRmi extends AlgorithmDist {
 			} else { // mon etat est "P"
 				for (int i = 0; i < arity; i++) {
 					if (i != sender) {
-						Vector vec = new Vector(2);
+						Vector<Integer> vec = new Vector<Integer>(2);
 						vec.add(new Integer(senderId));
 						vec.add(new Integer(hisnumber));
 						this.sendTo(i, new VectorMessage((Vector) vec.clone()));

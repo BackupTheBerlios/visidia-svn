@@ -34,6 +34,10 @@ public class SentAgent extends MovableObject {
 	public MessageSendingEvent getEvent() {
 		return this.event;
 	}
+	
+	public String getMessage() {
+		return this.mesg;
+	}
 
 	/**
 	 * 

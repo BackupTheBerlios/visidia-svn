@@ -101,7 +101,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 
     protected SelectionUnit selectionUnit;
 
-    protected Vector sentAgentVector = new Vector(10, 10);
+    protected Vector<SentAgent> sentAgentVector = new Vector<SentAgent>(10, 10);
 
     /**
          * Cet objet sert à avoir un accès concurrent aux évènements à
@@ -189,13 +189,13 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 
 	this.selectionUnit.drawSelection(g);
     }
-
+    
     public void actionPerformed(ActionEvent e) {
 
 	synchronized (this.concurrentObject) {
 	    SentAgent sentAgent;
 	    int size = this.sentAgentVector.size();
-	    Vector tmpVect = new Vector(size);
+	    Vector<SentAgent> tmpVect = new Vector<SentAgent>(size);
 	    for (int i = 0; i < size; i++) {
 		sentAgent = (SentAgent) this.sentAgentVector.elementAt(i);
 		if (sentAgent.isIntoBounds()) {
@@ -238,7 +238,7 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
     public void stop() {
 	this.timer.stop();
 	synchronized (this.concurrentObject) {
-	    this.sentAgentVector = new Vector(10, 10);
+	    this.sentAgentVector = new Vector<SentAgent>(10, 10);
 	}
     }
 
@@ -761,4 +761,16 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
 	// homogeneiser avec le cas général.
     }
 
+    public void agentDead(visidia.simulation.AgentDeadEvent se)
+    {
+    	synchronized (this.concurrentObject) {
+    		int size = this.sentAgentVector.size();
+
+    		for (int i = 0; i < size; i++) {
+    			if (this.sentAgentVector.elementAt(i).getMessage().equals(se.getAgentName()))
+    				this.sentAgentVector.elementAt(i).end();
+    		}
+    	}
+    }
+    
 }

@@ -1,6 +1,5 @@
 package visidia.graph;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Enumeration;

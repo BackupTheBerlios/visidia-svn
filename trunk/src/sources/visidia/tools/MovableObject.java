@@ -83,4 +83,10 @@ public class MovableObject {
 		this.x = this.ax;
 		this.y = this.ay;
 	}
+	
+	public void end()
+	{
+		this.x = this.bx;
+		this.y = this.by;
+	}
 }

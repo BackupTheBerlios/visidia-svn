@@ -69,7 +69,9 @@ public class AgentSimulEventHandler extends Thread {
 				}
 
 				switch (simEvt.type()) {
-
+				case SimulConstants.AGENT_DEAD:
+				    this.handleAgentDeadEvt(simEvt);
+				    break;
 				case SimulConstants.MESSAGE_SENT:
 					this.handleMessageSentEvt(simEvt);
 					break;
@@ -97,6 +99,11 @@ public class AgentSimulEventHandler extends Thread {
 
 	}
 
+	public void handleAgentDeadEvt(SimulEvent se)
+	{ 
+		this.agentsSimulationWindow.simulationPanel().agentDead((visidia.simulation.AgentDeadEvent) se);
+	}
+	
 	public void handleMessageSentEvt(SimulEvent se) {
 		MessageSendingEvent mse = (MessageSendingEvent) se;
 

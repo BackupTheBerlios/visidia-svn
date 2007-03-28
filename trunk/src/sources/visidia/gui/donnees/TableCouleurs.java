@@ -9,10 +9,10 @@ import java.util.Hashtable;
  */
 public class TableCouleurs {
 
-	protected static Hashtable tableauCouleurs;
+	protected static Hashtable<String, Color> tableauCouleurs;
 
 	public static void setTableCouleurs() {
-		TableCouleurs.tableauCouleurs = new Hashtable();
+		TableCouleurs.tableauCouleurs = new Hashtable<String, Color>();
 		TableCouleurs.tableauCouleurs.put("A", Color.red);
 		TableCouleurs.tableauCouleurs.put("B", new Color(239, 48, 178));
 		TableCouleurs.tableauCouleurs.put("C", new Color(188, 123, 234));

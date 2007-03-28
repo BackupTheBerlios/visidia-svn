@@ -36,7 +36,7 @@ public class AgentSynchro extends Algorithm {
 	static MessageType labels = new MessageType("labels", true);
 
 	public Collection getListTypes() {
-		Collection typesList = new LinkedList();
+		Collection<MessageType> typesList = new LinkedList<MessageType>();
 		typesList.add(AgentSynchro.round1);
 		typesList.add(AgentSynchro.round2);
 		typesList.add(AgentSynchro.round3);
@@ -201,7 +201,7 @@ public class AgentSynchro extends Algorithm {
 
 			} else {
 				this.putProperty("label", new String("N"));
-				Vector ilMontChoisit = new Vector();
+				Vector<Integer> ilMontChoisit = new Vector<Integer>();
 
 				// j'envoi 0 a tout le monde
 				for (int i = 0; i < arite; i++) {

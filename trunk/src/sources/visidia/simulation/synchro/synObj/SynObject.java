@@ -16,13 +16,13 @@ public class SynObject implements Serializable {
 	 */
 	private static final long serialVersionUID = -8377178234063154445L;
 
-	public Vector synDoors = new Vector();
+	public Vector<Integer> synDoors = new Vector<Integer>();
 
 	protected boolean edgMark[];
 
 	protected boolean connected[];
 
-	protected Vector synchroCenters = new Vector();// for LC1
+	protected Vector<Integer> synchroCenters = new Vector<Integer>();// for LC1
 
 	public int center;
 

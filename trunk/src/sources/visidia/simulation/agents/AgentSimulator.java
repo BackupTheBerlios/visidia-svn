@@ -895,8 +895,10 @@ public class AgentSimulator {
 	 * @param ag
 	 *            the agent you want to kill
 	 */
-	public void killAgent(Agent ag) {
+	public void killAgent(Agent ag) throws InterruptedException {
+		Long keyArr = new Long(this.numGen.alloc());
 		ag.setDeath();
+		this.evtQ.put(new visidia.simulation.AgentDeadEvent(keyArr, ag.toString()));
 	}
 
 	/**
@@ -918,7 +920,6 @@ public class AgentSimulator {
 			System.out
 					.println("AgentSimulator.realyKillAgent() : InterruptedException");
 		}
-		// this.getThreadFor(ag).stop();
 	}
 
 	private Thread getThreadFor(Agent ag) {
