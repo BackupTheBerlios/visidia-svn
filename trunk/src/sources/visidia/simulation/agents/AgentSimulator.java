@@ -895,10 +895,13 @@ public class AgentSimulator {
 	 * @param ag
 	 *            the agent you want to kill
 	 */
-	public void killAgent(Agent ag) throws InterruptedException {
+	public void killAgent(Agent ag) {
 		Long keyArr = new Long(this.numGen.alloc());
 		ag.setDeath();
-		this.evtQ.put(new visidia.simulation.AgentDeadEvent(keyArr, ag.toString()));
+		try {
+			this.evtQ.put(new visidia.simulation.AgentDeadEvent(keyArr, ag.toString()));
+		}
+		catch (InterruptedException e) {}
 	}
 
 	/**
@@ -1004,7 +1007,7 @@ public class AgentSimulator {
 		Iterator<Agent> i = agents.iterator();
 
 		while (i.hasNext()) {
-			this.realyKillAgent(i.next());
+			this.killAgent(i.next());
 		}
 		
 		

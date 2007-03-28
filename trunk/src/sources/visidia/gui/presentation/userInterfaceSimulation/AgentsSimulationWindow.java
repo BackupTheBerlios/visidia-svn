@@ -1491,22 +1491,16 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
     }
 
     private void but_agentsKiller(){
+    	Object[] agents = this.sim.getAllAgents().toArray();
+    	Agent ag = (Agent) JOptionPane.showInputDialog(this,
+    			"Select the agent:", "Agent's Killer",
+    			JOptionPane.PLAIN_MESSAGE, null, agents, null);
 
-	Object[] agents = this.sim.getAllAgents().toArray();
-
-	Agent ag = (Agent) JOptionPane.showInputDialog(this,
-		"Select the agent:", "Agent's Killer",
-		JOptionPane.PLAIN_MESSAGE, null, agents, null);
-
-	if (ag != null) {
-		try {
-	    this.sim.killAgent(ag);
-		}
-		catch (InterruptedException e) {} //rien à faire
-	}
-
+    	if (ag != null) {
+    		this.sim.killAgent(ag);
+    	}
     }
-
+    
     public void removeWindow(AbstractDefaultBox box) {
 	this.boxAgents.remove(box);
     }
