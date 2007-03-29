@@ -167,7 +167,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 		this.editeur.getVueGraphe().dessiner(this, g);
 
 		if (this.tracker.statusAll(false) != MediaTracker.COMPLETE) {
-			g.drawString("problemes de chargement d'image", 50, 100);
+			g.drawString("Probleme de chargement d'image", 50, 100);
 			return;
 		}
 

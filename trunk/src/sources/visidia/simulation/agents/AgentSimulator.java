@@ -29,7 +29,6 @@ import visidia.simulation.SimulatorThreadGroup;
 import visidia.simulation.agents.stats.AbstractStat;
 import visidia.simulation.agents.stats.AgentCreationStat;
 import visidia.simulation.agents.stats.EdgeStateStat;
-import visidia.simulation.agents.stats.MoveStat;
 import visidia.simulation.agents.stats.PulseStat;
 import visidia.simulation.agents.stats.SleepStat;
 import visidia.simulation.agents.stats.TerminatedStat;
@@ -390,43 +389,8 @@ public class AgentSimulator {
 		// data.vertex = vertexTo;
 		// data.lastVertexSeen = vertexFrom;
 
-		this.stats.add(new MoveStat(ag.getClass()));
-		this.stats.add(new MoveStat(ag.getClass(), ag.getIdentity()));
-
-		this.stats.max(new visidia.simulation.agents.stats.MoveMaxStat(ag
-				.getClass()), this.stats.getOccurrencesOf(new MoveStat(ag
-				.getClass(), ag.getIdentity())));
-
-		this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag
-				.getClass()), ag.getWhiteBoard().keys().size());
-		this.stats.add(new visidia.simulation.agents.stats.MemorySizeSum(ag
-				.getClass(), ag.getIdentity()), ag.getWhiteBoard().keys()
-				.size());
-		this.stats
-				.max(
-						new visidia.simulation.agents.stats.MaxNbAgent(ag
-								.getClass()),
-						this.stats
-								.getOccurrencesOf(new visidia.simulation.agents.stats.AgentCreationStat(
-										ag.getClass()))
-								- this.stats
-										.getOccurrencesOf(new visidia.simulation.agents.stats.TerminatedStat(
-												ag.getClass())));
-
-		this.stats.max(new visidia.simulation.agents.stats.MemorySizeMax(ag
-				.getClass()), ag.getWhiteBoard().keys().size());
-		this.stats.min(new visidia.simulation.agents.stats.MemorySizeMin(ag
-				.getClass()), ag.getWhiteBoard().keys().size());
-		this.stats
-				.replace(
-						new visidia.simulation.agents.stats.MemoryAverageSize(
-								ag.getClass()),
-						this.stats
-								.getOccurrencesOf(new visidia.simulation.agents.stats.MemorySizeSum(
-										ag.getClass()))
-								/ this.stats
-										.getOccurrencesOf(new visidia.simulation.agents.stats.MoveStat(
-												ag.getClass())));
+		/* Update the statistic when an agent moves */
+		this.stats.makeStatOnMove(ag);
 
 	}
 
@@ -439,7 +403,7 @@ public class AgentSimulator {
 	 * @param state
 	 */
 	public void changeDoorState(Agent ag, int door, EdgeState state)
-			throws InterruptedException {
+	throws InterruptedException {
 
 		Vertex vertexFrom, vertexTo;
 		Long key = new Long(this.numGen.alloc());
@@ -808,7 +772,7 @@ public class AgentSimulator {
 	}
 
 	public void cloneAndSend(Agent ag, Class agClass, int door)
-			throws InterruptedException {
+	throws InterruptedException {
 
 		Agent ag2;
 		Vertex vertexFrom, vertexTo;
@@ -829,7 +793,7 @@ public class AgentSimulator {
 	}
 
 	private void pushMessageSendingEvent(MessagePacket mesgPacket, Agent ag)
-			throws InterruptedException {
+	throws InterruptedException {
 
 		Long key = new Long(this.numGen.alloc());
 		Long keyDep = new Long(this.numGen.alloc());
@@ -876,7 +840,7 @@ public class AgentSimulator {
 
 		return data.thread;
 	}
-	
+
 	/**
 	 * Method in charge of the suppression of the thread associated to an Agent
 	 * @param ag
@@ -921,7 +885,7 @@ public class AgentSimulator {
 
 		} catch (InterruptedException e) {
 			System.out
-					.println("AgentSimulator.realyKillAgent() : InterruptedException");
+			.println("AgentSimulator.realyKillAgent() : InterruptedException");
 		}
 	}
 
@@ -1009,8 +973,8 @@ public class AgentSimulator {
 		while (i.hasNext()) {
 			this.killAgent(i.next());
 		}
-		
-		
+
+
 	}
 
 	/**
