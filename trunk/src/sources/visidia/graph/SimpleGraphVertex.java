@@ -383,7 +383,9 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * 
 	 * public String getNodeState() { return nodeState.getString(); }
       */
-	
+	/**
+	 * it changes the color of the vertex into <i>color</i>.
+	 */
 	public void changeColor(AgentSimulator sim, String color){
 		this.setProperty("label", color);
 		Long numb = new Long(sim.getNumGen().alloc());

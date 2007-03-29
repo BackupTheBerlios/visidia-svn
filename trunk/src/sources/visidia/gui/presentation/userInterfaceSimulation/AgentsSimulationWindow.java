@@ -43,6 +43,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import visidia.graph.SimpleGraphVertex;
 import visidia.gui.DistributedAlgoSimulator;
 import visidia.gui.donnees.GuiProperty;
 import visidia.gui.donnees.TableImages;
@@ -901,6 +902,8 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		String x = ((SommetDessin) firstElement).getEtiquette();
 		Integer y;
 		y = Integer.parseInt(x);
+		SimpleGraphVertex v = this.sim.getGraph().getSimpleGraphVertex(y);
+		v.changeColor(sim, "N");
 		if (!this.sim.switchONVertex(y))
 		    JOptionPane.showMessageDialog(this,
 			    "The vertex selected is already switch on!",
@@ -942,7 +945,8 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		String x = ((SommetDessin) firstElement).getEtiquette();
 		Integer y;
 		y = Integer.parseInt(x);
-
+		SimpleGraphVertex v = this.sim.getGraph().getSimpleGraphVertex(y);
+        v.changeColor(sim, "Switch Off");
 		if (!this.sim.switchOFFVertex(y))
 		    JOptionPane.showMessageDialog(this,
 			    "The vertex selected is already switch off!!",
