@@ -770,11 +770,12 @@ public class AgentsSimulationPanel extends JPanel implements ActionListener,
     {
     	synchronized (this.concurrentObject) {
     		int size = this.sentAgentVector.size();
-
+    		Vector<SentAgent> tmpVec = new Vector<SentAgent>(size);
     		for (int i = 0; i < size; i++) {
-    			if (this.sentAgentVector.elementAt(i).getMessage().equals(se.getAgentName()))
-    				this.sentAgentVector.elementAt(i).end();
+    			if (! this.sentAgentVector.elementAt(i).getMessage().equals(se.getAgentName()))
+    				tmpVec.add(this.sentAgentVector.elementAt(i));
     		}
+    	this.sentAgentVector = tmpVec;
     	}
     }
     
