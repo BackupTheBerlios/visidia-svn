@@ -21,7 +21,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
      boolean[] vertexMarks;
      
         
-     
+    
     
     protected void init() {
        

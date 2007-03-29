@@ -25,6 +25,9 @@ public class RandomAgentMover extends AgentMover {
 	
 		if(arity == 0)
 			throw new MoveException(MoveException.NoDoorFound);
+		else if(!(this.agent().getSimulator().getVertexArrival(this.agent()).getVisualization())) {
+			throw new MoveException(MoveException.SwitchedOffVertex);
+		}
 		else
 			return this.rand.nextInt(arity);
 	}

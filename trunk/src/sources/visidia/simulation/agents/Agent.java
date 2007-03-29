@@ -234,6 +234,9 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 			if(e.getMouvementTypeException() == MoveException.NoDoorFound) {
 				this.processingAgentIsolated();
 			}
+			else if(e.getMouvementTypeException() == MoveException.SwitchedOffVertex) {
+				this.processingAgentWhenSwitchingOff();
+			}		
 		}
     }
     
