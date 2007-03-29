@@ -1069,4 +1069,12 @@ public class AgentSimulator {
 
 		public volatile Thread thread;
 	}
+
+	public NumberGenerator getNumGen() {		
+		return numGen;
+	}
+
+	public VQueue getEvtQ() {
+		return evtQ;
+	}
 }
