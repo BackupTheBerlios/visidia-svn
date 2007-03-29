@@ -8,6 +8,7 @@ import java.util.Hashtable;
 
 import javax.swing.JOptionPane;
 
+import visidia.graph.SimpleGraphVertex;
 import visidia.gui.donnees.VertexPropertyTableModel;
 import visidia.gui.presentation.SommetDessin;
 import visidia.gui.presentation.userInterfaceSimulation.AgentsSimulationWindow;
@@ -160,8 +161,17 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
                  }
                  Enumeration elt = this.parent.selection.elements();
                  SommetDessin firstElement = ((SommetDessin)elt.nextElement());
-                
+                 
                 if  (firstElement.type().equals("vertex")){
+                	if (s == "label") {
+                		// a revoir: une méthode à part entière!
+                		SimpleGraphVertex vertex;        
+                		String x = ((SommetDessin)firstElement).getEtiquette();
+                    	Integer y;
+                    	y = Integer.parseInt(x) ;
+                    	vertex =  this.parent.getSimulator().graph.getSimpleGraphVertex(y) ;
+                		vertex.changeColor(this.parent.getSimulator(), value);
+                	}
                 	firstElement.setWhiteBoardValue(s, value);
                 	this.table.setValueAt(value,j,2);
                 }

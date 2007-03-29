@@ -933,6 +933,9 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	    Enumeration e = this.selection.elements();
 	    FormeDessin firstElement = ((FormeDessin) e.nextElement());
 
+	    
+	    
+	    
 	    if ((this.selection.nbElements() == 1)
 		    && (firstElement.type().equals("vertex"))) {
 
@@ -1587,6 +1590,11 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
     public Hashtable getDefaultProperties() {
 	return this.defaultProperties;
     }
+
+	public AgentSimulator getSimulator() {
+		
+		return this.sim;
+	}
 
     /*
          * Solution non fonctionnelle

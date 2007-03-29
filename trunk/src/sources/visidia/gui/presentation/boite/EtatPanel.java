@@ -64,7 +64,7 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
 		this.listeItems.addElement("P");
 		this.listeItems.addElement("Q");
 		this.listeItems.addElement("R");
-		this.listeItems.addElement("S");
+		//this.listeItems.addElement("S");
 		this.listeItems.addElement("T");
 		this.listeItems.addElement("U");
 		this.listeItems.addElement("V");
@@ -72,6 +72,7 @@ public class EtatPanel extends JPanel implements ListSelectionListener {
 		this.listeItems.addElement("X");
 		this.listeItems.addElement("Y");
 		this.listeItems.addElement("Z");
+		//this.listeItems.addElement("Switch Off");
 
 		this.liste = new JList(this.listeItems);
 

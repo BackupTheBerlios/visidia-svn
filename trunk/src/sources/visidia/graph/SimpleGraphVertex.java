@@ -9,6 +9,9 @@ import java.util.Set;
 import java.util.Vector;
 
 import visidia.misc.ForbiddenCallException;
+import visidia.simulation.LabelChangeEvent;
+import visidia.simulation.SimulationAbortError;
+import visidia.simulation.agents.AgentSimulator;
 import visidia.tools.agents.WhiteBoard;
 import visidia.visidiassert.VisidiaAssertion;
 
@@ -379,5 +382,20 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * nodeState; }
 	 * 
 	 * public String getNodeState() { return nodeState.getString(); }
-	 */
+      */
+	
+	public void changeColor(AgentSimulator sim, String color){
+		this.setProperty("label", color);
+		Long numb = new Long(sim.getNumGen().alloc());
+		LabelChangeEvent lce;
+		lce = new LabelChangeEvent(numb, ((Vertex)this).identity(),(String)color);
+		try {
+		    sim.getEvtQ().put(lce);
+		} catch (InterruptedException e) {
+		    throw new SimulationAbortError(e) ;
+		}
+	}
+	
+	
+	
 }

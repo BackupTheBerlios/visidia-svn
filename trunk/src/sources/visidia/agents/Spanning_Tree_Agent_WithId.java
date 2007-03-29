@@ -52,8 +52,9 @@ public class Spanning_Tree_Agent_WithId extends Agent {
          * A tree has nbVertices - 1 edges.
          */
         while (nbSelectedEdges < (nbVertices - 1) ) {
-       
-            this.move();
+        	
+        	
+        	this.move();
             Vertex vertex_A = this.getSimulator().getVertexArrival(this);
             if (vertex_A.degree()==0) this.death();
             if(!vertex_A.getVisualization()){
@@ -75,7 +76,10 @@ public class Spanning_Tree_Agent_WithId extends Agent {
 	                this.setProperty("Vertex"+this.getVertexIdentity(),"marked by me");
 	                
 	                
-	                nbSelectedEdges= (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
+	               
+                    //Mise à jour de la variable nbSelectedEdges: ceci permet de tenir compte des
+	            	//modifications que peut apporter l'utilisateur pendant l'exécution de l'algo.
+	            	nbSelectedEdges= (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
 	                nbSelectedEdges ++;
 	                this.setProperty("nbSelectedEdges", nbSelectedEdges);
 	                
@@ -90,13 +94,14 @@ public class Spanning_Tree_Agent_WithId extends Agent {
             }
 
             nbVertices = (Integer) this.getWhiteBoard().getValue("nbVertices");
-            this.setProperty("nbVertices", nbVertices);
+            //this.setProperty("nbVertices", nbVertices);
+            
+            nbSelectedEdges= (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
         }
     }
 
     private void mark (int vertex) {
         this.vertexMarks[vertex] = true;
-        //this.setVertexProperty("marked",new Boolean(true)+"by "+this );
         this.setVertexProperty("marked","by "+this );
     }
 

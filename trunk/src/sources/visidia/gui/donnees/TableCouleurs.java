@@ -31,7 +31,7 @@ public class TableCouleurs {
 		TableCouleurs.tableauCouleurs.put("P", Color.cyan);
 		TableCouleurs.tableauCouleurs.put("Q", Color.white);
 		TableCouleurs.tableauCouleurs.put("R", new Color(231, 211, 22));
-		TableCouleurs.tableauCouleurs.put("S", new Color(0, 95, 162));
+		TableCouleurs.tableauCouleurs.put("S", Color.gray);
 		TableCouleurs.tableauCouleurs.put("T", new Color(255, 0, 140));
 		TableCouleurs.tableauCouleurs.put("U", new Color(174, 23, 104));
 		TableCouleurs.tableauCouleurs.put("V", new Color(138, 153, 207));
@@ -39,7 +39,7 @@ public class TableCouleurs {
 		TableCouleurs.tableauCouleurs.put("X", new Color(164, 27, 120));
 		TableCouleurs.tableauCouleurs.put("Y", new Color(98, 194, 239));
 		TableCouleurs.tableauCouleurs.put("Z", new Color(145, 239, 98));
-		TableCouleurs.tableauCouleurs.put("gray", Color.gray);
+		//TableCouleurs.tableauCouleurs.put("Switch Off", Color.gray);
 
 	}
 
