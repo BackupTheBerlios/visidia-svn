@@ -1,0 +1,74 @@
+\visidia est une application de simulation d'exécution d'algorithmes distribués.
+Pour une bonne compréhension de ce rapport, nous allons vous présenter les
+principes de l'algorithmique distribué.
+
+\section{Présentation de l'algorithmique distribuée}
+
+\subsection{Définition}
+Tout algorithme distribué s'execute sur un réseau. Un réseau pouvant être
+modélisé par un graphe où les sommets representent les entités voulant communiquer
+entre elles et les aretes representent un canal de communication entre deux
+entités. 
+Remarque : Un arc entre deux entités signifie que la communication ne peut
+s'effectuer que dans un sens.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=5cm,height=5cm]{images/graphe.png}
+  \caption{Exemple de modélisation d'un système distribué}
+\end{figure}
+
+
+\subsection{Communication}
+Dans un système distribué, la communication peut s'effectuer selon deux modes :
+\begin{itemize}
+  \item Synchrone : A chaque top horloge, on effectue des opérations
+  \item Asynchrone : les opérations peuvent se produire à n'importe quel moment.
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=8cm]{images/algodist.png}
+  \caption{Les  types  des réseaux  en  terme  de synchronisation,  un
+  schéma similaire peut être élaboré en s'appuyant sur la connaissance
+  ou pas des noeuds du réseau}
+  \label{fig:algodist}
+\end{figure}
+
+\subsection{Les deux modèles d'algorithmes}
+Il existe deux modéles d'algorithmes distribués :
+\begin{itemize}
+  \item Envoi de messages : Chaque entités dispose d'un algorithme qu'elle
+  exécute et communique avec ses entités voisines par l'envoi de message sur le
+  réseau.
+  \item Agent : Les entités du réseau possèdent une mémoire (whiteboard) et
+  n'effectuent aucun traitement ni envoi de message. On
+  fait se déplacer sur le réseau des agents (éléments possédant un algorithme et
+  une mémoire). A chaque fois qu'un agent arrive sur un sommet, il exécute son
+  algorithme, modifie éventuellement la mémoire du sommet ainsi
+  que la sienne, puis se déplace vers un autre sommet.
+\end{itemize}
+
+
+\section{Exemple d'algorithmes distribuée}
+
+Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
+existent, en voici quelques uns des plus fréquent.
+
+\subsection{Le problème de l'élection}
+On considère  un réseau dans lequel on souhaite distinguer c'est à dire élire un
+sommet parmis tous les autres.
+
+\subsection{Problèmes de reconnaissance}
+Peut-on savoir si le réseau  est un graphe complet, planaire, si c'est
+un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
+articulation, si  une arête est un  isthme ? 
+
+\subsection{Détection de la terminaison}
+La détection de la terminaison d'un algorithme distribué est souvent difficile,
+car elle nécessite pas seulement d'avoir la connaissance de la terminaison de
+son algorithme mais également de celle de tous les sommets du graphe.
+On peut cependant chercher à  avoir un détection locale de  la terminaison
+globale, c'est-à-dire qu'un processeur  peut savoir en fonction de  son état et
+de celui de ces voisins si l'algorithme est terminé.
+
+\section{Quelques applications}
