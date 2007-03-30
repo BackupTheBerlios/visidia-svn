@@ -1015,15 +1015,13 @@ public class AgentSimulator {
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
 		vertex.changeColor(this, vertex.previousColor);
-		System.out.println(vertex.connectingPorts());
+		
 		SimpleGraphVertex vert_neighbours;
 		if (!vertex.getVisualization()) {
 			Enumeration d = vertex.neighbours();
-			System.out.println(d);
+		
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				System.out.println(vert_neighbours);
-				System.out.println(vert_neighbours.getVisualization());
 				if (vert_neighbours.getVisualization()) {	
 					SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
 							vertex, vert_neighbours);
