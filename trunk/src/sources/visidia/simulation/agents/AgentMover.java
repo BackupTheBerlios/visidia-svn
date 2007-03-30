@@ -53,6 +53,6 @@ public abstract class AgentMover {
 	 * Returns the door to which the agent will go. This method needs to be
 	 * specialized in the sub-classes.
 	 */
-	protected abstract int findNextDoor() throws MoveException;
+	public abstract int findNextDoor() throws MoveException;
 
 }

@@ -13,7 +13,7 @@ public class NoBackMover extends LinearAgentMover {
 		super(ag);
 	}
 
-	protected int findNextDoor() throws MoveException {
+	public int findNextDoor() throws MoveException {
 		int doorToGo;
 
 		// Asks the LinearAgentMover for the next door

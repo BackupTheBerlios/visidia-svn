@@ -29,7 +29,7 @@ public class LinearAgentMover extends AgentMover {
 		Arrays.fill(this.nextDoorToGo, 0);
 	}
 
-	protected int findNextDoor() throws MoveException {
+	public int findNextDoor() throws MoveException {
 		int vertex = this.agent().getVertexIdentity();
 		int doorToGo = this.nextDoorToGo[vertex];
 		int arity = this.agent().getArity();

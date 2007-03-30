@@ -19,7 +19,7 @@ public class RandomAgentMover extends AgentMover {
 		super(ag);
 	}
 
-	protected int findNextDoor() throws MoveException {
+	public int findNextDoor() throws MoveException {
 		int arity;
 		arity = this.agent().getArity();
 	
