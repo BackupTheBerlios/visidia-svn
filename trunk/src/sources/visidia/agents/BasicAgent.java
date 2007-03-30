@@ -21,7 +21,11 @@ public class BasicAgent extends Agent {
 		this.setAgentMover("RandomAgentMover");
 
 		do {
-
+			try {
+				this.wait(1000L);
+			}
+			catch(Exception e) {}
+			
 			try {
 				in = (Integer) (this.getVertexProperty("Integer in")) + 1;
 			} catch (Exception e) {

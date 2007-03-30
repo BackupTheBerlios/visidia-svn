@@ -666,14 +666,8 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	 * @see #init()
 	 */
 	public final void run() {
-		try {
-		  this.init();
-		}
-		catch (java.lang.NullPointerException e) /*une mort brutale*/
-		{
-			
-		}
-
+			  this.init();
+		
 		this.death();
 	};
 
