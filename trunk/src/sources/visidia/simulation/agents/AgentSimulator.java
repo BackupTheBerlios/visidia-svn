@@ -1014,6 +1014,7 @@ public class AgentSimulator {
 	 */
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
+		
 		vertex.changeColor(this, vertex.previousColor);
 		
 		SimpleGraphVertex vert_neighbours;

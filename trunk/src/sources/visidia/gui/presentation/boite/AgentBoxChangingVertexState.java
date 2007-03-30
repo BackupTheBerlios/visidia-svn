@@ -169,13 +169,17 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
              	 
                 if  (firstElement.type().equals("vertex")){
                 	if (s == "label") {
-                		// a revoir: une méthode à part entière!
-                		
-                		vertex.changeColor(this.parent.getSimulator(), value);
+                		this.etatPanel.ardoise().changerEtat((String) value);
                 	}
                 	if(s=="Visualization"){
-                		if (value=="true") vertex.setVisualization(true);
-                		if (value=="false") vertex.setVisualization(false);
+                		if (Boolean.parseBoolean(value)){
+                			this.etatPanel.ardoise().changerEtat((String) vertex.previousColor);
+                			this.parent.getSimulator().switchONVertex(y);
+                		}	
+                		else{
+                			this.etatPanel.ardoise().changerEtat((String) "Switch Off");
+                			this.parent.getSimulator().switchOFFVertex(y);                			
+                		}
                 	}
                 	firstElement.setWhiteBoardValue(s, value);
                 	this.table.setValueAt(value,j,2);
