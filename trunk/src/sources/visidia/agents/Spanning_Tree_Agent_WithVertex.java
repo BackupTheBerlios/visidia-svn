@@ -5,7 +5,11 @@ import java.util.NoSuchElementException;
 
 import visidia.graph.Vertex;
 import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.AgentMover;
 import visidia.simulation.agents.stats.FailedMoveStat;
+import java.util.LinkedList;
+import java.util.Iterator;
+import visidia.simulation.agents.MoveException;
 
 /**
  * Implements  a spanning  tree  algorithm with  an  agent. This  agent
@@ -13,56 +17,62 @@ import visidia.simulation.agents.stats.FailedMoveStat;
  *
  * @see Spanning_Tree_Agent_WithId
  */
-public class Spanning_Tree_Agent_WithVertex extends Agent {
-	int counter = 0, visited = 1;
-    int nbSelectedEdges;
-    int nbVertices;
-  
-    /**
-     * Have a look at Spanning_Tree_Agent_WithId#init() for comments.
-     */ 
-    private void initWBVars() {
-    	
-        //Initialisation des variables qu'on veut afficher dans le white board.
-        this.setProperty("nbVertices",Integer.valueOf(this.getNetSize()));
-        this.setProperty("nbSelectedEdges", new Integer(0));
-        this.setProperty("portFrom", new Integer(-1));
-        
-    }
+public class Spanning_Tree_Agent_WithoutId extends Spanning_Tree_Agent {
+
     
     public void init() {
     	
-    	this.initWBVars();
-        
         this.setAgentMover("RandomAgentMover");
+        AgentMover am = this.getAgentMover();
         
-        this.setAsRoot(this.getIdentity());
+        //Initialisation des variables qu'on veut afficher dans le white board.
+        this.setProperty("nbVertices",Integer.valueOf(this.getNetSize()));
+        this.setProperty("nbSelectedEdges", new Integer(0));
+        
+        // Initialisation du sommet de départ
+        this.setVertexIdTree(this.getIdentity());
         
         while ( (Integer)this.getProperty("nbSelectedEdges") < (Integer)this.getProperty("nbVertices") - 1 ) {
-
         	
-            /*System.out.println("Test1 : ");
-            if((Integer)this.getProperty("nbSelectedEdges") > 0) System.out.println(this.entryDoor());
-            else System.out.println("-");*/
+        	System.out.println("nbSelectedEdges" + ((Integer)this.getProperty("nbSelectedEdges")).toString());
+        	System.out.println("nbVertices" + ((Integer)this.getProperty("nbVertices")).toString());
+        	/*
+        	 * DEPART VERTEX
+        	 */
+        	
+            // Choose the next door
+        	try {
+        		this.setProperty("ExitPort", new Integer(am.findNextDoor()));
+        	}
+        	catch(MoveException e) {
+        		this.processingAgentWhenSwitchingOff();
+        	}
+        	
+        	boolean newDoor = this.getVertexPort(this.getIdentity(), (Integer)this.getProperty("ExitPort")) == null;
+        	
+        	// Set the door as a Child
+        	if(newDoor)
+        		this.setVertexPortToChild(this.getIdentity(), (Integer)this.getProperty("ExitPort"));
+        	
+        	// Move to the choosen door
+            this.move((Integer)this.getProperty("ExitPort"));
+
             
-            // Movement
-            this.move();
-
-            System.out.println("Entri dor : ");
-            System.out.println(this.entryDoor());
-
-            System.out.println("Id : ");
-            System.out.println(this.getVertexIdentity());
-
-            this.setProperty("portFrom", this.entryDoor());
+        	/*
+        	 * ARRIVAL VERTEX
+        	 */
+            
+    		this.setProperty("EntryPort", new Integer(this.entryDoor()));
     
- 
+    		
             //Vertex vertex_A = this.getSimulator().getVertexArrival(this);
 
-
-			if (!this.isMemberOfTheTree(this.getIdentity())) {
+    		
+			if (!this.isVertexBelongToTheTree(this.getIdentity())) {
 			
-				this.setParent((Integer)this.getProperty("portFrom"),this.getIdentity());
+				System.out.println("add");
+				this.setVertexIdTree(this.getIdentity());
+				this.setVertexPortToParent(this.getIdentity(), (Integer)this.getProperty("EntryPort"));
 				
 				// Coloration graphique
 				this.markDoor(this.entryDoor());
@@ -70,58 +80,28 @@ public class Spanning_Tree_Agent_WithVertex extends Agent {
 				this.setProperty("nbSelectedEdges", (Integer)this.getProperty("nbSelectedEdges") +1);
 			
 			}
+			else if(!newDoor) {
+			}
+			else {
+				// The vertex is already member of the tree
+				System.out.println("notaddmoveback");
+				
+				// Move back
+				//this.move((Integer)this.getProperty("EntryPort"));
+				this.moveBack();
+				
+				this.delVertexPort(this.getIdentity(), (Integer)this.getProperty("EntryPort"));
+
+				System.out.println("notaddmoveback3");
+}
+			
+			System.out.println("fininit()");
 
 		}
 
 	}
             
-       
-    
 
-    private void setParent(Integer p, Integer idTree) {
-		this.setVertexProperty("IdOfTheTree",idTree);
-		this.setVertexProperty("ParentPort",new Integer(p));
-    }
-    
-    private void setAsRoot(Integer idTree) {
-		this.setVertexProperty("IdOfTheTree",idTree);
-        this.setVertexProperty("ParentPort",new Integer(-1));
-       
-    }
-    
- 
-    private int getParent() {
-        int parent;
 
-        try {
-        	parent = ((Integer)this.getVertexProperty("ParentPort")).intValue();
-        } catch (NoSuchElementException e) {
-        	parent = -2;
-        }
-
-        return parent;
-    }
-    
-    
-    private boolean isMemberOfTheTree(Integer idTree) {
-    	//return idTree.equals(this.getIdOfTheTree()) && this.getParent() != -2;
-    	return idTree.equals(this.getIdOfTheTree());
-    }
-    
-    private boolean isRootOfTheTree(Integer idTree) {
-    	return idTree.equals(this.getIdOfTheTree()) && this.getParent() == -1;
-    }
-   
-    private int getIdOfTheTree() {
-        int idOfTheTree;
-
-        try {
-        	idOfTheTree = ((Integer)this.getVertexProperty("IdOfTheTree")).intValue();
-        } catch (NoSuchElementException e) {
-        	idOfTheTree = -2;
-        }
-
-        return idOfTheTree;
-    }
     
 }
