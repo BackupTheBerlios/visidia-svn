@@ -1,7 +1,6 @@
 package visidia.agents;
 
 import java.util.Arrays;
-import visidia.graph.Vertex;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.stats.FailedMoveStat;
 
@@ -55,12 +54,7 @@ public class Spanning_Tree_Agent_WithId extends Agent {
         	
         	
         	this.move();
-            Vertex vertex_A = this.getSimulator().getVertexArrival(this);
-            if (vertex_A.degree()==0) this.death();
-            if(!vertex_A.getVisualization()){
-            	this.processingAgentWhenSwitchingOff();
-            	}
-            else{
+        	
 	            if ( ! this.isMarked(this.getVertexIdentity()) ) {
 	                /**
 	                 * The current vertex has not been seen already.
@@ -91,14 +85,13 @@ public class Spanning_Tree_Agent_WithId extends Agent {
 	            else {
 	                this.incrementStat(new FailedMoveStat(this.getClass()));
 	            }
-            }
 
             nbVertices = (Integer) this.getWhiteBoard().getValue("nbVertices");
             //this.setProperty("nbVertices", nbVertices);
             
             nbSelectedEdges= (Integer)this.getWhiteBoard().getValue("nbSelectedEdges");
         }
-    }
+}
 
     private void mark (int vertex) {
         this.vertexMarks[vertex] = true;

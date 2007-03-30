@@ -46,10 +46,10 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	private WhiteBoard whiteBoard = null;
 
 	private Collection agentsNames;
-
-	/**
-	 * 
-	 */
+	  
+	public String previousColor; 
+	
+	
 	public SimpleGraphVertex(Integer nodeId) {
 		this(nodeId, null, new Hashtable());
 	}
@@ -82,12 +82,12 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	}
 	
 	 /**
-     * Swithes on the neighbour <i>svg</i>.
+     * Switches on the neighbour <i>svg</i>.
      * @param sgv: the vertex to be added as a neighbour of the vertex <i>"this"</i>.
      * @param sge: The edge to be added to make a link between svg and the vertex <i>"this"</i>.
      * @see addNeighbour(SimpleGraphVertex sgv, SimpleGraphEdge sge)
      */  
-    public void addNeighbourToSwitchOn(SimpleGraphVertex sgv, SimpleGraphEdge sge){    	
+    public void addNeighbourToSwitchOn(SimpleGraphVertex sgv, SimpleGraphEdge sge){ 
     	this.addNeighbour(sgv, sge);
     }
     
@@ -387,6 +387,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * it changes the color of the vertex into <i>color</i>.
 	 */
 	public void changeColor(AgentSimulator sim, String color){
+		System.out.println("je suis le changement du couleur");
 		this.setProperty("label", color);
 		Long numb = new Long(sim.getNumGen().alloc());
 		LabelChangeEvent lce;
@@ -398,6 +399,10 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 		}
 	}
 	
-	
-	
+	/**
+	 * It stores the previous color of the vertex to be switch off.
+	 */
+	public void setPreviousColor(String color){
+		 previousColor= color;
+	}
 }

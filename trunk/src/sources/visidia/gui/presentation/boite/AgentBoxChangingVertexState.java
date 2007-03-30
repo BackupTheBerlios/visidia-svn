@@ -161,16 +161,21 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
                  }
                  Enumeration elt = this.parent.selection.elements();
                  SommetDessin firstElement = ((SommetDessin)elt.nextElement());
-                 
+                 SimpleGraphVertex vertex;        
+         		 String x = ((SommetDessin)firstElement).getEtiquette();
+             	 Integer y;
+             	 y = Integer.parseInt(x) ;
+             	 vertex =  this.parent.getSimulator().graph.getSimpleGraphVertex(y);
+             	 
                 if  (firstElement.type().equals("vertex")){
                 	if (s == "label") {
                 		// a revoir: une méthode à part entière!
-                		SimpleGraphVertex vertex;        
-                		String x = ((SommetDessin)firstElement).getEtiquette();
-                    	Integer y;
-                    	y = Integer.parseInt(x) ;
-                    	vertex =  this.parent.getSimulator().graph.getSimpleGraphVertex(y) ;
+                		
                 		vertex.changeColor(this.parent.getSimulator(), value);
+                	}
+                	if(s=="Visualization"){
+                		if (value=="true") vertex.setVisualization(true);
+                		if (value=="false") vertex.setVisualization(false);
                 	}
                 	firstElement.setWhiteBoardValue(s, value);
                 	this.table.setValueAt(value,j,2);

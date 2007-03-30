@@ -987,12 +987,14 @@ public class AgentSimulator {
 	 */
 	public boolean switchOFFVertex(Integer num) {
 		SimpleGraphVertex v = this.getGraph().getSimpleGraphVertex(num);
+		v.setPreviousColor((String)v.getProperty("label"));
+        v.changeColor(this, "Switch Off");
 		SimpleGraphVertex vert_neighbours;
 		if (v.getVisualization()) {
 			Enumeration d = v.neighbours();
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				vert_neighbours.SwitchOffMyNeighbour(v);
+			    vert_neighbours.SwitchOffMyNeighbour(v);
 			}
 			v.setVisualization(false);
 			v.setProperty("Visualization", false);
@@ -1012,16 +1014,22 @@ public class AgentSimulator {
 	 */
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
+		vertex.changeColor(this, vertex.previousColor);
+		System.out.println(vertex.connectingPorts());
 		SimpleGraphVertex vert_neighbours;
 		if (!vertex.getVisualization()) {
 			Enumeration d = vertex.neighbours();
+			System.out.println(d);
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				if (vert_neighbours.getVisualization()) {
+				System.out.println(vert_neighbours);
+				System.out.println(vert_neighbours.getVisualization());
+				if (vert_neighbours.getVisualization()) {	
 					SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
 							vertex, vert_neighbours);
 					vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
 				}
+				else vert_neighbours.SwitchOffMyNeighbour(vertex);
 			}
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);

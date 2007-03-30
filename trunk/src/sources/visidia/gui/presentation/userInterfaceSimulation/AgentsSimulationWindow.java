@@ -901,9 +901,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 		String x = ((SommetDessin) firstElement).getEtiquette();
 		Integer y;
-		y = Integer.parseInt(x);
-		SimpleGraphVertex v = this.sim.getGraph().getSimpleGraphVertex(y);
-		v.changeColor(sim, "N");
+		y = Integer.parseInt(x);		
 		if (!this.sim.switchONVertex(y))
 		    JOptionPane.showMessageDialog(this,
 			    "The vertex selected is already switch on!",
@@ -935,9 +933,6 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 	    Enumeration e = this.selection.elements();
 	    FormeDessin firstElement = ((FormeDessin) e.nextElement());
-
-	    
-	    
 	    
 	    if ((this.selection.nbElements() == 1)
 		    && (firstElement.type().equals("vertex"))) {
@@ -945,8 +940,6 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 		String x = ((SommetDessin) firstElement).getEtiquette();
 		Integer y;
 		y = Integer.parseInt(x);
-		SimpleGraphVertex v = this.sim.getGraph().getSimpleGraphVertex(y);
-        v.changeColor(sim, "Switch Off");
 		if (!this.sim.switchOFFVertex(y))
 		    JOptionPane.showMessageDialog(this,
 			    "The vertex selected is already switch off!!",
