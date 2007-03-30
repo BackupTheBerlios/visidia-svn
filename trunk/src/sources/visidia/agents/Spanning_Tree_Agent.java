@@ -26,7 +26,7 @@ public abstract class Spanning_Tree_Agent extends Agent {
 		this.setVertexProperty("IdTree",idTree);
     }
  
-    private Integer getVertexIdTree() {
+    protected Integer getVertexIdTree() {
         Integer idOfTheTree;
 
         try {
@@ -38,11 +38,11 @@ public abstract class Spanning_Tree_Agent extends Agent {
         return idOfTheTree;
     }
     
-    private boolean isVertexBelongToTheTree(Integer idTree) {
+    protected boolean isVertexBelongToTheTree(Integer idTree) {
     	return idTree.equals(this.getVertexIdTree());
     }
     
-    private boolean isRootOfTheTree(Integer idTree) {
+    protected boolean isRootOfTheTree(Integer idTree) {
     	return idTree.equals(this.getVertexIdTree()) && this.getVertexParent(this.getVertexIdTree()) == null;
     }
     
