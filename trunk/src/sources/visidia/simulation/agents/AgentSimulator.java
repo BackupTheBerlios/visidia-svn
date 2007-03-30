@@ -38,6 +38,7 @@ import visidia.tools.Bag;
 import visidia.tools.NumberGenerator;
 import visidia.tools.VQueue;
 
+
 /**
  * Class in charge of the simulation. Allows the communication between agents
  * and the graphic interface.
@@ -943,7 +944,7 @@ public class AgentSimulator {
 			}
 
 			// remove from neighbours in the simulator
-			vert_neighbours.SwitchOffMyNeighbour(v);
+			vert_neighbours.switchOffMyNeighbour(v);
 		}
 		v.setVisualization(false);
 		v.setProperty("Visualization", false);
@@ -962,8 +963,8 @@ public class AgentSimulator {
 	public void deleteEdge(SimpleGraphVertex v1, SimpleGraphVertex v2) {
 
 		// Removing the edge
-		v1.SwitchOffMyNeighbour(v2);
-		v2.SwitchOffMyNeighbour(v1);
+		v1.switchOffMyNeighbour(v2);
+		v2.switchOffMyNeighbour(v1);
 
 		// kill agents on the edge
 		Collection<Agent> agents = this.getAgentsOnEdge(v1.identity(), v2
@@ -994,7 +995,7 @@ public class AgentSimulator {
 			Enumeration d = v.neighbours();
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-			    vert_neighbours.SwitchOffMyNeighbour(v);
+			    vert_neighbours.switchOffMyNeighbour(v);
 			}
 			v.setVisualization(false);
 			v.setProperty("Visualization", false);
@@ -1028,7 +1029,7 @@ public class AgentSimulator {
 							vertex, vert_neighbours);
 					vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
 				}
-				else vert_neighbours.SwitchOffMyNeighbour(vertex);
+				else vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
 			}
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);

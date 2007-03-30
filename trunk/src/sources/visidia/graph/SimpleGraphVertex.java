@@ -31,7 +31,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 
 	String nodeState;
 
-	Vector<SimpleGraphVertex> neighbours;
+    Vector<SimpleGraphVertex> neighbours;
 
 	Vector edg;
 
@@ -114,7 +114,7 @@ public class SimpleGraphVertex implements Vertex, Serializable {
      * the neighbours of the vertex <i>"this"</i>.
      * @see removeNeighbour(SimpleGraphVertex sgv)
      */
-    public void SwitchOffMyNeighbour (SimpleGraphVertex svg){    	
+    public void switchOffMyNeighbour (SimpleGraphVertex svg){    	
     	this.removeNeighbour(svg); 	
     }
     
@@ -387,7 +387,6 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 * it changes the color of the vertex into <i>color</i>.
 	 */
 	public void changeColor(AgentSimulator sim, String color){
-		System.out.println("je suis le changement du couleur");
 		this.setProperty("label", color);
 		Long numb = new Long(sim.getNumGen().alloc());
 		LabelChangeEvent lce;
@@ -404,5 +403,10 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	 */
 	public void setPreviousColor(String color){
 		 previousColor= color;
+	}
+
+	public Vector getNeighbours() {
+		
+		return this.neighbours;
 	}
 }
