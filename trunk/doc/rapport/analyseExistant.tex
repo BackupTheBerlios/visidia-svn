@@ -13,7 +13,7 @@ liée à la distribution et à l'introduction de la communication entre processus, 
 des conflits de ressources.  \\
 
 C'est dans ce cadre, que les chercheurs du LaBRI ont lancé le projet \visidia
-\footnote{\url{http://www.labri.fr}}.
+\footnote{\url{http://www.labri.fr/projet/visidia}}.
 \visidia se propose de fournir un atelier composé d'outils de simulation, de
 visualisation et d'aide aux preuves devenus indispensables pour la conception,
 les tests et la validation de programmes dans des environnements distribués. Le modèle
@@ -33,7 +33,21 @@ envoi de messsages, et celle à base d'agents mobiles.
 Nous nous interresserons seulement à la simulation avec les agents mobiles
 durant ce projet.
 
-Le devéloppement de l'application s'est articulé autour d'une séparation de
+
+
+\subsection{La simulation avec agents mobiles}
+
+
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=6cm]{images/visidia_agents.png}
+  \caption{Simulation avec agents mobiles}
+  \label{fig:implantation-communication}
+\end{figure}
+
+
+Le devéloppement de l'application est articulé autour d'une séparation de
 l'architecture en trois parties, totalement indépendantes,  et communiquant
 entre elles par l'envoi de messages:
 \begin{itemize}
@@ -44,12 +58,11 @@ entre elles par l'envoi de messages:
 
 \begin{figure}[h!t]
   \centering
-  \includegraphics[width=6cm]{images/structureVisidia.eps}
+  \includegraphics[width=6cm]{images/structureVisidia.png}
   \caption{Structuration de \visidia}
   \label{fig:implantation-communication}
 \end{figure}
 
-\subsection{La simulation avec agents mobiles}
 
 \section{L'aspect technique}
 
