@@ -1,3 +1,46 @@
+\section{Présentation de visidia}
+
+\subsection{L'application}
+
+Avec la généralisation des réseaux tels que Internet et le développement d'une
+information de plus en plus complexe et massivement distribuée sur ses grands
+réseaux, de nombreuses applications industrielles, bancaires et web sont elles
+aussi devenues distribuées.\\
+
+Toutefois, le développement d'applications distribuées est un processus très difficile.
+À la complexité classique de développement d'applications centralisées, s'ajoute une complexité 
+liée à la distribution et à l'introduction de la communication entre processus, de la concurrence,
+des conflits de ressources.  \\
+
+C'est dans ce cadre, que les chercheurs du LaBRI ont lancé le projet \visidia
+\footnote{\url{http://www.labri.fr}}.
+\visidia se propose de fournir un atelier composé d'outils de simulation, de
+visualisation et d'aide aux preuves devenus indispensables pour la conception,
+les tests et la validation de programmes dans des environnements distribués. Le modèle
+classique consiste à représenter le réseau par un graphe où les 
+sommets correspondent à des machines ou processeurs, et les arêtes à des
+connexions. \\ 
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=6cm]{images/visidia_general.png}
+  \caption{L'application Visidia}
+  \label{fig:implantation-communication}
+\end{figure}
+
+\visidia implémente les deux modèles d'algorithmes distribués, la version avec
+envoi de messsages, et celle à base d'agents mobiles.
+Nous nous interresserons seulement à la simulation avec les agents mobiles
+durant ce projet.
+
+Le devéloppement de l'application s'est articulé autour d'une séparation de
+l'architecture en trois parties, totalement indépendantes,  et communiquant
+entre elles par l'envoi de messages:
+\begin{itemize}
+  \item Simulation 
+  \item Affichage
+  \item Algorithmes ou agents mobiles
+\end{itemize}
 
 \begin{figure}[h!t]
   \centering
@@ -5,3 +48,27 @@
   \caption{Structuration de \visidia}
   \label{fig:implantation-communication}
 \end{figure}
+
+\subsection{La simulation avec agents mobiles}
+
+\section{L'aspect technique}
+
+\subsection{Code source}
+
+Nous avons récupéré la dernière version de développement de \visidia. Celle-ci
+est disponible sur notre svn : 
+\begin{verbatim}
+svn checkout svn://svn.berlios.de/visidia/trunk
+\end{verbatim}
+
+Le code source de \visidia est parfois commenté avec l'outil javadoc. \\
+Très peu de classes et d'attribut ont été commentés, pour ne pas dire
+aucun. \\
+Il y a cependant quelques commentaires à l'intérieur de certaines méthodes.
+
+\subsection{Documentation}
+
+La documentation qui nous a été fournie a été en tout et pour tout le rapport de
+PFA de l'équipe précédente.\\
+Aucun rapport technique générale à l'application ou dossier de maintenance n'a
+été rédigée et transmis d'équipes en équipes.
