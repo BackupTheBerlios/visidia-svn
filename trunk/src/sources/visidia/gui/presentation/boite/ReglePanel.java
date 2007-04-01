@@ -29,7 +29,7 @@ public class ReglePanel extends JPanel implements ListSelectionListener {
 	public ReglePanel(Hashtable uneHashtable, BoiteChoix parent) {
 
 		this.ardoise = new BoutonArdoise("A", uneHashtable, parent);
-		Vector listeItems = new Vector();
+		Vector<String> listeItems = new Vector<String>();
 		JList liste = new JList();
 		JScrollPane listeAvecAscenseur;
 		listeItems.addElement("A");

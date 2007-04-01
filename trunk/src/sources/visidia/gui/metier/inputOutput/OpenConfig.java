@@ -22,7 +22,7 @@ public class OpenConfig implements Serializable {
 
 	private static final String DEFAULT_URL_FOR_VISU = "Simulator";
 
-	private Hashtable parameters = new Hashtable();
+	private Hashtable<String, Vector<String>> parameters = new Hashtable<String, Vector<String>>();
 
 	private String visuHost;
 
@@ -94,7 +94,7 @@ public class OpenConfig implements Serializable {
 
 		// vecteur contenant les urls des noeuds locaux declare sur la machine
 		// host
-		Vector vect = new Vector();
+		Vector<String> vect = new Vector<String>();
 		while (st.hasMoreTokens()) {
 			if (host == null) {
 				host = st.nextToken();
@@ -123,7 +123,7 @@ public class OpenConfig implements Serializable {
 				Vector localNodes = (Vector) this.parameters.get(aHost);
 				while (!localNodes.isEmpty() && (i < sizeOfTheGraph)) {
 					String localNode = (String) localNodes.remove(0);
-					Vector v = new Vector();
+					Vector<Integer> v = new Vector<Integer>();
 					v.addElement(new Integer(i));
 					lnt.addLocalNode(aHost, localNode, v);
 					i++;
@@ -141,7 +141,7 @@ public class OpenConfig implements Serializable {
 				while (!localNodes.isEmpty()) {
 					String localNode = (String) localNodes.remove(0);
 					if (reste > 0) {
-						Vector vect = new Vector();
+						Vector<Integer> vect = new Vector<Integer> ();
 						for (int j = current; j < current + pas + 1; j++) {
 							vect.addElement(new Integer(j));
 						}
@@ -150,7 +150,7 @@ public class OpenConfig implements Serializable {
 						current = current + pas + 1;
 						reste -= 1;
 					} else {
-						Vector vect = new Vector();
+						Vector<Integer> vect = new Vector<Integer>();
 						for (int j = current; j < current + pas; j++) {
 							vect.addElement(new Integer(j));
 						}

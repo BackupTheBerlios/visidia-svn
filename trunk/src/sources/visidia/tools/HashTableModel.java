@@ -14,22 +14,22 @@ public class HashTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 9162551228717994603L;
 
-	protected Map table = null;
+	protected Map<Object,Object> table = null;
 
-	protected List keys = null;
+	protected List<Object> keys = null;
 
-	public HashTableModel(Map table) {
+	public HashTableModel(Map<Object,Object> table) {
 		this.setProperties(table);
 	}
 
-	public void setProperties(Map table) {
+	public void setProperties(Map<Object,Object>  table) {
 
 		if (table == null) {
-			table = new Hashtable();
+			table = new Hashtable<Object,Object>();
 		}
 
 		this.table = table;
-		this.keys = new Vector(table.keySet());
+		this.keys = new Vector<Object>(table.keySet());
 		this.fireTableDataChanged();
 	}
 

@@ -29,9 +29,9 @@ public class BoiteChangingEdgeShape extends BoiteChangingShape implements
 	protected int chgtForme = -1;
 
 	/** La liste des noms de flèches possibles. */
-	private Vector edgesNames = new Vector();
+	private Vector<String> edgesNames = new Vector<String>();
 
-	private Vector edgesFactories = new Vector();
+	private Vector<FabriqueArete>  edgesFactories = new Vector<FabriqueArete>();
 
 	/** La liste de choix du type de dessin. */
 	protected JComboBox choix_type;

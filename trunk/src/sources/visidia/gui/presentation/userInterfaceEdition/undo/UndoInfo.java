@@ -9,7 +9,7 @@ import visidia.gui.presentation.FormeDessin;
  * opérations de undo/redo.
  ******************************************************************************/
 
-public class UndoInfo extends Vector {
+public class UndoInfo extends Vector<UndoInfoElement> {
 
 	/**
 	 * 

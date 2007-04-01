@@ -33,8 +33,8 @@ public abstract class Algorithm implements Runnable, Cloneable {
 	public Algorithm() {
 	}
 
-	public Collection getListTypes() {
-		Collection typesList = new LinkedList();
+	public Collection<MessageType> getListTypes() {
+		Collection<MessageType> typesList = new LinkedList<MessageType>();
 		typesList.add(MessageType.defaultMessageType);
 		return typesList;
 	}

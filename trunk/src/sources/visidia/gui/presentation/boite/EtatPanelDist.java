@@ -25,7 +25,7 @@ public class EtatPanelDist extends JPanel implements ListSelectionListener {
 	public EtatPanelDist(Hashtable uneHashtable,
 			BoiteChangementEtatSommetDist parent, String defaultValue) {
 		this.ardoise = new EtatArdoiseDist(uneHashtable, parent);
-		Vector listeItems = new Vector();
+		Vector<String> listeItems = new Vector<String>();
 		JList liste = new JList();
 		JScrollPane listeAvecAscenseur;
 		listeItems.addElement("A");

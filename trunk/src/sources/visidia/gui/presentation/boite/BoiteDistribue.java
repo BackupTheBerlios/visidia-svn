@@ -265,7 +265,7 @@ public class BoiteDistribue implements ActionListener {
 
 	public final static Enumeration tri(Enumeration v_enum, int taille) {
 
-		Vector triSommet = new Vector(taille);
+		Vector<Sommet> triSommet = new Vector<Sommet>(taille);
 
 		while (v_enum.hasMoreElements()) {
 			Sommet unSommet = (Sommet) v_enum.nextElement();

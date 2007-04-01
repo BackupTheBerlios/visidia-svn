@@ -112,7 +112,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 
 	private int drag_n_dropVertex_Y;
 
-	protected Vector vecteurImages;
+	protected Vector<Image> vecteurImages;
 
 	private SommetDessin ancien_sommet_sous_souris; // ww
 
@@ -121,7 +121,7 @@ public class GrapheVisuPanel extends JPanel implements MouseListener,
 	 */
 	public GrapheVisuPanel(Editeur un_editeur) {
 		this.tracker = new MediaTracker(this);
-		this.vecteurImages = new Vector();
+		this.vecteurImages = new Vector<Image>();
 		this.vecteurImages.add(TableImages.getImage("image1"));
 		this.vecteurImages.add(TableImages.getImage("image2"));
 		this.vecteurImages.add(TableImages.getImage("image3"));

@@ -28,7 +28,7 @@ public class ListeChoixImage extends JPanel implements ListSelectionListener {
 
 	public ListeChoixImage(SommetDessin un_sommet) {
 		this.ardoise = new Ardoise(un_sommet.getImage());
-		Vector listeItems = new Vector();
+		Vector<String> listeItems = new Vector<String>();
 		JList liste = new JList();
 		JScrollPane listeAvecAscenseur;
 		listeItems.addElement("no icon              ");

@@ -555,7 +555,7 @@ public class NodeTry extends UnicastRemoteObject implements NodeInterfaceTry {
 	}
 
 	public Vector getMessageNumber() throws RemoteException {
-		Vector vect = new Vector();
+		Vector<Integer> vect = new Vector<Integer>();
 		vect.addElement(new Integer(this.messageNumber));
 		vect.addElement(new Integer(this.labelMessages));
 		vect.addElement(new Integer(this.synchMessages));

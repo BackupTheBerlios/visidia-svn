@@ -72,16 +72,16 @@ class MyTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 5496722266864029765L;
 
-	Vector data;
+	Vector<Vector<Object>> data;
 
 	Vector<String> columnNames;
 
-	Vector notEditable;
+	Vector<Integer> notEditable;
 
 	public MyTableModel() {
-		this.notEditable = new Vector();
-		Vector tmp = new Vector();
-		this.data = new Vector();
+		this.notEditable = new Vector<Integer>();
+		Vector<Object> tmp = new Vector<Object>();
+		this.data = new Vector<Vector<Object>>();
 
 		tmp.addElement(new Boolean(true));
 		tmp.addElement("enter the local Node Url");
@@ -165,7 +165,7 @@ class MyTableModel extends AbstractTableModel {
 
 	public void insert() {
 		int index = this.getRowCount();
-		Vector tmp = new Vector();
+		Vector<Object> tmp = new Vector<Object>();
 		tmp.addElement(new Boolean(true));
 		tmp.addElement("");
 		tmp.addElement("none");
@@ -175,7 +175,7 @@ class MyTableModel extends AbstractTableModel {
 
 	public int insert(String url) {
 		int index = this.getRowCount();
-		Vector tmp = new Vector();
+		Vector<Object> tmp = new Vector<Object>();
 		tmp.addElement(new Boolean(true));
 		tmp.addElement(url);
 		tmp.addElement("none");
@@ -185,7 +185,7 @@ class MyTableModel extends AbstractTableModel {
 	}
 
 	public Vector getSelectedRows() {
-		Vector v = new Vector();
+		Vector<Integer> v = new Vector<Integer>();
 		for (int i = 0; i < this.data.size(); i++) {
 			if (((Boolean) ((Vector) this.data.elementAt(i)).elementAt(0))
 					.equals(new Boolean(true))) {

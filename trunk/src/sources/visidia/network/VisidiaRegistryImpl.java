@@ -35,13 +35,13 @@ public class VisidiaRegistryImpl extends UnicastRemoteObject implements
 	private FenetreDeSimulationDist parent;
 
 	// private LocalNodeSelection lns;
-	private Vector data;
+	private Vector<Vector<String>> data;
 
 	public VisidiaRegistryImpl(FenetreDeSimulationDist parent)
 			throws RemoteException {
 		super();
 		this.parent = parent;
-		this.data = new Vector();
+		this.data = new Vector<Vector<String>>();
 	}
 
 	public void showLocalNodes(int sizeOfTheGraph) throws RemoteException {
@@ -83,7 +83,7 @@ public class VisidiaRegistryImpl extends UnicastRemoteObject implements
 
 	public void register(NodeServer localNode, String host, String url)
 			throws RemoteException {
-		Vector tmp = new Vector();
+		Vector<String> tmp = new Vector<String>();
 		tmp.addElement(host);
 		tmp.addElement(url);
 		if (!this.data.contains(tmp)) {
@@ -220,7 +220,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 	}
 
 	private void delete() {
-		Vector v = new Vector();
+		Vector<Vector<String>> v = new Vector<Vector<String>>();
 		Vector selectedRows = this.getSelectedRows();
 		while (!selectedRows.isEmpty()) {
 			int index = ((Integer) selectedRows.remove(0)).intValue();
@@ -231,7 +231,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 			this.table.fireTableDataChanged();
 
 			selectedRows = this.getSelectedRows();
-			Vector tmp = new Vector();
+			Vector<String> tmp = new Vector<String>();
 			tmp.addElement(aHost);
 			tmp.addElement(localNode);
 			v.addElement(tmp);
@@ -254,7 +254,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 				int index = ((Integer) selectedRows.remove(0)).intValue();
 				String aHost = (String) this.getValueAt(index, 0);
 				String localNode = (String) this.getValueAt(index, 1);
-				Vector v = new Vector();
+				Vector<Integer> v = new Vector<Integer>();
 				v.addElement(new Integer(i));
 				lnt.addLocalNode(aHost, localNode, v);
 				i++;
@@ -269,7 +269,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 				String aHost = (String) this.getValueAt(index, 0);
 				String localNode = (String) this.getValueAt(index, 1);
 				if (reste > 0) {
-					Vector vect = new Vector();
+					Vector<Integer> vect = new Vector<Integer>();
 					for (int j = current; j < current + pas + 1; j++) {
 						vect.addElement(new Integer(j));
 					}
@@ -277,7 +277,7 @@ class LocalNodeSelection extends JFrame implements ActionListener {
 					current = current + pas + 1;
 					reste -= 1;
 				} else {
-					Vector vect = new Vector();
+					Vector<Integer> vect = new Vector<Integer>();
 					for (int j = current; j < current + pas; j++) {
 						vect.addElement(new Integer(j));
 					}
@@ -361,13 +361,14 @@ class TableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = -2939182826721062106L;
 
-	Vector data, columnNames;
+	Vector<Vector<Object>> data;
+	Vector<String> columnNames;
 
 	public TableModel() {
 		// Vector tmp = new Vector();
-		this.data = new Vector();
+		this.data = new Vector<Vector<Object>>();
 
-		this.columnNames = new Vector();
+		this.columnNames = new Vector<String>();
 		this.columnNames.addElement("Host");
 		this.columnNames.addElement("URL");
 		this.columnNames.addElement("Selected");
@@ -394,7 +395,7 @@ class TableModel extends AbstractTableModel {
 	 * each cell. If we didn't implement this method, then the last column would
 	 * contain text ("true"/"false"), rather than a check box.
 	 */
-	public Class getColumnClass(int c) {
+	public Class<?> getColumnClass(int c) {
 		return this.getValueAt(0, c).getClass();
 	}
 
@@ -415,7 +416,7 @@ class TableModel extends AbstractTableModel {
 	 * Don't need to implement this method unless your table's data can change.
 	 */
 	public void setValueAt(Object value, int row, int col) {
-		((Vector) this.data.elementAt(row)).set(col, value);
+		this.data.elementAt(row).set(col, value);
 		this.fireTableCellUpdated(row, col);
 	}
 
@@ -437,13 +438,13 @@ class TableModel extends AbstractTableModel {
 	}
 
 	public void clean() {
-		this.data = new Vector();
+		this.data = new Vector<Vector<Object>>();
 		this.fireTableDataChanged();
 	}
 
 	public void insert(String host, String url) {
 		int index = this.getRowCount();
-		Vector tmp = new Vector();
+		Vector<Object> tmp = new Vector<Object>();
 		tmp.addElement(host);
 		tmp.addElement(url);
 		tmp.addElement(new Boolean(true));
@@ -458,8 +459,8 @@ class TableModel extends AbstractTableModel {
 		this.fireTableRowsInserted(index, index);
 	}
 
-	public Vector getSelectedRows() {
-		Vector v = new Vector();
+	public Vector<Integer> getSelectedRows() {
+		Vector<Integer> v = new Vector<Integer>();
 		for (int i = 0; i < this.data.size(); i++) {
 			if (((Boolean) ((Vector) this.data.elementAt(i)).elementAt(2))
 					.equals(new Boolean(true))) {

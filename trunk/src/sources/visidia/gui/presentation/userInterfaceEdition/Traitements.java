@@ -114,7 +114,7 @@ public class Traitements {
 			SommetDessin sommet_courant = (SommetDessin) e.nextElement();
 			VueGraphe un_graphe = sommet_courant.getVueGraphe();
 
-			Vector sommets_deja_traites = new Vector();
+			Vector<SommetDessin> sommets_deja_traites = new Vector<SommetDessin>();
 			sommets_deja_traites.addElement(sommet_courant);
 
 			while (e.hasMoreElements()) {
