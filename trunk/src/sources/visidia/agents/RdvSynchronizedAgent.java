@@ -55,7 +55,7 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 
 				/* If here, the agent 'this' has the better ID on the vertex : it adds to its memory
 				 * the whiteboard of the vertex on which it is */
-				this.setProperty("myName", this.getProperty("myName") + ((String) this.getVertexProperty("fusion")));
+				this.setProperty("myName", this.getProperty("myName") + " kills : (" + ((String) this.getVertexProperty("fusion")) + " )");
 				this.setVertexProperty("fusion", "");
 
 			}
