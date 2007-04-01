@@ -1,13 +1,6 @@
 package visidia.agents;
 
-import java.util.NoSuchElementException;
-
-import visidia.graph.Vertex;
-import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
-import visidia.simulation.agents.stats.FailedMoveStat;
-import java.util.LinkedList;
-import java.util.Iterator;
 import visidia.simulation.agents.MoveException;
 
 /**

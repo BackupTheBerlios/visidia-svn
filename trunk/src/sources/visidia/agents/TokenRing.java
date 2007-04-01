@@ -136,11 +136,11 @@ public class TokenRing extends Agent
 	{
 		if (b)
 		{
-			this.setVertexProperty(new String("label"), new String(this.StTrue));
+			this.setVertexProperty(new String("label"), new String(TokenRing.StTrue));
 		}
 		else
 		{
-			this.setVertexProperty(new String("label"), new String(this.StFalse));
+			this.setVertexProperty(new String("label"), new String(TokenRing.StFalse));
 		}
 		//this.setVertexProperty(new String("St"), new Boolean(b));
 	}
@@ -150,11 +150,11 @@ public class TokenRing extends Agent
 		try
 		{
 			//return (Boolean) this.getVertexProperty(new String("St"));
-			return ((String) this.getVertexProperty(new String("label"))).equals(this.StTrue);
+			return ((String) this.getVertexProperty(new String("label"))).equals(TokenRing.StTrue);
 		}
 		catch (java.util.NoSuchElementException e)
 		{
-			return true;
+			return false;
 		}
 	}
 }

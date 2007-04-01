@@ -64,7 +64,7 @@ public class AgentSimulator {
 	 * Cette hashtable permet de stocker pour un Sommet donné, les Agents
 	 * présent à l'intérieur de celui-ci
 	 */
-	private Hashtable<Vertex, Collection> vertexAgentsNumber;
+	private Hashtable<Vertex, Collection<Agent>> vertexAgentsNumber;
 
 	// simulator threads set
 	private SimulatorThreadGroup threadGroup;
@@ -229,7 +229,7 @@ public class AgentSimulator {
 		Enumeration vertices;
 
 		this.agents = new Hashtable<Agent, ProcessData>();
-		this.vertexAgentsNumber = new Hashtable<Vertex, Collection>();
+		this.vertexAgentsNumber = new Hashtable<Vertex, Collection<Agent>>();
 
 		vertices = graph.vertices();
 
@@ -855,44 +855,26 @@ public class AgentSimulator {
 	}	
 
 	/**
-	 * Ask for the death of one agent.
-	 * 
+	 * Ask for the death of one agent and clean simulator after this death.
+	 * This methode should not be call by an agent !
 	 * @param ag
 	 *            the agent you want to kill
 	 */
 	public void killAgent(Agent ag) {
 		Long keyArr = new Long(this.numGen.alloc());
-		ag.setDeath();
 		try {
+			this.killThreadFor(ag);
+			this.agentDeath(ag);
 			this.evtQ.put(new visidia.simulation.AgentDeadEvent(keyArr, ag.toString()));
 		}
 		catch (InterruptedException e) {}
 	}
 
-	/**
-	 * Clean simulator after the death of an agent. This function must only be
-	 * launch by the agent who wants to die.
-	 * 
-	 * @param ag
-	 *            the agent that we want to kill
-	 */
-	public void realyKillAgent(Agent ag) {
-
-		try {
-
-			this.killThreadFor(ag);
-
-			this.agentDeath(ag);
-
-		} catch (InterruptedException e) {
-			System.out
-			.println("AgentSimulator.realyKillAgent() : InterruptedException");
-		}
-	}
-
+/* not used
 	private Thread getThreadFor(Agent ag) {
 		return this.getDataFor(ag).thread;
 	}
+*/
 
 	private Vertex getVertexFor(Agent ag) {
 		return this.getDataFor(ag).vertex;
@@ -940,7 +922,7 @@ public class AgentSimulator {
 			Iterator<Agent> i = agents.iterator();
 
 			while (i.hasNext()) {
-				this.realyKillAgent(i.next());
+				this.killAgent(i.next());
 			}
 
 			// remove from neighbours in the simulator
@@ -1070,12 +1052,10 @@ public class AgentSimulator {
 
 	private class ProcessData {
 		public Agent agent;
-
 		public Vertex vertex;
-
 		public Vertex lastVertexSeen;
-
 		public volatile Thread thread;
+		
 	}
 
 	public NumberGenerator getNumGen() {		
