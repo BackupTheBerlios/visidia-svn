@@ -392,6 +392,9 @@ public class AgentSimulator {
 
 		/* Update the statistic when an agent moves */
 		this.stats.makeStatOnMove(ag);
+		
+		if (!data.vertex.getVisualization())
+			ag.processingAgentWhenSwitchingOff();
 
 	}
 
