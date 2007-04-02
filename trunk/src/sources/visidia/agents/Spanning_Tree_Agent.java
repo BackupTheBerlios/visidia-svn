@@ -110,7 +110,7 @@ public abstract class Spanning_Tree_Agent extends Agent {
 	}
 
 	/**
-	 * Return the parent vertex or null if the vertex haven't a parent (he's root)
+	 * Returns the parent vertex or null if the vertex haven't a parent (he's root)
 	 * @param idTree Identification of the tree
 	 * @return vertex parent
 	 */

@@ -45,7 +45,7 @@ public class Spanning_Tree_Agent_WithoutId extends Spanning_Tree_Agent {
 				this.setVertexPortToChild(this.getIdentity(), (Integer) this
 						.getProperty("ExitPort"));
 
-			// Move to the choosen door
+			// Move to the chosen door
 			this.move((Integer) this.getProperty("ExitPort"));
 
 			/*
@@ -54,7 +54,7 @@ public class Spanning_Tree_Agent_WithoutId extends Spanning_Tree_Agent {
 
 			this.setProperty("EntryPort", new Integer(this.entryDoor()));
 
-			//Vertex vertex_A = this.getSimulator().getVertexArrival(this);
+		
 
 			if (!this.isVertexBelongToTheTree(this.getIdentity())) {
 

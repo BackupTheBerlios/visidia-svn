@@ -86,4 +86,14 @@ public class WhiteBoard {
 		return common.keySet();
 	}
 
+	
+	
+	public boolean containsElement(Object key){
+		if (this.values.containsKey(key)) {
+			return true;
+		} else if (this.defaults.containsKey(key)) {
+			return true;
+		} else  return false;	
+	}
+	
 }
