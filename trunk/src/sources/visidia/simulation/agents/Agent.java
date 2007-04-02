@@ -65,11 +65,6 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     private static int createdAgentCount = 0;
 
     private static Boolean askForLock = new Boolean(true);
- 
- 
-    private boolean isDead = false;
-
-
 
     /**
      * Default  constructor. Creates  a new  agent and  assigns  it an
@@ -253,22 +248,6 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             throw new SimulationAbortError(e);
         }
     }
-    
-    /**
-     * Use to kill an agent when he have finished its work
-     * during the move() method
-     */
-
-
-
-	public boolean isAgentDead(){
-		return this.isDead;
-	}
-	
-    public void setDeath() {
-		this.isDead = true ;
-		
-	}
 
     /**
      * Moves the agent back to the vertex from where it comes.
@@ -298,29 +277,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
             throw new SimulationAbortError(e);
         }
     }
-
-/* 
- * A priori, on n'a pas besoin de ces deux méthodes
-    //Aymen & ramzy:  public ou protected
-    public void suspend(){  	
-    	try {
-            this.simulator.suspend(this);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    	
-    }
-    //Aymen & Ramzy public ou protected    
-    public void resume(){  	
-    	try {
-            this.simulator.resume(this);
-        } catch (InterruptedException e) {
-            throw new SimulationAbortError(e);
-        }
-    	
-    }
-    
-  */  
+ 
     /**
      * Processes the agent when its arrival vertex is switch off.
      * If its departure vertex is also switch off, the agent dies.
@@ -710,18 +667,4 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	public void incrementStat(AbstractStat stat, long increment) {
 		this.simulator.incrementStat(stat, increment);
 	}
-    /**
-     * It is called to kill the agent with smaller Id
-     * when another agent with bigger Id reaches the subtree computed
-     * by the agent with smaller Id. 
-     *
-     */ 
-	//Aymen & Ramzy
-	public void assasinateAgent() {
-		if (!isAgentDead())	this.death();
-	}
-
-	public int nbSelectedEdges=0;
-
-	public boolean canBeManipulated = true;
 }

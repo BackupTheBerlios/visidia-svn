@@ -89,11 +89,7 @@ public class WhiteBoard {
 	
 	
 	public boolean containsElement(Object key){
-		if (this.values.containsKey(key)) {
-			return true;
-		} else if (this.defaults.containsKey(key)) {
-			return true;
-		} else  return false;	
+		return (this.values.containsKey(key) || this.defaults.containsKey(key));
 	}
 	
 }
