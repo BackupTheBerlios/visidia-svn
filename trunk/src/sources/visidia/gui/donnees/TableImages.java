@@ -131,6 +131,8 @@ public class TableImages {
 					.getImage("visidia/gui/donnees/images/switchOFF.gif"));
 			TableImages.tableauImages.put("switchOn", tk
 					.getImage("visidia/gui/donnees/images/switchON.gif"));
+			TableImages.tableauImages.put("modeSuppression", tk
+					.getImage("visidia/gui/donnees/images/modeSuppression.gif"));
 		} catch (Exception e) {
 			// e.printStackTrace();
 			System.out.println("Problème lors du chargement des images");
