@@ -547,7 +547,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	this.toolBar.add(this.but_info);
 
 	this.but_SwitchOn = new JButton(new ImageIcon(TableImages
-		.getImage("vertexwb")));
+		.getImage("switchOn")));
 	this.but_SwitchOn.setToolTipText("SwitchOn");
 	this.but_SwitchOn.setAlignmentY(CENTER_ALIGNMENT);
 	this.but_SwitchOn.setEnabled(false);
@@ -555,7 +555,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 	this.toolBar.add(this.but_SwitchOn);
 
 	this.but_SwitchOff = new JButton(new ImageIcon(TableImages
-		.getImage("vertexwb")));
+		.getImage("switchOff")));
 	this.but_SwitchOff.setToolTipText("SwitchOff");
 	this.but_SwitchOff.setAlignmentY(CENTER_ALIGNMENT);
 	this.but_SwitchOff.setEnabled(false);

@@ -127,6 +127,10 @@ public class TableImages {
 					.getImage("visidia/gui/donnees/images/vertexwb.gif"));
 			TableImages.tableauImages.put("vertexdefwb", tk
 					.getImage("visidia/gui/donnees/images/vertexdefwb.gif"));
+			TableImages.tableauImages.put("switchOff", tk
+					.getImage("visidia/gui/donnees/images/switchOFF.gif"));
+			TableImages.tableauImages.put("switchOn", tk
+					.getImage("visidia/gui/donnees/images/switchON.gif"));
 		} catch (Exception e) {
 			// e.printStackTrace();
 			System.out.println("Problème lors du chargement des images");
