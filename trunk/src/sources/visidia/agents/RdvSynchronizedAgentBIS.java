@@ -27,11 +27,6 @@ public class RdvSynchronizedAgentBIS extends SynchronizedAgent {
 		Random rnd = new Random();
 
 		int agentId = this.getIdentity();
-		System.out.println(this.getProperty("myName") + " a pour id " + agentId);
-		Integer test = new Integer(agentId);
-		System.out.println(this.getProperty("myName") + " a pour Integer.id " + test);
-		this.setVertexProperty("maxId", new Integer(agentId));
-		System.out.println(this.getProperty("myName") + " a mis dans le sommet " + this.getVertexProperty("maxId"));
 
 		/* The algorithm ends when the total number of 'RdvSynchronizedAgent' on the graph is equal to 1 */
 		while (! oneAgentRdvRemaining()) {
@@ -52,7 +47,7 @@ public class RdvSynchronizedAgentBIS extends SynchronizedAgent {
 			this.nextPulse();
 
 
-			
+
 			/* If 'maxId' on the vertex is better than its ID,
 			 * it puts its memory on the vertex and then kills itself */
 			if (agentId < ((Integer) this.getVertexProperty("maxId")).intValue()){
@@ -79,7 +74,7 @@ public class RdvSynchronizedAgentBIS extends SynchronizedAgent {
 			/* Erase the memory of the vertex (memory of the agent in 'fusion' and 'maxId') */
 			this.lockVertexProperties();
 			this.setVertexProperty("fusion", "");
-			this.setVertexProperty("maxId", 0);
+			this.setVertexProperty("maxId", new Integer(0));
 			this.unlockVertexProperties();
 
 
