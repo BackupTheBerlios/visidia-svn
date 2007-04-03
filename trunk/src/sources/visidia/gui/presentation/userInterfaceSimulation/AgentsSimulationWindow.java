@@ -589,7 +589,7 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
 	this.but_suppression = new JButton(new ImageIcon(TableImages
 			.getImage("modeSuppression")));
-	this.but_suppression.setToolTipText("Mode Suppression");
+	this.but_suppression.setToolTipText("Kill vertex/edge");
 	this.but_suppression.setAlignmentY(Component.CENTER_ALIGNMENT);
 	this.but_suppression.setEnabled(true);
 	this.but_suppression.addActionListener(this);

@@ -16,7 +16,7 @@ public abstract class Fenetre extends JFrame {
 	// Caracteristiques par defaut d'un document.
 	protected static final Color COULEUR_FOND_PAR_DEFAUT = Color.lightGray;
 
-	protected static final int DIM_X_PAR_DEFAUT = 800;
+	protected static final int DIM_X_PAR_DEFAUT = 900;
 
 	protected static final int DIM_Y_PAR_DEFAUT = 600;
 

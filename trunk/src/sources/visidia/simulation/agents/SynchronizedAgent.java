@@ -109,7 +109,7 @@ public abstract class SynchronizedAgent extends Agent {
 	/**
 	 * Handles the death of the synchronized agents.
 	 */
-	protected void death() {
+	public void death() {
 
 		super.death();
 

@@ -625,7 +625,7 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
 	 * call it yourself. Instead, if you want your agent to disappear, you
 	 * should return from your #init() method.
 	 */
-	protected void death() {
+	public void death() {
 		try {
 			this.simulator.agentDeath(this);
 		} catch (InterruptedException e) {
