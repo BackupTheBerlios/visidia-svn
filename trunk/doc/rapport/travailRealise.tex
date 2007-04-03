@@ -2,7 +2,7 @@
 
 \subsection{Modification du graphe en cours d'exécution}
 
-\subsection{Structure du graphe}
+\subsubsection{Structure du graphe}
 
 Dans visidia, il y a une séparation totale entre la partie affichage et la
 partie simulation. Ainsi, \visidia manipule deux graphes : un graphe visuel et un
@@ -22,7 +22,7 @@ Pour la partie affichage, le repertoire ``gui.presentation'' contient les
 classes implémentant la structure du graphe visuel.
 
 
-\subsection{Choix de développement}
+\subsubsection{Choix de développement}
 
 Lors de la conception de \visidia, il n'a pas été prévu que le graphe visuel
 puisse évoluer au cours de la simulation.
@@ -43,21 +43,41 @@ convertir le graphe visuel vers un graphe simulation à chaque fois que l'on
 modifiait le graphe visuel. 
 Nous n'avons cependant pas choisi d'implémenter cette méthode pour des raisons
 évidentes de performance: la génération d'un nouveau graphe de simulation à
-chaque ajout ou suppression d'aretes ou sommet peut s'averer tres couteux,
+chaque ajout ou suppression d'arêtes ou sommet peut s'averer tres couteux,
 surtout avec un graphe de grande taille. \\
 
 Ainsi donc nous avons préféré pour chaques modifications possible sur le graphe visuel, 
 implémenter une méthode permettant de répercuter les effets sur le graphe de simulation.
 
-\subsection{Ajout de sommets et d'aretes}
+\subsubsection{Ajout de sommets et d'arêtes}
 
+L'ajout de sommets et d'arêtes sur le graphe visuel avait déjà été implémenté
+pour la fenetre principale de \visidia. Nous avons donc récupérer ce code, pour
+l'adapter à l'application de simulation avec agents.\\
 
+Nous avons ensuite implémenté une méthode addVertex() et addEdge() pour la
+classe AgentSimulationWindow qui pour
+chaque sommet, respectivement chaque arête, que l'on souhaite ajouter au graphe
+visuel, effectue l'opération et répercute la modification sur le graphe
+simulation.
 
-\subsection{Suppression de sommets et d'aretes}
+\subsubsection{Suppression de sommets et d'arêtes}
 
+La suppression de sommet et d'arêtes a été plus délicate à gerer que l'ajout
+puisque au moment où l'on souhaite retirer une arête ou un sommet, il est
+possible qu'un agent soit sur l'élément considéré. Il faut donc pouvoir détecter
+la présence d'un ou plusieurs agents sur un objet donné, et ensuite pouvoir le
+ou les détruire en même temps que la suppression du sommet ou de l'arête.\\
 
+Nous avons donc implémenté les méthodes removeVertex() et removeEdge() pour la
+classe AgentSimulationWindow qui pour
+chaque sommet, respectivement chaque arête, que l'on souhaite supprimer du graphe
+visuel,effectue l'opération et répercute la modification sur le graphe
+simulation. Ces deux méthodes font appel à la méthode 
 
-
+Nous avons également ajouté à la classe AgentSimulator, les méthodes
+deleteVertex et deleteEdge() qui réalise la suppression du simulateur d'un
+sommet, respectivement d'une arête, tout en gérant le cas où un agent serait présent.
 
 
 \subsection{Ajout - Suppresion d'agent en cours d'exécution}
@@ -66,6 +86,38 @@ implémenter une méthode permettant de répercuter les effets sur le graphe de sim
 
 \subsection{Modification des whiteboards}
 
+Le but de la modification de la mémoire des agents et des sommets est de simuler 
+des erreurs. Donc, grâce à cette fonctionnalité, l'utilisateur peut modifier les valeurs 
+des variables qui peuvent influencer le déroulement des algorithmes. Ceci suppose qu'il 
+a déjà stocké ces variables dans le whiteboard.
+
+\subsubsection{Modification de la mémoire des sommet}
+En effet, les variables dont la modification des valeurs peut corrompre l'exécution des algorithmes 
+varient suivant ces derniers. Cependant, certaines variables peuvent engendrer des erreurs 
+et ce quelque soit l'algorimthe. Ces variables sont le booléen \it{Visualisation} et le String \it{label}
+La première indique qu'un sommet est éteint quand elle est à false ou allumé si elle est à true. La seconde
+variable indique la couleur du sommet. Ces deux variables sont par défaut stockées dans la mémoire des sommets.
+Si l'utilisateur souhaite pouvoir modifier d'autres variables pour simuler des erreurs, il n'a qu'à stocker ces variables
+dans le whiteboard. Toute modification de de ces variables à travers la fenêtre de dialogue sera prise en compte
+et se répercute sur le déroulement de l'algorithme.
+ 
+\subsubsection{Modification des mémoires des agents}
+Dans le cas des agents, il n'y a pas des variables communes à tous les algorithmes.
+L'utilisateur est alors invité à ajouter les variables de son choix dans le whiteboard.
+Bien évidemment, comme pour la mémoire des sommets, leur modification à travers la fenêtre de dialgue sera prise en compte 
+et se répercutera sur le déroulment de l'agorithme.
+
+
+\subsection{Extinction et allumage des sommets}
+
+Cette fonctionalité permet à l'utilisateur de mettre à l'écart un sommet
+sans le supprimer du graphe. L'exécution des algorithmes se fait comme si le sommet
+ n'existait pas. Bien évidemment, une fonctionalité a été implémentée pour rallumer le
+sommet. Ces deux fonctionalités sont accessibles grâce à deux boutons dans la fenêtre de la simulation.
+Cependant, l'extinction d'un sommet necéssite, dans certains cas, des traitements 
+spéciaux pour les agents. Si un agent se dirige vers un sommet qu'on vient d'éteindre, 
+il faut qu'il reviennent d'où il vient. Si l'agent se trouve sur une arête incidente à deux sommets
+éteints l'agent se tue
 
 
 \subsection{Calcul de statistiques}
