@@ -1,0 +1,139 @@
+\documentclass{article}
+
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{graphicx}
+\usepackage[pdftex,
+  colorlinks=true,
+  pdfstartview=FitV,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue]{hyperref}
+
+\newcommand{\visidia}{ViSiDiA\xspace}
+\newcommand{\berlios}{BerliOs.de\xspace}
+\newcommand{\labri}{LaBRI\xspace}
+
+\title{\visidia\\
+      Implémentation d'algorithme}
+
+\author{[à compléter]}
+
+\begin{document}
+
+
+\maketitle
+\tableofcontents
+\section{Résumé}
+Cet article a pour but d'expliquer comment implémenter un algorithme
+distribué à base d'agent dans \visidia.
+
+\section{Description de l'API utile pour l'implémentation des
+  algorithmes}
+\subsection{Déplacement de l'agent}
+Il y a deux façons de déplacer un agent dans \visidia. La première
+consiste à choisir directement le port sur lequel va être envoyé
+l'agent et la seconde à déléguer cette tâche à un gestionnaire de
+déplacement (\texttt{AgentMover}).
+
+\subsubsection{Déplacement avec un gestionnaire de déplacement}
+La première chose à faire pour utiliser le gestionnaire de déplacement
+est de le sélectionner pour cela vous devez utiliser la méthode
+\texttt{setAgentMover()} et en lui fournissant le nom de la classe en
+paramètre --- soit sous forme de chaîne de caractère soit en donnant
+directement la classe \emph{Java}.
+
+Ensuite lors du déplacement de l'agent vous devez utiliser la méthode
+\texttt{move()} en lui fournissant ou non un entier qui correspond à
+au port à emprunter. Si le port n'est pas précisé le gestionnaire de
+déplacement choisi lui-même le port.
+
+\subsubsection{Déplacement sans gestionnaire de déplacement}
+Si vous ne souhaitez pas utiliser de gestionnaire de déplacement il
+vous faudra passez par la méthode \texttt{moveToDoor()} et lui donner le
+port que doit emprunter l'agent en paramètre.
+
+Dans ce cas vous aurez sûrement besoin de connaître le nombre de ports
+du sommet, cette information peut vous être fourni par la méthode
+\texttt{getArity()}.
+
+\subsubsection{Autres méthodes relatives au déplacement}
+Dans certains algorithmes vous aurez besoin de connaître le port d'où
+est arrivé l'agent pour cela vous pouvez utiliser la méthode
+\texttt{entryDoor()} qui vous retournera l'entier correspondant au
+port d'où est arrivé l'agent.
+
+Pour renvoyer l'agent d'où il est venu vous pouvez
+utilisez la méthode \texttt{moveBack()}.
+
+\subsection{Modification et accès à la mémoire de l'agent}
+
+La modification de la mémoire de l'agent passe par l'utilisation des
+méthodes \texttt{setProperty()} et \texttt{getProperty()}.
+
+La première méthode permet d'ajouter ou de modifier une \og variable
+\fg de l'algorithme. La seconde permet quant-à elle d'accèder à cette
+variable.
+
+Les variables des agents sont stockées sous la forme
+(identifiantDeVariable, Valeur). Ceci permet d'avoir une grande
+liberté dans le choix de la valeur qui peut-être avoir structure
+complexe (aussi complexe qu'une classe \emph{Java}).
+
+\textbf{Important~:} Vous devez absolument utiliser ces méthodes pour
+stocker les variables que vous souhaitez que l'agent transporte d'un
+sommet à l'autre. Si vous ne le faites pas vous ne simulez plus un
+algorithme à base d'agents mobiles. Pour faire simple vous ne devez
+pas utilisez de variable hors de la boucle \texttt{while} de la
+méthode \texttt{init()}.
+
+Vous remarquerez aussi la présence de la méthode
+\texttt{getPropertyKeys()} qui permet de connaître les valeurs des
+clés utilisées, c'est-à-dire des variables utilisées.
+
+\subsection{Modification et accès à la mémoire d'un sommet}
+
+
+    public void lockVertexProperties();
+    public void unlockVertexProperties();
+    public boolean vertexPropertiesLocked();
+    public boolean lockVertexIfPossible();
+    public Object getVertexProperty(Object key);
+    public void setVertexProperty(Object key, Object value);
+    public Set getVertexPropertyKeys();
+
+
+
+    protected void sleep(long millis);
+
+    public int getNetSize();
+
+    public int getVertexIdentity();
+
+    public int getIdentity();
+
+
+
+    private void changeDoorState(int door, EdgeState state);
+    public void markDoor(int door);
+    public void unmarkDoor(int door);
+    public void syncDoor(int door);
+    public void unsyncDoor(int door);
+
+    public void cloneAgent();
+    public void cloneAndSend(int door);
+
+    public void createAgent(Class agClass);
+    public void createAgentAndSend(Class agClass, int door);
+
+    public String toString();
+    public String className();
+
+    protected abstract void init();
+
+    protected void newPulse(int pulse);
+
+    public void incrementStat(AbstractStat stat);
+    public void incrementStat(AbstractStat stat, long increment)
+
+\end{document}
