@@ -28,6 +28,10 @@
 Cet article a pour but d'expliquer comment implémenter un algorithme
 distribué à base d'agent dans \visidia.
 
+\section{Vue globale d'un algorithme à base d'agents mobiles dans \visidia}
+
+[à compéter]
+
 \section{Description de l'API utile pour l'implémentation des
   algorithmes}
 \subsection{Déplacement de l'agent}
@@ -72,7 +76,7 @@ La modification de la mémoire de l'agent passe par l'utilisation des
 méthodes \texttt{setProperty()} et \texttt{getProperty()}.
 
 La première méthode permet d'ajouter ou de modifier une \og variable
-\fg de l'algorithme. La seconde permet quant-à elle d'accèder à cette
+\fg\  de l'algorithme. La seconde permet quant-à elle d'accèder à cette
 variable.
 
 Les variables des agents sont stockées sous la forme
@@ -91,49 +95,80 @@ Vous remarquerez aussi la présence de la méthode
 \texttt{getPropertyKeys()} qui permet de connaître les valeurs des
 clés utilisées, c'est-à-dire des variables utilisées.
 
+\subsection{Modification de l'état des ports}
+Dans \visidia les ports/arêtes --- les fonctions décrites ici portent plutôt sur
+les arêtes que sur les ports eux-même --- peuvent avoir un état. Cet état
+peut-être changé grâce à la méthode \texttt{changeDoorState()}. Dans la
+plupart des cas les états prédéfinis devrez vous suffire. Ceux-ci sont au nombre
+de quatre. Ils permettent de marquer une arête (\texttt{markDoor()}), de la démarquer
+\texttt{unmarkDoor()}, de la marquer comme synchronisée \texttt{syncDoor()} et
+de la marquer comme non-synchronisée \texttt{unsyncDoor()}.
+
 \subsection{Modification et accès à la mémoire d'un sommet}
 
+La modification de la mémoire d'un sommet est un peu plus délicate que la
+modification de la mémoire d'un agent car dans le cas du sommet il faut gérer
+l'accès concurrent à la resource. Pour cela vous avez la possibilité de
+vérouiller la mémoire d'un sommet grâce à la méthode
+\texttt{lockVertexProperties()}. Il faudra bien entendu veiller à déverrouiller
+la mémoire avant que l'agent quitte le sommet --- sauf si vous avez besoin de
+garder la mémoire de ce sommet verrouillée --- grâce à la méthode 
+\texttt{unlockVertexProperties()}.
 
-    public void lockVertexProperties();
-    public void unlockVertexProperties();
-    public boolean vertexPropertiesLocked();
-    public boolean lockVertexIfPossible();
-    public Object getVertexProperty(Object key);
-    public void setVertexProperty(Object key, Object value);
-    public Set getVertexPropertyKeys();
+Si le sommet est déjà verrouiller la méthode \texttt{lockVertexProperties()}
+attend que le sommet soit déverroullé pour le vérouiller et rendre la main à
+l'agent. Cela pouvant être assez contraignant vouz pouvez vérifier si le sommet
+est déjà verrouillé avant de le verrouiller grâce à la méthode
+\texttt{vertexPropertiesLocked()} qui vous retournera un boolèen indiquant si le
+sommet est verrouillé. Vous pouvez aussi ne verrouiller le sommet que s'il n'est
+pas déjà verrouillé grâce à la méthode \texttt{lockVertexIfPossible()}.
 
+Une fois le sommet verrouillé, ou non selon vos besoin, l'accès à la mémoire du
+sommet se fait de la même manière que pour la mémoire d'un agent grâce au
+méthodes \texttt{getVertexProperty()}, \texttt{setVertexProperty()} et
+\texttt{getVertexPropertyKeys()}.
 
+\subsection{Création et clone d'agent}
+\visidia vous permet de créer des agents lors de vos algorithmes. Pour cela vous
+pouvez utilisez les méthodes \texttt{createAgent()}, en lui fournissant en
+paramétre la classe de l'agent à créer, et si vous souhaitez envoyer cet agent
+sur un port particulié un port particulié la méthode
+\texttt{createAgentAndSend()},en lui donnant la  classe de l'agent à créer et le
+port sur lequel l'agent créé devra partir.
 
-    protected void sleep(long millis);
+Vous pouvez aussi créer un clone --- c'est-à-dire un agent de même type que
+l'agent courant, la mémoire n'est pas copiée --- de l'agent en utilisant les
+méthodes \texttt{cloneAgent()}, sans paramétre, et \texttt{cloneAndSend()}, en
+ne précisant que le port sur lequel l'agent devra partir.
 
-    public int getNetSize();
+\subsection{Récupérations des informations du simulateur}
+Les méthodes qui vont être décrites ici ne devraient être utilisées que dans la
+phase d'initialisation de l'algorithme. Sauf bien sûr si vous les supposez
+inaltèrables.
 
-    public int getVertexIdentity();
+Vous pouvez connaître le nombre de sommets du graphe grâce à la méthode
+\texttt{getNetSize()} et l'identifiant du sommet grâce à la méthode
+\texttt{getVertexIdentity()}.
 
-    public int getIdentity();
+Vous pouvez aussi avoir quelques informations sur l'agent en lui-même. Par
+exemple sont identité (\texttt{getIdentity()}, sa classe (\texttt{className()})
+et son nom \texttt{toString()}.
 
+\subsection{Les statistiques propres à l'algorithme}
+Si vous voulez faire des statistiques propres à votre algorithme vous pouvez
+utiliser la méthode \texttt{incrementStat()} en lui passant une classe héritant
+de \texttt{AbstractStat} en paramétre. Il vous faudra créer aussi votre classe
+abstraite de statistiques avant de pouvoir utiliser cette méthode.
 
+\subsection{Autres méthodes intéressantes pour l'implémentation des agents}
+La méthode \texttt{sleep()} permet d'endormir pour la durée (en millisecondes)
+donnée en argument l'agent. 
 
-    private void changeDoorState(int door, EdgeState state);
-    public void markDoor(int door);
-    public void unmarkDoor(int door);
-    public void syncDoor(int door);
-    public void unsyncDoor(int door);
-
-    public void cloneAgent();
-    public void cloneAndSend(int door);
-
-    public void createAgent(Class agClass);
-    public void createAgentAndSend(Class agClass, int door);
-
-    public String toString();
-    public String className();
-
-    protected abstract void init();
-
-    protected void newPulse(int pulse);
-
-    public void incrementStat(AbstractStat stat);
-    public void incrementStat(AbstractStat stat, long increment)
+\subsection{Pour les agents synchrones}
+Les agents synchrones peuvent être synchronisés grâce à la méthode
+\texttt{nextPulse()}. Si vous utilisez cette méthode plusieurs fois dans un
+algorithme il faut être très attentif car si un agent se retrouve en décalage
+d'un pulse (cela peut arriver lorsque que l'agent est ajouté \emph{a postiori})
+votre algorithme peu avoir des résultats surprenant.
 
 \end{document}
