@@ -2,22 +2,71 @@
 
 \subsection{Modification du graphe en cours d'exécution}
 
-Dans \visidia on manipule deux types de graphes : le graphe de la simulation et
-le graphe de la partie affichage.
+\subsection{Structure du graphe}
 
-Ces deux graphes possèdent chacun leur propre structure et ses méthodes pour les
-manipuler.
+Dans visidia, il y a une séparation totale entre la partie affichage et la
+partie simulation. Ainsi, \visidia manipule deux graphes : un graphe visuel et un
+autre pour la simulation.\\
 
-Ce choix de développement qui a été fait par les anciennes équipes de
-développement, nous a donc obligé, pour chaque opération que l'on souhaitait
-réaliser sur un graphe, à la reproduire également sur l'autre graphe, en
-s'assurant de la cohérence et de la synchronisation entre ces deux graphes.
+N'ayant aucune indication sur les structures de ces graphes, on pouvait imaginer
+que les structures de ces graphes pouvaient être les mêmes, ou bien avoir des
+points en commun.\\
+
+Aprés une analyse plus poussé du code, nous avons découvert que les deux
+structures étaient totalement dissociés et indépendante l'une de l'autre.
+Pour la partie simulation, le répertoire ``graph'' contient toutes les classes
+de l'architecture du graphe.
+%inclure schéma architecture
+
+Pour la partie affichage, le repertoire ``gui.presentation'' contient les
+classes implémentant la structure du graphe visuel.
+
+
+\subsection{Choix de développement}
+
+Lors de la conception de \visidia, il n'a pas été prévu que le graphe visuel
+puisse évoluer au cours de la simulation.
+En effet, aucune intéraction entre les deux graphes n'a été envisagés hormis, la
+conversion d'un graphe visuel en un graphe de simulation par l'intermédiaire de
+la classe ``Convertisseur''et de sa méthode ``convert".\\
+
+En effet, le graphe visuel dessiné dans l'application principale est converti
+un graphe simulation au moment du passage vers l'application ``simulation avec
+agents''. 
+Aprés cette manipulation le graphe visuel étant présumé statique, aucune méthode
+agissant sur le graphe dessiné, ne répercutait les modifications sur le graphe de
+simulation et vice versa.\\
+
+Une solution possible à laquelle nous avions pensé, et qui permettait de
+réutiliser ce qui avait été développé jusqu'à présent, était de
+convertir le graphe visuel vers un graphe simulation à chaque fois que l'on
+modifiait le graphe visuel. 
+Nous n'avons cependant pas choisi d'implémenter cette méthode pour des raisons
+évidentes de performance: la génération d'un nouveau graphe de simulation à
+chaque ajout ou suppression d'aretes ou sommet peut s'averer tres couteux,
+surtout avec un graphe de grande taille. \\
+
+Ainsi donc nous avons préféré pour chaques modifications possible sur le graphe visuel, 
+implémenter une méthode permettant de répercuter les effets sur le graphe de simulation.
+
+\subsection{Ajout de sommets et d'aretes}
+
+
+
+\subsection{Suppression de sommets et d'aretes}
+
+
+
 
 
 
 \subsection{Ajout - Suppresion d'agent en cours d'exécution}
 
+
+
 \subsection{Modification des whiteboards}
+
+
 
 \subsection{Calcul de statistiques}
 
