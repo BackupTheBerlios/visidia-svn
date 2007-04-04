@@ -34,8 +34,59 @@ Cet article a pour but d'expliquer comment implémenter un algorithme
 distribué à base d'agent dans \visidia.
 
 \section{Vue globale d'un algorithme à base d'agents mobiles dans \visidia}
+Les algorithmes à base d'agents mobiles sont dans \visidia des classes
+déscendantes soit de la classe \texttt{Agent} soit de la classe
+\texttt{SynchronizedAgent}, si l'algorithme est synchrone.
 
-[a completer]
+Dans les deux cas, il vous faudra compléter la méthode \texttt{init()}.
+Pour la plupart des algorithmes vous décomposerez cette méthode en trois
+grandes parties~: la phase d'initialisation, la phase de \og calcul \fg\ et la
+phase finale. Les phases d'initialisation et la phase finale ne seront exécutées
+qu'une seule fois dans la vie de l'algorithme, la phase de calcul sera quant-à
+elle le c\oe ur de l'algorithme.
+
+La méthode \texttt{init()} que vous implémenterez resemblera en première
+approche à ceci ~:\\
+\begin{verbatim}
+public void init ()
+{
+  /* phase   d'initialisation */
+  
+  while (/* non (condition de fin de l'algoritme) */)
+  {
+    /* phase de calcul */
+  }
+ 
+  /* phase finale */
+}
+\end{verbatim}
+
+La phase d'initialisation permet de mettre en route l'algorithme, par exemple en
+initialisant la mémoire de l'agent (son \emph{WhiteBoard}) ou celle du sommet.
+En aucun cas vous ne devriez initialiser des varibles dans cette partie dans le
+but de les réutiliser dans la phase de calcul car ces variables n'apparraitront
+pas dans le \emph{WhiteBoard} de l'agent qui est sensé représenter la mémoire de
+ce dernier et vous perderez par la même occassion certaines possibilité de
+\visidia.
+
+La phase de calcul devrait pouvoir être placée dans une fonction à part, cela
+évite en autre les pseudo-variables globales (celles qui ne sont pas dans le
+\emph{WhiteBoard}), et ne pas comporter d'instructions après l'appel de la
+méthode \texttt{move()} ou \texttt{moveToDoor()} pour suivre au plus près les
+principes de l'algorithmique distribuée\footnote{Si vous ne le faites pas cela
+suppose que vous êtes capables de vous souvenir de l'instruction où vous vous
+étes arretée ainsi que des variables locales que vous avez déclarez en passant
+d'une entité à une autre.}.
+
+La phase finale permet de faire un post-traitement quand l'algorithme est
+terminé si vous en avez besoin.
+
+Dans toutes ces phases vous pouvez utiliser des constantes et des méthodes que
+vous avez ajoutée à
+l'agent, par exemple une méthode pour changer une variable dans la mémoire de
+l'agent sans devoir réécrire toute l'instruction à chaque fois. Il est par
+contre déconseillé d'ajouter des variables à l'agent car celles-ci
+n'apparraitrons pas dans le \emph{WhiteBoard}.
 
 \section{Description de l'API utile pour l'implémentation des
   algorithmes}
@@ -64,7 +115,8 @@ port que doit emprunter l'agent en paramètre.
 
 Dans ce cas vous aurez sûrement besoin de connaître le nombre de ports
 du sommet, cette information peut vous être fourni par la méthode
-\texttt{getArity()}.
+\texttt{getArity()} --- celui-ci pouvant être nul il ne faudra pas oublier de 
+prevoir ce cas.
 
 \subsubsection{Autres méthodes relatives au déplacement}
 Dans certains algorithmes vous aurez besoin de connaître le port d'où
