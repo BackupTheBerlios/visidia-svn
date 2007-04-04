@@ -925,14 +925,17 @@ public class AgentSimulator {
 			Iterator<Agent> i = agents.iterator();
 
 			while (i.hasNext()) {
-				this.killAgent(i.next());
+				Agent ag = i.next();		
+				if(!(this.getVertexDeparture(ag).identity().equals(num))){
+					this.killAgent(ag);
+				}
 			}
 
 			// remove from neighbours in the simulator
-			vert_neighbours.switchOffMyNeighbour(v);
+			//vert_neighbours.switchOffMyNeighbour(v);
 		}
-		v.setVisualization(false);
-		v.setProperty("Visualization", false);
+		//v.setVisualization(false);
+		//v.setProperty("Visualization", false);
 
 		// delete the vertex
 		this.graph.remove(num);
@@ -945,7 +948,7 @@ public class AgentSimulator {
 	 * @param sgv1
 	 * @param sgv2
 	 */
-	public void deleteEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2) {
+	public void deleteEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2){
 
 		// Removing the edge
 		//sgv1.switchOffMyNeighbour(sgv2);
