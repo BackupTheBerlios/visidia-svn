@@ -7,7 +7,7 @@ principes de l'algorithmique distribué.
 \subsection{Définition}
 Tout algorithme distribué s'exécute sur un réseau. Un réseau pouvant être
 modélisé par un graphe où les sommets représentent les entités(machines ou processeurs)
-voulant communiquer entre elles et les arêtes représentent un canal de
+voulant communiquer entre elles, et les arêtes représentent un canal de
 communication (connexion) entre deux entités. 
 %Remarque : Un arc entre deux entités signifie que la communication ne peut
 %s'effectuer que dans un sens.
@@ -52,24 +52,21 @@ Il existe deux modéles d'algorithmes distribués :
     exécuter leur algorithme. 
 \end{itemize}
 
+\subsection{Problèmes particuliers à l'algorithmique distribuée}
 
-\section{Exemple d'algorithmes distribuée}
+\subsubsection{Connaissance partielle}
 
-Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
-existent, en voici quelques uns des plus fréquent.
+Une entité doit faire son calcul avec une connaissance, à priori limitée, du
+système. 
+Dans une système non distribué, l'état de la mémoire ne change pas si le processeur ne le modifie pas.
+Mais en distribué, l'entité ne contrôle que son état local. Les données réparties sur
+d'autres unités changent sans aucun 
+contrôle de de l'entité considérée.
+Parfois l'entité connait la topologie du graphe en entier, parfois seulement ses
+voisins ou ne connait que lui-même .
 
-\subsection{Le problème de l'élection}
-Ce problème consiste à distinguer une entité c'est-à-dire de
-l'élire. La plupart du temps cette élection permet de sélectionner une
-entitée pour lui permettre d'accéder à une ressource critique, les
-entitées non-élues n'y ayant pas accès.
+\subsubsection{Terminaison d'un algorithme}
 
-\subsection{Problèmes de reconnaissance}
-Peut-on savoir si le réseau  est un graphe complet, planaire, si c'est
-un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
-articulation, si  une arête est un  isthme ?  
-
-\subsection{Détection de la terminaison}
 La détection de la terminaison d'un algorithme distribué est souvent difficile,
 car elle nécessite pas seulement d'avoir la connaissance de la terminaison de
 son algorithme mais également de celle de tous les entités  du réseau.
@@ -77,5 +74,141 @@ Nous pouvons cependant chercher à  avoir un détection locale de  la terminaison
 globale, c'est-à-dire qu'un processeur  peut savoir en fonction de  son état et
 de celui de ces voisins si l'algorithme est terminé.
 
+\subsubsection{Correction d'un algorithme}
+
+La preuve d'un tel algorithme se fait en deux temps.  Tout d'abord, on
+prouve  la   terminaison  de  l'algorithme,   par  des  considérations
+combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis
+on   prouve   la  validité,   le   plus   souvent   en  exhibant   des
+invariants... sur lesquels on s'appuie pour rédiger la preuve.
+
+\subsubsection{Les erreurs}
+
+Alors qu'en séquentiel le cas des erreurs est relativement simple: si un élément est
+défectueux (mémoire, périphérique, 
+processeur, disque), on le change et on reprend/continue/recommence le
+programme; en distribué, on peut de plus avoir 
+un lien de communication en panne.
+
+Cela peut donc causer de nombreux problèmes
+tels que la corruption des messages 
+ou avoir des adversaires qui changent les messages.
+Redémarrer tout le système peut parfois être évité en rendant l'algorithme
+robuste (tolérance aux pannes).
+
+\section{Exemple d'algorithmes distribués}
+
+Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
+existent, en voici quelques uns des plus fréquent.
+
+\subsection{Le problème de l'élection}
+
+\subsubsection*{Principe}
+Ce problème consiste à distinguer une entité c'est-à-dire de
+l'élire. La plupart du temps cette élection permet de sélectionner une
+entitée pour lui permettre d'accéder à une ressource critique, les
+entitées non-élues n'y ayant pas accès.
+
+\subsubsection*{Exemple d'Algorithme : Election dans un anneau} 
+
+Soit G un anneau, asynchrone avec échange de messages asynchrones, à 3
+états :  non élu,  élu, indéfini\\
+Les  sommets sont  initialement dans l'état   indéfinis.  \\
+Chaque processeur i du réseau possède un identificateur   $id_{i}$  unique  (un 
+ entier). \\
+L'anneau est orienté, c'est-à-dire que les processeurs ont la notion de
+gauche et de droite.  \\
+Le processeur élu est celui qui a le plus grand identificateur.  
+Chaque processeur transmet à son voisin de droite son
+identificateur. \\
+Lorsqu'un processeur reçoit  un identificateur, il y a
+trois possibilités :
+\begin{itemize}
+\item Si l'identificateur reçu est plus grand que le sien, il le passe
+au suivant (voisin de droite) et passe dans l'état non élu.
+\item Si l'identificateur reçu est plus petit que le sien, il jette le
+message.
+\item Si l'identificateur reçu est le même que le sien, alors il prend
+l'état élu.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\subsection{Problèmes de reconnaissance}
+
+\subsubsection*{Principe}
+
+Peut-on savoir si le réseau  est un graphe complet, planaire, si c'est
+un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
+articulation, si  une arête est un  isthme ?  
+
+
+\subsubsection*{Exemple 1 d'Algorithme pour le calcul d'un arbre recouvrant}
+
+Cet  algorithme   permet  le   calcul  d'un  arbre   recouvrant  (sans
+reconnaissance locale de la  terminaison globale, cf.  algorithme n°2)
+. Considérons la règle de transformation suivante:
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=4cm]{images/algodist1.png}
+  \caption{Algorithme n°1: Exemple d'une transformation A-N}
+  \label{fig:algodist1}
+\end{figure}
+
+On  se donne  un graphe  G. Initialement  tous les  sommets  sont dans
+l'état Neutre.  On choisit  un premier sommet,  dans l'état  Actif. On
+applique  les transformations  à partir  de ce  point.  Le sous-graphe
+défini  par les  arêtes marquées  est  un arbre  recouvrant du  graphe
+initial.
+
+
+\subsubsection*{Exemple 2 d'Algorithme pour le calcul d'un arbre recouvrant}
+
+Cet algorithme  permet le calcul d'un arbre  recouvrant avec détection
+locale de la terminaison globale  (état F).  Considérons les règles de
+transformation décrites  sur la  figure \ref{fig:algodist2} .R1  a une
+plus grande priorité que R2.
+
+\begin{figure}[h!t]
+  \centering
+  \includegraphics[width=4cm]{images/algodist2.png}
+  \caption{Algorithme n°2  : Exemple d'algorithme à base  de règles de
+  réécritures}
+  \label{fig:algodist2}
+\end{figure}
+
+
+
+
 \section{Quelques applications}
+
+L'algorithmique distribuée est appliqué dans plusieurs domaines, comme
+par exemple :
+\begin{itemize}
+  \item Construction d'objets parallèles : Un exemple des applications dans ce
+  		domaine est mené par le PRISM
+		\footnote{le laboratoire  de recherche en informatique  sur les thèmes
+		du Parallélisme, des Réseaux, des Systèmes et de la Modélisation.(voir
+		http://www.prism.uvsq.fr/)}, il consiste dans la construction d'objets
+		pour  l'élaboration d'algorithmes  d'algèbre linéaire  utilisables par
+		des architectures à mémoire distribuée. 
+ \item  Le domaine de l'énergie : Un  exemple  d'application  dans  ce  domaine 
+		on le  trouve  au  LAG \footnote{le Laboratoire    d'Automatique    de  
+		Grenoble    (voir
+		http://www.lag.ensieg.inpg.fr/)}  ,  et  qui  vise  contrairement  aux
+		approches  traditionnelles  qui  consistent  à ajuster  la  production
+		d'énergie pour  satisfaire à  la demande, à  proposer un  mécanisme de
+		coopération entre sources et charges  de façon à satisfaire au mieux à
+		des critères de satisfaction définis par un usager.  
+\end{itemize}
+
+
 
