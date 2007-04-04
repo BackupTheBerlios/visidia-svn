@@ -942,17 +942,17 @@ public class AgentSimulator {
 	/**
 	 * Delete an edge from a graph
 	 * 
-	 * @param v1
-	 * @param v2
+	 * @param sgv1
+	 * @param sgv2
 	 */
-	public void deleteEdge(SimpleGraphVertex v1, SimpleGraphVertex v2) {
+	public void deleteEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2) {
 
 		// Removing the edge
-		v1.switchOffMyNeighbour(v2);
-		v2.switchOffMyNeighbour(v1);
-
+		//sgv1.switchOffMyNeighbour(sgv2);
+		//sgv2.switchOffMyNeighbour(sgv1);
+		this.moveEdge(sgv1, sgv2);
 		// kill agents on the edge
-		Collection<Agent> agents = this.getAgentsOnEdge(v1.identity(), v2
+		Collection<Agent> agents = this.getAgentsOnEdge(sgv1.identity(), sgv2
 				.identity());
 		Iterator<Agent> i = agents.iterator();
 
@@ -961,6 +961,38 @@ public class AgentSimulator {
 		}
 
 
+	}
+	
+	/**
+	 * Delete an edge from a graph
+	 * 
+	 * @param sgv1
+	 * @param sgv2
+	 */
+	
+	private void moveEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2){
+		if(sgv1.getVisualization() && sgv2.getVisualization()){
+			sgv1.switchOffMyNeighbour(sgv2);
+			sgv2.switchOffMyNeighbour(sgv1);
+		}
+		else{
+			if(!sgv1.getVisualization() && sgv2.getVisualization()){
+				sgv1.switchOffMyNeighbour(sgv2);
+			}
+			else{
+				if(sgv1.getVisualization() && !sgv2.getVisualization()){
+					sgv2.switchOffMyNeighbour(sgv1);
+				}
+				else{
+					if(sgv1.isNeighbour(sgv2.identity())){
+						sgv1.switchOffMyNeighbour(sgv2);
+					}
+					else{
+						sgv2.switchOffMyNeighbour(sgv1);
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -1001,7 +1033,7 @@ public class AgentSimulator {
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
 		
-		vertex.changeColor(this, vertex.previousColor);
+		vertex.changeColor(this, vertex.getPreviousColor());
 		
 		SimpleGraphVertex vert_neighbours;
 		if (!vertex.getVisualization()) {
@@ -1009,12 +1041,18 @@ public class AgentSimulator {
 		
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				if (vert_neighbours.getVisualization()) {	
+				//if (vert_neighbours.getVisualization()) {	
 					SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
 							vertex, vert_neighbours);
 					vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
-				}
-				else vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
+				//}
+
+				//else{ 
+					if (!vert_neighbours.getVisualization()) {	
+						System.out.println(vert_neighbours.identity());
+						vertex.switchOffMyNeighbour(vert_neighbours);
+						//vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
+					}
 			}
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);
