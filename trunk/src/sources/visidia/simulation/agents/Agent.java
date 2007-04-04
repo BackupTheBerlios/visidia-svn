@@ -288,11 +288,14 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         
     public void processingAgentWhenSwitchingOff()
     {	
-    	Vertex   vertex_D = this.simulator.getVertexDeparture(this);
-    	if(!vertex_D.getVisualization())
-    		this.death();
-    	else
+    	Vertex vertex_D = this.simulator.getVertexDeparture(this);
+    	Vertex vertex_A = this.simulator.getVertexArrival(this);
+    	while(!vertex_D.getVisualization() && !vertex_A.getVisualization())
+    		try {Thread.sleep(100);} catch (Exception e) {}
+    	
+    	if (!vertex_A.getVisualization())
     		this.moveBack();
+    			
     }
   
     
