@@ -11,6 +11,6 @@ public class MemorySizeSum extends AbstractAgentStat {
 	}
 	
 	public String descriptionName() {
-		return "Sum of Memory Size";
+		return "Sum of Memory Size [in WB key(s)]";
 	}
 }

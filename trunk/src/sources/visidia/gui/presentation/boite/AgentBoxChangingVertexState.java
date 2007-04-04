@@ -173,7 +173,7 @@ public class AgentBoxChangingVertexState extends AbstractDefaultBox implements
                 	}
                 	if(s=="Visualization"){
                 		if (Boolean.parseBoolean(value)){
-                			this.etatPanel.ardoise().changerEtat((String) vertex.previousColor);
+                			this.etatPanel.ardoise().changerEtat(vertex.getPreviousColor());
                 			this.parent.getSimulator().switchONVertex(y);
                 		}	
                 		else{

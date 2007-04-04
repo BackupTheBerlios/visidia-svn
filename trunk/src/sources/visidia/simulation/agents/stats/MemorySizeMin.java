@@ -11,6 +11,6 @@ public class MemorySizeMin extends AbstractAgentStat {
 	}
 	
 	public String descriptionName() {
-		return "Min of Memory Size";
+		return "Min of Memory Size [in WB key(s)]";
 	}
 }

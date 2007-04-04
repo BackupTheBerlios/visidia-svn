@@ -11,6 +11,6 @@ public class MemorySizeMax extends AbstractAgentStat {
 	}
 	
 	public String descriptionName() {
-		return "Max of Memory Size";
+		return "Max of Memory Size [in WB key(s)]";
 	}
 }

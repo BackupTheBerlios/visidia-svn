@@ -13,6 +13,13 @@ public class Thief extends Agent {
 		boolean captured = false;
 
 		while (!captured) {
+
+			while(this.getArity() == 0)
+			    try {
+					Thread.sleep(100);
+				}
+				catch (InterruptedException e) {}
+				
 			int degree = this.getArity();
 			int randomDirection = Math.abs(randMove.nextInt(degree));
 			this.moveToDoor(randomDirection);

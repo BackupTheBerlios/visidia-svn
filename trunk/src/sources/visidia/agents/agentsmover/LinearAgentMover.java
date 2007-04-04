@@ -35,10 +35,14 @@ public class LinearAgentMover extends AgentMover {
 		int arity = this.agent().getArity();
 
 		/* The following door is the current one plus 1 */
-		if(arity == 0) {
-			throw new MoveException(MoveException.NoDoorFound);
+		while(arity == 0) {
+			//throw new MoveException(MoveException.NoDoorFound);
+		    try {
+				Thread.sleep(100);
+			}
+			catch (InterruptedException e) {}
 		}
-		else if(!(this.agent().getSimulator().getVertexArrival(this.agent()).getVisualization())) {
+	    if(!(this.agent().getSimulator().getVertexArrival(this.agent()).getVisualization())) {
 			throw new MoveException(MoveException.SwitchedOffVertex);
 		}
 		else {
