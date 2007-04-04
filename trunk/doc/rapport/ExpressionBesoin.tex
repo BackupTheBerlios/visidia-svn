@@ -105,12 +105,37 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut modi
 
 
 \subsection{Statistiques}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut afficher en temps réel des statistiques par agent et des statistiques sur l'exécution d'un algorithme. 
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut afficher en temps réel des statistiques par agent et des statistiques sur l'exécution d'un algorithme. Entre autres, on peut connaître le nombre de pas effectués par chaque agent, par chaque classe d'agent (nombre moyen de pas, nombre minimum, maximum), la taille de la mémoire, etc.\\
+
+\begin{itemize}
+  \item Entrée : activation du bouton de consultation des statistiques
+  \item Sortie : affichage des statistiques en temps réel sur l'algorithme en cours d'exécution
+\end{itemize}
+
+
 
 
 \section{Besoins non fonctionnels}
 
+\subsection{Implémentation d'algorithmes}
+Plusieurs nouveaux algorithmes ont été implémentés, dans le but d'enrichir la bibliothèque d'algorithmes disponibles et afin de valider le travail réalisé.\\
+
+
+\begin{itemize}
+  \item Fusion des mémoires : dans cet algorithme, les agents se déplacent de manière synchrone. Ils se rencontrent sur les sommets (où ils ont le choix de rester sur place ou de se déplacer au prochain \texttt{top}), l'agent dont l'identificateur est le plus grand récupère la mémoire des autres agents du même type présents sur le sommet et les autres agents sont tués.
+  \item Calcul d'arbre recouvrant avec plusieurs agents
+  \item Algorithme fourni par M. Hamid (version avec agents sur un anneau)
+\end{itemize}
+
+
 \subsection{Structuration de l'application}
+Le développement de nouvelles fonctionnalités au logiciel \visidia s'est effectué en respectant la séparation en trois modules : l'interface graphique, le simulateur et les agents (ou algorithmes pour la version sans les agents).
+
 
 \subsection{Langage et portabilité}
+Les standards de codage définis par le langage Java ont été utilisés : un reformatage des sources dans ce sens a d'ailleurs été effectué.\\
+L'interface en anglais a été conservée. Le logiciel \visidia nécessite toujours une version du JDK supérieure ou égale à la version 1.5.
 
+
+\subsection{Documentation sur l'implémentation de nouveaux agents mobiles}
+Une documentation concernant comment implémenter de nouveaux algorithmes avec agent mobile a été réalisée. Celle-ci facilitera la tâche d'implémentation en vue d'enrichir la bibliothèque d'algorithmes existants.
