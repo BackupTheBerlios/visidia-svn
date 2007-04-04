@@ -15,7 +15,7 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 
 	protected void init() {
 		/* Memory of the agent that will be fusionned with the other agents */
-		this.setProperty("myName", this.toString());
+		this.setProperty("myName", "a" + this.getIdentity());
 
 		/* Agent move method */
 		this.setAgentMover("RandomAgentMover");
@@ -28,37 +28,55 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 
 		int agentId = this.getIdentity();
 
-
-
 		/* The algorithm ends when the total number of 'RdvSynchronizedAgent' on the graph is equal to 1 */
 		while (! oneAgentRdvRemaining()) {
 
-			/* See all agents on the current vertex */
-			Collection agentsOnVertex = this.getSimulator().getAgentsVertexCollection(this.getVertexIdentity());
 
-			/* Make the union of the agents' memories if current agent has a better ID */
-			if (agentsOnVertex.size() > 1){
-				Iterator it = agentsOnVertex.iterator();
-
-				/* Find the better ID : if the agent has a lower ID, it saves its memory to the
-				 * whiteboard of the vertex on which the agent is, and then it kills itself */ 
-				while (it.hasNext()){
-					Agent currentAgent = (Agent) it.next();	
-					int currentId = currentAgent.getIdentity();
-
-					if (agentId < currentId){
-						fusionAgentToVertex(this);
-						return;   /* Kills itself */
-					}
+			/* Puts its ID on the vertex if it is better */
+			this.lockVertexProperties();
+			try {
+				Integer currentBestId = (Integer) this.getVertexProperty("maxId");
+				if (agentId > currentBestId.intValue()){
+					this.setVertexProperty("maxId", new Integer(agentId));
 				}
-				this.nextPulse();
-
-				/* If here, the agent 'this' has the better ID on the vertex : it adds to its memory
-				 * the whiteboard of the vertex on which it is */
-				this.setProperty("myName", this.getProperty("myName") + " kills : (" + ((String) this.getVertexProperty("fusion")) + " )");
-				this.setVertexProperty("fusion", "");
-
+			} catch (NoSuchElementException e){
+				this.setVertexProperty("maxId", new Integer(agentId));
 			}
+			this.unlockVertexProperties();
+
+			this.nextPulse();
+
+
+
+			/* If 'maxId' on the vertex is better than its ID,
+			 * it puts its memory on the vertex and then kills itself */
+			if (agentId < ((Integer) this.getVertexProperty("maxId")).intValue()){
+				fusionAgentToVertex(this);
+				return;  /* Kills itself */
+			}
+
+			this.nextPulse();
+
+
+			/* If here, the agent 'this' has the better ID on the vertex : it adds to its memory
+			 * the whiteboard of the vertex on which it is */
+			String currentFusion = "";
+			try {
+				currentFusion = (String) this.getVertexProperty("fusion");
+				if (! currentFusion.isEmpty()){
+					this.setProperty("myName", this.getProperty("myName") + " " + ((String) this.getVertexProperty("fusion")));
+				}
+			} catch (NoSuchElementException e){
+				this.setVertexProperty("fusion", "");
+			}
+
+
+			/* Erase the memory of the vertex (memory of the agent in 'fusion' and 'maxId') */
+			this.lockVertexProperties();
+			this.setVertexProperty("fusion", "");
+			this.setVertexProperty("maxId", new Integer(0));
+			this.unlockVertexProperties();
+
 
 			/* Move the agent to a next vertex with a chance of 1 out of 3 */
 			int choice = rnd.nextInt() % 2;
@@ -97,6 +115,8 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 	}
 
 
+
+
 	/**
 	 * This function adds the agent memory to the whiteboard of the vertex on which the agent is 
 	 */
@@ -112,6 +132,9 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 		this.setVertexProperty("fusion", currentFusion + " " + agentName);
 		this.unlockVertexProperties();
 	}
+
+
+
 
 
 }
