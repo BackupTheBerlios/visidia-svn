@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 import visidia.simulation.agents.Agent;
 import java.util.LinkedList;
-import java.util.Iterator;
+import java.util.Collection;
 
 /**
  * Implements  a spanning  tree  algorithm with  an  agent. This  agent
@@ -49,6 +49,10 @@ public abstract class Spanning_Tree_Agent extends Agent {
 
 	}
 
+	/**
+	 * Return the IdTree of the Vertex (its color)
+	 * @return idTree of the Vertex
+	 */
 	protected Integer getVertexIdTree() {
 		Integer idOfTheTree;
 
@@ -66,8 +70,7 @@ public abstract class Spanning_Tree_Agent extends Agent {
 	}
 
 	protected boolean isRootOfTheTree(Integer idTree) {
-		return idTree.equals(this.getVertexIdTree())
-				&& this.getVertexParent(this.getVertexIdTree()) == null;
+		return this.getVertexParent(idTree) == null;
 	}
 
 	protected void setVertexPortToParent(Integer idTree, Integer p) {
@@ -90,7 +93,7 @@ public abstract class Spanning_Tree_Agent extends Agent {
 	 * @param idTree Identification of the tree
 	 * @return vertex childs
 	 */
-	protected Iterator<Integer> getVertexChilds(Integer idTree) {
+	protected Collection<Integer> getVertexChilds(Integer idTree) {
 
 		LinkedList<Integer> parent = new LinkedList<Integer>();
 
@@ -105,7 +108,7 @@ public abstract class Spanning_Tree_Agent extends Agent {
 			}
 		}
 
-		return parent.iterator();
+		return parent;
 
 	}
 

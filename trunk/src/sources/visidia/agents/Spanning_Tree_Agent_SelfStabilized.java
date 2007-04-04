@@ -6,6 +6,8 @@ import visidia.graph.Vertex;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 import visidia.simulation.agents.stats.FailedMoveStat;
+import visidia.agents.Depth_Traversal_Agent;
+import visidia.agents.Annexing_SubTree_Agent;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Collection;
@@ -20,12 +22,16 @@ import java.lang.Class;
  */
 public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 
+	private volatile boolean waitingForTerminaisonTest = false;
+	private volatile boolean isTerminated = false;
+	
 	public void init() {
 
 		this.setAgentMover("RandomAgentMover");
 		AgentMover am = this.getAgentMover();
 
 		this.setProperty("EntryPort", new Integer(-1));
+		this.setProperty("RootVertex", new Integer(this.getVertexIdentity()));
 		
 		boolean goBackToRemoveChild = false;
 		boolean entryDoorBelongingToTheTree = true;
@@ -48,22 +54,35 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 			Collection<Agent> c = (Collection<Agent>)this.agentsOnVertex();
 			Iterator<Agent> i = c.iterator();
 			if(i.hasNext()) {
-				System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " une personne");
-
+				// Other agent found
 				Agent a = i.next();
 				if(this.getIdentity() > a.getIdentity()) {
+					// Meeting with a smaller agent => killing him
 					a.death();
-					System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " kill Agent" + Integer.valueOf(a.getIdentity()).toString());
 				}
 				else if(this.getIdentity() < a.getIdentity()) {
-					System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " se sucide suite à une mauvaise rencontre.");
-					this.createEatingClone();
+					// Meeting with a bigger agent => sucide
+
+					this.setVertexPortToParent(this.getIdentity(), (Integer) this.getProperty("EntryPort"));
+
+					this.createEatingClone(this.getIdentity());
+					
 					return;
 				}
 			}
 			
 			
-			if(treeId == null || treeId < this.getIdentity()) {	// First visit of an agent on the vertex
+			// Testing the terminaison
+			if((Integer)this.getProperty("EntryPort") != -1) {
+				if(((Integer)this.getProperty("RootVertex")).equals(this.getVertexIdentity())) {
+					System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " teste sa terminaison");
+					if(this.isTreeTerminated()) {
+						return;
+					}
+				}
+			}
+			
+			if(treeId == null || treeId < this.getIdentity()) {	// First visit of an agent on the vertex || vertex visited by a smaller agent
 
 				this.setVertexIdTree(this.getIdentity());
 				
@@ -75,9 +94,8 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 				}
 				
 				if(treeId != null && treeId < this.getIdentity()) {
-					
-					// Creating agent for eating the subtree
-					this.createEatingClone();	
+					// Vertex visited by a smaller agent
+					this.createEatingClone(this.getVertexIdTree());	
 				}
 			}
 			else if(treeId == this.getIdentity()) {	// Vertex visited by me
@@ -96,16 +114,15 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 					// Coloration graphique
 					this.markDoor(this.entryDoor());
 					
-					this.createEatingClone();
+					this.createEatingClone(this.getIdentity());
 
 				}
 				
-				System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " se sucide.");			
 				return;
 			}
 			
 
-			this.sleep(3000L);
+			//this.sleep(500L);
 
 			
 			/*
@@ -135,26 +152,88 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 					this.setVertexPortToChild(this.getIdentity(), (Integer) this
 							.getProperty("ExitPort"));
 
-				// Move to the choosen door$
-				System.out.println("move: " + this.getProperty("ExitPort") + "/" + (this.getArity() -1));
+				// Move to the choosen door
 				this.move((Integer) this.getProperty("ExitPort"));	
 			}
 			
 			this.setProperty("EntryPort", new Integer(this.entryDoor()));
-			
-			System.out.println("---------------");
 
 		}
 
 	}
 	
-	private void createEatingClone() {
-		
-		System.out.println("createEatingClone");
+	private void createEatingClone(Integer idTreeToAnnexe) {
+		/*
 		try {
-			this.createAgent(Class.forName("visidia.agents.BasicAgent"));					
+			this.createAgent(Class.forName("visidia.agents.Annexing_SubTree_Agent"));					
 		}
 		catch(java.lang.ClassNotFoundException e) {}
+		
+		boolean agentFound = false;
+		
+		while(!agentFound) {
+			Collection<Agent> agentsC = this.agentsOnVertex();
+			Iterator<Agent> agentsI = agentsC.iterator();
+			
+			while(agentsI.hasNext()) {
+				Agent a = agentsI.next();
+				
+				if(a.className().equals("Annexing_SubTree_Agent")) {
+					System.out.println("Spanning_Tree_Agent_SelfStabilized: voici ton identité");
+					((Annexing_SubTree_Agent)a).setIdTreeToAnnexe(idTreeToAnnexe);
+					
+					agentFound = true;
+					break;
+				}
+			}
+			
+			if(!agentFound) this.sleep(100L);
+		}*/
+	}
+	
+	private boolean isTreeTerminated() {
+		
+		try {
+			this.createAgent(Class.forName("visidia.agents.Depth_Traversal_Agent"));					
+		}
+		catch(java.lang.ClassNotFoundException e) {}
+		
+		this.waitingForTerminaisonTest = true;
+		
+		boolean agentFound = false;
+		
+		while(!agentFound) {
+			Collection<Agent> agentsC = this.agentsOnVertex();
+			Iterator<Agent> agentsI = agentsC.iterator();
+			
+			while(agentsI.hasNext()) {
+				Agent a = agentsI.next();
+				
+				if(a.className().equals("Depth_Traversal_Agent")) {
+					((Depth_Traversal_Agent)a).setIdTreeToVisit(this.getIdentity());
+					
+					agentFound = true;
+					break;
+				}
+			}
+			
+			if(!agentFound) this.sleep(100L);
+		}
+		
+		// Waiting for answer of the clone
+		while(this.waitingForTerminaisonTest == true) this.sleep(500L);
+
+		return this.isTerminated;
+		
+	}
+	
+	public void setResultOfTestTerminaison(int nbrVerticesFound) {
+		this.isTerminated = this.getNetSize() == nbrVerticesFound;
+		this.waitingForTerminaisonTest = false;
+	}
+	
+	public boolean isWaitingForTerminaisonTest() {
+		return this.waitingForTerminaisonTest;
 	}
 	
 
