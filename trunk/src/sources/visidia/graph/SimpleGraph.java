@@ -130,9 +130,26 @@ public class SimpleGraph implements Cloneable, Serializable {
 		// de
 		// sgv2
 		// vers
-		// sgv1
-		sgv1.addNeighbour(sgv2, edg_12);
-		sgv2.addNeighbour(sgv1, edg_21);
+		// sgv1d
+		if(sgv1.getVisualization() && sgv2.getVisualization()){
+			sgv1.addNeighbour(sgv2, edg_12);
+			sgv2.addNeighbour(sgv1, edg_21);
+		}
+		else{
+			if(!sgv1.getVisualization() && sgv2.getVisualization()){
+				sgv1.addNeighbour(sgv2, edg_12);
+			}
+			else{
+				if(sgv1.getVisualization() && !sgv2.getVisualization()){
+					sgv2.addNeighbour(sgv1, edg_21);
+				}
+				else{
+					sgv2.addNeighbour(sgv1, edg_21);
+				}
+			}
+				
+		}
+		
 	}
 
 	/* nouvelle méthode pour positionner le suivant si l'arête est orienté */
@@ -193,8 +210,28 @@ public class SimpleGraph implements Cloneable, Serializable {
 
 		SimpleGraphVertex sgv1 = this.getSimpleGraphVertex(id1);
 		SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
-		sgv1.removeNeighbour(sgv2);
-		sgv2.removeNeighbour(sgv1);
+		if(sgv1.getVisualization() && sgv2.getVisualization()){
+			sgv1.removeNeighbour(sgv2);
+			sgv2.removeNeighbour(sgv1);
+		}
+		else{
+			if(!sgv1.getVisualization() && sgv2.getVisualization()){
+				sgv1.removeNeighbour(sgv2);
+			}
+			else{
+				if(sgv1.getVisualization() && !sgv2.getVisualization()){
+					sgv2.removeNeighbour(sgv1);
+				}
+				else{
+					if(sgv1.isNeighbour(sgv2.identity())){
+						sgv1.removeNeighbour(sgv2);
+					}
+					else{
+						sgv2.removeNeighbour(sgv1);
+					}
+				}
+			}
+		}
 	}
 
 	/**
