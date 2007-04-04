@@ -17,7 +17,12 @@
 \title{\visidia\\
       Implémentation d'algorithme}
 
-\author{[à compléter]}
+\author{Ammar Aymen\\
+        Balan Alexandre\\
+        Ben Alaya Ramzi\\
+        Bochu Fabien\\
+        Bonin Éric\\
+        Lafon Julien\\}
 
 \begin{document}
 
@@ -30,7 +35,7 @@ distribué à base d'agent dans \visidia.
 
 \section{Vue globale d'un algorithme à base d'agents mobiles dans \visidia}
 
-[à compéter]
+[a completer]
 
 \section{Description de l'API utile pour l'implémentation des
   algorithmes}
@@ -97,7 +102,7 @@ clés utilisées, c'est-à-dire des variables utilisées.
 
 \subsection{Modification de l'état des ports}
 Dans \visidia les ports/arêtes --- les fonctions décrites ici portent plutôt sur
-les arêtes que sur les ports eux-même --- peuvent avoir un état. Cet état
+les arêtes que sur les ports eux-mêmes --- peuvent avoir un état. Cet état
 peut-être changé grâce à la méthode \texttt{changeDoorState()}. Dans la
 plupart des cas les états prédéfinis devrez vous suffire. Ceux-ci sont au nombre
 de quatre. Ils permettent de marquer une arête (\texttt{markDoor()}), de la démarquer
@@ -108,7 +113,7 @@ de la marquer comme non-synchronisée \texttt{unsyncDoor()}.
 
 La modification de la mémoire d'un sommet est un peu plus délicate que la
 modification de la mémoire d'un agent car dans le cas du sommet il faut gérer
-l'accès concurrent à la resource. Pour cela vous avez la possibilité de
+l'accès concurrent à la ressource. Pour cela vous avez la possibilité de
 vérouiller la mémoire d'un sommet grâce à la méthode
 \texttt{lockVertexProperties()}. Il faudra bien entendu veiller à déverrouiller
 la mémoire avant que l'agent quitte le sommet --- sauf si vous avez besoin de
@@ -116,10 +121,10 @@ garder la mémoire de ce sommet verrouillée --- grâce à la méthode
 \texttt{unlockVertexProperties()}.
 
 Si le sommet est déjà verrouiller la méthode \texttt{lockVertexProperties()}
-attend que le sommet soit déverroullé pour le vérouiller et rendre la main à
-l'agent. Cela pouvant être assez contraignant vouz pouvez vérifier si le sommet
+attend que le sommet soit déverrouillé pour le vérouiller et rendre la main à
+l'agent. Cela pouvant être assez contraignant vous pouvez vérifier si le sommet
 est déjà verrouillé avant de le verrouiller grâce à la méthode
-\texttt{vertexPropertiesLocked()} qui vous retournera un boolèen indiquant si le
+\texttt{vertexPropertiesLocked()} qui vous retournera un booléen indiquant si le
 sommet est verrouillé. Vous pouvez aussi ne verrouiller le sommet que s'il n'est
 pas déjà verrouillé grâce à la méthode \texttt{lockVertexIfPossible()}.
 
@@ -131,20 +136,20 @@ méthodes \texttt{getVertexProperty()}, \texttt{setVertexProperty()} et
 \subsection{Création et clone d'agent}
 \visidia vous permet de créer des agents lors de vos algorithmes. Pour cela vous
 pouvez utilisez les méthodes \texttt{createAgent()}, en lui fournissant en
-paramétre la classe de l'agent à créer, et si vous souhaitez envoyer cet agent
-sur un port particulié un port particulié la méthode
+paramètre la classe de l'agent à créer, et si vous souhaitez envoyer cet agent
+sur un port particulier un port particulier la méthode
 \texttt{createAgentAndSend()},en lui donnant la  classe de l'agent à créer et le
 port sur lequel l'agent créé devra partir.
 
 Vous pouvez aussi créer un clone --- c'est-à-dire un agent de même type que
 l'agent courant, la mémoire n'est pas copiée --- de l'agent en utilisant les
-méthodes \texttt{cloneAgent()}, sans paramétre, et \texttt{cloneAndSend()}, en
+méthodes \texttt{cloneAgent()}, sans paramètre, et \texttt{cloneAndSend()}, en
 ne précisant que le port sur lequel l'agent devra partir.
 
 \subsection{Récupérations des informations du simulateur}
 Les méthodes qui vont être décrites ici ne devraient être utilisées que dans la
 phase d'initialisation de l'algorithme. Sauf bien sûr si vous les supposez
-inaltèrables.
+inaltérables.
 
 Vous pouvez connaître le nombre de sommets du graphe grâce à la méthode
 \texttt{getNetSize()} et l'identifiant du sommet grâce à la méthode
@@ -157,7 +162,7 @@ et son nom \texttt{toString()}.
 \subsection{Les statistiques propres à l'algorithme}
 Si vous voulez faire des statistiques propres à votre algorithme vous pouvez
 utiliser la méthode \texttt{incrementStat()} en lui passant une classe héritant
-de \texttt{AbstractStat} en paramétre. Il vous faudra créer aussi votre classe
+de \texttt{AbstractStat} en paramètre. Il vous faudra créer aussi votre classe
 abstraite de statistiques avant de pouvoir utiliser cette méthode.
 
 \subsection{Autres méthodes intéressantes pour l'implémentation des agents}
