@@ -39,9 +39,9 @@ Dans un système distribué, la communication peut s'effectuer selon deux modes :
 \end{figure}
 
 \subsection{Les deux modèles d'algorithmes}
-Il existe deux modéles d'algorithmes distribués :
+Il existe deux modèles d'algorithmes distribués :
 \begin{itemize}
-  \item le modèle par envoi de messages où chaque entités dispose d'un algorithme qu'elle
+  \item le modèle par envoi de messages où chaque entité dispose d'un algorithme qu'elle
   exécute et communique avec ses entités voisines par l'envoi de message sur le
   réseau~;
   \item le modèle avec agent où les entités sont passives, c'est-à-dire
@@ -61,34 +61,32 @@ système.
 Dans une système non distribué, l'état de la mémoire ne change pas si le processeur ne le modifie pas.
 Mais en distribué, l'entité ne contrôle que son état local. Les données réparties sur
 d'autres unités changent sans aucun 
-contrôle de de l'entité considérée.
-Parfois l'entité connait la topologie du graphe en entier, parfois seulement ses
-voisins ou ne connait que lui-même .
+contrôle de l'entité considérée.
+Parfois l'entité connaît la topologie du graphe en entier, parfois seulement ses
+voisins ou ne connaît que lui-même .
 
 \subsubsection{Terminaison d'un algorithme}
 
 La détection de la terminaison d'un algorithme distribué est souvent difficile,
-car elle nécessite pas seulement d'avoir la connaissance de la terminaison de
+car elle ne nécessite pas seulement d'avoir la connaissance de la terminaison de
 son algorithme mais également de celle de tous les entités  du réseau.
-Nous pouvons cependant chercher à  avoir un détection locale de  la terminaison
+Nous pouvons cependant chercher à  avoir une détection locale de  la terminaison
 globale, c'est-à-dire qu'un processeur  puisse savoir en fonction de  son état et
-de celui de ces voisins si l'algorithme est terminé.
+de celui de ses voisins si l'algorithme est terminé.
 
 \subsubsection{Correction d'un algorithme}
 
 La preuve d'un tel algorithme se fait en deux temps.  Tout d'abord, on
-prouve  la   terminaison  de  l'algorithme,   par  des  considérations
-combinatoires sur le nombre maximum d'étapes, qui doit être fini. Puis
+prouve  la   terminaison  de  l'algorithme, par  des  considérations
+combinatoires sur le nombre maximum d'étapes qui doit être fini. Puis
 on   prouve   la  validité,   le   plus   souvent   en  exhibant   des
 invariants... sur lesquels on s'appuie pour rédiger la preuve.
 
 \subsubsection{Les erreurs}
 
-Alors qu'en séquentiel le cas des erreurs est relativement simple: si un élément est
-défectueux (mémoire, périphérique, 
-processeur, disque), on le change et on reprend/continue/recommence le
-programme; en distribué, on peut de plus avoir 
-un lien de communication en panne.
+En séquentiel le cas des erreurs est relativement simple : si un élément est
+défectueux (mémoire, périphérique, processeur, disque), on le change et on reprend/continue/recommence le
+programme ; en distribué, on peut avoir en plus un lien de communication en panne.
 
 Cela peut donc causer de nombreux problèmes
 tels que la corruption des messages 
@@ -99,22 +97,20 @@ robuste (tolérance aux pannes).
 \section{Exemple d'algorithmes distribués}
 
 Dans le  domaine de l'algorithmique distribuée,  de nombreux problèmes
-existent, en voici quelques uns des plus fréquent.
+existent, en voici quelques uns des plus fréquents.
 
 \subsection{Le problème de l'élection}
 
 \subsubsection*{Principe}
-Ce problème consiste à distinguer une entité c'est-à-dire
-l'élire. La plupart du temps cette élection permet de sélectionner une
-entité pour lui permettre d'accéder à une ressource critique, les
+Ce problème consiste à distinguer une entité c'est-à-dire à l'élir. La plupart du temps cette élection permet de sélectionner une entité pour lui permettre d'accéder à une ressource critique, les
 entités non-élues n'y ayant pas accès.
 
-\subsubsection*{Exemple d'Algorithme : Election dans un anneau} 
+\subsubsection*{Exemple d'algorithme : Élection dans un anneau} 
 
 Soit G un anneau, asynchrone avec échange de messages asynchrones, à 3
 états :  non élu,  élu, indéfini\\
 Les  sommets sont  initialement dans l'état   indéfinis.  \\
-Chaque processeur i du réseau possède un identificateur   $id_{i}$  unique  (un 
+Chaque processeur $i$ du réseau possède un identificateur   $id_{i}$  unique  (un 
  entier). \\
 L'anneau est orienté, c'est-à-dire que les processeurs ont la notion de
 gauche et de droite.  \\
@@ -150,7 +146,7 @@ un arbre,  un anneau  ?  Peut-on  savoir encore si  un sommet  est une
 articulation, si  une arête est un  isthme ?  
 
 
-\subsubsection*{Exemple 1 d'Algorithme pour le calcul d'un arbre recouvrant}
+\subsubsection*{Exemple 1 d'algorithme pour le calcul d'un arbre recouvrant}
 
 Cet  algorithme   permet  le   calcul  d'un  arbre   recouvrant  (sans
 reconnaissance locale de la  terminaison globale, cf.  algorithme n°2)
@@ -164,13 +160,13 @@ reconnaissance locale de la  terminaison globale, cf.  algorithme n°2)
 \end{figure}
 
 On  se donne  un graphe  G. Initialement  tous les  sommets  sont dans
-l'état Neutre.  On choisit  un premier sommet,  dans l'état  Actif. On
+l'état Neutre.  On choisit  un premier sommet,  dans l'état  actif. On
 applique  les transformations  à partir  de ce  point.  Le sous-graphe
 défini  par les  arêtes marquées  est  un arbre  recouvrant du  graphe
 initial.
 
 
-\subsubsection*{Exemple 2 d'Algorithme pour le calcul d'un arbre recouvrant}
+\subsubsection*{Exemple 2 d'algorithme pour le calcul d'un arbre recouvrant}
 
 Cet algorithme  permet le calcul d'un arbre  recouvrant avec détection
 locale de la terminaison globale  (état F).  Considérons les règles de
@@ -190,7 +186,7 @@ plus grande priorité que R2.
 
 \section{Quelques applications}
 
-L'algorithmique distribuée est appliqué dans plusieurs domaines, comme
+L'algorithmique distribuée est appliquée dans plusieurs domaines, comme
 par exemple :
 \begin{itemize}
   \item Construction d'objets parallèles : Un exemple des applications dans ce
@@ -200,8 +196,8 @@ par exemple :
 		http://www.prism.uvsq.fr/)}, il consiste dans la construction d'objets
 		pour  l'élaboration d'algorithmes  d'algèbre linéaire  utilisables par
 		des architectures à mémoire distribuée. 
- \item  Le domaine de l'énergie : Un  exemple  d'application  dans  ce  domaine 
-		on le  trouve  au  LAG \footnote{le Laboratoire    d'Automatique    de  
+ \item  Le domaine de l'énergie : on trouve un  exemple  d'application  dans  ce  domaine 
+		au  LAG \footnote{le Laboratoire    d'Automatique    de  
 		Grenoble    (voir
 		http://www.lag.ensieg.inpg.fr/)}  ,  et  qui  vise  contrairement  aux
 		approches  traditionnelles  qui  consistent  à ajuster  la  production
