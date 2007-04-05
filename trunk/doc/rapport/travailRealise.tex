@@ -14,7 +14,7 @@ points en commun.
 Après une analyse plus poussée du code, nous avons découvert que les deux
 structures étaient totalement dissociées et indépendantes l'une de l'autre.\\
 
-Pour la partie simulation, le répertoire ``graph'' contient toutes les classes
+Pour la partie simulation, le répertoire \textit{graph} contient toutes les classes
 de l'architecture du graphe.
 \begin{figure}[H]
   \centering
@@ -23,9 +23,9 @@ de l'architecture du graphe.
 \end{figure}
 
 La classe \textit{SimpleGraph} contient l'architecture de ce graphe. On manipule
-des \textit{Hastable} pour stocker les arêtes et les sommets du graphe.\\
+des \textit{Hashtable} pour stocker les arêtes et les sommets du graphe.\\
 
-Pour la partie affichage, le repertoire ``gui.presentation'' contient les
+Pour la partie affichage, le répertoire \textit{gui.presentation} contient les
 classes implémentant la structure du graphe visuel.
 \begin{figure}[H]
   \centering
@@ -40,15 +40,15 @@ La classe principale pour manipuler ce graphe est la classe \textit{VueGraphe}.
 
 Lors de la conception initiale de \visidia, il n'a pas été prévu que le graphe
 visuel puisse évoluer au cours de la simulation.
-En effet, aucune interaction entre les deux graphes n'a été envisagées hormis, la
+En effet, aucune intéraction entre les deux graphes n'a été envisagée hormis, la
 conversion d'un graphe visuel en un graphe de simulation par l'intermédiaire de
-la classe ``Convertisseur''et de sa méthode ``convert".\\
+la classe \textit{Convertisseur} et de sa méthode \textit{convert()}.\\
 
-En effet, le graphe visuel dessiné dans l'application principale est converti
-un graphe simulation au moment du passage vers l'application ``simulation avec
-agents''. 
-Aprés cette manipulation le graphe visuel étant présumé statique, aucune méthode
-agissant sur le graphe dessiné, ne répercutait les modifications sur le graphe de
+En effet, le graphe visuel dessiné dans l'application principale
+est converti en un graphe simulation au moment du passage vers
+l'application \textit{simulation avec agents}. 
+Après cette manipulation le graphe visuel étant présumé statique, aucune méthode
+agissant sur le graphe dessiné ne répercutait les modifications sur le graphe de
 simulation et vice versa.\\
 
 Une solution possible à laquelle nous avions pensé, et qui permettait de
@@ -56,41 +56,42 @@ réutiliser ce qui avait été développé jusqu'à présent, était de
 convertir le graphe visuel vers un graphe simulation à chaque fois que l'on
 modifiait le graphe visuel. 
 Nous n'avons cependant pas choisi d'implémenter cette méthode pour des raisons
-évidentes de performance: la génération d'un nouveau graphe de simulation à
-chaque ajout ou suppression d'arêtes ou sommet peut s'avérer très coûteuse,
+évidentes de performance : la génération d'un nouveau graphe de simulation à
+chaque ajout ou suppression d'arête ou sommet peut s'avérer très coûteuse,
 surtout avec un graphe de grande taille. \\
 
-Ainsi donc nous avons préféré pour chaque modification possible sur le graphe visuel, 
-implémenter une méthode permettant de répercuter les effets sur le graphe de simulation.
+Ainsi nous avons préféré pour chaque modification possible sur le graphe visuel, 
+d'implémenter une méthode permettant de répercuter les effets sur le graphe de simulation.
 
 \subsubsection{Ajout de sommets et d'arêtes}
 
 L'ajout de sommets et d'arêtes sur le graphe visuel avait déjà été implémenté
-pour la fenetre principale de \visidia. Nous avons donc récupéré ce code, pour
-l'adapter à l'application de simulation avec agents.\\
+pour la fenêtre principale de \visidia. Nous avons donc
+récupéré ce code pour l'adapter à l'application de
+simulation avec agents.\\
 
-Nous avons ensuite implémenté une méthode addVertex() et addEdge() pour la
-classe AgentSimulationWindow qui pour
+Nous avons ensuite implémenté une méthode \textit{addVertex()} et \textit{addEdge()} pour la
+classe \textit{AgentSimulationWindow} qui pour
 chaque sommet, respectivement chaque arête, que l'on souhaite ajouter au graphe
 visuel, effectue l'opération et répercute la modification sur le graphe
 simulation.
 
 \subsubsection{Suppression de sommets et d'arêtes}
 
-La suppression de sommet et d'arêtes a été plus délicate à gérer que l'ajout
-puisque au moment où l'on souhaite retirer une arête ou un sommet, il est
+La suppression de sommet et d'arête a été plus délicate à gérer que l'ajout
+puisqu'au moment où l'on souhaite retirer une arête ou un sommet, il est
 possible qu'un agent soit sur l'élément considéré. Il faut donc pouvoir détecter
 la présence d'un ou plusieurs agents sur un objet donné, et ensuite pouvoir le
 ou les détruire en même temps que la suppression du sommet ou de l'arête.\\
 
-Nous avons donc implémenté les méthodes removeVertex() et removeEdge() pour la
-classe AgentSimulationWindow qui pour
+Nous avons donc implémenté les méthodes \textit{removeVertex()} et \textit{removeEdge()} pour la
+classe \textit{AgentSimulationWindow} qui pour
 chaque sommet, respectivement chaque arête, que l'on souhaite supprimer du graphe
 visuel, effectue l'opération et répercute la modification sur le graphe
 simulation. 
 
-Nous avons également ajouté à la classe AgentSimulator, les méthodes
-deleteVertex et deleteEdge() qui réalise la suppression du simulateur d'un
+Nous avons également ajouté à la classe \textit{AgentSimulator, les méthodes
+\textit{deleteVertex()} et \textit{deleteEdge()} qui réalise la suppression du simulateur d'un
 sommet, respectivement d'une arête, tout en gérant le cas où un agent serait
 présent en le supprimant.
 
@@ -106,12 +107,12 @@ d'ajout d'agents. A ce moment, l'identificateur du sommet est
 récupéré, et le nouvel agent est ajouté à l'ensemble
 des agents avec la méthode \textit{addAgents()}. Une méthode
 \textit{createAgentDuringExecution()} a été créée dans le
-simulateur afin de créeer effectivement l'agent sur le sommet
+simulateur afin de créer effectivement l'agent sur le sommet
 sélectionné et de lancer un \textit{thread} pour l'agent
 nouvellement ajouté. 
 
 
-\subsubsection{Suppresion d'agents en cours d'exécution}
+\subsubsection{Suppression d'agents en cours d'exécution}
 Un bouton a été ajouté dans la fenêtre de simulation afin
 de permettre la suppression d'agents en cours d'exécution. L'ensemble des agents en
 cours d'exécution est récupéré et l'utilisateur
@@ -146,89 +147,92 @@ la mémoire du sommet ou de l'agent.
 En effet, les variables dont la modification des valeurs peut corrompre 
 l'exécution des algorithmes varient suivant ces derniers. Cependant, 
 il existe des variables qui peuvent engendrer des erreurs et ce quel que 
-soit l'algorimthe: leur modification peut affecter le déroulement de tous 
+soit l'algorithme : leur modification peut affecter le déroulement de tous 
 les algorithmes. Ces variables sont le booléen \textit{Visualisation} 
-et le String \textit{label} La première indique qu'un sommet est éteint quand 
+et la chaîne \textit{label} La première indique qu'un sommet est éteint quand 
 elle est à \textit{false} et allumé si elle est à \textit{true}. La seconde variable 
 indique la couleur du sommet. Ces deux variables sont par défaut stockées 
 dans la mémoire des sommets.\\
 
  Si l'utilisateur souhaite pouvoir modifier 
 d'autres variables pour simuler des erreurs, il n'a qu'à stocker ces variables
-dans le whiteboard en appellant les méthodes adéquates de la classe 
-\textit{SimpleGraphVertex} à savoir \textit{setProperty} et \textit{ getProperty()}.
-Cette fonctionalité de la modification de la mémoire a été implémentée de manière 
+dans le \textit{whiteboard} en appelant les méthodes adéquates de la classe 
+\textit{SimpleGraphVertex}, à savoir \textit{setProperty} et \textit{ getProperty()}.
+Cette fonctionnalité de la modification de la mémoire a été implémentée de manière 
 que toute modification de ces variables à travers la fenêtre de dialogue soit 
 prise en compte et se répercute sur le déroulement de l'algorithme.
  
 \subsubsection{Modification des mémoires des agents}
 
-Dans le cas des agents, il n'y a pas des variables communes à tous les algorithmes.
-L'utilisateur est alors invité à ajouter les variables de son choix dans le whiteboard.
+Dans le cas des agents, il n'y a pas de variables communes à tous les algorithmes.
+L'utilisateur est alors invité à ajouter les variables de son choix dans le \textit{whiteboard}.
 Bien évidemment, comme pour la mémoire des sommets, leur modification à travers la fenêtre 
-de dialogue sera prise en compte et se répercutera sur le déroulement de l'agorithme.\\
+de dialogue sera prise en compte et se répercutera sur le déroulement de l'algorithme.\\
 
-Dans la version des algorithmes que nous avons reprise, les variables utlisées par
-l'agent sont déclarées en tant que variables locales de la méthode init(). 
-Ce qui fait qu'avec cette implémentation simuler des erreurs en modifiant 
-les valeurs de ces variables n'est pas possible. Donc, pour remedier à ce problème,
-nous avons envisagé deux solutions possibles:\\
+Dans la version des algorithmes que nous avons reprise, les variables utilisées par
+l'agent sont déclarées en tant que variables locales de la méthode \textit{init()}. 
+Avec cette implémentation, simuler des erreurs en modifiant 
+les valeurs de ces variables n'est pas possible. Pour remédier à ce problème,
+nous avons donc envisagé deux solutions possibles :\\
 
 \begin{itemize}
 
 \item Pour chaque algorithme, stocker et initialiser ces variables dans 
-le whitebord. A chaque fois qu'elles sont utilisées, on doit les mettre 
-à jour en reprenant la valeur la plus récente à partir du whiteboard. 
+le \textit{whiteboard}. À chaque fois qu'elles sont utilisées, on doit les mettre 
+à jour en reprenant la valeur la plus récente à partir du \textit{whiteboard}. 
 Ceci permet de prendre en compte les modifications "manuelles" apportées par
 l'utilisateur et donc de simuler des erreurs. L'inconvénient de cette solution 
 est qu'avant chaque instruction manipulant ces variables nous sommes 
-obligés d'ajouté une instruction de mise à jour.\\
+obligés d'ajouter une instruction de mise à jour.\\
 
 
 \item Utiliser une méthode \textit{initWhiteBoard()} qu'on implémente dans chaque
-nouvelle classe définissant un nouveau agent. Son implémentation consiste en
+nouvelle classe définissant un nouvel agent. Son implémentation consiste en
 le stockage et l'initialisation des variables que l'utilisateur souhaite modifier. 
 Cette méthode ne peut pas être une méthode abstraite de la classe \textit{Agent} 
 car sinon cela imposera que cette méthode soit implémentée dans toutes 
 les sous-classes, ce qui entraînera des modifications considérables du code
-des algorithmes: mettre toutes ces variables qui sont locales en tant qu'attributs
+des algorithmes : mettre toutes ces variables qui sont locales en tant qu'attribut
 de l'agent en question et, par conséquent, modifier toutes les instructions les manipulant.
-En plus, cela dépendra des choix de l'utilisateur notamment du choix des variables
+Cela dépendra en plus des choix de l'utilisateur notamment du choix des variables
 qu'il souhaite modifier, ces variables variant suivant les algorithmes et suivant ses besoins. \\
 
 \end{itemize}
 
-Pour garantir une evolutivité ascendante du code, la première solution a été retenue 
+Pour garantir une compatibilité ascendante du code, la première solution a été retenue 
 pour les algorithmes déjà implémentés alors que pour les algorithmes que nous avons
 codés, nous avons retenu la deuxième solution qui nous semble la plus pertinente. 
 
 
 \subsection{Extinction et allumage des sommets}
 
-Cette fonctionalité permet à l'utilisateur de mettre à l'écart un sommet
-sans le supprimer du graphe: l'exécution des algorithmes se fait comme si le sommet
+Cette fonctionnalité permet à l'utilisateur de mettre à l'écart un sommet
+sans le supprimer du graphe : l'exécution des algorithmes se fait comme si le sommet
 n'existait pas. Pour éteindre un sommet, on indique à tous ces voisins 
-de le supprimer de leur voisinage: le sommet ne sera plus dans la liste des voisins 
+de le supprimer de leur voisinage : le sommet ne sera plus dans la liste des voisins 
 de ces sommets.\\
 
 Pour indiquer qu'un sommet est éteint, on le colorie en gris
-et on lui met l'étiquette \textit {Switch Off}. Bien évidemment, une fonctionalité 
-a été implémentée pour réallumer le sommet. Quand ce dernier est rallumé 
-il reprend la couleur et l'étiquette qu'il avait avant son extinction.\\
+et on lui met l'étiquette \textit{Switch Off}. Bien évidemment,
+une fonctionnalité  a été implémentée pour
+ré-allumer le sommet. Quand ce dernier est de nouveau allumé, il
+reprend la couleur et l'étiquette qu'il avait avant son
+extinction.\\
 
-Cependant, l'extinction d'un sommet necéssite, le plus souvent, des traitements 
+Cependant, l'extinction d'un sommet nécessite, le plus souvent, des traitements 
 spéciaux pour les agents.
 
 \begin{itemize}
 \item Si un agent arrive à un sommet qu'on vient d'éteindre, 
 il revient d'où il vient sans exécuter aucun traitement sur le sommet éteint. 
 
-\item Si l'agent arrive sur un sommet et que entre temps ce sommet a été isolé du graphe 
-en éteignant tous ses voisins l'agent reste sur le sommet et attend jusqu'à ce qu'à ce 
-qu'au moins un voisin soit réallumé pour qu'il puisse quitter le sommet.
+\item Si l'agent arrive sur un sommet et qu'entre temps ce sommet a été isolé du graphe 
+en éteignant tous ses voisins, l'agent reste sur le sommet et
+attend jusqu'à ce qu'au moins un voisin soit ré-allumé pour
+qu'il puisse quitter le sommet.
 \end{itemize}
 
-Pour permettre à l'utilisateur de choisir ses propores traitements, on lui a laissé
+Pour permettre à l'utilisateur de choisir ses propres traitements, on lui a laissé
 la possibilité de surcharger les méthodes \textit {processingAgentWhenSwitchingOff()} 
 et \textit{processingAgentIsolated()} qui définissent les comportements de l'agent 
 en cas d'extinction d'un sommet. 
@@ -276,13 +280,13 @@ sur les sommets (où ils ont le choix de rester sur place ou de se déplacer au pr
 
 
 Au niveau de l'implémentation, nous avons effectué les choix suivants : chaque agent, 
-lorsqu'il arrive sur un sommet, met dans le whiteboard de ce sommet son identifiant 
+lorsqu'il arrive sur un sommet, met dans le \textit{whiteboard} de ce sommet son identifiant 
 seulement si le sien est plus grand, et attend que tous les autres agents l'aient fait. 
 Ensuite, il compare son identifiant $ID$ avec celui du sommet (contenant donc le plus grand
  identifiant $maxID$ de tous les agents présents sur le sommet) : si $ID < maxID$, alors 
  l'agent fusionne sa mémoire dans celle du sommet puis se tue. L'unique agent tel 
  que $ID = maxID$ récupère alors la fusion des mémoires contenue dans le sommet avant 
- de réinialiser la mémoire du sommet puis de se déplacer avec une probabilité égale à un tiers.
+ de réinitialiser la mémoire du sommet puis de se déplacer avec une probabilité égale à un tiers.
 
 
 
