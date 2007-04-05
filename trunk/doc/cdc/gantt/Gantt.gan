@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ViSiDiA" company="" webLink="" view-date="2007-02-05" view-index="0" gantt-divider-location="302" resource-divider-location="301" version="1.12">
+<project name="ViSiDiA" company="" webLink="" view-date="2007-02-05" view-index="0" gantt-divider-location="365" resource-divider-location="301" version="1.12">
     <view zooming-state="default:3"/>
     <!-- -->
     <calendars>
@@ -29,37 +29,37 @@
         </taskproperties>
         <task id="0" name="Compréhension du code existant" color="#8cb6ce" meeting="false" start="2007-02-12" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="7" name="Trois implém. d'algos" color="#8cb6ce" meeting="false" start="2007-02-19" duration="7" complete="0" priority="1" expand="true">
+        <task id="8" name="Modifier mémoire Agent" color="#8cb6ce" meeting="false" start="2007-02-19" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="8" name="Modifier mémoire Agent" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        <task id="9" name="Modifier whiteboard Sommet" color="#8cb6ce" meeting="false" start="2007-02-19" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="9" name="Modifier whiteboard Sommet" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        <task id="10" name="Ajouter Agent" color="#8cb6ce" meeting="false" start="2007-02-19" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="10" name="Ajouter Agent" color="#8cb6ce" meeting="false" start="2007-02-28" duration="5" complete="0" priority="1" expand="true">
+        <task id="11" name="Allumer Sommet" color="#8cb6ce" meeting="false" start="2007-02-26" duration="4" complete="0" priority="1" expand="true">
         </task>
-        <task id="11" name="Allumer Sommet" color="#8cb6ce" meeting="false" start="2007-03-07" duration="4" complete="0" priority="1" expand="true">
+        <task id="12" name="Eteindre Sommet" color="#8cb6ce" meeting="false" start="2007-02-26" duration="4" complete="0" priority="1" expand="true">
         </task>
-        <task id="12" name="Eteindre Sommet" color="#8cb6ce" meeting="false" start="2007-03-07" duration="4" complete="0" priority="1" expand="true">
+        <task id="17" name="Supprimer Agent" color="#8cb6ce" meeting="false" start="2007-02-26" duration="2" complete="0" priority="1" expand="true">
         </task>
-        <task id="13" name="Supprimer Arête" color="#8cb6ce" meeting="false" start="2007-03-07" duration="2" complete="0" priority="1" expand="true">
+        <task id="13" name="Supprimer Arête" color="#8cb6ce" meeting="false" start="2007-02-28" duration="2" complete="0" priority="1" expand="true">
         </task>
-        <task id="14" name="Supprimer Sommet" color="#8cb6ce" meeting="false" start="2007-03-09" duration="2" complete="0" priority="1" expand="true">
+        <task id="14" name="Supprimer Sommet" color="#8cb6ce" meeting="false" start="2007-03-02" duration="2" complete="0" priority="1" expand="true">
         </task>
-        <task id="15" name="Ajouter Arête" color="#8cb6ce" meeting="false" start="2007-03-13" duration="5" complete="0" priority="1" expand="true">
+        <task id="15" name="Ajouter Arête" color="#8cb6ce" meeting="false" start="2007-03-06" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="16" name="Ajouter Sommet" color="#8cb6ce" meeting="false" start="2007-03-13" duration="5" complete="0" priority="1" expand="true">
+        <task id="16" name="Ajouter Sommet" color="#8cb6ce" meeting="false" start="2007-03-06" duration="5" complete="0" priority="1" expand="true">
         </task>
-        <task id="17" name="Supprimer Agent" color="#8cb6ce" meeting="false" start="2007-03-13" duration="2" complete="0" priority="1" expand="true">
+        <task id="20" name="Statistiques locales à un noeud" color="#8cb6ce" meeting="false" start="2007-03-13" duration="3" complete="0" priority="1" expand="true">
         </task>
-        <task id="20" name="Statistiques locales à un noeud" color="#8cb6ce" meeting="false" start="2007-03-15" duration="3" complete="0" priority="1" expand="true">
+        <task id="21" name="Statistiques locales aux agents" color="#8cb6ce" meeting="false" start="2007-03-16" duration="4" complete="0" priority="1" expand="true">
         </task>
-        <task id="21" name="Statistiques locales aux agents" color="#8cb6ce" meeting="false" start="2007-03-20" duration="4" complete="0" priority="1" expand="true">
+        <task id="22" name="Documentation" color="#8cb6ce" meeting="false" start="2007-03-16" duration="9" complete="0" priority="1" expand="true">
         </task>
-        <task id="22" name="Documentation" color="#8cb6ce" meeting="false" start="2007-03-20" duration="9" complete="0" priority="1" expand="true">
-        </task>
-        <task id="23" name="Tests fonctionnels" color="#8cb6ce" meeting="false" start="2007-03-20" duration="9" complete="0" priority="1" expand="true">
+        <task id="23" name="Tests fonctionnels" color="#8cb6ce" meeting="false" start="2007-03-16" duration="9" complete="0" priority="1" expand="true">
         </task>
         <task id="24" name="Statistiques de l'exécution" color="#8cb6ce" meeting="false" start="2007-03-26" duration="5" complete="0" priority="1" expand="true">
+        </task>
+        <task id="7" name="Trois implém. d'algos" color="#8cb6ce" meeting="false" start="2007-04-02" duration="4" complete="0" priority="1" expand="true">
         </task>
     </tasks>
 
@@ -70,11 +70,11 @@
     </resources>
 
     <allocations>
-        <allocation task-id="0" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="0" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="0" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="7" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="7" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="7" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="8" resource-id="0" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
         <allocation task-id="9" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
@@ -96,9 +96,9 @@
     </vacations>
 
     <taskdisplaycolumns>
-        <displaycolumn property-id="tpd3" order="0" width="75" />
-        <displaycolumn property-id="tpd4" order="1" width="95" />
-        <displaycolumn property-id="tpd5" order="2" width="95" />
+        <displaycolumn property-id="tpd3" order="0" width="191" />
+        <displaycolumn property-id="tpd4" order="1" width="38" />
+        <displaycolumn property-id="tpd5" order="2" width="36" />
     </taskdisplaycolumns>
 
     <previous>
