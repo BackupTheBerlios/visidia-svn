@@ -211,33 +211,35 @@ codés, nous avons retenu la deuxième solution qui nous semble la plus pertinente
 
 Cette fonctionnalité permet à l'utilisateur de mettre à l'écart un sommet
 sans le supprimer du graphe : l'exécution des algorithmes se fait comme si le sommet
-n'existait pas. Pour éteindre un sommet, on indique à tous ces voisins 
-de le supprimer de leur voisinage : le sommet ne sera plus dans la liste des voisins 
-de ces sommets.\\
-
-Pour indiquer qu'un sommet est éteint, on le colorie en gris
+n'existait pas. Pour indiquer qu'un sommet est éteint, on le colorie en gris
 et on lui met l'étiquette \textit{Switch Off}. Bien évidemment,
-une fonctionnalité  a été implémentée pour
-ré-allumer le sommet. Quand ce dernier est de nouveau allumé, il
-reprend la couleur et l'étiquette qu'il avait avant son
-extinction.\\
+une fonctionnalité  a été implémentée pour ré-allumer le sommet. Quand ce
+dernier est de nouveau allumé, il reprend la couleur et l'étiquette qu'il avait
+avant son extinction.\\
 
 Cependant, l'extinction d'un sommet nécessite, le plus souvent, des traitements 
 spéciaux pour les agents.
 
 \begin{itemize}
 \item Si un agent arrive à un sommet qu'on vient d'éteindre, 
-il revient d'où il vient sans exécuter aucun traitement sur le sommet éteint. 
+il revient d'où il vient sans exécuter aucun traitement sur le sommet éteint.\\ 
 
 \item Si l'agent arrive sur un sommet et qu'entre temps ce sommet a été isolé du graphe 
 en éteignant tous ses voisins, l'agent reste sur le sommet et
-attend jusqu'à ce qu'au moins un voisin soit ré-allumé pour
-qu'il puisse quitter le sommet.
+attend jusqu'à ce qu'au moins un de ses voisins soit ré-allumé pour
+qu'il puisse quitter le sommet.\\
+
+\item Si l'agent est sur une arête dont les deux sommets sont éteints, l'agent
+s'endort dans le sommet auquel il arrive. Il ne se réveille et ne reprend
+l'exécution de l'algorithme que si on allume le sommet dans lequel il s'endort
+et que ce dernier ait au moins un voisin allumé vers lequel il peut diriger.\\ 
+
 \end{itemize}
 
 Pour permettre à l'utilisateur de choisir ses propres traitements, on lui a laissé
-la possibilité de surcharger les méthodes \textit {processingAgentWhenSwitchingOff()} 
-et \textit{processingAgentIsolated()} qui définissent les comportements de l'agent 
+la possibilité de surcharger, dans les sous classe de la classe \textit{Agent}les méthodes
+\textit {processingAgentWhenSwitchingOff()} et 
+\textit{processingAgentIsolated()} qui définissent les comportements de l'agent 
 en cas d'extinction d'un sommet. 
 
 
