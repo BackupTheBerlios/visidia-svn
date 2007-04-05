@@ -64,7 +64,7 @@ public class RdvSynchronizedAgent extends SynchronizedAgent {
 			String currentFusion = "";
 			try {
 				currentFusion = (String) this.getVertexProperty("fusion");
-				if (! currentFusion.isEmpty()){
+				if (! (currentFusion.length() == 0)){
 					this.setProperty("myName", this.getProperty("myName") + " " + ((String) this.getVertexProperty("fusion")));
 				}
 			} catch (NoSuchElementException e){
