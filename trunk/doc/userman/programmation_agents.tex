@@ -1,0 +1,315 @@
+% mini-plan de la section
+% Programmation      
+%   Agent
+%   Agent Sync
+%   Mover
+%   Placeur
+%   Stats
+
+Dans cette section, nous commencerons par voir l'API de programmation
+des agents puis la méthode à adopter pour en programmer de
+nouveaux. Nous verons également comment programmer des algorithmes de
+déplacement, avant de nous intéresser à l'implantation de techniques de
+placement initial d'agents. Et pour conclure nous verrons comment il
+est possible de créer des statistiques personnalisées.\\
+
+Vous pouvez aussi vous baser (même s'ils ne respectent tous les
+principes de programmation que nous évoquerons ci-dessous) sur des exemples déjà écrits ; vous en
+trouverez un grand nombre dans les réperétoires~:
+\begin{itemize}é
+\item \dossier{sources/visidia/agents} pour les agents.
+\item \dossier{sources/visidia/agents/agentsmover} pour les algorithmes de déplacement.
+\item \dossier{sources/visidia/agents/agentchooser} pour le placement
+  initial d'agents.
+\item \dossier{sources/visidia/agents/agentreport} pour la création de
+  statistiques.
+\end{itemize}
+
+
+\section{Description de l'API}
+\label{sec:agent-api}
+
+Toute la documentation a été  écrite à l'aide de Javadoc. Pour générer
+des fichiers  HTML, placez vous  dans le dossier  \dossier{visidia} et
+tapez la commande suivante :
+
+\begin{verbatim}
+$ ./mkjavadoc.sh
+\end{verbatim}
+
+Ceci  fait, ouvrez le  fichier \dossier{visidia/javadoc/index.html}
+avec un navigateur puis sélectionnez la classe Agent. 
+
+
+\section{Ecrire ses propres agents}
+\input{agenthowto}
+%% Il existe deux types d'agents : les agents non-synchronisés et les
+%% agents synchronisés.
+
+%% Dans ces deux cas, vous devez créer respectivement une sous-classe de la classe
+%% \classe{Agent} ou de la classe \classe{SynchronizedAgent} et la placer
+%% dans le dossier \dossier{visidia/sources/visidia/agents}.  N'oubliez
+%% pas de renseigner le paquetage grâce à la ligne :
+
+%% \begin{verbatim}
+%% package visidia.agents;
+%% \end{verbatim}
+
+%% La programmation de l'agent se fait en implantant la
+%% méthode \methode{init()} et en utilisant les différentes possibilités
+%% offertes par l'API.\\
+
+
+%% \subsection{Cas d'un agent non-synchronisé}
+
+%% \begin{verbatim}
+
+%%   protected void init() {
+      
+%%     do {
+%%       Integer nbPassages;
+
+%%       try {
+%%         nbPassages = (Integer) getVertexProperty("nbPassages");
+%%       } catch (NoSuchElementException e) {
+%%         nbPassages = 0;
+%%       }
+
+%%       nbPassages = new Integer(nbPassages.intValue() + 1);
+%%       setVertexProperty("nbPassages", nbPassages);
+
+%%       Random rand = new Random();
+
+%%       moveToDoor(rand.nextInt(getArity()));
+%%     } while (true);
+%%   }
+%% \end{verbatim}
+
+%% L'objectif  de cet  agent est  de compter  le nombre  de  passages des
+%% agents sur  chaque sommet.  Pour  mémoriser le nombre de  passages sur
+%% chaque  sommet,  nous  avons   utilisé  le  champs  ``nbPassages''  du
+%% whiteboard du sommet.
+
+%% Pour ce faire, nous essayons dans un premier temps de récupérer le
+%% nombre de passages de ce type d'agent sur le whiteboard du sommet
+%% courant par le biais de la
+%% \methode{getVertexProperty(``nbPassages'')}. Si ce champs n'a pas été
+%% préalablement inscrit dans le whiteboard du sommet, l'appel à la
+%% méthode \methode{getVertexProperty(``nbPassages'')} va déclencher une
+%% exception de type \emph{NoSuchElementException}. Si tel est le cas,
+%% nous considérons qu'il s'agit de notre premier passage. Ceci est
+%% effectué dans le \emph{catch}.
+
+%% Ensuite, nous incrémentons le nombre de passages de un, puis l'agent
+%% réécrit la nouvelle valeur dans le champs ``nbPassages'' du sommet
+%% courant graçe à la méthode \methode{setVertexProperty(``nbPassages'')}.
+
+%% \subsection{Cas d'un agent synchronisé}
+%% \label{sec:prog-agent-synchro}
+
+%% \begin{verbatim}
+%% public class BasicSynchronizedAgent1 extends SynchronizedAgent {
+
+%%     protected void init() {
+
+%%         for(int i=0; i<10; ++i) {
+%%           Random rand = new Random();
+	 
+%%           nextPulse();
+%%           moveToDoor(rand.nextInt(getArity()));
+
+%%         }
+
+%%     }
+%% }
+%% \end{verbatim}
+
+%% Cet agent se déplace aléatoirement à travers le graphe et meurt au
+%% bout de 10 déplacements. Veuillez noter l'appel à la méthode
+%% \methode{nextPulse()} qui permet de synchroniser les agents : chaque
+%% agent synchronisé sera bloqué à l'appel de cette méthode jusqu'à ce
+%% que le dernier agent synchronisé fasse à son tour appel à cette
+%% méthode. Un rendez-vous, c'est-à-dire une rencontre entre agents, peut
+%% alors être organisée.
+
+%% Le rendez-vous est réalisé en implantant la méthode
+%% \methode{planning(SynchronizedAgent)} qui sera appelé à chaque fois
+%% qu'un rendez-vous à lieu sur un sommet.
+
+
+\section{Développer des algorithmes de déplacement}
+
+La méthode de création d'algorithmes de déplacement est presque
+identique à la méthode de création d'agents. Pour cela il suffit de
+sous classer la classe \classe{AgentMover} et implanter la méthode
+\methode{findNextDoor()}. De plus vous disposez de toutes les
+informations nécessaires sur l'agent grâce à la méthode
+\methode{agent()}.  Les algorithmes que vous écrirez devront se
+trouver dans le paquet \dossier{visidia.agents.agentsmover}.
+
+
+
+Voici le code d'un algorithme d'un déplacement aléatoire :
+
+\begin{verbatim}
+public class RandomAgentMover extends AgentMover {
+    
+    public RandomAgentMover(Agent ag) {
+        super(ag);
+    }
+
+    protected int findNextDoor() {
+        Random rand = new Random();
+
+        return rand.nextInt(agent().getArity());
+    }
+}
+\end{verbatim}
+
+Pour utiliser cet algorithme de déplacement pour un agent, utilisez le
+méthode \methode{setAgentMover(``RandomAgentMover'')}. Le nom passé
+en paramètre doit correspondre exactement au nom de la classe (casse
+comprise). Le déplacement ne se fera plus avec
+\methode{moveToDoor(int)} mais avec \methode{move()}
+
+Voici comment nous pouvons réécrire notre BasicSynchronizedAgent1 :
+
+\begin{verbatim}
+public class BasicSynchronizedAgent1 extends SynchronizedAgent {
+
+  protected void init() {
+    setAgentMover("RandomAgentMover");
+    
+    for(int i=0; i<10; ++i) {
+      
+      nextPulse();
+      move();
+    }
+}
+\end{verbatim}
+
+Pour plus d'informations, référez vous à la javadoc comme indiqué en
+\ref{sec:agent-api} et lisez particulièrement la documentation de la
+classe \classe{AgentMover}.
+
+D'autre exemples d'algorithmes de placement sont disponibles dans le
+package \dossier{visidia.agents.agentsmover}
+
+\section{Implanter des techniques de placement initial d'agents}
+\label{sec:prog-placeur}
+
+Comme pour les algorithmes de déplacement des agents sur le graphe, la
+programmation  de nouveaux  algorithmes de  placement d'agent  se fait
+simplement   et  la  lecture   de  la   documentation  de   la  classe
+\classe{AgentChooser}  ainsi  que  le  parcours des  exemples  devrait
+suffire.\\
+
+Vos algorithmes de placement d'agents devront être implantés dans le
+paquetage \dossier{visidia.agents.agentchooser}, devront surcharger la
+méthode \methode{chooseForVertex(Integer)} et devront appeler la
+méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
+
+
+
+\section{Création de statistiques personnalisées}
+\label{sec:prog-stats}
+
+La création de statistiques peut être entièrement personnalisée.  Pour
+cela il vous faudra écrire une classe héritant de
+\classe{AbstractStatReport} dans laquelle vous devrez redéfinir la
+méthode \methode{getStats()} qui retournera l'ensemble des
+statistiques.  Ces statistiques devront faire partie du package
+\dossier{visidia.agents.agentreport}
+
+Voici un exemple calculant le nombre de déplacements moyen par type
+d'agent :
+
+\begin{verbatim}
+public class AverageMoveReport extends AbstractStatReport {
+    /**
+     * Used to store the number of agents of type given by Class. Keys
+     * represent the class of agents (BasicAgent, SpanningTree...) and
+     * values represent the number of agents for that class.
+     */
+    private Hashtable<Class, Long> agentsByClass;
+
+    /**
+     * Will  store the  report  information. Everything  that will  be
+     * displayed on the report will be in that variable.
+     */
+    private Bag stats;
+
+    /**
+     * Used to fill the <code>agentsByClass</code> instance variable.
+     */
+    private void countAgents() {
+	Set keys;
+	agentsByClass = new Hashtable(10);
+
+	/**
+	 * Keys is  a Set  containing all the  events reported  by the
+	 * simulator.
+	 */
+	keys = getBag().keySet();
+
+	/**
+	 * For each events
+	 */
+	for(Object key: keys) {
+	    if (key instanceof AgentCreationStat) // if    it   is   a
+						  // creation event
+		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
+				  new Long(getBag().getOccurrencesOf(key)));
+	}
+    }
+
+    /**
+     * Count the moves by agent type.
+     */
+    private void computeStats() {
+	Set keys;
+
+	stats = new Bag();
+
+	countAgents();
+
+	/**
+	 * Keys is a set containing all the events.
+	 */
+	keys = getBag().keySet();
+
+	for(Object key: keys) {
+	    float movesByAgent;
+
+	    if (key instanceof MoveStat) { // if it is a move event
+		Class agClass = ((MoveStat)key).getAgentClass();
+		long agentsForClass = agentsByClass.get(agClass).longValue();
+		long movesForClass = getBag().getOccurrencesOf(key);
+
+		stats.add("Average moves by agent (" 
+			  + agClass.getSimpleName() + ")",
+			  new Long(movesForClass / agentsForClass));
+	    }
+	}
+    }
+
+    /**
+     * Calculate the  number of  moves by agent  type and  returns the
+     * results that will be displayed.
+     */
+    public Bag getStats() {
+        computeStats();
+        return stats;
+    }
+
+\end{verbatim}
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% coding: latin-1
+%%% TeX-PDF-mode: t
+%%% End: 
