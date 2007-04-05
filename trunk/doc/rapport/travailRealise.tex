@@ -216,12 +216,12 @@ une fonctionnalité  a été implémentée pour ré-allumer le sommet. Quand ce
 dernier est de nouveau allumé, il reprend la couleur et l'étiquette qu'il avait
 avant son extinction.\\
 
-Cependant, l'extinction d'un sommet nécessite, le plus souvent, des traitements 
-spéciaux pour les agents.
+Cependant, l'extinction d'un sommet nécessite le plus souvent des traitements 
+spéciaux pour les agents :
 
 \begin{itemize}
-\item Si un agent arrive à un sommet qu'on vient d'éteindre, 
-il revient d'où il vient sans exécuter aucun traitement sur le sommet éteint.\\ 
+\item Si un agent arrive sur un sommet qu'on vient d'éteindre, 
+il repart d'où il vient sans exécuter aucun traitement sur le sommet éteint.\\ 
 
 \item Si l'agent arrive sur un sommet et qu'entre temps ce sommet a été isolé du graphe 
 en éteignant tous ses voisins, l'agent reste sur le sommet et
@@ -235,11 +235,19 @@ et que ce dernier ait au moins un voisin allumé vers lequel il peut diriger.\\
 
 \end{itemize}
 
-Pour permettre à l'utilisateur de choisir ses propres traitements, on lui a laissé
-la possibilité de surcharger, dans les sous classe de la classe \textit{Agent}les méthodes
-\textit {processingAgentWhenSwitchingOff()} et 
-\textit{processingAgentIsolated()} qui définissent les comportements de l'agent 
-en cas d'extinction d'un sommet. 
+Un besoin important du client était de conserver une rétrocompatibilité de
+visidia avec ses agents. Nous avons donc inclu ces traitements de manière
+transparente au sein de la méthode move() de la classe Agent, appelée durant
+l'exécution des agents.\\
+
+Pour permettre à l'utilisateur de choisir ses propres traitements, nous avons
+implémenté pour chaque cas particulier, une méthode dans la classe Agent avec un
+traitement par défaut. Chaque méthode pouvant être surchargée dans la définition
+de l'agent afin de spécifier un comportement particulier.
+Les méthodes \textit {processingAgentWhenSwitchingOff()} et 
+\textit{processingAgentIsolated()}, qui définissent respectivement le comportement de l'agent
+ en cas d'extinction d'un sommet ou d'arrivée sur un sommet isolé, peuvent donc
+ être surchargées. 
 
 
 
