@@ -8,7 +8,8 @@ import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.SynchronizedAgent;
 
 /**
- * Implements the rendez-vous algorithm 
+ * Implements the rendez-vous algorithm ; memories of the agents are merged when
+ * they meet : only the agent with the best ID is not killed
  */
 public class RdvSynchronizedAgent extends SynchronizedAgent {
 
