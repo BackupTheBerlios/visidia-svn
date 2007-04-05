@@ -40,7 +40,7 @@ public class RandomAgentMover extends AgentMover {
 		}
 		else{
 			door = this.rand.nextInt(arity);
-			while((!isOpenDoor(door, vertex))&& vertex.getVisualization() ){
+			while((!isOpenDoor(door, vertex))){
 				arity = this.agent().getArity();
 				door = this.rand.nextInt(arity);
 			}
@@ -55,7 +55,7 @@ public class RandomAgentMover extends AgentMover {
 		int i = 0;
 		while (e.hasMoreElements()) {
 			Vertex v = (Vertex) e.nextElement();
-			if ((i==door) && (v.getVisualization())) {
+			if ((i==door) && (v.getVisualization())&& vertex.getVisualization()) {
 				return true;
 			}
 			i++;

@@ -981,9 +981,10 @@ public class AgentSimulator {
 	 */
 	public boolean switchOFFVertex(Integer num) {
 		SimpleGraphVertex v = this.getGraph().getSimpleGraphVertex(num);
-		v.setPreviousColor((String)v.getProperty("label"));
-		v.changeColor(this, "Switch Off");
+		
 		if (v.getVisualization()) {
+			v.setPreviousColor((String)v.getProperty("label"));
+			v.changeColor(this, "Switch Off");
 			v.setVisualization(false);
 			v.setProperty("Visualization", false);
 			return true;
@@ -1002,8 +1003,9 @@ public class AgentSimulator {
 	 */
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
-		vertex.changeColor(this, vertex.getPreviousColor());
+		
 		if (!vertex.getVisualization()) {
+			vertex.changeColor(this, vertex.getPreviousColor());
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);
 			return true;

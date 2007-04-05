@@ -290,20 +290,20 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
     {	
     	Vertex vertex_A = this.simulator.getVertexArrival(this);
     	Vertex vertex_D = vertex_A;
-    	Boolean bool;
+    	Boolean def;
     	try{
     		vertex_D = this.simulator.getVertexDeparture(this);
-    		bool = vertex_D.getVisualization();
+    		def = vertex_D.getVisualization();
     	}catch(Exception e) {
-    		bool = false;
+    		def = false;
     	}
     	
-    	while(!bool && !vertex_A.getVisualization())
+    	while(!def && !vertex_A.getVisualization())
     		try {
     			/*si on veut laisser l'agent en oscillation entre 
 				deux sommets voisins eteints*/
     			//this.moveBack(); 
-    			/*Endormir l'agent sur un sommet eteint si il tombe entre 
+    			/*Endormir l'agent sur un sommet eteint s'il tombe entre 
     			 * deux sommets voisins eteints
     			 */
     				Thread.sleep(1);
