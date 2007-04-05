@@ -938,12 +938,7 @@ public class AgentSimulator {
 				}
 			}
 
-			// remove from neighbours in the simulator
-			//vert_neighbours.switchOffMyNeighbour(v);
 		}
-		//v.setVisualization(false);
-		//v.setProperty("Visualization", false);
-
 		// delete the vertex
 		this.graph.remove(num);
 
@@ -958,9 +953,8 @@ public class AgentSimulator {
 	public void deleteEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2){
 
 		// Removing the edge
-		//sgv1.switchOffMyNeighbour(sgv2);
-		//sgv2.switchOffMyNeighbour(sgv1);
-		this.moveEdge(sgv1, sgv2);
+		sgv1.switchOffMyNeighbour(sgv2);
+		sgv2.switchOffMyNeighbour(sgv1);
 		// kill agents on the edge
 		Collection<Agent> agents = this.getAgentsOnEdge(sgv1.identity(), sgv2
 				.identity());
@@ -973,37 +967,9 @@ public class AgentSimulator {
 
 	}
 
-	/**
-	 * Delete an edge from a graph
-	 * 
-	 * @param sgv1
-	 * @param sgv2
-	 */
+	
 
-	private void moveEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2){
-		if(sgv1.getVisualization() && sgv2.getVisualization()){
-			sgv1.switchOffMyNeighbour(sgv2);
-			sgv2.switchOffMyNeighbour(sgv1);
-		}
-		else{
-			if(!sgv1.getVisualization() && sgv2.getVisualization()){
-				sgv1.switchOffMyNeighbour(sgv2);
-			}
-			else{
-				if(sgv1.getVisualization() && !sgv2.getVisualization()){
-					sgv2.switchOffMyNeighbour(sgv1);
-				}
-				else{
-					if(sgv1.isNeighbour(sgv2.identity())){
-						sgv1.switchOffMyNeighbour(sgv2);
-					}
-					else{
-						sgv2.switchOffMyNeighbour(sgv1);
-					}
-				}
-			}
-		}
-	}
+	
 
 	/**
 	 * Switch off a vertex by deleting verteces which are neighboring the vertex
@@ -1017,13 +983,7 @@ public class AgentSimulator {
 		SimpleGraphVertex v = this.getGraph().getSimpleGraphVertex(num);
 		v.setPreviousColor((String)v.getProperty("label"));
 		v.changeColor(this, "Switch Off");
-		SimpleGraphVertex vert_neighbours;
 		if (v.getVisualization()) {
-			Enumeration d = v.neighbours();
-			while (d.hasMoreElements()) {
-				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				vert_neighbours.switchOffMyNeighbour(v);
-			}
 			v.setVisualization(false);
 			v.setProperty("Visualization", false);
 			return true;
@@ -1042,28 +1002,8 @@ public class AgentSimulator {
 	 */
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
-
 		vertex.changeColor(this, vertex.getPreviousColor());
-
-		SimpleGraphVertex vert_neighbours;
 		if (!vertex.getVisualization()) {
-			Enumeration d = vertex.neighbours();
-
-			while (d.hasMoreElements()) {
-				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-				//if (vert_neighbours.getVisualization()) {	
-				SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
-						vertex, vert_neighbours);
-				vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
-				//}
-
-				//else{ 
-				if (!vert_neighbours.getVisualization()) {	
-					System.out.println(vert_neighbours.identity());
-					vertex.switchOffMyNeighbour(vert_neighbours);
-					//vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
-				}
-			}
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);
 			return true;

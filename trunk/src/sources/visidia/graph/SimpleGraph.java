@@ -48,7 +48,6 @@ public class SimpleGraph implements Cloneable, Serializable {
 	 *                levee si l'identite <i>id</i> existe deja dans le graphe.
 	 */
 	public void put(Integer id) {
-		// System.out.println(id);
 		if (this.contains(id)) {
 			System.out.println(id);
 			throw new AddIdTwiceException();
@@ -118,38 +117,17 @@ public class SimpleGraph implements Cloneable, Serializable {
 	 *                sommet.
 	 */
 	public void link(Integer id1, Integer id2) {
+		
 		SimpleGraphVertex sgv1 = this.getSimpleGraphVertex(id1);
 		SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
 
 		SimpleGraphEdge edg_12 = new SimpleGraphEdge(this, sgv1, sgv2); // arete
-		// de
-		// sgv1
-		// vers
-		// sgv2
+		// de sgv1 vers sgv2
 		SimpleGraphEdge edg_21 = new SimpleGraphEdge(this, sgv2, sgv1); // arete
-		// de
-		// sgv2
-		// vers
-		// sgv1d
-		if(sgv1.getVisualization() && sgv2.getVisualization()){
-			sgv1.addNeighbour(sgv2, edg_12);
-			sgv2.addNeighbour(sgv1, edg_21);
-		}
-		else{
-			if(!sgv1.getVisualization() && sgv2.getVisualization()){
-				sgv1.addNeighbour(sgv2, edg_12);
-			}
-			else{
-				if(sgv1.getVisualization() && !sgv2.getVisualization()){
-					sgv2.addNeighbour(sgv1, edg_21);
-				}
-				else{
-					sgv2.addNeighbour(sgv1, edg_21);
-				}
-			}
+		// de sgv2 vers sgv1
+		sgv1.addNeighbour(sgv2, edg_12);
+		sgv2.addNeighbour(sgv1, edg_21);
 				
-		}
-		
 	}
 
 	/* nouvelle méthode pour positionner le suivant si l'arête est orienté */
@@ -210,28 +188,8 @@ public class SimpleGraph implements Cloneable, Serializable {
 
 		SimpleGraphVertex sgv1 = this.getSimpleGraphVertex(id1);
 		SimpleGraphVertex sgv2 = this.getSimpleGraphVertex(id2);
-		if(sgv1.getVisualization() && sgv2.getVisualization()){
-			sgv1.removeNeighbour(sgv2);
-			sgv2.removeNeighbour(sgv1);
-		}
-		else{
-			if(!sgv1.getVisualization() && sgv2.getVisualization()){
-				sgv1.removeNeighbour(sgv2);
-			}
-			else{
-				if(sgv1.getVisualization() && !sgv2.getVisualization()){
-					sgv2.removeNeighbour(sgv1);
-				}
-				else{
-					if(sgv1.isNeighbour(sgv2.identity())){
-						sgv1.removeNeighbour(sgv2);
-					}
-					else{
-						sgv2.removeNeighbour(sgv1);
-					}
-				}
-			}
-		}
+		sgv1.removeNeighbour(sgv2);
+		sgv2.removeNeighbour(sgv1);
 	}
 
 	/**

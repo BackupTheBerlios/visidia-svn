@@ -1,7 +1,9 @@
 package visidia.agents.agentsmover;
 
+import java.util.Enumeration;
 import java.util.Random;
 
+import visidia.graph.Vertex;
 import visidia.simulation.agents.Agent;
 import visidia.simulation.agents.AgentMover;
 
@@ -22,17 +24,42 @@ public class RandomAgentMover extends AgentMover {
 	public int findNextDoor() throws MoveException {
 		int arity;
 		arity = this.agent().getArity();
-	
-		while(arity == 0)
+		int door;
+		while(arity == 0){
 			try {
+				arity = this.agent().getArity();
 				Thread.sleep(100);
 			}
 			catch (InterruptedException e) {}
-			
-		if(!(this.agent().getSimulator().getVertexArrival(this.agent()).getVisualization())) {
+		}
+		
+		Vertex vertex =  this.agent().getSimulator().getVertexArrival(this.agent());
+		
+		if(!(vertex.getVisualization())) {
 			throw new MoveException(MoveException.SwitchedOffVertex);
 		}
-		else
-			return this.rand.nextInt(arity);
+		else{
+			door = this.rand.nextInt(arity);
+			while((!isOpenDoor(door, vertex))&& vertex.getVisualization() ){
+				arity = this.agent().getArity();
+				door = this.rand.nextInt(arity);
+			}
+		}
+		//return this.rand.nextInt(arity);
+		return door;
+	}
+	
+	public Boolean isOpenDoor(int door, Vertex vertex){
+		
+		Enumeration e = vertex.neighbours();
+		int i = 0;
+		while (e.hasMoreElements()) {
+			Vertex v = (Vertex) e.nextElement();
+			if ((i==door) && (v.getVisualization())) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 }

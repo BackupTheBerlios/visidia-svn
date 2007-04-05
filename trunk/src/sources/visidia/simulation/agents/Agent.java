@@ -288,13 +288,32 @@ public abstract class Agent implements Runnable, WithWhiteBoard {
         
     public void processingAgentWhenSwitchingOff()
     {	
-    	Vertex vertex_D = this.simulator.getVertexDeparture(this);
     	Vertex vertex_A = this.simulator.getVertexArrival(this);
-    	while(!vertex_D.getVisualization() && !vertex_A.getVisualization())
-    		try {Thread.sleep(100);} catch (Exception e) {}
+    	Vertex vertex_D = vertex_A;
+    	Boolean bool;
+    	try{
+    		vertex_D = this.simulator.getVertexDeparture(this);
+    		bool = vertex_D.getVisualization();
+    	}catch(Exception e) {
+    		bool = false;
+    	}
+    	
+    	while(!bool && !vertex_A.getVisualization())
+    		try {
+    			/*si on veut laisser l'agent en oscillation entre 
+				deux sommets voisins eteints*/
+    			//this.moveBack(); 
+    			/*Endormir l'agent sur un sommet eteint si il tombe entre 
+    			 * deux sommets voisins eteints
+    			 */
+    				Thread.sleep(1);
+    			} catch (Exception e) {}
     	
     	if (!vertex_A.getVisualization())
-    		this.moveBack();
+    		/*if(vertex_D.degree() == 0)
+    			this.sleep(10);
+    		else*/
+    			this.moveBack();
     			
     }
   

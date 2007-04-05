@@ -219,9 +219,6 @@ public class SimpleGraphVertex implements Vertex, Serializable {
 	public int indexOf(Integer id) {
 		Enumeration e = this.neighbours();
 		int i = 0;
-		//int k =this.neighbours.size();
-		//System.out.println(id+"_________vertex last seen");
-		//System.out.println(this.identity()+"_________vertex for");
 		while (e.hasMoreElements()) {
 			Vertex v = (Vertex) e.nextElement();
 			if (v.identity().equals(id)) {
