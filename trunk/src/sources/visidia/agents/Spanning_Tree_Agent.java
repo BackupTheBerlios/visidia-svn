@@ -110,23 +110,82 @@ public abstract class Spanning_Tree_Agent extends Agent {
 	 */
 	protected Collection<Integer> getVertexChilds(Integer idTree) {
 
-		LinkedList<Integer> parent = new LinkedList<Integer>();
+		Collection<Integer> children = new LinkedList<Integer>();
 
 		for (Integer i = 0; i < this.getArity(); i++) {
 
 			try {
 				if (((String) this.getVertexProperty("Tree" + idTree.toString()
 						+ "Port" + i.toString())).equals("Child")) {
-					parent.add(new Integer(i));
+					children.add(new Integer(i));
 				}
 			} catch (NoSuchElementException e) {
 			}
 		}
 
-		return parent;
+		return children;
 
 	}
 
+	
+
+	protected boolean isPortIsChildInTheTree(Integer idTree, Integer port) {
+
+		try {
+			if (((String) this.getVertexProperty("Tree" + idTree.toString()
+						+ "Port" + port.toString())).equals("Child")) {
+					return true;
+				}
+		} 
+		catch (NoSuchElementException e) {
+		}
+
+		return false;
+
+	}
+
+	
+	protected boolean isPortIsParentInTheTree(Integer idTree, Integer port) {
+
+		try {
+			if (((String) this.getVertexProperty("Tree" + idTree.toString()
+						+ "Port" + port.toString())).equals("Parent")) {
+					return true;
+				}
+		} 
+		catch (NoSuchElementException e) {
+		}
+
+		return false;
+
+	}
+	
+	
+	/**
+	 * Return an Iterator of the childs of the tree specified
+	 * @param idTree Identification of the tree
+	 * @return vertex childs
+	 */
+	protected boolean isPortMarkedInTheTree(Integer idTree, Integer port) {
+
+		if(getVertexParent(idTree)!=null && getVertexParent(idTree).equals(port)) return true;
+		
+		for (Integer i = 0; i < this.getArity(); i++) {
+
+			try {
+				if (((String) this.getVertexProperty("Tree" + idTree.toString()
+						+ "Port" + i.toString())).equals("Child")) {
+					if(i.equals(port)) return true;
+				}
+			} catch (NoSuchElementException e) {
+			}
+		}
+
+		return false;
+
+	}
+	
+	
 	/**
 	 * Returns the parent vertex or null if the vertex haven't a parent (he's root)
 	 * @param idTree Identification of the tree

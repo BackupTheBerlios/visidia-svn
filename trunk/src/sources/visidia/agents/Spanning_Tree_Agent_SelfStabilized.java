@@ -24,7 +24,8 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 
 	private volatile boolean waitingForTerminaisonTest = false;
 	private volatile boolean isTerminated = false;
-	
+	private volatile boolean killByAnOtherAgent = false;
+
 	public void init() {
 
 		this.setAgentMover("RandomAgentMover");
@@ -51,31 +52,33 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 			}
 			
 			// Testing the presence of other agent on the vertex
-			Collection<Agent> c = (Collection<Agent>)this.agentsOnVertex();
-			Iterator<Agent> i = c.iterator();
+			Collection<Spanning_Tree_Agent_SelfStabilized> c = this.agentsSTASOnVertex();
+			Iterator<Spanning_Tree_Agent_SelfStabilized> i = c.iterator();
 			if(i.hasNext()) {
 				// Other agent found
-				Agent a = i.next();
+				Spanning_Tree_Agent_SelfStabilized a = i.next();
 				if(this.getIdentity() > a.getIdentity()) {
 					// Meeting with a smaller agent => killing him
-					a.death();
+					a.killAgentAfterHisWork();
 				}
 				else if(this.getIdentity() < a.getIdentity()) {
 					// Meeting with a bigger agent => sucide
 
 					this.setVertexPortToParent(this.getIdentity(), (Integer) this.getProperty("EntryPort"));
-
+					
 					this.createEatingClone(this.getIdentity());
 					
 					return;
 				}
 			}
 			
-			
+			// An other agent kill me
+			if(this.killByAnOtherAgent) return;
 			
 			if(treeId == null || treeId < this.getIdentity()) {	// First visit of an agent on the vertex || vertex visited by a smaller agent
 
-				this.setVertexIdTree(this.getIdentity());
+				// We adding the vertex to the tree only if the entry edge have been added or if this is the first vertex visited
+				if(!entryDoorBelongingToTheTree || (Integer)this.getProperty("EntryPort") == -1) this.setVertexIdTree(this.getIdentity());
 				
 				if((Integer)this.getProperty("EntryPort") != -1) {
 					this.setVertexPortToParent(this.getIdentity(), (Integer) this.getProperty("EntryPort"));
@@ -86,19 +89,20 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 				
 				if(treeId != null && treeId < this.getIdentity()) {
 					// Vertex visited by a smaller agent
-					this.createEatingClone(this.getVertexIdTree());	
+					System.out.println("Spanning_Tree_Agent_SelfStabilized: createEatingClone " + treeId);
+					this.createEatingClone(treeId);	
 				}
 			}
 			else if(treeId == this.getIdentity()) {	// Vertex visited by me
 				
-				if(!entryDoorBelongingToTheTree) { // Go to the precent vertex to remove the edge from its childs
+				if(!entryDoorBelongingToTheTree) { // Go to the precedent vertex to remove the edge from its childs
 					goBackToRemoveChild = true;		
 				}
 				else {
-					// Testing the terminaison
+					
 					if((Integer)this.getProperty("EntryPort") != -1) {
+						// Testing the terminaison if we are at the root and there is not the first vertex visited
 						if(((Integer)this.getProperty("RootVertex")).equals(this.getVertexIdentity())) {
-							System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " teste sa terminaison");
 							if(this.isTreeTerminated()) {
 								return;
 							}
@@ -249,5 +253,26 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 		return this.waitingForTerminaisonTest;
 	}
 	
+	public void killAgentAfterHisWork() {
+		this.killByAnOtherAgent = true;
+	}
+	
+    public Collection<Spanning_Tree_Agent_SelfStabilized> agentsSTASOnVertex(){
+    	// We must remove from this list the agents who don't are Sappning_Tree_Agent_SelfStabilized
+    	Collection<Agent> c = this.agentsOnVertex();
+    	Iterator<Agent> i = c.iterator();
+    	
+    	Collection<Spanning_Tree_Agent_SelfStabilized> cSTAS = new LinkedList<Spanning_Tree_Agent_SelfStabilized>();
+ 
+		while(i.hasNext()) {
+			Agent a = i.next();
+			
+			if(a.className().equals("Spanning_Tree_Agent_SelfStabilized")) {
+				cSTAS.add((Spanning_Tree_Agent_SelfStabilized)a);
+			}
+		}
+
+    	return cSTAS;
+    }
 
 }

@@ -109,7 +109,7 @@ public class Depth_Traversal_Agent extends Spanning_Tree_Agent {
 	 * Return a collection of vertices that have not yet been visited by the current agent
 	 * @return
 	 */
-	private Collection<Integer> getVertexChildsUnvisited() {
+	protected Collection<Integer> getVertexChildsUnvisited() {
 		
 		Collection<Integer> childs = this.getVertexChilds(this.idTree);
 
@@ -128,7 +128,7 @@ public class Depth_Traversal_Agent extends Spanning_Tree_Agent {
 	 * Return a collection of vertices that have alreay been visited by the current agent
 	 * @return
 	 */
-	private Collection<Integer> getVertexChildsVisited() {
+	protected Collection<Integer> getVertexChildsVisited() {
 		
 		LinkedList<Integer> parent = new LinkedList<Integer>();
 
@@ -150,7 +150,7 @@ public class Depth_Traversal_Agent extends Spanning_Tree_Agent {
 	 * Set the specified port of the current Vertex as visited
 	 * @param p Port to modify
 	 */
-	private void setVertexPortToChildAsVisited(Integer p) {
+	protected void setVertexPortToChildAsVisited(Integer p) {
 		this.setProperty("Vertex" + this.getVertexIdentity() + "Port"
 				+ p.toString(), "Visited");
 	}

@@ -1,141 +1,227 @@
 package visidia.agents;
 
+import java.util.NoSuchElementException;
+
+import visidia.graph.Vertex;
+import visidia.simulation.agents.Agent;
+import visidia.simulation.agents.AgentMover;
+import visidia.simulation.agents.stats.FailedMoveStat;
+import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Collection;
+import visidia.simulation.agents.MoveException;
+import java.lang.Class;
+import visidia.agents.Spanning_Tree_Agent_SelfStabilized;
 
-public class Annexing_SubTree_Agent extends Spanning_Tree_Agent{
+/**
+ * Implements  a spanning  tree  algorithm with  an  agent. This  agent
+ * doesn't use unique identifier of vertices.
+ *
+ * @see Spanning_Tree_Agent_WithId
+ */
+public class Annexing_SubTree_Agent extends Depth_Traversal_Agent {
 
-	
-	private Integer stronger;
 	private volatile Integer weaker = -1;
+	private Integer stronger;
 	
-	public  void init() {
-		
-	this.setAgentMover("RandomAgentMover");
-	Integer destination= new Integer (-1);
-	Integer idTreeToAnnex = new Integer(-1);
-	boolean markingEdge= false;
+	public void init() {
 
-	this.stronger = this.getVertexIdTree();
+		this.setAgentMover("RandomAgentMover");
+		AgentMover am = this.getAgentMover();
 	
-	// Wainting the information from my creator
-    while(this.weaker == -1) this.sleep(100L);
-		
-	while (true){
-		
-		     //seeking for a child to visit.
-		
-			if((destination=this.getVertexChildNotYetVisited(this.weaker))!=-1){
-				//destination is a child not yet visited.
-				this.setProperty("Vertex"+this.getVertexIdentity()+"Port"+destination, "alreadyVisited");
+
+		// Waiting for the call of the method setIdTreeToVisit
+		while(this.weaker == -1) this.sleep(100L);
 				
-				if(!this.isPortMarkedInTheTree(this.stronger, destination)) {
-					// verify that someone doesn't have alreay maked the edge that we are taking
-					this.setVertexPortToChild(this.stronger, destination);
-					markingEdge=true;					
-				}
-			}
+		this.stronger = this.getVertexIdTree();
+		
+		System.out.println("Annexing_SubTree_Agent2: id reçu " + this.weaker + "-" + this.stronger);
+
+		boolean isMarkingEdge = false;
+		boolean firstVertex = true;
+		
+		while (true) {
+
+			/*
+			 * arrival
+			 */
 			
+			Integer treeId = this.getVertexIdTree();
+
+			// The vertex is not belonging to any tree
+			if(treeId == null) {
+				return;
+			}
 			else {
-				//In case there no child to visit, the agent visits the father
+				// The vertex belong to a tree
 				
-				if ((destination=this.isThereOtherFatherNotYetVisited(this.weaker))!=-1) {
-				//destination is the father to visit
-				this.setProperty("Vertex"+this.getVertexIdentity()+"Port"+destination, "alreadyVisited");
-				this.setVertexPortToChild(this.stronger, destination);
 				
+				
+				// Finishing to mark the edge
+				
+				if(!firstVertex) {
+					
+					if(this.isPortIsChildInTheTree(this.weaker,this.entryDoor())) {
+						this.setVertexPortToChildAsVisited(this.entryDoor());
+					}
+					
+					if(isMarkingEdge && this.getVertexIdTree().equals(this.stronger)) {
+						// Trying to add an edge between two marked vertices
+						System.out.println("Annexing_SubTree_Agent2: arrete ajoutee par erreur -> move back");
+						
+						this.moveBack();
+						this.delVertexPort(this.stronger, this.entryDoor());
+						System.out.println("Annexing_SubTree_Agent2: arrete ajoutee par erreur -> suppression arrête ajoutée par erreur, retour au sommet où l'erreur a été trouvée");
+						this.move(this.entryDoor());
+						System.out.println("Annexing_SubTree_Agent2: arrete ajoutee par erreur -> arrivée sur le sommet où l'erreur a été trouvée");
+					}
+					else if(isMarkingEdge && treeId < this.stronger){
+						// Adding edge between a vertice in the tre and one other no in the tree (normal)
+						System.out.println("Annexing_SubTree_Agent2: adding new edge");
+						this.setVertexPortToParent(this.stronger, this.entryDoor());
+						this.setVertexIdTree(this.stronger);
+					}
+					else if(isMarkingEdge && treeId > this.stronger) {
+						this.setVertexPortToParent(this.stronger, this.entryDoor());
+					}
+					else if(this.getVertexIdTree().equals(this.weaker) && !this.isPortIsParentInTheTree(this.weaker,this.entryDoor())) {
+						// Arriving in a vertex from a tempory edge that we have considered belonging to the weaker tree wheras it not
+						// belonging to
+						System.out.println("Annexing_SubTree_Agent2: incorrect door taken, moveback");
+						this.moveBack();
+						if(isMarkingEdge) this.delVertexPort(this.stronger, this.entryDoor());
+						System.out.println("Annexing_SubTree_Agent2: incorrect door taken, remove wrong door");
+					}					
+					
+					isMarkingEdge = false;				
+					
+					
+				}
+				
+				// Killing Agent if necessary
+				if(treeId > this.stronger) {
+					// Vertex beloging to a bigger agent founded
+					System.out.println("Annexing_SubTree_Agent2: je me tue j'ai trouvé plus fort que moi");
+					return;
+				}
+				
+				
+				// Choosing next destination
+				Collection<Integer> unvisitedChildsC = this.getVertexChildsUnvisited();
+				Iterator<Integer> unvisitedChildsI = unvisitedChildsC.iterator();
+
+				if(unvisitedChildsI.hasNext()) {
+					// It remains unvisited children
+					Integer nextDoor = unvisitedChildsI.next();
+					
+					System.out.println("Annexing_SubTree_Agent2: j'ai trouvé un fils" + nextDoor);
+					
+					this.setVertexPortToChildAsVisited(nextDoor);
+					
+					if(!this.isPortMarkedInTheTree(this.stronger, nextDoor)) {
+						// The vertex is no marked by an other agent so we can add it
+						this.setVertexPortToChild(this.stronger, nextDoor);
+						isMarkingEdge = true;
+					}
+
+					move(nextDoor);
 				}
 				else {
-				
-					if (this.isRootOfTheTree(this.weaker)){
+					// All children of the vertex have been visited
 
-						System.out.println("Annexing: work finished");
+					Integer nextDoor = this.getVertexParent(this.weaker);
+					
+					if(nextDoor == null) {
+						// The current vertex is the root
+						// Work is finish
+						System.out.println("Annexing_SubTree_Agent2: ok j'ai fini");
+
 						return;
 					}
 					else {
+						// The current vertex is NOT the root
+						System.out.println("Annexing_SubTree_Agent2: parent trouvé porte " + nextDoor);
 						
-						destination=(Integer)this.getProperty("MyEntryDoor"+this.getVertexIdentity());
-					
+						isMarkingEdge = !this.isPortMarkedInTheTree(this.stronger, nextDoor);
+						
+						if(isMarkingEdge) {
+							System.out.println("Annexing_SubTree_Agent2: je remontre à mon père en faisant une arrête");
+							this.setVertexPortToChild(this.stronger, nextDoor);
+						}
+						else {
+							System.out.println("Annexing_SubTree_Agent2: je remontre à mon père sans faire d'arrête");
+							//this.setVertexPortToParent(this.stronger, nextDoor);
+						}
+						
+						move(nextDoor);
 					}
 				}
 				
-				
-		    }
-			
-		
-			this.move(destination);
-			
-			//visiting a vertex already visited by a stronger agent, I suicide.
-			if (this.getVertexIdTree() > this.stronger) {
-				System.out.println("Annexing: stronger vertex found" + this.getVertexIdentity() + this.stronger);
-				return;
+				firstVertex = false;
 			}
 			
-			if (markingEdge && this.getVertexIdentity() == this.stronger.intValue()) {
-				// We are marking an edge which already belong to the tree
-				this.moveBack();
-				this.delVertexPort(this.stronger, this.entryDoor());
-				this.move(this.entryDoor());
-				markingEdge=false;
-			}
-			else if (markingEdge){
-				// We are marking an edge which doesn't belong to the tree
-				this.setVertexPortToParent(this.stronger, this.entryDoor() );
-				this.setVertexIdTree(this.stronger);
-				markingEdge=false;
-			}
-			
-			this.setProperty("MyEntryDoor"+this.getVertexIdentity(), this.entryDoor());
-
-			
-			
-			
-	}
-		
-		
-		
-	}
-	
-	/**
-	 * 
-	 * @return -1 if there are no more father to visit, otherwise il returns 
-	 * a door "father" to move to.
-	 */
-	protected Integer isThereOtherFatherNotYetVisited(Integer idTreeToAnnex){
-		Integer destination= new Integer (-1);
-		if ( (destination=this.getVertexParent(idTreeToAnnex))!=null &&
-		!this.getWhiteBoard().containsElement("Vertex"+this.getVertexIdentity()+"Port"+destination))return destination;
-		  //destination!=(Integer)this.getProperty("MyEntryDoor"+this.getVertexIdentity())) return destination; 
-	
-	  return -1;
-	}
-	
-	
-	/**
-	 * 
-	 * @return -1 if there no more child to visit, otherwise it returns 
-	 * the door to move to.
-	 */
-	protected Integer getVertexChildNotYetVisited(Integer idYoungTree){
-		Collection co = this.getVertexChilds(idYoungTree);
-		Iterator it= co.iterator();
-		Integer childToVisit= new Integer (-1);
-		
-		while (it.hasNext()){
-			
-			childToVisit=(Integer)it.next();
-	
-			 if (!this.getWhiteBoard().containsElement("Vertex"+this.getVertexIdentity()+"Port"+childToVisit)) {
-				System.out.println("Annexing: childToVisit " + childToVisit + " " + idYoungTree);
-				return childToVisit;
-
-			 }
 		}
-		return -1;
+
 	}
-   
 	
+	
+
+	/**
+	 * Return a collection of vertices that have not yet been visited by the current agent
+	 * @return
+	 */
+	protected Collection<Integer> getVertexChildsUnvisited() {
+		
+		Collection<Integer> childs = this.getVertexChilds(this.weaker);
+
+		Collection<Integer> visitedChildC = this.getVertexChildsVisited();
+		Iterator<Integer> visitedChildI = visitedChildC.iterator();
+		
+		while(visitedChildI.hasNext()) {
+			Integer visitedChild = visitedChildI.next();
+			if(childs.contains(visitedChild)) childs.remove(visitedChild);
+		}
+
+		return childs;
+	}
+	
+	/**
+	 * Return a collection of vertices that have alreay been visited by the current agent
+	 * @return
+	 */
+	protected Collection<Integer> getVertexChildsVisited() {
+		
+		Collection<Integer> parent = new LinkedList<Integer>();
+
+		for (Integer i = 0; i < this.getArity(); i++) {
+
+			try {
+				if (((String) this.getProperty("Vertex" + this.getVertexIdentity()
+						+ "Port" + i.toString())).equals("Visited")) {
+					parent.add(new Integer(i));
+				}
+			} catch (NoSuchElementException e) {
+			}
+		}
+
+		return parent;
+	}
+	
+	/**
+	 * Set the specified port of the current Vertex as visited
+	 * @param p Port to modify
+	 */
+	protected void setVertexPortToChildAsVisited(Integer p) {
+		this.setProperty("Vertex" + this.getVertexIdentity() + "Port"
+				+ p.toString(), "Visited");
+	}
+
+	/**
+	 * Specify the idTree that the agent will travers
+	 * Only the first call have effect
+	 * @param idTree
+	 */
 	public void setIdTreeToAnnexe(Integer idTree) {
-		this.weaker = idTree;
+		if(this.weaker == -1) this.weaker = idTree;
 	}
 }
