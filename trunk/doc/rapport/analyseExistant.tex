@@ -30,22 +30,22 @@ connexions. \\
 
 \visidia implémente les deux modèles d'algorithmes distribués, la version avec
 envoi de messsages, et celle à base d'agents mobiles.
-Nous nous interresserons seulement à la simulation avec les agents mobiles
+Nous nous intéresserons seulement à la simulation avec les agents mobiles
 durant ce projet.
 
 
 
 \subsection{La simulation avec agents mobiles}
 
-
 Le devéloppement de l'application est articulé autour d'une séparation de
 l'architecture en trois parties, totalement indépendantes,  et communiquant
-entre elles par l'envoi de messages:
+entre elles par l'envoi de messages :
 \begin{itemize}
   \item Simulation 
   \item Affichage
   \item Algorithmes ou agents mobiles
 \end{itemize}
+
 
 \begin{figure}[H]
   \centering
@@ -61,6 +61,34 @@ entre elles par l'envoi de messages:
   \caption{Simulation avec agents mobiles}
   \label{fig:implantation-communication}
 \end{figure}
+
+
+
+Dans la version de base qui nous a été fournie, on a déjà
+une implémentation de la simulation d'algorithmes avec agent
+mobile. Celle-ci s'appuie sur la version initiale travaillant par
+envoi de message : c'est pourquoi cela apporte des contraintes
+supplémentaires, notamment au niveau de la partie graphique.\\
+
+L'utilisateur a déjà la possibilité de créer un graphe,
+d'ouvrir un graphe et de sauvegarder un graphe. Ensuite, le choix se
+porte sur le type d'algorithme à exécuter : une version par envoi
+de messages et une version avec agents mobiles. Nous ne traiterons que
+cette dernière version.\\
+
+Après avoir sélectionné l'exécution d'algorithme avec
+agents mobiles, l'utilisateur arrive dans la fenêtre de
+simulation. Il lui est déjà possible, avant tout lancement
+d'exécution d'algorithmes, d'ajouter différents types d'agent
+sur le graphe. Par contre, à ce stade, il est impossible de
+modifier le graphe sans fermer la fenêtre de simulation. Enfin, une
+fois la simualtion lancée, il est également impossible de
+supprimer un agent ou d'en ajouter, de modifier le graphe pendant une
+exécution ou encore de connaitre des statistiques en temps
+réel : le but du projet est d'ajouter entre autres ces
+fonctionnalités.
+
+
 
 \section{L'aspect technique}
 
