@@ -29,6 +29,13 @@ import visidia.simulation.SimulatorThreadGroup;
 import visidia.simulation.agents.stats.AbstractStat;
 import visidia.simulation.agents.stats.AgentCreationStat;
 import visidia.simulation.agents.stats.EdgeStateStat;
+import visidia.simulation.agents.stats.MaxNbAgent;
+import visidia.simulation.agents.stats.MemoryAverageSize;
+import visidia.simulation.agents.stats.MemorySizeMax;
+import visidia.simulation.agents.stats.MemorySizeMin;
+import visidia.simulation.agents.stats.MemorySizeSum;
+import visidia.simulation.agents.stats.MoveMaxStat;
+import visidia.simulation.agents.stats.MoveStat;
 import visidia.simulation.agents.stats.PulseStat;
 import visidia.simulation.agents.stats.SleepStat;
 import visidia.simulation.agents.stats.TerminatedStat;
@@ -391,8 +398,8 @@ public class AgentSimulator {
 		// data.lastVertexSeen = vertexFrom;
 
 		/* Update the statistic when an agent moves */
-		this.stats.makeStatOnMove(ag);
-		
+		this.makeStatOnMove(ag);
+
 		if (!data.vertex.getVisualization())
 			ag.processingAgentWhenSwitchingOff();
 
@@ -873,11 +880,11 @@ public class AgentSimulator {
 		catch (InterruptedException e) {}
 	}
 
-/* not used
+	/* not used
 	private Thread getThreadFor(Agent ag) {
 		return this.getDataFor(ag).thread;
 	}
-*/
+	 */
 
 	private Vertex getVertexFor(Agent ag) {
 		return this.getDataFor(ag).vertex;
@@ -965,14 +972,14 @@ public class AgentSimulator {
 
 
 	}
-	
+
 	/**
 	 * Delete an edge from a graph
 	 * 
 	 * @param sgv1
 	 * @param sgv2
 	 */
-	
+
 	private void moveEdge(SimpleGraphVertex sgv1, SimpleGraphVertex sgv2){
 		if(sgv1.getVisualization() && sgv2.getVisualization()){
 			sgv1.switchOffMyNeighbour(sgv2);
@@ -1009,13 +1016,13 @@ public class AgentSimulator {
 	public boolean switchOFFVertex(Integer num) {
 		SimpleGraphVertex v = this.getGraph().getSimpleGraphVertex(num);
 		v.setPreviousColor((String)v.getProperty("label"));
-        v.changeColor(this, "Switch Off");
+		v.changeColor(this, "Switch Off");
 		SimpleGraphVertex vert_neighbours;
 		if (v.getVisualization()) {
 			Enumeration d = v.neighbours();
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
-			    vert_neighbours.switchOffMyNeighbour(v);
+				vert_neighbours.switchOffMyNeighbour(v);
 			}
 			v.setVisualization(false);
 			v.setProperty("Visualization", false);
@@ -1035,27 +1042,27 @@ public class AgentSimulator {
 	 */
 	public boolean switchONVertex(Integer num) {
 		SimpleGraphVertex vertex = this.getGraph().getSimpleGraphVertex(num);
-		
+
 		vertex.changeColor(this, vertex.getPreviousColor());
-		
+
 		SimpleGraphVertex vert_neighbours;
 		if (!vertex.getVisualization()) {
 			Enumeration d = vertex.neighbours();
-		
+
 			while (d.hasMoreElements()) {
 				vert_neighbours = (SimpleGraphVertex) d.nextElement();
 				//if (vert_neighbours.getVisualization()) {	
-					SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
-							vertex, vert_neighbours);
-					vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
+				SimpleGraphEdge sge = new SimpleGraphEdge(this.getGraph(),
+						vertex, vert_neighbours);
+				vert_neighbours.addNeighbourToSwitchOn(vertex, sge);
 				//}
 
 				//else{ 
-					if (!vert_neighbours.getVisualization()) {	
-						System.out.println(vert_neighbours.identity());
-						vertex.switchOffMyNeighbour(vert_neighbours);
-						//vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
-					}
+				if (!vert_neighbours.getVisualization()) {	
+					System.out.println(vert_neighbours.identity());
+					vertex.switchOffMyNeighbour(vert_neighbours);
+					//vertex.getNeighbours().remove(vertex.indexOf(vert_neighbours.identity()));
+				}
 			}
 			vertex.setVisualization(true);
 			vertex.setProperty("Visualization", true);
@@ -1094,12 +1101,46 @@ public class AgentSimulator {
 		return listAgents;
 	}
 
+
+	/**
+	 * Make all statistics when an agent moves (with the 'moveAgentTo' method
+	 * in the 'AgentSimulator' class)
+	 */
+	public void makeStatOnMove(Agent ag){
+		Class agClass = ag.getClass();
+		int agId = ag.getIdentity();
+		int agWbSize = ag.getWhiteBoard().keys().size();
+		Bag bag = this.stats;
+
+		/* Max number of agents by Class of agent */
+		bag.max(new MaxNbAgent(agClass), bag.getOccurrencesOf(new AgentCreationStat(agClass)) - bag.getOccurrencesOf(new TerminatedStat(agClass)));
+
+		/* Max number of steps by Class of agent */
+		bag.max(new MoveMaxStat(agClass), bag.getOccurrencesOf(new MoveStat(agClass, agId)));
+
+		/* Number of steps by Class of agent and by Agent */
+		bag.add(new MoveStat(agClass));
+		bag.add(new MoveStat(agClass, agId));
+
+
+
+		/* Sum of the size of memory by Class of agent and by agent */
+		bag.add(new MemorySizeSum(agClass), agWbSize);
+		bag.add(new MemorySizeSum(agClass, agId), agWbSize);
+
+		/* Max, min and average size of memory by Class of agent */
+		bag.max(new MemorySizeMax(agClass), agWbSize);
+		bag.min(new MemorySizeMin(agClass), agWbSize);
+		bag.replace(new MemoryAverageSize(agClass), bag.getOccurrencesOf(new MemorySizeSum(agClass)) / bag.getOccurrencesOf(new MoveStat(agClass)));
+	}
+
+
 	private class ProcessData {
 		public Agent agent;
 		public Vertex vertex;
 		public Vertex lastVertexSeen;
 		public volatile Thread thread;
-		
+
 	}
 
 	public NumberGenerator getNumGen() {		

@@ -79,38 +79,6 @@ public class Bag {
 	}
 
 
-	/**
-	 * Make all statistics when an agent moves (with the 'moveAgentTo' method
-	 * in the 'AgentSimulator' class
-	 */
-	public void makeStatOnMove(Agent ag){
-		Class agClass = ag.getClass();
-		int agId = ag.getIdentity();
-		int agWbSize = ag.getWhiteBoard().keys().size();
-
-		/* Max number of agents by Class of agent */
-		max(new MaxNbAgent(agClass), getOccurrencesOf(new AgentCreationStat(agClass)) - getOccurrencesOf(new TerminatedStat(agClass)));
-
-		/* Max number of steps by Class of agent */
-		max(new MoveMaxStat(agClass), getOccurrencesOf(new MoveStat(agClass, agId)));
-
-		/* Number of steps by Class of agent and by Agent */
-		add(new MoveStat(agClass));
-		add(new MoveStat(agClass, agId));
-
-
-
-		/* Sum of the size of memory by Class of agent and by agent */
-		add(new MemorySizeSum(agClass), agWbSize);
-		add(new MemorySizeSum(agClass, agId), agWbSize);
-
-		/* Max, min and average size of memory by Class of agent */
-		max(new MemorySizeMax(agClass), agWbSize);
-		min(new MemorySizeMin(agClass), agWbSize);
-		replace(new MemoryAverageSize(agClass), getOccurrencesOf(new MemorySizeSum(agClass)) / getOccurrencesOf(new MoveStat(agClass)));
-	}
-
-
 	public Hashtable asHashTable() {
 		return this.table;
 	}
