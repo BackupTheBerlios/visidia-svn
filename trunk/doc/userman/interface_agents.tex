@@ -81,6 +81,10 @@ Vous avez deux possibilités pour vous servir des règles de réécritures
 réécritures ne sont pas totalement implantées : les contextes sont par
 exemple manquants.
 
+\subsection{Suppression d'un agent lors de l'exécution}
+Le bouton \textbf{Kill Agent} permet de tuer un agent au cours de
+l'exécution quelque soit l'endroit où il se trouve.
+
 \section{Exécution de la simulation}
 
 Une  fois vos agents  en place,  vous pouvez  lancer la  simulation en
@@ -145,6 +149,22 @@ par les agents synchronisés.\\
 Pour plus de renseignements sur les pulses et les agents synchronisés,
 veuillez vous réferer à la section \ref{sec:prog-agent-synchro}.
 
+\subsection{Suppression d'arêtes et de sommets}
+
+Le bouton \textbf{mode suppression} permet de supprimer l'arête ou le
+sommet sélectionné. Si un agent est sur l'arête à supprimer celui-ci
+est tué. Dans le cas où il se dirige vers le sommet à supprimer ou
+qu'il est déjà dessus, l'agent est aussi tué. Par contre dans le cas
+où l'agent part du sommet à supprimer il continue vers son sommet de
+destination.
+
+\subsection{Extinction de sommets}
+Le bouton \textbf{switch OFF} permet d'éteindre un sommet c'est-à-dire
+de ne plus permettre à un agent d'exécuter du code dessus. Dans le cas
+où un agent se dirigerait vers ce sommet il sera renvoyé vers son sommet
+d'origine.
+
+Le bouton \textbf{switch ON} permet d'allumer un sommet éteint.
 
 \section{Utilisation des WhiteBoards}
 
@@ -219,7 +239,7 @@ variable qui n'existe pas encore sur tous les sommets.
 \textbf{info}, vous  accéderez à  cette fenêtre. Vous  pouvez ici  voir les
 variables  associées à  ce sommet,  les  modifier, en  ajouter, ou  en
 supprimer. La fenêtre  de défilement en haut à  droite est rattachée à
-la variable $label4}
+la variable $label4$}
   \label{fig:whiteboards-sommet}
 \end{figure}
 

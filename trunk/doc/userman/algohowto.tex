@@ -1,39 +1,41 @@
-\documentclass{article}
+%% \documentclass{article}
 
-\usepackage[francais]{babel}
-\usepackage[latin1]{inputenc}
-\usepackage[dvips]{graphicx}
-\usepackage[pdftex,
-  colorlinks=true,
-  pdfstartview=FitV,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue]{hyperref}
+%% \usepackage[francais]{babel}
+%% \usepackage[latin1]{inputenc}
+%% \usepackage[dvips]{graphicx}
+%% \usepackage[pdftex,
+%%   colorlinks=true,
+%%   pdfstartview=FitV,
+%%   linkcolor=blue,
+%%   citecolor=blue,
+%%   urlcolor=blue]{hyperref}
 
-\newcommand{\visidia}{ViSiDiA\xspace}
-\newcommand{\berlios}{BerliOs.de\xspace}
-\newcommand{\labri}{LaBRI\xspace}
+%% \newcommand{\visidia}{ViSiDiA\xspace}
+%% \newcommand{\berlios}{BerliOs.de\xspace}
+%% \newcommand{\labri}{LaBRI\xspace}
 
-\title{\visidia\\
-      Implémentation d'algorithme}
+%% \title{\visidia\\
+%%       Implémentation d'algorithme}
 
-\author{Ammar Aymen\\
-        Balan Alexandre\\
-        Ben Alaya Ramzi\\
-        Bochu Fabien\\
-        Bonin Éric\\
-        Lafon Julien\\}
+%% \author{Ammar Aymen\\
+%%         Balan Alexandre\\
+%%         Ben Alaya Ramzi\\
+%%         Bochu Fabien\\
+%%         Bonin Éric\\
+%%         Lafon Julien\\}
 
-\begin{document}
+%% \begin{document}
 
 
-\maketitle
-\tableofcontents
-\section{Résumé}
-Cet article a pour but d'expliquer comment implémenter un algorithme
-distribué à base d'agent dans \visidia.
+%% \maketitle
+%% \tableofcontents
+%% \section{Résumé}
+%% Cet article a pour but d'expliquer comment implémenter un algorithme
+%% distribué à base d'agent dans \visidia.
 
-\section{Vue globale d'un algorithme à base d'agents mobiles dans \visidia}
+
+
+\subsection{Vue globale d'un algorithme à base d'agents mobiles dans \visidia}
 Les algorithmes à base d'agents mobiles sont dans \visidia des classes
 descendantes soit de la classe \texttt{Agent} soit de la classe
 \texttt{SynchronizedAgent}, dans le cas où l'algorithme est synchrone.
@@ -88,9 +90,9 @@ l'agent sans devoir réécrire toute l'instruction à chaque fois. Il est par
 contre déconseillé d'ajouter des variables à l'agent car celles-ci
 n'apparraitrons pas dans le \emph{WhiteBoard}.
 
-\section{Description de l'API utile pour l'implémentation des
+\subsection{Description de l'API utile pour l'implémentation des
   algorithmes}
-\subsection{Déplacement de l'agent}
+\subsubsection{Déplacement de l'agent}
 Il y a deux façons de déplacer un agent dans \visidia. La première
 consiste à choisir directement le port sur lequel va être envoyé
 l'agent et la seconde à déléguer cette tâche à un gestionnaire de
@@ -128,7 +130,7 @@ port d'arrivé de l'agent.
 Pour renvoyer l'agent d'où il est venu vous pouvez
 utilisez la méthode \texttt{moveBack()}.
 
-\subsection{Modification et accès à la mémoire de l'agent}
+\subsubsection{Modification et accès à la mémoire de l'agent}
 
 La modification de la mémoire de l'agent passe par l'utilisation des
 méthodes \texttt{setProperty()} et \texttt{getProperty()}.
@@ -153,7 +155,7 @@ Vous remarquerez aussi la présence de la méthode
 \texttt{getPropertyKeys()} qui permet de connaître les valeurs des
 clés utilisées, c'est-à-dire des variables utilisées.
 
-\subsection{Modification de l'état des ports}
+\subsubsection{Modification de l'état des ports}
 Dans \visidia les ports/arêtes --- les fonctions décrites ici portent plutôt sur
 les arêtes que sur les ports eux-mêmes --- peuvent avoir un état. Cet état
 peut-être changé grâce à la méthode \texttt{changeDoorState()}. Dans la
@@ -162,7 +164,7 @@ de quatre. Ils permettent de marquer une arête (\texttt{markDoor()}), de la déma
 \texttt{unmarkDoor()}, de la marquer comme synchronisée \texttt{syncDoor()} et
 de la marquer comme non-synchronisée \texttt{unsyncDoor()}.
 
-\subsection{Modification et accès à la mémoire d'un sommet}
+\subsubsection{Modification et accès à la mémoire d'un sommet}
 
 La modification de la mémoire d'un sommet est un peu plus délicate que la
 modification de la mémoire d'un agent car dans le cas du sommet il faut gérer
@@ -186,7 +188,7 @@ sommet se fait de la même manière que pour la mémoire d'un agent grâce aux
 méthodes \texttt{getVertexProperty()}, \texttt{setVertexProperty()} et
 \texttt{getVertexPropertyKeys()}.
 
-\subsection{Création et clone d'agent}
+\subsubsection{Création et clone d'agent}
 \visidia vous permet de créer des agents lors de vos algorithmes. Pour cela vous
 pouvez utilisez la méthode \texttt{createAgent()}, en lui fournissant en
 paramètre la classe de l'agent à créer, ou si vous souhaitez envoyer cet agent
@@ -199,7 +201,7 @@ l'agent courant, la mémoire n'est pas copiée --- de l'agent en utilisant lea
 méthodes \texttt{cloneAgent()}, sans paramètre, et \texttt{cloneAndSend()}, en
 ne précisant que le port sur lequel l'agent devra partir.
 
-\subsection{Récupérations des informations du simulateur}
+\subsubsection{Récupérations des informations du simulateur}
 Les méthodes qui vont être décrites ici ne devraient être utilisées que dans la
 phase d'initialisation de l'algorithme. Sauf bien sûr si vous les supposez
 inaltérables.
@@ -212,21 +214,21 @@ Vous pouvez aussi avoir quelques informations sur l'agent en lui-même. Par
 exemple son identité (\texttt{getIdentity()}, sa classe (\texttt{className()})
 et son nom (\texttt{toString()}).
 
-\subsection{Les statistiques propres à l'algorithme}
+\subsubsection{Les statistiques propres à l'algorithme}
 Si vous voulez faire des statistiques propres à votre algorithme vous pouvez
 utiliser la méthode \texttt{incrementStat()} en lui passant une classe héritant
 de \texttt{AbstractStat} en paramètre. Il vous faudra créer aussi votre classe
 abstraite de statistiques avant de pouvoir utiliser cette méthode.
 
-\subsection{Autres méthodes intéressantes pour l'implémentation des agents}
+\subsubsection{Autres méthodes intéressantes pour l'implémentation des agents}
 La méthode \texttt{sleep()} permet d'endormir, pour la durée (en millisecondes)
 donnée en argument, l'agent. 
 
-\subsection{Pour les agents synchrones}
+\subsubsection{Pour les agents synchrones}
 Les agents synchrones peuvent être synchronisés grâce à la méthode
 \texttt{nextPulse()}. Si vous utilisez cette méthode plusieurs fois dans un
 algorithme il faut être très attentif car si un agent se retrouve en décalage
 d'un pulse (cela peut arriver lorsque que l'agent est ajouté \emph{a postiori})
 votre algorithme peu avoir des résultats surprenants.
 
-\end{document}
+%% \end{document}

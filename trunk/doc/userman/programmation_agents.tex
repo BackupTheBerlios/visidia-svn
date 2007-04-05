@@ -16,7 +16,7 @@ est possible de créer des statistiques personnalisées.\\
 Vous pouvez aussi vous baser (même s'ils ne respectent tous les
 principes de programmation que nous évoquerons ci-dessous) sur des exemples déjà écrits ; vous en
 trouverez un grand nombre dans les réperétoires~:
-\begin{itemize}é
+\begin{itemize}
 \item \dossier{sources/visidia/agents} pour les agents.
 \item \dossier{sources/visidia/agents/agentsmover} pour les algorithmes de déplacement.
 \item \dossier{sources/visidia/agents/agentchooser} pour le placement
@@ -42,7 +42,7 @@ avec un navigateur puis sélectionnez la classe Agent.
 
 
 \section{Ecrire ses propres agents}
-\input{agenthowto}
+\input{algohowto}
 %% Il existe deux types d'agents : les agents non-synchronisés et les
 %% agents synchronisés.
 
@@ -221,88 +221,88 @@ méthode \methode{getStats()} qui retournera l'ensemble des
 statistiques.  Ces statistiques devront faire partie du package
 \dossier{visidia.agents.agentreport}
 
-Voici un exemple calculant le nombre de déplacements moyen par type
-d'agent :
+%% Voici un exemple calculant le nombre de déplacements moyen par type
+%% d'agent :
 
-\begin{verbatim}
-public class AverageMoveReport extends AbstractStatReport {
-    /**
-     * Used to store the number of agents of type given by Class. Keys
-     * represent the class of agents (BasicAgent, SpanningTree...) and
-     * values represent the number of agents for that class.
-     */
-    private Hashtable<Class, Long> agentsByClass;
+%% \begin{verbatim}
+%% public class AverageMoveReport extends AbstractStatReport {
+%%     /**
+%%      * Used to store the number of agents of type given by Class. Keys
+%%      * represent the class of agents (BasicAgent, SpanningTree...) and
+%%      * values represent the number of agents for that class.
+%%      */
+%%     private Hashtable<Class, Long> agentsByClass;
 
-    /**
-     * Will  store the  report  information. Everything  that will  be
-     * displayed on the report will be in that variable.
-     */
-    private Bag stats;
+%%     /**
+%%      * Will  store the  report  information. Everything  that will  be
+%%      * displayed on the report will be in that variable.
+%%      */
+%%     private Bag stats;
 
-    /**
-     * Used to fill the <code>agentsByClass</code> instance variable.
-     */
-    private void countAgents() {
-	Set keys;
-	agentsByClass = new Hashtable(10);
+%%     /**
+%%      * Used to fill the <code>agentsByClass</code> instance variable.
+%%      */
+%%     private void countAgents() {
+%% 	Set keys;
+%% 	agentsByClass = new Hashtable(10);
 
-	/**
-	 * Keys is  a Set  containing all the  events reported  by the
-	 * simulator.
-	 */
-	keys = getBag().keySet();
+%% 	/**
+%% 	 * Keys is  a Set  containing all the  events reported  by the
+%% 	 * simulator.
+%% 	 */
+%% 	keys = getBag().keySet();
 
-	/**
-	 * For each events
-	 */
-	for(Object key: keys) {
-	    if (key instanceof AgentCreationStat) // if    it   is   a
-						  // creation event
-		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
-				  new Long(getBag().getOccurrencesOf(key)));
-	}
-    }
+%% 	/**
+%% 	 * For each events
+%% 	 */
+%% 	for(Object key: keys) {
+%% 	    if (key instanceof AgentCreationStat) // if    it   is   a
+%% 						  // creation event
+%% 		agentsByClass.put(((AgentCreationStat)key).getAgentClass(),
+%% 				  new Long(getBag().getOccurrencesOf(key)));
+%% 	}
+%%     }
 
-    /**
-     * Count the moves by agent type.
-     */
-    private void computeStats() {
-	Set keys;
+%%     /**
+%%      * Count the moves by agent type.
+%%      */
+%%     private void computeStats() {
+%% 	Set keys;
 
-	stats = new Bag();
+%% 	stats = new Bag();
 
-	countAgents();
+%% 	countAgents();
 
-	/**
-	 * Keys is a set containing all the events.
-	 */
-	keys = getBag().keySet();
+%% 	/**
+%% 	 * Keys is a set containing all the events.
+%% 	 */
+%% 	keys = getBag().keySet();
 
-	for(Object key: keys) {
-	    float movesByAgent;
+%% 	for(Object key: keys) {
+%% 	    float movesByAgent;
 
-	    if (key instanceof MoveStat) { // if it is a move event
-		Class agClass = ((MoveStat)key).getAgentClass();
-		long agentsForClass = agentsByClass.get(agClass).longValue();
-		long movesForClass = getBag().getOccurrencesOf(key);
+%% 	    if (key instanceof MoveStat) { // if it is a move event
+%% 		Class agClass = ((MoveStat)key).getAgentClass();
+%% 		long agentsForClass = agentsByClass.get(agClass).longValue();
+%% 		long movesForClass = getBag().getOccurrencesOf(key);
 
-		stats.add("Average moves by agent (" 
-			  + agClass.getSimpleName() + ")",
-			  new Long(movesForClass / agentsForClass));
-	    }
-	}
-    }
+%% 		stats.add("Average moves by agent (" 
+%% 			  + agClass.getSimpleName() + ")",
+%% 			  new Long(movesForClass / agentsForClass));
+%% 	    }
+%% 	}
+%%     }
 
-    /**
-     * Calculate the  number of  moves by agent  type and  returns the
-     * results that will be displayed.
-     */
-    public Bag getStats() {
-        computeStats();
-        return stats;
-    }
+%%     /**
+%%      * Calculate the  number of  moves by agent  type and  returns the
+%%      * results that will be displayed.
+%%      */
+%%     public Bag getStats() {
+%%         computeStats();
+%%         return stats;
+%%     }
 
-\end{verbatim}
+%% \end{verbatim}
 
 
 \end{document}
