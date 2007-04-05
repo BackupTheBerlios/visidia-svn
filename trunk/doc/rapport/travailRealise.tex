@@ -83,32 +83,38 @@ sommet, respectivement d'une arête, tout en gérant le cas où un agent serait pré
 \subsection{Ajout et suppression d'agent en cours d'exécution}
 
 \subsubsection{Ajout d'agents en cours d'exécution}
-L'ajout d'agents sur le graphe avait déjà été implémenté avant la simulation. 
-Nous avons donc récupéré le code existant pour l'adapter à l'application en cours d'exécution.\\
+L'ajout d'agents sur le graphe avait déjà été implémenté avant la simulation. Nous avons donc récupéré le code existant pour l'adapter à la simulation en cours d'exécution.\\
 
-Après sélection d'un sommet, l'utilisateur utilise le menu d'ajout d'agents. 
-A ce moment, l'identificateur du sommet est récupéré, et le nouvel agent est 
-ajouté dans la table de hachage des agents avec la méthode \textit{addAgents()}.
- Une méthode \textit{createAgentDuringExecution()} a été créée dans le simulateur 
- afin de créeer effectivement l'agent sur le sommet sélectionné et afin de créer et
-  lancer un \textit{thread} pour l'agent nouvellement ajouté.
+
+Après sélection d'un sommet, l'utilisateur utilise le menu
+d'ajout d'agents. A ce moment, l'identificateur du sommet est
+récupéré, et le nouvel agent est ajouté à l'ensemble
+des agents avec la méthode \textit{addAgents()}. Une méthode
+\textit{createAgentDuringExecution()} a été créée dans le
+simulateur afin de créeer effectivement l'agent sur le sommet
+sélectionné et de lancer un \textit{thread} pour l'agent
+nouvellement ajouté. 
 
 
 \subsubsection{Suppresion d'agents en cours d'exécution}
-Un bouton a été ajouté dans la fenêtre de simulation afin de permettre la suppression 
-d'agents en cours d'exécution. Lorsque l'utilisateur active cette fonctionnalité, 
-l'ensemble des agents en cours d'exécution est récupéré. L'utilisateur sélectionne 
-ensuite le nom de l'agent qu'il souhaite supprimer : cette action fait alors appel
-à une méthode \textit{killAgent} qui a été créée dans le simulateur. 
-En effet, les fonctions de bases déjà présentes dans l'application \visidia ne 
-permettaient pas de tuer proprement un agent, sans que celui-ci termine son déplacement 
-jusqu'au prochain sommet si par exemple l'agent était tué alors qu'il se déplaçait sur une arête.\\
+Un bouton a été ajouté dans la fenêtre de simulation afin
+de permettre la suppression d'agents en cours d'exécution. L'ensemble des agents en
+cours d'exécution est récupéré et l'utilisateur
+sélectionne ensuite le nom de l'agent qu'il souhaite supprimer :
+cette action fait alors appel à une méthode \textit{killAgent()}
+qui a été créée dans le simulateur. En effet, les
+fonctions de bases déjà présentes dans l'application \visidia
+ne permettaient pas de tuer proprement un agent, sans que celui-ci
+termine son déplacement jusqu'au prochain sommet si par exemple
+l'agent était tué alors qu'il se déplaçait sur une
+arête.\\
 
-La méthode implémentée ci-dessus supprime le \textit{thread} associé à l'agent et enlève 
-ce dernier de la table de hachage des agents. Enfin, afin que ces modifications soient 
-prises en compte dans la fenêtre de simulation, l'agent est également supprimé de la file
- d'évènements envoyés à l'interface graphique.
 
+La méthode implémentée ci-dessus supprime le \textit{thread}
+associé à l'agent et enlève ce dernier de la table de hachage
+des agents. Enfin, afin que ces modifications soient prises en compte
+dans la fenêtre de simulation, l'agent est également supprimé
+graphiquement grâce à l'envoi d'un évènement à l'interface graphique.
 
 
 
@@ -213,17 +219,32 @@ en cas d'extinction d'un sommet.
 
 
 \subsection{Calcul des statistiques en temps réel}
-Afin de disposer de statistiques en temps réel, nous avons ajouté une méthode 
-\textit{makeStatOnMove} dans le simulateur qui est appelée à chaque déplacement 
-d'un agent. La classe utilise la classe de statistiques, déjà existante, 
-nommée \textit{Bag} à laquelle on a ajouté des fonctions de base de calcul 
-de minimum et de maximum.\\
+Afin de disposer de statistiques en temps réel, nous avons
+ajouté une méthode \textit{makeStatOnMove()} dans le simulateur
+qui est appelée à chaque déplacement d'un agent. La classe
+utilise la classe de statistiques, déjà existante, nommée
+\textit{Bag} à laquelle on a ajouté des fonctions de base de
+calcul de minimum, de maximum et de remplacement.\\
 
-C'est dans la nouvelle méthode \textit{makeStatOnMove} du simulateur qu'ont 
-été implémentées les nouvelles statistiques sur les agents et classes d'agents 
-telles que le nombre minimum, maximum et moyen de pas, la taille de la mémoire 
-des agents, le nombre d'agents créés, tués, etc.
 
+Afin d'avoir des statistiques sur chaque agent et plus seulement sur
+chaque classe d'agent, des modifications ont été apportées
+à la classe abstraite \textit{AbstractStats}.\\
+
+C'est dans la nouvelle méthode \textit{makeStatOnMove()} du
+simulateur qu'ont été implémentées les nouvelles
+statistiques sur les agents et classes d'agents telles que le nombre
+minimum, maximum et moyen de pas, la taille de la mémoire des
+agents, le nombre d'agents créés, tués, etc. Pour ce faire,
+de nouvelles classes en fonction de la nature des statistiques ont
+été ajoutées.
+
+\begin{figure}[!ht]
+  \center
+  \includegraphics[width=14cm]{images/statistiques.png}
+  \caption{Statistiques en temps réel dans Visidia}
+  \label{fig:statistiques}
+\end{figure}
 
 
 
@@ -235,6 +256,8 @@ sur les sommets (où ils ont le choix de rester sur place ou de se déplacer au pr
 \texttt{top}), l'agent dont l'identificateur est le plus grand récupère la mémoire des
  autres agents du même type présents sur le sommet et les autres agents sont tués.\\
 
+
+
 Au niveau de l'implémentation, nous avons effectué les choix suivants : chaque agent, 
 lorsqu'il arrive sur un sommet, met dans le whiteboard de ce sommet son identifiant 
 seulement si le sien est plus grand, et attend que tous les autres agents l'aient fait. 
@@ -243,6 +266,7 @@ Ensuite, il compare son identifiant $ID$ avec celui du sommet (contenant donc le
  l'agent fusionne sa mémoire dans celle du sommet puis se tue. L'unique agent tel 
  que $ID = maxID$ récupère alors la fusion des mémoires contenue dans le sommet avant 
  de réinialiser la mémoire du sommet puis de se déplacer avec une probabilité égale à un tiers.
+
 
 
 
