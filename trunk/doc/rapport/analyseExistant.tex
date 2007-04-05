@@ -21,31 +21,25 @@ classique consiste à représenter le réseau par un graphe où les
 sommets correspondent à des machines ou processeurs, et les arêtes à des
 connexions. \\ 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=6cm]{images/visidia_general.png}
-  \caption{L'application Visidia}
-  \label{fig:implantation-communication}
-\end{figure}
-
 \visidia implémente les deux modèles d'algorithmes distribués, la version avec
 envoi de messages, et celle à base d'agents mobiles.
 Nous nous intéresserons seulement à la simulation avec les agents mobiles
 durant ce projet.
 
+\subsection{Architecture générale}
 
+Nous allons maintenant nous attarder à décrire l'architecture générale
+du programme \visidia avec agents.\\
 
-\subsection{La simulation avec agents mobiles}
+\visidia se base sur trois grandes structures :\\
 
-Le développement de l'application est articulé autour d'une séparation de
-l'architecture en trois parties, totalement indépendantes,  et communiquant
-entre elles par l'envoi de messages :
 \begin{itemize}
-  \item Simulation 
-  \item Affichage
-  \item Algorithmes ou agents mobiles
-\end{itemize}
 
+\item l'interface graphique
+\item le simulateur
+\item les agents
+
+\end{itemize}
 
 \begin{figure}[H]
   \centering
@@ -55,38 +49,139 @@ entre elles par l'envoi de messages :
 \end{figure}
 
 
+\subsubsection{Interface graphique}
 
+L'interface graphique est une  partie très importante de l'application
+\visidia. C'est  grâce à  elle que \visidia  a beaucoup de  succès. En
+effet,  elle permet  de visualiser  en temps  réel le  déplacement des
+agents sur le graphe et l'état des sommets.\\
 
+L'interface graphique se compose de  deux parties : la première partie
+est  consacrée à l'édition  de graphe  et la  seconde à  la simulation
+proprement dite.
 
-Dans la version de base qui nous a été fournie, on a déjà
-une implémentation de la simulation d'algorithmes avec agent
-mobile. Celle-ci s'appuie sur la version initiale travaillant par
-envoi de message : c'est pourquoi cela apporte des contraintes
-supplémentaires, notamment au niveau de la partie graphique.\\
+\paragraph{Interface graphique d'édition}
 
-L'utilisateur a déjà la possibilité de créer un graphe,
-d'ouvrir un graphe et de sauvegarder un graphe. Ensuite, le choix se
-porte sur le type d'algorithme à exécuter : une version par envoi
-de messages et une version avec agents mobiles. Nous ne traiterons que
-cette dernière version.\\
-\begin{figure}[H]
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=6cm]{images/visidia_agents.png}
-  \caption{Simulation avec agents mobiles}
-  \label{fig:implantation-communication}
+  \includegraphics[width=10cm]{images/existant-edition.png}
+  \caption{Ecran principal de \visidia :  un graphe est dessiné}
+  \label{fig:existant-edition}
 \end{figure}
 
-Après avoir sélectionné l'exécution d'algorithme avec
-agents mobiles, l'utilisateur arrive dans la fenêtre de
-simulation. Il lui est déjà possible, avant tout lancement
-d'exécution d'algorithmes, d'ajouter différents types d'agent
-sur le graphe. Par contre, à ce stade, il est impossible de
-modifier le graphe sans fermer la fenêtre de simulation. Enfin, une
-fois la simulation lancée, il est également impossible de
-supprimer un agent ou d'en ajouter, de modifier le graphe pendant une
-exécution ou encore de connaître des statistiques en temps
-réel : le but du projet est d'ajouter entre autres ces
-fonctionnalités.
+Dans la partie consacrée  à l'édition, l'interface graphique permet de
+créer de nouveaux graphes par la seule utilisation de la souris. Grâce
+à elle, de simples glisser/déposer permettent de placer des sommets et
+de les relier par des arêtes.\\
+
+Cette interface permet aussi de  charger des graphes existants, de les
+compléter\dots
+
+\paragraph{Interface graphique de simulation}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=10cm]{images/existant-simulation.png}
+  \caption{Algorithme de simulation avec agent en cours d'exécution.}
+  \label{fig:existant-simulation}
+\end{figure}
+
+La partie la plus intéressante de l'interface graphique se trouve dans
+la fenêtre de simulation. De nombreuses tâches peuvent être effectuées
+dans cette partie parmi lesquelles :\\
+
+\begin{itemize}
+
+\item charger un algorithme et le placer sur les sommets du graphe,
+\item lancer la simulation, la mettre en pause et l'arrêter,
+\item voir en temps réel les agents circuler sur les arêtes,
+\item choisir des règles de réécriture à appliquer,
+\item éditer les étiquettes des sommets\dots
+
+\end{itemize}
+
+\subsubsection{Simulateur}
+
+Le simulateur est  le noyau de \visidia. Il a  entre autre pour charge
+de :\\
+
+\begin{itemize}
+\item gérer les agents du réseau,
+\item informer l'interface graphique des changements,
+\item valider les acquittements de l'interface graphique,
+\item compter les évènements en vue d'établir des statistiques\dots\\
+\end{itemize}
+
+
+Lorsque le simulateur est créé par l'interface graphique, celle-ci lui
+fournit  le  graphe  courant,  les agents  à  déplacer  choisi  par
+l'utilisateur  et deux files  qui serviront  à la  communication (voir
+\ref{sec:existant-communication}). Le simulateur se charge à ce moment
+d'initialiser les  files de messages pour les  agents. Mais c'est
+au moment  où le  simulateur reçoit un  appel à  $startSimulation$ que
+celui-ci commence  réellement son travail.   Il va créer,  pour chaque
+agent, un processus  qui va exécuter le code de l'algorithme
+qu'il exécutera sur chaque sommet.\\
+
+Par la  suite, le rôle  du simulateur sera  de gérer les  demandes des
+agents et de l'interface graphique (mise en pause ou à l'arrêt
+du simulateur\dots).
+
+\subsubsection{Les agents}
+
+Les agents représentent la  partie évolutive de \visidia. Pour se
+servir  de  \visidia,  l'utilisateur  devra commencer  par  écrire  un
+algorithme en Java  en utilisant l'API fournie (il  est aussi possible
+de dessiner  des règles  de réécritures).\\
+
+Lors   du   lancement  de   la simulation,   la   méthode  $init$ de chaque 
+agent est appelée.  C'est  cette  méthode  que l'utilisateur  de  \visidia  doit
+implémenter. 
+
+Chaque  agent du  graphe va  exécuter sa  propre copie  de  la méthode
+$init$.\\
+
+
+\subsubsection{Communication entre les structures}
+\label{sec:existant-communication}
+
+Dans  cette partie  nous décrirons  brièvement comment  les structures
+communiquent    entre    elles.     
+
+\paragraph{Entre la partie graphique et le simulateur :}
+
+Deux    files    permettent    la
+communication entre  le simulateur et l'interface  graphique. Ces deux
+files  sont créées par  l'interface graphique  et passées  en paramètre
+lors de la construction du simulateur.\\
+
+Quand le  simulateur a besoin  de faire faire  une action à  la partie
+graphique,   ou  lorsque  le   simulateur  souhaite   l'informer  d'un
+évènement, il crée un nouvel objet de type $SimulEvent$ et le place
+dans la file d'évènements. Ces évènements sont de plusieurs types :\\
+
+\begin{itemize}
+\item changement de l'état d'un noeud ou d'une arête,
+\item déplacement d'un agent,
+\item nouveau round pour les agents synchronisés
+\item terminaison des agents.\\
+\end{itemize}
+
+Lorsque l'interface  graphique reçoit un  évènement sur la  file, elle
+exécute  les  tâches nécessaires  puis  elle  confirme l'exécution  en
+envoyant  un acquittement sur  la seconde  file. Le  simulateur attend
+l'acquittement  de  l'interface  graphique  avant  de  considérer  que
+l'action  a  été  effectuée.  Ceci  permet  de  garder  une  interface
+graphique synchronisée avec le simulateur.\\
+
+
+\paragraph{Entre les agents et le simulateur :}
+
+La communication entre les agents  et le simulateur est bien plus
+classique. Chaque agent possède un lien direct vers le simulateur
+grâce  à une  variable d'instance.   A  partir de  là, faire  exécuter
+quelque  chose au  simulateur reviens  à appeler  une  méthode d'accès
+publique sur cette variable.
 
 
 
