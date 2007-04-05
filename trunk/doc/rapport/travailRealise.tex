@@ -297,3 +297,48 @@ Ensuite, il compare son identifiant $ID$ avec celui du sommet (contenant donc le
 \subsection{Algorithme auto-stabilisant : agent sur un anneau}
 
 \subsection{Calcul d'arbre recouvrant distribué}
+
+
+
+Dans cet algorithme, les agents se mettent, chacun de son côté
+à calculer un arbre recouvrant. En cas de contact sur les frontières, 
+l'agent de plus grand identificateur annexe à son propre sous-arbre 
+le sous-arbre calculé par l'agent de plus petit identificateur et ce en 
+envoyant un clone pour faire le rapatriement. A la fin, il ne reste qu'un 
+seul agent, c'est lui qui a annexé les autres sous-arbres calculés.
+L'arbre regrouvant calculé par cet agent est, donc, un arbre recouvrant
+de tout le graphe.\\
+
+Nous avons commencé par diviser le problème en trois sous 
+problème: calculer un arbre recouvrant, annexer un sous-arbre 
+et détecter la terminaison.\\
+
+
+\begin{itemize}
+
+\item Nous avons implémenté un agent qui calcule un arbre recouvrant \textit{Spanning_Tree_Agent}
+en laissant des traces sur les sommets visités. Grâce à ces traces, le clone peut annexer 
+le sous-arbre à l'agent qui l'a crée, celui de plus grand $ID$. En effet, 
+dans chaque sommet, on stocke le port d'où l'agent est entré, c'est le port \textit{Parent} 
+et les ports d'où il est parti, ce sont les ports \textit{ Child}. Ces traces
+permettent donc de définir l'arbre calculé par un agent.\\
+
+\item Nous avons implémenté aussi un agent qui parcourt en profondeur 
+un arbre recouvrant, c'est l'agent \textit{Depth_Traversal_Agent}. Son rôle est 
+de détecter la terminaison de l'algorithme. En effet, à chaque fois, que l'agent
+\textit{Spanning_Tree_Agent} passe par sa racine, il lance un agent \textit{Depth_Traversal_Agent}
+pour parcourir en profondeur l'arbre qu'il a calculé. Ce dernier agent calcule 
+le nombre de sommet de cet arbre et transforme l'information à son créateur.
+Si le nombre de sommet calculé est égal au nombre des sommets du graphe, l'algorithme 
+se termine.\\
+  
+
+\item Pour annexer un sous arbre, nous avons implémenté un agent \textit{Annexing_SubTree_Agent}.
+Ce dernier est crée quand un agent arrive sur un sous-arbre calculé par un autre agent. Il est 
+le clone de l'agent de plus garnd identificateur. Le clone suit, alors, les traces laissées 
+par \textit{Spanning_Tree_Agent} et change la couleur des sommets visités.
+ Il se tue quand il atteint la racine du sous-arbre à annexer ou quand il
+ va sur un sommet qui a été déjà annexé par un agent de plus grand identificateur.\\ 
+
+
+\end{itemize} 
