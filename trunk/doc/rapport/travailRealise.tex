@@ -140,7 +140,8 @@ dans la mémoire des sommets.\\
 
  Si l'utilisateur souhaite pouvoir modifier 
 d'autres variables pour simuler des erreurs, il n'a qu'à stocker ces variables
-dans le whiteboard en appellant les méthodes adéquates de la classe \textit{WhiteBoard}.
+dans le whiteboard en appellant les méthodes adéquates de la classe 
+\textit{SimpleGraphVertex} à savoir \textit{setProperty} et \textit{ getProperty()}.
 Cette fonctionalité de la modification de la mémoire a été implémentée de manière 
 que toute modification de ces variables à travers la fenêtre de dialogue soit 
 prise en compte et se répercute sur le déroulement de l'algorithme.
@@ -156,7 +157,8 @@ Dans la version des algorithmes que nous avons reprise, les variables utlisées p
 l'agent sont déclarées en tant que variables locales de la méthode init(). 
 Ce qui fait qu'avec cette implémentation simuler des erreurs en modifiant 
 les valeurs de ces variables n'est pas possible. Donc, pour remedier à ce problème,
-nous avons envisagé deux solutions possibles:
+nous avons envisagé deux solutions possibles:\\
+
 \begin{itemize}
 
 \item Pour chaque algorithme, stocker et initialiser ces variables dans 
@@ -165,7 +167,7 @@ le whitebord. A chaque fois qu'elles sont utilisées, on doit les mettre
 Ceci permet de prendre en compte les modifications "manuelles" apportées par
 l'utilisateur et donc de simuler des erreurs. L'inconvénient de cette solution 
 est qu'avant chaque instruction manipulant ces variables nous sommes 
-obligés d'ajouté une instruction de mise à jour.
+obligés d'ajouté une instruction de mise à jour.\\
 
 
 \item Utiliser une méthode \textit{initWhiteBoard()} qu'on implémente dans chaque
@@ -177,7 +179,7 @@ les sous-classes, ce qui entraînera des modifications considérables du code
 des algorithmes: mettre toutes ces variables qui sont locales en tant qu'attributs
 de l'agent en question et, par conséquent, modifier toutes les instructions les manipulant.
 En plus, cela dépendra des choix de l'utilisateur notamment du choix des variables
-qu'il souhaite modifier, ces variables variant suivant les algorithmes et suivant ses besoins. 
+qu'il souhaite modifier, ces variables variant suivant les algorithmes et suivant ses besoins. \\
 
 \end{itemize}
 
