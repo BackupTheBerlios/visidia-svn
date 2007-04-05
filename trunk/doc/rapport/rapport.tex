@@ -4,7 +4,8 @@
 \usepackage[latin1]{inputenc}
 \usepackage{xspace}
 \usepackage{float}
-\usepackage{here}
+%\usepackage{here}
+\usepackage{geometry}
 \usepackage[dvips]{graphicx}
 \usepackage[pdftex,
   colorlinks=true,
@@ -17,13 +18,50 @@
 \newcommand{\berlios}{BerliOs.de\xspace}
 \newcommand{\labri}{LaBRI\xspace}
 
+\author{}
+\date{}
+
+\title{
+  \begin{flushright}
+    \begin{Huge}
+      \begin{textbf}
+        Projet \visidia\\
+      \end{textbf}
+    \end{Huge}
+    \rule{\textwidth}{2mm}\\
+    \large\rm{Rapport}\\
+    \vspace{2cm}
+    \begin{textbf}\\
+      \underline{Auteurs}~:\\
+      \vspace{0.5cm}
+      \sc
+      Ammar Aymen\\
+      Balan Alexandre\\
+      Ben Alaya Ramzi\\
+      Bochu Fabien\\
+      Bonin Éric\\
+      Lafon Julien\\
+      \vspace{5mm}
+    \end{textbf}
+    \rm 6 avril 2007\\
+    \vspace{6.25cm}
+  \end{flushright}
+  \begin{flushleft}
+    %\rule{\textwidth}{2mm}\\
+    \small
+    \underline{Responsable pédagogique}~: David Renault.\\
+    \underline{Responsables scientifiques}~: Mohamed Mosbah et Brahim Hamid.
+  \end{flushleft}
+}
+
 \begin{document}
 
 
-%\maketitle
+\maketitle
 \tableofcontents
 
 \chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 \input{introduction}
 
 \chapter{Domaine d'application}
@@ -44,10 +82,12 @@
 \chapter{Organisation du projet}
 \input{organisation}
 
-\chapter{Conclusion}
- \input{conclusion}
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+\input{conclusion}
 
-\chapter{Annexe}
+\chapter*{Annexe}
+\addcontentsline{toc}{chapter}{Annexe}
   %\input{algorithmes}
 
 \end{document}

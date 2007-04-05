@@ -98,18 +98,18 @@ entités non-élues n'y ayant pas accès.
 
 \subsubsection*{Exemple d'algorithme : Élection dans un anneau} 
 
-Soit G un anneau, asynchrone avec échange de messages asynchrones, à 3
-états :  non élu,  élu, indéfini\\
-Les  sommets sont  initialement dans l'état   indéfinis.  \\
+Soit G un anneau, asynchrone avec échange de messages asynchrones, à trois
+états :  non élu,  élu, indéfini.
+Les  sommets sont  initialement dans l'état   indéfinis.
 Chaque processeur $i$ du réseau possède un identificateur   $id_{i}$  unique  (un 
- entier). \\
+ entier).
 L'anneau est orienté, c'est-à-dire que les processeurs ont la notion de
-gauche et de droite.  \\
+gauche et de droite.
 Le processeur élu est celui qui a le plus grand identificateur.  
 Chaque processeur transmet à son voisin de droite son
-identificateur. \\
+identificateur.
 Lorsqu'un processeur reçoit  un identificateur, il y a
-trois possibilités :
+trois possibilités~:
 \begin{itemize}
 \item Si l'identificateur reçu est plus grand que le sien, il le passe
 au suivant (voisin de droite) et passe dans l'état non élu.
@@ -175,16 +175,16 @@ L'algorithmique distribuée est appliquée dans plusieurs domaines, comme
 par exemple :
 \begin{itemize}
   \item Construction d'objets parallèles : Un exemple des applications dans ce
-  		domaine est mené par le PRISM
-		\footnote{le laboratoire  de recherche en informatique  sur les thèmes
-		du Parallélisme, des Réseaux, des Systèmes et de la Modélisation.(voir
-		http://www.prism.uvsq.fr/)}, il consiste dans la construction d'objets
+  		domaine est mené par le PRISM\footnote{Laboratoire  de recherche en
+  		informatique  sur les thèmes 
+		du Parallélisme, des Réseaux, des Systèmes et de la
+		Modélisation (\url{http://www.prism.uvsq.fr/)}.}, il consiste dans la
+		construction d'objets 
 		pour  l'élaboration d'algorithmes  d'algèbre linéaire  utilisables par
 		des architectures à mémoire distribuée. 
  \item  Le domaine de l'énergie : on trouve un  exemple  d'application  dans  ce  domaine 
-		au  LAG \footnote{le Laboratoire    d'Automatique    de  
-		Grenoble    (voir
-		http://www.lag.ensieg.inpg.fr/)}  ,  et  qui  vise  contrairement  aux
+		au  LAG\footnote{Laboratoire    d'Automatique    de  
+		Grenoble (\url{http://www.lag.ensieg.inpg.fr/}).}  ,  et  qui  vise  contrairement  aux
 		approches  traditionnelles  qui  consistent  à ajuster  la  production
 		d'énergie pour  satisfaire à  la demande, à  proposer un  mécanisme de
 		coopération entre sources et charges  de façon à satisfaire au mieux à

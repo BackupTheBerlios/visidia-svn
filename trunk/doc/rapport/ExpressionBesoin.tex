@@ -20,20 +20,25 @@ cette fonctionnalité, nécessaire lors d'une modification sur un
 agent ou sur le graphe pendant la simulation (c'est-à-dire pendant
 l'exécution), est devenue complètement transparente pour
 l'utilisateur. Ce dernier n'a pas besoin de mettre en pause le
-programme lors d'une modification dans la fenêtre de simulation.\\ 
+programme lors d'une modification dans la fenêtre de simulation.\\
 
 \begin{itemize}
   \item Entrée : modification (sur un agent ou sur le graphe) pendant la simulation
-  \item Sortie : mise en pause automatique, modification apportée, simulation toujours en cours d'exécution
+  \item Sortie : mise en pause automatique, modification apportée, simulation
+  toujours en cours d'exécution 
 \end{itemize}
 
 
 \subsection{Modification de la mémoire d'un sommet}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut modifier l'état de la mémoire d'un sommet. L'utilisateur sélectionne le sommet dont il souhaite modifier la mémoire : il peut alors consulter sa mémoire puis la modifier pendant l'exécution de l'algorithme.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+modifier l'état de la mémoire d'un sommet. L'utilisateur sélectionne le sommet
+dont il souhaite modifier la mémoire : il peut alors consulter sa mémoire puis
+la modifier pendant l'exécution de l'algorithme.\\
 
 \begin{itemize}
   \item Entrée : sélection d'un sommet
-  \item Sortie : après consultation de l'état de la mémoire du sommet, modification de la mémoire du sommet
+  \item Sortie : après consultation de l'état de la mémoire du sommet,
+  modification de la mémoire du sommet 
 \end{itemize}
 
 
@@ -49,7 +54,7 @@ l'agent est renvoyé vers le sommet dont il provient.\\
 
 \begin{itemize}
   \item Entrée : sélection d'un sommet
-  \item Sortie : sommet éteint ne traitant plus les agents
+  \item Sortie : sommet éteint ne traitant plus les agents\\
 \end{itemize}
 
 Pendant l'exécution d'un algorithme avec agents mobiles,
@@ -71,7 +76,7 @@ plusieurs fois de suite, sans que le programme soit mis en pause.\\
 
 \begin{itemize}
   \item Entrée : sélection d'une zone où ajouter un sommet
-  \item Sortie : sommet ajouté pendant l'exécution de l'algorithme
+  \item Sortie : sommet ajouté pendant l'exécution de l'algorithme\\
 \end{itemize}
 
 Pendant l'exécution d'un algorithme avec agents mobiles,
@@ -88,15 +93,21 @@ arêtes supprimées.\\
 
 
 \subsection{Ajout et suppression d'une arête}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajouter une arête. L'ajout d'arête s'effectue entre deux sommets déjà présents, par un \textit{glisser-déplacer} avec clic gauche de la souris.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+ajouter une arête. L'ajout d'arête s'effectue entre deux sommets déjà présents,
+par un \textit{glisser-déplacer} avec clic gauche de la souris.\\
 
 \begin{itemize}
-  \item Entrée : sélection du premier sommet, puis \textit{glisser-déplacer} vers le second sommet
-  \item Sortie : arête ajoutée entre les deux sommets
+  \item Entrée : sélection du premier sommet, puis \textit{glisser-déplacer}
+  vers le second sommet 
+  \item Sortie : arête ajoutée entre les deux sommets\\
 \end{itemize}
 
 
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supprimer une arête. Il suffit de sélectionner l'arête à supprimer et d'activer le bouton adéquat. Si un agent est présent sur l'arête en cours de suppression, celui-ci est tué.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+supprimer une arête. Il suffit de sélectionner l'arête à supprimer et d'activer
+le bouton adéquat. Si un agent est présent sur l'arête en cours de suppression,
+celui-ci est tué.\\
 
 \begin{itemize}
   \item Entrée : sélection d'une arête à supprimer
@@ -105,32 +116,48 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supp
 
 
 \subsection{Ajout et suppression d'un agent}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajouter un agent. Après avoir sélectionné le sommet où ajouter l'agent, l'utilisateur choisit ensuite le type d'agent qu'il souhaite ajouter.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+ajouter un agent. Après avoir sélectionné le sommet où ajouter l'agent,
+l'utilisateur choisit ensuite le type d'agent qu'il souhaite ajouter.\\
 
 \begin{itemize}
   \item Entrée : sélection d'un sommet où ajouter un agent
-  \item Sortie : après sélection du type d'agent, ajout de l'agent sur le sommet et exécution de son algorithme
+  \item Sortie : après sélection du type d'agent, ajout de l'agent sur le
+  sommet et exécution de son algorithme\\
 \end{itemize}
 
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supprimer un agent. L'utilisateur active le bouton permettant la suppression d'agent : il sélectionne ensuite le nom de l'agent qu'il désire supprimer. Ce dernier sera alors définitivement supprimé de la simulation.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+supprimer un agent. L'utilisateur active le bouton permettant la suppression
+d'agent : il sélectionne ensuite le nom de l'agent qu'il désire supprimer. Ce
+dernier sera alors définitivement supprimé de la simulation.\\
 
 \begin{itemize}
   \item Entrée : activation du bouton de suppression d'agents
-  \item Sortie : après sélection du nom de l'agent, suppression définitive de l'agent dans la simulation
+  \item Sortie : après sélection du nom de l'agent, suppression définitive de
+  l'agent dans la simulation
 \end{itemize}
 
 
 \subsection{Modification de la mémoire d'un agent}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut modifier la mémoire d'un agent. L'utilisateur active le bouton de consultation des mémoires des agents. Après avoir sélectionné l'agent à consulter, l'utilisateur active le bouton de modification de sa mémoire : il sélectionne ensuite le champ à modifier et entre une nouvelle valeur.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+modifier la mémoire d'un agent. L'utilisateur active le bouton de consultation
+des mémoires des agents. Après avoir sélectionné l'agent à consulter,
+l'utilisateur active le bouton de modification de sa mémoire : il sélectionne
+ensuite le champ à modifier et entre une nouvelle valeur.\\
 
 \begin{itemize}
   \item Entrée : activation du bouton de consultation de la mémoire des agents
-  \item Sortie : après sélection du nom de l'agent puis du champ à modifier, la nouvelle valeur est entrée dans la mémoire de l'agent
+  \item Sortie : après sélection du nom de l'agent puis du champ à modifier, la
+  nouvelle valeur est entrée dans la mémoire de l'agent
 \end{itemize}
 
 
 \subsection{Statistiques}
-Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut afficher en temps réel des statistiques par agent et des statistiques sur l'exécution d'un algorithme. Entre autres, on peut connaître le nombre de pas effectués par chaque agent, par chaque classe d'agent (nombre moyen de pas, nombre minimum, maximum), la taille de la mémoire, etc.\\
+Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut
+afficher en temps réel des statistiques par agent et des statistiques sur
+l'exécution d'un algorithme. Entre autres, on peut connaître le nombre de pas
+effectués par chaque agent, par chaque classe d'agent (nombre moyen de pas,
+nombre minimum, maximum), la taille de la mémoire, etc.\\
 
 \begin{itemize}
   \item Entrée : activation du bouton de consultation des statistiques
@@ -138,16 +165,19 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut affi
 \end{itemize}
 
 
-
-
 \section{Besoins non fonctionnels}
 
 \subsection{Implémentation d'algorithmes distribués}
-Plusieurs nouveaux algorithmes ont été implémentés, dans le but d'enrichir la bibliothèque d'algorithmes disponibles et afin de valider le travail réalisé.\\
+Plusieurs nouveaux algorithmes ont été implémentés, dans le but d'enrichir la
+bibliothèque d'algorithmes disponibles et afin de valider le travail réalisé.\\
 
 
 \begin{itemize}
-  \item Fusion des mémoires : dans cet algorithme, les agents se déplacent de manière synchrone. Ils se rencontrent sur les sommets (où ils ont le choix de rester sur place ou de se déplacer au prochain \texttt{top}), l'agent dont l'identificateur est le plus grand récupère la mémoire des autres agents du même type présents sur le sommet et les autres agents sont tués.
+  \item Fusion des mémoires : dans cet algorithme, les agents se déplacent de
+  manière synchrone. Ils se rencontrent sur les sommets (où ils ont le choix de
+  rester sur place ou de se déplacer au prochain \texttt{top}), l'agent dont
+  l'identificateur est le plus grand récupère la mémoire des autres agents du
+  même type présents sur le sommet et les autres agents sont tués.
   \item Calcul d'arbre recouvrant avec plusieurs agents
   \item Algorithme fourni par M. Hamid (algorithme auto-stabilisant
   avec des agents sur un anneau)
@@ -155,13 +185,19 @@ Plusieurs nouveaux algorithmes ont été implémentés, dans le but d'enrichir la bi
 
 
 \subsection{Structuration de l'application}
-Le développement de nouvelles fonctionnalités au logiciel \visidia s'est effectué en respectant la séparation en trois modules : l'interface graphique, le simulateur et les agents (ou algorithmes pour la version sans les agents).
+Le développement de nouvelles fonctionnalités au logiciel \visidia s'est
+effectué en respectant la séparation en trois modules : l'interface graphique,
+le simulateur et les agents (ou algorithmes pour la version sans les agents).
 
 
 \subsection{Langage et portabilité}
-Les standards de codage définis par le langage Java ont été utilisés : un reformatage des sources dans ce sens a d'ailleurs été effectué.\\
-L'interface en anglais a été conservée. Le logiciel \visidia nécessite toujours une version du JDK supérieure ou égale à la version 1.5.
+Les standards de codage définis par le langage Java ont été utilisés : un
+reformatage des sources dans ce sens a d'ailleurs été effectué.
+L'interface en anglais a été conservée. Le logiciel \visidia nécessite toujours
+une version du JDK supérieure ou égale à la version 1.5.
 
 
 \subsection{Documentation sur l'implémentation de nouveaux agents mobiles}
-Une documentation concernant comment implémenter de nouveaux algorithmes avec agent mobile a été réalisée. Celle-ci facilitera la tâche d'implémentation en vue d'enrichir la bibliothèque d'algorithmes existants.
+Une documentation concernant comment implémenter de nouveaux algorithmes avec
+agent mobile a été réalisée. Celle-ci facilitera la tâche d'implémentation en
+vue d'enrichir la bibliothèque d'algorithmes existants.

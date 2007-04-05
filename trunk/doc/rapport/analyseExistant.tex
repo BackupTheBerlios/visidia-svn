@@ -5,21 +5,21 @@
 Avec la généralisation des réseaux tels qu'Internet et le développement d'une
 information de plus en plus complexe et massivement distribuée sur ces grands
 réseaux, de nombreuses applications industrielles, bancaires et Web sont elles
-aussi devenues distribuées.\\
+aussi devenues distribuées.
 
 Toutefois, le développement d'applications distribuées est un processus très difficile.
 À la complexité classique de développement d'applications centralisées, s'ajoute une complexité 
 liée à la distribution et à l'introduction de la communication entre processus, de la concurrence,
-des conflits de ressources.  \\
+des conflits de ressources. 
 
-C'est dans ce cadre, que les chercheurs du LaBRI ont lancé le projet \visidia
-\footnote{\url{http://www.labri.fr/projet/visidia}}.
+C'est dans ce cadre, que les chercheurs du LaBRI ont lancé le projet
+ViSiDiA\footnote{\url{http://www.labri.fr/projet/visidia}}. 
 \visidia se propose de fournir un atelier composé d'outils de simulation, de
 visualisation et d'aide aux preuves devenus indispensables pour la conception,
 les tests et la validation de programmes dans des environnements distribués. Le modèle
 classique consiste à représenter le réseau par un graphe où les 
 sommets correspondent à des machines ou processeurs, et les arêtes à des
-connexions. \\ 
+connexions.
 
 \visidia implémente les deux modèles d'algorithmes distribués, la version avec
 envoi de messages, et celle à base d'agents mobiles.
@@ -29,9 +29,9 @@ durant ce projet.
 \subsection{Architecture générale}
 
 Nous allons maintenant nous attarder à décrire l'architecture générale
-du programme \visidia avec agents.\\
+du programme \visidia avec agents.
 
-\visidia se base sur trois grandes structures :\\
+\visidia se base sur trois grandes structures~:
 
 \begin{itemize}
 
@@ -54,7 +54,7 @@ du programme \visidia avec agents.\\
 L'interface graphique est une  partie très importante de l'application
 \visidia. C'est  grâce à  elle que \visidia  a beaucoup de  succès. En
 effet,  elle permet  de visualiser  en temps  réel le  déplacement des
-agents sur le graphe et l'état des sommets.\\
+agents sur le graphe et l'état des sommets.
 
 L'interface graphique se compose de  deux parties : la première partie
 est  consacrée à l'édition  de graphe  et la  seconde à  la simulation
@@ -72,7 +72,7 @@ proprement dite.
 Dans la partie consacrée  à l'édition, l'interface graphique permet de
 créer de nouveaux graphes par la seule utilisation de la souris. Grâce
 à elle, de simples glisser/déposer permettent de placer des sommets et
-de les relier par des arêtes.\\
+de les relier par des arêtes.
 
 Cette interface permet aussi de  charger des graphes existants, de les
 compléter\dots
@@ -88,7 +88,7 @@ compléter\dots
 
 La partie la plus intéressante de l'interface graphique se trouve dans
 la fenêtre de simulation. De nombreuses tâches peuvent être effectuées
-dans cette partie parmi lesquelles :\\
+dans cette partie parmi lesquelles~:
 
 \begin{itemize}
 
@@ -103,7 +103,7 @@ dans cette partie parmi lesquelles :\\
 \subsubsection{Simulateur}
 
 Le simulateur est  le noyau de \visidia. Il a  entre autre pour charge
-de :\\
+de~:
 
 \begin{itemize}
 \item gérer les agents du réseau,
@@ -111,7 +111,6 @@ de :\\
 \item valider les acquittements de l'interface graphique,
 \item compter les évènements en vue d'établir des statistiques\dots\\
 \end{itemize}
-
 
 Lorsque le simulateur est créé par l'interface graphique, celle-ci lui
 fournit  le  graphe  courant,  les agents  à  déplacer  choisi  par
@@ -121,7 +120,7 @@ d'initialiser les  files de messages pour les  agents. Mais c'est
 au moment  où le  simulateur reçoit un  appel à  $startSimulation$ que
 celui-ci commence  réellement son travail.   Il va créer,  pour chaque
 agent, un processus  qui va exécuter le code de l'algorithme
-qu'il exécutera sur chaque sommet.\\
+qu'il exécutera sur chaque sommet.
 
 Par la  suite, le rôle  du simulateur sera  de gérer les  demandes des
 agents et de l'interface graphique (mise en pause ou à l'arrêt
@@ -132,14 +131,14 @@ du simulateur\dots).
 Les agents représentent la  partie évolutive de \visidia. Pour se
 servir  de  \visidia,  l'utilisateur  devra commencer  par  écrire  un
 algorithme en Java  en utilisant l'API fournie (il  est aussi possible
-de dessiner  des règles  de réécritures).\\
+de dessiner  des règles  de réécritures).
 
 Lors   du   lancement  de   la simulation,   la   méthode  $init$ de chaque 
 agent est appelée.  C'est  cette  méthode  que l'utilisateur  de  \visidia  doit
 implémenter. 
 
 Chaque  agent du  graphe va  exécuter sa  propre copie  de  la méthode
-$init$.\\
+$init$.
 
 
 \subsubsection{Communication entre les structures}
@@ -153,18 +152,18 @@ communiquent    entre    elles.
 Deux    files    permettent    la
 communication entre  le simulateur et l'interface  graphique. Ces deux
 files  sont créées par  l'interface graphique  et passées  en paramètre
-lors de la construction du simulateur.\\
+lors de la construction du simulateur.
 
 Quand le  simulateur a besoin  de faire faire  une action à  la partie
 graphique,   ou  lorsque  le   simulateur  souhaite   l'informer  d'un
 évènement, il crée un nouvel objet de type $SimulEvent$ et le place
-dans la file d'évènements. Ces évènements sont de plusieurs types :\\
+dans la file d'évènements. Ces évènements sont de plusieurs types~:
 
 \begin{itemize}
 \item changement de l'état d'un noeud ou d'une arête,
 \item déplacement d'un agent,
 \item nouveau round pour les agents synchronisés
-\item terminaison des agents.\\
+\item terminaison des agents.
 \end{itemize}
 
 Lorsque l'interface  graphique reçoit un  évènement sur la  file, elle
@@ -172,11 +171,10 @@ exécute  les  tâches nécessaires  puis  elle  confirme l'exécution  en
 envoyant  un acquittement sur  la seconde  file. Le  simulateur attend
 l'acquittement  de  l'interface  graphique  avant  de  considérer  que
 l'action  a  été  effectuée.  Ceci  permet  de  garder  une  interface
-graphique synchronisée avec le simulateur.\\
+graphique synchronisée avec le simulateur.
 
 
 \paragraph{Entre les agents et le simulateur :}
-
 La communication entre les agents  et le simulateur est bien plus
 classique. Chaque agent possède un lien direct vers le simulateur
 grâce  à une  variable d'instance.   A  partir de  là, faire  exécuter
@@ -195,13 +193,13 @@ est disponible sur notre svn :
 svn checkout svn://svn.berlios.de/visidia/trunk
 \end{verbatim}
 
-Le code source de \visidia est parfois commenté avec l'outil \textbf{javadoc}. \\
+Le code source de \visidia est parfois commenté avec l'outil \textbf{javadoc}. 
 Très peu de classes et d'attributs ont été commentés.
 
 \subsection{Documentation}
 
 La documentation qui nous a été fournie a été le rapport de
-PFA de l'équipe précédente.\\
-Nous n'avons pas eu connaissance de l'existence d'un rapport technique
+PFA de l'équipe précédente. Nous n'avons pas eu connaissance de l'existence d'un
+rapport technique
 expliquant les principes techniques de développement de l'application depuis son
 début.
