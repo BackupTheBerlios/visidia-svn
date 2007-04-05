@@ -1,6 +1,6 @@
 \visidia est une application de simulation d'exécution d'algorithmes distribués.
 Pour une bonne compréhension de ce rapport, nous allons vous présenter les
-principes de l'algorithmique distribué.
+principes de l'algorithmique distribuée.
 
 \section{Présentation de l'algorithmique distribuée}
 
@@ -25,7 +25,7 @@ Dans un système distribué, la communication peut s'effectuer selon deux modes :
     réseau, c'est-à-dire que les (blocs d') instructions de
     l'algorithme s'effectuent sur les tops de l'horloge~;
   \item le mode asynchrone où les opérations peuvent se produire à
-    n'importe quel instant indépendemment de l'exécution de celle des
+    n'importe quel instant indépendamment de l'exécution de celle des
     autres agents.
 \end{itemize}
 
@@ -71,7 +71,7 @@ La détection de la terminaison d'un algorithme distribué est souvent difficile,
 car elle nécessite pas seulement d'avoir la connaissance de la terminaison de
 son algorithme mais également de celle de tous les entités  du réseau.
 Nous pouvons cependant chercher à  avoir un détection locale de  la terminaison
-globale, c'est-à-dire qu'un processeur  peut savoir en fonction de  son état et
+globale, c'est-à-dire qu'un processeur  puisse savoir en fonction de  son état et
 de celui de ces voisins si l'algorithme est terminé.
 
 \subsubsection{Correction d'un algorithme}
@@ -104,10 +104,10 @@ existent, en voici quelques uns des plus fréquent.
 \subsection{Le problème de l'élection}
 
 \subsubsection*{Principe}
-Ce problème consiste à distinguer une entité c'est-à-dire de
+Ce problème consiste à distinguer une entité c'est-à-dire
 l'élire. La plupart du temps cette élection permet de sélectionner une
-entitée pour lui permettre d'accéder à une ressource critique, les
-entitées non-élues n'y ayant pas accès.
+entité pour lui permettre d'accéder à une ressource critique, les
+entités non-élues n'y ayant pas accès.
 
 \subsubsection*{Exemple d'Algorithme : Election dans un anneau} 
 

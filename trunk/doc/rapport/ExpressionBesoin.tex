@@ -1,8 +1,15 @@
-Dans cette partie, nous allons décrire les besoins fonctionnels liés au projet (ajout de nouvelles fonctionnalités, modification de l'interface) ainsi que les besoins non fonctionnels (langage, licence, etc).
+Dans cette partie, nous allons décrire les besoins fonctionnels liés au projet 
+(ajout de nouvelles fonctionnalités, modification de l'interface) ainsi que les 
+besoins non fonctionnels (langage, licence, etc) liés au projet, tels qu'ils ont
+été faits.
 
 \section{Besoins fonctionnels}
 
-Nous décrivons ici les nouvelles fonctionnalités du logiciel \visidia. Nous nous attarderons simplement à détailler les entrées et sorties de chaque nouvelle fonctionnalité, sans aborder l'implémentation (qui fera l'objet du prochain chapitre portant sur l'implémentation). Les spécifications des besoins fonctionnels décrivent le nouveau comportement externe du logiciel \visidia.
+Nous décrivons ici les nouvelles fonctionnalités du logiciel \visidia. 
+Nous nous attarderons simplement à détailler les entrées et sorties de chaque 
+nouvelle fonctionnalité, sans aborder l'implémentation (qui fera l'objet du prochain 
+chapitre portant sur l'implémentation). Les spécifications des besoins fonctionnels 
+décrivent le nouveau comportement externe du logiciel \visidia.
 
 
 \subsection{Mise en pause du programme}
@@ -23,7 +30,7 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut modi
 \end{itemize}
 
 
-\subsection{Extinction d'un sommet}
+\subsection{Extinction et Allumage d'un sommet}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut éteindre un sommet : celui-ci fait toujours partie du graphe, mais il est \textit{éteint}. Les sommets voisins du sommet éteint n'envoient alors plus d'agents mobiles vers ce sommet tant que celui-ci ne sera pas \textit{rallumé}. Si un agent a déjà été envoyé vers ce sommet éteint (lors de l'extinction, l'agent se trouve sur une arête incidente), alors l'agent est renvoyé vers le sommet dont il provient.\\
 
 \begin{itemize}
@@ -31,8 +38,6 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut étei
   \item Sortie : sommet éteint ne traitant plus les agents
 \end{itemize}
 
-
-\subsection{Remise en fonctionnement d'un sommet : allumer un sommet}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut allumer un sommet éteint : cette action est complémentaire à l'extinction d'un sommet. Un sommet éteint peut être rallumé, c'est-à-dire que ce sommet devient comme initialement parfaitement fonctionnel.\\
 
 \begin{itemize}
@@ -41,7 +46,7 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut allu
 \end{itemize}
 
 
-\subsection{Ajout d'un sommet}
+\subsection{Ajout -  suppression d'un sommet}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajouter un sommet. Cette action peut s'effectuer plusieurs fois de suite, sans que le programme soit mis en pause.\\
 
 \begin{itemize}
@@ -49,8 +54,6 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajou
   \item Sortie : sommet ajouté pendant l'exécution de l'algorithme
 \end{itemize}
 
-
-\subsection{Suppression d'un sommet}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supprimer un sommet. Toutes les arêtes incidentes au sommet sont également supprimées. Si un agent est présent sur le sommet lors de la suppresion, alors l'agent est tué. Il en vient de même pour les agents présents sur les arêtes supprimées.\\
 
 \begin{itemize}
@@ -59,7 +62,7 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supp
 \end{itemize}
 
 
-\subsection{Ajout d'une arête}
+\subsection{Ajout - suppresion d'une arête}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajouter une arête. L'ajout d'arête s'effectue entre deux sommets déjà présents, par un \textit{glisser-déplacer} avec clic gauche de la souris.\\
 
 \begin{itemize}
@@ -68,7 +71,6 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajou
 \end{itemize}
 
 
-\subsection{Suppression d'une arête}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supprimer une arête. Il suffit de sélectionner l'arête à supprimer et d'activer le bouton adéquat. Si un agent est présent sur l'arête en cours de suppression, celui-ci est tué.\\
 
 \begin{itemize}
@@ -77,7 +79,7 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supp
 \end{itemize}
 
 
-\subsection{Ajout d'un agent}
+\subsection{Ajout - suppression d'un agent}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajouter un agent. Après avoir sélectionné le sommet où ajouter l'agent, l'utilisateur choisit ensuite le type d'agent qu'il souhaite ajouter.\\
 
 \begin{itemize}
@@ -85,8 +87,6 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut ajou
   \item Sortie : après sélection du type d'agent, ajout de l'agent sur le sommet et exécution de son algorithme
 \end{itemize}
 
-
-\subsection{Suppression d'un agent}
 Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut supprimer un agent. L'utilisateur active le bouton permettant la suppression d'agent : il sélectionne ensuite le nom de l'agent qu'il désire supprimer. Ce dernier sera alors définitivement supprimé de la simulation.\\
 
 \begin{itemize}
@@ -122,7 +122,7 @@ Pendant l'exécution d'un algorithme avec agents mobiles, l'utilisateur peut affi
 
 \section{Besoins non fonctionnels}
 
-\subsection{Implémentation d'algorithmes}
+\subsection{Implémentation d'algorithmes distribués}
 Plusieurs nouveaux algorithmes ont été implémentés, dans le but d'enrichir la bibliothèque d'algorithmes disponibles et afin de valider le travail réalisé.\\
 
 
