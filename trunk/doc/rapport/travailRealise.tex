@@ -167,17 +167,32 @@ codés, nous avons retenu la deuxième solution qui nous semble la plus pertinente
 \subsection{Extinction et allumage des sommets}
 
 Cette fonctionalité permet à l'utilisateur de mettre à l'écart un sommet
-sans le supprimer du graphe. L'exécution des algorithmes se fait comme si le sommet
-n'existait pas. Pour indiquer qu'un sommet est éteint, on le colorie en gris
-et on lui met l'étiquette \textit{Switch Off}. Bien évidemment, une fonctionalité 
+sans le supprimer du graphe: l'exécution des algorithmes se fait comme si le sommet
+n'existait pas. Pour éteindre un sommet, on indique à tous ces voisins 
+de le supprimer de leur voisinage: le sommet ne sera plus dans la liste des voisins 
+de ces sommets.\\
+
+Pour indiquer qu'un sommet est éteint, on le colorie en gris
+et on lui met l'étiquette \textit {Switch Off}. Bien évidemment, une fonctionalité 
 a été implémentée pour réallumer le sommet. Quand ce dernier est rallumé 
 il reprend la couleur et l'étiquette qu'il avait avant son extinction.\\
 
-%%%cette partie est à développer d'avantage!!!!
-Cependant, l'extinction d'un sommet necéssite, dans certains cas, des traitements 
-spéciaux pour les agents. Si un agent se dirige vers un sommet qu'on vient d'éteindre, 
-il revient d'où il vient. Si l'agent se trouve sur une arête incidente à deux sommets
-éteints l'agent se tue.
+Cependant, l'extinction d'un sommet necéssite, le plus souvent, des traitements 
+spéciaux pour les agents.
+
+\begin{itemize}
+\item Si un agent arrive à un sommet qu'on vient d'éteindre, 
+il revient d'où il vient sans exécuter aucun traitement sur le sommet éteint. 
+
+\item Si l'agent arrive sur un sommet et que entre temps ce sommet a été isolé du graphe 
+en éteignant tous ses voisins l'agent reste sur le sommet et attend jusqu'à ce qu'à ce 
+qu'au moins un voisin soit réallumé pour qu'il puisse quitter le sommet.
+\end{itemize}
+
+Pour permettre à l'utilisateur de choisir ses propores traitements, on lui a laissé
+la possibilité de surcharger les méthodes \textit {processingAgentWhenSwitchingOff()} 
+et \textit{processingAgentIsolated()} qui définissent les comportements de l'agent 
+en cas d'extinction d'un sommet. 
 
 
 
