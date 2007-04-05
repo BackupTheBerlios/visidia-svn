@@ -10,16 +10,30 @@ autre pour la simulation.\\
 
 N'ayant aucune indication sur les structures de ces graphes, on pouvait imaginer
 que leurs structures  pouvaient être les mêmes, ou bien avoir des
-points en commun.\\
-
+points en commun.
 Après une analyse plus poussée du code, nous avons découvert que les deux
-structures étaient totalement dissociées et indépendantes l'une de l'autre.
+structures étaient totalement dissociées et indépendantes l'une de l'autre.\\
+
 Pour la partie simulation, le répertoire ``graph'' contient toutes les classes
 de l'architecture du graphe.
-%inclure schéma architecture
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=16cm]{images/SimpleGraph.png}
+  \caption{Architecture du graphe du Simulateur}
+\end{figure}
+
+La classe \textit{SimpleGraph} contient l'architecture de ce graphe. On manipule
+des \textit{Hastable} pour stocker les arêtes et les sommets du graphe.\\
 
 Pour la partie affichage, le repertoire ``gui.presentation'' contient les
 classes implémentant la structure du graphe visuel.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=16cm]{images/VueGrapheSimplifiee.png}
+  \caption{Architecture du graphe du Simulateur}
+\end{figure}
+
+La classe principale pour manipuler ce graphe est la classe \textit{VueGraphe}.
 
 
 \subsubsection{Choix de développement}
