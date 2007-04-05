@@ -40,6 +40,21 @@ public abstract class Spanning_Tree_Agent extends Agent {
 		case 5:
 			s = "F";
 			break;
+		case 6:
+			s = "G";
+			break;
+		case 7:
+			s = "H";
+			break;
+		case 8:
+			s = "I";
+			break;
+		case 9:
+			s = "J";
+			break;
+		case 10:
+			s = "K";
+			break;
 		default:
 			s = null;
 		}

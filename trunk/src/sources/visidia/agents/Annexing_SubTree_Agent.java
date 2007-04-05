@@ -17,7 +17,7 @@ public class Annexing_SubTree_Agent extends Spanning_Tree_Agent{
 
 	this.stronger = this.getVertexIdTree();
 	
-	// Wainting the information from my creator
+	// Wainting for the information from my creator
     while(this.weaker == -1) this.sleep(100L);
 		
 	while (true){

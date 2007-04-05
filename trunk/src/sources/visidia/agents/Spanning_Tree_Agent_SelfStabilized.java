@@ -72,15 +72,6 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 			}
 			
 			
-			// Testing the terminaison
-			if((Integer)this.getProperty("EntryPort") != -1) {
-				if(((Integer)this.getProperty("RootVertex")).equals(this.getVertexIdentity())) {
-					System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " teste sa terminaison");
-					if(this.isTreeTerminated()) {
-						return;
-					}
-				}
-			}
 			
 			if(treeId == null || treeId < this.getIdentity()) {	// First visit of an agent on the vertex || vertex visited by a smaller agent
 
@@ -99,8 +90,20 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 				}
 			}
 			else if(treeId == this.getIdentity()) {	// Vertex visited by me
+				
 				if(!entryDoorBelongingToTheTree) { // Go to the precent vertex to remove the edge from its childs
 					goBackToRemoveChild = true;		
+				}
+				else {
+					// Testing the terminaison
+					if((Integer)this.getProperty("EntryPort") != -1) {
+						if(((Integer)this.getProperty("RootVertex")).equals(this.getVertexIdentity())) {
+							System.out.println("Agent" + Integer.valueOf(this.getIdentity()).toString() + " teste sa terminaison");
+							if(this.isTreeTerminated()) {
+								return;
+							}
+						}
+					}
 				}
 				
 			}
@@ -120,9 +123,6 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 				
 				return;
 			}
-			
-
-			//this.sleep(500L);
 
 			
 			/*
@@ -163,32 +163,45 @@ public class Spanning_Tree_Agent_SelfStabilized extends Spanning_Tree_Agent {
 	}
 	
 	private void createEatingClone(Integer idTreeToAnnexe) {
-		/*
+		
+		boolean isEatingCloneCreated;
+		
 		try {
-			this.createAgent(Class.forName("visidia.agents.Annexing_SubTree_Agent"));					
+			isEatingCloneCreated = ((Boolean)this.getProperty("EatingTree" + idTreeToAnnexe.toString())).booleanValue();
+		} catch (NoSuchElementException e) {
+			isEatingCloneCreated = false;
 		}
-		catch(java.lang.ClassNotFoundException e) {}
 		
-		boolean agentFound = false;
+		if(!isEatingCloneCreated) {
 		
-		while(!agentFound) {
-			Collection<Agent> agentsC = this.agentsOnVertex();
-			Iterator<Agent> agentsI = agentsC.iterator();
+			try {
+				this.createAgent(Class.forName("visidia.agents.Annexing_SubTree_Agent"));					
+			}
+			catch(java.lang.ClassNotFoundException e) {}
 			
-			while(agentsI.hasNext()) {
-				Agent a = agentsI.next();
+			boolean agentFound = false;
+			
+			while(!agentFound) {
+				Collection<Agent> agentsC = this.agentsOnVertex();
+				Iterator<Agent> agentsI = agentsC.iterator();
 				
-				if(a.className().equals("Annexing_SubTree_Agent")) {
-					System.out.println("Spanning_Tree_Agent_SelfStabilized: voici ton identité");
-					((Annexing_SubTree_Agent)a).setIdTreeToAnnexe(idTreeToAnnexe);
+				while(agentsI.hasNext()) {
+					Agent a = agentsI.next();
 					
-					agentFound = true;
-					break;
+					if(a.className().equals("Annexing_SubTree_Agent")) {
+						System.out.println("Spanning_Tree_Agent_SelfStabilized: voici ton identité");
+						((Annexing_SubTree_Agent)a).setIdTreeToAnnexe(idTreeToAnnexe);
+						
+						agentFound = true;
+						break;
+					}
 				}
+				
+				if(!agentFound) this.sleep(100L);
 			}
 			
-			if(!agentFound) this.sleep(100L);
-		}*/
+			this.setProperty("EatingTree" + idTreeToAnnexe.toString(),new Boolean(true));
+		}
 	}
 	
 	private boolean isTreeTerminated() {
