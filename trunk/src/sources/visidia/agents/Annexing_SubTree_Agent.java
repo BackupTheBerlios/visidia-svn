@@ -53,6 +53,7 @@ public class Annexing_SubTree_Agent extends Spanning_Tree_Agent{
 			
 			System.out.println("destination "+destination);
 			this.move(destination);
+			if (this.getSimulator().graph.getSimpleGraphVertex(this.getVertexIdentity()).getVisualization()) return;
 			this.setVertexIdTree(this.stronger);
             //le clone m�morise le port d'où il est entr�.
 			this.setProperty("MyEntryDoor"+this.getVertexIdentity(), this.entryDoor());

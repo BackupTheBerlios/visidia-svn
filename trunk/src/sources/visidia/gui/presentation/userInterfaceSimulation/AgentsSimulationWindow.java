@@ -1,5 +1,4 @@
 package visidia.gui.presentation.userInterfaceSimulation;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -1425,8 +1424,14 @@ public class AgentsSimulationWindow extends Fenetre implements Serializable,
 
     private void propertiesControl() {
 	if (this.selection.estVide()) {
-	    System.out.println("empty");
-	} else {
+		    JOptionPane
+			    .showMessageDialog(
+				    this,
+				    "You should select the object you want to manipulate!",
+				    "Error", JOptionPane.WARNING_MESSAGE);
+		    // System.out.println("empty");
+	}
+	 else {
 	    Enumeration e = this.selection.elements();
 	    FormeDessin firstElement = ((FormeDessin) e.nextElement());
 	    if (!Traitements.sommetDessin(this.selection.elements())
