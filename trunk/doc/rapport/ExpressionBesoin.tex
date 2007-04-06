@@ -1,7 +1,6 @@
 Dans cette partie, nous allons décrire les besoins fonctionnels liés au projet 
 (ajout de nouvelles fonctionnalités, modification de l'interface) ainsi que les 
-besoins non fonctionnels (langage, licence, etc.) liés au projet, tels qu'ils ont
-été faits.
+besoins non fonctionnels (langage, licence, etc.) liés au projet.
 
 \section{Besoins fonctionnels}
 
@@ -53,7 +52,7 @@ l'extinction, l'agent se trouve sur une arête incidente), alors
 l'agent est renvoyé vers le sommet dont il provient.\\
 
 \begin{itemize}
-  \item Entrée : sélection d'un sommet
+  \item Entrée : sélection d'un sommet allumé
   \item Sortie : sommet éteint ne traitant plus les agents\\
 \end{itemize}
 
@@ -64,7 +63,7 @@ peut être rallumé, c'est-à-dire que ce sommet devient comme
 initialement parfaitement fonctionnel.\\ 
 
 \begin{itemize}
-  \item Entrée : sélection d'un sommet
+  \item Entrée : sélection d'un sommet éteint
   \item Sortie : sommet allumé traitant à nouveau les agents
 \end{itemize}
 
@@ -82,9 +81,9 @@ plusieurs fois de suite, sans que le programme soit mis en pause.\\
 Pendant l'exécution d'un algorithme avec agents mobiles,
 l'utilisateur peut supprimer un sommet. Toutes les arêtes
 incidentes au sommet sont également supprimées. Si un agent est
-présent sur le sommet lors de la suppression, alors l'agent est
-tué. Il en vient de même pour les agents présents sur les
-arêtes supprimées.\\ 
+présent sur le sommet lors de la suppression, alors il est
+tué. Si un agent est présent sur une des arêtes supprimées, alors
+celui-ci n'est tué que s'il arrive sur le sommet supprimé.\\ 
 
 \begin{itemize}
   \item Entrée : sélection d'un sommet à supprimer
@@ -178,16 +177,16 @@ bibliothèque d'algorithmes disponibles et afin de valider le travail réalisé.\\
   rester sur place ou de se déplacer au prochain \texttt{top}), l'agent dont
   l'identificateur est le plus grand récupère la mémoire des autres agents du
   même type présents sur le sommet et les autres agents sont tués.
-  \item Calcul d'arbre recouvrant avec plusieurs agents
+  \item Calcul d'arbre recouvrant avec plusieurs agents.
   \item Algorithme fourni par M. Hamid (algorithme auto-stabilisant
-  avec des agents sur un anneau)
+  avec des agents sur un anneau).
 \end{itemize}
 
 
 \subsection{Structuration de l'application}
 Le développement de nouvelles fonctionnalités au logiciel \visidia s'est
 effectué en respectant la séparation en trois modules : l'interface graphique,
-le simulateur et les agents (ou algorithmes pour la version sans les agents).
+le simulateur et les agents.
 
 
 \subsection{Langage et portabilité}

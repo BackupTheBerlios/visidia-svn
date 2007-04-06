@@ -23,21 +23,21 @@ connexions.
 
 \visidia implémente les deux modèles d'algorithmes distribués, la version avec
 envoi de messages, et celle à base d'agents mobiles.
-Nous nous intéresserons seulement à la simulation avec les agents mobiles
+Nous nous intéressons seulement à la simulation avec les agents mobiles
 durant ce projet.
 
 \subsection{Architecture générale}
 
 Nous allons maintenant nous attarder à décrire l'architecture générale
-du programme \visidia avec agents.
+du programme \visidia dans sa version avec agents mobiles.
 
 \visidia se base sur trois grandes structures~:
 
 \begin{itemize}
 
-\item l'interface graphique
-\item le simulateur
-\item les agents
+\item l'interface graphique ;
+\item le simulateur ;
+\item les agents.
 
 \end{itemize}
 
@@ -92,11 +92,11 @@ dans cette partie parmi lesquelles~:
 
 \begin{itemize}
 
-\item charger un algorithme et le placer sur les sommets du graphe,
-\item lancer la simulation, la mettre en pause et l'arrêter,
-\item voir en temps réel les agents circuler sur les arêtes,
-\item choisir des règles de réécriture à appliquer,
-\item éditer les étiquettes des sommets\dots
+\item charger un algorithme et le placer sur les sommets du graphe ;
+\item lancer la simulation, la mettre en pause et l'arrêter ;
+\item voir en temps réel les agents circuler sur les arêtes ;
+\item choisir des règles de réécriture à appliquer ;
+\item éditer les étiquettes des sommets.
 
 \end{itemize}
 
@@ -106,21 +106,21 @@ Le simulateur est  le noyau de \visidia. Il a  entre autre pour charge
 de~:
 
 \begin{itemize}
-\item gérer les agents du réseau,
-\item informer l'interface graphique des changements,
-\item valider les acquittements de l'interface graphique,
-\item compter les évènements en vue d'établir des statistiques\dots\\
+\item gérer les agents du réseau ;
+\item informer l'interface graphique des changements ;
+\item valider les acquittements de l'interface graphique ;
+\item compter les évènements en vue d'établir des statistiques.\\
 \end{itemize}
 
 Lorsque le simulateur est créé par l'interface graphique, celle-ci lui
-fournit  le  graphe  courant,  les agents  à  déplacer  choisi  par
+fournit  le  graphe  courant,  les agents choisis  par
 l'utilisateur  et deux files  qui serviront  à la  communication (voir
 \ref{sec:existant-communication}). Le simulateur se charge à ce moment
 d'initialiser les  files de messages pour les  agents. Mais c'est
 au moment  où le  simulateur reçoit un  appel à  $startSimulation$ que
 celui-ci commence  réellement son travail.   Il va créer,  pour chaque
 agent, un processus  qui va exécuter le code de l'algorithme
-qu'il exécutera sur chaque sommet.
+lorsqu'un agent est sur un sommet.
 
 Par la  suite, le rôle  du simulateur sera  de gérer les  demandes des
 agents et de l'interface graphique (mise en pause ou à l'arrêt
@@ -163,7 +163,6 @@ dans la file d'évènements. Ces évènements sont de plusieurs types~:
 \item changement de l'état d'un noeud ou d'une arête,
 \item déplacement d'un agent,
 \item nouveau round pour les agents synchronisés
-\item terminaison des agents.
 \end{itemize}
 
 Lorsque l'interface  graphique reçoit un  évènement sur la  file, elle

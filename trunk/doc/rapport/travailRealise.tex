@@ -323,12 +323,12 @@ $St$ du sommet $i$, et, $St$ et $Token$ deux variables de l'agent~:
 \subsubsection{Hypothèse relative au développement}
  
 \begin{itemize}
-  \item Agent identifiés par un identifiant unique
-  \item Relation d'ordre entre les identifiants des agents
+  \item Agent identifiés par un identifiant unique ;
+  \item Relation d'ordre entre les identifiants des agents ;
   \item Sommet identifiés par un identifiant unique (hypothèse pouvant êter
-  retirée) 
-  \item Connaissance du nombre de sommets du graphe
-  \item Asynchrone
+  retirée) ;
+  \item Connaissance du nombre de sommets du graphe ;
+  \item Asynchrone.
 \end{itemize}
 
 \subsubsection{Principe de fonctionnement}
@@ -347,7 +347,7 @@ seul agent, c'est lui qui a annexé les autres sous-arbres calculés.
 L'arbre regrouvant calculé par cet agent est, donc, un arbre recouvrant
 de tout le graphe.\\
 
-Afin de tester la terminaison de l'agorithme, a chaque passage par la racine du
+Afin de tester la terminaison de l'agorithme, à chaque passage par la racine du
 sous-arbre en cours de calcul, l'agent lance un parcours en profondeur sur ce
 dernier. Si le nombre de sommets rencontrés durant le parcours est égale au
 nombre de sommets du graphe, l'algorithme est terminée.\\
@@ -358,7 +358,7 @@ Le détail du fonctionnement de l'algorithme se trouve en annexe.
 
 Nous avons commencé par diviser le problème en trois sous 
 problèmes: calculer un arbre recouvrant, annexer un sous-arbre 
-et détecter la terminaison.
+et détecter la terminaison.\\
 
 
 \begin{itemize}
@@ -366,14 +366,15 @@ et détecter la terminaison.
 \item Nous avons implémenté un agent qui calcule un arbre recouvrant \textit{Spanning\_Tree\_Agent}
 en laissant des traces sur les sommets visités lui indiquant son père et ses
 fils relatif à l'arbre calculé par l'agent. Chaque sommet peut ainsi avoir une
-idée de sa position dans l'arbre. \\ 
+idée de sa position dans l'arbre.\\ 
+
 C'est grâce à ces tracer que les clones lancés par les agents pour annexer un
 sous arbre et l'agent chargé de calculer la terminaison de l'algorithme peuvent
-effectuer un parcours en profondeur et donc fonctionner correctement.
+effectuer un parcours en profondeur et donc fonctionner correctement.\\
 
 L'agent termine sa vie lorsqu'il rencontre un sommet appartenant à un arbre
 d'identifiant plus fort, ou également lorsqu'il rencontre un agent \textit{Spanning\_Tree\_Agent}
-d'identifiant plus fort, ou enfin si il détecte que l'arbre couvrant est terminé.
+d'identifiant plus fort, ou enfin si il détecte que l'arbre couvrant est terminé.\\
 
 \item Nous avons également implémenté un agent qui parcourt en profondeur 
 un arbre recouvrant, c'est l'agent \textit{Depth\_Traversal\_Agent}. Son rôle est 
@@ -384,7 +385,7 @@ et lui indique l'identifiant de l'arbre qu'il doit parcourir. L'agent
 de l'agent \textit{Depth\_Traversal\_Agent}. Lorsque ce dernier à fini (il se trouve donc sur la racine avec l'autre
 agent) il transmet le nombre de sommet du sous arbre parcouru et meure. Si le
 nombre calculé est le nombre de sommet du graphe, le sous arbre est un arbre
-couvrant et l'agent \textit{Spanning\_Tree\_Agent} se termine à son tour.
+couvrant et l'agent \textit{Spanning\_Tree\_Agent} se termine à son tour.\\
  
 
 \item Pour annexer un sous arbre, nous avons implémenté un agent
@@ -394,12 +395,14 @@ sous arbre d'identifiant inférieur. L'identifiant de l'abre à étendre est
 l'identifiant de l'arbre auquel appartient le sommet où est créé l'agent;
 l'identifiant de l'abre à annexer est fourni par le créateur de l'agent.\\
 
+
 Le clone effectue un parcours en profondeur sur l'abre qu'il doit annexer à
 l'aide des tracer laissées par l'agent \textit{Spanning\_Tree\_Agent} ayant créé
 l'arbre. A chaque sommet visité l'agent étend l'arbre de plus fort identifiant
 en changeant la couleur du sommet (identifiant l'arbre auquel il appartient). A
 chaque modification du graphe il est primoridial de garder l'arbre dans un étant
 cohérent notamment en évitant de créer des cycles.\\
+
 
  Il se tue quand il atteint la racine du sous-arbre à annexer ou quand il
  va sur un sommet qui a été déjà annexé par un agent de plus grand identificateur.
