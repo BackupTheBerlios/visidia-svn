@@ -308,14 +308,14 @@ Ensuite, il compare son identifiant $ID$ avec celui du sommet (contenant donc le
 Cet algorithme est la traduction dans le language propre à \visidia de
 l'algorithme suivant en considérant $i$ comme sommet courrant, $St(i)$ la variable
 $St$ du sommet $i$, et, $St$ et $Token$ deux variables de l'agent~:
-\begin{itemized}
+\begin{itemize}
   \item \textbf{$R_0$~:} if($i$ = 0); $St$=$St(0)$; $Token$=false; move($i$+1 mod N);
   \item \textbf{$R_1$~:} if ($St$ != $St(i)$ and ! $Token$) then $St$=$St(i)$;
   Token=true; move(i+1 mod N);
   \item \textbf{$R_2$~:} if ($St$ != $St(i)$ and $Token$) then $St(i)$=$St$; move($i$+1 mod N
   );
   \item \textbf{$R_3$~:} if ($St$ == $St(i)$) then move($i$+1 mod N) ;
-\end{itemized}
+\end{itemize}
 
 
 \subsection{Calcul d'arbre recouvrant distribué auto-stabilisant}
@@ -363,7 +363,7 @@ et détecter la terminaison.
 
 \begin{itemize}
 
-\item Nous avons implémenté un agent qui calcule un arbre recouvrant \textit{Spanning_Tree_Agent}
+\item Nous avons implémenté un agent qui calcule un arbre recouvrant \textit{Spanning\_Tree\_Agent}
 en laissant des traces sur les sommets visités lui indiquant son père et ses
 fils relatif à l'arbre calculé par l'agent. Chaque sommet peut ainsi avoir une
 idée de sa position dans l'arbre. \\ 
@@ -372,30 +372,30 @@ sous arbre et l'agent chargé de calculer la terminaison de l'algorithme peuvent
 effectuer un parcours en profondeur et donc fonctionner correctement.
 
 L'agent termine sa vie lorsqu'il rencontre un sommet appartenant à un arbre
-d'identifiant plus fort, ou également lorsqu'il rencontre un agent \textit{Spanning_Tree_Agent}
+d'identifiant plus fort, ou également lorsqu'il rencontre un agent \textit{Spanning\_Tree\_Agent}
 d'identifiant plus fort, ou enfin si il détecte que l'arbre couvrant est terminé.
 
 \item Nous avons également implémenté un agent qui parcourt en profondeur 
-un arbre recouvrant, c'est l'agent \textit{Depth_Traversal_Agent}. Son rôle est 
+un arbre recouvrant, c'est l'agent \textit{Depth\_Traversal\_Agent}. Son rôle est 
 de détecter la terminaison de l'algorithme. A chaque fois que l'agent
-\textit{Spanning_Tree_Agent} passe par sa racine, il créait un agent \textit{Depth_Traversal_Agent}
+\textit{Spanning\_Tree\_Agent} passe par sa racine, il créait un agent \textit{Depth\_Traversal\_Agent}
 et lui indique l'identifiant de l'arbre qu'il doit parcourir. L'agent
-\textit{Spanning_Tree_Agent} se veille dans le sommet en attendant le résultat
-de l'agent \textit{Depth_Traversal_Agent}. Lorsque ce dernier à fini (il se trouve donc sur la racine avec l'autre
+\textit{Spanning\_Tree\_Agent} se veille dans le sommet en attendant le résultat
+de l'agent \textit{Depth\_Traversal\_Agent}. Lorsque ce dernier à fini (il se trouve donc sur la racine avec l'autre
 agent) il transmet le nombre de sommet du sous arbre parcouru et meure. Si le
 nombre calculé est le nombre de sommet du graphe, le sous arbre est un arbre
-couvrant et l'agent \textit{Spanning_Tree_Agent} se termine à son tour.
+couvrant et l'agent \textit{Spanning\_Tree\_Agent} se termine à son tour.
  
 
 \item Pour annexer un sous arbre, nous avons implémenté un agent
-\textit{Annexing_SubTree_Agent}, aussi appelé $clone$.
-Ce dernier est créé par un agent \textit{Spanning_Tree_Agent} afin d'annexer un
+\textit{Annexing\_SubTree\_Agent}, aussi appelé $clone$.
+Ce dernier est créé par un agent \textit{Spanning\_Tree\_Agent} afin d'annexer un
 sous arbre d'identifiant inférieur. L'identifiant de l'abre à étendre est
 l'identifiant de l'arbre auquel appartient le sommet où est créé l'agent;
 l'identifiant de l'abre à annexer est fourni par le créateur de l'agent.\\
 
 Le clone effectue un parcours en profondeur sur l'abre qu'il doit annexer à
-l'aide des tracer laissées par l'agent \textit{Spanning_Tree_Agent} ayant créé
+l'aide des tracer laissées par l'agent \textit{Spanning\_Tree\_Agent} ayant créé
 l'arbre. A chaque sommet visité l'agent étend l'arbre de plus fort identifiant
 en changeant la couleur du sommet (identifiant l'arbre auquel il appartient). A
 chaque modification du graphe il est primoridial de garder l'arbre dans un étant
@@ -412,8 +412,9 @@ cas particuliers liés à l'implémentation sous \visidia se sont présentés. Un
 survol des sources des agents présents en annexe permet d'avoir un aperçu des
 différents cas identifiés.\\
 
-
-/////////
-Schéma UML
-
-
+\begin{figure}[!ht]
+  \center
+  \includegraphics[width=14cm]{images/structureAgents.png}
+  \caption{Relations entre les agents}
+  \label{fig:structureAgents}
+\end{figure}
