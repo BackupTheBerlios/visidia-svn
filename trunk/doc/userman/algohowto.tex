@@ -40,11 +40,11 @@ Les algorithmes à base d'agents mobiles sont dans \visidia des classes
 descendantes soit de la classe \texttt{Agent} soit de la classe
 \texttt{SynchronizedAgent}, dans le cas où l'algorithme est synchrone.
 
-Dans les deux cas, il vous faudra compléter la méthode \texttt{init()}.
+Dans les deux cas, il vous faudra implémenter la méthode \texttt{init()}.
 Pour la plupart des algorithmes vous décomposerez cette méthode en trois
 grandes parties~: la phase d'initialisation, la phase de \og calcul \fg\ et la
 phase finale. Les phases d'initialisation et la phase finale ne seront exécutées
-qu'une seule fois dans la vie de l'algorithme, la phase de calcul sera quant-à
+qu'une seule fois dans la vie de l'algorithme, la phase de calcul sera quant à
 elle est le c\oe ur de l'algorithme.
 
 La méthode \texttt{init()} que vous implémenterez ressemblera en première
@@ -77,13 +77,13 @@ La phase de calcul devrait pouvoir être placée dans une fonction à part, cela
 méthode \texttt{move()} ou \texttt{moveToDoor()} pour suivre au plus près les
 principes de l'algorithmique distribuée\footnote{Si vous ne le faites pas cela
 suppose que vous êtes capables de vous souvenir de l'instruction où vous vous
-étes arretée ainsi que des variables locales que vous avez déclarez en passant
+êtes arreté ainsi que des variables locales que vous avez déclarées en passant
 d'une entité à une autre.}.
 
 La phase finale permet de faire un post-traitement quand l'algorithme est
 terminé si vous en avez besoin.
 
-Dans toutes ces phases vous pouvez utiliser des constantes et des méthodes que
+Dans toutes ces phases, vous pouvez utiliser des constantes et des méthodes que
 vous avez ajoutées à
 l'agent, par exemple une méthode pour changer une variable dans la mémoire de
 l'agent sans devoir réécrire toute l'instruction à chaque fois. Il est par
@@ -111,11 +111,11 @@ au port à emprunter. Si le port n'est pas précisé le gestionnaire de
 déplacement choisit lui-même le port.
 
 \subsubsection{Déplacement sans gestionnaire de déplacement}
-Si vous ne souhaitez pas utiliser de gestionnaire de déplacement il
+Si vous ne souhaitez pas utiliser de gestionnaire de déplacement, il
 vous faudra passer par la méthode \texttt{moveToDoor()} et lui donner le
 port que doit emprunter l'agent en paramètre.
 
-Dans ce cas vous aurez sûrement besoin de connaître le nombre de ports
+Dans ce cas, vous aurez sûrement besoin de connaître le nombre de ports
 du sommet (cette information peut vous être fourni par la méthode
 \texttt{getArity()}), celui-ci pouvant être nul et les ports pouvant
 être fermés il ne faudra pas oublier de 
@@ -123,11 +123,11 @@ prévoir ces cas.
 
 \subsubsection{Autres méthodes relatives au déplacement}
 Dans certains algorithmes vous aurez besoin de connaître le port d'où
-est arrivé l'agent pour cela vous pouvez utiliser la méthode
+est arrivé l'agent. Pour cela, vous pouvez utiliser la méthode
 \texttt{entryDoor()} qui vous retournera l'entier correspondant au
-port d'arrivé de l'agent.
+port d'arrivée de l'agent.
 
-Pour renvoyer l'agent d'où il est venu vous pouvez
+Pour renvoyer l'agent d'où il est venu, vous pouvez
 utilisez la méthode \texttt{moveBack()}.
 
 \subsubsection{Modification et accès à la mémoire de l'agent}
@@ -141,13 +141,13 @@ de ces variables.
 
 Les variables des agents sont stockées sous la forme
 (identifiantDeVariable, Valeur). Ceci permet d'avoir une grande
-liberté dans le choix de la valeur qui peut être unestructure
+liberté dans le choix de la valeur qui peut être une structure
 complexe (aussi complexe qu'une classe \emph{Java} peut l'être).
 
 \textbf{Important~:} Vous devez absolument utiliser ces méthodes pour
 stocker les variables que vous souhaitez que l'agent transporte d'un
 sommet à l'autre. Si vous ne le faites pas vous ne simulez plus un
-algorithme à base d'agents mobiles. Pour faire simple vous ne devez
+algorithme à base d'agents mobiles. Pour faire simple, vous ne devez
 pas utilisez de variable hors de la boucle \texttt{while} de la
 méthode \texttt{init()}.
 
@@ -159,7 +159,7 @@ clés utilisées, c'est-à-dire des variables utilisées.
 Dans \visidia les ports/arêtes --- les fonctions décrites ici portent plutôt sur
 les arêtes que sur les ports eux-mêmes --- peuvent avoir un état. Cet état
 peut-être changé grâce à la méthode \texttt{changeDoorState()}. Dans la
-plupart des cas les états prédéfinis devrait vous suffire. Ceux-ci sont au nombre
+plupart des cas, les états prédéfinis devraient vous suffire. Ceux-ci sont au nombre
 de quatre. Ils permettent de marquer une arête (\texttt{markDoor()}), de la démarquer
 \texttt{unmarkDoor()}, de la marquer comme synchronisée \texttt{syncDoor()} et
 de la marquer comme non-synchronisée \texttt{unsyncDoor()}.
@@ -167,8 +167,8 @@ de la marquer comme non-synchronisée \texttt{unsyncDoor()}.
 \subsubsection{Modification et accès à la mémoire d'un sommet}
 
 La modification de la mémoire d'un sommet est un peu plus délicate que la
-modification de la mémoire d'un agent car dans le cas du sommet il faut gérer
-l'accès concurrent à la ressource. Pour cela vous avez la possibilité de
+modification de la mémoire d'un agent puisque dans le cas du sommet il faut gérer
+l'accès concurrent à la ressource. Pour cela, vous avez la possibilité de
 verrouiller la mémoire d'un sommet grâce à la méthode
 \texttt{lockVertexProperties()}. Il faudra bien entendu veiller à déverrouiller
 la mémoire avant que l'agent quitte le sommet --- sauf si vous avez besoin de
@@ -177,7 +177,7 @@ garder la mémoire de ce sommet verrouillée --- grâce à la méthode
 
 Si le sommet est déjà verrouillé la méthode \texttt{lockVertexProperties()}
 attend que le sommet soit déverrouillé pour le vérouiller et rendre la main à
-l'agent. Cela pouvant être assez contraignant vous pouvez vérifier si le sommet
+l'agent. Cela pouvant être assez contraignant, vous pouvez vérifier si le sommet
 est déjà verrouillé avant de le verrouiller grâce à la méthode
 \texttt{vertexPropertiesLocked()} qui vous retournera un booléen indiquant si le
 sommet est verrouillé. Vous pouvez aussi ne verrouiller le sommet que s'il n'est
@@ -189,7 +189,8 @@ méthodes \texttt{getVertexProperty()}, \texttt{setVertexProperty()} et
 \texttt{getVertexPropertyKeys()}.
 
 \subsubsection{Création et clone d'agent}
-\visidia vous permet de créer des agents lors de vos algorithmes. Pour cela vous
+\visidia vous permet de créer des agents lors de l'exécution de vos algorithmes.
+Pour cela, vous
 pouvez utilisez la méthode \texttt{createAgent()}, en lui fournissant en
 paramètre la classe de l'agent à créer, ou si vous souhaitez envoyer cet agent
 sur un port particulier la méthode
@@ -197,7 +198,7 @@ sur un port particulier la méthode
 port sur lequel l'agent créé devra être envoyé.
 
 Vous pouvez aussi créer un clone --- c'est-à-dire un agent de même type que
-l'agent courant, la mémoire n'est pas copiée --- de l'agent en utilisant lea
+l'agent courant, la mémoire n'est pas copiée --- de l'agent en utilisant les
 méthodes \texttt{cloneAgent()}, sans paramètre, et \texttt{cloneAndSend()}, en
 ne précisant que le port sur lequel l'agent devra partir.
 
@@ -229,6 +230,6 @@ Les agents synchrones peuvent être synchronisés grâce à la méthode
 \texttt{nextPulse()}. Si vous utilisez cette méthode plusieurs fois dans un
 algorithme il faut être très attentif car si un agent se retrouve en décalage
 d'un pulse (cela peut arriver lorsque que l'agent est ajouté \emph{a postiori})
-votre algorithme peu avoir des résultats surprenants.
+votre algorithme peut avoir des résultats surprenants.
 
 %% \end{document}

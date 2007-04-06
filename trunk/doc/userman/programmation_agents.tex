@@ -10,8 +10,8 @@ Dans cette section, nous commencerons par voir l'API de programmation
 des agents puis la méthode à adopter pour en programmer de
 nouveaux. Nous verons également comment programmer des algorithmes de
 déplacement, avant de nous intéresser à l'implantation de techniques de
-placement initial d'agents. Et pour conclure nous verrons comment il
-est possible de créer des statistiques personnalisées.\\
+placement initial d'agents. Pour conclure, nous verrons comment on peut créer des
+statistiques personnalisées.\\
 
 Vous pouvez aussi vous baser (même s'ils ne respectent tous les
 principes de programmation que nous évoquerons ci-dessous) sur des exemples déjà écrits ; vous en
@@ -140,9 +140,9 @@ avec un navigateur puis sélectionnez la classe Agent.
 \section{Développer des algorithmes de déplacement}
 
 La méthode de création d'algorithmes de déplacement est presque
-identique à la méthode de création d'agents. Pour cela il suffit de
+identique à la méthode de création d'agents. Pour cela, il suffit de
 sous classer la classe \classe{AgentMover} et implanter la méthode
-\methode{findNextDoor()}. De plus vous disposez de toutes les
+\methode{findNextDoor()}. De plus, vous disposez de toutes les
 informations nécessaires sur l'agent grâce à la méthode
 \methode{agent()}.  Les algorithmes que vous écrirez devront se
 trouver dans le paquet \dossier{visidia.agents.agentsmover}.
@@ -201,7 +201,7 @@ package \dossier{visidia.agents.agentsmover}
 Comme pour les algorithmes de déplacement des agents sur le graphe, la
 programmation  de nouveaux  algorithmes de  placement d'agent  se fait
 simplement   et  la  lecture   de  la   documentation  de   la  classe
-\classe{AgentChooser}  ainsi  que  le  parcours des  exemples  devrait
+\classe{AgentChooser}  ainsi  que  le  parcours des  exemples  devraient
 suffire.\\
 
 Vos algorithmes de placement d'agents devront être implantés dans le
@@ -215,7 +215,7 @@ méthode \methode{addAgent(Integer, String)} pour ajouter des agents.
 \label{sec:prog-stats}
 
 La création de statistiques peut être entièrement personnalisée.  Pour
-cela il vous faudra écrire une classe héritant de
+cela, il vous faudra écrire une classe héritant de
 \classe{AbstractStatReport} dans laquelle vous devrez redéfinir la
 méthode \methode{getStats()} qui retournera l'ensemble des
 statistiques.  Ces statistiques devront faire partie du package
@@ -305,7 +305,7 @@ statistiques.  Ces statistiques devront faire partie du package
 %% \end{verbatim}
 
 
-\end{document}
+
 
 %%% Local Variables: 
 %%% mode: latex

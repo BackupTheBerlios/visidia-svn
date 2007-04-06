@@ -6,11 +6,11 @@ méthodes peuvent être envisagées :
 
 \begin{itemize}
 
-\item Le placement manuel
+\item Le placement manuel;
 
-\item Le placement programmé
+\item Le placement programmé;
 
-\item Les règles de réécritures
+\item Les règles de réécritures.
 
 \end{itemize}
 
@@ -33,7 +33,7 @@ Lancer    la    commande    \textbf{Place    Agents...}     du    menu
   les algorithmes  compilés avec  l'API, et permet  de placer  un type
   d'agent choisi de façon programmée sur le graphe : par exemple, vous
   pourrez placer  un type d'agent sur  les sommets du  graphe avec une
-  probabilité de 1/2 pour chaque sommet.\\
+  probabilité de $1/2$ pour chaque sommet.\\
 
 Pour   programmer   votre   placeur,   réferez-vous   à   la   section
   \ref{sec:prog-placeur}
@@ -78,7 +78,7 @@ Vous avez deux possibilités pour vous servir des règles de réécritures
 \end{figure}
 
 \textbf{Remarque  :}   Dans  la   version  actuelle,  les   règles  de
-réécritures ne sont pas totalement implantées : les contextes sont par
+réécriture ne sont pas totalement implantées : les contextes sont par
 exemple manquants.
 
 \subsection{Suppression d'un agent lors de l'exécution}
@@ -88,7 +88,7 @@ l'exécution quelque soit l'endroit où il se trouve.
 \section{Exécution de la simulation}
 
 Une  fois vos agents  en place,  vous pouvez  lancer la  simulation en
-cliquant sur  le bouton start. Tous  les agents que  vous avez ajoutés
+cliquant sur  le bouton \textbf{}start. Tous  les agents que  vous avez ajoutés
 sur  le graphe  seront alors  lancés. Vous  pouvez  cependant toujours
 influer sur le déroulement de la simulation :
 
@@ -154,14 +154,14 @@ veuillez vous réferer à la section \ref{sec:prog-agent-synchro}.
 Le bouton \textbf{mode suppression} permet de supprimer l'arête ou le
 sommet sélectionné. Si un agent est sur l'arête à supprimer celui-ci
 est tué. Dans le cas où il se dirige vers le sommet à supprimer ou
-qu'il est déjà dessus, l'agent est aussi tué. Par contre dans le cas
+qu'il est déjà dessus, l'agent est aussi tué. Par contre, dans le cas
 où l'agent part du sommet à supprimer il continue vers son sommet de
 destination.
 
 \subsection{Extinction de sommets}
 Le bouton \textbf{switch OFF} permet d'éteindre un sommet c'est-à-dire
 de ne plus permettre à un agent d'exécuter du code dessus. Dans le cas
-où un agent se dirigerait vers ce sommet il sera renvoyé vers son sommet
+où un agent se dirigerait vers ce sommet, il sera renvoyé vers son sommet
 d'origine.
 
 Le bouton \textbf{switch ON} permet d'allumer un sommet éteint.
@@ -188,14 +188,14 @@ auxquelles il peut accéder  en lecture et écriture. Concrètement, cela
 revient au même que de déclarer des variables lors de la programmation
 de  l'agent,  mais les  whiteboards  ont  l'avantage  de pouvoir  être
 visualisables  en temps  réel  lors d'une  simulation via  l'interface
-graphique.   Ils  permettent de  plus  la  modification des  variables
-durant la simulation par l'utilisateur.
+graphique. En plus,  ils  permettent  la  modification des  variables
+durant la simulation par l'utilisateur et donc de simuler des erreurs.
 
 Pour accéder au whiteboard d'un agent, voici la manipulation à faire :
 \begin{enumerate}
 \item Cliquez sur le bouton \textbf{agent whiteboard} de l'interface.
 \item  Choisir  l'agent dont  on  souhaite  consulter  ou modifier  le
-whiteboard
+whiteboard.
 \end{enumerate}
 
 \begin{figure}[ht]
@@ -213,7 +213,7 @@ Pour savoir comment modifier le whiteboard d'un agent, consultez la section
 \subsection{WhiteBoards des sommets}
 
 Comme pour  les agents, il est  possible de stocker  des variables sur
-les  sommets en utilisant  des whiteboards  dédiés à  ça. Ce  sont les
+les  sommets en utilisant  des whiteboards. Ce  sont les
 agents  qui   consultent  ou   modifient  ces  whiteboards,   ou  bien
 directement l'utilisateur.\\
 
@@ -239,7 +239,7 @@ variable qui n'existe pas encore sur tous les sommets.
 \textbf{info}, vous  accéderez à  cette fenêtre. Vous  pouvez ici  voir les
 variables  associées à  ce sommet,  les  modifier, en  ajouter, ou  en
 supprimer. La fenêtre  de défilement en haut à  droite est rattachée à
-la variable $label4$}
+la variable $label$}
   \label{fig:whiteboards-sommet}
 \end{figure}
 
@@ -283,24 +283,24 @@ sa valeur.}
 sommet est considéré prioritaire par  rapport au whiteboard  global à  tous les
 sommets. Ainsi, si  le nom d'une variable apparaît  en même temps dans
 le  whiteboard global aux  sommets et  dans le  whiteboard local  à un
-sommet, c'est cette  dernière qui sera privilégiée. Ainsi  si un agent
+sommet, c'est cette  dernière qui sera privilégiée. Ainsi, si un agent
 demande la valeur de cette variable, ce sera la valeur locale qui sera
 retournée.
 
 \subsubsection{Suppression d'une variable}
 
 \begin{enumerate}
-\item Sélectionnez la variable à supprimer
-\item Cliquez sur le bouton \textbf{Remove}
+\item Sélectionnez la variable à supprimer.
+\item Cliquez sur le bouton \textbf{Remove}.
 \end{enumerate}
 
 \subsubsection{Modification d'une variable}
 
 \begin{enumerate}
-\item Cliquez sur le champ à modifier
-\item Entrez la nouvelle valeur
+\item Cliquez sur le champ à modifier.
+\item Entrez la nouvelle valeur.
 \item Appuyez  sur ENTREE  pour que la  nouvelle valeur soit  prise en
-compte
+compte.
 \end{enumerate}
 
 \textbf{Cas particulier  :} Si vous  souhaitez modifier le  label d'un
@@ -358,7 +358,7 @@ graphique lancée.}
 \end{figure}
 
 Une fois  la classe choisie,  les statistiques s'afficheront  en temps
-réél,  et les  déplacements des  agents seront  toujours  visibles sur
+reél,  et les  déplacements des  agents seront  toujours  visibles sur
 l'interface graphique.
 
 \subsection{Lancement en dehors d'une simulation}
