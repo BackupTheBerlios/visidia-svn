@@ -49,7 +49,7 @@ public class RandomAgentMover extends AgentMover {
 		return door;
 	}
 	
-	public Boolean isOpenDoor(int door, Vertex vertex){
+	/*public Boolean isOpenDoor(int door, Vertex vertex){
 		
 		Enumeration e = vertex.neighbours();
 		int i = 0;
@@ -61,5 +61,5 @@ public class RandomAgentMover extends AgentMover {
 			i++;
 		}
 		return false;
-	}
+	}*/
 }

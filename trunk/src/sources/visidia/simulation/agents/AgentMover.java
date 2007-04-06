@@ -1,5 +1,8 @@
 package visidia.simulation.agents;
 
+import java.util.Enumeration;
+
+import visidia.graph.Vertex;
 import visidia.simulation.agents.MoveException;
 
 /**
@@ -54,5 +57,25 @@ public abstract class AgentMover {
 	 * specialized in the sub-classes.
 	 */
 	public abstract int findNextDoor() throws MoveException;
+	
+	/**
+	 * test si le port est ouvert ou non
+	 * @param door
+	 * @param vertex
+	 * @return 
+	 */
+	public Boolean isOpenDoor(int door, Vertex vertex){
+		
+		Enumeration e = vertex.neighbours();
+		int i = 0;
+		while (e.hasMoreElements()) {
+			Vertex v = (Vertex) e.nextElement();
+			if ((i==door) && (v.getVisualization())&& vertex.getVisualization()) {
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
 
 }
